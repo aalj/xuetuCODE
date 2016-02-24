@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">学途</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="action_settings">Settings</string>
+    <string name="load">登录</string>
+    <string name="title_activity_log_in">LogIn</string>
+    <string name="stu_id">学号</string>
+    <string name="password">密码</string>
+    <string name="rm_pw">记录密码</string>
+    <string name="auto_login">自动登录</string>
+
+</resources>

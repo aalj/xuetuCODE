@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.xuetu"
+    android:versionCode="1"
+    android:versionName="1.0" >
+
+    <uses-sdk
+        android:minSdkVersion="14"
+        android:targetSdkVersion="22" />
+
+    <application
+        android:allowBackup="true"
+        android:icon="@drawable/ic_launcher"
+        android:label="@string/app_name"
+        android:theme="@style/AppTheme" >
+
+        <!-- 目前该方法具体的用于测试，记着把需要添加的页面加上 -->
+
+        <activity
+            android:name="com.librarybooksearch.ui.SplashActivity"
+            android:label="@string/app_name" >
+			<intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity android:name="com.librarybooksearch.ui.PersonalListActivity" />
+        <activity
+            android:name="com.librarybooksearch.ui.MainActivity"
+            android:label="已借图书" />
+        <activity
+            android:name="com.librarybooksearch.ui.BorrowListActivity"
+            android:label="已借图书" />
+        <activity
+            android:name="com.librarybooksearch.ui.BorrowInfoActivity"
+            android:label="借阅详情" />
+        <activity android:name="com.librarybooksearch.ui.LogIn" >
+            
+        </activity>
+    </application>
+
+</manifest>
