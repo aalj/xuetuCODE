@@ -17,7 +17,21 @@ import com.xuetu.dao.StoreNameDao2;
 import com.xuetu.entity.Coupon;
 import com.xuetu.entity.StoreName;
 import com.xuetu.service.CouService2;
-
+/**
+ * 
+ * ClassName:EditCouponManagerServlet<br/>
+ * 
+ * Function: 表级编辑优惠券的信息<br/>
+ * 
+ * Reason:	 TODO ADD REASON<br/>
+ *
+ * @author   Stone
+ * @version  
+ * @since    Ver 1.1
+ * @Date	 2016	2016年2月25日		下午7:27:05
+ *
+ * @see
+ */
 @WebServlet("/EditCouponManagerServlet")
 public class EditCouponManagerServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;

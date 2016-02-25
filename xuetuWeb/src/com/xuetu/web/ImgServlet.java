@@ -11,7 +11,19 @@ import javax.servlet.http.Part;
 import javax.swing.plaf.synth.SynthStyle;
 
 /**
- * Servlet implementation class ImgServlet
+ * 
+ * ClassName:ImgServlet<br/>
+ * 
+ * Function:保存图片<br/>
+ * 
+
+ *
+ * @author   Stone
+ * @version  
+ * @since    Ver 1.1
+ * @Date	 2016	2016年2月25日		下午7:26:45
+ *
+ * @see
  */
 @WebServlet("/ImgServlet")
 @MultipartConfig

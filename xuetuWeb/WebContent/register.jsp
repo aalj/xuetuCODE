@@ -169,16 +169,7 @@ function showImage()
                                                         </form>
                                                         <td>&nbsp;</td>
                                                     </tr>
-                                                    <tr>
-                                                        <td>&nbsp;</td>
-                                                        <form name="imgForm" method="post" enctype="multipart/form-data" >
-                                                        <td id="imgName">店铺图片</td>
-                                                        <td><input type="file" name="sto_img" onchange="showImage()" /><br/>
-                                                        <input type="button" name="imgSub" onclick="imgsub()" value="上传"/>
-														</td> 
-                                                        <td id="imgPrev" align="center">图片预览位置</td>
-                                                        </form>
-                                                    </tr>
+                                                   
                                                     <tr>
                                                         <td width="2%">&nbsp;</td>
                                                         <td>密码：</td>
@@ -224,6 +215,12 @@ function showImage()
                                                         <td width="20%"><textarea name="sto_introduction"></textarea></td>
                                                         <td>关于店家或优惠券的说明</td>
                                                         <td width="2%">&nbsp;</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>&nbsp;</td>
+                                                        <td>验证码：</td><td><input type="text" name="valiimage" value="" style="width:80px;"/><img src="/xuetuWeb/ValiImage" onclick="changeImg(this)" style="cursor: pointer;"/></td>
+                                        <td></td><td align="right"><a href='/xuetuWeb/register.jsp' style="font-size:12px;">新用户</a></td>
+                                        <td>&nbsp;</td>
                                                     </tr>
                                                     <tr>
                                                         <td>&nbsp;</td>

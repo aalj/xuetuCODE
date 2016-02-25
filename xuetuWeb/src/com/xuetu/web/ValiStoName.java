@@ -8,9 +8,20 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.xuetu.service.StorenameService;
-
 /**
- * Servlet implementation class ValStoName
+ * 
+ * ClassName:ValiStoName<br/>
+ * 
+ * Function: 验证用户名是否唯一<br/>
+ * 
+ * Reason:	 TODO ADD REASON<br/>
+ *
+ * @author   Stone
+ * @version  
+ * @since    Ver 1.1
+ * @Date	 2016	2016年2月25日		下午7:20:26
+ *
+ * @see
  */
 @WebServlet("/ValiStoName")
 public class ValiStoName extends HttpServlet {

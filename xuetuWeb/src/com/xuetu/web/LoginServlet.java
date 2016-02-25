@@ -13,7 +13,19 @@ import com.xuetu.entity.StoreName;
 import com.xuetu.service.StorenameService2;
 
 /**
- * Servlet implementation class LoginServlet
+ * 
+ * ClassName:LoginServlet<br/>
+ * 
+ * Function:实现登录登录的页面<br/>
+ * 
+ * Reason:	 TODO ADD REASON<br/>
+ *
+ * @author   Stone
+ * @version  
+ * @since    Ver 1.1
+ * @Date	 2016	2016年2月25日		下午7:26:25
+ *
+ * @see
  */
 @WebServlet("/LoginServlet")
 public class LoginServlet extends HttpServlet {
@@ -25,7 +37,6 @@ public class LoginServlet extends HttpServlet {
 		String username =new String( request.getParameter("username").getBytes("iso8859-1"),"utf-8");
 		String userpass = new String(request.getParameter("userpass").getBytes("iso8859-1"),"utf-8");
 		String valiimage = new String(request.getParameter("valiimage").getBytes("iso8859-1"),"utf-8");
-		System.out.println(username+"\t"+userpass);
 		HttpSession session = request.getSession();
 		//得到验证码的缓存
 		String systemVailimage=(String) session.getAttribute("rand");

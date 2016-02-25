@@ -10,9 +10,20 @@ import javax.servlet.http.Part;
 
 import com.xuetu.entity.StoreName;
 import com.xuetu.service.StorenameService;
-
 /**
- * Servlet implementation class RegisterServlet
+ * 
+ * ClassName:RegisterServlet<br/>
+ * 
+ * Function: 用于注册的servlet<br/>
+ * 
+ * Reason:	 TODO ADD REASON<br/>
+ *
+ * @author   Stone
+ * @version  
+ * @since    Ver 1.1
+ * @Date	 2016	2016年2月25日		下午7:25:48
+ *
+ * @see
  */
 @WebServlet("/RegisterServlet")
 public class RegisterServlet extends HttpServlet {

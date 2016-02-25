@@ -1,5 +1,11 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Frameset//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-frameset.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="zh-CN">
+<%  
+String path = request.getContextPath();  
+String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";  
+%>
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <link rel="stylesheet" type="text/css" href="./Style/skin.css" />
@@ -13,6 +19,7 @@
 } */
 $(document).ready(function(e) {
 	$(":button[name=submit]").click(function(e) {
+		alert("2561");
 		var points = $(":input[name=cou_redeem_points]").val();
 		var num = $(":input[name=cou_num]").val();
 		var validity = $(":input[name=cou_Validity]").val();
@@ -23,7 +30,7 @@ $(document).ready(function(e) {
 		}
 		else
 		{
-			Confirm();
+			
 			alert("增加成功");
 		}
 })
@@ -76,45 +83,59 @@ $(document).ready(function(e) {
                                 <table width="100%">
                                     <tr>
                                         <td colspan="2">
-                                            <form name="insertForm" method="post">
                                                 <table width="100%" class="cont">
                                                       <tr>
                                                         <td width="2%">&nbsp;</td>
                                                         <td width="10%">店名：</td>
-                                                        <td width="20%"><br/></td>
+                                                        <td width="20%"><br/>${storename.stoName }</td>
+                                                        <td  rowspan="5" width="10%" align="center">
+                                                        <img src="Images/shuxian.jpg"/>
+                                                      
+                                                        </td>
+                                                        <td width="10%"> 店铺图片</td>
+                                                         
+                                                      
                                                        
-                                                        <td width="2%">&nbsp;</td><td width="2%">&nbsp;</td>
                                                     </tr>
                                                     <tr>
                                                         <td>&nbsp;</td>
                                                         <td>电话：</td>
-                                                        <td></td>
+                                                        <td>${storename.stoTel }</td>
                                                      
-                                                        <td>&nbsp;</td>
-                                                        <td width="2%">&nbsp;</td>
+                                                        <td  rowspan="4"width="60%" >
+                                                        <img src="http://127.0.0.1:8080/xuetuWeb/xuetuImg/a.png"  width="200" height="300"/>
+                                                        
+                                                        </td>
+                                                    
+                                                       
                                                     </tr>
                                                     <tr>
                                                         <td width="2%">&nbsp;</td>
                                                         <td>店铺地址：</td>
-                                                        <td width="20%"></td>
-                                                        <td></td>
+                                                        <td width="20%">${storename.stoAddress }</td>
+                                                        
+                                                        
+                                                    </tr>
+                                                    <tr>
                                                         <td width="2%">&nbsp;</td>
+                                                        <td>店铺地址：</td>
+                                                        <td width="20%">${storename.stoAddress }</td>
+                                                        
+                                                        
                                                     </tr>
                                                     <tr>
                                                         <td width="2%">&nbsp;</td>
                                                         <td>店铺简介：</td>
-                                                        <td width="20%"></td>
-                                                        <td></td>
-                                                        <td width="2%">&nbsp;</td>
+                                                        <td width="20%">${storename.stoIntroduction}</td>
+                                                       
+                                                      
                                                     </tr>
                                                     
                                                     <tr>
                                                         <td>&nbsp;</td>
-                                                        <td colspan="3"><a href="mc_changepersonal.html"><img src="personal.jpg"  /></a></td>
-                                                        <td>&nbsp;</td>
+                                                        
                                                     </tr>
                                                 </table>
-                                            </form>
                                         </td>
                                     </tr>
                                 </table>

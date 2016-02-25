@@ -18,7 +18,19 @@ import com.xuetu.entity.StoreName;
 import com.xuetu.service.CouService2;
 
 /**
- * Servlet implementation class ChangeCouponManagerServlet
+ * 
+ * ClassName:ChangeCouponManagerServlet<br/>
+ * 
+ * Function: 修改优惠券的信息<br/>
+ * 
+ * Reason:	 TODO ADD REASON<br/>
+ *
+ * @author   Stone
+ * @version  
+ * @since    Ver 1.1
+ * @Date	 2016	2016年2月25日		下午7:29:02
+ *
+ * @see
  */
 @WebServlet("/ChangeCouponManagerServlet")
 public class ChangeCouponManagerServlet extends HttpServlet {
@@ -49,7 +61,7 @@ public class ChangeCouponManagerServlet extends HttpServlet {
 			coupon = new Coupon(couPonID, storeName, couInfo, couNum, date, couName, couPrice, couRedeemPoints);
 
 			new CouService2().saveCoupon(coupon);
-			System.out.println("shifou zhixing dao gaihang ");
+			
 			request.getRequestDispatcher("/CouponListServlet").forward(request, response);
 
 		} catch (ParseException e) {

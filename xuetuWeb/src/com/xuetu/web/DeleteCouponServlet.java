@@ -12,7 +12,19 @@ import javax.servlet.http.HttpSession;
 import com.xuetu.service.CouService2;
 
 /**
- * Servlet implementation class DeleteCouponServlet
+ * 
+ * ClassName:DeleteCouponServlet<br/>
+ * 
+ * Function: 删除优惠券<br/>
+ * 
+ * Reason:	 TODO ADD REASON<br/>
+ *
+ * @author   Stone
+ * @version  
+ * @since    Ver 1.1
+ * @Date	 2016	2016年2月25日		下午7:27:26
+ *
+ * @see
  */
 @WebServlet("/DeleteCouponServlet")
 public class DeleteCouponServlet extends HttpServlet {

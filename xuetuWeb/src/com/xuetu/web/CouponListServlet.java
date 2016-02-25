@@ -12,7 +12,21 @@ import javax.servlet.http.HttpSession;
 
 import com.xuetu.entity.Coupon;
 import com.xuetu.service.CouService2;
-
+/**
+ * 
+ * ClassName:CouponListServlet<br/>
+ * 
+ * Function: 分组显示全部的优惠券<br/>
+ * 
+ * Reason:	 TODO ADD REASON<br/>
+ *
+ * @author   Stone
+ * @version  
+ * @since    Ver 1.1
+ * @Date	 2016	2016年2月25日		下午7:27:41
+ *
+ * @see
+ */
 @WebServlet("/CouponListServlet")
 public class CouponListServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;

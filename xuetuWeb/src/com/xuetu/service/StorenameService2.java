@@ -41,6 +41,21 @@ public class StorenameService2{
 		return dao.getStoreNameByName(name);
 
 	}
+	/**
+	 * 
+	 * verificationName:(通过ID得到店家的信息)<br/>
+	 *
+	 * @param  @param sto_id
+	 * @param  @return    设定文件
+	 * @return StoreName    DOM对象
+	 * @throws 
+	 * @since  CodingExample　Ver 1.1
+	 */
+	public StoreName verificationName(int sto_id) {
+		StoreNameDao2 dao = new StoreNameDao2();
+		return dao.getStoreNameById(sto_id);
+		
+	}
 
 
 	/**

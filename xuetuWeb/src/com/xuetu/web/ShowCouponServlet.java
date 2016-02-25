@@ -12,7 +12,19 @@ import com.xuetu.entity.Coupon;
 import com.xuetu.service.CouService2;
 
 /**
- * Servlet implementation class ShowCouponServlet
+ * 
+ * ClassName:ShowCouponServlet<br/>
+ * 
+ * Function: 用于显示优惠券的信息<br/>
+ * 
+ * Reason:	 TODO ADD REASON<br/>
+ *
+ * @author   Stone
+ * @version  
+ * @since    Ver 1.1
+ * @Date	 2016	2016年2月25日		下午7:22:59
+ *
+ * @see
  */
 @WebServlet("/ShowCouponServlet")
 public class ShowCouponServlet extends HttpServlet {
