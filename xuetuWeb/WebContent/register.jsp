@@ -24,6 +24,7 @@ function imgsub(){
 	insertForm.action ="/studentweb/insert";
 	insertForm.submit();
 } */
+/* <input class="btn" type="button" value="提交" name="sub"/> */
 //验证用户名不唯一
 $(document).ready(function(e) {
 	$(":button[name=val_sto_name]").click(function(e) {
@@ -46,12 +47,12 @@ $(document).ready(function(e) {
 		{
         	alert("请填写必填项！");
 		}
-          else if(sto_pwd!=sto_pwdCondirm){
+      /*     else if(sto_pwd!=sto_pwdCondirm){
         	var pwdConfirmText = $("span[name=pwdConfirmText]").val();
         	pwdConfirmText.hidden ="false";
-        } 
+        }  */
          else  
-        	Submit(); 
+        	 Submit();  
 })
     });
     </script>
@@ -229,8 +230,8 @@ function showImage()
                                                         <td colspan="3"><input class="btn" type="button" value="提交" name="sub"/></td>
                                                         <td>&nbsp;</td>
                                                     </tr>
-                                          		  </form>
                                                 </table>
+                                          	  </form>
                                         </td>
                                     </tr>
                                 </table>
