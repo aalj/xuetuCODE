@@ -139,6 +139,44 @@ public class StoreNameDao2 {
 	}
 	
 	
+	public boolean changeStoNamePWD(int sto_ID,String pwd){
+		Connection conn = null;
+		try {
+			conn = DBconnection.getConnection();
+			Statement statement = conn.createStatement();
+			//updata storename set sto_ped= pwd   where Sto_id = st_ID
+			
+			
+			String sql="update storename set sto_pwd ='"+pwd+"' where sto_id="+sto_ID+";";
+			System.out.println(sql);
+			statement.executeUpdate(sql);
+			return true;
+		} catch (SQLException e) {
+			
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			return false;
+			
+		}finally {
+			if (conn!=null) {
+				try {
+					conn.close();
+				} catch (SQLException e) {
+					
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+					
+				}
+			}
+		}
+		
+		
+		
+		
+	}
+	
+	
+	
 	
 }
 

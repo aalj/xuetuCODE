@@ -141,7 +141,8 @@
 											</tr>
 
 											<tr>
-												<td>&nbsp;</td>
+											
+												<td><a href="main.html"><img src="Images/back.png"></td>
 
 											</tr>
 										</table>

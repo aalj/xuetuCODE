@@ -1,3 +1,5 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN"
 "http://www.w3.org/TR/html4/strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en">
@@ -12,20 +14,20 @@
 	 insertForm.action ="/studentweb/insert";
 	 insertForm.submit();
 	 } */
-	// 	$(document).ready(function(e) {
-	// 		$(":button[name=submit]").click(function(e) {
-	// 			var points = $(":input[name=cou_redeem_points]").val();
-	// 			var num = $(":input[name=cou_num]").val();
-	// 			var validity = $(":input[name=cou_Validity]").val();
-	// 			var info = $(":input[name=cou_info]").val();
-	// 			if (points == "" || num == "" || validity == "" || info == "") {
-	// 				alert("请填写必填项！");
-	// 			} else {
-	// 				Confirm();
-	// 				alert("增加成功");
-	// 			}
-	// 		})
-	// 	});
+	$(document).ready(function(e) {
+		$(":button[name=submit]").click(function(e) {
+			var points = $(":input[name=cou_redeem_points]").val();
+			var num = $(":input[name=cou_num]").val();
+			var validity = $(":input[name=cou_Validity]").val();
+			var info = $(":input[name=cou_info]").val();
+			if (points == "" || num == "" || validity == "" || info == "") {
+				alert("请填写必填项！");
+			} else {
+				Confirm();
+				alert("增加成功");
+			}
+		})
+	});
 </script>
 <body>
 	<table width="100%" border="0" cellpadding="0" cellspacing="0">

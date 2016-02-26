@@ -18,6 +18,7 @@ import java.util.List;
 import org.junit.Test;
 
 import com.xuetu.dao.CouponDao2;
+import com.xuetu.dao.StoreNameDao2;
 import com.xuetu.entity.Coupon;
 
 /**
@@ -36,8 +37,7 @@ import com.xuetu.entity.Coupon;
 public class JunText {
 	@Test
 	public void myTest(){
-		List<Coupon> queryLimitCouponList = new CouponDao2().queryLimitCouponList(2, 10, 1);
-		System.out.println("分组查询的结果"+queryLimitCouponList.size());
+	new StoreNameDao2().changeStoNamePWD(1, "123");
 	}
 
 }

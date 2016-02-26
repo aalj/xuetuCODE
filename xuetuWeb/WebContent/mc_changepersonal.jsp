@@ -147,6 +147,9 @@
 														<td>&nbsp;</td>
 														<td colspan="3">
 															<input class="btn" type="button" value="提交" name="submit" onclick="Submit" />
+															<a
+														href="/xuetuWeb/ShowStoneNameServlet"><img
+															src="Images/back.png"></a>
 														</td>
 														<td>&nbsp;</td>
 													</tr>

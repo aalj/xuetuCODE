@@ -33,7 +33,6 @@ public class LoginServlet extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		System.out.println("afsdfalskjflksjdflk");
 		response.addHeader("Content-type", "text/html;charset=utf-8");
 		// response.setCharacterEncoding("utf-8");
 		String username = new String(request.getParameter("username").getBytes("iso8859-1"), "utf-8");
@@ -43,9 +42,7 @@ public class LoginServlet extends HttpServlet {
 		//
 		StorenameService2 loginService = new StorenameService2();
 		StoreName storeName = loginService.getStoreName(username, userpass);
-		System.out.println(username + "\t" + "123132" + userpass);
 		if (IsLogin(storeName, username, userpass)) {
-			System.out.println(storeName);
 			session.setAttribute("storeNameId", storeName.getStoID());
 			session.setAttribute("storeNameName", storeName.getStoUserName());
 			request.getRequestDispatcher("/home_page.jsp").forward(request, response);

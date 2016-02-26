@@ -87,5 +87,23 @@ public class StorenameService2 {
 		return null;
 
 	}
+	/**
+	 * 
+	 * changePwd:(通过ID修改密码)<br/>
+	 *
+	 * @param  @param sro_ID    设定文件
+	 * @return void    DOM对象
+	 * @throws 
+	 * @since  CodingExample　Ver 1.1
+	 */
+	public boolean changePwd(int attribute,String reNewPwd){
+		StoreNameDao2 dao2 = new StoreNameDao2();
+		return dao2.changeStoNamePWD(attribute,reNewPwd);
+		
+	}
+
+	
+	
+	
 
 }
