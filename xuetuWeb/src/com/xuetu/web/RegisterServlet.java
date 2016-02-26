@@ -6,6 +6,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import javax.servlet.http.Part;
 
 import com.xuetu.entity.StoreName;
@@ -53,16 +54,25 @@ public class RegisterServlet extends HttpServlet {
 		String sto_name = request.getParameter("sto_name");
 		String sto_introduction = request.getParameter("sto_introduction");
 		
+		//获得验证码
+		
+		String valima = request.getParameter("valiimage");
+		//得到系统自动生成的验证码
+		HttpSession session = request.getSession();
+		String attribute = (String) session.getAttribute("rand");
+		
+		
+		
 		String sto_pwd = request.getParameter("sto_pwd");
-		String sto_pwdConfirm = request.getParameter("sto_pwdConfirm");
+//		String sto_pwdConfirm = request.getParameter("sto_pwdConfirm");
 		Part p = request.getPart("sto_img");
-		String timeStr = System.currentTimeMillis()+"";
-		System.out.println(sto_name);
-		String sto_img = "/WebContent/xuetuImg/"+sto_name+timeStr+".jpg";
+//		String timeStr = System.currentTimeMillis()+"";
+//		System.out.println(sto_name);
+//		String sto_img = "/WebContent/xuetuImg/"+sto_name+timeStr+".jpg";
 		//将这个文件保存在服务器的一个地方
 //		p.write(sto_img);
 		//创建StoreName对象
-		
+		if(attribute.equals(valima)){
 		StoreName storeName = new StoreName();
 		storeName.setStoUserName(sto_user_name);
 		storeName.setStoTel(sto_tel);
@@ -74,10 +84,12 @@ public class RegisterServlet extends HttpServlet {
 		//调用Service层方法将storeName添加到数据库
 		storenameService.registerStore(storeName);
 		request.getRequestDispatcher("/index.jsp").forward(request, response);
+		}else{
+			response.getWriter().println("<script>alert('验证码错误')</script>");
+			request.getRequestDispatcher("/register.jsp").forward(request, response);
+		}
 		
-		//处理文件上传
-		//获得普通域，不变
-		//获得上传文件
+		
 
 	}
 
