@@ -52,7 +52,7 @@ public class RegisterServlet extends HttpServlet {
 		String sto_address = request.getParameter("sto_address");
 		String sto_name = request.getParameter("sto_name");
 		String sto_introduction = request.getParameter("sto_introduction");
-		//图片没写
+		
 		String sto_pwd = request.getParameter("sto_pwd");
 		String sto_pwdConfirm = request.getParameter("sto_pwdConfirm");
 		Part p = request.getPart("sto_img");

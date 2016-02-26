@@ -18,12 +18,12 @@ import com.xuetu.service.StorenameService2;
  * 
  * Function:实现登录登录的页面<br/>
  * 
- * Reason:	 TODO ADD REASON<br/>
+ * Reason: TODO ADD REASON<br/>
  *
- * @author   Stone
- * @version  
- * @since    Ver 1.1
- * @Date	 2016	2016年2月25日		下午7:26:25
+ * @author Stone
+ * @version
+ * @since Ver 1.1
+ * @Date 2016 2016年2月25日 下午7:26:25
  *
  * @see
  */
@@ -31,51 +31,44 @@ import com.xuetu.service.StorenameService2;
 public class LoginServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	protected void doGet(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+		System.out.println("afsdfalskjflksjdflk");
 		response.addHeader("Content-type", "text/html;charset=utf-8");
-//		response.setCharacterEncoding("utf-8");
-		String username =new String( request.getParameter("username").getBytes("iso8859-1"),"utf-8");
-		String userpass = new String(request.getParameter("userpass").getBytes("iso8859-1"),"utf-8");
-		String valiimage = new String(request.getParameter("valiimage").getBytes("iso8859-1"),"utf-8");
+		// response.setCharacterEncoding("utf-8");
+		String username = new String(request.getParameter("username").getBytes("iso8859-1"), "utf-8");
+		String userpass = new String(request.getParameter("userpass").getBytes("iso8859-1"), "utf-8");
 		HttpSession session = request.getSession();
-		//得到验证码的缓存
-		String systemVailimage=(String) session.getAttribute("rand");
-//		if (systemVailimage.equals(valiimage)) {
+		// 得到验证码的缓存
+		//
 		StorenameService2 loginService = new StorenameService2();
-			StoreName storeName = loginService.getStoreName(username, userpass);
-			if(IsLogin(storeName,username, userpass)){
-				System.out.println(storeName);
-				session.setAttribute("storeNameId", storeName.getStoID());
-				session.setAttribute("storeNameName", storeName.getStoUserName());
-				request.getRequestDispatcher("/home_page.jsp").forward(request, response);
-				
-			}else{
-				request.getRequestDispatcher("/index.jsp").forward(request, response);
-				session.setAttribute("flagname", "账号密码错误");
-				
-			}
-//		}else{
-//			request.getRequestDispatcher("/index.jsp").forward(request, response);
-//			session.setAttribute("flagval", "验证码错误");
-//			
-//		}
-		
-		
-		
-		
-		
-	}
+		StoreName storeName = loginService.getStoreName(username, userpass);
+		System.out.println(username + "\t" + "123132" + userpass);
+		if (IsLogin(storeName, username, userpass)) {
+			System.out.println(storeName);
+			session.setAttribute("storeNameId", storeName.getStoID());
+			session.setAttribute("storeNameName", storeName.getStoUserName());
+			request.getRequestDispatcher("/home_page.jsp").forward(request, response);
 
-	private boolean IsLogin(StoreName storeName,String username, String userpass) {
-		if(username.equals(storeName.getStoUserName())&&userpass.equals(storeName.getStoPwd())){
+		} else {
+			request.getRequestDispatcher("/index.jsp").forward(request, response);
+			
+		}
+	}
+	
+	private boolean IsLogin(StoreName storeName, String username, String userpass) {
+
+		if (storeName != null && username.equals(storeName.getStoUserName())
+				&& userpass.equals(storeName.getStoPwd())) {
 			return true;
 		}
-		
+
 		return false;
-		
+
 	}
 
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	protected void doPost(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		doGet(request, response);
 	}
