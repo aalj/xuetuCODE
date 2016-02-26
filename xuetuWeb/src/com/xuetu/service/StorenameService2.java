@@ -102,7 +102,9 @@ public class StorenameService2 {
 		
 	}
 
-	
+	public boolean changStoreName(StoreName storeName){
+		return false;
+	}
 	
 	
 

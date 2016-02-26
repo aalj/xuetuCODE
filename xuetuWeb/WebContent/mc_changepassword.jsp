@@ -28,6 +28,53 @@
 			}
 		})
 	});
+	 
+	 
+		//执行一些方法，然后判断整个页面执行的是否完整
+		function mycheck() {
+			if (isNull(insertForm.old_pwd.value)) {
+				alert("店家名字不能为空！");
+				return false;
+			}
+
+			if (document.insertForm.new_pwd.value != document.insertForm.re_new_pwd.value) {
+				
+				
+				
+				if (isNull(insertForm.re_new_pwd.value)) {
+					alert("修改密码不能为空！");
+					return false;
+				} else {
+					alert("您两次输入的新密码不一致！请重新输入！");
+					return false;
+
+				}
+			}
+			
+			
+
+			
+
+			if (isNull(insertForm.new_pwd.value)&&isNull(insertForm.re_new_pwd.value)) {
+				alert("密码不能为空！");
+				return false;
+			}
+
+			
+
+		}
+	
+		//验证驶入狂是否为空
+		function isNull(str) {
+			if (str == "")
+				return true;
+			var regu = "^[ ]+$";
+			var re = new RegExp(regu);
+			return re.test(str);
+		}
+	 
+	 
+	 
 </script>
 <body>
 	<table width="100%" border="0" cellpadding="0" cellspacing="0">
@@ -91,12 +138,12 @@
 								<tr>
 									<td colspan="2">
 										<form action="/xuetuWeb/ChangePassdServlet" name="insertForm"
-											method="post">
+											method="post" onSubmit="return mycheck()">
 											<table width="100%" class="cont">
 												<tr>
 													<td width="2%">&nbsp;</td>
 													<td width="10%">当前密码:</td>
-													<td width="20%"><input type="text" name="old_pwd" /><br /></td>
+													<td width="20%"><input type="password" name="old_pwd" /><br /></td>
 
 													<td width="2%">&nbsp;</td>
 													<td>&nbsp;</td>
@@ -104,7 +151,7 @@
 												<tr>
 													<td>&nbsp;</td>
 													<td>修改密码:</td>
-													<td><input type="text" name="new_pwd" /></td>
+													<td><input type="password" name="new_pwd" /></td>
 
 													<td>&nbsp;</td>
 													<td>&nbsp;</td>
@@ -112,7 +159,7 @@
 												<tr>
 													<td width="2%">&nbsp;</td>
 													<td>确认密码:</td>
-													<td width="20%"><input type="text" name="re_new_pwd" /></td>
+													<td width="20%"><input type="password" name="re_new_pwd" /></td>
 													<td></td>
 													<td width="2%">&nbsp;</td>
 												</tr>

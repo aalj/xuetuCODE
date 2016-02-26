@@ -41,35 +41,6 @@
 		});
 	});
 
-	// 			$(document).ready(function(e) {
-	// 				$(":button[name=sub]").click(function(e) {
-
-	// 					var sto_user_name = $("input[name=sto_user_name]").val();
-	// 					var sto_tel = $("input[name=sto_tel]").val();
-	// 					var sto_address = $("input[name=sto_address]").val();
-	// 					var sto_name = $("input[name=sto_name]").val();
-	// 					var sto_introduciton = $("input[name=sto_introduciton]").val();
-	// 					var sto_pwd = $("input[name=sto_pwd]").val();
-	// // 					var sto_pwdConfirm = $(":input[name=sto_pwdConfirm]").val();
-	// 					var valiIma = $("imput[name=valiimage]").val();
-
-	// 					if (sto_user_name != "" && sto_tel != "" 
-	// 						&& sto_address != "" && sto_name != ""
-	// 							&& sto_introduciton != "" && sto_pwd != ""
-	// 								) {
-
-	// 						alert("shi fou ok");
-	// 						Submit();
-	// 					}
-	// // 					    else if(sto_pwd!=sto_pwdCondirm){
-	// // 					  	var pwdConfirmText = $("span[name=pwdConfirmText]").val();
-	// // 					  	pwdConfirmText.hidden ="false";
-	// // 					  }  
-	// 					else{
-	// 						alert("请填写必填项！");
-	// 						}
-	// 				})
-	// 			});
 
 	///点击验证码刷新图片
 	function changeImg(obj) {
@@ -92,18 +63,6 @@
 		// 插入图像到页面中
 		document.getElementById('imgPrev').appendChild(img);
 	}
-	// 			//验证两次密码不一致的提示
-	// 			function validate() {
-	// 				var pw1 = document.getElementById("sto_pwd").value;
-	// 				var pw2 = document.getElementById("sto_pwd2").value;
-	// 				if (pw1 == pw2) {
-	// 					document.getElementById("pwdConfirmText").innerHTML = "<font color='green'>两次密码相同</font>";
-	// 					document.getElementById("sub").disabled = false;
-	// 				} else {
-	// 					document.getElementById("pwdConfirmText").innerHTML = "<font color='red'>两次密码不相同</font>";
-	// 					document.getElementById("sub").disabled = true;
-	// 				}
-	// 			}
 
 	//获取上传图片的真实路径
 	function getPath(obj) {

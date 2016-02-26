@@ -143,13 +143,21 @@ public class StoreNameDao2 {
 		Connection conn = null;
 		try {
 			conn = DBconnection.getConnection();
-			Statement statement = conn.createStatement();
-			//updata storename set sto_ped= pwd   where Sto_id = st_ID
+//			Statement statement = conn.createStatement();
+//			//updata storename set sto_ped= pwd   where Sto_id = st_ID
+//			
+//			
+//			String sql="update storename set sto_pwd ='"+pwd+"' where sto_id="+sto_ID+";";
+//			System.out.println(sql);
+//			statement.executeUpdate(sql);
+			
+			String sql="update storename set sto_pwd =? where sto_id=? ;";
+			PreparedStatement statement = conn.prepareStatement(sql);
+			statement.setString(1, pwd);
+			statement.setInt(2, sto_ID);
+			statement.executeUpdate();
 			
 			
-			String sql="update storename set sto_pwd ='"+pwd+"' where sto_id="+sto_ID+";";
-			System.out.println(sql);
-			statement.executeUpdate(sql);
 			return true;
 		} catch (SQLException e) {
 			
@@ -174,8 +182,51 @@ public class StoreNameDao2 {
 		
 		
 	}
-	
-	
+	/**
+	 * 
+	 * changeStoName:(修改数据库里面店家表的    店名，店家电话  ，店家介绍，店家地址)<br/>
+	 *
+	 * @param  @param storeName
+	 * @param  @return    设定文件
+	 * @return boolean    DOM对象
+	 * @throws 
+	 * @since  CodingExample　Ver 1.1
+	 */
+	public boolean changeStoName(StoreName storeName){
+		Connection conn=null;
+		PreparedStatement statement=null;
+		try {
+			conn = DBconnection.getConnection();
+			String sql="update storename set sto_name=? , sto_introduction=? ,sto_address =? ,sto_tel = ? where  sto_id=?";
+			statement = conn.prepareStatement(sql);
+			statement.setString(1, storeName.getStoName());
+			statement.setString(2, storeName.getStoIntroduction());
+			statement.setString(3, storeName.getStoAddress());
+			statement.setString(4, storeName.getStoTel());
+			statement.executeUpdate();
+			return true;
+		} catch (SQLException e) {
+			
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			return false;
+			
+		}finally{
+			if(conn!=null&&statement!=null){
+				try {
+					conn.close();
+					statement.close();
+				} catch (SQLException e) {
+					
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+					
+				}
+			}
+		}
+		
+		
+	}
 	
 	
 }

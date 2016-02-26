@@ -49,7 +49,7 @@ public class ChangePassdServlet extends HttpServlet {
 			
 			
 			//
-			session.setAttribute("storeNameId", "");
+			session.setAttribute("storeNameId", 0);
 			request.getRequestDispatcher("index.jsp").forward(request, response);
 		}else{
 			//原始密码不正确，   
