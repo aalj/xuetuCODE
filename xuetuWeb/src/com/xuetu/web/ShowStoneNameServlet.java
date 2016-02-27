@@ -41,6 +41,7 @@ public class ShowStoneNameServlet extends HttpServlet {
 		int attribute = (int)session.getAttribute("storeNameId");
 		StorenameService2  storenameService2 = new StorenameService2();
 		StoreName storeName = storenameService2.verificationName(attribute);
+		
 		session.setAttribute("storename", storeName);
 		if("1".equals(flags)){
 			request.getRequestDispatcher("/mc_changepersonal.jsp").forward(request, response);

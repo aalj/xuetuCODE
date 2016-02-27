@@ -113,7 +113,7 @@
 												<td>${storename.stoTel }</td>
 
 												<td rowspan="4" width="60%"><img
-													src="http://127.0.0.1:8080/xuetuWeb/xuetuImg/a.png"
+													src="<%=request.getContextPath() %>/${storename.stoImg}"
 													width="200" height="300" /></td>
 
 

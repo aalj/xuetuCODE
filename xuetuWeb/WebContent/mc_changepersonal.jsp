@@ -8,34 +8,48 @@
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <link rel="stylesheet" type="text/css" href="./Style/skin.css" />
 </head>
-<script src="Js/jquery-1.11.1.js" type="text/javascript"></script>
+<script src="jquery-1.11.1.js" type="text/javascript"></script>
 <script>
-	function imgsub() {
-		var imgForm = document.getElementsByName("insertForm")[1];
-		imgForm.action = "/xuetuWeb/ImgServlet";
-		imgForm.submit();
-	}
+
 	function Submit() {
 		alert("Submit");
 		var insertForm = document.getElementsByName("insertForm")[0];
 		insertForm.action = "/xuetuWeb/ChangeStoneInfoServlet";
 		insertForm.submit();
 	}
-	// 	$(document).ready(function(e) {
-	// 		$(":button[name=submit]").click(function(e) {
-	// 			alert("ok");
-	// 			var points = $("input[name=cou_redeem_points]").val();
-	// 			var num = $("input[name=cou_num]").val();
-	// 			var validity = $("input[name=cou_Validity]").val();
-	// 			var info = $("input[name=cou_info]").val();
-	// 			if (points == "" || num == "" || validity == "" || info == "") {
-	// 				alert("请填写必填项！");
-	// 			} else {
-	// 				Submit();
-	// 				alert("增加成功");
-	// 			}
-	// 		})
-	// 	});
+	//验证驶入狂是否为空
+	function isNull(str) {
+		if (str == "")
+			return true;
+		var regu = "^[ ]+$";
+		var re = new RegExp(regu);
+		return re.test(str);
+	}
+	function mycheck() {
+		if (isNull(insertForm.sto_name.value)) {
+			alert("修改店家名字不能为空！");
+			return false;
+		}
+
+		
+		if (isNull(insertForm.sto_tel.value)) {
+
+			alert("店家电话号码不能为空！");
+			return false;
+		}
+
+		if (isNull(insertForm.sto_address.value)) {
+			alert("店家店铺地址不能为空！");
+			return false;
+		}
+
+		if (isNull(insertForm.sto_info.value)) {
+			alert("店家介绍不能为空！");
+			return false;
+		}
+
+		Submit();
+	}
 </script>
 
 <body>
@@ -103,7 +117,7 @@
 							<table width="100%">
 								<tr>
 									<td colspan="2">
-										<form name="insertForm" method="post">
+										<form name="insertForm" method="post" enctype="multipart/form-data" onSubmit="return mycheck()">
 											<table width="100%" class="cont">
 												<tr>
 													<td width="2%">&nbsp;</td>
@@ -121,18 +135,19 @@
 												<tr>
 													<td>&nbsp;</td>
 													<td>电话：</td>
-													<td><input type="text" name="sto_tel" value="${storename.stoTel }" /></td>
+													<td><input type="text" name="sto_tel"
+														value="${storename.stoTel }" /></td>
 
 													<td rowspan="4" width="60%"><img
-														src="http://127.0.0.1:8080/xuetuWeb/xuetuImg/a.png"
+														src="<%=request.getContextPath() %>/${storename.stoImg}"
 														width="200" height="300" />
-
-														<form name="insertForm" method="post"
-															enctype="multipart/form-data">
-															<td><input type="file" name="sto_img"
-																onchange="showImage()" /><br /> <input type="button"
-																name="imgSub" onclick="imgsub()" value="上传" />
-														</form></td>
+													<td>
+<!-- 														<form name="insertForm1" method="post" id="insertFormId" enctype="multipart/form-data"> -->
+															<input type="file" name="sto_img" onchange="showImage()" /><br />
+															<input type="button" name="imgSub" value="上传" onclick="imgsub()" />
+<!-- 														</form> -->
+													</td>
+													
 
 
 												</tr>
@@ -147,8 +162,8 @@
 												<tr>
 													<td width="2%">&nbsp;</td>
 													<td>店铺简介：</td>
-													<td width="30%"><textarea style="height: 40" 
-															name="sto_info" >${storename.stoIntroduction}</textarea> <a>500字以内</a></td>
+													<td width="30%"><textarea style="height: 40"
+															name="sto_info">${storename.stoIntroduction}</textarea> <a>500字以内</a></td>
 													<td width="2%">&nbsp;</td>
 												</tr>
 

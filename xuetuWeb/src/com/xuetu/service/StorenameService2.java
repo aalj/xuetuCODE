@@ -102,8 +102,10 @@ public class StorenameService2 {
 		
 	}
 
-	public boolean changStoreName(StoreName storeName){
-		return false;
+	public boolean changStoreName(int attribute,StoreName storeName){
+		StoreNameDao2 nameDao2 = new StoreNameDao2();
+		
+		return nameDao2.changeStoName(attribute,storeName);
 	}
 	
 	

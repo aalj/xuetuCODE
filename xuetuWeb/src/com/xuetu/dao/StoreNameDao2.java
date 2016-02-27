@@ -192,17 +192,19 @@ public class StoreNameDao2 {
 	 * @throws 
 	 * @since  CodingExample　Ver 1.1
 	 */
-	public boolean changeStoName(StoreName storeName){
+	public boolean changeStoName(int sto_id,StoreName storeName){
 		Connection conn=null;
 		PreparedStatement statement=null;
 		try {
 			conn = DBconnection.getConnection();
-			String sql="update storename set sto_name=? , sto_introduction=? ,sto_address =? ,sto_tel = ? where  sto_id=?";
+			String sql="update storename set sto_name=? , sto_introduction=? ,sto_address =? ,sto_tel = ?, sto_img=? where  sto_id=?";
 			statement = conn.prepareStatement(sql);
 			statement.setString(1, storeName.getStoName());
 			statement.setString(2, storeName.getStoIntroduction());
 			statement.setString(3, storeName.getStoAddress());
 			statement.setString(4, storeName.getStoTel());
+			statement.setString(5, storeName.getStoImg());
+			statement.setInt(6,sto_id);
 			statement.executeUpdate();
 			return true;
 		} catch (SQLException e) {
