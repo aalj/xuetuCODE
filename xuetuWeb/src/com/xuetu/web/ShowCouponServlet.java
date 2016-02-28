@@ -17,12 +17,12 @@ import com.xuetu.service.CouService2;
  * 
  * Function: 用于显示优惠券的信息<br/>
  * 
- * Reason:	 TODO ADD REASON<br/>
+ * Reason: TODO ADD REASON<br/>
  *
- * @author   Stone
- * @version  
- * @since    Ver 1.1
- * @Date	 2016	2016年2月25日		下午7:22:59
+ * @author Stone
+ * @version
+ * @since Ver 1.1
+ * @Date 2016 2016年2月25日 下午7:22:59
  *
  * @see
  */
@@ -31,25 +31,30 @@ public class ShowCouponServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
+	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
+	 *      response)
 	 */
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	protected void doGet(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 		request.setCharacterEncoding("UTF-8");
 		response.addHeader("Content-type", "text/html;charset=utf-8");
-		
-		
-		
+		HttpSession session = request.getSession();
+		int stoId = (int) session.getAttribute("storeNameId");
+		if (stoId != 0) {
+
 			CouService2 couService2 = new CouService2();
 			Coupon coupon = couService2.getCoupon(Integer.parseInt(request.getParameter("strID")));
-			HttpSession session =request.getSession();
 			session.setAttribute("editCoupon", coupon);
 			request.getRequestDispatcher("/cat_show.jsp").forward(request, response);
-			
-		
+
+		} else {
+			request.getRequestDispatcher("/index.jsp").forward(request, response);
+
+		}
 	}
 
-	
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	protected void doPost(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		doGet(request, response);
 	}

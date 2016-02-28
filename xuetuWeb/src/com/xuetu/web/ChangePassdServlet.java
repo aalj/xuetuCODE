@@ -31,21 +31,27 @@ public class ChangePassdServlet extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
+		
+		HttpSession session = request.getSession();
+		int stoId=(int) session.getAttribute("storeNameId");
+		if(stoId!=0){
+			
+		
+		
+		
 		//得到输入的值
 		String oldPwd = request.getParameter("old_pwd");
 		String newPwd = request.getParameter("new_pwd");
 		String reNewPwd = request.getParameter("re_new_pwd");
 		//得到登录用户的ID
-		HttpSession session = request.getSession();
-		int  attribute = (int) session.getAttribute("storeNameId");
-		System.out.println(attribute);
+		System.out.println(stoId);
 		
 		StorenameService2 service2 = new StorenameService2();
-		StoreName storeName = service2.verificationName(attribute);
+		StoreName storeName = service2.verificationName(stoId);
 		if(storeName.getStoPwd().equals(oldPwd)){
 			//原始密码正确，修改密码
 			//改密码 
-			service2.changePwd(attribute, reNewPwd);
+			service2.changePwd(stoId, reNewPwd);
 			
 			
 			//
@@ -57,7 +63,10 @@ public class ChangePassdServlet extends HttpServlet {
 		}
 		
 		
-		
+		}else{
+			request.getRequestDispatcher("/index.jsp").forward(request, response);
+			
+		}
 		
 		
 		

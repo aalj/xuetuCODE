@@ -17,51 +17,53 @@ import com.xuetu.dao.StoreNameDao2;
 import com.xuetu.entity.Coupon;
 import com.xuetu.entity.StoreName;
 import com.xuetu.service.CouService2;
+
 /**
  * 
  * ClassName:EditCouponManagerServlet<br/>
  * 
  * Function: 表级编辑优惠券的信息<br/>
  * 
- * Reason:	 TODO ADD REASON<br/>
+ * Reason: TODO ADD REASON<br/>
  *
- * @author   Stone
- * @version  
- * @since    Ver 1.1
- * @Date	 2016	2016年2月25日		下午7:27:05
+ * @author Stone
+ * @version
+ * @since Ver 1.1
+ * @Date 2016 2016年2月25日 下午7:27:05
  *
  * @see
  */
 @WebServlet("/EditCouponManagerServlet")
 public class EditCouponManagerServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-       
-   
 
-	
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		//得到本次请求属于什么类型
-		//1---表示显示操作
-		//2---表示修改数据提交
+	protected void doGet(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+		// 得到本次请求属于什么类型
+		// 1---表示显示操作
+		// 2---表示修改数据提交
 		String flag = request.getParameter("flags");
 		request.setCharacterEncoding("UTF-8");
 		response.addHeader("Content-type", "text/html;charset=utf-8");
-		System.out.println("flag\t"+flag);
-		
-		if("1".equals(flag)){
-			CouService2 couService2 = new CouService2();
-			Coupon coupon = couService2.getCoupon(Integer.parseInt(request.getParameter("strID")));
-			HttpSession session =request.getSession();
-			session.setAttribute("editCoupon", coupon);
-			request.getRequestDispatcher("/cat_edit.jsp").forward(request, response);
-			request.removeAttribute("flags");
+		HttpSession session = request.getSession();
+		int stoId = (int) session.getAttribute("storeNameId");
+		if (stoId != 0) {
+			if ("1".equals(flag)) {
+				CouService2 couService2 = new CouService2();
+				Coupon coupon = couService2.getCoupon(Integer.parseInt(request.getParameter("strID")));
+				session.setAttribute("editCoupon", coupon);
+				request.getRequestDispatcher("/cat_edit.jsp").forward(request, response);
+				request.removeAttribute("flags");
+			}
+
+		} else {
+			request.getRequestDispatcher("/index.jsp").forward(request, response);
+
 		}
-		
-		
 	}
 
-	
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	protected void doPost(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		doGet(request, response);
 	}

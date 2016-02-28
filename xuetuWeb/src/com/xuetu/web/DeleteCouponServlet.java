@@ -17,12 +17,12 @@ import com.xuetu.service.CouService2;
  * 
  * Function: 删除优惠券<br/>
  * 
- * Reason:	 TODO ADD REASON<br/>
+ * Reason: TODO ADD REASON<br/>
  *
- * @author   Stone
- * @version  
- * @since    Ver 1.1
- * @Date	 2016	2016年2月25日		下午7:27:26
+ * @author Stone
+ * @version
+ * @since Ver 1.1
+ * @Date 2016 2016年2月25日 下午7:27:26
  *
  * @see
  */
@@ -31,28 +31,38 @@ public class DeleteCouponServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
+	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
+	 *      response)
 	 */
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	protected void doGet(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 		request.setCharacterEncoding("UTF-8");
 		response.addHeader("Content-type", "text/html;charset=utf-8");
-		HttpSession session =request.getSession();
-		int stoid = (int)session.getAttribute("storeNameId");
-		int couid = Integer.parseInt(request.getParameter("strID"));
-		System.out.println(stoid+"\t"+couid);
-		if(new CouService2().delCoupon(stoid, couid)){
-			request.getRequestDispatcher("/CouponListServlet").forward(request, response);
-			System.out.println("ok");
-		}else{
-			
+
+		HttpSession session = request.getSession();
+		int stoId = (int) session.getAttribute("storeNameId");
+		if (stoId != 0) {
+
+			int couid = Integer.parseInt(request.getParameter("strID"));
+			if (new CouService2().delCoupon(stoId, couid)) {
+				request.getRequestDispatcher("/CouponListServlet").forward(request, response);
+				System.out.println("ok");
+			} else {
+
+			}
+		} else {
+			request.getRequestDispatcher("/index.jsp").forward(request, response);
+
 		}
-		
+
 	}
 
 	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
+	 *      response)
 	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	protected void doPost(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		doGet(request, response);
 	}

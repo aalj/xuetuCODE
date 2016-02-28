@@ -20,12 +20,12 @@ import com.xuetu.service.CouService;
  * 
  * Function: 增加优惠券<br/>
  * 
- * Reason:	 TODO ADD REASON<br/>
+ * Reason: TODO ADD REASON<br/>
  *
- * @author   Stone
- * @version  
- * @since    Ver 1.1
- * @Date	 2016	2016年2月25日		下午7:28:02
+ * @author Stone
+ * @version
+ * @since Ver 1.1
+ * @Date 2016 2016年2月25日 下午7:28:02
  *
  * @see
  */
@@ -33,57 +33,67 @@ import com.xuetu.service.CouService;
 public class couAddServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	CouService couService = new CouService();
-    /**
-     * Default constructor. 
-     */
-    public couAddServlet() {
-        // TODO Auto-generated constructor stub
-    }
 
 	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
+	 * Default constructor.
 	 */
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	public couAddServlet() {
+		// TODO Auto-generated constructor stub
+	}
+
+	/**
+	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
+	 *      response)
+	 */
+	protected void doGet(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		doPost(request, response);
 	}
 
 	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
+	 *      response)
 	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	protected void doPost(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		/*设置编码
-		 * 获得页面数据，封装成Coupon对象，调用Service层的添加方法
+		/*
+		 * 设置编码 获得页面数据，封装成Coupon对象，调用Service层的添加方法
 		 */
-		HttpSession session = request.getSession();
-		int sto_id = Integer.parseInt(session.getAttribute("storeNameId").toString());
 		request.setCharacterEncoding("utf-8");
 		response.setCharacterEncoding("utf-8");
-		String cou_num = request.getParameter("cou_num");
-		String cou_info = request.getParameter("cou_info");	
-		String cou_name = request.getParameter("cou_name");
-		String cou_price = request.getParameter("cou_price");
-		String cou_Validity = request.getParameter("cou_Validity");
-		String cou_redeem_points = request.getParameter("cou_redeem_points");	
-		try {
-			//创建Coupon对象
-			Coupon coupon = new Coupon();
-			coupon.setConNum(Integer.parseInt(cou_num));
-			coupon.setCoouRedeemPoints(Integer.parseInt(cou_redeem_points));
-			SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-			coupon.setConValidity(sdf.parse(cou_Validity));
-			coupon.setCouName(cou_name);
-			coupon.setCouPrice(Integer.parseInt(cou_price));
-			coupon.setCouInfo(cou_info);
-			//调用Service方法添加优惠券
-			couService.CouponAdd(coupon,sto_id);
-			request.getRequestDispatcher("/CouponListServlet").forward(request, response);
-		} catch (ParseException e) {
-			e.printStackTrace();
+		HttpSession session = request.getSession();
+		int stoId = (int) session.getAttribute("storeNameId");
+		if (stoId != 0) {
+
+			String cou_num = request.getParameter("cou_num");
+			String cou_info = request.getParameter("cou_info");
+			String cou_name = request.getParameter("cou_name");
+			String cou_price = request.getParameter("cou_price");
+			String cou_Validity = request.getParameter("cou_Validity");
+			String cou_redeem_points = request.getParameter("cou_redeem_points");
+			try {
+				// 创建Coupon对象
+				Coupon coupon = new Coupon();
+				coupon.setConNum(Integer.parseInt(cou_num));
+				coupon.setCoouRedeemPoints(Integer.parseInt(cou_redeem_points));
+				SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+				coupon.setConValidity(sdf.parse(cou_Validity));
+				coupon.setCouName(cou_name);
+				coupon.setCouPrice(Integer.parseInt(cou_price));
+				coupon.setCouInfo(cou_info);
+				// 调用Service方法添加优惠券
+				couService.CouponAdd(coupon, stoId);
+				request.getRequestDispatcher("/CouponListServlet").forward(request, response);
+			} catch (ParseException e) {
+				e.printStackTrace();
+			}
+
+		} else {
+			request.getRequestDispatcher("/index.jsp").forward(request, response);
+
 		}
-		
-		
 	}
 
 }

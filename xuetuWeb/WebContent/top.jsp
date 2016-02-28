@@ -18,7 +18,7 @@
             <tr valign="top">
                 <td width="50%"><a href="javascript:void(0)"><img style="border:none" src="./Images/logo.png" /></a></td>
                 <td width="30%" style="padding-top:13px;font:15px Arial,SimSun,sans-serif;color:#FFF">管理员：<b>${sessionScope.storeNameName}</b> 您好，感谢登陆使用！</td>
-                <td style="padding-top:10px;" align="center"><a href="javascript:void(0)"><img style="border:none" src="./Images/index.gif" /></a></td>
+                <td style="padding-top:10px;" align="center"><a href="main.html" target="main"><img style="border:none" src="./Images/index.gif" /></a></td>
                 <td style="padding-top:10px;" align="center"><a href="javascript:void(0)"><img style="border:none" src="./Images/out.gif" onclick="logout();" /></td>
             </tr>
         </table>
