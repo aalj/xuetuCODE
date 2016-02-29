@@ -9,7 +9,7 @@
  *   		 2015年11月8日 		view
  *
  * Copyright (c) 2015, TNT All Rights Reserved.
-*/
+ */
 
 package com.librarybooksearch.ui;
 
@@ -50,15 +50,14 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 /**
- * ClassName:SplashActivity
- * Function: 页面欢迎页面
- * @author   view
- * @version  
- * @since    Ver 1.1
- * @Date	 2015年11月8日		下午8:41:31
- *
- * @see 	 
-
+ * ClassName:SplashActivity Function: 页面欢迎页面
+ * 
+ * @author view
+ * @version
+ * @since Ver 1.1
+ * @Date 2015年11月8日 下午8:41:31
+ * 
+ * @see
  */
 public class SplashActivity extends Activity {
 	/**
@@ -115,15 +114,18 @@ public class SplashActivity extends Activity {
 				enterHome();
 				break;
 			case SPLASH_IO_ERROR:
-				Toast.makeText(getApplicationContext(), "错误码：" + SPLASH_IO_ERROR, 0).show();
+				Toast.makeText(getApplicationContext(),
+						"错误码：" + SPLASH_IO_ERROR, 0).show();
 				enterHome();
 				break;
 			case SPLASH_JSONE_ERROR:
-				Toast.makeText(getApplicationContext(), "错误码：" + SPLASH_JSONE_ERROR, 0).show();
+				Toast.makeText(getApplicationContext(),
+						"错误码：" + SPLASH_JSONE_ERROR, 0).show();
 				enterHome();
 				break;
 			case SPLASH_URL_ERROR:
-				Toast.makeText(getApplicationContext(), "错误码：" + SPLASH_URL_ERROR, 0).show();
+				Toast.makeText(getApplicationContext(),
+						"错误码：" + SPLASH_URL_ERROR, 0).show();
 				enterHome();
 				break;
 
@@ -152,8 +154,7 @@ public class SplashActivity extends Activity {
 	 * 
 	 * @param 设定文件
 	 * @return void DOM对象
-	 * @throws @since
-	 *             CodingExample Ver 1.1
+	 * @throws @since CodingExample Ver 1.1
 	 */
 	private void initView() {
 		tv_version = (TextView) findViewById(R.id.tv_splash_version);
@@ -191,11 +192,10 @@ public class SplashActivity extends Activity {
 	/**
 	 * 
 	 * copyDb:(这里用一句话描述这个方法的作用) TODO(把assets里面的数据库 拷贝 到应用文件里面)
-	 *
+	 * 
 	 * @param 设定文件
 	 * @return void DOM对象
-	 * @throws @since
-	 *             CodingExample Ver 1.1
+	 * @throws @since CodingExample Ver 1.1
 	 */
 	private void copyDb() {
 		// getFileDira()用于获取data/data/对应的软件包名/file文件的路径
@@ -238,11 +238,10 @@ public class SplashActivity extends Activity {
 	/**
 	 * 
 	 * TODO(这里描述这个方法适用条件 – 可选) TODO(对话框两个按钮,确定-->表示需要升级,同时调用升级方法.取消-->表示放弃这次升级)
-	 *
+	 * 
 	 * @param 设定文件
 	 * @return void DOM对象
-	 * @throws @since
-	 *             CodingExample Ver 1.1
+	 * @throws @since CodingExample Ver 1.1
 	 */
 	protected void showUpdataDialog() {
 
@@ -260,7 +259,8 @@ public class SplashActivity extends Activity {
 			@Override
 			public void onClick(DialogInterface dialog, int which) {
 				// 确定升级，然后调用下载的的方法进行下载
-				Toast.makeText(SplashActivity.this, "需要升级", Toast.LENGTH_SHORT).show();
+				Toast.makeText(SplashActivity.this, "需要升级", Toast.LENGTH_SHORT)
+						.show();
 				dialog.dismiss();
 				// 调用下载的方法下载最新的应用
 				download();
@@ -272,7 +272,8 @@ public class SplashActivity extends Activity {
 
 			@Override
 			public void onClick(DialogInterface dialog, int which) {
-				Toast.makeText(getApplicationContext(), "即可升级，享受更多服务", Toast.LENGTH_SHORT).show();
+				Toast.makeText(getApplicationContext(), "即可升级，享受更多服务",
+						Toast.LENGTH_SHORT).show();
 				enterHome();
 				dialog.dismiss();
 			}
@@ -284,51 +285,51 @@ public class SplashActivity extends Activity {
 	/**
 	 * 
 	 * download:(进行下载方法) TODO(采用开源框架xUtils实现)
-	 *
+	 * 
 	 * @param 设定文件
 	 * @return void DOM对象
-	 * @throws @since
-	 *             CodingExample Ver 1.1
+	 * @throws @since CodingExample Ver 1.1
 	 */
 	protected void download() {
 		// 下载新的版本
 		HttpUtils httpUtils = new HttpUtils();
 		// 参数1 下载的地址 参数二 下载保存的位置
-		httpUtils.download(apkurl, "/mnt/sdcard/safeAPP.apk", new RequestCallBack<File>() {
+		httpUtils.download(apkurl, "/mnt/sdcard/safeAPP.apk",
+				new RequestCallBack<File>() {
 
-			@Override
-			public void onSuccess(ResponseInfo<File> arg0) {
-				// 下载完成，调用安装应用的方法
-				appInstall();
+					@Override
+					public void onSuccess(ResponseInfo<File> arg0) {
+						// 下载完成，调用安装应用的方法
+						appInstall();
 
-			}
+					}
 
-			@Override
-			public void onLoading(long total, long current, boolean isUploading) {
-				// 让控件可见
-				tv_splash_progress.setVisibility(View.VISIBLE);
-				tv_splash_progress.setText(current + ":" + total);
-				super.onLoading(total, current, isUploading);
+					@Override
+					public void onLoading(long total, long current,
+							boolean isUploading) {
+						// 让控件可见
+						tv_splash_progress.setVisibility(View.VISIBLE);
+						tv_splash_progress.setText(current + ":" + total);
+						super.onLoading(total, current, isUploading);
 
-			}
+					}
 
-			
-
-			@Override
-			public void onFailure(com.lidroid.xutils.exception.HttpException arg0, String arg1) {
-			}
-		});
+					@Override
+					public void onFailure(
+							com.lidroid.xutils.exception.HttpException arg0,
+							String arg1) {
+					}
+				});
 
 	}
 
 	/**
 	 * 
 	 * appInstall:(安装下载下来的app) TODO(通过隐式意图，调用系统自带的安装应用的app)
-	 *
+	 * 
 	 * @param 设定文件
 	 * @return void DOM对象
-	 * @throws @since
-	 *             CodingExample Ver 1.1
+	 * @throws @since CodingExample Ver 1.1
 	 */
 	protected void appInstall() {
 
@@ -336,7 +337,8 @@ public class SplashActivity extends Activity {
 		Intent intent = new Intent();
 		intent.setAction("android.intent.action.VIEW");
 		intent.addCategory("android.intent.category.DEFAULT");
-		intent.setDataAndType(Uri.fromFile(new File("/mnt/sdcard/safeAPP.apk")),
+		intent.setDataAndType(
+				Uri.fromFile(new File("/mnt/sdcard/safeAPP.apk")),
 				"application/vnd.android.package-archive");
 		// 采用又返回值得开启Intent的方法，用以避免用户点击取消升级。
 		startActivityForResult(intent, 0);
@@ -359,8 +361,7 @@ public class SplashActivity extends Activity {
 	 * @param 设定文件
 	 * 
 	 * @return void DOM对象
-	 * @throws @since
-	 *             CodingExample Ver 1.1
+	 * @throws @since CodingExample Ver 1.1
 	 */
 	protected void enterHome() {
 		Intent intent = new Intent();
@@ -373,11 +374,10 @@ public class SplashActivity extends Activity {
 	/**
 	 * 
 	 * update:(连接服务器，并且从服务器里面下载信息 ,在线程里面进行)
-	 *
+	 * 
 	 * @param 设定文件
 	 * @return void DOM对象
-	 * @throws @since
-	 *             CodingExample Ver 1.1
+	 * @throws @since CodingExample Ver 1.1
 	 */
 	private void update() {
 		System.out.println("kaishi lianjie ");
@@ -388,9 +388,11 @@ public class SplashActivity extends Activity {
 				long startTime = System.currentTimeMillis();
 				try {
 					// 设置连接服务器的地址
-					URL url = new URL("http://192.168.1.104:8180/downversion.html");
+					URL url = new URL(
+							"http://192.168.1.104:8180/downversion.html");
 					// 通过服务器地址打开连接
-					HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+					HttpURLConnection conn = (HttpURLConnection) url
+							.openConnection();
 					// 设置连接超时
 					conn.setConnectTimeout(5000);
 					// 设置读取超时
@@ -411,8 +413,10 @@ public class SplashActivity extends Activity {
 						des = jsonObject.getString("des");
 						apkurl = jsonObject.getString("apkurl");
 						// 打印信息用于调试
-						System.out.println("code: " + code + "des: " + des + "apkurl: " + apkurl);
-						System.out.println("code: " + code + "    " + (code.equals(getVersionNum())));
+						System.out.println("code: " + code + "des: " + des
+								+ "apkurl: " + apkurl);
+						System.out.println("code: " + code + "    "
+								+ (code.equals(getVersionNum())));
 						if (code.equals(getVersionNum())) {
 							// 本地版本服务器的版本相同
 							// 不需要升级
@@ -459,11 +463,9 @@ public class SplashActivity extends Activity {
 	 * 
 	 * getVersionNum:(获取版本号)
 	 * 
-	 * @param @return
-	 *            设定文件
+	 * @param @return 设定文件
 	 * @return String DOM对象
-	 * @throws @since
-	 *             CodingExample Ver 1.1
+	 * @throws @since CodingExample Ver 1.1
 	 */
 	public String getVersionNum() {
 		try {
@@ -484,4 +486,3 @@ public class SplashActivity extends Activity {
 	}
 
 }
-
