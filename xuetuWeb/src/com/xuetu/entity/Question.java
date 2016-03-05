@@ -33,6 +33,13 @@ public class Question {
 	private String quesText = null;
 	private String quesIma = null;
 	private Date quesDate = null;
+	private Subject subject = null;
+	public Subject getSubject() {
+		return subject;
+	}
+	public void setSubject(Subject subject) {
+		this.subject = subject;
+	}
 	public Question() {
 
 		// 
@@ -168,12 +175,14 @@ public class Question {
 	public void setQuesDate(Date quesDate) {
 		this.quesDate = quesDate;
 	}
-	public Question(int quesID, Student student, String quesText, String quesIma, Date quesDate) {
+	public Question(int quesID, Student student, String quesText, String quesIma, Date quesDate, Subject subject) {
+		super();
 		this.quesID = quesID;
 		this.student = student;
 		this.quesText = quesText;
 		this.quesIma = quesIma;
 		this.quesDate = quesDate;
+		this.subject = subject;
 	}
 	
 
