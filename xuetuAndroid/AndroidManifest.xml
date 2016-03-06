@@ -17,7 +17,7 @@
         <!-- 目前该方法具体的用于测试，记着把需要添加的页面加上 -->
 
         <activity
-            android:name="com.librarybooksearch.ui.SplashActivity"
+            android:name="com.xuetu.ui.SplashActivity"
             android:label="@string/app_name" >
 			<intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -25,17 +25,17 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name="com.librarybooksearch.ui.PersonalListActivity" />
+        <activity android:name="com.xuetu.ui.PersonalListActivity" />
         <activity
-            android:name="com.librarybooksearch.ui.MainActivity"
+            android:name="com.xuetu.ui.MainActivity"
             android:label="已借图书" />
         <activity
-            android:name="com.librarybooksearch.ui.BorrowListActivity"
+            android:name="com.xuetu.ui.BorrowListActivity"
             android:label="已借图书" />
         <activity
-            android:name="com.librarybooksearch.ui.BorrowInfoActivity"
+            android:name="com.xuetu.ui.BorrowInfoActivity"
             android:label="借阅详情" />
-        <activity android:name="com.librarybooksearch.ui.LogIn" >
+        <activity android:name="com.xuetu.ui.LogIn" >
             
         </activity>
     </application>
