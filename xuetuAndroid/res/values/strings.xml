@@ -10,5 +10,7 @@
     <string name="password">密码</string>
     <string name="rm_pw">记录密码</string>
     <string name="auto_login">自动登录</string>
+    <string name="title_activity_timer">TimerActivity</string>
+    <string name="timer_start">开始计时</string>
 
 </resources>
