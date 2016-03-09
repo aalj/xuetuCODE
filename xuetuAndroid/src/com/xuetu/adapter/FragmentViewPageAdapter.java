@@ -11,7 +11,7 @@
  * Copyright (c) 2016, TNT All Rights Reserved.
 */
 
-package com.xuetu.baseAdapter;
+package com.xuetu.adapter;
 
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;

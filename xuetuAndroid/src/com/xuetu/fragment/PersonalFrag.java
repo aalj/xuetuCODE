@@ -14,8 +14,6 @@
 package com.xuetu.fragment;
 
 import com.xuetu.R;
-import com.xuetu.ui.LogIn;
-import com.xuetu.ui.PersonalListActivity;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
