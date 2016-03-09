@@ -29,8 +29,12 @@
             android:name=".ui.MainActivity"
             android:label="首页" />
         <activity
-            android:name="com.xuetu.ui.TimerActivity"
+            android:name=".ui.TimerActivity"
             android:label="@string/title_activity_timer" >
+        </activity>
+        <activity
+            android:name="com.xuetu.ui.FindTaskListActivity"
+            android:label="@string/title_activity_find_task_list" >
         </activity>
     </application>
 
