@@ -62,13 +62,13 @@ public class LinchenDao {
 		String sql1 = "insert into bill(in_ex_id,) values(?,?,?,?)";
 		String sql2 = "insert into bill_type(in_ex_id,by_name) values(?,?)";
 		String sql3 = "insert into sub_bill_type() values(?,?)";
-		PreparedStatement prep = conn.prepareStatement();
+//		PreparedStatement prep = conn.prepareStatement(sql1);
 		
 		int aType = account.getAccountType();
 		String aTypeName = actype.getAccountTypeNma();
 		String subaTypeName = suatype.getSubAccountTypeNma();
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-		Date date = sdf.parse(account.getIncomeDate());
+//		Date date = sdf.parse(account.getIncomeDate());
 		
 	}
 }

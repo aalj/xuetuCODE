@@ -116,10 +116,10 @@ public class FamilyDao {
 	/*
 	 * 修改家庭成员信息
 	 */
-	public Family update(Family f)
+	public Family update1(Family f)
 	{
 		
-		
+		return null;
 		
 	}
 	
