@@ -85,7 +85,7 @@ public class Countdown {
 	}
 	/**
 	 * 
-	 * setCodoTime:(设置到家死截至时间)<br/>
+	 * setCodoTime:(设置倒计时截至时间)<br/>
 	
 	 *
 	 * @param  @param codoTime    设定文件
