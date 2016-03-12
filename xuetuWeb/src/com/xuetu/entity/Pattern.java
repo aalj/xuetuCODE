@@ -27,6 +27,11 @@ package com.xuetu.entity;
 public class Pattern {
 	private int patternID = 0;
 	private String pattrenText = null;
+	public Pattern() {
+
+		// TODO Auto-generated constructor stub
+
+	}
 	/**
 	 * 
 	 * getPatternID:(得到计划模式的ID)<br/>

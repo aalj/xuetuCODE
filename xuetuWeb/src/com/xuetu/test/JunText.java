@@ -18,8 +18,10 @@ import java.util.List;
 import org.junit.Test;
 
 import com.xuetu.dao.CouponDao2;
+import com.xuetu.dao.FindIml;
 import com.xuetu.dao.StoreNameDao2;
 import com.xuetu.entity.Coupon;
+import com.xuetu.utils.GetHttp;
 
 /**
  * ClassName:JunText<br/>
@@ -37,7 +39,8 @@ import com.xuetu.entity.Coupon;
 public class JunText {
 	@Test
 	public void myTest(){
-	new StoreNameDao2().changeStoNamePWD(1, "123");
+		System.out.println(new FindIml().getSelfPlan(1));
+		
 	}
 
 }

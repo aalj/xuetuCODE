@@ -13,7 +13,10 @@
 
 package com.xuetu.service.inter;
 
+import java.util.List;
+
 import com.xuetu.entity.Pattern;
+import com.xuetu.entity.SelfStudyPlan;
 
 /**
  * ClassName:FindServicesInter
@@ -51,6 +54,26 @@ public interface FindServicesInter {
 	 * @since  CodingExample　Ver 1.1
 	 */
 	public Pattern queryPatternById(int PatternId);
+	
+	/**
+	 * 
+	 * getAllSelfStudyPlan:(通过学生Id查找该id下的全部学生)
+	 * <br/>
+	 * TODO(这里描述这个方法适用条件 – 可选)
+	 * <br/>
+	 * TODO(这里描述这个方法的执行流程 – 可选) 
+	 * <br/>
+	 * TODO(这里描述这个方法的使用方法 – 可选) 
+	 * <br/> 
+	 * TODO(这里描述这个方法的注意事项 – 可选)
+	 * <br/>
+	 * @param  @return    设定文件
+	 * @return List<SelfStudyPlan>    DOM对象
+	 * @throws 
+	 * @since  CodingExample　Ver 1.1
+	 */
+	public List<SelfStudyPlan> getAllSelfStudyPlan(int stuID);
+	
 	
 
 }

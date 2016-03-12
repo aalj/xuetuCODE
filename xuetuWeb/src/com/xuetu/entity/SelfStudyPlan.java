@@ -80,6 +80,11 @@ public class SelfStudyPlan {
 	public Date getStartTime() {
 		return startTime;
 	}
+	@Override
+	public String toString() {
+		return "SelfStudyPlan [planID=" + planID + ", startTime=" + startTime + ", endTime=" + endTime + ", planText="
+				+ planText + ", planReming=" + planReming + ", pattern=" + pattern + ", planDate=" + planDate + "]";
+	}
 	/**
 	 * 
 	 * setStartTime:(设置计划开始时间)<br/>

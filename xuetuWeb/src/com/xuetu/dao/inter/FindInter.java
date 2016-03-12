@@ -15,6 +15,8 @@ package com.xuetu.dao.inter;
 import java.util.List;
 
 import com.xuetu.entity.Countdown;
+import com.xuetu.entity.Pattern;
+import com.xuetu.entity.SelfStudyPlan;
 import com.xuetu.entity.Student;
 import com.xuetu.entity.StudyTime;
 /**
@@ -75,7 +77,38 @@ public interface FindInter {
 	public List<StudyTime> getWeekTime(String beforeData,String afterData);
 	
 	
+	/**
+	 * 
+	 * getSelfPlan:(通过学生ID的到该学生里面的的自己定义的自学计划)
+	 * <br/>
+	 * TODO(这里描述这个方法适用条件 – 可选)
+	 * <br/>
+	 * TODO(这里描述这个方法的执行流程 – 可选) 
+	 * <br/>
+	 * TODO(这里描述这个方法的使用方法 – 可选) 
+	 * <br/> 
+	 * TODO(这里描述这个方法的注意事项 – 可选)
+	 * <br/>
+	 * @param  @param stuId
+	 * @param  @return    设定文件
+	 * @return List<SelfStudyPlan>    DOM对象
+	 * @throws 
+	 * @since  CodingExample　Ver 1.1
+	 */
+	public List<SelfStudyPlan> getSelfPlan(int stuId);
 	
+	
+	/**
+	 * 
+	 * getPatternById:(通过Id的到该自学计划的学习模式)
+	 * <br/>
+	 * @param  @param patID
+	 * @param  @return    设定文件
+	 * @return Pattern    DOM对象
+	 * @throws 
+	 * @since  CodingExample　Ver 1.1
+	 */
+	public Pattern  getPatternById(int patID);
 	
 	
 
