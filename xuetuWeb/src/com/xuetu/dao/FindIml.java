@@ -14,6 +14,7 @@
 package com.xuetu.dao;
 
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -81,8 +82,10 @@ public class FindIml implements FindInter {
 			while (query.next()) {
 				plan = new SelfStudyPlan();
 				plan.setPlanID(query.getInt("plan_id"));
-				plan.setStartTime(query.getDate("start_time"));
-				plan.setEndTime(query.getDate("end_time"));
+				Date date = query.getDate("start_time");
+				System.out.println(date.getTime());
+				plan.setStartTime(query.getTimestamp("start_time"));
+				plan.setEndTime(query.getTimestamp("end_time"));
 				plan.setPlanText(query.getString("plan_text"));
 				plan.setPlanReming(query.getInt("plan_remind"));
 				// 通过学习模式的Id的到对应的学习模式对象
@@ -90,7 +93,7 @@ public class FindIml implements FindInter {
 				plan.setPattern(pattern);
 				// TODO 无法调用方法得到对应的对象
 				plan.setStudent(null);
-				plan.setPlanDate(query.getDate("plan_date"));
+				plan.setPlanDate(query.getTimestamp("plan_date"));
 
 				list.add(plan);
 

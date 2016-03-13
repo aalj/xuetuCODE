@@ -25,12 +25,12 @@ package com.xuetu.entity;
  * @see 	 
 
  */
-public class Class {
+public class ClassAllTab {
 	int id ;
 	String clsName;
 	int week;
 	int fewLessons;
-	public Class() {
+	public ClassAllTab() {
 
 		// TODO Auto-generated constructor stub
 
@@ -65,7 +65,7 @@ public class Class {
 	public void setClassroom(String classroom) {
 		this.classroom = classroom;
 	}
-	public Class(int id, String clsName, int week, int fewLessons, String classroom) {
+	public ClassAllTab(int id, String clsName, int week, int fewLessons, String classroom) {
 		super();
 		this.id = id;
 		this.clsName = clsName;

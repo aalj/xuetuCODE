@@ -17,6 +17,7 @@ import java.util.List;
 
 import com.xuetu.entity.Answer;
 import com.xuetu.entity.FavoritesCoupons;
+import com.xuetu.entity.MyClass;
 import com.xuetu.entity.MyCoupon;
 import com.xuetu.entity.Question;
 import com.xuetu.entity.School;
@@ -153,7 +154,7 @@ public interface PersonalDaoInterface {
 	 * @throws 
 	 * @since  CodingExample　Ver 1.1
 	 */
-	 public List<Class> getClassByStuId(int Stuid); 
+	 public List<MyClass> getClassByStuId(int Stuid); 
 	
 	 
 	 
