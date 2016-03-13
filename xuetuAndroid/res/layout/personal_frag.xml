@@ -2,13 +2,20 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical" >
+    android:orientation="horizontal" >
     
      <TextView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:gravity="center"
         android:text="这里是个人中心" />
-    
+
+     <Button
+         android:onClick="onclick"
+         android:layout_gravity="center"
+         android:id="@+id/button_onclick"
+         android:layout_width="wrap_content"
+         android:layout_height="wrap_content"
+         android:text="课程表" />
 
 </LinearLayout>
