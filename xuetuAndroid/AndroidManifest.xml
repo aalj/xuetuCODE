@@ -38,6 +38,10 @@
             android:name="com.xuetu.ui.FindTaskListActivity"
             android:label="@string/title_activity_find_task_list" >
         </activity>
+        <activity
+            android:name=".ui.CourseActivity"
+            android:label="课程表" >
+        </activity>
     </application>
 
 </manifest>
