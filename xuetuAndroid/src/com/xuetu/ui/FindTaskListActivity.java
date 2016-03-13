@@ -1,5 +1,11 @@
 package com.xuetu.ui;
 
+import java.lang.reflect.Type;
+import java.util.List;
+
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.google.gson.reflect.TypeToken;
 import com.lidroid.xutils.HttpUtils;
 import com.lidroid.xutils.ViewUtils;
 import com.lidroid.xutils.exception.HttpException;
@@ -12,16 +18,16 @@ import com.xuetu.R;
 import com.xuetu.adapter.MyBasesadapter;
 import com.xuetu.adapter.ViewHodle;
 import com.xuetu.entity.SelfStudyPlan;
+import com.xuetu.utils.DataToTime;
 
 import android.app.Activity;
 import android.os.Bundle;
-import android.view.Menu;
-import android.view.MenuItem;
+import android.util.Log;
 import android.view.View;
-import android.view.View.OnClickListener;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ListView;
+import android.widget.Toast;
 
 /**
  * 
@@ -47,45 +53,54 @@ public class FindTaskListActivity extends Activity implements OnItemClickListene
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_find_task_list);
 		ViewUtils.inject(this);
-		viewInit();
+		// viewInit();
 		getData();
 		activityFindTaskList.setOnItemClickListener(this);
 
 	}
 
-	private void viewInit() {
-
-		activityFindTaskList.setAdapter(new MyBasesadapter<SelfStudyPlan>(this, null, R.layout.find_task_item) {
-
-			@Override
-			public void convert(ViewHodle viewHolder, SelfStudyPlan item) {
-
-			}
-		});
-
-	}
-
 	private void getData() {
 		HttpUtils httpUtils = new HttpUtils();
-		String url = "http://10.40.5.10:8080/xuetuWeb/GetSelfStudyPlan";
-		RequestParams pram= new RequestParams();
-		//TODO 无法获得学生对象的数据
-		pram.addBodyParameter("StuID","1");
-		httpUtils.send(HttpMethod.POST, url,pram ,new RequestCallBack<String>( ) {
+		String url = "http://192.168.1.101:8080/xuetuWeb/GetSelfStudyPlan";
+		RequestParams pram = new RequestParams();
+		// TODO 无法获得学生对象的数据
+		pram.addBodyParameter("StuID", "1");
+		httpUtils.send(HttpMethod.POST, url, pram, new RequestCallBack<String>() {
 
 			@Override
 			public void onFailure(HttpException arg0, String arg1) {
-				// TODO Auto-generated method stub
-				
+				Log.i("TAG", arg1);
+
 			}
 
 			@Override
 			public void onSuccess(ResponseInfo<String> arg0) {
-				// TODO Auto-generated method stub
-				
+				Toast.makeText(getApplicationContext(), arg0.result, 0).show();
+				Toast.makeText(getApplicationContext(), arg0.result, 0).show();
+				Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create();
+
+				Type type = new TypeToken<List<SelfStudyPlan>>() {
+				}.getType();
+				List<SelfStudyPlan> users = gson.fromJson(arg0.result, type);
+				Log.i("TAG", users.toString());
+				activityFindTaskList.setAdapter(
+						new MyBasesadapter<SelfStudyPlan>(FindTaskListActivity.this, users, R.layout.find_task_item) {
+
+					@Override
+					public void convert(ViewHodle viewHolder, SelfStudyPlan item) {
+						viewHolder.setText(R.id.tilte, item.getPlanText());
+						viewHolder.setText(R.id.info, DataToTime.dataToT(item.getStartTime()));
+						if (item.getPlanReming() == 1) {
+							viewHolder.setClick(R.id.myswitch, true);
+						} else {
+							viewHolder.setClick(R.id.myswitch, false);
+						}
+
+					}
+				});
 			}
 		});
-
+		Log.i("TAG", "TONGGUO CESHI");
 	}
 
 	@Override

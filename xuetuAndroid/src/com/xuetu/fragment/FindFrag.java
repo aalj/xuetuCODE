@@ -1,7 +1,9 @@
 package com.xuetu.fragment;
 
 import com.xuetu.R;
+import com.xuetu.ui.FindTaskListActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -70,29 +72,34 @@ public class FindFrag extends Fragment {
 		@Override
 		public void onClick(View v) {
 			Toast.makeText(getActivity(), "dianjiashijain ", Toast.LENGTH_SHORT).show();
+			Intent intent = null;
 			switch (v.getId()) {
-			case R.id.linear_task://任务
+			case R.id.linear_task:// 任务
+				intent = new Intent();
+				intent.setClass(getActivity(), FindTaskListActivity.class);
 
 				break;
-			case R.id.linear_data://资料
+			case R.id.linear_data:// 资料
 
 				break;
-			case R.id.linear_getup://早睡
+			case R.id.linear_getup:// 早睡
 
 				break;
-			case R.id.linear_sleep://早起
+			case R.id.linear_sleep:// 早起
 
 				break;
-			case R.id.linear_countdown://倒计时
+			case R.id.linear_countdown:// 倒计时
 
 				break;
-			case R.id.linear_supervise://全天监督
+			case R.id.linear_supervise:// 全天监督
 
 				break;
 
 			default:
+				intent = new Intent();
 				break;
 			}
+			getActivity().startActivity(intent);
 		}
 
 	}

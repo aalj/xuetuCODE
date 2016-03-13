@@ -1,7 +1,8 @@
 package com.xuetu.adapter;
 
+import com.gc.materialdesign.views.Switch;
+
 import android.content.Context;
-import android.util.Log;
 import android.util.SparseArray;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -75,6 +76,15 @@ public class ViewHodle {
 
         return this;
 
+    }
+    
+    
+    public ViewHodle setClick(int resID,boolean arg){
+    	Switch  myswitch=(Switch)getView(resID);
+    	myswitch.setChecked(arg);
+    	
+    	return this;
+    	
     }
 
 
