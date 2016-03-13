@@ -28,15 +28,11 @@ public class MyClass {
 	private int clsId = 0;
 	private String clasName = null;
 	private int clsWeek = 0;
-	private String clsFew = null;
+	private int clsFew = 0;
+	private String clsRoom = null;
 
 	public MyClass() {
-
-		//
-
 	}
-
-	private String clsRoom = null;
 
 	public int getClsId() {
 		return clsId;
@@ -54,39 +50,6 @@ public class MyClass {
 		this.clasName = clasName;
 	}
 
-	public int getCls_Week() {
-		return clsWeek;
-	}
-
-	public void setCls_Week(int cls_Week) {
-		this.clsWeek = cls_Week;
-	}
-
-	public String getCls_Few() {
-		return clsFew;
-	}
-
-	public void setCls_Few(String cls_Few) {
-		this.clsFew = cls_Few;
-	}
-
-	public String getCls_Room() {
-		return clsRoom;
-	}
-
-	public void setCls_Room(String cls_Room) {
-		this.clsRoom = cls_Room;
-	}
-
-	public MyClass(int clsId, String clasName, int cls_Week, String cls_Few, String cls_Room) {
-		super();
-		this.clsId = clsId;
-		this.clasName = clasName;
-		this.clsWeek = cls_Week;
-		this.clsFew = cls_Few;
-		this.clsRoom = cls_Room;
-	}
-
 	public int getClsWeek() {
 		return clsWeek;
 	}
@@ -95,11 +58,11 @@ public class MyClass {
 		this.clsWeek = clsWeek;
 	}
 
-	public String getClsFew() {
+	public int getClsFew() {
 		return clsFew;
 	}
 
-	public void setClsFew(String clsFew) {
+	public void setClsFew(int clsFew) {
 		this.clsFew = clsFew;
 	}
 
@@ -109,6 +72,21 @@ public class MyClass {
 
 	public void setClsRoom(String clsRoom) {
 		this.clsRoom = clsRoom;
+	}
+
+	public MyClass(int clsId, String clasName, int clsWeek, int clsFew, String clsRoom) {
+		super();
+		this.clsId = clsId;
+		this.clasName = clasName;
+		this.clsWeek = clsWeek;
+		this.clsFew = clsFew;
+		this.clsRoom = clsRoom;
+	}
+
+	@Override
+	public String toString() {
+		return "MyClass [clsId=" + clsId + ", clasName=" + clasName + ", clsWeek=" + clsWeek + ", clsFew=" + clsFew
+				+ ", clsRoom=" + clsRoom + "]";
 	}
 
 }
