@@ -101,7 +101,7 @@ public class MainActivity extends FragmentActivity implements OnPageChangeListen
 		fragments = new Fragment[5];
 		fragmeLayout = new FrameLayout[5];
 		textView = new TextView[5]; 
-		title = (TextView) findViewById(R.id.title);
+		title = (TextView) findViewById(R.id.main_title);
 		
 		manager = getSupportFragmentManager();
 		beginTransaction = manager.beginTransaction();

@@ -4,12 +4,12 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent" >
 
-    <com.xuetu.view.TitleBar
-        android:id="@+id/title"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        title:titleBarTitle="学习任务" >
-    </com.xuetu.view.TitleBar>
+<!--     <com.xuetu.view.TitleBar -->
+<!--         android:id="@+id/title" -->
+<!--         android:layout_width="wrap_content" -->
+<!--         android:layout_height="wrap_content" -->
+<!--         title:titleBarTitle="学习任务" > -->
+<!--     </com.xuetu.view.TitleBar> -->
 
     <ListView
         android:id="@+id/activity_find_task_list"
