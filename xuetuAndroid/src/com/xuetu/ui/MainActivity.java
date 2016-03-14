@@ -3,7 +3,7 @@ package com.xuetu.ui;
 import com.lidroid.xutils.ViewUtils;
 import com.lidroid.xutils.view.annotation.ViewInject;
 import com.xuetu.R;
-import com.xuetu.baseAdapter.FragmentViewPageAdapter;
+import com.xuetu.adapter.FragmentViewPageAdapter;
 import com.xuetu.fragment.CouponFrag;
 import com.xuetu.fragment.FindFrag;
 import com.xuetu.fragment.HomePageFrag;
