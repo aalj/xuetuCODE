@@ -14,9 +14,12 @@
 package com.xuetu.dao;
 
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Timestamp;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -26,11 +29,13 @@ import com.xuetu.entity.Answer;
 import com.xuetu.entity.FavoritesCoupons;
 import com.xuetu.entity.MyClass;
 import com.xuetu.entity.MyCoupon;
+import com.xuetu.entity.PointNum;
 import com.xuetu.entity.Question;
 import com.xuetu.entity.School;
 import com.xuetu.entity.StoreName;
 import com.xuetu.entity.Student;
 import com.xuetu.entity.StudyTime;
+import com.xuetu.utils.CloseDb;
 import com.xuetu.utils.DBconnection;
 
 /**
@@ -150,6 +155,28 @@ public class CourseDao implements PersonalDaoInterface {
 
 		return null;
 
+	}
+
+	@Override
+	public boolean savePoints(PointNum pointNum) {
+		Connection connection = DBconnection.getConnection();
+		// INSERT INTO table_name (列1, 列2,...) VALUES (值1, 值2,....)
+		PreparedStatement prepareStatement = null;
+		String sql = "insert into point_num (point_num,point_from_id,point_create_time) values(?,?,?);";
+		try {
+			prepareStatement = connection.prepareStatement(sql);
+			prepareStatement.setInt(1, pointNum.getPointNum());
+			prepareStatement.setInt(2, pointNum.getFromPoint().getFromPointid());
+			prepareStatement.setTimestamp(3, new Timestamp(pointNum.getPointTime().getTime()));
+			prepareStatement.executeUpdate();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			CloseDb.close(connection, prepareStatement);
+		}
+
+		return true;
 	}
 
 }
