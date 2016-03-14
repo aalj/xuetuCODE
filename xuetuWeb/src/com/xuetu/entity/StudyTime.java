@@ -32,6 +32,7 @@ public class StudyTime {
 	
 	private Long time = 0l;
 	private Student student = null;
+	
 	public StudyTime() {
 
 		// 
@@ -141,7 +142,7 @@ public class StudyTime {
 	public void setStudent(Student student) {
 		this.student = student;
 	}
-
+	
 	public StudyTime(int sttID, Date date, Long time, Student student) {
 		this.sttID = sttID;
 		this.date = date;
