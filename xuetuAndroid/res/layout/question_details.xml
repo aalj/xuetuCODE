@@ -1,0 +1,85 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/rl_questiondetails_listItem"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical" >
+
+  <RelativeLayout
+        android:id="@+id/rl_top"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#ffffff" >
+
+        <TextView
+            android:id="@+id/tv_subject"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginLeft="15dp"
+            android:layout_marginTop="16dp"
+            android:text="学科类别" />
+
+        <TextView
+            android:id="@+id/tv_time"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="5dp"
+            android:layout_marginTop="16dp"
+            android:layout_toRightOf="@id/tv_subject"
+            android:text="2小时前" />
+
+        <TextView
+            android:id="@+id/tv_ques_text"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@+id/tv_subject"
+            android:layout_below="@id/tv_time"
+            android:layout_marginTop="14dp"
+            android:text="问题描述ques_text 111111111111111111111111111111111111" />
+
+        <ImageView
+            android:id="@+id/iv_ques_img"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@+id/tv_ques_text"
+            android:layout_below="@+id/tv_ques_text"
+            android:src="@drawable/login_lib_logo" />
+     	
+		  <View
+        android:layout_width="match_parent"
+        android:layout_height="0.2dp"
+        android:layout_below="@id/iv_ques_img"
+        android:layout_marginTop="8dp"
+        android:background="#b2b2b2" />
+    </RelativeLayout>
+    <ListView
+            android:id="@+id/lv_answer"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@+id/iv_ques_img"
+            android:layout_below="@+id/iv_ques_img" >
+        </ListView>
+   <LinearLayout 
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:gravity="center"
+            android:background="#ffffff"
+            >
+            <Button
+     android:id="@+id/btn_answer"
+     android:layout_width="match_parent"
+     android:layout_height="wrap_content"
+     android:layout_marginLeft="10dp"
+     android:layout_marginTop="10dp"
+     android:layout_marginRight="10dp"
+     android:layout_marginBottom="10dp"
+     android:textColor="@string/white"
+     android:background="#F53808"
+     android:text="回答" />
+        </LinearLayout>
+ 
+
+</LinearLayout>

@@ -4,11 +4,23 @@
     android:layout_height="match_parent"
     android:orientation="vertical" >
     
-     <TextView
+    <ListView
+        android:id="@+id/lv_question"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:dividerHeight="12dp"
+        android:background="#ffffff"
+        
+        android:divider="#ffffffff"
+        >
+    </ListView>
+
+    <!--
+          <TextView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:gravity="center"
+        android:gravity="top"
         android:text="这里是发现页面" />
-    
+    -->
 
 </LinearLayout>

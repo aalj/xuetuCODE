@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="#ffffff" >
+<LinearLayout 
+    android:layout_width="match_parent"
+        android:layout_height="30dp"
+    >
+    <TextView
+        android:id="@+id/textView1"
+        android:layout_width="match_parent"
+        android:layout_height="30dp"
+        android:text="分类下拉自定义控件" />
+    </LinearLayout>
+    <LinearLayout 
+    android:layout_width="match_parent"
+        android:layout_height="30dp"
+    >
+ <View
+        android:layout_width="match_parent"
+        android:layout_height="0.2dp"
+        android:layout_marginTop="8dp"
+        android:background="#b2b2b2" />
+ </LinearLayout>
+
+ <LinearLayout
+     android:layout_width="match_parent"
+     android:layout_height="80dp"
+     android:orientation="vertical" >
+     <TextView 
+         android:layout_width="match_parent"
+     android:layout_height="wrap_content"
+     android:text="拍照提问"/>
+ </LinearLayout>
+<View
+        android:layout_width="match_parent"
+        android:layout_height="0.2dp"
+        android:layout_marginTop="8dp"
+        android:background="#b2b2b2" />
+<LinearLayout 
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    >
+<EditText
+    android:minLines="2"
+    android:id="@+id/et_question"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:ems="10"
+    android:hint="请描述问题"
+    android:inputType="textMultiLine" 
+    android:background="@null">
+    <requestFocus />
+</EditText>
+	</LinearLayout>
+
+
+<RelativeLayout 
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:gravity="center"
+            android:background="#ffffff"
+            >
+            <Button
+     android:id="@+id/btn_ask"
+     android:layout_width="match_parent"
+     android:layout_height="wrap_content"
+     android:layout_marginLeft="10dp"
+     android:layout_marginTop="10dp"
+     android:layout_marginRight="10dp"
+     android:layout_marginBottom="10dp"
+     android:textColor="#ffffff"
+     android:background="@string/blue"
+     android:onClick="ask"
+     android:text="提问" />
+        </RelativeLayout>
+
+</LinearLayout>

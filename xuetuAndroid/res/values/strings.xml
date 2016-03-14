@@ -13,5 +13,10 @@
     <string name="title_activity_timer">TimerActivity</string>
     <string name="timer_start">开始计时</string>
     <string name="title_activity_find_task_list">FindTaskListActivity</string>
-
+	<string name="gray">#b2b2b2</string>
+	<string name="blue">#44a6d5</string>
+	<string name="background_gray">#f7f7f9</string>
+	<string name="touming">#ffffffff</string>
+	<string name="white">#ffffff</string>
+	<string name="answer">回答</string>
 </resources>
