@@ -25,6 +25,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 
+
 /**
  * ClassName:TimerActivity      计时页面(增加积分)
  * 			kangyi
@@ -52,15 +53,14 @@ public class TimerActivity extends Activity {
 	private String hh;
 	private String mm;
 	private String acpo_num = "5";
-	private String st_time = "5000";
-	private String stu_id = "003";
 	private String st_date = null;
 	private String st_id = null;
 	
 	//循环时间 10分钟一循环
 	int second=0;
 	//alltime 记录下运行的所有时间
-	int  alltime = 0;
+	int  st_time = 0;
+	int stu_id = 3;
 	
 	
 	
@@ -93,13 +93,13 @@ public class TimerActivity extends Activity {
             // TODO Auto-generated method stub
             while(second<600){//整个倒计时执行的循环
             	second++;
-            	alltime++;
+            	st_time++;
                 if(second==600){
                 mHandler.post(new Runnable() {//通过它在UI主线程中修改显示的剩余时间
                     @Override
                     public void run() {
                         // TODO Auto-generated method stub
-                    	showTime.setText(secondFormat(alltime));
+                    	showTime.setText(secondFormat(st_time));
                         second=0;//初始时间赋值0;重新开始计时
                         
                         //////////想服务器发送数据的方法/////////////
@@ -117,7 +117,7 @@ public class TimerActivity extends Activity {
 	                        @Override
 	                        public void run() {
 	                            // TODO Auto-generated method stub
-	                        	showTime.setText(secondFormat(alltime));//显示剩余时间
+	                        	showTime.setText(secondFormat(st_time));//显示剩余时间
 	                        }
 	                    });
 	                    try {
@@ -168,8 +168,10 @@ public class TimerActivity extends Activity {
     		HttpUtils httpUtils = new HttpUtils();
     		RequestParams requestParams = new RequestParams();
 //    		String time = ;
-    		requestParams.addBodyParameter("time", alltime+"");
+    		requestParams.addBodyParameter("st_time", st_time+"");
     		requestParams.addBodyParameter("integral", acpo_num);
+    		requestParams.addBodyParameter("st_date", "");
+    		requestParams.addBodyParameter("stu_id", stu_id+"");
     		httpUtils.send(HttpMethod.POST, url,new RequestCallBack<String>() {
 
     			@Override

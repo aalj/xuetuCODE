@@ -1,4 +1,4 @@
-package com.xuetu.dao;
+package com.xuetu.web.android;
 
 import java.io.IOException;
 import javax.servlet.ServletException;
@@ -22,7 +22,7 @@ public class AddStudyTimeDao extends HttpServlet {
 	String sql_insert = "insert into studytime(st_id,st_date,st_time,stu_id,acpo+num)"
 			+ " values(?,?,?,?,?);";
 	
-	String sql_update="update studytime set stu_id=";
+//	String sql_update="update studytime set stu_id=";
 	
 	
 
@@ -39,6 +39,16 @@ public class AddStudyTimeDao extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
+		
+		String name = request.getParameter("name");
+		
+		
+//		PrintWriter writer = response.getWriter();
+		
+//		requestParams.addBodyParameter("st_time", st_time+"");
+//		requestParams.addBodyParameter("integral", acpo_num);
+//		requestParams.addBodyParameter("st_date", "");
+//		requestParams.addBodyParameter("stu_id", stu_id+"");
 		
 	}
 
