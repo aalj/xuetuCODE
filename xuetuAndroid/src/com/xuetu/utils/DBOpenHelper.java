@@ -14,6 +14,7 @@ public class DBOpenHelper extends SQLiteOpenHelper {
 		super(context, DATABASE_NAME, null, DATABASE_VERSION);
 	}
 
+	// 创建本地数据库
 	@Override
 	public void onCreate(SQLiteDatabase db) {
 		db.execSQL(

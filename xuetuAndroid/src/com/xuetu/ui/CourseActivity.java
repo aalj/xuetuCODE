@@ -2,17 +2,17 @@ package com.xuetu.ui;
 
 import java.util.List;
 
+import com.xuetu.R;
+import com.xuetu.entity.MyClass;
+import com.xuetu.utils.CourseService;
+import com.xuetu.utils.DBManager;
+
 import android.app.Activity;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
-
-import com.xuetu.R;
-import com.xuetu.entity.MyClass;
-import com.xuetu.utils.CourseService;
-import com.xuetu.utils.DBManager;
 
 /**
  * 
@@ -42,7 +42,6 @@ public class CourseActivity extends Activity {
 			Log.i("TAG", "离线缓存");
 		}
 		Toast.makeText(getApplicationContext(), "xixiixii", 1).show();
-
 	}
 
 	@Override

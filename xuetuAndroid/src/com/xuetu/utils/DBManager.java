@@ -30,6 +30,7 @@ public class DBManager {
 
 	/**
 	 * 添加对象
+	 * 存值进本地数据库
 	 */
 	public void add(List<MyClass> myclass) {
 		db.beginTransaction();// 开始事务
@@ -45,7 +46,7 @@ public class DBManager {
 
 	/**
 	 * query all classes,return list
-	 * 
+	 * 显示本地数据库的值
 	 * @return
 	 */
 	public List<MyClass> query() {

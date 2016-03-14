@@ -73,9 +73,12 @@ public class CourseService implements OnClickListener {
 			@Override
 			public void onSuccess(ResponseInfo<String> arg0) {
 				System.out.println(arg0.result);
+				
+			//得到值  Gson解析list集合
 				Type type = new TypeToken<List<MyClass>>() {
 				}.getType();
 				List<MyClass> myclasses = gson.fromJson(arg0.result, type);
+				//sharedpreference的键值对立flag
 				boolean falgs = preferences.getBoolean("saveDB", false);
 				
 				
@@ -83,7 +86,6 @@ public class CourseService implements OnClickListener {
 				if (!falgs) {
 					edit.putBoolean("saveDB", true);
 					mgr.add(myclasses);
-					
 					edit.commit();
 				}
 				
@@ -113,8 +115,7 @@ public class CourseService implements OnClickListener {
 
 			buttons.add(lesson);
 		}
-		onclickthings();
-
+	 
 	}
 
 	public void onclickthings() {
@@ -126,6 +127,7 @@ public class CourseService implements OnClickListener {
 
 	@Override
 	public void onClick(View v) {
+		
 
 	}
 
