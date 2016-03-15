@@ -45,44 +45,16 @@ public class Student {
 	private int stuPoints = 0;
 	private School school = null;
 	private String stuPwd = null;
-	private Date stu_create_date = null;
+	private Date Stu_create_date = null;
 	public Student() {
 
 		//
 
 	}
-	/**
-	 * 
-	 * getStuId:(得到学生注册日期)<br/>
-	 *
-	 * 
-	 * @param @return
-	 *            设定文件
-	 * @return int DOM对象
-	 * @throws @since
-	 *             CodingExample Ver 1.1
-	 */
-	public Date getStu_create_date() {
-		return stu_create_date;
-	}
-	/**
-	 * 
-	 * getStuId:(设置学生注册日期)<br/>
-	 *
-	 * 
-	 * @param @return
-	 *            设定文件
-	 * @return int DOM对象
-	 * @throws @since
-	 *             CodingExample Ver 1.1
-	 */
-	public void setStu_create_date(Date stu_create_date) {
-		this.stu_create_date = stu_create_date;
-	}
 
 	public Student(int stuId, String stuName, String stuEmail, String stuPhone, String stuIma, String stuSex,
 			int stuAge, String stuUgrade, String stuMajor, String stuSigner, int stuPoints, School school,
-			String stuPwd,Date stu_create_date) {
+			String stuPwd,Date Stu_create_date) {
 		super();
 		this.stuId = stuId;
 		this.stuName = stuName;
@@ -97,7 +69,7 @@ public class Student {
 		this.stuPoints = stuPoints;
 		this.school = school;
 		this.stuPwd = stuPwd;
-		this.stu_create_date = stu_create_date;
+		this.Stu_create_date = getStu_create_date();
 	}
 
 	/**
@@ -141,6 +113,14 @@ public class Student {
 	 */
 	public String getStuName() {
 		return stuName;
+	}
+
+	public Date getStu_create_date() {
+		return Stu_create_date;
+	}
+
+	public void setStu_create_date(Date stu_create_date) {
+		Stu_create_date = stu_create_date;
 	}
 
 	/**

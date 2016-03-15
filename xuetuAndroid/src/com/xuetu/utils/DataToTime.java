@@ -13,5 +13,15 @@ public class DataToTime {
 		return string;
 		
 	}
+	public static String dataToHS(long data){
+		data = data/1000;
+		int h=(int)data/3600;
+		int f = (int)data%60/60;
+		
+		
+		
+		return h+":"+f+":00";
+		
+	}
 
 }

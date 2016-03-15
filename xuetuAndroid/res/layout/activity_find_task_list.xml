@@ -4,20 +4,23 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent" >
 
-<!--     <com.xuetu.view.TitleBar -->
-<!--         android:id="@+id/title" -->
-<!--         android:layout_width="wrap_content" -->
-<!--         android:layout_height="wrap_content" -->
-<!--         title:titleBarTitle="学习任务" > -->
-<!--     </com.xuetu.view.TitleBar> -->
+    <com.xuetu.view.TitleBar
+        android:id="@+id/title_my"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        title:titleBarLeftImage="@drawable/ic_menu_back"
+        title:titleBarRightImage="@drawable/ic_menu_add"
+        title:titleBarTitle="学习计划" >
+    </com.xuetu.view.TitleBar>
 
     <ListView
         android:id="@+id/activity_find_task_list"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
-        android:layout_below="@+id/title"
-         >
+        android:layout_below="@+id/title_my" >
     </ListView>
 
 </RelativeLayout>

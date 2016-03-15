@@ -6,7 +6,7 @@ package com.xuetu.service;
 import java.sql.Date;
 import java.util.List;
 
-import com.xuetu.dao.inter.QuestionInter;
+import com.xuetu.dao.inter.QuesTionDao;
 import com.xuetu.entity.Answer;
 import com.xuetu.entity.Question;
 import com.xuetu.entity.School;
@@ -19,8 +19,8 @@ import com.xuetu.service.inter.QuestionServiceInter;
  *
  */
 public class QuestionService implements QuestionServiceInter {
-	QuestionInter q = null;
-	public QuestionService(QuestionInter q){
+	QuesTionDao q = null;
+	public QuestionService(QuesTionDao q){
 		this.q = q;
 	}
 

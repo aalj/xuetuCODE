@@ -5,7 +5,6 @@ import java.sql.Date;
 import org.junit.Test;
 
 import com.xuetu.dao.QuestionIml;
-import com.xuetu.dao.inter.QuestionInter;
 import com.xuetu.service.QuestionService;
 import com.xuetu.service.inter.QuestionServiceInter;
 
@@ -32,7 +31,7 @@ public class LinTest {
 	
 	@Test
 	public void getSubjectBySubId(){
-		System.out.println(new QuestionIml().getSubjectBySubId(1).getName());
+		System.out.println(Qservice.getSubjectBySubId(1).getName());
 	}
 	
 	@Test
@@ -41,7 +40,7 @@ public class LinTest {
 	}
 	@Test
 	public void createQuestion(){
-		System.out.println(Qservice.createQuestion(2, "求极限怎么求", new Date(System.currentTimeMillis()), 10, 2, 1));
+		System.out.println(Qservice.createQuestion(2, "高数怎么这么难", new Date(System.currentTimeMillis()), 10, 2, 1));
 	}
 	@Test
 	public void submitQuestion(){

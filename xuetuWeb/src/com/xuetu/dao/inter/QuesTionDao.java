@@ -35,7 +35,7 @@ import com.xuetu.entity.Subject;
  * @see 	 
 
  */
-public interface QuestionInter {
+public interface QuesTionDao {
 	
 	/**
 	 * 
@@ -86,19 +86,7 @@ public interface QuestionInter {
 	public List<Question> queryLimitQuestion(int page,int num);
 	
 	
-	/**
-	 * 
-	 * queryLimitQuestion:(根据stu_id获得Question对象)<br/>
-	 *
-	 * @param  @param page
-	 * @param  @param num
-	 * @param  @return    设定文件
-	 * @return Question    DOM对象
-	 * @throws 
-	 * @since  CodingExample　Ver 1.1
-	 */
 	public Student getStudentByStuId(int stuId,int sch_id);
-	
 	/**
 	 * 
 	 * queryLimitQuestion:(根据sch_id获得school对象)<br/>
@@ -147,5 +135,6 @@ public interface QuestionInter {
 	 * @since  CodingExample　Ver 1.1
 	 */
 	public void submitQuestion(Question q);
+	
 }
 

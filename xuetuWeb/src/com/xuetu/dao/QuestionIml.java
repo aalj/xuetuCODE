@@ -7,7 +7,7 @@ import java.sql.ResultSet;
 import java.text.SimpleDateFormat;
 import java.util.List;
 
-import com.xuetu.dao.inter.QuestionInter;
+import com.xuetu.dao.inter.QuesTionDao;
 import com.xuetu.entity.Answer;
 import com.xuetu.entity.Question;
 import com.xuetu.entity.School;
@@ -15,7 +15,7 @@ import com.xuetu.entity.Student;
 import com.xuetu.entity.Subject;
 import com.xuetu.utils.DBconnection;
 
-public class QuestionIml implements QuestionInter {
+public class QuestionIml implements QuesTionDao {
 
 	@Override
 	public List<Question> queryQuestionByStuID(Student stu) {

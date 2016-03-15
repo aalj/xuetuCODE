@@ -1,18 +1,27 @@
 package com.xuetu.ui;
 
+import java.lang.reflect.Type;
 import java.util.List;
 
+import android.app.Activity;
+import android.os.Bundle;
+import android.view.View;
+import android.view.View.OnClickListener;
+import android.widget.RelativeLayout;
+import android.widget.Toast;
+
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.google.gson.reflect.TypeToken;
+import com.lidroid.xutils.HttpUtils;
+import com.lidroid.xutils.exception.HttpException;
+import com.lidroid.xutils.http.RequestParams;
+import com.lidroid.xutils.http.ResponseInfo;
+import com.lidroid.xutils.http.callback.RequestCallBack;
+import com.lidroid.xutils.http.client.HttpRequest.HttpMethod;
 import com.xuetu.R;
 import com.xuetu.entity.MyClass;
 import com.xuetu.utils.CourseService;
-import com.xuetu.utils.DBManager;
-
-import android.app.Activity;
-import android.content.SharedPreferences;
-import android.os.Bundle;
-import android.util.Log;
-import android.widget.RelativeLayout;
-import android.widget.Toast;
 
 /**
  * 
@@ -21,35 +30,15 @@ import android.widget.Toast;
  * 
  */
 public class CourseActivity extends Activity {
-	SharedPreferences preferences = null;
-
-	CourseService service;
+	CourseService service = new CourseService(CourseActivity.this);
 	RelativeLayout layout;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_course);
-		preferences = getSharedPreferences("config", Activity.MODE_PRIVATE);
-		service = new CourseService(CourseActivity.this, preferences);
 		layout = (RelativeLayout) findViewById(R.id.relativelayout);
-		if (!preferences.getBoolean("saveDB", false)) {
-			service.getCourse();
-		} else {
-			DBManager mgr = new DBManager(this);
-			List<MyClass> querys = mgr.query();
-			service.fillCourse(querys);
-			Log.i("TAG", "离线缓存");
-		}
 		Toast.makeText(getApplicationContext(), "xixiixii", 1).show();
+		service.getCourse();
 	}
-
-	@Override
-	protected void onDestroy() {
-		// TODO Auto-generated method stub
-		super.onDestroy();
-		// 应用的最后一个Activity关闭死活释放DB
-
-	}
-
 }
