@@ -1,21 +1,57 @@
 package com.xuetu.ui;
 
+import com.lidroid.xutils.ViewUtils;
+import com.lidroid.xutils.view.annotation.ViewInject;
 import com.xuetu.R;
-import com.xuetu.R.id;
-import com.xuetu.R.layout;
-import com.xuetu.R.menu;
+import com.xuetu.entity.SelfStudyPlan;
 
 import android.app.Activity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.EditText;
+import android.widget.TextView;
 
 public class FindTaskItemActivity extends Activity {
-
+	@ViewInject(R.id.tv_startTime)
+	TextView tv_startTime_info;
+	@ViewInject(R.id.tv_endTime_info)
+	TextView tv_endTime_info;
+	@ViewInject(R.id.study_info)
+	TextView study_info;//执行模式
+	@ViewInject(R.id.study_parrt_info)
+	TextView study_parrt_info;
+	@ViewInject(R.id.xuexi_info)
+	EditText xuexi_info;
+	//用于存储该页面的全部信息
+	SelfStudyPlan selfStudyPlan;
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.find_task_item_edit);
+		ViewUtils.inject(this);
+		initView();
+		
+		
+		
+		
+		
+	}
+
+	private void initView() {
+		selfStudyPlan = (SelfStudyPlan) getIntent().getSerializableExtra("plans");
+		tv_startTime_info.setText(selfStudyPlan.getStartTime()+"");
+		tv_endTime_info.setText(selfStudyPlan.getEndTime()+"");
+		study_info.setText(selfStudyPlan.getPattern().getPattrenText());
+		boolean temp = false;
+		if(selfStudyPlan.getPlanReming()==1){
+			  temp = true;
+		}
+//		study_parrt_info.setClickable(temp);
+		xuexi_info.setText(selfStudyPlan.getPlanText());
+		
+		
 	}
 
 	@Override

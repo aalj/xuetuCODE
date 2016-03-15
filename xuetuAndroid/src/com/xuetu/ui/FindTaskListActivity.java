@@ -51,6 +51,8 @@ import android.widget.ListView;
 public class FindTaskListActivity extends Activity implements OnItemClickListener {
 	@ViewInject(R.id.activity_find_task_list)
 	ListView activityFindTaskList;
+	//从网上下来的数据源
+	List<SelfStudyPlan> users = null;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -84,7 +86,7 @@ public class FindTaskListActivity extends Activity implements OnItemClickListene
 
 				Type type = new TypeToken<List<SelfStudyPlan>>() {
 				}.getType();
-				List<SelfStudyPlan> users = gson.fromJson(arg0.result, type);
+				 users = gson.fromJson(arg0.result, type);
 				activityFindTaskList.setAdapter(
 						new MyBasesadapter<SelfStudyPlan>(FindTaskListActivity.this, users, R.layout.find_task_item) {
 
@@ -114,6 +116,7 @@ public class FindTaskListActivity extends Activity implements OnItemClickListene
 	public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 		// 使用万能适配器写ListView 数据
 		Intent intent = new Intent(this, FindTaskItemActivity.class);
+		intent.putExtra("plans", users.get(position));
 		startActivity(intent);
 
 	}
