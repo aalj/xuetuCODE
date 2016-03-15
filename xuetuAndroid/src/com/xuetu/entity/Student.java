@@ -13,9 +13,11 @@
 
 package com.xuetu.entity;
 
+import java.io.Serializable;
+
 /**
  * ClassName:Student <br/>
- * Function: 学生实体 
+ * Function: 学生实体
  *
  * @author Stone
  * @version
@@ -25,7 +27,7 @@ package com.xuetu.entity;
  * @see
  * 
  */
-public class Student {
+public class Student implements Serializable {
 
 	private int stuId = 0;
 
