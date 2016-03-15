@@ -178,14 +178,12 @@ public interface PersonalDaoInterface {
 	 */
 	public List<MyClass> getClassByStuId(int Stuid);
 
-	/** 将学习积分和答题积分归纳到一个表中 **/
-
 	/**
-	 * (通过积分来源id查询积分得到积分表)
+	 * 将学习积分和答题积分归纳到一个表中
 	 * 
+	 * 通过积分来源id查询积分得到积分表
 	 * 
 	 */
-
 	public boolean savePoints(PointNum pointNum);
 
 }

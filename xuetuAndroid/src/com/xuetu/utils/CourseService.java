@@ -61,7 +61,7 @@ public class CourseService implements OnClickListener {
 		mgr = new DBManager(context);
 		// http://localhost:8080/xuetuWeb/CourseAndroid
 		HttpUtils httpUtils = new HttpUtils();
-		String url = "http://10.40.5.17:8080/xuetuWeb/CourseAndroid";
+		String url = "http://192.168.1.106:8080/xuetuWeb/CourseAndroid";
 		RequestParams params = new RequestParams();
 		params.addBodyParameter("stuid", "1");
 		httpUtils.send(HttpMethod.POST, url, params, new RequestCallBack<String>() {

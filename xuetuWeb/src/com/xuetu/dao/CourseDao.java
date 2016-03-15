@@ -14,12 +14,10 @@
 package com.xuetu.dao;
 
 import java.sql.Connection;
-import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Timestamp;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -160,9 +158,8 @@ public class CourseDao implements PersonalDaoInterface {
 	@Override
 	public boolean savePoints(PointNum pointNum) {
 		Connection connection = DBconnection.getConnection();
-		// INSERT INTO table_name (列1, 列2,...) VALUES (值1, 值2,....)
 		PreparedStatement prepareStatement = null;
-		String sql = "insert into point_num (point_num,point_from_id,point_create_time) values(?,?,?);";
+		String sql = "insert into point_num (point_num,point_from_id,point_create_time)values(?,?,?);";
 		try {
 			prepareStatement = connection.prepareStatement(sql);
 			prepareStatement.setInt(1, pointNum.getPointNum());
@@ -172,11 +169,11 @@ public class CourseDao implements PersonalDaoInterface {
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-		} finally {
+		}finally{
 			CloseDb.close(connection, prepareStatement);
 		}
 
-		return true;
+		return false;
 	}
 
 }
