@@ -1,3 +1,4 @@
+
 package com.xuetu.dao;
 
 import java.sql.Connection;
@@ -51,7 +52,7 @@ public class TimeDao  {
 		{
 			conn = DBconnection.getConnection();
 			//sql语句  直接插入新列队
-			String sql = "insert into studytime(st_id,st_date,st_time,stu_id,acpo_num)"
+			String sql = "insert into studytime(st_id,st_date,sto_time,stu_id,acpo_num)"
 					+ " values(?,?,?,?,?);";
 			// 获得preparedStatement对象
 			prep = conn.prepareStatement(sql);

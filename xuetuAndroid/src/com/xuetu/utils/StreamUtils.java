@@ -20,29 +20,26 @@ import java.io.InputStreamReader;
 import java.io.StringWriter;
 
 /**
- * ClassName:StreamUtils
- * Function: TODO ADD FUNCTION
- * Reason:	 TODO ADD REASON
+ * ClassName:StreamUtils Function: TODO ADD FUNCTION Reason: TODO ADD REASON
  *
- * @author   view
- * @version  
- * @since    Ver 1.1
- * @Date	 2015��10��2��		����4:20:34
+ * @author view
+ * @version
+ * @since Ver 1.1
+ * @Date 2015��10��2�� ����4:20:34
  *
- * @see 	 
-
+ * @see
+ * 
  */
 public class StreamUtils {
-	public static String parserStream(InputStream is) throws IOException{
+	public static String parserStream(InputStream is) throws IOException {
 		BufferedReader br = new BufferedReader(new InputStreamReader(is));
-		//д����
+		// д����
 		StringWriter sw = new StringWriter();
 		String str = null;
-		while ((str=br.readLine())!=null ){
+		while ((str = br.readLine()) != null) {
 			sw.write(str);
 		}
 		br.close();
 		return sw.toString();
 	}
 }
-

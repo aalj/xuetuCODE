@@ -73,6 +73,11 @@ public interface FindServicesInter {
 	 * @since  CodingExample　Ver 1.1
 	 */
 	public List<SelfStudyPlan> getAllSelfStudyPlan(int stuID);
+	/**
+	 * 获取全部的学习模式
+	 * @return
+	 */
+	public List<Pattern> getAllPattern();
 	
 	
 

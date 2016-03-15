@@ -13,6 +13,7 @@
 
 package com.xuetu.entity;
 
+import java.io.Serializable;
 import java.util.Date;
 
 /**
@@ -27,7 +28,7 @@ import java.util.Date;
  * @see 	 
 
  */
-public class SelfStudyPlan {
+public class SelfStudyPlan implements Serializable{
 	private int planID = 0;
 	private Date startTime = null;
 	private Date endTime = null;

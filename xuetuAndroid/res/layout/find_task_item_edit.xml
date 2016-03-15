@@ -25,6 +25,7 @@
         android:orientation="vertical" >
 
         <RelativeLayout
+            android:id="@+id/tiem_start"
             style="@style/find_item_edit_Re"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -66,6 +67,7 @@
             android:background="#f7f7f7" />
 
         <RelativeLayout
+            android:id="@+id/tiem_end"
             style="@style/find_item_edit_Re"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -109,6 +111,7 @@
         android:orientation="vertical" >
 
         <RelativeLayout
+            android:id="@+id/moshi"
             style="@style/find_item_edit_Re"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -151,6 +154,7 @@
             android:background="#f7f7f7" />
 
         <RelativeLayout
+            
             style="@style/find_item_edit_Re"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -163,25 +167,18 @@
                 android:layout_alignParentLeft="true"
                 android:layout_marginLeft="10dp"
                 android:drawableLeft="@drawable/ic_user_level_6"
-                android:text="@string/endTime"
+                android:text="提醒"
                 android:textSize="18dp" />
 
-            <ImageView
-                android:id="@+id/imageView4"
-                style="@style/find_item_edit_ima"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignBottom="@+id/study_parrt"
-                android:layout_alignTop="@+id/study_parrt" />
-
-            <TextView
+            <com.gc.materialdesign.views.Switch
                 android:id="@+id/study_parrt_info"
                 style="@style/find_item_edit_tv"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignBottom="@+id/study_parrt"
+                android:layout_alignParentRight="true"
+                android:layout_marginRight="5dp"
                 android:layout_alignTop="@+id/study_parrt"
-                android:layout_toLeftOf="@+id/imageView4"
                 android:text="TextView" />
         </RelativeLayout>
     </LinearLayout>
