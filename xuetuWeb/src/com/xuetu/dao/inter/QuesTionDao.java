@@ -13,10 +13,12 @@
 
 package com.xuetu.dao.inter;
 
+import java.sql.Date;
 import java.util.List;
 
 import com.xuetu.entity.Answer;
 import com.xuetu.entity.Question;
+import com.xuetu.entity.School;
 import com.xuetu.entity.Student;
 import com.xuetu.entity.Subject;
 
@@ -84,8 +86,55 @@ public interface QuesTionDao {
 	public List<Question> queryLimitQuestion(int page,int num);
 	
 	
-	
-	
+	public Student getStudentByStuId(int stuId,int sch_id);
+	/**
+	 * 
+	 * queryLimitQuestion:(根据sch_id获得school对象)<br/>
+	 *
+	 * @param  @param page
+	 * @param  @param num
+	 * @param  @return    设定文件
+	 * @return school    DOM对象
+	 * @throws 
+	 * @since  CodingExample　Ver 1.1
+	 */
+	public School getSchoolBySch_id(int sch_id);
+	/**
+	 * 
+	 * queryLimitQuestion:(根据subId获得Subject对象)<br/>
+	 *
+	 * @param  @param page
+	 * @param  @param num
+	 * @param  @return    设定文件
+	 * @return Subject    DOM对象
+	 * @throws 
+	 * @since  CodingExample　Ver 1.1
+	 */
+	public Subject getSubjectBySubId(int subId);
+	/**
+	 * 
+	 * queryLimitQuestion:(根据int stuId,String quesText,Date quesTime,int acpoNum,int subId生成问题对象)<br/>
+	 *
+	 * @param  @param page
+	 * @param  @param num
+	 * @param  @return    设定文件
+	 * @return void    DOM对象
+	 * @throws 
+	 * @since  CodingExample　Ver 1.1
+	 */
+	public Question createQuestion(int stuId,String quesText,Date quesTime,int acpoNum,int subId,int schId);
+	/**
+	 * 
+	 * queryLimitQuestion:(发表问题)<br/>
+	 *
+	 * @param  @param page
+	 * @param  @param num
+	 * @param  @return    设定文件
+	 * @return void    DOM对象
+	 * @throws 
+	 * @since  CodingExample　Ver 1.1
+	 */
+	public void submitQuestion(Question q);
 	
 }
 

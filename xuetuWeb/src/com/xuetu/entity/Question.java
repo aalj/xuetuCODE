@@ -34,6 +34,7 @@ public class Question {
 	private String quesIma = null;
 	private Date quesDate = null;
 	private Subject subject = null;
+	private int acpo_num = 0;
 	public Subject getSubject() {
 		return subject;
 	}
@@ -174,6 +175,31 @@ public class Question {
 	 */
 	public void setQuesDate(Date quesDate) {
 		this.quesDate = quesDate;
+	}
+	public Question( Student student, String quesText, Date quesDate, Subject subject,int acpo_num) {
+		super();
+		this.student = student;
+		this.quesText = quesText;
+		this.quesDate = quesDate;
+		this.subject = subject;
+		this.acpo_num = acpo_num;
+	}
+	public Question( Student student, String quesText, String quesIma, Date quesDate, Subject subject,int acpo_num) {
+		super();
+		this.student = student;
+		this.quesText = quesText;
+		this.quesIma = quesIma;
+		this.quesDate = quesDate;
+		this.subject = subject;
+		this.acpo_num = acpo_num;
+	}
+	public int getAcpo_num() {
+		return acpo_num;
+	}
+	public void setAcpo_num(int acpo_num) {
+		this.acpo_num = acpo_num;
+	}
+	public Question(int quesID, Student student, String quesText, String quesIma, Date quesDate, Subject subject,int acpo_num) {
 	}
 	public Question(int quesID, Student student, String quesText, String quesIma, Date quesDate, Subject subject) {
 		super();
