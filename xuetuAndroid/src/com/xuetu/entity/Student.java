@@ -6,12 +6,14 @@
  *
  *   ver     date      		author
  * ──────────────────────────────────
- *   		 2016年1月29日 		Stone
+ *   		 2016年3月15日 		Stone
  *
  * Copyright (c) 2016, TNT All Rights Reserved.
 */
 
 package com.xuetu.entity;
+
+import java.sql.Date;
 
 /**
  * ClassName:Student <br/>
@@ -20,7 +22,7 @@ package com.xuetu.entity;
  * @author Stone
  * @version
  * @since Ver 1.1
- * @Date 2016年1月29日 上午11:15:10
+ * @Date 2016年3月15日 上午18:18:10
  *
  * @see
  * 
@@ -43,7 +45,7 @@ public class Student {
 	private int stuPoints = 0;
 	private School school = null;
 	private String stuPwd = null;
-
+	private Date Stu_create_date = null;
 	public Student() {
 
 		//
@@ -52,7 +54,7 @@ public class Student {
 
 	public Student(int stuId, String stuName, String stuEmail, String stuPhone, String stuIma, String stuSex,
 			int stuAge, String stuUgrade, String stuMajor, String stuSigner, int stuPoints, School school,
-			String stuPwd) {
+			String stuPwd,Date Stu_create_date) {
 		super();
 		this.stuId = stuId;
 		this.stuName = stuName;
@@ -67,6 +69,7 @@ public class Student {
 		this.stuPoints = stuPoints;
 		this.school = school;
 		this.stuPwd = stuPwd;
+		this.Stu_create_date = getStu_create_date();
 	}
 
 	/**
@@ -110,6 +113,14 @@ public class Student {
 	 */
 	public String getStuName() {
 		return stuName;
+	}
+
+	public Date getStu_create_date() {
+		return Stu_create_date;
+	}
+
+	public void setStu_create_date(Date stu_create_date) {
+		Stu_create_date = stu_create_date;
 	}
 
 	/**

@@ -7,7 +7,8 @@
     <RelativeLayout
         android:id="@+id/rl_top"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" >
+        android:layout_height="wrap_content"
+        android:onClick="detail" >
 		
         
         <TextView
@@ -18,6 +19,7 @@
             android:layout_alignParentTop="true"
             android:layout_marginLeft="15dp"
             android:layout_marginTop="15dp"
+            android:textColor="@color/subject"
             android:text="学科类别" />
 
         <TextView
@@ -28,7 +30,8 @@
             android:layout_marginTop="15dp"
             android:layout_alignParentRight="true"
             android:layout_alignParentTop="true"
-            android:text="2小时前" />
+            android:text="2小时前" 
+            android:textColor="@color/date"/>
 
         <TextView
             android:id="@+id/tv_ques_text"
@@ -37,6 +40,7 @@
             android:layout_alignLeft="@+id/tv_subject"
             android:layout_below="@id/tv_time"
             android:layout_marginTop="10dp"
+            android:layout_marginBottom="5dp"
             android:text="问题描述ques_text 111111111111111111111111111111111111" />
 
         <ImageView
@@ -45,17 +49,19 @@
             android:layout_height="wrap_content"
             android:layout_alignLeft="@+id/tv_ques_text"
             android:layout_below="@+id/tv_ques_text"
-            android:layout_marginTop="5dp"
+            android:layout_marginBottom="8dp"
             android:src="@drawable/login_lib_logo" />
-    </RelativeLayout>
-
-    <View
+        
+         <View
         android:id="@+id/v_dividerline"
         android:layout_width="match_parent"
-        android:layout_height="0.2dp"
+        android:layout_height="0.5dp"
         android:layout_below="@id/iv_ques_img"
-        android:layout_marginTop="8dp"
-        android:background="#b2b2b2" />
+        android:background="@color/black2" 
+        />
+    </RelativeLayout>
+
+   
 
     <LinearLayout
         android:id="@+id/bottomAnswer"
@@ -73,9 +79,10 @@
             <RelativeLayout
                 android:id="@+id/rl_left"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="35dp"
                 android:layout_gravity="center"
-                android:focusable="false" >
+                android:focusable="false" 
+                android:onClick="answer">
 
                 <LinearLayout
                     android:layout_width="wrap_content"
@@ -113,16 +120,17 @@
             <RelativeLayout
                 android:id="@+id/rl_right"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="35dp"
                 android:layout_gravity="center" 
-                android:focusable="false">
+                android:focusable="false"
+                android:onClick="sub">
 
                 <TextView
-                    android:layout_width="0.1dp"
+                    android:layout_width="0.3dp"
                     android:layout_height="15dp"
                     android:layout_alignParentLeft="true"
                     android:layout_centerInParent="true"
-                    android:background="#b2b2b2" />
+                    android:background="@color/black2" />
 
                 <LinearLayout
                     android:layout_width="wrap_content"
