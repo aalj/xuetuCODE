@@ -91,19 +91,41 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent" >
 
-        <Button
-            android:id="@+id/btn_qtlogin"
-            android:layout_width="80dp"
-            android:layout_height="33dp"
-            android:layout_alignParentBottom="true"
-            android:layout_centerHorizontal="true"
-            android:layout_margin="33dp"
-            android:layout_marginTop="10dp"
-            android:background="#F0F0F0"
-            android:padding="8dp"
-            android:text="注册"
+<!--         <Button -->
+<!--             android:id="@+id/btn_qtlogin" -->
+<!--             android:layout_width="80dp" -->
+<!--             android:layout_height="33dp" -->
+<!--             android:layout_alignParentLeft="true" -->
+<!--             android:layout_margin="33dp" -->
+<!--             android:background="#F0F0F0" -->
+<!--             android:padding="8dp" -->
+<!--             android:text="注册" -->
+<!--             android:textColor="#353535" -->
+<!--             android:textSize="15sp" /> -->
+
+        <TextView
+            android:id="@+id/text_forgetpwd"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginLeft="19dp"
+            android:layout_marginTop="19dp"
             android:textColor="#353535"
-            android:textSize="15sp" />
+            android:textSize="15sp" 
+            android:text="忘记密码" />
+         <TextView
+            android:id="@+id/text_register"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginRight="19dp"
+            android:layout_marginTop="19dp"
+            android:textColor="#353535"
+            android:textSize="15sp" 
+            android:text="注册" />
+
     </RelativeLayout>
 
 </LinearLayout>
