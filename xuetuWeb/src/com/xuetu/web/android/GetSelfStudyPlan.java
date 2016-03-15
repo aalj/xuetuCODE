@@ -50,7 +50,7 @@ public class GetSelfStudyPlan extends HttpServlet {
 		response.setContentType("text/html;charset=utf-8");
 		String parameter = request.getParameter("StuID");
 		parameter = URLDecoder.decode(parameter, "utf-8");
-		System.out.println(parameter);
+		
 		List<SelfStudyPlan> allSelfStudyPlan =  null;
 		
 		if(parameter!=null){
@@ -58,13 +58,11 @@ public class GetSelfStudyPlan extends HttpServlet {
 			allSelfStudyPlan = findService.getAllSelfStudyPlan(Integer .parseInt(parameter));
 			
 		}
-		System.out.println(allSelfStudyPlan);
 		PrintWriter writer = response.getWriter();
 		Gson gson = new GsonBuilder()  
 				  .setDateFormat("yyyy-MM-dd HH:mm:ss")  
 				  .create();
 		String temp = gson.toJson(allSelfStudyPlan);
-		System.out.println(temp);
 		writer.print(temp);
 		
 		

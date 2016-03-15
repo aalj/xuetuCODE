@@ -85,27 +85,30 @@ public class TimerActivity extends Activity {
 		setContentView(R.layout.home_timer);
 		
 		showTime=(TextView) findViewById(R.id.tv_showtime);
-		runTime= (Button) findViewById(R.id.home_ibtn_up);
+//		runTime= (Button) findViewById(R.id.home_btn_up);
 		showss=(TextView) findViewById(R.id.tv_show_ss);
+		Thread th =  new Thread(new ClassCut());
+//		new TimeOnclisten();
 		
-		runTime.setOnClickListener(new TimeOnclisten());
-		
+//		findViewById(R.id.home_btn_up).setOnClickListener(new TimeOnclisten());
 	}
 
 	
-	private class TimeOnclisten implements OnClickListener{
-        @Override
-        public void onClick(View v) {
-            new Thread(new ClassCut()).start();//开启倒计时
-        }
-    }
+//	private class TimeOnclisten implements OnClickListener{
+//        @Override
+//        public void onClick(View v) {
+//            new Thread(new ClassCut()).start();//开启倒计时
+//        }
+//    }
 	
     class ClassCut implements Runnable{//倒计时逻辑子线程
         @Override
         public void run() {
             // TODO Auto-generated method stub
-            while(round<600){//整个倒计时执行的循环
+            while(round<600)//整个倒计时执行的循环
+            {
             	round++;
+            	System.out.println(round);
             	second++;
             	st_time++;
                 if(round==600){
@@ -132,7 +135,8 @@ public class TimerActivity extends Activity {
 	                        @Override
 	                        public void run() {
 	                            // TODO Auto-generated method stub
-	                        	showTime.setText(secondFormat(st_time));//显示剩余时间
+	                        	showTime.setText(secondFormat(st_time));
+	                        	showss.setText(ssFormat(st_time));//显示剩余时间
 	                        }
 	                    });
 	                    try {
@@ -147,7 +151,9 @@ public class TimerActivity extends Activity {
                 @Override
                 public void run() {
                     // TODO Auto-generated method stub
-                	showTime.setText("0");//一轮倒计时结束  修改剩余时间为一分钟
+                	showTime.setText("00:00");//计时器结束,把时分秒的值归零
+                	showss.setText("00");
+                	new SaveTimeAndIntegral().saveStudyTime(st_time, integral_double);
                     Toast.makeText(TimerActivity.this, "倒计时完成", Toast.LENGTH_LONG).show();//提示倒计时完成
                 }
             });
@@ -166,7 +172,6 @@ public class TimerActivity extends Activity {
           mm=(second % 3600)/60>9?(second % 3600)/60+"":"0"+(second % 3600)/60;
          return hh+":"+mm;
     }
-    
 
     /**
      * 输出格式显示方法 00(秒)
@@ -183,9 +188,9 @@ public class TimerActivity extends Activity {
     
     class SaveTimeAndIntegral {
     	
-    	public void saveStudyTime()
+    	public void saveStudyTime(int st_time,int integral_double)
     	{
-    		String url = null;
+    		String url = "http://10.40.5.15:8080/xuetuweb/AddStudyTime";
 //    		String integral="5";
     		HttpUtils httpUtils = new HttpUtils();
     		RequestParams requestParams = new RequestParams();
@@ -193,7 +198,6 @@ public class TimerActivity extends Activity {
     		requestParams.addBodyParameter("st_time", st_time+"");
     		requestParams.addBodyParameter("integral",getIntegral(integral_double));
     		requestParams.addBodyParameter("st_date", getTime());
-//    		requestParams.addBodyParameter("stu_id", stu_id+"");
     		requestParams.addBodyParameter("st_id", st_id+"");
     		httpUtils.send(HttpMethod.POST, url,new RequestCallBack<String>() {
     			

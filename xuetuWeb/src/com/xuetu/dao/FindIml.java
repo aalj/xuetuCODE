@@ -145,4 +145,33 @@ public class FindIml implements FindInter {
 
 	}
 
+	@Override
+	public List<Pattern> getAllPattern() {
+		Connection connection=null;
+		PreparedStatement statement=null;
+		ResultSet query=null;
+		String sql="select * from pattern;";
+		try {
+			List<Pattern> list = new ArrayList<>();
+			connection = DBconnection.getConnection();
+			statement = connection.prepareStatement(sql);
+			query = statement.executeQuery();
+			Pattern pattern = null;
+			while (query.next()) {
+				pattern = new Pattern();
+				pattern.setPatternID(query.getInt("pattern_id"));
+				pattern.setPattrenText(query.getString("pattern_text"));
+				list.add(pattern);
+				
+			}
+			return list;
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			return null;
+		}finally {
+			CloseDb.close(connection, query, statement);
+		}
+	}
+
 }
