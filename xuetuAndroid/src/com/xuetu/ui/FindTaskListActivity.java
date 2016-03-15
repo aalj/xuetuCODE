@@ -25,6 +25,7 @@ import com.xuetu.utils.DataToTime;
 import com.xuetu.utils.GetHttp;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -112,6 +113,8 @@ public class FindTaskListActivity extends Activity implements OnItemClickListene
 	@Override
 	public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 		// 使用万能适配器写ListView 数据
+		Intent intent = new Intent(this, FindTaskItemActivity.class);
+		startActivity(intent);
 
 	}
 

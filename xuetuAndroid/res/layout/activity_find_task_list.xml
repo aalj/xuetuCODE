@@ -10,6 +10,8 @@
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
         android:layout_alignParentTop="true"
+        title:titleBarLeftImage="@drawable/ic_menu_back"
+        title:titleBarRightImage="@drawable/ic_menu_add"
         title:titleBarTitle="学习计划" >
     </com.xuetu.view.TitleBar>
 
