@@ -85,26 +85,28 @@ public class TimerActivity extends Activity {
 		setContentView(R.layout.home_timer);
 		
 		showTime=(TextView) findViewById(R.id.tv_showtime);
-		runTime= (Button) findViewById(R.id.home_ibtn_up);
+//		runTime= (Button) findViewById(R.id.home_btn_up);
 		showss=(TextView) findViewById(R.id.tv_show_ss);
+		new Thread(new ClassCut()).start();
+//		new TimeOnclisten();
 		
-		runTime.setOnClickListener(new TimeOnclisten());
-		
+//		findViewById(R.id.home_btn_up).setOnClickListener(new TimeOnclisten());
 	}
 
 	
-	private class TimeOnclisten implements OnClickListener{
-        @Override
-        public void onClick(View v) {
-            new Thread(new ClassCut()).start();//开启倒计时
-        }
-    }
+//	private class TimeOnclisten implements OnClickListener{
+//        @Override
+//        public void onClick(View v) {
+//            new Thread(new ClassCut()).start();//开启倒计时
+//        }
+//    }
 	
     class ClassCut implements Runnable{//倒计时逻辑子线程
         @Override
         public void run() {
             // TODO Auto-generated method stub
-            while(round<600){//整个倒计时执行的循环
+            while(round<600)//整个倒计时执行的循环
+            {
             	round++;
             	second++;
             	st_time++;
@@ -132,7 +134,8 @@ public class TimerActivity extends Activity {
 	                        @Override
 	                        public void run() {
 	                            // TODO Auto-generated method stub
-	                        	showTime.setText(secondFormat(st_time));//显示剩余时间
+	                        	showTime.setText(secondFormat(st_time));
+	                        	showss.setText(ssFormat(st_time));//显示剩余时间
 	                        }
 	                    });
 	                    try {
