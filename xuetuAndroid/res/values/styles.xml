@@ -11,6 +11,13 @@
             backward-compatibility can go here.
         -->
     </style>
+    <style name="TxtTitle" parent="@style/img_Style">
+        <item name="android:textSize">18sp</item>
+        <item name="android:textColor">#000000</item>
+        <item name="android:paddingLeft">6.0dip</item>
+        <item name="android:paddingRight">6.0dip</item>
+        <item name="android:focusable">false</item>
+    </style>
 
     <!-- Application theme. -->
     <style name="AppTheme" parent="android:Theme.Light.NoTitleBar">
@@ -33,7 +40,21 @@
         <item name="android:layout_marginBottom">10dp</item>
         <item name="android:layout_marginTop">10dp</item>
     </style>
-    <style name="find_item_edit_ima">
+ 
+     <!-- 内容1样式 -->
+    <style name="txt_ContextStyle1">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textSize">16sp</item>
+    </style>
+     <!-- 图片样式 -->
+    <style name="img_Style">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:contentDescription">@string/app_name</item>
+		
+    </style>
+	 <style name="find_item_edit_ima">
       
         <item name="android:layout_alignParentRight">true</item>
         <item name="android:layout_alignParentTop">true</item>
@@ -48,5 +69,9 @@
         <item name="android:layout_marginRight">5dp</item>
         <item name="android:layout_toLeftOf">@+id/imageView1</item>
     </style>
-
+    
+    
 </resources>
+    
+ 
+ 

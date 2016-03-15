@@ -2,4 +2,5 @@
 <resources>
     <color name="tv_s">#44A6D5</color>
     <color name="tv">#323232</color>
+    <color name="black2">#ffeeeeee</color>
 </resources>

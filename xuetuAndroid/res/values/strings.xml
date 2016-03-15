@@ -19,11 +19,15 @@
     <string name="touming">#ffffffff</string>
     <string name="white">#ffffff</string>
     <string name="answer">回答</string>
+ 
+    <string name="title_activity_login">LoginActivity</string>
+ 
     <string name="startTime">开始时间</string>
     <string name="endTime">结束时间</string>
     <string name="jihua_info">计划描述</string>
     <string name="title_activity_find_task_item">FindTaskItemActivity</string>
     <string name="delete">删除</string>
     <string name="zhixingmosi">执行模式</string>
+ 
 
 </resources>

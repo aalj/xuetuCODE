@@ -64,7 +64,7 @@ public class AddStudyTime extends HttpServlet {
 		
 		TimeService service  = new TimeService();
 		service.timeAdd(studytime);
-		
+
 	}
 
 	/**

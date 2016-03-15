@@ -15,6 +15,7 @@ package com.xuetu.fragment;
 
 import com.xuetu.R;
 import com.xuetu.ui.CourseActivity;
+import com.xuetu.ui.LoginActivity;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -25,6 +26,7 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 /**
@@ -37,22 +39,74 @@ import android.widget.TextView;
  * 
  * @see
  */
-public class PersonalFrag extends Fragment implements OnClickListener {
-	Button button_onclick;
+public class PersonalFrag extends Fragment implements OnClickListener{
+	RelativeLayout view_user;
+	TextView txt_pay;
+	TextView txt_youhuijuan;
+	TextView txt_myquestion;
+	TextView txt_mylike;
+	TextView txt_course;
+	TextView txt_paihangbang;
 
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 		View view = inflater.inflate(R.layout.personal_frag, null);
-		button_onclick = (Button) view.findViewById(R.id.button_onclick);
-		button_onclick.setOnClickListener(this);
+		view_user = (RelativeLayout) view.findViewById(R.id.view_user);
+		txt_pay = (TextView) view.findViewById(R.id.txt_pay);
+		txt_youhuijuan = (TextView) view.findViewById(R.id.txt_youhuijuan);
+		txt_myquestion = (TextView) view.findViewById(R.id.txt_myquestion);
+		txt_mylike = (TextView) view.findViewById(R.id.txt_mylike);
+		txt_course = (TextView) view.findViewById(R.id.txt_course);
+		txt_paihangbang = (TextView) view.findViewById(R.id.txt_paihangbang);
+		view_user.setOnClickListener(this);
+		txt_pay.setOnClickListener(this);
+		txt_youhuijuan.setOnClickListener(this);
+		txt_myquestion.setOnClickListener(this);
+		txt_mylike.setOnClickListener(this);
+		txt_course.setOnClickListener(this);
+		txt_paihangbang.setOnClickListener(this);
+		
 		return view;
 	}
 
 	@Override
 	public void onClick(View v) {
-		Intent intent = new Intent();
-		intent.setClass(getActivity(), CourseActivity.class);
-		getActivity().startActivity(intent);
+		switch (v.getId()) {
+		case R.id.view_user:
+			Intent intent = new Intent();
+			intent.setClass(getActivity(), LoginActivity.class);
+			getActivity().startActivity(intent);
+			break;
+		case R.id.txt_pay:
+
+			break;
+
+		case R.id.txt_youhuijuan:
+
+			break;
+
+		case R.id.txt_myquestion:
+
+			break;
+
+		case R.id.txt_mylike:
+
+			break;
+
+		case R.id.txt_course:
+			Intent intent2 = new Intent();
+			intent2.setClass(getActivity(), CourseActivity.class);
+			getActivity().startActivity(intent2);
+
+			break;
+
+		case R.id.txt_paihangbang:
+
+			break;
+		default:
+			break;
+		}
+
 	}
 
 }
