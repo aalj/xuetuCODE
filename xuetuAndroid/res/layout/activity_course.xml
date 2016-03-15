@@ -6,6 +6,13 @@
     android:background="@drawable/bg"
     tools:context="${relativePackage}.${activityClass}" >
 
+<!--     <com.xuetu.view.TitleBar -->
+<!--         android:id="@+id/title" -->
+<!--         android:layout_width="fill_parent" -->
+<!--         android:layout_height="wrap_content" -->
+<!--         title:titleBarTitle="我的课程表" > -->
+<!--     </com.xuetu.view.TitleBar> -->
+
     <LinearLayout
         android:id="@+id/weekend"
         android:layout_width="match_parent"

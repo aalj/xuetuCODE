@@ -37,7 +37,7 @@ public class PerCerter extends Activity {
 		
 		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.percerter_activity);
+		setContentView(R.layout.fragment_profile);
 		
 	}
 

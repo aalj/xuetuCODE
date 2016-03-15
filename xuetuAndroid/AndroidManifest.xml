@@ -7,10 +7,11 @@
     <uses-sdk
         android:minSdkVersion="14"
         android:targetSdkVersion="22" />
-    <uses-permission android:name="android.permission.INTERNET"/>
+
+    <uses-permission android:name="android.permission.INTERNET" />
 
     <application
-        android:name="com.xuetu.ui.XueTuApplication"
+        android:name=".ui.XueTuApplication"
         android:allowBackup="true"
         android:icon="@drawable/ic_launcher"
         android:label="@string/app_name"
@@ -35,12 +36,16 @@
             android:label="@string/title_activity_timer" >
         </activity>
         <activity
-            android:name="com.xuetu.ui.FindTaskListActivity"
+            android:name=".ui.FindTaskListActivity"
             android:label="@string/title_activity_find_task_list" >
         </activity>
         <activity
             android:name=".ui.CourseActivity"
             android:label="课程表" >
+        </activity>
+        <activity
+            android:name="com.xuetu.ui.LoginActivity"
+            android:label="@string/title_activity_login" >
         </activity>
     </application>
 
