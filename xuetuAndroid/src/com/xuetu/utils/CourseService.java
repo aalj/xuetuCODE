@@ -1,7 +1,6 @@
 package com.xuetu.utils;
 
 import java.lang.reflect.Type;
-import java.util.ArrayList;
 import java.util.List;
 
 import com.google.gson.Gson;
@@ -13,14 +12,14 @@ import com.lidroid.xutils.http.ResponseInfo;
 import com.lidroid.xutils.http.callback.RequestCallBack;
 import com.lidroid.xutils.http.client.HttpRequest.HttpMethod;
 import com.xuetu.R;
+import com.xuetu.R.color;
 import com.xuetu.entity.MyClass;
 
 import android.app.Activity;
-import android.content.SharedPreferences;
-import android.content.SharedPreferences.Editor;
-import android.view.View;
-import android.view.View.OnClickListener;
+import android.content.Context;
+import android.graphics.Color;
 import android.widget.Button;
+import android.widget.Toast;
 
 /**
  * Course处理
@@ -28,19 +27,7 @@ import android.widget.Button;
  * @author Mystery
  * 
  */
-public class CourseService implements OnClickListener {
-	Activity context = null;
-	SharedPreferences preferences = null;
-	Editor edit = null;
-
-	public CourseService(Activity context, SharedPreferences preferences) {
-		this.context = context;
-		this.preferences=preferences;
-		edit = preferences.edit();
-	}
-
-
-	DBManager mgr;
+public class CourseService {
 	int[][] lessons = {
 			{ R.id.lesson11, R.id.lesson12, R.id.lesson13, R.id.lesson14, R.id.lesson15, R.id.lesson16, R.id.lesson17 },
 			{ R.id.lesson21, R.id.lesson22, R.id.lesson23, R.id.lesson24, R.id.lesson25, R.id.lesson26, R.id.lesson27 },
@@ -57,11 +44,11 @@ public class CourseService implements OnClickListener {
 	private static volatile CourseService courseService;
 
 	public void getCourse() {
-		// 初始化DBManager
-		mgr = new DBManager(context);
+		
+
 		// http://localhost:8080/xuetuWeb/CourseAndroid
 		HttpUtils httpUtils = new HttpUtils();
-		String url = "http://192.168.1.106:8080/xuetuWeb/CourseAndroid";
+		String url = "http://10.201.1.5:8080/xuetuWeb/CourseAndroid";
 		RequestParams params = new RequestParams();
 		params.addBodyParameter("stuid", "1");
 		httpUtils.send(HttpMethod.POST, url, params, new RequestCallBack<String>() {
@@ -73,36 +60,20 @@ public class CourseService implements OnClickListener {
 			@Override
 			public void onSuccess(ResponseInfo<String> arg0) {
 				System.out.println(arg0.result);
-				
-			//得到值  Gson解析list集合
 				Type type = new TypeToken<List<MyClass>>() {
 				}.getType();
 				List<MyClass> myclasses = gson.fromJson(arg0.result, type);
-				//sharedpreference的键值对立flag
-				boolean falgs = preferences.getBoolean("saveDB", false);
-				
-				
-				
-				if (!falgs) {
-					edit.putBoolean("saveDB", true);
-					mgr.add(myclasses);
-					edit.commit();
-				}
-				
-				
-				
-				
+				System.out.println(myclasses);
 				fillCourse(myclasses);
+				System.out.println("标记" + myclasses);
 
 			}
 		});
 
 	}
 
-	List<Button> buttons = new ArrayList<Button>();
-
 	// 处理Course对象
-	public void fillCourse(List<MyClass> myclasses) {
+	private void fillCourse(List<MyClass> myclasses) {
 		for (int i = 0; i < myclasses.size(); i++) {
 			myclass = myclasses.get(i);
 			int clsWeek = myclass.getClsWeek();
@@ -112,23 +83,13 @@ public class CourseService implements OnClickListener {
 			int bgRes = bg[CommonUtil.getRandom(bg.length - 1)];// 随机获取背景色
 			lesson.setBackgroundResource(bgRes);// 设置背景
 			lesson.setText(myclass.getClasName() + "@" + myclass.getClsRoom());// 设置文本为课程名+“@”+教室
-
-			buttons.add(lesson);
-		}
-	 
-	}
-
-	public void onclickthings() {
-		for (int i = 0; i < buttons.size(); i++) {
-			buttons.get(i).setOnClickListener(this);
-			// buttons.get(i).setTag();
 		}
 	}
 
-	@Override
-	public void onClick(View v) {
-		
+	Activity context = null;
 
+	public CourseService(Activity context) {
+		this.context = context;
 	}
 
 }
