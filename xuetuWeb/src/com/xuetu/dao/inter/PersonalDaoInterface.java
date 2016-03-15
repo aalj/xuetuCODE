@@ -186,4 +186,14 @@ public interface PersonalDaoInterface {
 	 */
 	public boolean savePoints(PointNum pointNum);
 
+	/**
+	 * 
+	 * 通过手机和密码得到学生对象的一系列属性
+	 * 
+	 * @param telephone
+	 * @param password
+	 * @return
+	 */
+	public Student login(String telephone, String password);
+
 }
