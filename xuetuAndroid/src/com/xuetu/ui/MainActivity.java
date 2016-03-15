@@ -9,6 +9,7 @@ import com.xuetu.fragment.FindFrag;
 import com.xuetu.fragment.HomePageFrag;
 import com.xuetu.fragment.PersonalFrag;
 import com.xuetu.fragment.QuestionFrag;
+import com.xuetu.view.TitleBar;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -37,7 +38,7 @@ import android.widget.TextView;
 public class MainActivity extends FragmentActivity implements OnPageChangeListener {
 	private FragmentManager manager = null;
 	private FragmentTransaction beginTransaction = null;
-	private TextView title ;
+	private TitleBar title ;
 	@ViewInject(R.id.coupon_fra)
 	FrameLayout coupon_fra ;
 	@ViewInject(R.id.find_fra)
@@ -101,7 +102,7 @@ public class MainActivity extends FragmentActivity implements OnPageChangeListen
 		fragments = new Fragment[5];
 		fragmeLayout = new FrameLayout[5];
 		textView = new TextView[5]; 
-		title = (TextView) findViewById(R.id.main_title);
+		title = (TitleBar) findViewById(R.id.main_title);
 		
 		manager = getSupportFragmentManager();
 		beginTransaction = manager.beginTransaction();
@@ -139,7 +140,7 @@ public class MainActivity extends FragmentActivity implements OnPageChangeListen
 		textView[2].setTextColor(0xff44A6D5);
 		beginTransaction = null;
 
-		title.setText("首页");
+		title.setTitle("首页");
 		
 		viewPage.setAdapter(new FragmentViewPageAdapter(getSupportFragmentManager(), fragments));
 		viewPage.addOnPageChangeListener(this);
@@ -227,7 +228,7 @@ public class MainActivity extends FragmentActivity implements OnPageChangeListen
 		trx.hide(fragments[showFragment]);
 		fragmeLayout[arg0].setSelected(true);
 		textView[arg0].setTextColor(0xff44A6D5);
-		title.setText(titlename[arg0]);
+		title.setTitle(titlename[arg0]);
 		if (!fragments[arg0].isAdded()) {
 			trx.add(R.id.frag_page, fragments[arg0]);
 		}
