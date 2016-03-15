@@ -1,5 +1,7 @@
 package com.xuetu.test;
 
+import java.sql.Date;
+
 import org.junit.Test;
 
 import com.xuetu.dao.QuestionIml;
@@ -36,5 +38,14 @@ public class LinTest {
 	@Test
 	public void getStudentByStuId(){
 		System.out.println(Qservice.getStudentByStuId(1, 1).getStuEmail());
+	}
+	@Test
+	public void createQuestion(){
+		System.out.println(Qservice.createQuestion(2, "求极限怎么求", new Date(System.currentTimeMillis()), 10, 2, 1));
+	}
+	@Test
+	public void submitQuestion(){
+		Qservice.submitQuestion(Qservice.createQuestion(2, "求极限怎么求", new Date(System.currentTimeMillis()), 10, 2, 1));
+		System.out.println("OK");
 	}
 }

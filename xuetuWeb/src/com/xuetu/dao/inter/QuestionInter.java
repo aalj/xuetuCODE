@@ -13,6 +13,7 @@
 
 package com.xuetu.dao.inter;
 
+import java.sql.Date;
 import java.util.List;
 
 import com.xuetu.entity.Answer;
@@ -122,5 +123,29 @@ public interface QuestionInter {
 	 * @since  CodingExample　Ver 1.1
 	 */
 	public Subject getSubjectBySubId(int subId);
+	/**
+	 * 
+	 * queryLimitQuestion:(根据int stuId,String quesText,Date quesTime,int acpoNum,int subId生成问题对象)<br/>
+	 *
+	 * @param  @param page
+	 * @param  @param num
+	 * @param  @return    设定文件
+	 * @return void    DOM对象
+	 * @throws 
+	 * @since  CodingExample　Ver 1.1
+	 */
+	public Question createQuestion(int stuId,String quesText,Date quesTime,int acpoNum,int subId,int schId);
+	/**
+	 * 
+	 * queryLimitQuestion:(发表问题)<br/>
+	 *
+	 * @param  @param page
+	 * @param  @param num
+	 * @param  @return    设定文件
+	 * @return void    DOM对象
+	 * @throws 
+	 * @since  CodingExample　Ver 1.1
+	 */
+	public void submitQuestion(Question q);
 }
 

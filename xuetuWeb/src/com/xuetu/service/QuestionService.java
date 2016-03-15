@@ -3,6 +3,7 @@
  */
 package com.xuetu.service;
 
+import java.sql.Date;
 import java.util.List;
 
 import com.xuetu.dao.inter.QuestionInter;
@@ -86,5 +87,16 @@ public class QuestionService implements QuestionServiceInter {
 		return q.getStudentByStuId(stuId, sch_id);
 	}
 
+	@Override
+	public void submitQuestion(Question question) {
+		// TODO Auto-generated method stub
+		q.submitQuestion(question);
+	}
+
+	@Override
+	public Question createQuestion(int stuId, String quesText, Date quesTime, int acpoNum, int subId, int schId) {
+		// TODO Auto-generated method stub
+		return q.createQuestion(stuId, quesText, quesTime, acpoNum, subId, schId);
+	}
 	
 }

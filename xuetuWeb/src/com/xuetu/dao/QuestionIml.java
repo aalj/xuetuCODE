@@ -154,6 +154,55 @@ public class QuestionIml implements QuestionInter {
 			}
 		}
 	}
+
+	@Override
+	public void submitQuestion(Question q) {
+		// TODO Auto-generated method stub
+		// 1、连数据库
+				PreparedStatement prep = null;
+				Connection conn = null;
+				try {
+					conn = DBconnection.getConnection();
+					// 2、SQL语句,图品还没加
+					String sql = "insert into question"
+							+ "(stu_id,ques_text,ques_time,acpo_num,sub_id)" 
+					+ "values (?,?,?,?,?)";
+					// 3、获得preparedStatement对象
+					prep = conn.prepareStatement(sql);
+					// 4、设置？的值
+					prep.setInt(1,q.getStudent().getStuId() );
+					prep.setString(2,q.getQuesText());
+					prep.setDate(3, new java.sql.Date(q.getQuesDate().getTime()));
+					prep.setInt(4,q.getAcpo_num());
+					prep.setInt(5,q.getSubject().getSubId());
+					//prep.setDate(6, new java.sql.Date(student.getBirthday().getTime()));
+					// 5、执行sql语句
+					prep.executeUpdate();
+				} catch (Exception e) {
+					// 一定要处理异常,异常的信息要存在日志文件
+					// 转化为应用程序的异常，再抛出
+					throw new RuntimeException(e);
+				} finally {
+					// 6、关闭资源
+					try {
+						if (prep != null)
+							prep.close();
+						if (conn != null)
+							conn.close();
+					} catch (Exception e) {
+						throw new RuntimeException(e);
+					}
+				}
+	}
+
+	@Override
+	public Question createQuestion(int stuId, String quesText, Date quesTime, int acpoNum, int subId,int sch_id) {
+		// TODO Auto-generated method stub
+		Question q = new Question(getStudentByStuId(stuId, sch_id), quesText, quesTime, getSubjectBySubId(subId),acpoNum);
+		return q;
+	}
+
+	
 }
 
 

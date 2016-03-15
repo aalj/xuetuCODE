@@ -183,6 +183,23 @@ public class Question {
 	public void setQuesDate(Date quesDate) {
 		this.quesDate = quesDate;
 	}
+	public Question( Student student, String quesText, Date quesDate, Subject subject,int acpo_num) {
+		super();
+		this.student = student;
+		this.quesText = quesText;
+		this.quesDate = quesDate;
+		this.subject = subject;
+		this.acpo_num = acpo_num;
+	}
+	public Question( Student student, String quesText, String quesIma, Date quesDate, Subject subject,int acpo_num) {
+		super();
+		this.student = student;
+		this.quesText = quesText;
+		this.quesIma = quesIma;
+		this.quesDate = quesDate;
+		this.subject = subject;
+		this.acpo_num = acpo_num;
+	}
 	public Question(int quesID, Student student, String quesText, String quesIma, Date quesDate, Subject subject,int acpo_num) {
 		super();
 		this.quesID = quesID;

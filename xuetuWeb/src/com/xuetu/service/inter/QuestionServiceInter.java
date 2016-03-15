@@ -3,6 +3,7 @@
  */
 package com.xuetu.service.inter;
 
+import java.sql.Date;
 import java.util.List;
 
 import com.xuetu.entity.Answer;
@@ -43,4 +44,8 @@ public interface QuestionServiceInter {
 	public Subject getSubjectBySubId(int subId);
 	
 	public Student getStudentByStuId(int stuId,int sch_id);
+	
+	public void submitQuestion(Question q);
+
+	public Question createQuestion(int stuId,String quesText,Date quesTime,int acpoNum,int subId,int schId);
 }

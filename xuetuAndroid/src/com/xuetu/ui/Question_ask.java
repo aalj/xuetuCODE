@@ -29,7 +29,13 @@ import android.widget.Button;
 import android.widget.EditText;
 
 public class Question_ask extends Activity {
-
+	//声明变量
+	int stuId = 0;
+	String quesText = null;
+	Date quesTime = null;
+//	String quesImg = null;
+	int acpoNum = 0;
+	int subId = 0;
 	//声明页面控件
 	EditText et_question = null;
 	Button btn_ask = null;
@@ -41,31 +47,37 @@ public class Question_ask extends Activity {
 		setContentView(R.layout.question_ask);
 		
 		
-		//创建一个新question对象
-		Question question = new Question();
+		
+	}
+
+	public void submitQuestion(Question q){
 		//学生id
-		question.setStu_id(1);
+		stuId = 1;
 		//问题信息
-		question.setQues_text(et_question.getText().toString());
+		quesText = et_question.getText().toString();
 		//提问时间
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH-mm-ss");
 		Date date = new Date(sdf.format(System.currentTimeMillis()));
-		question.setQues_time(date);
+		quesTime = date;
 		//图片
-//		question.setQues_img(R.drawable.question);
+//		quesImg = ;
 		//积分
-		question.setAcpo_num(10);
+		acpoNum =10;
 		//学科
-		question.setSub_id(1);
+		subId = 1;
 		
 		Gson gson = new Gson();
 		HttpUtils hutils = new HttpUtils(10000);
 		String url = "http://10.40.5.15:8080/xuetuweb/SubmitQuestionServlet";
 		hutils.configCurrentHttpCacheExpiry(5000);
 		RequestParams params = new RequestParams();
-		String jsonStr = gson.toJson(question);
-		params.addBodyParameter("newQuestion",jsonStr); 
-		hutils.send(HttpMethod.POST, url,new RequestCallBack<String>(){
+		String jsonStr = gson.toJson(q);
+		params.addBodyParameter("stuId",String.valueOf(stuId));
+		params.addBodyParameter("quesText",quesText);
+		params.addBodyParameter("quesTime",quesTime.toString());
+		params.addBodyParameter("acpoNum",String.valueOf(acpoNum));
+		params.addBodyParameter("subId",String.valueOf(subId));
+		hutils.send(HttpMethod.POST, url,params,new RequestCallBack<String>(){
 
 			@Override
 			public void onFailure(HttpException arg0, String arg1) {
@@ -76,15 +88,10 @@ public class Question_ask extends Activity {
 			@Override
 			public void onSuccess(ResponseInfo<String> arg0) {
 				// 存入数据成功，应该是要跳转到列表页面
-				Gson gson = new GsonBuilder()  
-				  .setDateFormat("yyyy-MM-dd HH:mm:ss")  
-				  .create();
-				Question q = new Question();
-				Type type = new TypeToken<Question>(){}.getType();
-				q = gson.fromJson(arg0.result, type);
+				Log.i("hehe", "success");
+				
 			}} );
-	}
-
+}
 	public void ask(View v){
 		
 	}
