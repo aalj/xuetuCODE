@@ -19,8 +19,10 @@ import org.junit.Test;
 
 import com.xuetu.dao.CouponDao2;
 import com.xuetu.dao.FindIml;
+import com.xuetu.dao.LoginDao;
 import com.xuetu.dao.StoreNameDao2;
 import com.xuetu.entity.Coupon;
+import com.xuetu.entity.School;
 import com.xuetu.utils.GetHttp;
 
 /**
@@ -37,10 +39,15 @@ import com.xuetu.utils.GetHttp;
 
  */
 public class JunText {
-	@Test
+	
 	public void myTest(){
 		System.out.println(new FindIml().getSelfPlan(1));
 		
+	}
+	@Test
+	public void getSchoolById(){
+		School school = new LoginDao().getSchoolById(1);
+		System.out.println(school.getSchName());
 	}
 
 }

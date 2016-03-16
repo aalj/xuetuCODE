@@ -42,11 +42,8 @@ import android.widget.Toast;
  * 
  * 
  */
- 
-
 
 public class TimerActivity extends Activity {
-
 	
 	@ViewInject(R.id.tv_showtime)
 	TextView tv_showtime;
@@ -69,7 +66,7 @@ public class TimerActivity extends Activity {
 	//用来显示在TextView上面的时间,同时记录总的学习时间(秒)
 	int second=0;
 	//alltime 从服务器上获取学生对象这节课/学习计划的总的学习时间
-	int alltime = 2000;
+	int alltime = 20;
 	//获取这节课/学习计划的学习时间
 	int st_time = 0;
 	
@@ -87,7 +84,14 @@ public class TimerActivity extends Activity {
 		showTime=(TextView) findViewById(R.id.tv_showtime);
 //		runTime= (Button) findViewById(R.id.home_btn_up);
 		showss=(TextView) findViewById(R.id.tv_show_ss);
-		Thread th =  new Thread(new ClassCut());
+		
+		
+		//功能还没有完善,需要添加判断条件,从数据库获得课程表时间,与当前时间\课程进行判断,并且判断经纬度是否相同
+		Thread th =  new Thread(new ClassCut());//创建一个新线程,并且赋值给一个变量
+		th.start(); //运行这个线程执行>>>计时器
+		
+		
+		
 //		new TimeOnclisten();
 		
 //		findViewById(R.id.home_btn_up).setOnClickListener(new TimeOnclisten());
@@ -105,59 +109,74 @@ public class TimerActivity extends Activity {
         @Override
         public void run() {
             // TODO Auto-generated method stub
-            while(round<600)//整个倒计时执行的循环
-            {
-            	round++;
-            	System.out.println(round);
-            	second++;
-            	st_time++;
-                if(round==600){
-                	integral_double++;//每到600秒,积分倍数+1(初始值0)
-                mHandler.post(new Runnable() {//通过它在UI主线程中修改显示的剩余时间
-                    @Override
-                    public void run() {
-                        // TODO Auto-generated method stub
-                    	showTime.setText(secondFormat(st_time));//显示 00:00
-                    	showss.setText(ssFormat(st_time)); //显示00 秒
-                    	round=0;//初始时间赋值0;重新开始计时
-                        
-                        //////////想服务器发送数据的方法/////////////
-                    }
-                });
-                try {
-                    Thread.sleep(1000);//线程休眠一秒钟     这个就是倒计时的间隔时间
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
-                }else
-                {
-                	 mHandler.post(new Runnable() {//通过它在UI主线程中修改显示的剩余时间
-	                        @Override
-	                        public void run() {
-	                            // TODO Auto-generated method stub
-	                        	showTime.setText(secondFormat(st_time));
-	                        	showss.setText(ssFormat(st_time));//显示剩余时间
-	                        }
-	                    });
-	                    try {
-	                        Thread.sleep(1000);//线程休眠一秒钟     这个就是倒计时的间隔时间
-	                    } catch (InterruptedException e) {
-	                        e.printStackTrace();
+	        	while(alltime>0)//当循环达到10分钟的时候,执行该语句
+	            {
+	            	alltime--;//学习总时间 逐渐减少
+	        		round++;//10分钟循环变量
+	        		st_time++;//记录学生学习时间
+	                if(round==10){
+	                	integral_double++;//每到600秒,积分倍数+1(初始值0)
+	                	
+	                	
+	                	System.out.println("alltime>>>>>"+alltime);
+	                	System.out.println("round>>>>>"+round);
+	                	System.out.println("integral_double>>>>>"+integral_double);
+	                	System.out.println("st_time>>>>>"+st_time);
+	                	mHandler.post(new Runnable() {//通过它在UI主线程中修改显示的剩余时间
+	                    @Override
+	                    public void run() {
+	                        // TODO Auto-generated method stub
+	                    	showTime.setText(secondFormat(st_time));//显示 00:00
+	                    	showss.setText(ssFormat(st_time)); //显示00 秒
+	                    	round=0;//初始时间赋值0;重新开始计时
+	                        
+	                    	if(alltime==0){
+	   	                	 //下面是倒计时结束逻辑
+	   	                    mHandler.post(new Runnable() {
+	   	                        @Override
+	   	                        public void run() {
+	   	                            // TODO Auto-generated method stub
+	   	                        	showTime.setText("00:00");//计时器结束,把时分秒的值归零
+	   	                        	showss.setText("00");
+	   	                        	new SaveTimeAndIntegral().saveStudyTime(st_time, integral_double);
+	   	                            Toast.makeText(TimerActivity.this, "下课啦"+getIntegral(integral_double)+"积分到手咯!!", Toast.LENGTH_LONG).show();//提示倒计时完成
+//	   	                            System.out.println("alltime>>>>>"+alltime);
+//	   	                        	System.out.println("round>>>>>"+round);
+//	   	                        	System.out.println("integral_double>>>>>"+integral_double);
+//	   	                        	System.out.println("st_time>>>>>"+st_time);
+	   	                        }
+	   	                    });
+	   	                }
 	                    }
-                }
+	                });
+	                try {
+	                    Thread.sleep(1000);//线程休眠一秒钟     这个就是倒计时的间隔时间
+	                } catch (InterruptedException e) {
+	                    e.printStackTrace();
+	                }
+	                }else
+	                {
+	                	 mHandler.post(new Runnable() {//通过它在UI主线程中修改显示的剩余时间
+		                        @Override
+		                        public void run() {
+		                            // TODO Auto-generated method stub
+		                        	showTime.setText(secondFormat(st_time));
+		                        	showss.setText(ssFormat(st_time));//显示剩余时间
+		                        }
+		                    });
+		                    try {
+		                        Thread.sleep(1000);//线程休眠一秒钟     这个就是倒计时的间隔时间
+		                    } catch (InterruptedException e) {
+		                        e.printStackTrace();
+		                    }
+	                }
+	                
+	                
             }
-            //下面是倒计时结束逻辑
-            mHandler.post(new Runnable() {
-                @Override
-                public void run() {
-                    // TODO Auto-generated method stub
-                	showTime.setText("00:00");//计时器结束,把时分秒的值归零
-                	showss.setText("00");
-                	new SaveTimeAndIntegral().saveStudyTime(st_time, integral_double);
-                    Toast.makeText(TimerActivity.this, "倒计时完成", Toast.LENGTH_LONG).show();//提示倒计时完成
-                }
-            });
-            round = 0;//修改倒计时剩余时间变量为0秒
+           
+            alltime = 0;//修改倒计时剩余时间变量为0秒
+            integral_double=0;
+            st_time=0;
         }
     }
     
@@ -185,20 +204,21 @@ public class TimerActivity extends Activity {
     }
     
     
-    
     class SaveTimeAndIntegral {
     	
     	public void saveStudyTime(int st_time,int integral_double)
     	{
-    		String url = "http://10.40.5.15:8080/xuetuweb/AddStudyTime";
+    		String url ="http://114.215.95.64:3306/xuetuWeb?/AddStudyTime";
+    		
 //    		String integral="5";
     		HttpUtils httpUtils = new HttpUtils();
     		RequestParams requestParams = new RequestParams();
 //    		String time = ;
     		requestParams.addBodyParameter("st_time", st_time+"");
-    		requestParams.addBodyParameter("integral",getIntegral(integral_double));
+    		requestParams.addBodyParameter("integral",getIntegral(integral_double)+"");
     		requestParams.addBodyParameter("st_date", getTime());
     		requestParams.addBodyParameter("st_id", st_id+"");
+    		
     		httpUtils.send(HttpMethod.POST, url,new RequestCallBack<String>() {
     			
     			@Override
@@ -222,7 +242,7 @@ public class TimerActivity extends Activity {
      */
     public static String getTime()
     {
-    	String time = new SimpleDateFormat("yyyy-MM-dd", Locale.CHINESE) .format(Calendar.getInstance().getTime());
+    	String time = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.CHINESE) .format(Calendar.getInstance().getTime());
     	return time;
     }
     
@@ -231,10 +251,10 @@ public class TimerActivity extends Activity {
      * 
      * @return String 
      */
-    public static String getIntegral(int integral_double)
+    public static int getIntegral(int integral_double)
     {
     	int itg=5 * integral_double;
-    	return String.valueOf(getIntegral(itg));
+    	return itg ;
     }
     
 

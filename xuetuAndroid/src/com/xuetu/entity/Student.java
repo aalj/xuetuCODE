@@ -13,11 +13,15 @@
 
 package com.xuetu.entity;
 
+ 
+import java.io.Serializable;
+ 
 import java.sql.Date;
+ 
 
 /**
  * ClassName:Student <br/>
- * Function: 学生实体 
+ * Function: 学生实体
  *
  * @author Stone
  * @version
@@ -27,7 +31,7 @@ import java.sql.Date;
  * @see
  * 
  */
-public class Student {
+public class Student implements Serializable {
 
 	private int stuId = 0;
 
