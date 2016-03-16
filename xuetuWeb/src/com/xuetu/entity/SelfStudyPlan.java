@@ -266,6 +266,17 @@ public class SelfStudyPlan {
 		this.student = student;
 		this.planDate = planDate;
 	}
+	public SelfStudyPlan(Date startTime, Date endTime, String planText, int planReming, Pattern pattern,
+			Student student, Date planDate) {
+		super();
+		this.startTime = startTime;
+		this.endTime = endTime;
+		this.planText = planText;
+		this.planReming = planReming;
+		this.pattern = pattern;
+		this.student = student;
+		this.planDate = planDate;
+	}
 
 }
 

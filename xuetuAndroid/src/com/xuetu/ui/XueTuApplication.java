@@ -17,7 +17,8 @@ public class XueTuApplication extends Application {
 
 	@Override
 	public void onCreate() {
-		// TODO Auto-generated method stub
+		
 		super.onCreate();
+		student=new Student();
 	}
 }

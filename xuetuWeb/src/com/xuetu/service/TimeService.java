@@ -33,7 +33,7 @@ public class TimeService implements HomeServiceInter{
 
 	@Override
 	public void addTime(StudyTime stu_time) {
-		// TODO Auto-generated method stub
+		timedao.addTime(stu_time);
 		
 	}	
 		
