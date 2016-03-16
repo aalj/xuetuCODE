@@ -1,6 +1,7 @@
 package com.xuetu.test;
 
 import java.sql.Date;
+import java.text.SimpleDateFormat;
 
 import org.junit.Test;
 
@@ -27,6 +28,7 @@ public class LinTest {
 	public void getSchoolBySchId(){
 		System.out.println(Qservice.getSchoolBySch_id(1).getSchLatitude());
 		//System.out.println(new QuestionIml().getSchoolBySch_id(1).getSchLatitude());
+		
 	}
 	
 	@Test
@@ -46,5 +48,13 @@ public class LinTest {
 	public void submitQuestion(){
 		Qservice.submitQuestion(Qservice.createQuestion(2, "求极限怎么求", new Date(System.currentTimeMillis()), 10, 2, 1));
 		System.out.println("OK");
+	}
+	@Test
+	public void getSchIdBystuId(){
+		System.out.println(new QuestionIml().getSchIdByStuId(1));
+	}
+	@Test
+	public void getPageQuestion(){
+		System.out.println(Qservice.queryLimitQuestion(1, 4));
 	}
 }

@@ -57,7 +57,7 @@ public class QuestionService implements QuestionServiceInter {
 	@Override
 	public List<Question> queryLimitQuestion(int page, int num) {
 		// TODO Auto-generated method stub
-		return null;
+		return q.queryLimitQuestion(page, num);
 	}
 
 	/* (non-Javadoc)
@@ -97,6 +97,12 @@ public class QuestionService implements QuestionServiceInter {
 	public Question createQuestion(int stuId, String quesText, Date quesTime, int acpoNum, int subId, int schId) {
 		// TODO Auto-generated method stub
 		return q.createQuestion(stuId, quesText, quesTime, acpoNum, subId, schId);
+	}
+
+	@Override
+	public int getSchIdByStuId(int StuId) {
+		// TODO Auto-generated method stub
+		return q.getSchIdByStuId(StuId);
 	}
 	
 }

@@ -44,12 +44,16 @@
             android:label="课程表" >
         </activity>
         <activity
-            android:name="com.xuetu.ui.LoginActivity"
+            android:name=".ui.LoginActivity"
             android:label="@string/title_activity_login" >
         </activity>
         <activity
-            android:name="com.xuetu.ui.FindTaskItemActivity"
+            android:name=".ui.FindTaskItemActivity"
             android:label="@string/title_activity_find_task_item" >
+        </activity>
+        <activity
+            android:name="com.xuetu.ui.ForgetPwdActivity"
+            android:label="@string/title_activity_forget_pwd" >
         </activity>
     </application>
 

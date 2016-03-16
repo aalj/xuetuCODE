@@ -1,3 +1,4 @@
+
 package com.xuetu.test;
 
 import java.text.ParseException;
@@ -56,7 +57,7 @@ public class KangTest {
 //	TimeService timeservice = new TimeService();
 //	FindServicesInter findService = new FindService(new FindIml());
 	HomeServiceInter homeservice = new TimeService(new TimeDao());
-//	StudyTime st = new StudyTime();
+	StudyTime st = new StudyTime();;
 	
 	
 	
@@ -72,22 +73,23 @@ public class KangTest {
 //		SimpleDateFormat sdf = 
 //				new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 //		st.setDate(date);
-//		SimpleDateFormat sdf = 
-//				new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+		SimpleDateFormat sdf = 
+				new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 		
-		Date date=new Date(System.currentTimeMillis()) ;
-//		try {
-////			date = sdf.parse("1992-02-02 00:20:00");
-//		} catch (ParseException e) {
-//			// TODO Auto-generated catch block
-//			e.printStackTrace();
-//		}
+		Date date=null;
+		try {
+			date = sdf.parse("1992-02-02 00:00:00");
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		long l = 3000;
 		
 		StudyTime st = new StudyTime( date, 55, l, null);
 		System.out.println("dsd");
-	new TimeDao().addTime(st);
+	homeservice.addTime(st);
 	}
 	
 	
 }
+

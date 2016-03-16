@@ -13,9 +13,13 @@
 
 package com.xuetu.ui;
 
+import java.io.Serializable;
+
 import com.xuetu.R;
+import com.xuetu.entity.Student;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 
 /**
@@ -38,7 +42,9 @@ public class PerCerter extends Activity {
 		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.fragment_profile);
-		
+		//登录成功传值出来
+		Intent intent =this.getIntent();
+		Student student = (Student) intent.getSerializableExtra("KEY");
 	}
 
 }
