@@ -11,8 +11,10 @@ import android.content.Context;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 public class MyQuestionListBaseAdapter extends BaseAdapter {
@@ -54,6 +56,9 @@ public class MyQuestionListBaseAdapter extends BaseAdapter {
 			vh.tv_subject = (TextView) convertView.findViewById(R.id.tv_subject);
 			vh.tv_time = (TextView) convertView.findViewById(R.id.tv_time);
 			vh.tv_ques_text = (TextView) convertView.findViewById(R.id.tv_ques_text);
+			vh.rl_top = (RelativeLayout) convertView.findViewById(R.id.rl_top);
+			vh.rl_left = (RelativeLayout) convertView.findViewById(R.id.rl_left);
+			vh.rl_right = (RelativeLayout) convertView.findViewById(R.id.rl_right);
 //			vh.iv_ques_img = (ImageView) convertView.findViewById(R.id.iv_ques_img);
 			convertView.setTag(vh);
 		}else{
@@ -69,12 +74,34 @@ public class MyQuestionListBaseAdapter extends BaseAdapter {
 		Log.i("hehe", date+"");
 		vh.tv_time.setText(date);
 //		vh.iv_ques_img.setImageResource(list.get(position).getQues_img());
+		vh.rl_top.setOnClickListener(new MyClickListener());
+		vh.rl_left.setOnClickListener(new MyClickListener());
+		vh.rl_right.setOnClickListener(new MyClickListener());
 		return convertView;
+	}
+	public class MyClickListener implements OnClickListener{
+
+		@Override
+		public void onClick(View v) {
+			// TODO Auto-generated method stub
+			switch(v.getId()){
+			case R.id.rl_top:
+				break;
+			case R.id.rl_left:
+				break;
+			case R.id.rl_right:
+				break;
+			}
+		}
+		
 	}
 	public static class viewHolder{
 		TextView tv_subject;
 		TextView tv_time;
 		TextView tv_ques_text;
+		RelativeLayout rl_top;
+		RelativeLayout rl_left;
+		RelativeLayout rl_right;
 //		ImageView iv_ques_img;
 		
 	}

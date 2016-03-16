@@ -135,6 +135,19 @@ public interface QuesTionDao {
 	 * @since  CodingExample　Ver 1.1
 	 */
 	public void submitQuestion(Question q);
+	/**
+	 * 
+	 * queryLimitQuestion:(发表问题)<br/>
+	 *
+	 * @param  @param page
+	 * @param  @param num
+	 * @param  @return    设定文件
+	 * @return void    DOM对象
+	 * @throws 
+	 * @since  CodingExample　Ver 1.1
+	 */
+	public int getSchIdByStuId(int StuId);
+	
 	
 }
 
