@@ -82,6 +82,7 @@ public interface FindServicesInter {
 	
 	
 	public boolean saveSelfStudyPlan(SelfStudyPlan plan);
+	public boolean addSelfStudyPlan(SelfStudyPlan plan);
 	
 
 }

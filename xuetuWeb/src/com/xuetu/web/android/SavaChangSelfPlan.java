@@ -37,7 +37,7 @@ public class SavaChangSelfPlan extends HttpServlet {
 			throws ServletException, IOException {
 		response.setContentType("text/html;charset=utf-8");
 		String plan_id = URLDecoder.decode(request.getParameter("self"), "UTF-8");
-
+		System.out.println(plan_id);
 		Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create();
 
 		Type type = new TypeToken<SelfStudyPlan>() {

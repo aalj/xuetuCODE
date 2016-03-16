@@ -13,17 +13,15 @@
 
 package com.xuetu.test;
 
-import java.util.List;
+import java.util.Date;
 
 import org.junit.Test;
 
-import com.xuetu.dao.CouponDao2;
+import com.mysql.fabric.xmlrpc.base.Data;
 import com.xuetu.dao.FindIml;
-import com.xuetu.dao.LoginDao;
-import com.xuetu.dao.StoreNameDao2;
-import com.xuetu.entity.Coupon;
-import com.xuetu.entity.School;
-import com.xuetu.utils.GetHttp;
+import com.xuetu.entity.Pattern;
+import com.xuetu.entity.SelfStudyPlan;
+import com.xuetu.entity.Student;
 
 /**
  * ClassName:JunText<br/>
@@ -46,8 +44,10 @@ public class JunText {
 	}
 	@Test
 	public void getSchoolById(){
-		School school = new LoginDao().getSchoolById(1);
-		System.out.println(school.getSchName());
+		Date date = new Date(System.currentTimeMillis());
+		new FindIml().insertSelfStudyPlan
+		(new SelfStudyPlan(date, 
+				date, "dsknfl", 1, new Pattern(1,""),new Student(), date));
 	}
 
 }

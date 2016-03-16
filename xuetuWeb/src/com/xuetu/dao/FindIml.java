@@ -197,5 +197,34 @@ public class FindIml implements FindInter {
 		}
 
 	}
+	@Override
+	public boolean insertSelfStudyPlan(SelfStudyPlan plan) {
+		connection = DBconnection.getConnection();
+		PreparedStatement prepareStatement = null;
+		try {
+			// update 表名 set name=?,password=?.... where id=?
+			String sql = "Insert into selfstudyplan  (start_time,end_time,plan_text,plan_remind,pattern_id,stu_id,plan_date)  values(?,?,?,?,?,?,?);";
+			prepareStatement = connection.prepareStatement(sql);
+			
+			prepareStatement.setTimestamp(1, new Timestamp(plan.getStartTime().getTime()));
+			prepareStatement.setTimestamp(2, new Timestamp(plan.getEndTime().getTime()));
+			prepareStatement.setString(3, plan.getPlanText());
+			prepareStatement.setInt(4, plan.getPlanReming());
+			prepareStatement.setInt(5, plan.getPattern().getPatternID());
+			//TODO 暂时存储的是固定的学生
+			prepareStatement.setInt(6, 1);
+			
+			prepareStatement.setTimestamp(7, new Timestamp(plan.getPlanDate().getTime()));
+			prepareStatement.executeUpdate();
+			return true;
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			return false;
+		}finally {
+			CloseDb.close(connection, prepareStatement);
+		}
+		
+	}
 
 }

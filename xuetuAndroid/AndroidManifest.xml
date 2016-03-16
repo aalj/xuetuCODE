@@ -52,8 +52,12 @@
             android:label="@string/title_activity_find_task_item" >
         </activity>
         <activity
-            android:name="com.xuetu.ui.ForgetPwdActivity"
+            android:name=".ui.ForgetPwdActivity"
             android:label="@string/title_activity_forget_pwd" >
+        </activity>
+        <activity
+            android:name="com.xuetu.ui.AddSelfPlanActivity"
+            android:label="@string/title_activity_add_self_plan" >
         </activity>
     </application>
 

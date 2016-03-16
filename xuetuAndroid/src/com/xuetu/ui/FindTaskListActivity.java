@@ -1,9 +1,9 @@
 package com.xuetu.ui;
 
+import java.io.UnsupportedEncodingException;
 import java.lang.reflect.Type;
-import java.sql.Date;
-import java.sql.Time;
-import java.text.SimpleDateFormat;
+import java.net.URLEncoder;
+import java.util.ArrayList;
 import java.util.List;
 
 import com.google.gson.Gson;
@@ -30,6 +30,7 @@ import com.xuetu.view.TitleBar;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -57,81 +58,110 @@ import android.widget.Toast;
 public class FindTaskListActivity extends Activity implements OnItemClickListener, OnClickListener {
 	@ViewInject(R.id.activity_find_task_list)
 	ListView activityFindTaskList;
-	//从网上下来的数据源
+	// 从网上下来的数据源
 	List<SelfStudyPlan> users = null;
-	public static final int SELF_CODE = 100; 
-	
+	public static final int SELF_CODE = 100;
+	private static final int ADD_SELF = 101;
+	SharedPreferences sp = null;
 	DBFindOpenHelper dbFindOpenHelper = null;
 	DBFindManager dbFindManager = null;
 	@ViewInject(R.id.title_my)
 	TitleBar titleBar = null;
+	// 用于保存是点击那个对象，然后进行修改
+	int index = 0;
+	// listView的适配器
+	MyBasesadapter<SelfStudyPlan> adapter = null;
+	// 求情
+	HttpUtils httpUtils = null;
+	// 用于保存修改的数据
+	List<Integer> list = new ArrayList<Integer>();
+	List<Pattern> listpattern;
+	Gson gson = null;
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_find_task_list);
 		ViewUtils.inject(this);
 		dbFindManager = new DBFindManager(this);
-		 viewInit();
+		viewInit();
+		mySengHttp();
 		getData();
-//		mySengHttp();
-		
+
 		activityFindTaskList.setOnItemClickListener(this);
 
 	}
 
+	// 页面初始化方法
 	private void viewInit() {
 
 		titleBar.setRightLayoutClickListener(this);
 		titleBar.setLeftLayoutClickListener(this);
 		
+		
+
 	}
 
 	private void getData() {
-		HttpUtils httpUtils = new HttpUtils();
-		String url = GetHttp.getHttpLJ() + "GetSelfStudyPlan";
-		Log.i("TAG", url);
-		RequestParams pram = new RequestParams();
-		// TODO 无法获得学生对象的数据
-		pram.addBodyParameter("StuID", "1");
-		httpUtils.send(HttpMethod.POST, url, pram, new RequestCallBack<String>() {
+		System.out.println("huode shuju ");
+			httpUtils = new HttpUtils();
+			String url = GetHttp.getHttpLJ() + "GetSelfStudyPlan";
+			Log.i("TAG", url);
+			RequestParams pram = new RequestParams();
+			// TODO 无法获得学生对象的数据
 
-			@Override
-			public void onFailure(HttpException arg0, String arg1) {
-				Log.i("TAG", arg1);
+			// String StuId =
+			// ((XueTuApplication)getApplication()).getStudent().getStuId()+"";
 
-			}
+			pram.addBodyParameter("StuID", "1");
+			httpUtils.send(HttpMethod.POST, url, pram, new RequestCallBack<String>() {
 
-			@Override
-			public void onSuccess(ResponseInfo<String> arg0) {
-				Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create();
+				@Override
+				public void onFailure(HttpException arg0, String arg1) {
+					Log.i("TAG", arg1);
 
-				Type type = new TypeToken<List<SelfStudyPlan>>() {
-				}.getType();
-				 users = gson.fromJson(arg0.result, type);
-//				 dbFindManager.addSelf(users);
-				activityFindTaskList.setAdapter(
-						new MyBasesadapter<SelfStudyPlan>(FindTaskListActivity.this, users, R.layout.find_task_item) {
+				}
 
-					@Override
-					public void convert(ViewHodle viewHolder, SelfStudyPlan item) {
-						viewHolder.setText(R.id.tilte, item.getPlanText());
-						viewHolder.setText(R.id.info, DataToTime.dataToT(item.getStartTime()));
-						if (item.getPlanReming() == 1) {
-							viewHolder.setClick(R.id.myswitch, true);
-						} else {
-							viewHolder.setClick(R.id.myswitch, false);
+				@Override
+				public void onSuccess(ResponseInfo<String> arg0) {
+					gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create();
+
+					Type type = new TypeToken<List<SelfStudyPlan>>() {
+					}.getType();
+					users = gson.fromJson(arg0.result, type);
+
+//					dbFindManager.addSelf(users);
+//					sp.edit().putBoolean("SELELIST", true).commit();
+					adapter = new MyBasesadapter<SelfStudyPlan>(FindTaskListActivity.this, users,
+							R.layout.find_task_item) {
+
+						@Override
+						public void convert(ViewHodle viewHolder, SelfStudyPlan item) {
+							viewHolder.setText(R.id.tilte, item.getPlanText());
+							viewHolder.setText(R.id.info, DataToTime.dataToT(item.getStartTime()));
+							if (item.getPlanReming() == 1) {
+								viewHolder.setClick(R.id.myswitch, true);
+							} else {
+								viewHolder.setClick(R.id.myswitch, false);
+							}
+
+							long timete = (item.getEndTime().getTime() - item.getStartTime().getTime());
+							String dataToHS = DataToTime.dataToHS(timete);
+							Log.i("TAG", dataToHS);
+
+							viewHolder.setText(R.id.tv_time, dataToHS);
+
 						}
 
-						long timete = (item.getEndTime().getTime() - item.getStartTime().getTime());
-						String dataToHS = DataToTime.dataToHS(timete);
-						Log.i("TAG", dataToHS);
-
-						viewHolder.setText(R.id.tv_time, dataToHS);
-
-					}
-				});
-			}
-		});
+					};
+					activityFindTaskList.setAdapter(adapter);
+				}
+			});
+			
+			
+			
+			
+			
 	}
 
 	@Override
@@ -139,45 +169,145 @@ public class FindTaskListActivity extends Activity implements OnItemClickListene
 		// 使用万能适配器写ListView 数据
 		Intent intent = new Intent(this, FindTaskItemActivity.class);
 		intent.putExtra("plans", users.get(position));
-		
-		
-		startActivityForResult(intent, SELF_CODE);;
+		index = position;
+
+		startActivityForResult(intent, SELF_CODE);
 
 	}
-	
+
+	// 又返回值得页面跳转
 	@Override
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-		if(resultCode==1010&&requestCode==SELF_CODE){
+		if (resultCode == 1010 && requestCode == SELF_CODE) {
 			SelfStudyPlan selfStudyPlan = (SelfStudyPlan) data.getSerializableExtra("name1");
+			// 得到修改过后的对象-----获取是那个对象的修改
+			users.remove(index);
+			users.add(index, selfStudyPlan);
+			adapter.notifyDataSetChanged();
+			saveChangSelf(selfStudyPlan);
 			Toast.makeText(getApplicationContext(), selfStudyPlan.getPlanText(), 0).show();
 		}
+		
+		if(resultCode==1011 && requestCode==ADD_SELF){
+			Toast.makeText(getApplicationContext(), "qingjian sekf", 0).show();
+			SelfStudyPlan selfStudyPlan = (SelfStudyPlan) data.getSerializableExtra("selfa");
+			users.add(selfStudyPlan);
+			addChangSelf(selfStudyPlan);
+			adapter.notifyDataSetChanged();
+			
+		}
+		
 		super.onActivityResult(requestCode, resultCode, data);
 	}
 
-	
-	//标题栏的点击事件
+	private void addChangSelf(SelfStudyPlan selfStudyPlan) {
+		if (httpUtils != null) {
+			String url = GetHttp.getHttpLJ() + "InsertSelfServlrt";
+			RequestParams patram = new RequestParams();
+			String json = gson.toJson(selfStudyPlan);
+			try {
+				patram.addBodyParameter("self", URLEncoder.encode(json, "utf-8"));
+			} catch (UnsupportedEncodingException e) {
+				e.printStackTrace();
+			}
+			httpUtils.send(HttpMethod.POST, url, patram, new RequestCallBack<String>() {
+
+				@Override
+				public void onFailure(HttpException arg0, String arg1) {
+
+				}
+
+				@Override
+				public void onSuccess(ResponseInfo<String> arg0) {
+					Toast.makeText(getApplicationContext(), arg0.result, 0).show();
+
+				}
+			});
+		}
+		
+	}
+
+	// 保存修改的内容
+	private void saveChangSelf(SelfStudyPlan selfStudyPlan) {
+		if (httpUtils != null) {
+			String url = GetHttp.getHttpLJ() + "SavaChangSelfPlan";
+			RequestParams patram = new RequestParams();
+			String json = gson.toJson(selfStudyPlan);
+			try {
+				patram.addBodyParameter("self", URLEncoder.encode(json, "utf-8"));
+			} catch (UnsupportedEncodingException e) {
+				e.printStackTrace();
+			}
+			httpUtils.send(HttpMethod.POST, url, patram, new RequestCallBack<String>() {
+
+				@Override
+				public void onFailure(HttpException arg0, String arg1) {
+
+				}
+
+				@Override
+				public void onSuccess(ResponseInfo<String> arg0) {
+					Toast.makeText(getApplicationContext(), arg0.result, 0).show();
+
+				}
+			});
+		}
+
+	}
+
+	// 标题栏的点击事件
 	@Override
 	public void onClick(View v) {
 		switch (v.getId()) {
 		case R.id.right_layout:
-			Toast
-			.makeText(getApplicationContext(), "添加", 0).show();
-			
-			
+				Intent intent= new Intent();
+				intent.setClass(FindTaskListActivity.this, AddSelfPlanActivity.class);
+
+				startActivityForResult(intent, ADD_SELF);
+			Toast.makeText(getApplicationContext(), "添加", 0).show();
+
 			break;
 		case R.id.left_layout:
+
 			finish();
 			Toast.makeText(getApplicationContext(), "返回", 0).show();
-			
+
 			break;
 
 		default:
 			break;
 		}
-		
+
 	}
 	
 	
 	
+	
+	//获取学习类型的模式
+			private void mySengHttp() {
+				Log.i("TAG", "获取学习类型");
+				HttpUtils httpUtils = new HttpUtils();
+				String url = GetHttp.getHttpLJ() + "GetPatterServlet";
+				httpUtils.send(HttpMethod.GET, url, new RequestCallBack<String>() {
+
+					@Override
+					public void onFailure(HttpException arg0, String arg1) {
+
+					}
+
+					@Override
+					public void onSuccess(ResponseInfo<String> arg0) {
+						Gson gson = new Gson();
+						Type type = new TypeToken<List<Pattern>>() {
+						}.getType();
+						listpattern = gson.fromJson(arg0.result, type);
+						
+						dbFindManager.addPatter(listpattern);
+						//TODO 需要把数据存到本地数据库
+						
+					}
+				});
+
+			}
 
 }

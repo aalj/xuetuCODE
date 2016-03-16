@@ -119,6 +119,7 @@ public interface FindInter {
 
 
 	public boolean updateSelfStudyPlan(SelfStudyPlan plan);
+	public boolean insertSelfStudyPlan(SelfStudyPlan plan);
 	
 	
 	
