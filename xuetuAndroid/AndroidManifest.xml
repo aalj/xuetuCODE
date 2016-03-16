@@ -52,7 +52,7 @@
             android:label="@string/title_activity_find_task_item" >
         </activity>
         <activity
-            android:name=".ForgetPwdActivity"
+            android:name="com.xuetu.ui.ForgetPwdActivity"
             android:label="@string/title_activity_forget_pwd" >
         </activity>
     </application>
