@@ -4,7 +4,9 @@ import java.sql.Connection;
 import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.List;
 
 import com.xuetu.dao.inter.QuesTionDao;
@@ -34,11 +36,48 @@ public class QuestionIml implements QuesTionDao {
 		// TODO Auto-generated method stub
 		return null;
 	}
-
+	//分页查询所有问题
 	@Override
 	public List<Question> queryLimitQuestion(int page, int num) {
 		// TODO Auto-generated method stub
-		return null;
+		Connection conn = null;
+		PreparedStatement prep= null;
+		String sql = null;
+		List<Question> questions = new ArrayList<Question>();
+		ResultSet rs = null;
+		// 指针从第一行属性字段开始
+		try {
+			conn = DBconnection.getConnection();
+			sql = "select * from question limit "
+					+ (page-1)*num+","+num;
+			prep = conn.prepareStatement(sql);
+			/*prep.setInt(1, 2);
+			prep.setInt(2, 2);*/
+			rs = prep.executeQuery(sql);
+			while (rs.next()) {
+				Question q = new Question();
+				q.setQuesID(rs.getInt("ques_id"));
+				q.setStudent(getStudentByStuId(rs.getInt("stu_id"), getSchIdByStuId(rs.getInt("stu_id"))));
+				q.setQuesText(rs.getString("ques_text"));
+				//q.setQuesIma(quesIma);
+				q.setQuesDate(rs.getDate("ques_time"));
+				q.setAcpo_num(rs.getInt("acpo_num"));
+				q.setSubject(getSubjectBySubId(rs.getInt("sub_id")));
+				questions.add(q);
+			}
+			return questions;
+		} catch (Exception e) {
+			throw new RuntimeException(e);
+		} finally {
+			try {
+				if (conn != null)
+					conn.close();
+				if (prep != null)
+					prep.close();
+			} catch (Exception e) {
+				throw new RuntimeException(e);
+			}
+		}
 	}
 
 	@Override
@@ -172,7 +211,8 @@ public class QuestionIml implements QuesTionDao {
 					// 4、设置？的值
 					prep.setInt(1,q.getStudent().getStuId() );
 					prep.setString(2,q.getQuesText());
-					prep.setDate(3, new java.sql.Date(q.getQuesDate().getTime()));
+					prep.setTimestamp(3, new Timestamp(q.getQuesDate().getTime()));
+//					prep.setDate(3, new java.sql.Date(q.getQuesDate().getTime()));
 					prep.setInt(4,q.getAcpo_num());
 					prep.setInt(5,q.getSubject().getSubId());
 					//prep.setDate(6, new java.sql.Date(student.getBirthday().getTime()));
@@ -200,6 +240,37 @@ public class QuestionIml implements QuesTionDao {
 		// TODO Auto-generated method stub
 		Question q = new Question(getStudentByStuId(stuId, sch_id), quesText, quesTime, getSubjectBySubId(subId),acpoNum);
 		return q;
+	}
+
+	@Override
+	public int getSchIdByStuId(int stuId) {
+		// TODO Auto-generated method stub
+		Connection conn = null;
+		String sql = null;
+		PreparedStatement prep = null;
+		try {
+			conn = DBconnection.getConnection();
+			sql = "select sch_id from student where stu_id=?";
+			prep = conn.prepareStatement(sql);
+			prep.setInt(1, stuId);
+			ResultSet rs = prep.executeQuery();
+			// 指针从第一行属性字段开始
+			if (rs.next()) {
+				return rs.getInt("sch_id");
+			}
+			return 0;
+		} catch (Exception e) {
+			throw new RuntimeException(e);
+		} finally {
+			try {
+				if (conn != null)
+					conn.close();
+				if (prep != null)
+					prep.close();
+			} catch (Exception e) {
+				throw new RuntimeException(e);
+			}
+		}
 	}
 
 	
