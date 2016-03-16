@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
@@ -210,7 +211,8 @@ public class QuestionIml implements QuesTionDao {
 					// 4、设置？的值
 					prep.setInt(1,q.getStudent().getStuId() );
 					prep.setString(2,q.getQuesText());
-					prep.setDate(3, new java.sql.Date(q.getQuesDate().getTime()));
+					prep.setTimestamp(3, new Timestamp(q.getQuesDate().getTime()));
+//					prep.setDate(3, new java.sql.Date(q.getQuesDate().getTime()));
 					prep.setInt(4,q.getAcpo_num());
 					prep.setInt(5,q.getSubject().getSubId());
 					//prep.setDate(6, new java.sql.Date(student.getBirthday().getTime()));

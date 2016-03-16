@@ -55,6 +55,10 @@
             android:name="com.xuetu.ui.ForgetPwdActivity"
             android:label="@string/title_activity_forget_pwd" >
         </activity>
+        <activity
+            android:name="com.xuetu.ui.Question_ask"
+            >
+        </activity>
     </application>
 
 </manifest>
