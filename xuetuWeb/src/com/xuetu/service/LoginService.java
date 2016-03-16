@@ -17,9 +17,9 @@ public class LoginService implements PersonalServiceInter {
 	}
 
 	@Override
-	public Student getStusByPhoneAndPwd(String telephpne, String password) {
+	public Student getStusByPhoneAndPwd(String telephone, String password) {
 		// TODO Auto-generated method stub
-		return personalDaoInterface.login(telephpne, password);
+		return personalDaoInterface.login(telephone, password);
 	}
 
 	@Override
@@ -29,11 +29,8 @@ public class LoginService implements PersonalServiceInter {
 	}
 
 	@Override
-	public boolean creatStudent(String telephpne, String password) {
-		 
-		
-		
-		return false;
+	public boolean creatStudent(String telephone, String password) {
+		 return personalDaoInterface.register(telephone, password);
 	}
 
 }
