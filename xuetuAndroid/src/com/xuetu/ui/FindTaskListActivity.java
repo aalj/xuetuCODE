@@ -26,12 +26,14 @@ import com.xuetu.entity.Pattern;
 import com.xuetu.entity.SelfStudyPlan;
 import com.xuetu.utils.DataToTime;
 import com.xuetu.utils.GetHttp;
+import com.xuetu.view.TitleBar;
 
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ListView;
@@ -52,7 +54,7 @@ import android.widget.Toast;
  *
  * @see
  */
-public class FindTaskListActivity extends Activity implements OnItemClickListener {
+public class FindTaskListActivity extends Activity implements OnItemClickListener, OnClickListener {
 	@ViewInject(R.id.activity_find_task_list)
 	ListView activityFindTaskList;
 	//从网上下来的数据源
@@ -61,18 +63,27 @@ public class FindTaskListActivity extends Activity implements OnItemClickListene
 	
 	DBFindOpenHelper dbFindOpenHelper = null;
 	DBFindManager dbFindManager = null;
+	@ViewInject(R.id.title_my)
+	TitleBar titleBar = null;
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_find_task_list);
 		ViewUtils.inject(this);
 		dbFindManager = new DBFindManager(this);
-		// viewInit();
+		 viewInit();
 		getData();
 //		mySengHttp();
 		
 		activityFindTaskList.setOnItemClickListener(this);
 
+	}
+
+	private void viewInit() {
+
+		titleBar.setRightLayoutClickListener(this);
+		titleBar.setLeftLayoutClickListener(this);
+		
 	}
 
 	private void getData() {
@@ -141,6 +152,29 @@ public class FindTaskListActivity extends Activity implements OnItemClickListene
 			Toast.makeText(getApplicationContext(), selfStudyPlan.getPlanText(), 0).show();
 		}
 		super.onActivityResult(requestCode, resultCode, data);
+	}
+
+	
+	//标题栏的点击事件
+	@Override
+	public void onClick(View v) {
+		switch (v.getId()) {
+		case R.id.right_layout:
+			Toast
+			.makeText(getApplicationContext(), "添加", 0).show();
+			
+			
+			break;
+		case R.id.left_layout:
+			finish();
+			Toast.makeText(getApplicationContext(), "返回", 0).show();
+			
+			break;
+
+		default:
+			break;
+		}
+		
 	}
 	
 	
