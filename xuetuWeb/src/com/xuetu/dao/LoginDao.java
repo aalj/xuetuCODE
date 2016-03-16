@@ -44,8 +44,8 @@ public class LoginDao implements PersonalDaoInterface {
 			prepareStatement.executeQuery();
 			resultSet = prepareStatement.getResultSet();
 			if (resultSet.next()) {
-//				int int1 = resultSet.getInt("sch_id");
-//				school = getSchoolById(resultSet.getInt("sch_id"));
+				// int int1 = resultSet.getInt("sch_id");
+				// school = getSchoolById(resultSet.getInt("sch_id"));
 				// System.currentTimeMillis();
 				student = new Student();
 				student.setStuId(resultSet.getInt("stu_id"));
@@ -215,6 +215,28 @@ public class LoginDao implements PersonalDaoInterface {
 		}
 
 		return false;
+	}
+
+	@Override
+	public boolean register(String telephone, String password) {
+		Connection connection = DBconnection.getConnection();
+		// INSERT INTO table_name (列1, 列2,...) VALUES (值1, 值2,....)
+		String sql = "insert into student (stu_phone,stu_pwd) values(?,?)";
+		PreparedStatement prepareStatement = null;
+		try {
+			prepareStatement = connection.prepareStatement(sql);
+			prepareStatement.setString(1, telephone);
+			prepareStatement.setString(2, password);
+			prepareStatement.executeUpdate();
+			return true;
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			return false;
+		} finally {
+			CloseDb.close(connection, prepareStatement);
+		}
+
 	}
 
 }

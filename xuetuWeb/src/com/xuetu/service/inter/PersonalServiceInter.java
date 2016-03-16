@@ -16,5 +16,14 @@ public interface PersonalServiceInter {
 	public Student getStusByPhoneAndPwd(String telephpne, String password);
 	
 	public List<MyClass> getListCourse(int Stuid);
+	/**
+	 * 
+	 * 通过手机和密码创建一个学生
+	 * @param telephpne
+	 * @param password
+	 * @return
+	 */
+	public boolean creatStudent(String telephpne, String password);
+
 	
 }

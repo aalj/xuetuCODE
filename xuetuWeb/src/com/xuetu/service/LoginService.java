@@ -28,4 +28,12 @@ public class LoginService implements PersonalServiceInter {
 		return personalDaoInterface.getClassByStuId(Stuid);
 	}
 
+	@Override
+	public boolean creatStudent(String telephpne, String password) {
+		 
+		
+		
+		return false;
+	}
+
 }

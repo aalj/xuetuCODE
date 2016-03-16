@@ -196,4 +196,10 @@ public interface PersonalDaoInterface {
 	 */
 	public Student login(String telephone, String password);
 
+	/**
+	 * 通过账户，密码 返回一个对象
+	 * 
+	 */
+
+	public boolean register(String telephone, String password);
 }
