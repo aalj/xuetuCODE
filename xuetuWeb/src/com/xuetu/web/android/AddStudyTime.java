@@ -10,8 +10,12 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.xuetu.dao.FindIml;
+import com.xuetu.dao.TimeDao;
 import com.xuetu.entity.StudyTime;
+import com.xuetu.service.FindService;
 import com.xuetu.service.TimeService;
+import com.xuetu.service.inter.FindServicesInter;
 
 /**
  * ClassName:AddStudyTime
@@ -25,8 +29,8 @@ import com.xuetu.service.TimeService;
 @WebServlet("/AddStudyTime")
 public class AddStudyTime extends HttpServlet {
 	private static final long serialVersionUID = 1L;
+	FindServicesInter findService = new FindService(new FindIml());
 	
-	TimeService timeservice = new TimeService();
 	
 	
 	
@@ -46,24 +50,24 @@ public class AddStudyTime extends HttpServlet {
 //		String name = request.getParameter("name");
 		String integral = request.getParameter("integral");
 		String st_date = request.getParameter("st_date");
-//		String stu_id = request.getParameter("stu_id");
-		String st_id = request.getParameter("st_id");
+		String stu_id = request.getParameter("stu_id");
+		String st_id = request.getParameter("sto_id");
 		String st_time=request.getParameter("st_time");
 		
 		//把值放入对象
-		studytime.setSttID(Integer.parseInt(st_id));
-		studytime.setTime(Long.parseLong(st_time));
-		studytime.setStudent(null);
-		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+		studytime.setSttID(Integer.parseInt(st_id));  //学习时间id
+		studytime.setTime(Long.parseLong(st_time));  //学习时长
+		studytime.setStudent(null);					//学生对象id
+		studytime.setAcpo_num(Integer.parseInt(integral));
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 		try {
-			studytime.setDate(sdf.parse(st_date));
+			studytime.setDate(sdf.parse(st_date));	//获得积分的时间
 		} catch (ParseException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
-		TimeService service  = new TimeService();
-		service.timeAdd(studytime);
+		TimeService timeservice = new TimeService(new TimeDao());
+		timeservice.timeAdd(studytime);
 
 	}
 

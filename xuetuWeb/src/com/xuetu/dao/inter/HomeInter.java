@@ -73,7 +73,7 @@ public interface HomeInter {
 	 */
 	public List<ChckIns> queryChckInsByStuID(Student stu);
 	
-	
+	public void addTime(StudyTime stu_time);
 
 }
 

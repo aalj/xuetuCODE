@@ -26,10 +26,10 @@ import com.xuetu.utils.DBconnection;
  * 
  */
 
-public class TimeDao  {
+public class TimeDao implements HomeInter {
 	
 	//积分
-	int acpo_num=5;
+//	int acpo_num=5;
 	/**
 	 * 
 	 * studyTime:(插入新列队)<br/>
@@ -52,16 +52,20 @@ public class TimeDao  {
 		{
 			conn = DBconnection.getConnection();
 			//sql语句  直接插入新列队
-			String sql = "insert into studytime(st_id,st_date,sto_time,stu_id,acpo_num)"
-					+ " values(?,?,?,?,?);";
+			String sql = "insert into studytime(st_id,st_date,sto_time,acpo_num)"
+					+ " values(?,?,?,?);";
+//			String sql = "insert into studytime(st_id,st_date,sto_time,stu_id,acpo_num)"
+//					+ " values(?,?,?,?,?);";
 			// 获得preparedStatement对象
 			prep = conn.prepareStatement(sql);
 			
 			prep.setInt(1, stu_time.getSttID());
 			prep.setDate(2, (Date) stu_time.getDate());
 			prep.setLong(3, stu_time.getTime());
-			prep.setInt(4, stu_time.getStudent().getStuId());
-			prep.setInt(5, acpo_num);
+//			prep.setInt(4, stu_time.getStudent().getStuId());
+			prep.setInt(4, stu_time.getAcpo_num());
+			prep.executeUpdate();
+			
 		} 
 		catch (Exception e)
 		{
@@ -88,6 +92,26 @@ public class TimeDao  {
 			}
 		}
 	}
+
+	@Override
+	public StudyTime queryStudayTimeDay(String Date, Student stu) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<Student> queryAllStudayTimeDay(String Date) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<ChckIns> queryChckInsByStuID(Student stu) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	
 	
 	
 }
