@@ -3,4 +3,12 @@
     <color name="tv_s">#44A6D5</color>
     <color name="tv">#323232</color>
     <color name="black2">#ffeeeeee</color>
+    <color name="gray">#b2b2b2</color>
+    <color name="blue">#44a6d5</color>
+    <color name="background_gray">#f7f7f9</color>
+    <color name="touming">#ffffffff</color>
+    <color name="white">#ffffff</color>
+    <color name="subject">#a76f60</color>
+    <color name="date">#8d8d8d</color>
+    <color name="blue1">#3099F8</color>
 </resources>

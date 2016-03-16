@@ -1,8 +1,6 @@
 package com.xuetu.adapter;
 
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.List;
 
 
@@ -15,7 +13,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 public class MyQuestionListBaseAdapter extends BaseAdapter {
@@ -63,10 +60,12 @@ public class MyQuestionListBaseAdapter extends BaseAdapter {
 			vh = (viewHolder) convertView.getTag();
 		}
 		Log.i("hehe", "Adapter----->getView");
-		vh.tv_ques_text.setText(list.get(position).getQues_text());
-		vh.tv_subject.setText(list.get(position).getSub_id()+"");
+		vh.tv_ques_text.setText(list.get(position).getQuesText());
+		vh.tv_subject.setText(list.get(position).getSubject().getName()+"");
+		
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-		date = sdf.format(list.get(position).getQues_time());
+		//System.out.println(sdf.format(new java.sql.Timestamp(System.currentTimeMillis())));
+		date = sdf.format(list.get(position).getQuesDate());
 		Log.i("hehe", date+"");
 		vh.tv_time.setText(date);
 //		vh.iv_ques_img.setImageResource(list.get(position).getQues_img());

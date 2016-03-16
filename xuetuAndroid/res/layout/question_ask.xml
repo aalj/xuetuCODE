@@ -73,7 +73,7 @@
      android:layout_marginRight="10dp"
      android:layout_marginBottom="10dp"
      android:textColor="#ffffff"
-     android:background="@string/blue"
+     android:background="@color/blue1"
      android:onClick="ask"
      android:text="提问" />
         </RelativeLayout>

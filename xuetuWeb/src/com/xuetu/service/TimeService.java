@@ -3,6 +3,7 @@ package com.xuetu.service;
 import com.xuetu.dao.TimeDao;
 import com.xuetu.entity.Coupon;
 import com.xuetu.entity.StudyTime;
+import com.xuetu.service.inter.HomeServiceInter;
 
 /**
  * ClassName:TimeService
@@ -18,12 +19,21 @@ import com.xuetu.entity.StudyTime;
 
  */
 
-public class TimeService {
+public class TimeService implements HomeServiceInter{
 	private TimeDao timedao = new TimeDao();
-	
+	public TimeService (TimeDao timedao)
+	{
+		this.timedao=timedao;
+	}
 	public void timeAdd(StudyTime stu_time){
 		timedao.addTime(stu_time);
 		
+		
+	}
+
+	@Override
+	public void addTime(StudyTime stu_time) {
+		// TODO Auto-generated method stub
 		
 	}	
 		
