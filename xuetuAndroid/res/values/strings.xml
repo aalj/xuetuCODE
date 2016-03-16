@@ -13,7 +13,6 @@
     <string name="title_activity_timer">TimerActivity</string>
     <string name="timer_start">开始计时</string>
     <string name="title_activity_find_task_list">FindTaskListActivity</string>
-    
     <string name="answer">回答</string>
     <string name="title_activity_login">LoginActivity</string>
     <string name="startTime">开始时间</string>
@@ -28,5 +27,8 @@
     <drawable name="clr_change">#33cc99</drawable>
 
     <string name="title_activity_forget_pwd">ForgetPwdActivity</string>
+    <string name="title_activity_person_infomation">PersonInfomationActivity</string>
+    <string name="title_activity_person_info">PersonInfoActivity</string>
+    <string name="title_activity_edit_name">EditNameActivity</string>
 
 </resources>
