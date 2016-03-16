@@ -114,6 +114,11 @@ public interface FindInter {
 	 * @return
 	 */
 	public List<Pattern> getAllPattern();
+
+
+
+
+	public boolean updateSelfStudyPlan(SelfStudyPlan plan);
 	
 	
 	

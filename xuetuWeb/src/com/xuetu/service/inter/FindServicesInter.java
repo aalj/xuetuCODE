@@ -80,6 +80,9 @@ public interface FindServicesInter {
 	public List<Pattern> getAllPattern();
 	
 	
+	
+	public boolean saveSelfStudyPlan(SelfStudyPlan plan);
+	
 
 }
 

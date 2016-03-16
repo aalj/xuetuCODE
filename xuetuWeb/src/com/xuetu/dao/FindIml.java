@@ -18,6 +18,7 @@ import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -42,16 +43,17 @@ import com.xuetu.utils.DBconnection;
  * 
  */
 public class FindIml implements FindInter {
+	Connection connection =null;
 
 	@Override
-	public Countdown getCountDown() {
+	public Countdown getCountDown() {connection = DBconnection.getConnection();
 
 		return null;
 
 	}
 
 	@Override
-	public StudyTime getStudyTime(Student name) {
+	public StudyTime getStudyTime(Student name) {connection = DBconnection.getConnection();
 
 		return null;
 
@@ -59,6 +61,7 @@ public class FindIml implements FindInter {
 
 	@Override
 	public List<StudyTime> getWeekTime(String beforeData, String afterData) {
+		connection = DBconnection.getConnection();
 
 		return null;
 
@@ -66,11 +69,10 @@ public class FindIml implements FindInter {
 
 	@Override
 	public List<SelfStudyPlan> getSelfPlan(int stuId) {
-		Connection connection = null;
+		connection = DBconnection.getConnection();
 		ResultSet query = null;
 		PreparedStatement statement = null;
 		try {
-			connection = DBconnection.getConnection();
 
 			String sql = "select * from selfstudyplan where  stu_id =? ";
 			statement = connection.prepareStatement(sql);
@@ -83,7 +85,6 @@ public class FindIml implements FindInter {
 				plan = new SelfStudyPlan();
 				plan.setPlanID(query.getInt("plan_id"));
 				Date date = query.getDate("start_time");
-				System.out.println(date.getTime());
 				plan.setStartTime(query.getTimestamp("start_time"));
 				plan.setEndTime(query.getTimestamp("end_time"));
 				plan.setPlanText(query.getString("plan_text"));
@@ -114,22 +115,20 @@ public class FindIml implements FindInter {
 
 	@Override
 	public Pattern getPatternById(int patID) {
-		Connection conn= null;
+		connection = DBconnection.getConnection();
 		PreparedStatement statement = null;
 		ResultSet query = null;
 
 		try {
-			conn = DBconnection.getConnection();
 			String sql = "select * from pattern where pattern_id = ?";
-			statement = conn.prepareStatement(sql);
+			statement = connection.prepareStatement(sql);
 			statement.setInt(1, patID);
 			query = statement.executeQuery();
-			Pattern pattern = new 
-					Pattern();
-			if(query.next()){
+			Pattern pattern = new Pattern();
+			if (query.next()) {
 				pattern.setPatternID(patID);
 				pattern.setPattrenText(query.getString("pattern_text"));
-				
+
 			}
 			return pattern;
 		} catch (SQLException e) {
@@ -138,22 +137,20 @@ public class FindIml implements FindInter {
 			e.printStackTrace();
 			return null;
 
-		}finally {
-			CloseDb.close(conn,query ,statement);
+		} finally {
+			CloseDb.close(connection, query, statement);
 		}
-
 
 	}
 
 	@Override
 	public List<Pattern> getAllPattern() {
-		Connection connection=null;
-		PreparedStatement statement=null;
-		ResultSet query=null;
-		String sql="select * from pattern;";
+		connection = DBconnection.getConnection();
+		PreparedStatement statement = null;
+		ResultSet query = null;
+		String sql = "select * from pattern;";
 		try {
 			List<Pattern> list = new ArrayList<>();
-			connection = DBconnection.getConnection();
 			statement = connection.prepareStatement(sql);
 			query = statement.executeQuery();
 			Pattern pattern = null;
@@ -162,16 +159,43 @@ public class FindIml implements FindInter {
 				pattern.setPatternID(query.getInt("pattern_id"));
 				pattern.setPattrenText(query.getString("pattern_text"));
 				list.add(pattern);
-				
+
 			}
 			return list;
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 			return null;
-		}finally {
+		} finally {
 			CloseDb.close(connection, query, statement);
 		}
+	}
+
+	@Override
+	public boolean updateSelfStudyPlan(SelfStudyPlan plan) {
+		connection = DBconnection.getConnection();
+		PreparedStatement prepareStatement = null;
+		try {
+			// update 表名 set name=?,password=?.... where id=?
+			String sql = "update selfstudyplan set start_time=?,end_time=?, plan_text=?, plan_remind=?, pattern_id=? where plan_id=?";
+			prepareStatement = connection.prepareStatement(sql);
+			
+			prepareStatement.setTimestamp(1, new Timestamp(plan.getStartTime().getTime()));
+			prepareStatement.setTimestamp(2, new Timestamp(plan.getEndTime().getTime()));
+			prepareStatement.setString(3, plan.getPlanText());
+			prepareStatement.setInt(4, plan.getPlanReming());
+			prepareStatement.setInt(5, plan.getPattern().getPatternID());
+			prepareStatement.setInt(6, plan.getPlanID());
+			prepareStatement.executeUpdate();
+			return true;
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			return false;
+		}finally {
+			CloseDb.close(connection, prepareStatement);
+		}
+
 	}
 
 }

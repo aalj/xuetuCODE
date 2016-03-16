@@ -67,4 +67,9 @@ public class FindService implements FindServicesInter {
 		return find.getAllPattern();
 	}
 
+	@Override
+	public boolean saveSelfStudyPlan(SelfStudyPlan plan) {
+		return find.updateSelfStudyPlan(plan);
+	}
+
 }
