@@ -50,7 +50,7 @@ public class GetSelfStudyPlan extends HttpServlet {
 		response.setContentType("text/html;charset=utf-8");
 		String parameter = request.getParameter("StuID");
 		parameter = URLDecoder.decode(parameter, "utf-8");
-		
+		System.out.println(parameter);
 		List<SelfStudyPlan> allSelfStudyPlan =  null;
 		
 		if(parameter!=null){
