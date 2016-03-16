@@ -20,6 +20,9 @@ import com.lidroid.xutils.view.annotation.ViewInject;
 import com.xuetu.R;
 import com.xuetu.adapter.MyBasesadapter;
 import com.xuetu.adapter.ViewHodle;
+import com.xuetu.db.DBFindManager;
+import com.xuetu.db.DBFindOpenHelper;
+import com.xuetu.entity.Pattern;
 import com.xuetu.entity.SelfStudyPlan;
 import com.xuetu.utils.DataToTime;
 import com.xuetu.utils.GetHttp;
@@ -32,6 +35,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ListView;
+import android.widget.Toast;
 
 /**
  * 
@@ -51,14 +55,22 @@ import android.widget.ListView;
 public class FindTaskListActivity extends Activity implements OnItemClickListener {
 	@ViewInject(R.id.activity_find_task_list)
 	ListView activityFindTaskList;
-
+	//从网上下来的数据源
+	List<SelfStudyPlan> users = null;
+	public static final int SELF_CODE = 100; 
+	
+	DBFindOpenHelper dbFindOpenHelper = null;
+	DBFindManager dbFindManager = null;
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_find_task_list);
 		ViewUtils.inject(this);
+		dbFindManager = new DBFindManager(this);
 		// viewInit();
 		getData();
+//		mySengHttp();
+		
 		activityFindTaskList.setOnItemClickListener(this);
 
 	}
@@ -84,7 +96,8 @@ public class FindTaskListActivity extends Activity implements OnItemClickListene
 
 				Type type = new TypeToken<List<SelfStudyPlan>>() {
 				}.getType();
-				List<SelfStudyPlan> users = gson.fromJson(arg0.result, type);
+				 users = gson.fromJson(arg0.result, type);
+//				 dbFindManager.addSelf(users);
 				activityFindTaskList.setAdapter(
 						new MyBasesadapter<SelfStudyPlan>(FindTaskListActivity.this, users, R.layout.find_task_item) {
 
@@ -114,8 +127,23 @@ public class FindTaskListActivity extends Activity implements OnItemClickListene
 	public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 		// 使用万能适配器写ListView 数据
 		Intent intent = new Intent(this, FindTaskItemActivity.class);
-		startActivity(intent);
+		intent.putExtra("plans", users.get(position));
+		
+		
+		startActivityForResult(intent, SELF_CODE);;
 
 	}
+	
+	@Override
+	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+		if(resultCode==1010&&requestCode==SELF_CODE){
+			SelfStudyPlan selfStudyPlan = (SelfStudyPlan) data.getSerializableExtra("name1");
+			Toast.makeText(getApplicationContext(), selfStudyPlan.getPlanText(), 0).show();
+		}
+		super.onActivityResult(requestCode, resultCode, data);
+	}
+	
+	
+	
 
 }

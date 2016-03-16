@@ -109,6 +109,13 @@ public interface FindInter {
 	 * @since  CodingExample　Ver 1.1
 	 */
 	public Pattern  getPatternById(int patID);
+	/**
+	 * 获取全部的学习模式
+	 * @return
+	 */
+	public List<Pattern> getAllPattern();
+	
+	
 	
 	
 

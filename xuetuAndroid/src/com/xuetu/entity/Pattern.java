@@ -12,6 +12,9 @@
 */
 
 package com.xuetu.entity;
+
+import java.io.Serializable;
+
 /**
  * ClassName:Pattern<br/>
  * Function: 计划模式实体表<br/>
@@ -24,7 +27,7 @@ package com.xuetu.entity;
  * @see 	 
 
  */
-public class Pattern {
+public class Pattern implements Serializable{
 	private int patternID = 0;
 	private String pattrenText = null;
 	public Pattern() {

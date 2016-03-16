@@ -45,7 +45,7 @@ public class Question_ask extends Activity {
 		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.question_ask);
-		
+		init();
 		
 		
 	}
@@ -56,9 +56,9 @@ public class Question_ask extends Activity {
 		//问题信息
 		quesText = et_question.getText().toString();
 		//提问时间
-		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH-mm-ss");
-		Date date = new Date(sdf.format(System.currentTimeMillis()));
-		quesTime = date;
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+		quesTime = new Date(sdf.format(new java.sql.Timestamp(System.currentTimeMillis())));
+		
 		//图片
 //		quesImg = ;
 		//积分
@@ -73,10 +73,12 @@ public class Question_ask extends Activity {
 		RequestParams params = new RequestParams();
 		String jsonStr = gson.toJson(q);
 		params.addBodyParameter("stuId",String.valueOf(stuId));
-		params.addBodyParameter("quesText",quesText);
+		params.addBodyParameter("quesText",et_question.getText().toString());
 		params.addBodyParameter("quesTime",quesTime.toString());
 		params.addBodyParameter("acpoNum",String.valueOf(acpoNum));
 		params.addBodyParameter("subId",String.valueOf(subId));
+		
+		
 		hutils.send(HttpMethod.POST, url,params,new RequestCallBack<String>(){
 
 			@Override

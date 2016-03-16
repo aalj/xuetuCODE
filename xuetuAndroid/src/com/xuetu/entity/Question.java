@@ -1,74 +1,197 @@
+/**
+ * Question.java
+ * com.xuetu.entity
+ *
+ * Function： TODO 
+ *
+ *   ver     date      		author
+ * ──────────────────────────────────
+ *   		 2016年3月15日 		Stone
+ *
+ * Copyright (c) 2016, TNT All Rights Reserved.
+*/
+
 package com.xuetu.entity;
 
 import java.util.Date;
 
+/**
+ * ClassName:Question<br/>
+ * Function: 问题表的实体类<br/>
+ *
+ * @author   Stone
+ * @version  
+ * @since    Ver 1.1
+ * @Date	 2016年3月15日		下午18:20:43
+ *
+ * @see 	 
+
+ */
 public class Question {
+	private int quesID = 0;
+	private Student student = null;
+	private String quesText = null;
+	private String quesIma = null;
+	private Date quesDate = null;
+	private Subject subject = null;
+	private int acpo_num = 0;
+	public Subject getSubject() {
+		return subject;
+	}
+	public void setSubject(Subject subject) {
+		this.subject = subject;
+	}
+	public Question() {
+
+		// 
+
+	}
+	/**
+	 * 
+	 * getQuesID:(得到问题的ID)<br/>
 	
-	public Question(){
-		
-	};
-	public Question(String ques_text, int ques_img, Date ques_time,
-			int sub_id) {
-		super();
-		this.ques_text = ques_text;
-		this.ques_img = ques_img;
-		this.ques_time = ques_time;
-		this.sub_id = sub_id;
+	 *
+	 * @param  @return    设定文件
+	 * @return int    DOM对象
+	 * @throws 
+	 * @since  CodingExample　Ver 1.1
+	 */
+	public int getQuesID() {
+		return quesID;
 	}
-	public Question(int ques_id, int stu_id, String ques_text, int ques_img,
-			Date ques_time, int acpo_num, int sub_id) {
+	/**
+	 * 
+	 * setQuesID:(设置问题ID)<br/>
+	
+	 *
+	 * @param  @param quesID    设定文件
+	 * @return void    DOM对象
+	 * @throws 
+	 * @since  CodingExample　Ver 1.1
+	 */
+	public void setQuesID(int quesID) {
+		this.quesID = quesID;
+	}
+	/**
+	 * 
+	 * getStudent:(得到是那个学生提的问题)<br/>
+	
+	 *
+	 * @param  @return    设定文件
+	 * @return Student    DOM对象
+	 * @throws 
+	 * @since  CodingExample　Ver 1.1
+	 */
+	public Student getStudent() {
+		return student;
+	}
+	/**
+	 * 
+	 * setStudent:(设置是那个学生的提的问题)<br/>
+	
+	 *
+	 * @param  @param student    设定文件
+	 * @return void    DOM对象
+	 * @throws 
+	 * @since  CodingExample　Ver 1.1
+	 */
+	public void setStudent(Student student) {
+		this.student = student;
+	}
+	/**
+	 * 
+	 * getQuesText:(得到问题的描述)<br/>
+	
+	 *
+	 * @param  @return    设定文件
+	 * @return String    DOM对象
+	 * @throws 
+	 * @since  CodingExample　Ver 1.1
+	 */
+	public String getQuesText() {
+		return quesText;
+	}
+	/**
+	 * 
+	 * setQuesText:(设置问题的描述)<br/>
+	
+	 *
+	 * @param  @param quesText    设定文件
+	 * @return void    DOM对象
+	 * @throws 
+	 * @since  CodingExample　Ver 1.1
+	 */
+	public void setQuesText(String quesText) {
+		this.quesText = quesText;
+	}
+	/**
+	 * 
+	 * getQuesIma:(得到问题的图片地址)<br/>
+	
+	 *
+	 * @param  @return    设定文件
+	 * @return String    DOM对象
+	 * @throws 
+	 * @since  CodingExample　Ver 1.1
+	 */
+	public String getQuesIma() {
+		return quesIma;
+	}
+	/**
+	 * 
+	 * setQuesIma:(设置问题图片的地址)<br/>
+	
+	 *
+	 * @param  @param quesIma    设定文件
+	 * @return void    DOM对象
+	 * @throws 
+	 * @since  CodingExample　Ver 1.1
+	 */
+	public void setQuesIma(String quesIma) {
+		this.quesIma = quesIma;
+	}
+	/**
+	 * 
+	 * getQuesDate:(得到提问题的时间)<br/>
+	
+	 *
+	 * @param  @return    设定文件
+	 * @return Date    DOM对象
+	 * @throws 
+	 * @since  CodingExample　Ver 1.1
+	 */
+	public Date getQuesDate() {
+		return quesDate;
+	}
+	/**
+	 * 
+	 * setQuesDate:(设置提问题的时间)<br/>
+	
+	 *
+	 * @param  @param quesDate    设定文件
+	 * @return void    DOM对象
+	 * @throws 
+	 * @since  CodingExample　Ver 1.1
+	 */
+	public void setQuesDate(Date quesDate) {
+		this.quesDate = quesDate;
+	}
+	public Question( Student student, String quesText, Date quesDate, Subject subject,int acpo_num) {
 		super();
-		this.ques_id = ques_id;
-		this.stu_id = stu_id;
-		this.ques_text = ques_text;
-		this.ques_img = ques_img;
-		this.ques_time = ques_time;
+		this.student = student;
+		this.quesText = quesText;
+		this.quesDate = quesDate;
+		this.subject = subject;
 		this.acpo_num = acpo_num;
-		this.sub_id = sub_id;
 	}
-	//问题id
-	int ques_id;
-	//学生id
-	int stu_id;
-	//问题的描述
-	String ques_text;
-	//问题图片
-	int ques_img;
-	//问题时间
-	Date ques_time;
-	//积分数
-	int acpo_num;
-	//学科类别
-	int sub_id;
-	public int getQues_id() {
-		return ques_id;
-	}
-	public void setQues_id(int ques_id) {
-		this.ques_id = ques_id;
-	}
-	public int getStu_id() {
-		return stu_id;
-	}
-	public void setStu_id(int stu_id) {
-		this.stu_id = stu_id;
-	}
-	public String getQues_text() {
-		return ques_text;
-	}
-	public void setQues_text(String ques_text) {
-		this.ques_text = ques_text;
-	}
-	public int getQues_img() {
-		return ques_img;
-	}
-	public void setQues_img(int ques_img) {
-		this.ques_img = ques_img;
-	}
-	public Date getQues_time() {
-		return ques_time;
-	}
-	public void setQues_time(Date ques_time) {
-		this.ques_time = ques_time;
+	public Question( Student student, String quesText, String quesIma, Date quesDate, Subject subject,int acpo_num) {
+		super();
+		this.student = student;
+		this.quesText = quesText;
+		this.quesIma = quesIma;
+		this.quesDate = quesDate;
+		this.subject = subject;
+		this.acpo_num = acpo_num;
 	}
 	public int getAcpo_num() {
 		return acpo_num;
@@ -76,17 +199,18 @@ public class Question {
 	public void setAcpo_num(int acpo_num) {
 		this.acpo_num = acpo_num;
 	}
-	public int getSub_id() {
-		return sub_id;
+	public Question(int quesID, Student student, String quesText, String quesIma, Date quesDate, Subject subject,int acpo_num) {
 	}
-	public void setSub_id(int sub_id) {
-		this.sub_id = sub_id;
+	public Question(int quesID, Student student, String quesText, String quesIma, Date quesDate, Subject subject) {
+		super();
+		this.quesID = quesID;
+		this.student = student;
+		this.quesText = quesText;
+		this.quesIma = quesIma;
+		this.quesDate = quesDate;
+		this.subject = subject;
 	}
-	@Override
-	public String toString() {
-		return "question [ques_id=" + ques_id + ", stu_id=" + stu_id
-				+ ", ques_text=" + ques_text + ", ques_img=" + ques_img
-				+ ", ques_time=" + ques_time + ", acpo_num=" + acpo_num
-				+ ", sub_id=" + sub_id + "]";
-	}
+	
+
 }
+

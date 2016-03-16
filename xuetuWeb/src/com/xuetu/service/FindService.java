@@ -61,4 +61,10 @@ public class FindService implements FindServicesInter {
 
 	}
 
+	@Override
+	public List<Pattern> getAllPattern() {
+		
+		return find.getAllPattern();
+	}
+
 }
