@@ -30,7 +30,8 @@
         </activity>
         <activity
             android:name=".ui.MainActivity"
-            android:label="首页" />
+            android:label="首页"
+            android:launchMode="singleInstance" />
         <activity
             android:name=".ui.TimerActivity"
             android:label="@string/title_activity_timer" >
@@ -52,8 +53,30 @@
             android:label="@string/title_activity_find_task_item" >
         </activity>
         <activity
-            android:name="com.xuetu.ui.ForgetPwdActivity"
+            android:name=".ui.ForgetPwdActivity"
             android:label="@string/title_activity_forget_pwd" >
+        </activity>
+        <activity
+            android:name=".ui.PerCerter"
+            android:label="我的中心" >
+        </activity>
+        <activity
+            android:name=".ui.PersonInfomationActivity"
+            android:label="@string/title_activity_person_infomation" >
+        </activity>
+        <activity
+            android:name=".PersonInfoActivity"
+            android:label="@string/title_activity_person_info" >
+        </activity>
+        <activity
+            android:name=".EditNameActivity"
+            android:label="@string/title_activity_edit_name" >
+        </activity>
+        <activity android:name="com.xuetu.ui.Question_ask" >
+        </activity>
+        <activity
+            android:name="com.xuetu.ui.AddSelfPlanActivity"
+            android:label="@string/title_activity_add_self_plan" >
         </activity>
     </application>
 

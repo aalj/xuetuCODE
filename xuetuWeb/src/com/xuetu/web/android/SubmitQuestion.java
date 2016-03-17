@@ -1,8 +1,10 @@
 package com.xuetu.web.android;
 
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.lang.reflect.Type;
 import java.sql.Date;
+import java.sql.Timestamp;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 
@@ -26,15 +28,16 @@ import com.xuetu.service.inter.QuestionServiceInter;
 @WebServlet("/SubmitQuestion")
 public class SubmitQuestion extends HttpServlet {
 	private static final long serialVersionUID = 1L;
+	
 	//声明变量
 	int stuId = 0;
 	String quesText = null;
-	Date quesTime = null;
+	java.sql.Date quesTime = null;
+	String quesTimeStr = null;
 	Question q = new Question();
 //	String quesImg = null;
 	int acpoNum = 0;
 	int subId = 0;
-	
 	//创建service对象
 	QuestionServiceInter Qservice = new QuestionService(new QuestionIml());
 	/**
@@ -52,33 +55,30 @@ public class SubmitQuestion extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
+
+		System.out.println("post");
 		request.setCharacterEncoding("utf-8");
 		response.setCharacterEncoding("utf-8");
 		response.setContentType("text/html;charset=UTF-8");
 		//给变量赋值
 		stuId = Integer.parseInt(request.getParameter("stuId"));
+		System.out.println(request.getParameter("stuId"));
 		quesText = request.getParameter("quesText");
+		System.out.println(quesText);
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-		try {
-			quesTime = (Date) sdf.parse(request.getParameter("quesTime"));
-		} catch (ParseException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		System.out.println(quesTime+"");
+		quesTimeStr = request.getParameter("quesTime");
+		long parseLong = Long.parseLong(quesTimeStr);
+		quesTime = new java.sql.Date(parseLong);
+		System.out.println(sdf.format(quesTime));
 //		String quesImg = null;
 		acpoNum = Integer.parseInt(request.getParameter("acpoNum"));
 		subId = Integer.parseInt(request.getParameter("subId"));
-		q = Qservice.createQuestion(stuId, quesText, quesTime, acpoNum, subId,Qservice.getSchIdByStuId(stuId));
+		q = Qservice.createQuestion(stuId, quesText,quesTime, acpoNum, subId,Qservice.getSchIdByStuId(stuId));
 		Qservice.submitQuestion(q);
-		//
-		
-		
-		
-		/*String jsonStr = request.getParameter("newQuestion");
-		Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create();
-		Type type = new TypeToken<Question>(){}.getType();
-		Question q = gson.fromJson(jsonStr, type);*/
+		System.out.println("submit ok");
+		PrintWriter pw = response.getWriter();
+		pw.write("1");
+	
 		
 	}
 

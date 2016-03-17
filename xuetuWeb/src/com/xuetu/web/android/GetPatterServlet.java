@@ -31,7 +31,6 @@ public class GetPatterServlet extends HttpServlet {
 		List<Pattern> allPattern = findServicesInter.getAllPattern();
 		Gson gson = new Gson();
 		String json = gson.toJson(allPattern);
-		System.out.println(json);
 		response.getWriter().print(json);
 	}
 

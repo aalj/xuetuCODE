@@ -36,8 +36,8 @@ public class GetPageQuestion extends HttpServlet {
 		response.setCharacterEncoding("utf-8");
 		
 		List<Question> questions = new ArrayList<Question>();
-		questions = q.queryLimitQuestion(1, 4);
-		System.out.println(questions.get(0).getQuesText());
+		questions = q.queryLimitQuestion(1, 20);
+		System.out.println(questions.get(7).getQuesDate()+"");
 		String jsonStr = null;
 		Gson gson = new GsonBuilder()  
 				  .setDateFormat("yyyy-MM-dd HH:mm:ss")  

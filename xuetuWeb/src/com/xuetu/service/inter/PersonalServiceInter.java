@@ -13,7 +13,7 @@ public interface PersonalServiceInter {
 	 * @param password
 	 * @return
 	 */
-	public Student getStusByPhoneAndPwd(String telephpne, String password);
+	public Student getStusByPhoneAndPwd(String telephone, String password);
 	
 	public List<MyClass> getListCourse(int Stuid);
 	/**
@@ -23,7 +23,7 @@ public interface PersonalServiceInter {
 	 * @param password
 	 * @return
 	 */
-	public boolean creatStudent(String telephpne, String password);
+	public boolean creatStudent(String telephone, String password);
 
 	
 }
