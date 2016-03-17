@@ -34,12 +34,49 @@ public class Coupon {
 	private int conNum = 0;
 	//表示优惠券到期时间
 	private Date conValidity = null;
+	@Override
+	public String toString() {
+		return "Coupon [couID=" + couID + ", storeName=" + storeName + ", couInfo=" + couInfo + ", conNum=" + conNum
+				+ ", conValidity=" + conValidity + ", couName=" + couName + ", couPrice=" + couPrice
+				+ ", coouRedeemPoints=" + coouRedeemPoints + ", couponCreate=" + couponCreate + "]";
+	}
 	private String couName = null;
 	private int couPrice = 0;
 	private 	int coouRedeemPoints = 0;
+	private Date couponCreate = null;
 	
 	
-	
+	public Coupon(int couID, StoreName storeName, String couInfo, int conNum, Date conValidity, String couName,
+			int couPrice, int coouRedeemPoints, Date couponCreate) {
+		super();
+		this.couID = couID;
+		this.storeName = storeName;
+		this.couInfo = couInfo;
+		this.conNum = conNum;
+		this.conValidity = conValidity;
+		this.couName = couName;
+		this.couPrice = couPrice;
+		this.coouRedeemPoints = coouRedeemPoints;
+		this.couponCreate = couponCreate;
+	}
+	public Coupon(StoreName storeName, String couInfo, int conNum, Date conValidity, String couName, int couPrice,
+			int coouRedeemPoints, Date couponCreate) {
+		super();
+		this.storeName = storeName;
+		this.couInfo = couInfo;
+		this.conNum = conNum;
+		this.conValidity = conValidity;
+		this.couName = couName;
+		this.couPrice = couPrice;
+		this.coouRedeemPoints = coouRedeemPoints;
+		this.couponCreate = couponCreate;
+	}
+	public Date getCouponCreate() {
+		return couponCreate;
+	}
+	public void setCouponCreate(Date couponCreate) {
+		this.couponCreate = couponCreate;
+	}
 	public String getCouName() {
 		return couName;
 	}
@@ -57,19 +94,7 @@ public class Coupon {
 
 		// 
 
-	}public Coupon(int couID, StoreName storeName, String couInfo, int conNum, Date conValidity, String couName,
-		int couPrice, int coouRedeemPoints) {
-	super();
-	this.couID = couID;
-	this.storeName = storeName;
-	this.couInfo = couInfo;
-	this.conNum = conNum;
-	this.conValidity = conValidity;
-	this.couName = couName;
-	this.couPrice = couPrice;
-	this.coouRedeemPoints = coouRedeemPoints;
-}
-
+	}
 	/**
 	 * 
 	 * getCouID:(得到优惠券的ID)<br/>
