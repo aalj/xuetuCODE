@@ -2,108 +2,120 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical" >
+    android:orientation="vertical" 
+    android:id="@+id/_root">
+    
 
-    <ImageButton
+    <Button
         android:id="@+id/imageButton1"
-        android:layout_width="160dp"
-        android:layout_height="160dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
         android:layout_centerVertical="true"
         android:scaleType="fitXY"
-        android:background="#00000000"
+        android:background="@drawable/home_page_button"
         android:src="@drawable/home_page_button"
+        android:text="00:00"
+        android:textSize="40dp"
+        android:textColor="#ffffff"
+        
          />
-
-    <ImageButton
-        android:id="@+id/home_btn_up"
-        android:layout_width="100dp"
-        android:layout_height="100dp"
-        android:layout_above="@+id/imageButton1"
-        android:layout_centerHorizontal="true"
-        android:layout_marginBottom="50dp"
-        android:scaleType="fitXY"
-        android:background="#00000000"
-        android:src="@drawable/home_top_button" />
 
     <ImageView
         android:id="@+id/imageView1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_above="@+id/imageButton1"
+        android:layout_below="@+id/home_btn_up"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="5dp"
         android:src="@drawable/home_up" />
 
     <ImageView
         android:id="@+id/imageView2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/imageView1"
-        android:layout_below="@+id/imageButton1"
-        android:layout_marginBottom="5dp"
+        android:layout_above="@+id/imageButton3"
+		android:layout_centerHorizontal="true"
         android:src="@drawable/home_down" />
-
-    <ImageView
-        android:id="@+id/imageView7"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignBottom="@+id/imageView4"
-        android:layout_toRightOf="@+id/imageButton1"
-        android:src="@drawable/home_5" />
-
-    <ImageView
-        android:id="@+id/imageView4"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignTop="@+id/imageButton1"
-        android:layout_marginTop="16dp"
-        android:layout_toLeftOf="@+id/imageButton1"
-        android:src="@drawable/home_2" />
-
-    <ImageView
-        android:id="@+id/imageView8"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignTop="@+id/imageView2"
-        android:layout_toRightOf="@+id/imageView2"
-        android:src="@drawable/home_6" />
-
-    <ImageView
-        android:id="@+id/imageView5"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignBottom="@+id/imageView8"
-        android:layout_marginBottom="12dp"
-        android:layout_toLeftOf="@+id/imageButton3"
-        android:src="@drawable/home_3" />
 
     <ImageButton
         android:id="@+id/imageButton3"
         android:layout_width="100dp"
         android:layout_height="100dp"
-        android:layout_alignLeft="@+id/home_btn_up"
-        android:layout_alignTop="@+id/imageView2"
-        android:layout_marginTop="46dp"
+        android:layout_marginBottom="60dp"
+        android:layout_alignParentBottom="true"
+        android:layout_toLeftOf="@+id/imageView4"
         android:background="#00000000"
         android:scaleType="fitXY"
         android:src="@drawable/hong_l_button" />
+
+    <ImageButton
+        android:id="@+id/home_btn_up"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="60dp"
+        android:layout_centerHorizontal="true"
+        android:background="#00000000"
+        android:scaleType="fitXY"
+        android:src="@drawable/home_top_button" />
+
+    <ImageView
+        android:id="@+id/imageView8"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginRight="100dp"
+        android:layout_marginBottom="100dp"
+        android:src="@drawable/home_6" />
+
+    <ImageView
+        android:id="@+id/imageView4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/home_btn_up"
+        android:layout_toRightOf="@+id/home_btn_up"
+        android:src="@drawable/home_2" />
+
+    <ImageView
+        android:id="@+id/imageView5"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
+        android:layout_marginBottom="115dp"
+        android:layout_marginLeft="105dp"
+        android:src="@drawable/home_3" />
 
     <ImageView
         android:id="@+id/imageView3"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignBottom="@+id/imageView1"
-        android:layout_alignRight="@+id/imageView5"
-        android:layout_marginBottom="11dp"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
+        android:layout_marginLeft="120dp"
+        android:layout_marginBottom="360dp"
         android:src="@drawable/home_1" />
 
     <ImageView
         android:id="@+id/imageView6"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_above="@+id/imageButton1"
-        android:layout_toRightOf="@+id/home_btn_up"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:layout_marginRight="105dp"
+        android:layout_marginBottom="200dp"
+        
         android:src="@drawable/home_4" />
+
+    <ImageView
+        android:id="@+id/imageView7"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginLeft="120dp"
+        android:layout_marginTop="127dp"
+        android:src="@drawable/home_5" />
 
 </RelativeLayout>
