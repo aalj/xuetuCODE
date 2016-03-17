@@ -43,10 +43,6 @@ public class HomePageFrag extends Fragment {
 	Button btn_up,btn_down,btn_center ;
 	
 	
-	
-	
-	
-	
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 		View view = inflater.inflate(R.layout.home_page_frag, null);

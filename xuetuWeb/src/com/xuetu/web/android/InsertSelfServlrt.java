@@ -27,11 +27,12 @@ public class InsertSelfServlrt extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	FindServicesInter findServicesInter = new FindService(new FindIml());
 
-	
 	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
+	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
+	 *      response)
 	 */
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	protected void doGet(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 		response.setContentType("text/html;charset=utf-8");
 		String plan_id = URLDecoder.decode(request.getParameter("self"), "UTF-8");
 		System.out.println(plan_id);
@@ -40,8 +41,8 @@ public class InsertSelfServlrt extends HttpServlet {
 		Type type = new TypeToken<SelfStudyPlan>() {
 		}.getType();
 		SelfStudyPlan users = gson.fromJson(plan_id, type);
-
-		boolean plan = findServicesInter.saveSelfStudyPlan(users);
+		System.out.println(users.toString());
+		boolean plan = findServicesInter.addSelfStudyPlan(users);
 		PrintWriter writer = response.getWriter();
 		if (!plan) {
 			writer.print("提交失败");
@@ -52,9 +53,11 @@ public class InsertSelfServlrt extends HttpServlet {
 	}
 
 	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
+	 *      response)
 	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	protected void doPost(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		doGet(request, response);
 	}
