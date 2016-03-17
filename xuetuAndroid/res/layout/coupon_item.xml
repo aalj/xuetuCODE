@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal" >
+
+    <ImageView
+        android:id="@+id/tv_coupon_ima"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:padding="2dp"
+        android:src="@drawable/ic_launcher" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_alignBottom="@+id/tv_coupon_ima"
+        android:layout_alignParentTop="true"
+        android:layout_alignTop="@+id/tv_coupon_ima"
+        android:layout_marginLeft="5dp"
+        android:layout_toRightOf="@+id/tv_coupon_ima"
+        android:orientation="vertical" >
+
+        <TextView
+            android:id="@+id/tv_coupon_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginTop="10dp"
+            android:text="TextView"
+            android:textSize="20sp" />
+
+        <ImageView
+            android:id="@+id/ima_ima"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@+id/tv_coupon_name"
+            android:layout_alignParentBottom="true"
+            android:layout_marginBottom="10dp"
+            android:src="@drawable/icon_me_smail" />
+
+        <TextView
+            android:id="@+id/tv_shoppingname"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@+id/ima_ima"
+            android:layout_alignTop="@+id/ima_ima"
+            android:layout_toRightOf="@+id/ima_ima"
+            
+            android:gravity="center"
+            android:text="TextView"
+            android:textColor="#9e9e9e"
+            android:textSize="10sp" />
+
+        <TextView
+            android:id="@+id/tv_coupon_all"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentRight="true"
+            android:layout_marginBottom="10dp"
+            android:text="200"
+            android:textColor="#9e9e9e"
+            android:textSize="10sp" />
+
+        <TextView
+            android:id="@+id/textView4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_marginBottom="10dp"
+            android:layout_toLeftOf="@+id/tv_coupon_all"
+            android:text=" / "
+            android:textColor="#9e9e9e"
+            android:textSize="10sp" />
+
+        <TextView
+            android:id="@+id/tv_conupon_use"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_marginBottom="10dp"
+            android:layout_toLeftOf="@+id/textView4"
+            android:text="50"
+            android:textColor="#9e9e9e"
+            android:textSize="10sp" />
+
+        <TextView
+            android:id="@+id/textView6"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_marginBottom="10dp"
+            android:layout_toLeftOf="@+id/tv_conupon_use"
+            android:text="数量："
+            android:textColor="#9e9e9e"
+            android:textSize="10sp" />
+    </RelativeLayout>
+
+</RelativeLayout>
