@@ -205,17 +205,25 @@ public class FindIml implements FindInter {
 			// update 表名 set name=?,password=?.... where id=?
 			String sql = "Insert into selfstudyplan  (start_time,end_time,plan_text,plan_remind,pattern_id,stu_id,plan_date)  values(?,?,?,?,?,?,?);";
 			prepareStatement = connection.prepareStatement(sql);
-			
+			System.out.println("ok");
 			prepareStatement.setTimestamp(1, new Timestamp(plan.getStartTime().getTime()));
+			System.out.println("ok1");
 			prepareStatement.setTimestamp(2, new Timestamp(plan.getEndTime().getTime()));
+			System.out.println("ok2");
 			prepareStatement.setString(3, plan.getPlanText());
+			System.out.println("ok3");
 			prepareStatement.setInt(4, plan.getPlanReming());
+			System.out.println("ok4");
 			prepareStatement.setInt(5, plan.getPattern().getPatternID());
+			System.out.println("ok5");
 			//TODO 暂时存储的是固定的学生
 			prepareStatement.setInt(6, 1);
+			System.out.println("ok6");
 			
 			prepareStatement.setTimestamp(7, new Timestamp(plan.getPlanDate().getTime()));
+			System.out.println("ok7");
 			prepareStatement.executeUpdate();
+			System.out.println("ok8");
 			return true;
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
