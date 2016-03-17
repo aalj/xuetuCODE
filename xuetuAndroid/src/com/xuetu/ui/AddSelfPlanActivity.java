@@ -58,7 +58,6 @@ public class AddSelfPlanActivity extends FragmentActivity implements OnClickList
 	Date date = new Date(System.currentTimeMillis());
 	private SimpleDateFormat mFormatter = new SimpleDateFormat("MM-dd hh:mm");
 
-
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -68,10 +67,13 @@ public class AddSelfPlanActivity extends FragmentActivity implements OnClickList
 		dbFindManager = new DBFindManager(this);
 		setOnclick();
 		getpattern();
+		selfStudyPlan.setPattern(list.get(0));
+		startTime = date;
+		endTime = date;
 		tv_startTime_info.setText(mFormatter.format(date));
 		tv_endTime_info.setText(mFormatter.format(date));
 		study_info.setText(list.get(0).getPattrenText());
-		
+
 	}
 
 	/**
@@ -119,7 +121,8 @@ public class AddSelfPlanActivity extends FragmentActivity implements OnClickList
 			showChangeItemDialog();
 
 			break;
-		case R.id.right_layout:Intent intent = new Intent();
+		case R.id.right_layout:
+			Intent intent = new Intent();
 			selfStudyPlan.setStartTime(startTime);
 			selfStudyPlan.setPlanDate(new Date(System.currentTimeMillis()));
 			selfStudyPlan.setEndTime(endTime);
@@ -129,16 +132,15 @@ public class AddSelfPlanActivity extends FragmentActivity implements OnClickList
 			} else {
 				selfStudyPlan.setPlanReming(0);
 			}
-//			dbFindManager.addSelfOne(selfStudyPlan);
+			// dbFindManager.addSelfOne(selfStudyPlan);
 			intent.putExtra("selfa", selfStudyPlan);
+			Log.i("TAG", "shixain ===========" + selfStudyPlan.toString());
 			setResult(1011, intent);
 			finish();
 
 			break;
 		case R.id.left_layout:
-			
-			
-			
+
 			finish();
 			break;
 
@@ -149,8 +151,6 @@ public class AddSelfPlanActivity extends FragmentActivity implements OnClickList
 
 	}
 
-	
-
 	private void showChangeItemDialog() {
 		getpattern();
 		AlertDialog.Builder builder = new AlertDialog.Builder(AddSelfPlanActivity.this);
@@ -160,8 +160,8 @@ public class AddSelfPlanActivity extends FragmentActivity implements OnClickList
 
 			@Override
 			public void onClick(DialogInterface dialog, int which) {
-				//保存当前的页面信心的是否需要提醒
-				 selfStudyPlan.setPattern(list.get(which));
+				// 保存当前的页面信心的是否需要提醒
+				selfStudyPlan.setPattern(list.get(which));
 				study_info.setText(list.get(which).getPattrenText());
 				dialog.dismiss();
 
@@ -173,7 +173,7 @@ public class AddSelfPlanActivity extends FragmentActivity implements OnClickList
 
 	}
 
-		private SlideDateTimeListener listener = new SlideDateTimeListener() {
+	private SlideDateTimeListener listener = new SlideDateTimeListener() {
 
 		@Override
 		public void onDateTimeSet(Date date) {

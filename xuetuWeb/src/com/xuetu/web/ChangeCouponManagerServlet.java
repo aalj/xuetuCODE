@@ -62,7 +62,8 @@ public class ChangeCouponManagerServlet extends HttpServlet {
 				Date date = dateFormat.parse(couValidity);
 				String couInfo = request.getParameter("cou_info");
 				int couPonID = Integer.parseInt(request.getParameter("couponID"));
-				coupon = new Coupon(couPonID, storeName, couInfo, couNum, date, couName, couPrice, couRedeemPoints);
+				Date newtime = new Date(System.currentTimeMillis());
+				coupon = new Coupon(couPonID, storeName, couInfo, couNum, date, couName, couPrice, couRedeemPoints,newtime);
 
 				new CouService2().saveCoupon(coupon);
 

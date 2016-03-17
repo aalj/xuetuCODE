@@ -56,7 +56,7 @@
                 android:layout_height="wrap_content"
                 android:layout_alignBottom="@+id/tv_startTime"
                 android:layout_alignTop="@+id/tv_startTime"
-                android:text="TextView" />
+                android:text=" " />
         </RelativeLayout>
 
         <View
@@ -99,7 +99,7 @@
                 android:layout_alignBottom="@+id/tv_endTime"
                 android:layout_alignTop="@+id/tv_endTime"
                 android:layout_toLeftOf="@+id/imageView2"
-                android:text="TextView" />
+                android:text=" " />
         </RelativeLayout>
     </LinearLayout>
 
@@ -143,7 +143,7 @@
                 android:layout_alignBottom="@+id/study"
                 android:layout_alignTop="@+id/study"
                 android:layout_toLeftOf="@+id/imageView3"
-                android:text="TextView" />
+                android:text=" " />
         </RelativeLayout>
 
         <View
@@ -209,11 +209,5 @@
         android:layout_height="match_parent"
         android:layout_weight="1" >
     </LinearLayout>
-
-    <Button
-        android:id="@+id/button1"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/delete" />
 
 </LinearLayout><!-- android:background="#D54643" -->

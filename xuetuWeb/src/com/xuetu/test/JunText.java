@@ -14,11 +14,14 @@
 package com.xuetu.test;
 
 import java.util.Date;
+import java.util.List;
 
 import org.junit.Test;
 
 import com.mysql.fabric.xmlrpc.base.Data;
 import com.xuetu.dao.FindIml;
+import com.xuetu.dao.ShoppingDao;
+import com.xuetu.entity.Coupon;
 import com.xuetu.entity.Pattern;
 import com.xuetu.entity.SelfStudyPlan;
 import com.xuetu.entity.Student;
@@ -42,12 +45,19 @@ public class JunText {
 		System.out.println(new FindIml().getSelfPlan(1));
 		
 	}
-	@Test
 	public void getSchoolById(){
 		Date date = new Date(System.currentTimeMillis());
 		new FindIml().insertSelfStudyPlan
 		(new SelfStudyPlan(date, 
 				date, "dsknfl", 1, new Pattern(1,""),new Student(), date));
+	}
+	
+	
+	@Test
+	public void getCouponte(){
+		List<Coupon> queryCouponall = new ShoppingDao().queryCouponall();
+		System.out.println(queryCouponall);
+		
 	}
 
 }
