@@ -4,6 +4,7 @@ import com.lidroid.xutils.ViewUtils;
 import com.lidroid.xutils.view.annotation.ViewInject;
 import com.xuetu.R;
 import com.xuetu.adapter.FragmentViewPageAdapter;
+import com.xuetu.entity.Student;
 import com.xuetu.fragment.CouponFrag;
 import com.xuetu.fragment.FindFrag;
 import com.xuetu.fragment.HomePageFrag;
@@ -11,6 +12,7 @@ import com.xuetu.fragment.PersonalFrag;
 import com.xuetu.fragment.QuestionFrag;
 import com.xuetu.view.TitleBar;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
@@ -35,50 +37,50 @@ import android.widget.TextView;
  *
  * @see
  */
-public class MainActivity extends FragmentActivity implements OnPageChangeListener {
+public class MainActivity extends FragmentActivity implements OnPageChangeListener{
 	private FragmentManager manager = null;
 	private FragmentTransaction beginTransaction = null;
-	private TitleBar title ;
+	private TitleBar title;
 	@ViewInject(R.id.coupon_fra)
-	FrameLayout coupon_fra ;
+	FrameLayout coupon_fra;
 	@ViewInject(R.id.find_fra)
 	FrameLayout find_fra;
 	@ViewInject(R.id.home_fra)
-	FrameLayout home_fra ;
+	FrameLayout home_fra;
 	@ViewInject(R.id.question_page)
-	FrameLayout question_page ;
+	FrameLayout question_page;
 	@ViewInject(R.id.personal_page)
-	FrameLayout personal_page ;
+	FrameLayout personal_page;
 	@ViewInject(R.id.coupon_tv)
-	
+
 	FrameLayout[] fragmeLayout = null;
-	
+
 	@ViewInject(R.id.coupon_tv)
-	TextView  coupon_tv ;
+	TextView coupon_tv;
 	@ViewInject(R.id.find_tv)
-	TextView find_tv ;
+	TextView find_tv;
 	@ViewInject(R.id.home_tv)
 	TextView home_tv;
 	@ViewInject(R.id.ques_tv)
 	TextView ques_tv;
 	@ViewInject(R.id.person_tv)
-	TextView person_tv ;
-	
+	TextView person_tv;
+
 	TextView[] textView = null;
-	
+
 	HomePageFrag homePageFrag;
 	FindFrag findFrag;
 	CouponFrag couponFrag;
 	QuestionFrag questionFrag;
 	PersonalFrag personalFrag;
-	
+
 	Fragment[] fragments = null;
 
 	@ViewInject(R.id.frag_page)
 	ViewPager viewPage;
-	
-	private String[] titlename = {"券","发现","首页","问题","我"}; 
-	
+
+	private String[] titlename = { "券", "发现", "首页", "问题", "我" };
+
 	int showFragment = 2;
 
 	@Override
@@ -87,6 +89,16 @@ public class MainActivity extends FragmentActivity implements OnPageChangeListen
 		setContentView(R.layout.activity_main);
 		ViewUtils.inject(this);
 		initView();
+	}
+
+	@Override
+	protected void onResume() {
+		// TODO Auto-generated method stub
+		super.onResume();
+		// 登录成功传值出来
+		Intent intent = this.getIntent();
+		Student student = (Student) intent.getSerializableExtra("KEY");
+		
 	}
 
 	/**
@@ -101,9 +113,9 @@ public class MainActivity extends FragmentActivity implements OnPageChangeListen
 	private void initView() {
 		fragments = new Fragment[5];
 		fragmeLayout = new FrameLayout[5];
-		textView = new TextView[5]; 
+		textView = new TextView[5];
 		title = (TitleBar) findViewById(R.id.main_title);
-		
+
 		manager = getSupportFragmentManager();
 		beginTransaction = manager.beginTransaction();
 
@@ -112,8 +124,7 @@ public class MainActivity extends FragmentActivity implements OnPageChangeListen
 		fragmeLayout[2] = home_fra;
 		fragmeLayout[3] = question_page;
 		fragmeLayout[4] = personal_page;
-		
-		
+
 		textView[0] = coupon_tv;
 		textView[1] = find_tv;
 		textView[2] = home_tv;
@@ -131,21 +142,23 @@ public class MainActivity extends FragmentActivity implements OnPageChangeListen
 		fragments[3] = questionFrag;
 		fragments[4] = personalFrag;
 
-//		beginTransaction.add(R.id.frag_page, homePageFrag).add(R.id.frag_page, findFrag).add(R.id.frag_page, couponFrag)
-//				.add(R.id.frag_page, questionFrag).add(R.id.frag_page, personalFrag);
-//
-//		beginTransaction.hide(couponFrag).hide(findFrag).hide(personalFrag).hide(questionFrag).show(homePageFrag)
-//				.commit();
+		// beginTransaction.add(R.id.frag_page,
+		// homePageFrag).add(R.id.frag_page, findFrag).add(R.id.frag_page,
+		// couponFrag)
+		// .add(R.id.frag_page, questionFrag).add(R.id.frag_page, personalFrag);
+		//
+		// beginTransaction.hide(couponFrag).hide(findFrag).hide(personalFrag).hide(questionFrag).show(homePageFrag)
+		// .commit();
 		fragmeLayout[2].setSelected(true);
 		textView[2].setTextColor(0xff44A6D5);
 		beginTransaction = null;
 
 		title.setTitle("首页");
-		
+
 		viewPage.setAdapter(new FragmentViewPageAdapter(getSupportFragmentManager(), fragments));
 		viewPage.addOnPageChangeListener(this);
 		viewPage.setCurrentItem(2);
-		
+
 	}
 
 	/**
@@ -181,10 +194,7 @@ public class MainActivity extends FragmentActivity implements OnPageChangeListen
 
 		}
 
-
-
 	}
-
 
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
@@ -216,27 +226,27 @@ public class MainActivity extends FragmentActivity implements OnPageChangeListen
 	@Override
 	public void onPageSelected(int arg0) {
 		if (showFragment != arg0) {
-		for (int i = 0; i < fragmeLayout.length; i++) {
-			if (i != arg0) {
-				fragmeLayout[i].setSelected(false);
-				
-				textView[i].setTextColor( 0xff323232);
+			for (int i = 0; i < fragmeLayout.length; i++) {
+				if (i != arg0) {
+					fragmeLayout[i].setSelected(false);
+
+					textView[i].setTextColor(0xff323232);
+				}
 			}
+			FragmentTransaction trx = getSupportFragmentManager().beginTransaction();
+
+			trx.hide(fragments[showFragment]);
+			fragmeLayout[arg0].setSelected(true);
+			textView[arg0].setTextColor(0xff44A6D5);
+			title.setTitle(titlename[arg0]);
+			if (!fragments[arg0].isAdded()) {
+				trx.add(R.id.frag_page, fragments[arg0]);
+			}
+			trx.show(fragments[arg0]).commit();
+
 		}
-		FragmentTransaction trx = getSupportFragmentManager().beginTransaction();
 
-		trx.hide(fragments[showFragment]);
-		fragmeLayout[arg0].setSelected(true);
-		textView[arg0].setTextColor(0xff44A6D5);
-		title.setTitle(titlename[arg0]);
-		if (!fragments[arg0].isAdded()) {
-			trx.add(R.id.frag_page, fragments[arg0]);
-		}
-		trx.show(fragments[arg0]).commit();
-
-	}
-
-	showFragment = arg0;
-//
+		showFragment = arg0;
+		//
 	}
 }
