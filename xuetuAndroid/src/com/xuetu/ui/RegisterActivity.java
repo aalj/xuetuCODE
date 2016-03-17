@@ -11,6 +11,7 @@ import com.lidroid.xutils.http.ResponseInfo;
 import com.lidroid.xutils.http.callback.RequestCallBack;
 import com.lidroid.xutils.http.client.HttpRequest.HttpMethod;
 import com.xuetu.R;
+import com.xuetu.utils.GetHttp;
 
 import android.app.Activity;
 import android.os.Bundle;
@@ -41,7 +42,7 @@ public class RegisterActivity extends Activity {
 		String checkedNumber = et_checkedNumber.getText().toString();
 		String usertelephone = et_usertelephone.getText().toString();
 		HttpUtils httpUtils = new HttpUtils();
-		String url = " ";
+		String url =GetHttp.getHttpBCL()+"RegisterAndroid";
 		RequestParams params = new RequestParams();
 		try {
 			params.addBodyParameter("usertelephone", URLEncoder.encode(usertelephone, "utf-8"));
