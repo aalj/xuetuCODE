@@ -108,11 +108,11 @@ public class HomePageFrag extends Fragment implements OnTouchListener{
 	 */
 	public void moveBack (View vie)
 	{
-		PropertyValuesHolder up =    PropertyValuesHolder.ofFloat("translationY", 0,100F);
-		PropertyValuesHolder down =  PropertyValuesHolder.ofFloat("translationY", 0,-100F);
-		PropertyValuesHolder right = PropertyValuesHolder.ofFloat("translationX", 0,-100F);
-		PropertyValuesHolder left =  PropertyValuesHolder.ofFloat("translationX", 0,100F);
-		PropertyValuesHolder round = PropertyValuesHolder.ofFloat("rotation", 0,-120F);
+		PropertyValuesHolder up =    PropertyValuesHolder.ofFloat("translationY", -100F,0);
+		PropertyValuesHolder down =  PropertyValuesHolder.ofFloat("translationY", 100F,0);
+		PropertyValuesHolder right = PropertyValuesHolder.ofFloat("translationX", 100F,0);
+		PropertyValuesHolder left =  PropertyValuesHolder.ofFloat("translationX", -100F,0);
+		PropertyValuesHolder round = PropertyValuesHolder.ofFloat("rotation", 120F,0);
 		
 		ObjectAnimator.ofPropertyValuesHolder(img1, up,left,round).setDuration(1000).start();
 		ObjectAnimator.ofPropertyValuesHolder(img2, left,round).setDuration(1000).start();
