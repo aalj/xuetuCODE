@@ -78,16 +78,18 @@ public class PersonalFrag extends Fragment implements OnClickListener {
 	public void onClick(View v) {
 		switch (v.getId()) {
 		case R.id.view_user:
-			if (student == null || "null".equals(student)) {
-				Intent intent = new Intent();
-				intent.setClass(getActivity(), LoginActivity.class);
-				getActivity().startActivity(intent);
-			} else {
-				Intent intent1 = new Intent();
-				intent1.setClass(getActivity(), PersonInfomationActivity.class);
-				getActivity().startActivity(intent1);
 
-			}
+			Intent intent = new Intent();
+			intent.setClass(getActivity(), LoginActivity.class);
+			getActivity().startActivity(intent);
+
+//			if (student == null || "null".equals(student)) {
+//			} else {
+//				Intent intent1 = new Intent();
+//				intent1.setClass(getActivity(), PersonInfomationActivity.class);
+//				getActivity().startActivity(intent1);
+//
+//			}
 
 			break;
 		case R.id.txt_pay:
