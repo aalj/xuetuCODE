@@ -16,7 +16,7 @@ public class ShoopingServer implements ShoppingInter {
 	@Override
 	public List<Coupon> getCouponlimmit(int page, int num) {
 		
-		return null;
+		return shoppintDaoInter.queryCouponlimmit(page,num);
 	}
 
 	@Override

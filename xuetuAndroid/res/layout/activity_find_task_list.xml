@@ -15,12 +15,12 @@
         title:titleBarTitle="学习计划" >
     </com.xuetu.view.TitleBar>
 
-    <ListView
+    <com.xuetu.view.RefreshListView
         android:id="@+id/activity_find_task_list"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
         android:layout_below="@+id/title_my" >
-    </ListView>
+    </com.xuetu.view.RefreshListView>
 
 </RelativeLayout>

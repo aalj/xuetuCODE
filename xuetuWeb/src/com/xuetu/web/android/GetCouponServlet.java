@@ -33,8 +33,18 @@ public class GetCouponServlet extends HttpServlet {
 		response.setContentType("text/html;charset=utf-8");
 		String page = request.getParameter("page");
 		String unm = request.getParameter("num");
-		System.out.println("cou[on");
-		List<Coupon> couponAll = shoppingInter.getCouponAll();
+		int pageunm = 0;
+		int unmunm = 10;
+		if(page!=null&&unm!=null){
+			pageunm = Integer.parseInt(page);
+			unmunm = Integer.parseInt(unm);
+		}
+		List<Coupon> couponAll = shoppingInter.getCouponlimmit(pageunm,unmunm);
+		System.out.println("刷新数据");
+		
+		
+		
+		
 		
 		PrintWriter writer = response.getWriter();
 		Gson gson = new GsonBuilder()  

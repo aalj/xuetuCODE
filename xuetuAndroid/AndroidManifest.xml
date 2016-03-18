@@ -59,7 +59,8 @@
         <activity
             android:name="com.xuetu.ui.Question_ask"
             >
-        <activity android:name=".ui.Question_ask" />
+            </activity>
+        
         <activity
             android:name=".ui.PerCerter"
             android:label="我的中心" >
