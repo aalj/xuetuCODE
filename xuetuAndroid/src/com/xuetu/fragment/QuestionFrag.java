@@ -62,14 +62,24 @@ public class QuestionFrag extends Fragment {
 	View view = null;
 	ListView lv = null;
 	RelativeLayout rl_top;
+	String url = null;
+	MyQuestionListBaseAdapter adapter = null;
 	@Override
 	public View onCreateView(final LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 		view = inflater.inflate(R.layout.question_frag, null);
 		rl_top = (RelativeLayout) view.findViewById(R.id.rl_top);
 		lv = (ListView) view.findViewById(R.id.lv_question);
-		Log.i("hehe", "onCreateView");
-		String url = "http://10.201.1.13:8080/xuetuWeb/GetPageQuestion";
-		HttpUtils hutils = new HttpUtils();
+		InitData();
+		if(adapter!=null)
+			adapter.notifyDataSetChanged();
+		return view;
+
+	}
+	
+	public void InitData(){
+		url = "http://10.201.1.13:8080/xuetuWeb/GetPageQuestion";
+		HttpUtils hutils = new HttpUtils(10000);
+		hutils.configCurrentHttpCacheExpiry(5000);
 		/*SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 		System.out.println(sdf.format(new java.sql.Timestamp(System.currentTimeMillis())));*/
 		hutils.send(HttpMethod.GET, url, new RequestCallBack<String>() {
@@ -82,7 +92,6 @@ public class QuestionFrag extends Fragment {
 
 			@Override
 			public void onSuccess(ResponseInfo<String> arg0) {
-				Log.i("hehe", "success");
 				// TODO Auto-generated method stub
 				//指定date格式的gson对象
 				Gson gson = new GsonBuilder()  
@@ -90,37 +99,11 @@ public class QuestionFrag extends Fragment {
 				  .create();
 				Type listtype = new TypeToken<List<Question>>(){}.getType();
 				list = gson.fromJson(arg0.result, listtype);
-				lv.setAdapter(new MyQuestionListBaseAdapter(getActivity(), list));
-				lv.setOnItemClickListener(new OnItemClickListener() {
-
-					@Override
-					public void onItemClick(AdapterView<?> parent, View view,
-							int position, long id) {
-						view.findViewById(R.id.rl_top);
-						
-					}
-				});
-				Log.i("hehe", list.get(0).getQuesText()+"");		
+				adapter = new MyQuestionListBaseAdapter(getActivity(), list) ;
+				lv.setAdapter(adapter);
 			}
 			
 		});
-		
-		
-		//Item的点击事件
-		/*lv.setOnItemClickListener(new OnItemClickListener() {
-
-			@Override
-			public void onItemClick(AdapterView<?> parent, View view,
-					int position, long id) {
-				// TODO Auto-generated method stub
-				
-				Intent intent = new Intent(getActivity(),Answer_list.class);
-				//将quesID传入问题详情页面
-				
-				startActivity(intent);
-			}
-		});@Nullable*/
-		return view;
 	}
 /*	@Override
 	public void onActivityCreated(Bundle savedInstanceState) {
