@@ -86,9 +86,9 @@
 					android:paddingRight="16dp"
 					android:layout_marginTop="20dp"
 					android:drawablePadding="10dp"
-					android:drawableLeft="@drawable/icon_me_photo"
+					android:drawableLeft="@drawable/icon_me_smail"
 					android:drawableRight="@drawable/right"
-					android:text="支付中心" />
+					android:text="积分详情" />
 		<View
 			android:background="@color/black2"
 			android:layout_width="fill_parent"
@@ -104,7 +104,7 @@
 					android:paddingLeft="16dp"
 					android:paddingRight="16dp"
 					android:drawablePadding="10dp"
-					android:drawableLeft="@drawable/icon_me_collect"
+					android:drawableLeft="@drawable/icon_me_card"
 					android:drawableRight="@drawable/right"
 					android:text="优惠劵管理" />
 		<View
@@ -141,7 +141,7 @@
 					android:paddingLeft="16dp"
 					android:paddingRight="16dp"
 					android:drawablePadding="10dp"
-					android:drawableLeft="@drawable/icon_me_card"
+					android:drawableLeft="@drawable/icon_me_collect"
 					android:drawableRight="@drawable/right"
 					android:text="收藏" />
 		<View
@@ -162,7 +162,7 @@
 					android:paddingRight="16dp"
 					android:layout_marginTop="20dp"
 					android:drawablePadding="10dp"
-					android:drawableLeft="@drawable/icon_me_smail"
+					android:drawableLeft="@drawable/icon_me_photo"
 					android:drawableRight="@drawable/right"
 					android:text="课表修改" />
 		<View

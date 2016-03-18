@@ -23,7 +23,7 @@
             android:layout_marginLeft="10dp"
             android:layout_marginRight="10dp"
                 android:singleLine="true"
-                android:textColor="@color/greenn"
+                android:textColor="@color/blackk1"
                 android:textColorHint="@color/gray"
                 android:textSize="16sp" /> 
      

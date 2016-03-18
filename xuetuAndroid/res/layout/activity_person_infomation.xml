@@ -1,15 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res/com.xuetu"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
-    android:orientation="vertical" xmlns:app="http://schemas.android.com/apk/res/com.xuetu">
-	<com.xuetu.view.TitleBar 
-	    android:layout_width="fill_parent"
-	    android:layout_height="wrap_content"
-	    android:id="@+id/backtoperson"
-	    app:titleBarTitle="个人资料"
-	    ></com.xuetu.view.TitleBar>
-    
+    android:orientation="vertical" >
+
+    <com.xuetu.view.TitleBar
+        android:id="@+id/backtoperson"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        app:titleBarLeftImage="@drawable/ic_menu_back"
+        app:titleBarTitle="个人资料" >
+    </com.xuetu.view.TitleBar>
+
     <ScrollView
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
@@ -61,8 +64,6 @@
                     android:textSize="16sp" />
             </RelativeLayout>
 
-            
-
             <LinearLayout
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
@@ -73,6 +74,7 @@
                     android:id="@+id/nicheng"
                     android:layout_width="match_parent"
                     android:layout_height="50dp"
+                    android:background="@drawable/setting_item_selector"
                     android:orientation="vertical" >
 
                     <TextView
@@ -115,6 +117,7 @@
                     android:id="@+id/gexingqianming"
                     android:layout_width="match_parent"
                     android:layout_height="50dp"
+                    android:background="@drawable/setting_item_selector"
                     android:orientation="vertical" >
 
                     <TextView
@@ -160,12 +163,11 @@
                 android:layout_marginTop="20dp"
                 android:orientation="vertical" >
 
-               
-
                 <RelativeLayout
                     android:id="@+id/xingbie"
                     android:layout_width="match_parent"
                     android:layout_height="50dp"
+                    android:background="@drawable/setting_item_selector"
                     android:orientation="vertical" >
 
                     <TextView
@@ -208,6 +210,7 @@
                     android:id="@+id/nianling"
                     android:layout_width="match_parent"
                     android:layout_height="50dp"
+                    android:background="@drawable/setting_item_selector"
                     android:orientation="vertical" >
 
                     <TextView
@@ -231,6 +234,7 @@
                         android:src="@drawable/right" />
 
                     <TextView
+                        android:id="@+id/text_age"
                         style="@style/find_item_edit_tv"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -249,6 +253,7 @@
                     android:id="@+id/nianji_grade"
                     android:layout_width="match_parent"
                     android:layout_height="50dp"
+                    android:background="@drawable/setting_item_selector"
                     android:orientation="vertical" >
 
                     <TextView
@@ -272,6 +277,7 @@
                         android:src="@drawable/right" />
 
                     <TextView
+                        android:id="@+id/text_grade"
                         style="@style/find_item_edit_tv"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -290,6 +296,7 @@
                     android:id="@+id/xuexiao"
                     android:layout_width="match_parent"
                     android:layout_height="50dp"
+                    android:background="@drawable/setting_item_selector"
                     android:orientation="vertical" >
 
                     <TextView
@@ -313,6 +320,7 @@
                         android:src="@drawable/right" />
 
                     <TextView
+                        android:id="@+id/text_school"
                         style="@style/find_item_edit_tv"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
