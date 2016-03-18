@@ -14,6 +14,7 @@ import com.lidroid.xutils.http.callback.RequestCallBack;
 import com.lidroid.xutils.http.client.HttpRequest.HttpMethod;
 import com.xuetu.R;
 import com.xuetu.entity.MyClass;
+import com.xuetu.entity.Student;
 
 import android.app.Activity;
 import android.content.SharedPreferences;
@@ -35,10 +36,9 @@ public class CourseService implements OnClickListener {
 
 	public CourseService(Activity context, SharedPreferences preferences) {
 		this.context = context;
-		this.preferences=preferences;
+		this.preferences = preferences;
 		edit = preferences.edit();
 	}
-
 
 	DBManager mgr;
 	int[][] lessons = {
@@ -56,14 +56,14 @@ public class CourseService implements OnClickListener {
 	MyClass myclass = null;
 	private static volatile CourseService courseService;
 
-	public void getCourse() {
+	public void getCourse(Student student) {
 		// 初始化DBManager
 		mgr = new DBManager(context);
 		// http://localhost:8080/xuetuWeb/CourseAndroid
 		HttpUtils httpUtils = new HttpUtils();
-		String url = "http://192.168.1.106:8080/xuetuWeb/CourseAndroid";
+		String url = GetHttp.getHttpBCL() + "CourseAndroid";
 		RequestParams params = new RequestParams();
-		params.addBodyParameter("stuid", "1");
+		params.addBodyParameter("stuid", String.valueOf(student.getStuId()));
 		httpUtils.send(HttpMethod.POST, url, params, new RequestCallBack<String>() {
 			@Override
 			public void onFailure(HttpException arg0, String arg1) {
@@ -73,25 +73,20 @@ public class CourseService implements OnClickListener {
 			@Override
 			public void onSuccess(ResponseInfo<String> arg0) {
 				System.out.println(arg0.result);
-				
-			//得到值  Gson解析list集合
+
+				// 得到值 Gson解析list集合
 				Type type = new TypeToken<List<MyClass>>() {
 				}.getType();
 				List<MyClass> myclasses = gson.fromJson(arg0.result, type);
-				//sharedpreference的键值对立flag
+				// sharedpreference的键值对立flag
 				boolean falgs = preferences.getBoolean("saveDB", false);
-				
-				
-				
+
 				if (!falgs) {
 					edit.putBoolean("saveDB", true);
 					mgr.add(myclasses);
 					edit.commit();
 				}
-				
-				
-				
-				
+
 				fillCourse(myclasses);
 
 			}
@@ -115,7 +110,7 @@ public class CourseService implements OnClickListener {
 
 			buttons.add(lesson);
 		}
-	 
+
 	}
 
 	public void onclickthings() {
@@ -127,7 +122,6 @@ public class CourseService implements OnClickListener {
 
 	@Override
 	public void onClick(View v) {
-		
 
 	}
 

@@ -84,7 +84,8 @@ public class SelfStudyPlan implements Serializable{
 	@Override
 	public String toString() {
 		return "SelfStudyPlan [planID=" + planID + ", startTime=" + startTime + ", endTime=" + endTime + ", planText="
-				+ planText + ", planReming=" + planReming + ", pattern=" + pattern + ", planDate=" + planDate + "]";
+				+ planText + ", planReming=" + planReming + ", pattern=" + pattern + ", student=" + student
+				+ ", planDate=" + planDate + "]";
 	}
 	/**
 	 * 

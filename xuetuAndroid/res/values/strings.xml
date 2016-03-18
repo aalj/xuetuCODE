@@ -31,13 +31,17 @@
     <drawable name="clr_pressed">#65b8e0</drawable>
     <drawable name="clr_change">#33cc99</drawable>
 
- 
     <string name="title_activity_forget_pwd">ForgetPwdActivity</string>
     <string name="title_activity_person_infomation">PersonInfomationActivity</string>
     <string name="title_activity_person_info">PersonInfoActivity</string>
     <string name="title_activity_edit_name">EditNameActivity</string>
-
- 
     <string name="title_activity_add_self_plan">AddSelfPlanActivity</string>
- 
+
+    <string name="title_activity_change_age">ChangeAgeActivity</string>
+    <string name="title_activity_change_grade">ChangeGradeActivity</string>
+    <string name="title_activity_change_school">ChangeSchoolActivity</string>
+    <string name="title_activity_save_you_hui_juan">SaveYouHuiJuanActivity</string>
+    <string name="title_activity_the_collection_of_you_hui_juan">TheCollectionOfYouHuiJuanActivity</string>
+
+    <string name="title_activity_coupon">CouponActivity</string>
 </resources>
