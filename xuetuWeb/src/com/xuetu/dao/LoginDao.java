@@ -207,16 +207,21 @@ public class LoginDao implements PersonalDaoInterface {
 			prepareStatement.setInt(2, pointNum.getFromPoint().getFromPointid());
 			prepareStatement.setTimestamp(3, new Timestamp(pointNum.getPointTime().getTime()));
 			prepareStatement.executeUpdate();
+			return true;
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+
+			return false;
 		} finally {
 			CloseDb.close(connection, prepareStatement);
 		}
 
-		return false;
 	}
 
+	/**
+	 * 通过手机和密码在数据库里加入一个学生对象 返回一个布尔类型 加入成功true 没加入false
+	 */
 	@Override
 	public boolean register(String telephone, String password) {
 		Connection connection = DBconnection.getConnection();

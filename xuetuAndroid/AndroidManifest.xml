@@ -30,7 +30,8 @@
         </activity>
         <activity
             android:name=".ui.MainActivity"
-            android:label="首页" />
+            android:label="首页"
+            android:launchMode="singleInstance" />
         <activity
             android:name=".ui.TimerActivity"
             android:label="@string/title_activity_timer" >
@@ -52,12 +53,53 @@
             android:label="@string/title_activity_find_task_item" >
         </activity>
         <activity
-            android:name="com.xuetu.ui.ForgetPwdActivity"
+            android:name=".ui.ForgetPwdActivity"
             android:label="@string/title_activity_forget_pwd" >
         </activity>
         <activity
             android:name="com.xuetu.ui.Question_ask"
             >
+        <activity android:name=".ui.Question_ask" />
+        <activity
+            android:name=".ui.PerCerter"
+            android:label="我的中心" >
+        </activity>
+        <activity
+            android:name=".ui.PersonInfomationActivity"
+            android:label="@string/title_activity_person_infomation" >
+        </activity>
+        <activity
+            android:name=".PersonInfoActivity"
+            android:label="@string/title_activity_person_info" >
+        </activity>
+        <activity
+            android:name=".ui.EditNameActivity"
+            android:label="@string/title_activity_edit_name" >
+        </activity>
+        <activity
+            android:name=".ui.AddSelfPlanActivity"
+            android:label="@string/title_activity_add_self_plan" >
+        </activity>
+        <activity
+
+            android:name=".ui.ChangeAgeActivity"
+            android:label="@string/title_activity_change_age" >
+        </activity>
+        <activity
+            android:name=".ui.ChangeGradeActivity"
+            android:label="@string/title_activity_change_grade" >
+        </activity>
+        <activity
+            android:name=".ui.ChangeSchoolActivity"
+            android:label="@string/title_activity_change_school" >
+        </activity>
+        <activity
+            android:name=".ui.SaveYouHuiJuanActivity"
+            android:label="@string/title_activity_save_you_hui_juan" >
+        </activity>
+        <activity
+            android:name=".TheCollectionOfYouHuiJuanActivity"
+            android:label="@string/title_activity_the_collection_of_you_hui_juan" >
         </activity>
     </application>
 

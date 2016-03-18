@@ -202,4 +202,7 @@ public interface PersonalDaoInterface {
 	 */
 
 	public boolean register(String telephone, String password);
+	 
+	
+	 
 }

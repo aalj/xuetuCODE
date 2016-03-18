@@ -19,6 +19,7 @@ import com.lidroid.xutils.http.callback.RequestCallBack;
 import com.lidroid.xutils.http.client.HttpRequest.HttpMethod;
 import com.lidroid.xutils.view.annotation.ViewInject;
 import com.xuetu.R;
+import com.xuetu.db.DBFindManager;
 import com.xuetu.entity.Pattern;
 import com.xuetu.entity.SelfStudyPlan;
 import com.xuetu.utils.DataToTime;
@@ -65,14 +66,15 @@ public class FindTaskItemActivity extends FragmentActivity implements OnClickLis
 	
 	List<Pattern> list;
 	String[] item = null;
-
+//	DBFindManager dbFindManager = null;
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.find_task_item_edit);
 		ViewUtils.inject(this);
+//		dbFindManager = new DBFindManager(this);
 		initView();
-		mySengHttp();
+//		mySengHttp();
 		setOnclick();
 		
 
@@ -225,35 +227,23 @@ public class FindTaskItemActivity extends FragmentActivity implements OnClickLis
 		builder.show();
 
 	}
-	//获取学习类型的模式
-		private void mySengHttp() {
-			HttpUtils httpUtils = new HttpUtils();
-			String url = GetHttp.getHttpLJ() + "GetPatterServlet";
-			httpUtils.send(HttpMethod.GET, url, new RequestCallBack<String>() {
-
-				@Override
-				public void onFailure(HttpException arg0, String arg1) {
-
-				}
-
-				@Override
-				public void onSuccess(ResponseInfo<String> arg0) {
-					Gson gson = new Gson();
-					Type type = new TypeToken<List<Pattern>>() {
-					}.getType();
-					list = gson.fromJson(arg0.result, type);
-//					dbFindManager.addPatter(list);
-					//TODO 需要把数据存到本地数据库
-					
-					Log.i("TAG", list.toString());
-					item = new String[list.size()];
-					for (int i = 0; i < list.size(); i++) {
-						item[i] = list.get(i).getPattrenText();
-					}
-				}
-			});
-
-		}
+	
+	
+	/**
+	 * 获得学系
+	 */
+//	private void getpattern() {
+//		list = dbFindManager.getPattern();
+//		dbFindManager.addPatter(list);
+//		// TODO 需要把数据存到本地数据库
+//
+//		Log.i("TAG", list.toString());
+//		item = new String[list.size()];
+//		for (int i = 0; i < list.size(); i++) {
+//			item[i] = list.get(i).getPattrenText();
+//		}
+//	}
+	
 	
 
 }

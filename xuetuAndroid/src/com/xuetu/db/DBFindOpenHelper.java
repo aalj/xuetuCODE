@@ -21,12 +21,7 @@ public class DBFindOpenHelper extends SQLiteOpenHelper {
 		String pattern = "CREATE TABLE `pattern` ( `pattern_id` "
 				+ "integer NOT NULL PRIMARY KEY AUTOINCREMENT, "
 				+ " `pattern_text` varchar(300) NOT NULL )";
-		String self = "CREATE TABLE `selfstudyplan` (" + "`plan_id` integer NOT NULL PRIMARY KEY AUTOINCREMENT,"
-				+ "`start_time` date NOT NULL," + "`end_time` date NOT NULL," + "`plan_text` varchar(300) NOT NULL,"
-				+ "`plan_remind` integer NOT NULL," + "`pattern_id` integer DEFAULT NULL,"
-				+ "`stu_id` integer DEFAULT NULL," + "`plan_date` date NOT NULL)";
 		db.execSQL(pattern);
-		db.execSQL(self);
 
 	}
 

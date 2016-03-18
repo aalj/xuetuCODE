@@ -15,6 +15,8 @@ package com.xuetu.dao;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.Timestamp;
+
 import com.xuetu.utils.*;
 import com.xuetu.entity.Coupon;
 
@@ -52,7 +54,7 @@ public class CouponDao {
 				try {
 					conn = DBconnection.getConnection();
 					// 2、SQL语句
-					String sql = "insert into coupon(sto_id,cou_info,cou_num,cou_Validity,cou_redeem_points,cou_name,cou_price)" + "values (?,?,?,?,?,?,?)";
+					String sql = "insert into coupon(sto_id,cou_info,cou_num,cou_Validity,cou_redeem_points,cou_name,cou_price,cou_create_time)" + "values (?,?,?,?,?,?,?,?)";
 					// 3、获得preparedStatement对象
 					prep = conn.prepareStatement(sql);
 					// 4、设置？的值
@@ -65,6 +67,7 @@ public class CouponDao {
 					prep.setInt(5, coupon.getCoouRedeemPoints());
 					prep.setString(6, coupon.getCouName());
 					prep.setInt(7, coupon.getCouPrice());
+					prep.setTimestamp(8, new Timestamp(coupon.getCouponCreate().getTime()));
 					// 5、执行sql语句
 					prep.executeUpdate();
 				} catch (Exception e) {

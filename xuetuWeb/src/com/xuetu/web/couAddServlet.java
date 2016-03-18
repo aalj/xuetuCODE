@@ -3,6 +3,7 @@ package com.xuetu.web;
 import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Date;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -83,6 +84,7 @@ public class couAddServlet extends HttpServlet {
 				coupon.setCouName(cou_name);
 				coupon.setCouPrice(Integer.parseInt(cou_price));
 				coupon.setCouInfo(cou_info);
+				coupon.setCouponCreate(new Date(System.currentTimeMillis()));
 				// 调用Service方法添加优惠券
 				couService.CouponAdd(coupon, stoId);
 				request.getRequestDispatcher("/CouponListServlet").forward(request, response);

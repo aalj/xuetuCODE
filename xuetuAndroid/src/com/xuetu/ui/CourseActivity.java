@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.xuetu.R;
 import com.xuetu.entity.MyClass;
+import com.xuetu.entity.Student;
 import com.xuetu.utils.CourseService;
 import com.xuetu.utils.DBManager;
 
@@ -29,12 +30,13 @@ public class CourseActivity extends Activity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		Student student = ((XueTuApplication) getApplication()).getStudent();
 		setContentView(R.layout.activity_course);
 		preferences = getSharedPreferences("config", Activity.MODE_PRIVATE);
 		service = new CourseService(CourseActivity.this, preferences);
 		layout = (RelativeLayout) findViewById(R.id.relativelayout);
 		if (!preferences.getBoolean("saveDB", false)) {
-			service.getCourse();
+			service.getCourse(student);
 		} else {
 			DBManager mgr = new DBManager(this);
 			List<MyClass> querys = mgr.query();

@@ -6,6 +6,7 @@ import java.sql.Connection;
 import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
+import java.sql.Timestamp;
 import java.util.List;
 
 import com.xuetu.dao.inter.HomeInter;
@@ -53,18 +54,21 @@ public class TimeDao implements HomeInter {
 		{
 			conn = DBconnection.getConnection();
 			//sql语句  直接插入新列队
-			String sql = "insert into studytime(st_id,st_date,sto_time,acpo_num)"
-					+ " values(?,?,?,?);";
+			String sql = "insert into studytime(st_date,sto_time,acpo_num)"
+					+ " values(?,?,?);";
 //			String sql = "insert into studytime(st_id,st_date,sto_time,stu_id,acpo_num)"
 //					+ " values(?,?,?,?,?);";
 			// 获得preparedStatement对象
 			prep = conn.prepareStatement(sql);
 			
-			prep.setInt(1, stu_time.getSttID());
-			prep.setDate(2, (Date) stu_time.getDate());
-			prep.setLong(3, stu_time.getTime());
+//			prep.setInt(1, stu_time.getSttID());
+			
+//			prep.setDate(2, new Date(stu_time.getDate().getTime()));
+			prep.setTimestamp(1, new Timestamp(stu_time.getDate().getTime()));
+			prep.setLong(2, stu_time.getTime());
 //			prep.setInt(4, stu_time.getStudent().getStuId());
-			prep.setInt(4, stu_time.getAcpo_num());
+			prep.setInt(3, stu_time.getAcpo_num());
+//			System.out.println("--------"+stu_time.getSttID()+">>>"+(Date) stu_time.getDate()+">>"+stu_time.getTime()+">>>"+stu_time.getAcpo_num()+"");
 			prep.executeUpdate();
 			
 		} 

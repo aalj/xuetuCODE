@@ -14,9 +14,13 @@
 package com.xuetu.fragment;
 
 import com.xuetu.R;
+import com.xuetu.entity.Student;
 import com.xuetu.ui.CourseActivity;
 import com.xuetu.ui.LoginActivity;
+import com.xuetu.ui.PersonInfomationActivity;
+import com.xuetu.ui.XueTuApplication;
 
+import android.app.Application;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -39,7 +43,7 @@ import android.widget.TextView;
  * 
  * @see
  */
-public class PersonalFrag extends Fragment implements OnClickListener{
+public class PersonalFrag extends Fragment implements OnClickListener {
 	RelativeLayout view_user;
 	TextView txt_pay;
 	TextView txt_youhuijuan;
@@ -47,6 +51,7 @@ public class PersonalFrag extends Fragment implements OnClickListener{
 	TextView txt_mylike;
 	TextView txt_course;
 	TextView txt_paihangbang;
+	Student student;
 
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -65,7 +70,7 @@ public class PersonalFrag extends Fragment implements OnClickListener{
 		txt_mylike.setOnClickListener(this);
 		txt_course.setOnClickListener(this);
 		txt_paihangbang.setOnClickListener(this);
-		
+		student = ((XueTuApplication) (getActivity().getApplication())).getStudent();
 		return view;
 	}
 
@@ -73,9 +78,17 @@ public class PersonalFrag extends Fragment implements OnClickListener{
 	public void onClick(View v) {
 		switch (v.getId()) {
 		case R.id.view_user:
-			Intent intent = new Intent();
-			intent.setClass(getActivity(), LoginActivity.class);
-			getActivity().startActivity(intent);
+			if (student == null || "null".equals(student)) {
+				Intent intent = new Intent();
+				intent.setClass(getActivity(), LoginActivity.class);
+				getActivity().startActivity(intent);
+			} else {
+				Intent intent1 = new Intent();
+				intent1.setClass(getActivity(), PersonInfomationActivity.class);
+				getActivity().startActivity(intent1);
+
+			}
+
 			break;
 		case R.id.txt_pay:
 

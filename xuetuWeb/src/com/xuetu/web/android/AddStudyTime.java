@@ -46,19 +46,32 @@ public class AddStudyTime extends HttpServlet {
 		response.setCharacterEncoding("utf-8");
 		request.setCharacterEncoding("utf-8");
 		
+		System.out.println("add dopost");
+		
 		//从手机端获取值
 //		String name = request.getParameter("name");
 		String integral = request.getParameter("integral");
+		System.out.println(integral);
 		String st_date = request.getParameter("st_date");
+		System.out.println(st_date);
 		String stu_id = request.getParameter("stu_id");
+		System.out.println(stu_id);
 		String st_id = request.getParameter("sto_id");
-		String st_time=request.getParameter("st_time");
+		System.out.println(st_id);
+		String st_time = request.getParameter("st_time");
+		System.out.println(st_time);
 		
 		//把值放入对象
-		studytime.setSttID(Integer.parseInt(st_id));  //学习时间id
+//		studytime.setSttID(Integer.parseInt(st_id));  //学习时间id
+//		studytime.setTime(Long.parseLong(st_time));  //学习时长
+//		studytime.setStudent(null);					//学生对象id
+//		studytime.setAcpo_num(Integer.parseInt(integral));
+		
+		studytime.setSttID(15);  //学习时间id
 		studytime.setTime(Long.parseLong(st_time));  //学习时长
 		studytime.setStudent(null);					//学生对象id
 		studytime.setAcpo_num(Integer.parseInt(integral));
+		
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 		try {
 			studytime.setDate(sdf.parse(st_date));	//获得积分的时间
@@ -76,10 +89,13 @@ public class AddStudyTime extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		
+		response.setCharacterEncoding("utf-8");
+		request.setCharacterEncoding("utf-8");
+		System.out.println("add doget");
 		doGet(request, response);
 		
 		
 	}
 
 }
+
