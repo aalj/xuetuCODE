@@ -83,9 +83,9 @@ public class PersonalFrag extends Fragment implements OnClickListener {
 				intent.setClass(getActivity(), LoginActivity.class);
 				getActivity().startActivity(intent);
 			} else {
-				Intent intent = new Intent();
-				intent.setClass(getActivity(), PersonInfomationActivity.class);
-				getActivity().startActivity(intent);
+				Intent intent1 = new Intent();
+				intent1.setClass(getActivity(), PersonInfomationActivity.class);
+				getActivity().startActivity(intent1);
 
 			}
 

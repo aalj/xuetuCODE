@@ -1,14 +1,11 @@
 package com.xuetu.ui;
 
 import com.xuetu.R;
-import com.xuetu.R.id;
-import com.xuetu.R.layout;
-import com.xuetu.R.menu;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
-import android.view.Menu;
-import android.view.MenuItem;
+import android.view.View;
 
 public class ForgetPwdActivity extends Activity {
 
@@ -16,5 +13,25 @@ public class ForgetPwdActivity extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.zhaohuimima);
+	}
+
+	public void onclick(View v) {
+		switch (v.getId()) {
+		case R.id.btn_finish:
+			Jump();
+			break;
+		case R.id.text_back:
+			Jump();
+			break;
+
+		default:
+			break;
+		}
+	}
+
+	private void Jump() {
+		Intent intent = new Intent();
+		intent.setClass(this, LoginActivity.class);
+		startActivity(intent);
 	}
 }

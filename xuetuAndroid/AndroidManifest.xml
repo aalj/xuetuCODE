@@ -70,7 +70,7 @@
             android:label="@string/title_activity_person_info" >
         </activity>
         <activity
-            android:name=".EditNameActivity"
+            android:name=".ui.EditNameActivity"
             android:label="@string/title_activity_edit_name" >
         </activity>
         <activity
@@ -78,8 +78,29 @@
             android:label="@string/title_activity_add_self_plan" >
         </activity>
         <activity
+
+            android:name=".ui.ChangeAgeActivity"
+            android:label="@string/title_activity_change_age" >
+        </activity>
+        <activity
+            android:name=".ui.ChangeGradeActivity"
+            android:label="@string/title_activity_change_grade" >
+        </activity>
+        <activity
+            android:name=".ui.ChangeSchoolActivity"
+            android:label="@string/title_activity_change_school" >
+        </activity>
+        <activity
+            android:name=".ui.SaveYouHuiJuanActivity"
+            android:label="@string/title_activity_save_you_hui_juan" >
+        </activity>
+        <activity
+            android:name=".TheCollectionOfYouHuiJuanActivity"
+            android:label="@string/title_activity_the_collection_of_you_hui_juan" >
+=======
             android:name="com.xuetu.ui.CouponActivity"
             android:label="@string/title_activity_coupon" >
+>>>>>>> branch 'master' of https://github.com/aalj/xuetuCODE.git
         </activity>
     </application>
 
