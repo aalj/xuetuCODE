@@ -33,8 +33,8 @@
      android:layout_marginRight="10dp"
      android:layout_marginBottom="10dp"
      android:textColor="@color/white"
-     android:background="@color/blue"
-     android:onClick="ask"
+     android:background="@color/blue1"
+     android:onClick="answer"
      android:text="@string/answer" />
         </LinearLayout>
 </RelativeLayout>

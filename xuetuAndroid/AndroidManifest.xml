@@ -82,7 +82,9 @@
             android:label="@string/title_activity_add_self_plan" >
         </activity>
         <activity
-
+            android:name="com.xuetu.ui.Answer_list">
+		</activity>
+		<activity
             android:name=".ui.ChangeAgeActivity"
             android:label="@string/title_activity_change_age" >
         </activity>

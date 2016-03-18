@@ -80,4 +80,12 @@ public class Answer {
 		this.ansImg = ansImg;
 		this.ansTime = ansTime;
 	}
+	public Answer(Question question, Student student, String ansText,  Date ansTime) {
+		super();
+		this.question = question;
+		this.student = student;
+		this.ansText = ansText;
+		this.ansTime = ansTime;
+	}
+	
 }

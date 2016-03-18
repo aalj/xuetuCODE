@@ -104,5 +104,29 @@ public class QuestionService implements QuestionServiceInter {
 		// TODO Auto-generated method stub
 		return q.getSchIdByStuId(StuId);
 	}
+
+	@Override
+	public Answer createAnswer(int ques_id, int stu_id, String ans_text, Date ans_time) {
+		// TODO Auto-generated method stub
+		return q.createAnswer(ques_id, stu_id, ans_text, ans_time);
+	}
+
+	@Override
+	public List<Answer> queryLimitAnswer(int page, int num) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void submitAnswer(Answer answer) {
+		// TODO Auto-generated method stub
+		q.submitAnswer(answer);
+	}
+
+	@Override
+	public Question getQuestionByQuesId(int ques_id) {
+		// TODO Auto-generated method stub
+		return q.getQuestionByQuesId(ques_id);
+	}
 	
 }
