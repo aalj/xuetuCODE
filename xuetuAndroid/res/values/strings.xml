@@ -21,7 +21,12 @@
     <string name="title_activity_find_task_item">FindTaskItemActivity</string>
     <string name="delete">删除</string>
     <string name="zhixingmosi">执行模式</string>
-
+    <string name="subject">选择学科</string>
+    <string name="sub1">高数</string>
+    <string name="sub2">英语</string>
+    <string name="sub3">地理</string>
+    <string name="sub4">化学</string>
+	<string name="question_hint">请详细描述问题</string>
     <drawable name="clr_normal">#44a6c0</drawable>
     <drawable name="clr_pressed">#65b8e0</drawable>
     <drawable name="clr_change">#33cc99</drawable>

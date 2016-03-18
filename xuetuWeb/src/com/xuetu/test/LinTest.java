@@ -57,4 +57,17 @@ public class LinTest {
 	public void getPageQuestion(){
 		System.out.println(Qservice.queryLimitQuestion(1, 20).get(7).getQuesDate());
 	}
+	@Test
+	public void getQuestionByQuesId(){
+		System.out.println(Qservice.getQuestionByQuesId(1).getQuesText());
+	}
+	@Test
+	public void createAnswer(){
+		System.out.println(Qservice.createAnswer(1, 2, "x趋近于0，求y的值", new Date(System.currentTimeMillis())));
+	}
+	@Test
+	public void submitAnswer(){
+		Qservice.submitAnswer(Qservice.createAnswer(1, 2, "x趋近于0，求y的值", new Date(System.currentTimeMillis())));
+		
+	}
 }

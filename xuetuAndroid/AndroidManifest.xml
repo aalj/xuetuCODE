@@ -78,6 +78,9 @@
             android:name="com.xuetu.ui.AddSelfPlanActivity"
             android:label="@string/title_activity_add_self_plan" >
         </activity>
+        <activity
+            android:name="com.xuetu.ui.Answer_list">
+        </activity>
     </application>
 
 </manifest>

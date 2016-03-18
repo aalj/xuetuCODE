@@ -75,7 +75,6 @@ public class MyQuestionListBaseAdapter extends BaseAdapter {
 		//System.out.println(sdf.format(new java.sql.Timestamp(System.currentTimeMillis())));
 		
 		date = sdf.format(list.get(position).getQuesDate());
-		Log.i("hehe", sdf.format(new Date(list.get(position).getQuesDate().getTime())));
 		vh.tv_time.setText(sdf.format(new Date(list.get(position).getQuesDate().getTime())));
 //		vh.iv_ques_img.setImageResource(list.get(position).getQues_img());
 		
