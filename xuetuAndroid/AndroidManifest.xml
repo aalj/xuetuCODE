@@ -56,6 +56,9 @@
             android:name=".ui.ForgetPwdActivity"
             android:label="@string/title_activity_forget_pwd" >
         </activity>
+        <activity
+            android:name="com.xuetu.ui.Question_ask"
+            >
         <activity android:name=".ui.Question_ask" />
         <activity
             android:name=".ui.PerCerter"
@@ -97,10 +100,6 @@
         <activity
             android:name=".TheCollectionOfYouHuiJuanActivity"
             android:label="@string/title_activity_the_collection_of_you_hui_juan" >
-=======
-            android:name="com.xuetu.ui.CouponActivity"
-            android:label="@string/title_activity_coupon" >
->>>>>>> branch 'master' of https://github.com/aalj/xuetuCODE.git
         </activity>
     </application>
 
