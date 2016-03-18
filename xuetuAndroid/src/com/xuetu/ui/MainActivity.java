@@ -51,8 +51,7 @@ public class MainActivity extends FragmentActivity implements OnPageChangeListen
 	FrameLayout question_page;
 	@ViewInject(R.id.personal_page)
 	FrameLayout personal_page;
-	@ViewInject(R.id.coupon_tv)
-
+	
 	FrameLayout[] fragmeLayout = null;
 
 	@ViewInject(R.id.coupon_tv)

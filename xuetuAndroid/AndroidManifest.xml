@@ -78,6 +78,7 @@
             android:label="@string/title_activity_add_self_plan" >
         </activity>
         <activity
+
             android:name=".ui.ChangeAgeActivity"
             android:label="@string/title_activity_change_age" >
         </activity>
@@ -96,6 +97,10 @@
         <activity
             android:name=".TheCollectionOfYouHuiJuanActivity"
             android:label="@string/title_activity_the_collection_of_you_hui_juan" >
+=======
+            android:name="com.xuetu.ui.CouponActivity"
+            android:label="@string/title_activity_coupon" >
+>>>>>>> branch 'master' of https://github.com/aalj/xuetuCODE.git
         </activity>
     </application>
 

@@ -17,18 +17,28 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.lang.reflect.Type;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.List;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import com.xuetu.R;
+import com.xuetu.entity.Coupon;
+import com.xuetu.utils.GetHttp;
 import com.xuetu.utils.StreamUtils;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.google.gson.reflect.TypeToken;
 import com.lidroid.xutils.HttpUtils;
+import com.lidroid.xutils.exception.HttpException;
+import com.lidroid.xutils.http.RequestParams;
 import com.lidroid.xutils.http.ResponseInfo;
 import com.lidroid.xutils.http.callback.RequestCallBack;
+import com.lidroid.xutils.http.client.HttpRequest.HttpMethod;
 import com.lidroid.xutils.util.IOUtils;
 
 import android.app.Activity;
@@ -45,6 +55,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.os.SystemClock;
+import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -157,12 +168,16 @@ public class SplashActivity extends Activity {
 	 * @throws @since CodingExample Ver 1.1
 	 */
 	private void initView() {
+		getDate();
 		tv_version = (TextView) findViewById(R.id.tv_splash_version);
 		tv_version.setText("版本号： " + getVersionNum());
 		tv_splash_progress = (TextView) findViewById(R.id.tv_splash_progress);
 
 		// 读取配置文件(设置功能生成的),判断设置里面是否,需要提醒升级
 		preferences = getSharedPreferences("config", MODE_PRIVATE);
+		//联网获取优惠券的信息
+		
+		
 		// 根据配置文件判断是否需要执行检查是否有可升级应用
 		if (preferences.getBoolean("updata", true)) {
 			update();
@@ -187,6 +202,40 @@ public class SplashActivity extends Activity {
 		// 把归属地数据库写入应用文件
 		copyDb();
 
+	}
+	
+	
+	
+	HttpUtils httpUtils = new HttpUtils();
+	/**
+	 * 用于加载优惠券的信息
+	 */
+	private void getDate() {
+		String url=GetHttp.getHttpLJ()+"GetCouponServlet";
+		
+		RequestParams parterm = new RequestParams();
+		parterm.addBodyParameter("page","");//查询第几页
+		parterm.addBodyParameter("num","");//每页显示几行
+		httpUtils.send(HttpMethod.POST, url,parterm  ,new RequestCallBack<String>() {
+
+			@Override
+			public void onFailure(HttpException arg0, String arg1) {
+				
+			}
+
+			@Override
+			public void onSuccess(ResponseInfo<String> arg0) {
+				Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create();
+
+				Type type = new TypeToken<List<Coupon>>() {
+				}.getType();
+				 List<Coupon> listConpun = gson.fromJson(arg0.result, type);
+				 Log.i("TAG", listConpun.toString());
+				((XueTuApplication)getApplication()).setListConpun(listConpun);;
+				
+			}
+		});
+		
 	}
 
 	/**

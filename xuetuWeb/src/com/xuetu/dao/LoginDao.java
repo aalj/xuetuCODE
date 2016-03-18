@@ -219,6 +219,9 @@ public class LoginDao implements PersonalDaoInterface {
 
 	}
 
+	/**
+	 * 通过手机和密码在数据库里加入一个学生对象 返回一个布尔类型 加入成功true 没加入false
+	 */
 	@Override
 	public boolean register(String telephone, String password) {
 		Connection connection = DBconnection.getConnection();

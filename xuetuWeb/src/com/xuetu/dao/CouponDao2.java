@@ -60,10 +60,11 @@ public class CouponDao2 {
 				coupon.setCouInfo(query.getString("cou_info"));
 				coupon.setConNum(query.getInt("cou_num"));
 
-				coupon.setConValidity(query.getDate("cou_Validity"));
+				coupon.setConValidity(query.getTimestamp("cou_Validity"));
 				coupon.setCoouRedeemPoints(query.getInt("cou_redeem_points"));
 				coupon.setCouName(query.getString("cou_name"));
 				coupon.setCouPrice(query.getInt("cou_price"));
+				coupon.setCouponCreate(query.getTimestamp("cou_create_time"));
 				listCoupon.add(coupon);
 
 			}
