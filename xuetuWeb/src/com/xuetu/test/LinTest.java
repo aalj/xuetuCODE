@@ -42,11 +42,11 @@ public class LinTest {
 	}
 	@Test
 	public void createQuestion(){
-		System.out.println(Qservice.createQuestion(2, "高数怎么这么难", new Date(System.currentTimeMillis()), 10, 2, 1));
+		System.out.println(Qservice.createQuestion(2, "煞笔","sds", new Date(System.currentTimeMillis()), 10, 2, 1));
 	}
 	@Test
 	public void submitQuestion(){
-		Qservice.submitQuestion(Qservice.createQuestion(2, "求极限怎么求", new Date(System.currentTimeMillis()), 10, 2, 1));
+		Qservice.submitQuestion(Qservice.createQuestion(2, "煞笔王毅","sd", new Date(System.currentTimeMillis()), 10, 2, 1));
 		System.out.println("OK");
 	}
 	@Test
@@ -56,5 +56,18 @@ public class LinTest {
 	@Test
 	public void getPageQuestion(){
 		System.out.println(Qservice.queryLimitQuestion(1, 20).get(7).getQuesDate());
+	}
+	@Test
+	public void getQuestionByQuesId(){
+		System.out.println(Qservice.getQuestionByQuesId(1).getQuesText());
+	}
+	@Test
+	public void createAnswer(){
+		System.out.println(Qservice.createAnswer(1, 2, "x趋近于0，求y的值", new Date(System.currentTimeMillis())));
+	}
+	@Test
+	public void submitAnswer(){
+		Qservice.submitAnswer(Qservice.createAnswer(1, 2, "x趋近于0，求y的值", new Date(System.currentTimeMillis())));
+		
 	}
 }

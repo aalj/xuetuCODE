@@ -1,0 +1,121 @@
+package com.xuetu.ui;
+
+import java.io.UnsupportedEncodingException;
+import java.lang.reflect.Type;
+import java.net.URLEncoder;
+import java.util.ArrayList;
+import java.util.List;
+
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.google.gson.reflect.TypeToken;
+import com.lidroid.xutils.HttpUtils;
+import com.lidroid.xutils.exception.HttpException;
+import com.lidroid.xutils.http.RequestParams;
+import com.lidroid.xutils.http.ResponseInfo;
+import com.lidroid.xutils.http.callback.RequestCallBack;
+import com.lidroid.xutils.http.client.HttpRequest.HttpMethod;
+import com.xuetu.R;
+import com.xuetu.adapter.MyBasesadapter;
+import com.xuetu.adapter.ViewHodle;
+import com.xuetu.entity.MyCoupon;
+import com.xuetu.entity.Student;
+import com.xuetu.utils.GetHttp;
+
+import android.app.Activity;
+import android.os.Bundle;
+import android.util.Log;
+import android.widget.ListView;
+
+/**
+ * 
+ * 
+ * 优惠劵管理 不是收藏
+ * 
+ * @author BCL
+ *
+ */
+public class TheCollectionOfYouHuiJuanActivity extends Activity {
+	ListView listview;
+	List<MyCoupon> datas = new ArrayList<MyCoupon>();
+	MyBasesadapter<MyCoupon> myadapter;
+	Student student;
+
+	@Override
+	protected void onCreate(Bundle savedInstanceState) {
+		super.onCreate(savedInstanceState);
+		student = ((XueTuApplication) getApplication()).getStudent();
+		setContentView(R.layout.activity_the_collection_of_you_hui_juan);
+		listview = (ListView) findViewById(R.id.listView);
+
+		getCoupon();
+
+	}
+
+	/**
+	 * listview的加载
+	 */
+	private void addView() {
+		Log.i("TAG", datas + "");
+		// 设置适配器
+		listview.setAdapter(myadapter = new MyBasesadapter<MyCoupon>(this, datas, R.layout.youhuijuan) {
+
+			@Override
+			public void convert(ViewHodle viewHolder, MyCoupon mycoupon) {
+				viewHolder.setText(R.id.youhuijuanxingxi, mycoupon.getCoupon().getCouInfo());
+				viewHolder.setText(R.id.number, mycoupon.getCoupon().getCouPrice() + "折");
+				viewHolder.SetUrlImage(R.id.head,
+						GetHttp.getHttpBCL() + mycoupon.getCoupon().getStoreName().getStoImg());
+				viewHolder.setText(R.id.youhuijuanshiyongqingkuang, mycoupon.getUserState().getUstaName());
+				if (mycoupon.getUserState().getUstaID() == 2) {
+					viewHolder.setIayoutBgColor(R.id.layout, getResources().getColor(R.color.blue));
+				}else{
+					
+					
+				}
+			}
+		});
+
+	}
+
+	/**
+	 * 通过学生ID得到收藏优惠劵ID 查询优惠劵表格得到个人优惠劵
+	 * 
+	 */
+
+	public void getCoupon() {
+		HttpUtils httpUtils = new HttpUtils();
+		String url = GetHttp.getHttpBCL() + "TheCollectionOfYouHuiJuanServlet";
+		RequestParams params = new RequestParams();
+		try {
+			URLEncoder.encode(String.valueOf(student.getStuId()), "utf-8");
+			params.addBodyParameter("stuid", 3 + "");
+		} catch (UnsupportedEncodingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		Log.i("TAG", student.getStuId() + " ");
+		httpUtils.send(HttpMethod.POST, url, params, new RequestCallBack<String>() {
+
+			@Override
+			public void onFailure(HttpException arg0, String arg1) {
+				// TODO Auto-generated method stub
+
+			}
+
+			@Override
+			public void onSuccess(ResponseInfo<String> arg0) {
+				String result = arg0.result;
+				Log.i("TAG", result);
+				Type type = new TypeToken<List<MyCoupon>>() {
+				}.getType();
+				Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd").create();
+				datas = gson.fromJson(result, type);
+				addView();
+			}
+
+		});
+
+	}
+
+}

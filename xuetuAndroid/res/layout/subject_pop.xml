@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" 
+    android:background="#b3b3b3">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="30dp"
+        android:background="@color/black2"
+        android:gravity="center_vertical"
+        android:paddingLeft="15dp"
+        android:text="学科:" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:paddingTop="10dp"
+        android:background="@color/white" >
+
+        <TextView
+            android:id="@+id/tv_sub1"
+ 			android:textSize="20sp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="@string/sub1" />
+
+        <TextView
+            android:id="@+id/tv_sub2"
+            android:textSize="20sp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="@string/sub2" />
+
+        <TextView
+            android:id="@+id/tv_sub3"
+            android:textSize="20sp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="@string/sub3" />
+
+        <TextView
+            android:id="@+id/tv_sub4"
+            android:textSize="20sp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="@string/sub4" />
+    </LinearLayout>
+<LinearLayout 
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:background="@color/touming"
+            >
+            <Button
+     android:id="@+id/btn_ans"
+     android:layout_width="match_parent"
+     android:layout_height="30dp"
+     android:layout_marginLeft="10dp"
+     android:layout_marginTop="10dp"
+     android:layout_marginRight="10dp"
+     android:layout_marginBottom="10dp"
+     android:textColor="@color/white"
+     android:background="@color/blue1"
+     android:onClick="answer"
+     android:text="确定" />
+        </LinearLayout>
+</LinearLayout>

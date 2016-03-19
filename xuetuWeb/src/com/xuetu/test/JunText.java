@@ -53,10 +53,16 @@ public class JunText {
 	}
 	
 	
-	@Test
-	public void getCouponte(){
+	
+	public void getCouponteq(){
 		List<Coupon> queryCouponall = new ShoppingDao().queryCouponall();
 		System.out.println(queryCouponall);
+		
+	}
+	@Test
+	public void getCouponte(){
+		List<Coupon> couponlimmit = new ShoppingDao().queryCouponlimmit(0,10);
+		System.out.println(couponlimmit);
 		
 	}
 

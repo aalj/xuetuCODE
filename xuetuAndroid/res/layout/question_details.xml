@@ -30,12 +30,13 @@
             android:text="2小时前" />
 
         <TextView
-            android:id="@+id/tv_ques_text"
+            android:id="@+id/tv_d"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_alignLeft="@+id/tv_subject"
             android:layout_below="@id/tv_time"
             android:layout_marginTop="14dp"
+            android:textColor="@color/blue1"
             android:text="问题描述ques_text 111111111111111111111111111111111111" />
 
         <ImageView

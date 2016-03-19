@@ -74,7 +74,7 @@ public interface QuesTionDao {
 	
 	/**
 	 * 
-	 * queryLimitQuestion:(分页查询全部的question)<br/>
+	 * queryLimitQuestion:(分页查询全部的question，按照时间降序)<br/>
 	 *
 	 * @param  @param page
 	 * @param  @param num
@@ -85,8 +85,30 @@ public interface QuesTionDao {
 	 */
 	public List<Question> queryLimitQuestion(int page,int num);
 	
-	
+	/**
+	 * 
+	 * getStudentByStuId:(根据stu_id获得student对象)<br/>
+	 *
+	 * @param  @param page
+	 * @param  @param num
+	 * @param  @return    设定文件
+	 * @return school    DOM对象
+	 * @throws 
+	 * @since  CodingExample　Ver 1.1
+	 */
 	public Student getStudentByStuId(int stuId,int sch_id);
+	/**
+	 * 
+	 * getQuestionByQuesId:(根据ques_id获得question对象)<br/>
+	 *
+	 * @param  @param page
+	 * @param  @param num
+	 * @param  @return    设定文件
+	 * @return school    DOM对象
+	 * @throws 
+	 * @since  CodingExample　Ver 1.1
+	 */
+	public Question getQuestionByQuesId(int ques_id);
 	/**
 	 * 
 	 * queryLimitQuestion:(根据sch_id获得school对象)<br/>
@@ -122,7 +144,7 @@ public interface QuesTionDao {
 	 * @throws 
 	 * @since  CodingExample　Ver 1.1
 	 */
-	public Question createQuestion(int stuId,String quesText,Date quesTime,int acpoNum,int subId,int schId);
+	public Question createQuestion(int stuId,String quesText,String ques_ima,Date quesTime,int acpoNum,int subId,int schId);
 	/**
 	 * 
 	 * queryLimitQuestion:(发表问题)<br/>
@@ -147,7 +169,41 @@ public interface QuesTionDao {
 	 * @since  CodingExample　Ver 1.1
 	 */
 	public int getSchIdByStuId(int StuId);
-	
-	
+	/**
+	 * 
+	 * queryLimitQuestion:(提交答案)<br/>
+	 *
+	 * @param  @param page
+	 * @param  @param num
+	 * @param  @return    设定文件
+	 * @return void    DOM对象
+	 * @throws 
+	 * @since  CodingExample　Ver 1.1
+	 */
+	public void submitAnswer(Answer answer);
+	/**
+	 * 
+	 * queryLimitQuestion:(分页查询答案，按照时间降序)<br/>
+	 *
+	 * @param  @param page
+	 * @param  @param num
+	 * @param  @return    设定文件
+	 * @return void    DOM对象
+	 * @throws 
+	 * @since  CodingExample　Ver 1.1
+	 */
+	public List<Answer> queryLimitAnswer(int page,int num);
+	/**
+	 * 
+	 * queryLimitQuestion:(生成一个答案对象)<br/>
+	 *
+	 * @param  @param page
+	 * @param  @param num
+	 * @param  @return    设定文件
+	 * @return void    DOM对象
+	 * @throws 
+	 * @since  CodingExample　Ver 1.1
+	 */
+	public Answer createAnswer(int ques_id,int stu_id,String ans_text,Date ans_time);
 }
 

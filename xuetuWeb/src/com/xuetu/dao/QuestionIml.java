@@ -48,7 +48,7 @@ public class QuestionIml implements QuesTionDao {
 		// 指针从第一行属性字段开始
 		try {
 			conn = DBconnection.getConnection();
-			sql = "select * from question limit "
+			sql = "select * from question order by ques_time desc limit "
 					+ (page-1)*num+","+num;
 			prep = conn.prepareStatement(sql);
 			/*prep.setInt(1, 2);
@@ -60,7 +60,7 @@ public class QuestionIml implements QuesTionDao {
 				q.setStudent(getStudentByStuId(rs.getInt("stu_id"), getSchIdByStuId(rs.getInt("stu_id"))));
 				q.setQuesText(rs.getString("ques_text"));
 				//q.setQuesIma(quesIma);
-				q.setQuesDate(rs.getDate("ques_time"));
+				q.setQuesDate(rs.getTimestamp("ques_time"));
 				q.setAcpo_num(rs.getInt("acpo_num"));
 				q.setSubject(getSubjectBySubId(rs.getInt("sub_id")));
 				questions.add(q);
@@ -204,18 +204,17 @@ public class QuestionIml implements QuesTionDao {
 					conn = DBconnection.getConnection();
 					// 2、SQL语句,图品还没加
 					String sql = "insert into question"
-							+ "(stu_id,ques_text,ques_time,acpo_num,sub_id)" 
-					+ "values (?,?,?,?,?)";
+							+ "(stu_id,ques_text,ques_img,ques_time,acpo_num,sub_id)" 
+					+ "values (?,?,?,?,?,?)";
 					// 3、获得preparedStatement对象
 					prep = conn.prepareStatement(sql);
 					// 4、设置？的值
 					prep.setInt(1,q.getStudent().getStuId() );
 					prep.setString(2,q.getQuesText());
-					prep.setTimestamp(3, new Timestamp(q.getQuesDate().getTime()));
-//					prep.setDate(3, new java.sql.Date(q.getQuesDate().getTime()));
-					prep.setInt(4,q.getAcpo_num());
-					prep.setInt(5,q.getSubject().getSubId());
-					//prep.setDate(6, new java.sql.Date(student.getBirthday().getTime()));
+					prep.setString(3, q.getQuesIma());
+					prep.setTimestamp(4, new Timestamp(q.getQuesDate().getTime()));
+					prep.setInt(5,q.getAcpo_num());
+					prep.setInt(6,q.getSubject().getSubId());
 					// 5、执行sql语句
 					prep.executeUpdate();
 				} catch (Exception e) {
@@ -236,9 +235,9 @@ public class QuestionIml implements QuesTionDao {
 	}
 
 	@Override
-	public Question createQuestion(int stuId, String quesText, Date quesTime, int acpoNum, int subId,int sch_id) {
+	public Question createQuestion(int stuId, String quesText,String quesIma, Date quesTime, int acpoNum, int subId,int sch_id) {
 		// TODO Auto-generated method stub
-		Question q = new Question(getStudentByStuId(stuId, sch_id), quesText, quesTime, getSubjectBySubId(subId),acpoNum);
+		Question q = new Question(getStudentByStuId(stuId, sch_id), quesText,quesIma, quesTime, getSubjectBySubId(subId),acpoNum);
 		return q;
 	}
 
@@ -271,6 +270,96 @@ public class QuestionIml implements QuesTionDao {
 				throw new RuntimeException(e);
 			}
 		}
+	}
+
+	@Override
+	public void submitAnswer(Answer answer) {
+		// 1、连数据库
+		PreparedStatement prep = null;
+		Connection conn = null;
+		try {
+			conn = DBconnection.getConnection();
+			// 2、SQL语句,图品还没加
+			String sql = "insert into answer"
+					+ "(ques_id,stu_id,ans_text,ans_time)" 
+			+ "values (?,?,?,?)";
+			// 3、获得preparedStatement对象
+			prep = conn.prepareStatement(sql);
+			// 4、设置？的值
+			prep.setInt(1,answer.getQuestion().getQuesID());
+			prep.setInt(2,answer.getStudent().getStuId());
+//			prep.setDate(3, new java.sql.Date(q.getQuesDate().getTime()));
+			prep.setString(3,answer.getAnsText());
+//			prep.setString(4,answer.getAnsImg());
+			prep.setTimestamp(4, new Timestamp(answer.getAnsTime().getTime()));
+			//prep.setDate(6, new java.sql.Date(student.getBirthday().getTime()));
+			// 5、执行sql语句
+			prep.executeUpdate();
+		} catch (Exception e) {
+			// 一定要处理异常,异常的信息要存在日志文件
+			// 转化为应用程序的异常，再抛出
+			throw new RuntimeException(e);
+		} finally {
+			// 6、关闭资源
+			try {
+				if (prep != null)
+					prep.close();
+				if (conn != null)
+					conn.close();
+			} catch (Exception e) {
+				throw new RuntimeException(e);
+			}
+		}
+	}
+
+	@Override
+	public List<Answer> queryLimitAnswer(int page, int num) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Question getQuestionByQuesId(int ques_id) {
+		// TODO Auto-generated method stub
+		Connection conn = null;
+		String sql = null;
+		PreparedStatement prep = null;
+		try {
+			conn = DBconnection.getConnection();
+			sql = "select * from question where ques_id=?";
+			prep = conn.prepareStatement(sql);
+			prep.setInt(1, ques_id);
+			ResultSet rs = prep.executeQuery();
+			Question q = new Question();
+			// 指针从第一行属性字段开始
+			if (rs.next()) {
+				q.setQuesID(rs.getInt("ques_id"));
+				q.setStudent(getStudentByStuId(rs.getInt("stu_id"), getSchIdByStuId(rs.getInt("stu_id"))));
+				q.setQuesText(rs.getString("ques_text"));
+				//q.setQuesIma(quesIma);
+				q.setQuesDate(rs.getTimestamp("ques_time"));
+				q.setAcpo_num(rs.getInt("acpo_num"));
+				q.setSubject(getSubjectBySubId(rs.getInt("sub_id")));
+			}
+			return q;
+		} catch (Exception e) {
+			throw new RuntimeException(e);
+		} finally {
+			try {
+				if (conn != null)
+					conn.close();
+				if (prep != null)
+					prep.close();
+			} catch (Exception e) {
+				throw new RuntimeException(e);
+			}
+		}
+	}
+
+	@Override
+	public Answer createAnswer(int ques_id, int stu_id, String ans_text,Date ans_time) {
+		// TODO Auto-generated method stub
+		return new Answer(getQuestionByQuesId(ques_id), getStudentByStuId(stu_id, getSchIdByStuId(stu_id)), ans_text, ans_time);
 	}
 
 	

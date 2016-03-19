@@ -199,8 +199,6 @@ public class Question {
 	public void setAcpo_num(int acpo_num) {
 		this.acpo_num = acpo_num;
 	}
-	public Question(int quesID, Student student, String quesText, String quesIma, Date quesDate, Subject subject,int acpo_num) {
-	}
 	public Question(int quesID, Student student, String quesText, String quesIma, Date quesDate, Subject subject) {
 		super();
 		this.quesID = quesID;
