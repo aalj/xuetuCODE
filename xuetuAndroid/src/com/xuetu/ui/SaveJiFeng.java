@@ -9,7 +9,7 @@ import android.os.Bundle;
 
 import android.widget.ListView;
 
-public class SaveYouHuiJuanActivity extends Activity {
+public class SaveJiFeng extends Activity {
 	ListView listview;
 
 	@Override

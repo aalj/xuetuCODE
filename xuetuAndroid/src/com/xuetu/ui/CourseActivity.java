@@ -31,12 +31,16 @@ public class CourseActivity extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		Student student = ((XueTuApplication) getApplication()).getStudent();
+
 		setContentView(R.layout.activity_course);
 		preferences = getSharedPreferences("config", Activity.MODE_PRIVATE);
 		service = new CourseService(CourseActivity.this, preferences);
 		layout = (RelativeLayout) findViewById(R.id.relativelayout);
-		if (!preferences.getBoolean("saveDB", false)) {
+		
 			service.getCourse(student);
+			Log.i("TAG", "执行course");
+			//Toast.makeText(this, student.getStuId(), 1).show();
+			if (!preferences.getBoolean("saveDB", false)) {
 		} else {
 			DBManager mgr = new DBManager(this);
 			List<MyClass> querys = mgr.query();

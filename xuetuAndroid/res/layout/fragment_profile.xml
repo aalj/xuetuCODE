@@ -39,7 +39,7 @@
 					android:layout_toRightOf="@+id/head"
 					android:layout_width="wrap_content"
 					android:layout_height="wrap_content"
-					android:text="菲儿" />
+					android:text="雾里看花终隔一层" />
 					<TextView
 					android:id="@+id/tvmsg"
 					android:textSize="14.0dip"
@@ -47,7 +47,8 @@
 					android:layout_marginTop="10dp"
 					android:layout_below="@+id/tvname"
 					android:layout_toRightOf="@+id/head" 
-					android:text="微信号：dada20150625" />
+					android:singleLine="true"
+					android:text="却道天凉好个秋" />
 					
 					<ImageView
 					android:layout_marginRight="15dp"

@@ -167,7 +167,7 @@ public class CircleImageView extends ImageView {
 			if (drawable instanceof ColorDrawable) {
 				bitmap = Bitmap.createBitmap(COLORDRAWABLE_DIMENSION, COLORDRAWABLE_DIMENSION, BITMAP_CONFIG);
 			} else {
-				bitmap = Bitmap.createBitmap(drawable.getIntrinsicWidth(), drawable.getIntrinsicHeight(),
+				bitmap = Bitmap.createBitmap(40, 40,
 						BITMAP_CONFIG);
 			}
 

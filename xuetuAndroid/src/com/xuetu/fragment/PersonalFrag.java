@@ -18,6 +18,7 @@ import com.xuetu.entity.Student;
 import com.xuetu.ui.CourseActivity;
 import com.xuetu.ui.LoginActivity;
 import com.xuetu.ui.PersonInfomationActivity;
+import com.xuetu.ui.TheCollectionOfYouHuiJuanActivity;
 import com.xuetu.ui.XueTuApplication;
 
 import android.app.Application;
@@ -97,6 +98,9 @@ public class PersonalFrag extends Fragment implements OnClickListener {
 			break;
 
 		case R.id.txt_youhuijuan:
+			Intent intent3 = new Intent();
+			intent3.setClass(getActivity(), TheCollectionOfYouHuiJuanActivity.class);
+			getActivity().startActivity(intent3);
 
 			break;
 
