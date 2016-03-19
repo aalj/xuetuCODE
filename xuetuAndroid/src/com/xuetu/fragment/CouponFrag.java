@@ -7,7 +7,6 @@ import java.util.List;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
-import com.lidroid.xutils.BitmapUtils;
 import com.lidroid.xutils.HttpUtils;
 import com.lidroid.xutils.exception.HttpException;
 import com.lidroid.xutils.http.RequestParams;
@@ -20,44 +19,37 @@ import com.xuetu.adapter.ViewHodle;
 import com.xuetu.entity.Coupon;
 import com.xuetu.ui.XueTuApplication;
 import com.xuetu.utils.GetHttp;
+import com.xuetu.view.OnRefreshListener;
+import com.xuetu.view.RefreshListView;
 
-import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ListView;
 import android.widget.Toast;
 
-public class CouponFrag extends Fragment {
-	private static final String TAG = "TAG";
-	ListView list = null;
+public class CouponFrag extends Fragment implements OnRefreshListener {
 	HttpUtils httpUtlis = new HttpUtils();
 	List<Coupon> users = null;
-	MyBasesadapter<Coupon> adapter = null;
+	View view;
+	List<Coupon> olduser=new ArrayList<Coupon>();
+	// 显示所有商品的列表
+
+	private final int REFRESH_TEMP = 1;
+	private final int REFRESH_LIMIT = 2;
+	int countpage = 0;
+	/** 请求数据的页数 */
+	private int pageIndex = 0;
+	MyBasesadapter<Coupon> myBaseAdapter = null;
+	RefreshListView rListView;
 
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-		Log.i(TAG, "onCreateView" + "");
-		System.out.println("onCreateView" + "");
-		View view = inflater.inflate(R.layout.coupon_frag, null);
-		Toast.makeText(getActivity(), "woshi ", 0).show();
-		list = (ListView) view.findViewById(R.id.list_coupon);
-
-		return view;
-	}
-
-	@Override
-	public void onAttach(Context context) {
-		users = new ArrayList<Coupon>();
-		super.onAttach(context);
+		view = inflater.inflate(R.layout.coupon_frag, null);
 		users = ((XueTuApplication) getActivity().getApplication()).getListConpun();
-		Log.i(TAG, "onAttach" + "");
-		System.out.println("onAttach" + "");
-		getDate();
-		adapter = new MyBasesadapter<Coupon>(getActivity(), users, R.layout.coupon_item) {
+		rListView = (RefreshListView) view.findViewById(R.id.refreshlistview);
+		myBaseAdapter = new MyBasesadapter<Coupon>(getActivity(), users, R.layout.coupon_item) {
 
 			@Override
 			public void convert(ViewHodle viewHolder, Coupon item) {
@@ -67,22 +59,24 @@ public class CouponFrag extends Fragment {
 				viewHolder.SetUrlImage(R.id.tv_coupon_ima, item.getStoreName().getStoImg());
 			}
 		};
+		rListView.setAdapter(myBaseAdapter);
+		rListView.setOnRefreshListener(this);
+		return view;
 	}
 
-	@Override
-	public void onActivityCreated(Bundle savedInstanceState) {
-		getDate();
-		list.setAdapter(adapter);
-		super.onActivityCreated(savedInstanceState);
+	private void getDate(final int tempnum, int temp) {
 
-	}
-
-	private void getDate() {
 		String url = GetHttp.getHttpLJ() + "GetCouponServlet";
 
 		RequestParams parterm = new RequestParams();
-		parterm.addBodyParameter("page", "");// 查询第几页
-		parterm.addBodyParameter("num", "");// 每页显示几行
+		if (temp == REFRESH_TEMP) {
+			parterm.addBodyParameter("page", "0");// 查询第1页
+		} else {
+			countpage++;
+			parterm.addBodyParameter("page", countpage + "");// 查询第1页
+
+		}
+		parterm.addBodyParameter("num", "10");// 每页显示10条
 		httpUtlis.send(HttpMethod.POST, url, parterm, new RequestCallBack<String>() {
 
 			@Override
@@ -96,14 +90,42 @@ public class CouponFrag extends Fragment {
 
 				Type type = new TypeToken<List<Coupon>>() {
 				}.getType();
-				// users = gson.fromJson(arg0.result, type);
-				// Log.i(TAG, users.toString());
-				// Toast.makeText(getActivity(), users.toString(), 0).show();
-				// Log.i("TAG", users.toString());
-				adapter.notifyDataSetChanged();
+				List<Coupon> user = gson.fromJson(arg0.result, type);
+				
+				System.out.println(user.toString());
+				if(tempnum==1){
+					
+					users.removeAll(olduser);
+					users.addAll(0,user);
+					myBaseAdapter.notifyDataSetChanged();
+					rListView.hideHeaderView();
+					
+				}
+				else{
+					users.addAll(user);
+					myBaseAdapter.notifyDataSetChanged();
+					// 控制脚布局隐藏
+					rListView.hideFooterView();
+				}
+				olduser=user;
 
 			}
 		});
 
 	}
+
+	@Override
+	public void onDownPullRefresh() {
+		// 这是下拉刷新出来的数据
+		
+		getDate(1, REFRESH_TEMP);
+
+	}
+
+	@Override
+	public void onLoadingMore() {
+		// 这是加载更多出来的数据1
+		getDate(2, REFRESH_LIMIT);
+	}
+
 }

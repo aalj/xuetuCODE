@@ -25,6 +25,7 @@ import com.xuetu.entity.School;
 import com.xuetu.entity.StoreName;
 import com.xuetu.entity.Student;
 import com.xuetu.entity.StudyTime;
+import com.xuetu.entity.UserState;
 
 /**
  * ClassName:PersonalDaoInterface Function:个人中心的接口 Reason: TODO ADD REASON
@@ -83,7 +84,7 @@ public interface PersonalDaoInterface {
 
 	/**
 	 * 
-	 * getPoinCouByStuId:(通过学生得到)<br/>
+	 * getPoinCouByStuId:(通过学生得到优惠劵集合)<br/>
 	 *
 	 * @param stuID
 	 *            学生ID
@@ -202,7 +203,11 @@ public interface PersonalDaoInterface {
 	 */
 
 	public boolean register(String telephone, String password);
-	 
-	
-	 
+
+	/**
+	 * 通过使用状态id得到状态
+	 * 
+	 */
+	public UserState findUserStateByUsta_id(int usta_id);
+
 }

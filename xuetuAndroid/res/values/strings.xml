@@ -21,7 +21,12 @@
     <string name="title_activity_find_task_item">FindTaskItemActivity</string>
     <string name="delete">删除</string>
     <string name="zhixingmosi">执行模式</string>
-
+    <string name="subject">选择学科</string>
+    <string name="sub1">高数</string>
+    <string name="sub2">英语</string>
+    <string name="sub3">地理</string>
+    <string name="sub4">化学</string>
+	<string name="question_hint">请详细描述问题</string>
     <drawable name="clr_normal">#44a6c0</drawable>
     <drawable name="clr_pressed">#65b8e0</drawable>
     <drawable name="clr_change">#33cc99</drawable>
@@ -39,4 +44,11 @@
     <string name="title_activity_the_collection_of_you_hui_juan">TheCollectionOfYouHuiJuanActivity</string>
 
     <string name="title_activity_coupon">CouponActivity</string>
+    
+    <string name="xlistview_header_hint_normal">下拉刷新</string>
+    <string name="xlistview_header_hint_ready">松开刷新数据</string>
+    <string name="xlistview_header_hint_loading">正在加载...</string>
+    <string name="xlistview_header_last_time">上次更新时间：</string>
+    <string name="xlistview_footer_hint_normal">查看更多</string>
+    <string name="xlistview_footer_hint_ready">松开载入更多</string>
 </resources>

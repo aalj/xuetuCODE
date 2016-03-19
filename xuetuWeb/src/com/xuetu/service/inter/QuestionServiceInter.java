@@ -50,4 +50,14 @@ public interface QuestionServiceInter {
 	public Question createQuestion(int stuId,String quesText,Date quesTime,int acpoNum,int subId,int schId);
 
 	public int getSchIdByStuId(int StuId); 
+	
+	public Answer createAnswer(int ques_id,int stu_id,String ans_text,Date ans_time);
+	
+	public List<Answer> queryLimitAnswer(int page,int num);
+	
+	public void submitAnswer(Answer answer);
+	
+	public Question getQuestionByQuesId(int ques_id);
+	
+	
 }

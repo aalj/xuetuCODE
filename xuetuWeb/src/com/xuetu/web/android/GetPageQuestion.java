@@ -37,7 +37,6 @@ public class GetPageQuestion extends HttpServlet {
 		
 		List<Question> questions = new ArrayList<Question>();
 		questions = q.queryLimitQuestion(1, 20);
-		System.out.println(questions.get(7).getQuesDate()+"");
 		String jsonStr = null;
 		Gson gson = new GsonBuilder()  
 				  .setDateFormat("yyyy-MM-dd HH:mm:ss")  

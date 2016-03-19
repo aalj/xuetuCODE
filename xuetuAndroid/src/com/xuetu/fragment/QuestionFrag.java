@@ -30,6 +30,7 @@ import com.lidroid.xutils.http.client.HttpRequest.HttpMethod;
 import com.xuetu.R;
 import com.xuetu.adapter.MyQuestionListBaseAdapter;
 import com.xuetu.entity.Question;
+import com.xuetu.utils.GetHttp;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -76,10 +77,13 @@ public class QuestionFrag extends Fragment {
 
 	}
 	
+	/**发送网络请求，下载所有问题信息
+	 * 
+	 */
 	public void InitData(){
-		url = "http://10.201.1.13:8080/xuetuWeb/GetPageQuestion";
+		url = GetHttp.getHttpLC()+"GetPageQuestion";
 		HttpUtils hutils = new HttpUtils(10000);
-		hutils.configCurrentHttpCacheExpiry(5000);
+		hutils.configCurrentHttpCacheExpiry(3000);
 		/*SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 		System.out.println(sdf.format(new java.sql.Timestamp(System.currentTimeMillis())));*/
 		hutils.send(HttpMethod.GET, url, new RequestCallBack<String>() {
@@ -99,17 +103,12 @@ public class QuestionFrag extends Fragment {
 				  .create();
 				Type listtype = new TypeToken<List<Question>>(){}.getType();
 				list = gson.fromJson(arg0.result, listtype);
+				Log.i("hehe", list.get(7).getQuesDate()+"");
 				adapter = new MyQuestionListBaseAdapter(getActivity(), list) ;
 				lv.setAdapter(adapter);
 			}
 			
 		});
 	}
-/*	@Override
-	public void onActivityCreated(Bundle savedInstanceState) {
-		// TODO Auto-generated method stub
-		Log.i("hehe", "onActivityCreated");
-		super.onActivityCreated(savedInstanceState);
-	}*/
 }
 
