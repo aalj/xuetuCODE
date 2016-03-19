@@ -214,8 +214,8 @@ public class SplashActivity extends Activity {
 		String url=GetHttp.getHttpLJ()+"GetCouponServlet";
 		
 		RequestParams parterm = new RequestParams();
-		parterm.addBodyParameter("page","");//查询第几页
-		parterm.addBodyParameter("num","");//每页显示几行
+		parterm.addBodyParameter("page","0");//查询第几页
+		parterm.addBodyParameter("num","10");//每页显示几行
 		httpUtils.send(HttpMethod.POST, url,parterm  ,new RequestCallBack<String>() {
 
 			@Override

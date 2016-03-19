@@ -78,7 +78,7 @@ public class QuestionFrag extends Fragment implements OnClickListener{
 	String url = null;
 	SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 	Context mContext ;
-	HttpUtils hutils = new HttpUtils(10000);
+	HttpUtils hutils = new HttpUtils();
 	MyBasesadapter<Question> adapter = null;
 //	MyQuestionListBaseAdapter adapter = null;
 	@Override

@@ -13,6 +13,7 @@ import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 /**
@@ -77,12 +78,22 @@ public class ViewHodle {
 		return this;
 
 	}
+	
+	public ViewHodle setIayoutBgColor(int resID, int drawableID) {
+		LinearLayout ima = (LinearLayout) getView(resID);
+		ima.setBackgroundResource(drawableID);
+
+		return this;
+
+	}
+	
+	
 
 	public ViewHodle SetUrlImage(int resID, String url) {
 		BitmapUtils bitmapUtils = new BitmapUtils(context);
 		ImageView ima = (ImageView) getView(resID);
 		// 加载网络图片
-		bitmapUtils.display(ima, GetHttp.getHttpLJ() + url);
+		bitmapUtils.display(ima, url);
 		return this;
 
 	}
