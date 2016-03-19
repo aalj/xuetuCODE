@@ -16,7 +16,7 @@ import com.xuetu.R;
  * Created by stone on 16-3-8.
  */
 public abstract  class MyBasesadapter<T> extends BaseAdapter {
-    List<T> list;
+    List<T> list = null;
     Context context;
 
     int reasouId = 0;

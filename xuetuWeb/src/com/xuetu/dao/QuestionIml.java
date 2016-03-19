@@ -204,18 +204,17 @@ public class QuestionIml implements QuesTionDao {
 					conn = DBconnection.getConnection();
 					// 2、SQL语句,图品还没加
 					String sql = "insert into question"
-							+ "(stu_id,ques_text,ques_time,acpo_num,sub_id)" 
-					+ "values (?,?,?,?,?)";
+							+ "(stu_id,ques_text,ques_img,ques_time,acpo_num,sub_id)" 
+					+ "values (?,?,?,?,?,?)";
 					// 3、获得preparedStatement对象
 					prep = conn.prepareStatement(sql);
 					// 4、设置？的值
 					prep.setInt(1,q.getStudent().getStuId() );
 					prep.setString(2,q.getQuesText());
-					prep.setTimestamp(3, new Timestamp(q.getQuesDate().getTime()));
-//					prep.setDate(3, new java.sql.Date(q.getQuesDate().getTime()));
-					prep.setInt(4,q.getAcpo_num());
-					prep.setInt(5,q.getSubject().getSubId());
-					//prep.setDate(6, new java.sql.Date(student.getBirthday().getTime()));
+					prep.setString(3, q.getQuesIma());
+					prep.setTimestamp(4, new Timestamp(q.getQuesDate().getTime()));
+					prep.setInt(5,q.getAcpo_num());
+					prep.setInt(6,q.getSubject().getSubId());
 					// 5、执行sql语句
 					prep.executeUpdate();
 				} catch (Exception e) {
@@ -236,9 +235,9 @@ public class QuestionIml implements QuesTionDao {
 	}
 
 	@Override
-	public Question createQuestion(int stuId, String quesText, Date quesTime, int acpoNum, int subId,int sch_id) {
+	public Question createQuestion(int stuId, String quesText,String quesIma, Date quesTime, int acpoNum, int subId,int sch_id) {
 		// TODO Auto-generated method stub
-		Question q = new Question(getStudentByStuId(stuId, sch_id), quesText, quesTime, getSubjectBySubId(subId),acpoNum);
+		Question q = new Question(getStudentByStuId(stuId, sch_id), quesText,quesIma, quesTime, getSubjectBySubId(subId),acpoNum);
 		return q;
 	}
 
@@ -358,7 +357,7 @@ public class QuestionIml implements QuesTionDao {
 	}
 
 	@Override
-	public Answer createAnswer(int ques_id, int stu_id, String ans_text, Date ans_time) {
+	public Answer createAnswer(int ques_id, int stu_id, String ans_text,Date ans_time) {
 		// TODO Auto-generated method stub
 		return new Answer(getQuestionByQuesId(ques_id), getStudentByStuId(stu_id, getSchIdByStuId(stu_id)), ans_text, ans_time);
 	}
