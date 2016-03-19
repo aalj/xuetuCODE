@@ -56,7 +56,7 @@
             android:name=".ui.ForgetPwdActivity"
             android:label="@string/title_activity_forget_pwd" >
         </activity>
-        <activity android:name="com.xuetu.ui.Question_ask" >
+        <activity android:name=".ui.Question_ask" >
         </activity>
         <activity
             android:name=".ui.PerCerter"
@@ -78,7 +78,7 @@
             android:name=".ui.AddSelfPlanActivity"
             android:label="@string/title_activity_add_self_plan" >
         </activity>
-        <activity android:name="com.xuetu.ui.Answer_list" >
+        <activity android:name=".ui.Answer_list" >
         </activity>
         <activity
             android:name=".ui.ChangeAgeActivity"
@@ -97,8 +97,12 @@
             android:label="@string/title_activity_save_you_hui_juan" >
         </activity>
         <activity
-            android:name="com.xuetu.ui.TheCollectionOfYouHuiJuanActivity"
+            android:name=".ui.TheCollectionOfYouHuiJuanActivity"
             android:label="@string/title_activity_the_collection_of_you_hui_juan" >
+        </activity>
+        <activity
+            android:name="com.xuetu.ui.YouHuiJuanInfomationActivity"
+            android:label="@string/title_activity_you_hui_juan_infomation" >
         </activity>
     </application>
 

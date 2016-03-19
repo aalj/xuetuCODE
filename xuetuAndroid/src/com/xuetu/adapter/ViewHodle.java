@@ -75,16 +75,15 @@ public class ViewHodle {
 		return this;
 
 	}
-	
+
 	public ViewHodle setIayoutBgColor(int resID, int drawableID) {
 		LinearLayout ima = (LinearLayout) getView(resID);
+//		ima.setBackgroundResource(drawableID);
 		ima.setBackgroundResource(drawableID);
 
 		return this;
 
 	}
-	
-	
 
 	public ViewHodle SetUrlImage(int resID, String url) {
 		BitmapUtils bitmapUtils = new BitmapUtils(context);

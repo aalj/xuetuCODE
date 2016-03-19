@@ -23,8 +23,14 @@ import com.xuetu.entity.Student;
 import com.xuetu.utils.GetHttp;
 
 import android.app.Activity;
+import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
+import android.view.View.OnClickListener;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ListView;
 
 /**
@@ -35,7 +41,7 @@ import android.widget.ListView;
  * @author BCL
  *
  */
-public class TheCollectionOfYouHuiJuanActivity extends Activity {
+public class TheCollectionOfYouHuiJuanActivity extends Activity implements OnItemClickListener {
 	ListView listview;
 	List<MyCoupon> datas = new ArrayList<MyCoupon>();
 	MyBasesadapter<MyCoupon> myadapter;
@@ -47,7 +53,7 @@ public class TheCollectionOfYouHuiJuanActivity extends Activity {
 		student = ((XueTuApplication) getApplication()).getStudent();
 		setContentView(R.layout.activity_the_collection_of_you_hui_juan);
 		listview = (ListView) findViewById(R.id.listView);
-
+		listview.setOnItemClickListener(this);
 		getCoupon();
 
 	}
@@ -68,11 +74,9 @@ public class TheCollectionOfYouHuiJuanActivity extends Activity {
 						GetHttp.getHttpBCL() + mycoupon.getCoupon().getStoreName().getStoImg());
 				viewHolder.setText(R.id.youhuijuanshiyongqingkuang, mycoupon.getUserState().getUstaName());
 				if (mycoupon.getUserState().getUstaID() == 2) {
-					viewHolder.setIayoutBgColor(R.id.layout, getResources().getColor(R.color.blue));
-				}else{
-					
-					
+					viewHolder.setIayoutBgColor(R.id.layout, R.drawable.cornor_layout);
 				}
+
 			}
 		});
 
@@ -116,6 +120,16 @@ public class TheCollectionOfYouHuiJuanActivity extends Activity {
 
 		});
 
+	}
+
+	@Override
+	public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+		Intent intent = new Intent();
+		intent.setClass(this, YouHuiJuanInfomationActivity.class);
+		Bundle bundle = new Bundle();
+		bundle.putSerializable("MyCoupon", datas.get(position));
+		intent.putExtras(bundle);
+		startActivity(intent);
 	}
 
 }
