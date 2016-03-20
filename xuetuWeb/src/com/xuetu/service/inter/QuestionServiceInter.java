@@ -47,7 +47,7 @@ public interface QuestionServiceInter {
 	
 	public void submitQuestion(Question q);
 
-	public Question createQuestion(int stuId,String quesText,Date quesTime,int acpoNum,int subId,int schId);
+	public Question createQuestion(int stuId,String quesText,String quesImg,Date quesTime,int acpoNum,int subId,int schId);
 
 	public int getSchIdByStuId(int StuId); 
 	

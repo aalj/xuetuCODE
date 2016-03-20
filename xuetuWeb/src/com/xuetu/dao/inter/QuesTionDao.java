@@ -144,7 +144,7 @@ public interface QuesTionDao {
 	 * @throws 
 	 * @since  CodingExample　Ver 1.1
 	 */
-	public Question createQuestion(int stuId,String quesText,Date quesTime,int acpoNum,int subId,int schId);
+	public Question createQuestion(int stuId,String quesText,String ques_ima,Date quesTime,int acpoNum,int subId,int schId);
 	/**
 	 * 
 	 * queryLimitQuestion:(发表问题)<br/>
