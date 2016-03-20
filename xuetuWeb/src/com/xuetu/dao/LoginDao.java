@@ -6,7 +6,6 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Timestamp;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -21,6 +20,7 @@ import com.xuetu.entity.School;
 import com.xuetu.entity.StoreName;
 import com.xuetu.entity.Student;
 import com.xuetu.entity.StudyTime;
+import com.xuetu.entity.UserState;
 import com.xuetu.utils.CloseDb;
 import com.xuetu.utils.DBconnection;
 
@@ -81,7 +81,40 @@ public class LoginDao implements PersonalDaoInterface {
 
 	@Override
 	public Student getStuByID(int Id) {
-		// TODO Auto-generated method stub
+		Connection connection = DBconnection.getConnection();
+		String sql = "select * from student where stu_id=?;";
+		PreparedStatement prepareStatement = null;
+		Student student = null;
+		ResultSet resultSet = null;
+		try {
+			prepareStatement = connection.prepareStatement(sql);
+			prepareStatement.setInt(1, Id);
+			resultSet = prepareStatement.executeQuery();
+			while (resultSet.next()) {
+				student = new Student();
+				student.setStuId(resultSet.getInt("stu_id"));
+				student.setStuName(resultSet.getString("stu_name"));
+				student.setStuPhone(resultSet.getString("stu_phone"));
+				student.setStuIma(resultSet.getString("stu_img"));
+				student.setStuSex(resultSet.getString("stu_sex"));
+				student.setStuAge(resultSet.getInt("stu_age"));
+				student.setStuUgrade(resultSet.getString("stu_ugrade"));
+				student.setStuMajor(resultSet.getString("stu_major"));
+				student.setStuSigner(resultSet.getString("stu_signer"));
+				student.setSchool(getSchoolById(resultSet.getInt("sch_id")));
+				Date date = new Date(resultSet.getTimestamp("stu_create_date").getTime());
+				student.setStu_create_date(date);
+				student.setStuPwd(resultSet.getString("stu_pwd"));
+				return student;
+			}
+
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			CloseDb.close(connection, resultSet, prepareStatement);
+		}
+
 		return null;
 	}
 
@@ -116,9 +149,38 @@ public class LoginDao implements PersonalDaoInterface {
 
 	}
 
+	/**
+	 * 通过学生id查询个人优惠劵
+	 */
 	@Override
 	public List<MyCoupon> getPoinCouByStuId(int stuID) {
-		// TODO Auto-generated method stub
+		CouponDao2 couponDao2 = new CouponDao2();
+		Connection connection = DBconnection.getConnection();
+		String sql = "select * from mycoupon where stu_id = ?";
+		PreparedStatement prepareStatement = null;
+		try {
+			prepareStatement = connection.prepareStatement(sql);
+			prepareStatement.setInt(1, stuID);
+			ResultSet resultSet = prepareStatement.executeQuery();
+			MyCoupon myCoupon;
+			List<MyCoupon> myCoupons=new ArrayList<>();
+			while (resultSet.next()) {
+				myCoupon = new MyCoupon();
+				myCoupon.setMycouExchangeTime(resultSet.getTimestamp("mycou_exchange_time"));
+				myCoupon.setMycouID(resultSet.getInt("mycou_id"));
+				myCoupon.setUserState(findUserStateByUsta_id(resultSet.getInt("usta_id")));
+				myCoupon.setCoupon(couponDao2.queryCoupon(resultSet.getInt("cou_id")));
+				myCoupon.setStudent(getStuByID(resultSet.getInt("stu_id")));
+				myCoupons.add(myCoupon);
+				return myCoupons;
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			CloseDb.close(connection, prepareStatement);
+		}
+
 		return null;
 	}
 
@@ -151,6 +213,10 @@ public class LoginDao implements PersonalDaoInterface {
 		// TODO Auto-generated method stub
 		return null;
 	}
+
+	/**
+	 * 通过学生id查询课程表
+	 */
 
 	@Override
 	public List<MyClass> getClassByStuId(int Stuid) {
@@ -244,4 +310,33 @@ public class LoginDao implements PersonalDaoInterface {
 
 	}
 
+	/**
+	 * 通过使用状态id查询使用状态名称
+	 */
+
+	@Override
+	public UserState findUserStateByUsta_id(int usta_id) {
+		Connection connection = DBconnection.getConnection();
+		PreparedStatement prepareStatement = null;
+		String sql = "select * from userstate where usta_id=?";
+		try {
+			prepareStatement = connection.prepareStatement(sql);
+			prepareStatement.setInt(1, usta_id);
+			ResultSet resultSet = prepareStatement.executeQuery();
+			UserState userState;
+			while (resultSet.next()) {
+				userState = new UserState();
+				userState.setUstaID(usta_id);
+				userState.setUstaName(resultSet.getString("usta_name"));
+				return userState;
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+
+		} finally {
+			CloseDb.close(connection, prepareStatement);
+		}
+		return null;
+	}
 }

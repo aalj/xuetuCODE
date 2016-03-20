@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.xuetu.dao.inter.PersonalDaoInterface;
 import com.xuetu.entity.MyClass;
+import com.xuetu.entity.MyCoupon;
 import com.xuetu.entity.Student;
 import com.xuetu.service.inter.PersonalServiceInter;
 
@@ -31,6 +32,12 @@ public class LoginService implements PersonalServiceInter {
 	@Override
 	public boolean creatStudent(String telephone, String password) {
 		 return personalDaoInterface.register(telephone, password);
+	}
+
+	@Override
+	public List<MyCoupon> getPoinCouByStuId(int stuID) {
+		// TODO Auto-generated method stub
+		return personalDaoInterface.getPoinCouByStuId(stuID);
 	}
 
 }

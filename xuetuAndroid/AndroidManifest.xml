@@ -9,6 +9,7 @@
         android:targetSdkVersion="22" />
 
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 
     <application
         android:name=".ui.XueTuApplication"
@@ -56,6 +57,7 @@
             android:name=".ui.ForgetPwdActivity"
             android:label="@string/title_activity_forget_pwd" >
         </activity>
+        
         <activity android:name=".ui.Question_ask" >
         </activity>
         <activity
@@ -78,8 +80,9 @@
             android:name=".ui.AddSelfPlanActivity"
             android:label="@string/title_activity_add_self_plan" >
         </activity>
-        <activity android:name=".ui.Answer_list" >
+        <activity android:name="com.xuetu.ui.Answer_list" >
         </activity>
+       
         <activity
             android:name=".ui.ChangeAgeActivity"
             android:label="@string/title_activity_change_age" >
@@ -107,6 +110,13 @@
         <activity
             android:name="com.xuetu.ui.StoneNameActivity"
             android:label="@string/title_activity_stone_name" >
+        </activity>
+        <activity
+            android:name="com.xuetu.ui.CouponActivity"
+            android:label="@string/title_activity_coupon" />
+        <activity
+            android:name="com.xuetu.ui.TheCollectionOfYouHuiJuanActivity"
+            android:label="@string/title_activity_the_collection_of_you_hui_juan" >
         </activity>
     </application>
 

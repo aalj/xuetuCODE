@@ -94,9 +94,9 @@ public class QuestionService implements QuestionServiceInter {
 	}
 
 	@Override
-	public Question createQuestion(int stuId, String quesText, Date quesTime, int acpoNum, int subId, int schId) {
+	public Question createQuestion(int stuId, String quesText,String quesImg, Date quesTime, int acpoNum, int subId, int schId) {
 		// TODO Auto-generated method stub
-		return q.createQuestion(stuId, quesText, quesTime, acpoNum, subId, schId);
+		return q.createQuestion(stuId, quesText,quesImg, quesTime, acpoNum, subId, schId);
 	}
 
 	@Override

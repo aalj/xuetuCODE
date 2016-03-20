@@ -2,14 +2,18 @@ package com.xuetu.adapter;
 
 import com.gc.materialdesign.views.Switch;
 import com.lidroid.xutils.BitmapUtils;
+import com.xuetu.R;
 import com.xuetu.utils.GetHttp;
 
 import android.content.Context;
 import android.util.SparseArray;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 /**
@@ -74,12 +78,22 @@ public class ViewHodle {
 		return this;
 
 	}
+	
+	public ViewHodle setIayoutBgColor(int resID, int drawableID) {
+		LinearLayout ima = (LinearLayout) getView(resID);
+		ima.setBackgroundResource(drawableID);
+
+		return this;
+
+	}
+	
+	
 
 	public ViewHodle SetUrlImage(int resID, String url) {
 		BitmapUtils bitmapUtils = new BitmapUtils(context);
 		ImageView ima = (ImageView) getView(resID);
 		// 加载网络图片
-		bitmapUtils.display(ima, GetHttp.getHttpLJ() + url);
+		bitmapUtils.display(ima, url);
 		return this;
 
 	}
@@ -91,4 +105,18 @@ public class ViewHodle {
 		return this;
 
 	}
+//	rl_top = viewHolder.getView(R.id.rl_top);
+//	rl_left = viewHolder.getView(R.id.rl_top);
+//	rl_right =
+	
+//	RelativeLayout rl_top;
+//	RelativeLayout rl_left;
+//	RelativeLayout rl_right;
+//	public ViewHodle setOnRlToplis(int resID,OnClickListener onClickListener){
+//		RelativeLayout rl_top=(RelativeLayout)getView(resID);
+//		rl_top.setOnClickListener(onClickListener);
+//		
+//		return this;
+//	}
+	
 }

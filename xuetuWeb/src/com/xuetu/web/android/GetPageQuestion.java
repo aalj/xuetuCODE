@@ -3,7 +3,9 @@ package com.xuetu.web.android;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.lang.reflect.Type;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import javax.servlet.ServletException;
@@ -32,11 +34,13 @@ public class GetPageQuestion extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
+		SimpleDateFormat sdf = new SimpleDateFormat("HH:mm:ss");
+		System.out.println("In"+sdf.format(new Date(System.currentTimeMillis())));
 		request.setCharacterEncoding("utf-8");
 		response.setCharacterEncoding("utf-8");
-		
+		response.setContentType("text/html;charset=UTF-8");
 		List<Question> questions = new ArrayList<Question>();
-		questions = q.queryLimitQuestion(1, 20);
+		questions = q.queryLimitQuestion(1, 5);
 		String jsonStr = null;
 		Gson gson = new GsonBuilder()  
 				  .setDateFormat("yyyy-MM-dd HH:mm:ss")  
@@ -44,7 +48,8 @@ public class GetPageQuestion extends HttpServlet {
 		jsonStr = gson.toJson(questions);
 		PrintWriter pw = response.getWriter();
 		pw.write(jsonStr);
-		
+
+		System.out.println("end"+sdf.format(new Date(System.currentTimeMillis())));
 		pw.close();
 	}
 
@@ -55,7 +60,6 @@ public class GetPageQuestion extends HttpServlet {
 		// TODO Auto-generated method stub
 		request.setCharacterEncoding("utf-8");
 		response.setCharacterEncoding("utf-8");
-		response.setContentType("text/html;charset=UTF-8");
 		doGet(request, response);
 	}
 

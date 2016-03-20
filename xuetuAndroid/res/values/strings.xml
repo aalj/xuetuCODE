@@ -22,8 +22,8 @@
     <string name="delete">删除</string>
     <string name="zhixingmosi">执行模式</string>
     <string name="subject">选择学科</string>
-    <string name="sub1">高数</string>
-    <string name="sub2">英语</string>
+    <string name="sub1">英语</string>
+    <string name="sub2">高数</string>
     <string name="sub3">地理</string>
     <string name="sub4">化学</string>
     <string name="question_hint">请详细描述问题</string>

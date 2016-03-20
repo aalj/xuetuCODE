@@ -19,6 +19,7 @@ import com.xuetu.entity.Student;
 import android.app.Activity;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
+import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
@@ -73,7 +74,7 @@ public class CourseService implements OnClickListener {
 			@Override
 			public void onSuccess(ResponseInfo<String> arg0) {
 				System.out.println(arg0.result);
-
+				Log.i("TAG", "Success");
 				// 得到值 Gson解析list集合
 				Type type = new TypeToken<List<MyClass>>() {
 				}.getType();
@@ -88,6 +89,7 @@ public class CourseService implements OnClickListener {
 				}
 
 				fillCourse(myclasses);
+				Log.i("TAG", "填课程表");
 
 			}
 		});
@@ -107,12 +109,15 @@ public class CourseService implements OnClickListener {
 			int bgRes = bg[CommonUtil.getRandom(bg.length - 1)];// 随机获取背景色
 			lesson.setBackgroundResource(bgRes);// 设置背景
 			lesson.setText(myclass.getClasName() + "@" + myclass.getClsRoom());// 设置文本为课程名+“@”+教室
-
+			Log.i("TAG", "成功加入课表");
 			buttons.add(lesson);
 		}
 
 	}
 
+	/**
+	 * 为显示的课表增加点击事件 点击课表 到详细信息
+	 */
 	public void onclickthings() {
 		for (int i = 0; i < buttons.size(); i++) {
 			buttons.get(i).setOnClickListener(this);
@@ -122,6 +127,7 @@ public class CourseService implements OnClickListener {
 
 	@Override
 	public void onClick(View v) {
+		// TODO Auto-generated method stub
 
 	}
 
