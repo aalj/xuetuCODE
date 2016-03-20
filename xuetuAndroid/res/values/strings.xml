@@ -31,6 +31,7 @@
     <drawable name="clr_normal">#44a6c0</drawable>
     <drawable name="clr_pressed">#65b8e0</drawable>
     <drawable name="clr_change">#33cc99</drawable>
+    <drawable name="clr_presseds">#a4c2f4</drawable>
 
     <string name="title_activity_forget_pwd">ForgetPwdActivity</string>
     <string name="title_activity_person_infomation">PersonInfomationActivity</string>
@@ -49,7 +50,11 @@
     <string name="xlistview_header_last_time">上次更新时间：</string>
     <string name="xlistview_footer_hint_normal">查看更多</string>
     <string name="xlistview_footer_hint_ready">松开载入更多</string>
+
     <string name="title_activity_show_coupon">ShowCouponActivity</string>
     <string name="title_activity_stone_name">StoneNameActivity</string>
+
+    <string name="title_activity_you_hui_juan_infomation">YouHuiJuanInfomationActivity</string>
+
 
 </resources>

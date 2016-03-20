@@ -13,6 +13,8 @@
 
 package com.xuetu.entity;
 
+import java.io.Serializable;
+
 /**
  * ClassName:School 学校表的实体类<br/>
  *
@@ -24,7 +26,7 @@ package com.xuetu.entity;
  * @see
  * 
  */
-public class School {
+public class School  implements Serializable{
 	/**
 	 * 学校的ID
 	 */
