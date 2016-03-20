@@ -3,8 +3,7 @@
     android:id="@+id/youhuijuandebuju"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
-    android:background="#e0434343"
-      >
+    android:background="#e0434343" >
 
     <LinearLayout
         android:id="@+id/layout"
@@ -76,74 +75,90 @@
                     <TextView
                         android:layout_width="fill_parent"
                         android:layout_height="37dp"
+                        android:paddingLeft="10dp"
                         android:gravity="center_vertical"
                         android:text="丨✿ 优惠劵店家"
-                        android:textColor="@color/white"
+                        android:textColor="@color/gray1"
                         android:textSize="12dp" />
 
                     <TextView
                         android:layout_width="fill_parent"
                         android:layout_height="0.1dp"
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginRight="10dp"
                         android:background="@color/gray_blue" />
 
                     <TextView
                         android:id="@+id/dianjiadejutixingxi"
                         android:layout_width="fill_parent"
                         android:layout_height="37dp"
+                        android:paddingLeft="20dp"
                         android:gravity="center_vertical"
                         android:text="店家的具体信息"
                         android:textColor="@color/white"
                         android:textSize="14dp" />
 
                     <TextView
+                         android:layout_marginRight="10dp"
                         android:layout_width="fill_parent"
                         android:layout_height="0.1dp"
+                        android:layout_marginLeft="10dp"
                         android:background="@color/gray_blue" />
 
                     <TextView
                         android:layout_width="fill_parent"
                         android:layout_height="37dp"
+                        android:paddingLeft="10dp"
                         android:gravity="center_vertical"
                         android:text="丨✿ 折扣"
-                        android:textColor="@color/white"
+                        android:textColor="@color/gray1"
                         android:textSize="12dp" />
 
                     <TextView
+                         android:layout_marginRight="10dp"
                         android:layout_width="fill_parent"
                         android:layout_height="0.1dp"
+                        android:layout_marginLeft="10dp"
                         android:background="@color/gray_blue" />
 
                     <TextView
                         android:id="@+id/zhekoudejutixingxi"
                         android:layout_width="fill_parent"
                         android:layout_height="37dp"
+                        android:paddingLeft="20dp"
                         android:gravity="center_vertical"
                         android:text="折扣的具体信息"
                         android:textColor="@color/white"
                         android:textSize="14dp" />
 
                     <TextView
+                         android:layout_marginRight="10dp"
                         android:layout_width="fill_parent"
                         android:layout_height="0.1dp"
+                        android:layout_marginLeft="10dp"
                         android:background="@color/gray_blue" />
 
                     <TextView
                         android:layout_width="fill_parent"
                         android:layout_height="37dp"
+                        android:paddingLeft="10dp"
                         android:gravity="center_vertical"
                         android:text="丨✿ 使用地点"
-                        android:textColor="@color/white"
+                        android:textColor="@color/gray1"
                         android:textSize="12dp" />
 
                     <TextView
+                         android:layout_marginRight="10dp"
                         android:layout_width="fill_parent"
                         android:layout_height="0.1dp"
+                        android:layout_marginLeft="10dp"
                         android:background="@color/gray_blue" />
 
                     <TextView
                         android:id="@+id/shiyongdidianshuoming"
                         android:layout_width="fill_parent"
                         android:layout_height="50dp"
+                        android:paddingLeft="20dp"
                         android:gravity="center_vertical"
                         android:text="使用地点的说明"
                         android:textColor="@color/white"
@@ -175,12 +190,12 @@
     </LinearLayout>
 
     <ImageView
-        android:onClick="onclick"
         android:id="@+id/imageView_backToDecember"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
         android:layout_alignParentTop="true"
+        android:onClick="onclick"
         android:src="@drawable/ic_menu_back" />
 
     <com.xuetu.view.CircleImageView
