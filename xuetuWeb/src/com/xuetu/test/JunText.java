@@ -55,8 +55,6 @@ public class JunText {
 	
 	
 	public void getCouponteq(){
-		List<Coupon> queryCouponall = new ShoppingDao().queryCouponall();
-		System.out.println(queryCouponall);
 		
 	}
 	@Test

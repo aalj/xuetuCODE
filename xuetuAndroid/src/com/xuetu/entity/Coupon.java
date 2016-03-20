@@ -13,6 +13,7 @@
 
 package com.xuetu.entity;
 
+import java.io.Serializable;
 import java.util.Date;
 
 /**
@@ -27,7 +28,7 @@ import java.util.Date;
  * @see 	 
 
  */
-public class Coupon {
+public class Coupon implements Serializable{
 	private int couID = 0;
 	private StoreName storeName = null;
 	private String couInfo = null;
