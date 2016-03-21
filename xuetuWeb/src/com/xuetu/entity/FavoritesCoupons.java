@@ -12,6 +12,9 @@
 */
 
 package com.xuetu.entity;
+
+import java.util.Date;
+
 /**
  * ClassName:FavoritesCoupons<br/>
  * Function: 收藏的优惠券表的实体类<br/>
@@ -28,10 +31,17 @@ public class FavoritesCoupons {
 	private 	int facoID = 0;
 	private Student student = null;
 	private 	Coupon coupon = null;
+	private Date createDate = null;
 	public FavoritesCoupons() {
 
 		// 
 
+	}
+	public Date getCreateDate() {
+		return createDate;
+	}
+	public void setCreateDate(Date createDate) {
+		this.createDate = createDate;
 	}
 	/**
 	 * 
@@ -112,12 +122,20 @@ public class FavoritesCoupons {
 	public void setCoupon(Coupon coupon) {
 		this.coupon = coupon;
 	}
-	public FavoritesCoupons(int facoID, Student student, Coupon coupon) {
+	public FavoritesCoupons(int facoID, Student student, Coupon coupon, Date createDate) {
 		super();
 		this.facoID = facoID;
 		this.student = student;
 		this.coupon = coupon;
+		this.createDate = createDate;
 	}
+	public FavoritesCoupons(Student student, Coupon coupon, Date createDate) {
+		super();
+		this.student = student;
+		this.coupon = coupon;
+		this.createDate = createDate;
+	}
+	
 	 
 }
 
