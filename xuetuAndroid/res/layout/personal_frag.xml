@@ -29,13 +29,21 @@
                 android:paddingBottom="5dp"
                 android:paddingTop="5dp" >
 
-                <ImageView
+                <com.xuetu.view.CircleImageView
                     android:id="@+id/head"
                     android:layout_width="80.0dip"
                     android:layout_height="80.0dip"
                     android:layout_marginLeft="10dp"
                     android:layout_marginRight="10dp"
-                    android:src="@drawable/head" />
+                    android:src="@drawable/myfavourite" />
+
+                <!-- <ImageView -->
+                <!-- android:id="@+id/head" -->
+                <!-- android:layout_width="80.0dip" -->
+                <!-- android:layout_height="80.0dip" -->
+                <!-- android:layout_marginLeft="10dp" -->
+                <!-- android:layout_marginRight="10dp" -->
+                <!-- android:src="@drawable/head" /> -->
 
                 <TextView
                     android:id="@+id/tvname"
@@ -52,7 +60,7 @@
                     android:layout_below="@+id/tvname"
                     android:layout_marginTop="10dp"
                     android:layout_toRightOf="@+id/head"
-                    android:text="哼  劳资文艺起来连自己都怕"
+                    android:text="做一个阳光的妹纸"
                     android:textSize="14.0dip" />
 
                 <ImageView
@@ -79,7 +87,7 @@
                 android:background="@color/black2" />
 
             <TextView
-                android:id="@+id/txt_pay"
+                android:id="@+id/txt_mypoint"
                 style="@style/TxtTitle"
                 android:layout_width="fill_parent"
                 android:layout_height="50dp"
@@ -92,7 +100,7 @@
                 android:onClick="onclick"
                 android:paddingLeft="16dp"
                 android:paddingRight="16dp"
-                android:text="支付中心"
+                android:text="积分中心"
                 android:textSize="16sp" />
 
             <View
@@ -106,7 +114,7 @@
                 android:layout_width="fill_parent"
                 android:layout_height="50dp"
                 android:background="@drawable/setting_item_selector"
-                android:drawableLeft="@drawable/icon_me_collect"
+                android:drawableLeft="@drawable/icon_me_card"
                 android:drawablePadding="10dp"
                 android:drawableRight="@drawable/right"
                 android:gravity="center_vertical"
@@ -148,7 +156,7 @@
                 android:layout_width="fill_parent"
                 android:layout_height="50dp"
                 android:background="@drawable/setting_item_selector"
-                android:drawableLeft="@drawable/icon_me_card"
+                android:drawableLeft="@drawable/icon_me_collect"
                 android:drawablePadding="10dp"
                 android:drawableRight="@drawable/right"
                 android:gravity="center_vertical"

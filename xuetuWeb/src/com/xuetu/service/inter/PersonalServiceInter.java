@@ -2,6 +2,7 @@ package com.xuetu.service.inter;
 
 import java.util.List;
 
+import com.xuetu.entity.FavoritesCoupons;
 import com.xuetu.entity.MyClass;
 import com.xuetu.entity.MyCoupon;
 import com.xuetu.entity.Student;
@@ -32,6 +33,10 @@ public interface PersonalServiceInter {
 	 * 
 	 */
 	public List<MyCoupon> getPoinCouByStuId(int stuID);
+	/**
+	 * 通过学生id得到个人收藏的优惠劵
+	 */
+	public List<FavoritesCoupons> getFavoritecouByStuID(int stuID);
 	
 
 }

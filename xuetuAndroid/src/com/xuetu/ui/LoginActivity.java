@@ -137,6 +137,7 @@ public class LoginActivity extends Activity implements OnClickListener {
 						Bundle bundle = new Bundle();
 						bundle.putSerializable("KEY", student);
 						startActivity(intent);
+						finish();
 					}
 				}
 			});

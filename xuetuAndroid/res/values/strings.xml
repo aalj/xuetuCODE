@@ -53,6 +53,14 @@
     <string name="title_activity_show_coupon">ShowCouponActivity</string>
     <string name="title_activity_stone_name">StoneNameActivity</string>
     <string name="title_activity_you_hui_juan_infomation">YouHuiJuanInfomationActivity</string>
+
     <string name="title_activity_exchange_coupon">ExchangeCouponActivity</string>
+
+
+    <string name="title_activity_wo_de_shou_cang">WoDeShouCangActivity</string>
+
+
+
+
 
 </resources>

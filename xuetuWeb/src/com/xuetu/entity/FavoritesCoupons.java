@@ -30,7 +30,11 @@ import java.util.Date;
 public class FavoritesCoupons {
 	private int facoID = 0;
 	private Student student = null;
-	private Coupon coupon = null;
+
+
+
+
+	private 	Coupon coupon = null;
 	private Date createDate = null;
 
 	public FavoritesCoupons() {
@@ -39,13 +43,22 @@ public class FavoritesCoupons {
 
 	}
 
+
+
+
 	public Date getCreateDate() {
 		return createDate;
 	}
 
+
+
+
 	public void setCreateDate(Date createDate) {
 		this.createDate = createDate;
 	}
+
+
+
 
 	/**
 	 * 
@@ -151,5 +164,11 @@ public class FavoritesCoupons {
 		this.coupon = coupon;
 		this.createDate = createDate;
 	}
-
+	
+	 
 }
+
+
+
+
+
