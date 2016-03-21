@@ -97,7 +97,7 @@ public class ExchangeCouponActivity extends Activity implements OnClickListener 
 				// TODO Auto-generated method stub
 				
 			}
-		})
+		});
 		
 	}
 
@@ -173,7 +173,7 @@ public class ExchangeCouponActivity extends Activity implements OnClickListener 
 
 				@Override
 				public void onSuccess(ResponseInfo<String> arg0) {
-					myShowDialog(countjifen, coupon.getCoouRedeemPoints());
+//					myShowDialog(countjifen, coupon.getCoouRedeemPoints());
 					
 					if ("ok".equals(arg0.result)) {
 						Toast.makeText(getApplicationContext(), "兑换成功", 1).show();
