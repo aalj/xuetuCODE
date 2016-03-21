@@ -99,17 +99,17 @@
         <activity
             android:name=".TheCollectionOfYouHuiJuanActivity"
             android:label="@string/title_activity_the_collection_of_you_hui_juan" >
-<<<<<<< HEAD
+
              </activity>
              
          <activity
             android:name="com.xuetu.ui.CouponActivity"
             android:label="@string/title_activity_coupon" >
-=======
-
+   </activity>
+      <activity
             android:name="com.xuetu.ui.TheCollectionOfYouHuiJuanActivity"
             android:label="@string/title_activity_the_collection_of_you_hui_juan" >
->>>>>>> b79b2f52cab06d42467ee8d3a75753177616c804
+
         </activity>
     </application>
 
