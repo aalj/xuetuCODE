@@ -54,11 +54,9 @@ public class JunText {
 				new SelfStudyPlan(date, date, "dsknfl", 1, new Pattern(1, ""), new Student(), date));
 	}
 
-	public void getCouponteq() {
-		List<Coupon> queryCouponall = new ShoppingDao().queryCouponall();
-		System.out.println(queryCouponall);
-
-	}
+//	public void getCouponteq() {
+//		List<Coupon> queryCouponall = new ShoppingDao().queryCouponall();
+//		System.out.println(queryCouponall);
 
 	public void getCouponte() {
 		List<Coupon> couponlimmit = new ShoppingDao().queryCouponlimmit(0, 10);

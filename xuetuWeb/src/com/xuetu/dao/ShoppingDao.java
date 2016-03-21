@@ -60,14 +60,14 @@ public class ShoppingDao implements ShoppintDaoInter {
 	}
 
 	@Override
-	public List<Coupon> queryCouponall() {
+	public List<Coupon> queryCouponall(int stoID) {
 		Connection conn = DBconnection.getConnection();
 		PreparedStatement statement=null;
-//		String sql = "select * from coupon   ORDER BY cou_create_time DESC" ;
-		String sql = "select * from coupon   ;";
+		String sql = "select * from coupon  where sto_id=? ;";
 		ResultSet query = null;
 		try {
 			statement = conn.prepareStatement(sql);
+			statement.setInt(1, stoID);
 			query = statement.executeQuery();
 			List<Coupon> list = new ArrayList<>();
 			Coupon coupon = null;;

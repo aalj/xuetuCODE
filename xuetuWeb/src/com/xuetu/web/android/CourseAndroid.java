@@ -22,7 +22,7 @@ import com.xuetu.service.inter.PersonalServiceInter;
 @WebServlet("/CourseAndroid")
 public class CourseAndroid extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	PersonalServiceInter personalServiceInter=new LoginService(new LoginDao());
+	PersonalServiceInter personalServiceInter = new LoginService(new LoginDao());
 
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
@@ -46,7 +46,7 @@ public class CourseAndroid extends HttpServlet {
 		Gson gson = new Gson();
 		// 带泛型的list转化为json
 		String class2 = gson.toJson(listCourse);
-
+		System.out.println(class2);
 		response.getWriter().print(class2);
 
 	}

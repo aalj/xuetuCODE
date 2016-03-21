@@ -20,9 +20,9 @@ public class ShoopingServer implements ShoppingInter {
 	}
 
 	@Override
-	public List<Coupon> getCouponAll() {
+	public List<Coupon> getCouponAll(int stoID) {
 		
-		return shoppintDaoInter.queryCouponall();
+		return shoppintDaoInter.queryCouponall(stoID);
 	}
 
 }

@@ -108,16 +108,26 @@
             android:name=".ui.SaveYouHuiJuanActivity"
             android:label="@string/title_activity_save_you_hui_juan" >
         </activity>
+        <activity android:name=".TheCollectionOfYouHuiJuanActivity" >
+        </activity>
         <activity
             android:name=".ui.TheCollectionOfYouHuiJuanActivity"
             android:label="@string/title_activity_the_collection_of_you_hui_juan" >
         </activity>
         <activity
-            android:name=".ui.CouponActivity"
+            android:name="com.xuetu.ui.CouponActivity"
             android:label="@string/title_activity_coupon" >
         </activity>
         <activity
-            android:name=".ui.YouHuiJuanInfomationActivity"
+            android:name=".ui.ShowCouponActivity"
+            android:label="@string/title_activity_show_coupon" >
+        </activity>
+        <activity
+            android:name="com.xuetu.ui.StoneNameActivity"
+            android:label="@string/title_activity_stone_name" >
+        </activity>
+        <activity
+            android:name="com.xuetu.ui.YouHuiJuanInfomationActivity"
             android:label="@string/title_activity_you_hui_juan_infomation" >
         </activity>
         <activity

@@ -101,7 +101,7 @@ public class LoginActivity extends Activity implements OnClickListener {
 			// 使用框架utils发送数据到服务器，
 			HttpUtils httpUtils = new HttpUtils();
 			// 10.201.1.5
-			String url = "http://10.201.1.5:8080/xuetuWeb/LoginAndroid";
+			String url = GetHttp.getHttpBCL()+"LoginAndroid";
 
 			RequestParams params = new RequestParams();
 			try {
