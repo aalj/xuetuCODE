@@ -20,11 +20,16 @@ import org.junit.Test;
 
 import com.mysql.fabric.xmlrpc.base.Data;
 import com.xuetu.dao.FindIml;
+import com.xuetu.dao.JifenDao;
 import com.xuetu.dao.ShoppingDao;
+import com.xuetu.entity.Answer;
 import com.xuetu.entity.Coupon;
+import com.xuetu.entity.MyCoupon;
 import com.xuetu.entity.Pattern;
+import com.xuetu.entity.Question;
 import com.xuetu.entity.SelfStudyPlan;
 import com.xuetu.entity.Student;
+import com.xuetu.entity.StudyTime;
 
 /**
  * ClassName:JunText<br/>
@@ -54,14 +59,20 @@ public class JunText {
 	
 	
 	
-	public void getCouponteq(){
-		
+	
+	
+	public void getmycou(){
+		JifenDao dao = new JifenDao();
+		List<MyCoupon> queryAllCouponById = dao.queryAllCouponById(2);
+		System.out.println(queryAllCouponById.size());
 	}
+	
+	
 	@Test
 	public void getCouponte(){
-		List<Coupon> couponlimmit = new ShoppingDao().queryCouponlimmit(0,10);
-		System.out.println(couponlimmit);
-		
+		JifenDao dao = new JifenDao();
+		  int countjifen = dao.countjifen(2);
+		System.out.println(countjifen);
 	}
 
 }

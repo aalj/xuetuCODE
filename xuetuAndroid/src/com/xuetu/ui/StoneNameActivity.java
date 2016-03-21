@@ -21,27 +21,32 @@ import com.xuetu.utils.GetHttp;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v4.widget.SwipeRefreshLayout.OnRefreshListener;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
-public class StoneNameActivity extends Activity implements OnRefreshListener {
+public class StoneNameActivity extends Activity implements OnRefreshListener, OnItemClickListener {
 	private static final int REFRESH_COMPLETE = 0X110;
 	private SwipeRefreshLayout mSwipeLayout;
 	private ListView mListView;
 	HttpUtils httpUtlis = new HttpUtils();
-	
-	//用于保存上一次获取的数据
-	List<Coupon> olduser=new ArrayList<Coupon>();
-	
-	//用户与存储网络上获取的数据
+
+	// 用于保存上一次获取的数据
+	List<Coupon> olduser = new ArrayList<Coupon>();
+
+	// 用户与存储网络上获取的数据
 	List<Coupon> users = new ArrayList<Coupon>();
 	Coupon coupon = null;
 	private MyListViewAdatper mAdapter;
@@ -51,10 +56,9 @@ public class StoneNameActivity extends Activity implements OnRefreshListener {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_stone_name);
 
-		  coupon = (Coupon)getIntent().getSerializableExtra("coupon");
-		
-		
-		
+		coupon = (Coupon) getIntent().getSerializableExtra("coupon");
+		Toast.makeText(getApplicationContext(), coupon.getCouName(), 1).show();
+
 		mSwipeLayout = (SwipeRefreshLayout) findViewById(R.id.id_swipe_ly);
 		mSwipeLayout.setOnRefreshListener(this);
 		/**
@@ -64,21 +68,20 @@ public class StoneNameActivity extends Activity implements OnRefreshListener {
 				android.R.color.holo_orange_light, android.R.color.holo_red_light);
 
 		mListView = (ListView) findViewById(R.id.id_listview);
-		ArrayList<String> mData = new ArrayList<String>();
-
-		mAdapter = new MyListViewAdatper(mData);
-
+		getDate(coupon.getStoreName().getStoID());
 		mListView.setAdapter(mAdapter);
+		mListView.setOnItemClickListener(this);
+
 	}
 
 	private class MyListViewAdatper extends BaseAdapter {
 		BitmapUtils bitmapUtils = new BitmapUtils(StoneNameActivity.this);
 		LayoutInflater m_inflater = null;
-		private ArrayList<String> mData = new ArrayList<String>();
+		private List<Coupon> users = new ArrayList<Coupon>();
 
-		public MyListViewAdatper(ArrayList<String> Data) {
-			m_inflater = (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-			mData = Data;
+		public MyListViewAdatper(List<Coupon> users) {
+			m_inflater = LayoutInflater.from(StoneNameActivity.this);
+			this.users = (ArrayList<Coupon>) users;
 		}
 
 		@Override
@@ -96,13 +99,13 @@ public class StoneNameActivity extends Activity implements OnRefreshListener {
 		@Override
 		public int getCount() {
 			// TODO Auto-generated method stub
-			return mData.size();
+			return users.size();
 		}
 
 		@Override
 		public Object getItem(int position) {
 			// TODO Auto-generated method stub
-			return mData.get(position);
+			return users.get(position);
 		}
 
 		@Override
@@ -134,22 +137,20 @@ public class StoneNameActivity extends Activity implements OnRefreshListener {
 				}
 
 				holder.tv_coupon_name.setText(users.get(position).getCouName());
-				;
+
 				holder.tv_shoppingname.setText(users.get(position).getStoreName().getStoName());
-				;
+
 				holder.tv_coupon_all.setText(users.get(position).getConNum() + "");
-				;
+
 				bitmapUtils.display(holder.tv_coupon_ima,
 						GetHttp.getHttpLJ() + users.get(position).getStoreName().getStoImg());
-				;
 			} else if (getItemViewType(position) == 1)// 如果是顶部viewpager
 			{
 				ViewPagerHolder holder = null;
 				if (convertView == null) {
 					view = m_inflater.inflate(R.layout.ima, null);
 					holder = new ViewPagerHolder();
-					bitmapUtils.display(holder.imaview,
-							GetHttp.getHttpLJ() + users.get(position).getStoreName().getStoImg());
+					holder.imaview = (ImageView) view.findViewById(R.id.imageView1);
 
 					view.setTag(holder);
 				} else {
@@ -157,7 +158,8 @@ public class StoneNameActivity extends Activity implements OnRefreshListener {
 					holder = (ViewPagerHolder) view.getTag();
 
 				}
-				holder.imaview.setImageResource(R.drawable.ic_launcher);
+				bitmapUtils.display(holder.imaview,
+						GetHttp.getHttpLJ() + users.get(position).getStoreName().getStoImg());
 			}
 
 			return view;
@@ -165,18 +167,17 @@ public class StoneNameActivity extends Activity implements OnRefreshListener {
 
 	}
 
-	private void getDate(final int tempnum) {
+	private void getDate(int stoneid) {
 		String url = GetHttp.getHttpLJ() + "GetCouponServlet";
 
 		RequestParams parterm = new RequestParams();
 
-		parterm.addBodyParameter("reqtemp", "1");// 每页显示10条
+		parterm.addBodyParameter("reqtemp", stoneid + "");
 		httpUtlis.send(HttpMethod.POST, url, parterm, new RequestCallBack<String>() {
 
 			@Override
 			public void onFailure(HttpException arg0, String arg1) {
-				// TODO Auto-generated method stub
-
+				Log.i("TAG", "FAIL-----" + arg1);
 			}
 
 			@Override
@@ -185,16 +186,21 @@ public class StoneNameActivity extends Activity implements OnRefreshListener {
 
 				Type type = new TypeToken<List<Coupon>>() {
 				}.getType();
-				 users = gson.fromJson(arg0.result, type);
-//				users.removeAll(olduser);
-//				users.addAll(0,user);
-//				olduser=user;
-				users.clear();
-				users.addAll(users);
+				List<Coupon> user = gson.fromJson(arg0.result, type);
+				users = gson.fromJson(arg0.result, type);
+
+				// users.clear();
+				users.addAll(user);
+				Log.i("TAG", users.toString());
+				Log.i("TAG", users.size() + "");
+				mAdapter = new MyListViewAdatper(users);
+				mListView.setAdapter(mAdapter);
 				mAdapter.notifyDataSetChanged();
-				
-				
-				
+				/**
+				 * 设置刷新结束之后，圈停止转动
+				 */
+				mSwipeLayout.setRefreshing(false);
+
 			}
 
 		});
@@ -217,5 +223,15 @@ public class StoneNameActivity extends Activity implements OnRefreshListener {
 	public void onRefresh() {
 		getDate(coupon.getStoreName().getStoID());
 
+	}
+
+	@Override
+	public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+		Intent intent = new Intent();
+		intent.setClass(StoneNameActivity.this, CouponInfoActivity.class);
+		intent.putExtra("coupon", users.get(position));
+		startActivity(intent);
+		finish();
+		
 	}
 }

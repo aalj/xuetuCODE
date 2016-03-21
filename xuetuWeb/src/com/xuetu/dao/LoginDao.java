@@ -172,8 +172,8 @@ public class LoginDao implements PersonalDaoInterface {
 				myCoupon.setCoupon(couponDao2.queryCoupon(resultSet.getInt("cou_id")));
 				myCoupon.setStudent(getStuByID(resultSet.getInt("stu_id")));
 				myCoupons.add(myCoupon);
-				return myCoupons;
 			}
+			return myCoupons;
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

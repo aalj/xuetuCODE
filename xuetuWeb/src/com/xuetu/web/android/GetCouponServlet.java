@@ -37,11 +37,13 @@ public class GetCouponServlet extends HttpServlet {
 		int pageunm = 0;
 		int unmunm = 10;
 		int reqtempnum=-1;
-		if(page!=null&&unm!=null&&reqtemp != null){
+		if(page!=null&&unm!=null){
 			pageunm = Integer.parseInt(page);
 			unmunm = Integer.parseInt(unm);
-			reqtempnum=Integer.parseInt(reqtemp);
 		}
+		if(reqtemp != null)
+		reqtempnum=Integer.parseInt(reqtemp);
+		System.out.println(reqtemp+"----------->reqtemp");
 		List<Coupon> couponAll = null;
 		if(reqtempnum==0){//查询全部的优惠券
 			couponAll = shoppingInter.getCouponlimmit(pageunm,unmunm);
@@ -57,6 +59,7 @@ public class GetCouponServlet extends HttpServlet {
 				  .setDateFormat("yyyy-MM-dd HH:mm:ss")  
 				  .create();
 		String temp = gson.toJson(couponAll);
+		System.out.println(gson);
 		writer.print(temp);
 		
 		

@@ -10,6 +10,7 @@
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
 
     <application
         android:name=".ui.XueTuApplication"
@@ -79,7 +80,7 @@
             android:name=".ui.AddSelfPlanActivity"
             android:label="@string/title_activity_add_self_plan" >
         </activity>
-        <activity android:name="com.xuetu.ui.Answer_list" >
+        <activity android:name=".ui.Answer_list" >
         </activity>
         <activity
             android:name=".ui.ChangeAgeActivity"
@@ -108,16 +109,20 @@
             android:label="@string/title_activity_show_coupon" >
         </activity>
         <activity
-            android:name="com.xuetu.ui.StoneNameActivity"
+            android:name=".ui.StoneNameActivity"
             android:label="@string/title_activity_stone_name" >
         </activity>
         <activity
-            android:name="com.xuetu.ui.CouponActivity"
+            android:name=".ui.CouponActivity"
             android:label="@string/title_activity_coupon" />
-        
         <activity
-            android:name="com.xuetu.ui.YouHuiJuanInfomationActivity"
+            android:name=".ui.YouHuiJuanInfomationActivity"
             android:label="@string/title_activity_you_hui_juan_infomation" >
+        </activity>
+        <activity android:name=".ui.CouponInfoActivity" />
+        <activity
+            android:name="com.xuetu.ui.ExchangeCouponActivity"
+            android:label="@string/title_activity_exchange_coupon" >
         </activity>
     </application>
 

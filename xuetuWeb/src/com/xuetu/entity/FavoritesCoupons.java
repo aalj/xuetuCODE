@@ -12,112 +12,144 @@
 */
 
 package com.xuetu.entity;
+
+import java.util.Date;
+
 /**
  * ClassName:FavoritesCoupons<br/>
  * Function: 收藏的优惠券表的实体类<br/>
  *
- * @author   Stone
- * @version  
- * @since    Ver 1.1
- * @Date	 2016年2月20日		上午8:51:13
+ * @author Stone
+ * @version
+ * @since Ver 1.1
+ * @Date 2016年2月20日 上午8:51:13
  *
- * @see 	 
-
+ * @see
+ * 
  */
 public class FavoritesCoupons {
-	private 	int facoID = 0;
+	private int facoID = 0;
 	private Student student = null;
-	private 	Coupon coupon = null;
+	private Coupon coupon = null;
+	private Date createDate = null;
+
 	public FavoritesCoupons() {
 
-		// 
+		//
 
 	}
+
+	public Date getCreateDate() {
+		return createDate;
+	}
+
+	public void setCreateDate(Date createDate) {
+		this.createDate = createDate;
+	}
+
 	/**
 	 * 
 	 * getFacoID:(得到收藏该张优惠券的ID)<br/>
-	
 	 *
-	 * @param  @return    设定文件
-	 * @return int    DOM对象
-	 * @throws 
-	 * @since  CodingExample　Ver 1.1
+	 * 
+	 * @param @return
+	 *            设定文件
+	 * @return int DOM对象
+	 * @throws @since
+	 *             CodingExample Ver 1.1
 	 */
 	public int getFacoID() {
 		return facoID;
 	}
-	
+
 	/**
 	 * 
 	 * setFacoID:(设置收藏该张优惠券的ID)<br/>
-	
 	 *
-	 * @param  @param facoID    设定文件
-	 * @return void    DOM对象
-	 * @throws 
-	 * @since  CodingExample　Ver 1.1
+	 * 
+	 * @param @param
+	 *            facoID 设定文件
+	 * @return void DOM对象
+	 * @throws @since
+	 *             CodingExample Ver 1.1
 	 */
 	public void setFacoID(int facoID) {
 		this.facoID = facoID;
 	}
+
 	/**
 	 * 
 	 * getStudent:(得到该张优惠券的是有谁收藏的)<br/>
-	
 	 *
-	 * @param  @return    设定文件
-	 * @return Student    DOM对象
-	 * @throws 
-	 * @since  CodingExample　Ver 1.1
+	 * 
+	 * @param @return
+	 *            设定文件
+	 * @return Student DOM对象
+	 * @throws @since
+	 *             CodingExample Ver 1.1
 	 */
 	public Student getStudent() {
 		return student;
 	}
+
 	/**
 	 * 
 	 * setStudent:(设置该张优惠券是谁收藏的)<br/>
-	
 	 *
-	 * @param  @param student    设定文件
-	 * @return void    DOM对象
-	 * @throws 
-	 * @since  CodingExample　Ver 1.1
+	 * 
+	 * @param @param
+	 *            student 设定文件
+	 * @return void DOM对象
+	 * @throws @since
+	 *             CodingExample Ver 1.1
 	 */
 	public void setStudent(Student student) {
 		this.student = student;
 	}
+
 	/**
 	 * 
 	 * getCoupon:(得到收藏的是哪张优惠券)<br/>
-	
 	 *
-	 * @param  @return    设定文件
-	 * @return Coupon    DOM对象
-	 * @throws 
-	 * @since  CodingExample　Ver 1.1
+	 * 
+	 * @param @return
+	 *            设定文件
+	 * @return Coupon DOM对象
+	 * @throws @since
+	 *             CodingExample Ver 1.1
 	 */
 	public Coupon getCoupon() {
 		return coupon;
 	}
+
 	/**
 	 * 
 	 * setCoupon:(设置收藏的是那张优惠券)<br/>
-	
 	 *
-	 * @param  @param coupon    设定文件
-	 * @return void    DOM对象
-	 * @throws 
-	 * @since  CodingExample　Ver 1.1
+	 * 
+	 * @param @param
+	 *            coupon 设定文件
+	 * @return void DOM对象
+	 * @throws @since
+	 *             CodingExample Ver 1.1
 	 */
 	public void setCoupon(Coupon coupon) {
 		this.coupon = coupon;
 	}
-	public FavoritesCoupons(int facoID, Student student, Coupon coupon) {
+
+	public FavoritesCoupons(int facoID, Student student, Coupon coupon, Date createDate) {
 		super();
 		this.facoID = facoID;
 		this.student = student;
 		this.coupon = coupon;
+		this.createDate = createDate;
 	}
-	 
-}
 
+	public FavoritesCoupons(Student student, Coupon coupon, Date createDate) {
+		super();
+		this.student = student;
+		this.coupon = coupon;
+		this.createDate = createDate;
+	}
+
+}
