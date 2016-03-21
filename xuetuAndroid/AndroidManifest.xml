@@ -9,7 +9,8 @@
         android:targetSdkVersion="22" />
 
     <uses-permission android:name="android.permission.INTERNET" />
-	<uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+
     <application
         android:name=".ui.XueTuApplication"
         android:allowBackup="true"
@@ -56,7 +57,7 @@
             android:name=".ui.ForgetPwdActivity"
             android:label="@string/title_activity_forget_pwd" >
         </activity>
-        <activity android:name=".ui.Question_ask">
+        <activity android:name=".ui.Question_ask" >
         </activity>
         <activity
             android:name=".ui.PerCerter"
@@ -96,9 +97,12 @@
             android:name=".ui.SaveYouHuiJuanActivity"
             android:label="@string/title_activity_save_you_hui_juan" >
         </activity>
+        <activity android:name=".TheCollectionOfYouHuiJuanActivity" >
+        </activity>
         <activity
-            android:name=".TheCollectionOfYouHuiJuanActivity"
+            android:name=".ui.TheCollectionOfYouHuiJuanActivity"
             android:label="@string/title_activity_the_collection_of_you_hui_juan" >
+
 
              </activity>
              
@@ -106,10 +110,18 @@
             android:name="com.xuetu.ui.CouponActivity"
             android:label="@string/title_activity_coupon" >
    </activity>
-      <activity
-            android:name="com.xuetu.ui.TheCollectionOfYouHuiJuanActivity"
-            android:label="@string/title_activity_the_collection_of_you_hui_juan" >
-
+        <activity
+            android:name=".ui.ShowCouponActivity"
+            android:label="@string/title_activity_show_coupon" >
+        </activity>
+        <activity
+            android:name="com.xuetu.ui.StoneNameActivity"
+            android:label="@string/title_activity_stone_name" >
+        </activity>
+       <activity
+            android:name="com.xuetu.ui.YouHuiJuanInfomationActivity"
+            android:label="@string/title_activity_you_hui_juan_infomation" >
+	
         </activity>
     </application>
 

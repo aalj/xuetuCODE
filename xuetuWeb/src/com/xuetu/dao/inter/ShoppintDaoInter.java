@@ -16,6 +16,8 @@ public interface ShoppintDaoInter {
 	
 public List<Coupon> queryCouponlimmit(int page,int num);
 	
-	public List<Coupon> queryCouponall();
+	public List<Coupon> queryCouponall(int stoID);
+
+	
 	
 }

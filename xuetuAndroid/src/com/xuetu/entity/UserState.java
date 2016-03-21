@@ -12,6 +12,9 @@
 */
 
 package com.xuetu.entity;
+
+import java.io.Serializable;
+
 /**
  * ClassName:UserState<br/>
  * Function: 优惠券使用状态的实体表<br/>  g
@@ -25,7 +28,7 @@ package com.xuetu.entity;
  * @see 	 
 
  */
-public class UserState {
+public class UserState implements Serializable{
 	private int ustaID=0;
 	private String ustaName=null;
 	public UserState() {
