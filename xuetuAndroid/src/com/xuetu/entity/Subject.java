@@ -12,6 +12,9 @@
 */
 
 package com.xuetu.entity;
+
+import java.io.Serializable;
+
 /**
  * ClassName:Subject
  * Function: 学科类型
@@ -25,7 +28,7 @@ package com.xuetu.entity;
  * @see 	 
 
  */
-public class Subject {
+public class Subject implements Serializable{
 	
 	public int getSubId() {
 		return SubId;

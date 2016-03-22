@@ -399,6 +399,7 @@ public class HomePageFrag extends Fragment implements OnTouchListener {
 
 	public void get_stu_studyTime() {
 		flag = false;
+		
 		String url = "http://10.201.1.26:8080/xuetuWeb/GetClassTime";
 		HttpUtils httpUtils = new HttpUtils();
 		RequestParams requestParams = new RequestParams();

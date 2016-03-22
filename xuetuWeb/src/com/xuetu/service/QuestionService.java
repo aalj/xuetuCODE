@@ -37,9 +37,9 @@ public class QuestionService implements QuestionServiceInter {
 	 * @see com.xuetu.service.inter.QuestionServiceInter#getAnswerByQuesId(com.xuetu.entity.Question)
 	 */
 	@Override
-	public Answer getAnswerByQuesId(Question qu) {
+	public List<Answer> getAnswerByQuesId(int ques_id,int page,int num) {
 		// TODO Auto-generated method stub
-		return null;
+		return q.getAnswerByQuesId(ques_id,page,num);
 	}
 
 	/* (non-Javadoc)
@@ -106,15 +106,15 @@ public class QuestionService implements QuestionServiceInter {
 	}
 
 	@Override
-	public Answer createAnswer(int ques_id, int stu_id, String ans_text, Date ans_time) {
+	public Answer createAnswer(int ques_id, int stu_id, String ans_text,String ans_ima, Date ans_time) {
 		// TODO Auto-generated method stub
-		return q.createAnswer(ques_id, stu_id, ans_text, ans_time);
+		return q.createAnswer(ques_id, stu_id, ans_text,ans_ima, ans_time);
 	}
 
 	@Override
 	public List<Answer> queryLimitAnswer(int page, int num) {
 		// TODO Auto-generated method stub
-		return null;
+		return q.queryLimitAnswer(page, num);
 	}
 
 	@Override

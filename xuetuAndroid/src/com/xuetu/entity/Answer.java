@@ -1,3 +1,4 @@
+
 /**
  * Answer.java
  * com.xuetu.entity
@@ -13,6 +14,7 @@
 
 package com.xuetu.entity;
 
+import java.io.Serializable;
 import java.util.Date;
 
 /**
@@ -28,7 +30,7 @@ import java.util.Date;
  * @see
  * 
  */
-public class Answer {
+public class Answer implements Serializable{
 	private int ansID = 0;
 	private Question question = null;
 	private Student student = null;
@@ -81,3 +83,4 @@ public class Answer {
 		this.ansTime = ansTime;
 	}
 }
+

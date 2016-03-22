@@ -3,9 +3,7 @@ package com.xuetu.web.android;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.lang.reflect.Type;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 import javax.servlet.ServletException;
@@ -15,43 +13,31 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
 import com.xuetu.dao.QuestionIml;
-import com.xuetu.entity.Question;
+import com.xuetu.entity.Answer;
 import com.xuetu.service.QuestionService;
 import com.xuetu.service.inter.QuestionServiceInter;
 
 /**
- * Servlet implementation class GetAllQuestion
+ * Servlet implementation class GetPageAnswer
  */
-@WebServlet("/GetPageQuestion1")
-public class GetPageQuestion extends HttpServlet {
+@WebServlet("/GetPageAnswer")
+public class GetPageAnswer extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	QuestionServiceInter q = new QuestionService(new QuestionIml());
+	int ques_id = 0;
+	List<Answer> list = new ArrayList<Answer>();
+	String jsonStr = null;
+	QuestionServiceInter Qservice = new QuestionService(new QuestionIml());
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		SimpleDateFormat sdf = new SimpleDateFormat("HH:mm:ss");
-		System.out.println("In"+sdf.format(new Date(System.currentTimeMillis())));
 		request.setCharacterEncoding("utf-8");
 		response.setCharacterEncoding("utf-8");
-		response.setContentType("text/html;charset=UTF-8");
-		List<Question> questions = new ArrayList<Question>();
-		questions = q.queryLimitQuestion(1, 5);
-		System.out.println(questions.get(2).getQuesIma());
-		String jsonStr = null;
-		Gson gson = new GsonBuilder()  
-				  .setDateFormat("yyyy-MM-dd HH:mm:ss")  
-				  .create();
-		jsonStr = gson.toJson(questions);
-		PrintWriter pw = response.getWriter();
-		pw.write(jsonStr);
+		doPost(request, response);
 
-		System.out.println("end"+sdf.format(new Date(System.currentTimeMillis())));
-		pw.close();
 	}
 
 	/**
@@ -61,7 +47,15 @@ public class GetPageQuestion extends HttpServlet {
 		// TODO Auto-generated method stub
 		request.setCharacterEncoding("utf-8");
 		response.setCharacterEncoding("utf-8");
-		doGet(request, response);
+		response.setContentType("text/html;charset=UTF-8");
+		ques_id = Integer.parseInt(request.getParameter("Ques_id"));
+		list = Qservice.getAnswerByQuesId(ques_id,1,2);
+		Gson gson = new Gson();
+		jsonStr = gson.toJson(list);
+		PrintWriter pw = response.getWriter();
+		pw.write(jsonStr);
+		pw.flush();
+		pw.close();
 	}
 
 }

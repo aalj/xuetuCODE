@@ -2,12 +2,9 @@ package com.xuetu.web.android;
 
 import java.io.File;
 import java.io.IOException;
-import java.io.PrintWriter;
-import java.lang.reflect.Type;
 import java.sql.Date;
 import java.sql.Timestamp;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
+import java.util.List;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -15,33 +12,30 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
-import com.google.gson.reflect.TypeToken;
 import com.jspsmart.upload.SmartUpload;
-import com.jspsmart.upload.SmartUploadException;
 import com.xuetu.dao.QuestionIml;
+import com.xuetu.dao.inter.QuesTionDao;
+import com.xuetu.entity.Answer;
 import com.xuetu.entity.Question;
+import com.xuetu.entity.School;
+import com.xuetu.entity.Student;
+import com.xuetu.entity.Subject;
 import com.xuetu.service.QuestionService;
 import com.xuetu.service.inter.QuestionServiceInter;
 
 /**
- * Servlet implementation class SubmitQuestion
+ * Servlet implementation class SubmitAnswer
  */
-@WebServlet("/SubmitQuestion")
-public class SubmitQuestion extends HttpServlet {
+@WebServlet("/SubmitAnswer")
+public class SubmitAnswer extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	
-	//声明变量
-	int stuId = 0;
-	String quesText = null;
-	java.sql.Date quesTime = null;
-	String quesTimeStr = null;
-	Question q = new Question();
-	String quesImg = null;
-	int acpoNum = 0;
-	int subId = 0;
-	//创建service对象
+	int ques_id = 0;
+	int stu_id = 0;
+	String ans_text = null;
+	String ans_ima = null;
+	String ans_timeStr = null;
+	Date ans_time = null;
+	Answer a = new Answer();
 	QuestionServiceInter Qservice = new QuestionService(new QuestionIml());
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
@@ -50,7 +44,7 @@ public class SubmitQuestion extends HttpServlet {
 		// TODO Auto-generated method stub
 		request.setCharacterEncoding("utf-8");
 		response.setCharacterEncoding("utf-8");
-		doPost(request, response);
+		doGet(request, response);
 	}
 
 	/**
@@ -62,6 +56,7 @@ public class SubmitQuestion extends HttpServlet {
 		response.setCharacterEncoding("utf-8");
 		response.setContentType("text/html;charset=UTF-8");
 		
+		//用smartupload获得上传文件
 		SmartUpload smartUpload = new SmartUpload();
 		//初始化
 		smartUpload.initialize(getServletConfig(), request, response);
@@ -85,40 +80,21 @@ public class SubmitQuestion extends HttpServlet {
 				System.out.println("saveFileName"+saveFileName);
 				//文件保存路径
 				poster.saveAs(saveFileName);
-				poster.saveAs("F:\\xuetuGIT\\xuetuCODE\\xuetuWeb\\WebContent\\xuetuImg\\"+poster.getFileName());
-				System.out.println(getServletContext().getRealPath("xuetuImg")+"-----servletContextrealPath");
+				poster.saveAs("F:\\xuetuGIT\\xuetuCODE\\xuetuWeb\\WebContent\\xuetuImg\\"+poster.getFileName());	
 			}
-			//获得question对象,发表问题
-			stuId = Integer.parseInt(smartUpload.getRequest().getParameter("stuId"));
-			quesText = smartUpload.getRequest().getParameter("quesText");
-			quesTimeStr = smartUpload.getRequest().getParameter("quesTime");
-			long parseLong = Long.parseLong(quesTimeStr);
-			quesTime = new Date(new Timestamp(parseLong).getTime());
-			quesImg = "xuetuImg//"+poster.getFileName();
-			System.out.println("quesImg"+quesImg);
-			acpoNum = Integer.parseInt(smartUpload.getRequest().getParameter("acpoNum"));
-			subId = Integer.parseInt(smartUpload.getRequest().getParameter("subId"));
-			q = Qservice.createQuestion(stuId, quesText,quesImg,quesTime, acpoNum, subId,Qservice.getSchIdByStuId(stuId));
-			Qservice.submitQuestion(q);
+			
+			ques_id = Integer.parseInt(smartUpload.getRequest().getParameter("ques_id"));
+			stu_id =  Integer.parseInt(smartUpload.getRequest().getParameter("stu_id"));
+			ans_text = smartUpload.getRequest().getParameter("ans_text");
+			long parseLong = Long.parseLong(ans_timeStr);
+			ans_time = new Date(new Timestamp(parseLong).getTime());
+			ans_ima = "xuetuImg//"+poster.getFileName();
+			a = Qservice.createAnswer(ques_id, stu_id, ans_text, ans_ima, ans_time);
+			Qservice.submitAnswer(a);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
-		
-		/*stuId = Integer.parseInt(request.getParameter("stuId"));
-		System.out.println(stuId);
-		quesText = request.getParameter("quesText");
-		System.out.println(quesText);
-		quesTimeStr = request.getParameter("quesTimeStr");
-		System.out.println(quesTimeStr);
-		long parseLong = Long.parseLong(quesTimeStr);
-		quesTime = new java.sql.Date(parseLong);
-		quesImg = request.getParameter("quesImg");
-		acpoNum = Integer.parseInt(request.getParameter("acpoNum"));
-		subId = Integer.parseInt(request.getParameter("subId"));
-		q = Qservice.createQuestion(stuId, quesText,quesImg,quesTime, acpoNum, subId,Qservice.getSchIdByStuId(stuId));
-		Qservice.submitQuestion(q);*/
 	}
 
 }
