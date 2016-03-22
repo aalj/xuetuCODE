@@ -13,6 +13,12 @@
 
 package com.xuetu.fragment;
 
+import com.lidroid.xutils.HttpUtils;
+import com.lidroid.xutils.exception.HttpException;
+import com.lidroid.xutils.http.RequestParams;
+import com.lidroid.xutils.http.ResponseInfo;
+import com.lidroid.xutils.http.callback.RequestCallBack;
+import com.lidroid.xutils.http.client.HttpRequest.HttpMethod;
 import com.xuetu.R;
 import com.xuetu.ui.TimerActivity;
 
@@ -53,6 +59,7 @@ import android.widget.TextView;
  */
 public class HomePageFrag extends Fragment implements OnTouchListener{
 	
+	int stu_id=3;
 	Button btn_up,btn_down,btn_center ;
 	ImageView img1,img2,img3,img4,img5,img6,imgup,imgdown;
 	View view;
@@ -239,7 +246,7 @@ public class HomePageFrag extends Fragment implements OnTouchListener{
 	@Override
 	public boolean onTouch( View v, MotionEvent event) {
 		// TODO Auto-generated method stub
-		System.out.println("高>>>>>"+btn_center.getHeight());
+//		System.out.println("高>>>>>"+btn_center.getHeight());
 		
 //		layoutParams = new RelativeLayout.LayoutParams(LayoutParams.WRAP_CONTENT,LayoutParams.WRAP_CONTENT );   
 		final int Y = (int) event.getRawY();  
@@ -254,7 +261,6 @@ public class HomePageFrag extends Fragment implements OnTouchListener{
                        
 //             _x = X - lParams.leftMargin;  
              _y = Y - lParams.topMargin; 
-             System.out.println("y>>"+_y);
              break;  
              
          case MotionEvent.ACTION_UP:  
@@ -267,7 +273,7 @@ public class HomePageFrag extends Fragment implements OnTouchListener{
     		 
 	        btn_center.setLayoutParams(layoutParams);  
          	
-         	 
+	        
              break;  
          case MotionEvent.ACTION_POINTER_DOWN: 
              break;  
@@ -291,12 +297,30 @@ public class HomePageFrag extends Fragment implements OnTouchListener{
 //             layoutParams.rightMargin = -250;  
 //             layoutParams.bottomMargin = -250;  
              v.setLayoutParams(layoutParams);  
+         //  判断上下滑动距离
+         	//        	640
+         	        	if(Y<(fHeight/2-200))
+         	        	{
+         	        		System.out.println("上滑动执行");
+         	        	}else{
+         	        		if(Y>(fHeight/2+200)){
+         	        			System.out.println("下滑动执行");
+         	        		}else{
+         	        			
+         	        		}
+         	        }
+             
              break;  
          }  
          root.invalidate();  
          return true;  
 	}
 	
+	
+	/**
+	 * 获得 home page fragment 的高度
+	 * @return
+	 */
 	public int getFheight()
 	{
 		int aa=0;
@@ -304,4 +328,25 @@ public class HomePageFrag extends Fragment implements OnTouchListener{
 		return aa;
 	}
 
+	public void get_stu_studyTime()
+	{
+		String url ="http://10.201.1.26:8080/xuetuWeb/AddStudyTime";
+		HttpUtils httpUtils = new HttpUtils();
+		RequestParams requestParams = new RequestParams();
+		requestParams.addBodyParameter("stu_id", String.valueOf(stu_id));
+		httpUtils.send(HttpMethod.POST, url, new RequestCallBack<String>() {
+			@Override
+			public void onFailure(HttpException arg0, String arg1) {
+				// TODO Auto-generated method stub
+				System.out.println("链接失败");
+			}
+
+			@Override
+			public void onSuccess(ResponseInfo<String> arg0) {
+				// TODO Auto-generated method stub
+				System.out.println("链接成功");
+			}
+		});
+	}
+	
 }

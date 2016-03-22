@@ -82,7 +82,6 @@ public class TimerActivity extends Activity {
 	int round = 0;
 	Student student ;
 	
-	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -92,22 +91,14 @@ public class TimerActivity extends Activity {
 //		runTime= (Button) findViewById(R.id.home_btn_up);
 		showss=(TextView) findViewById(R.id.tv_show_ss);
 		
-		
 		student= ((XueTuApplication) getApplication()).getStudent();
 
-		
-		
 		//功能还没有完善,需要添加判断条件,从数据库获得课程表时间,与当前时间\课程进行判断,并且判断经纬度是否相同
 		Thread th =  new Thread(new ClassCut());//创建一个新线程,并且赋值给一个变量
 		th.start(); //运行这个线程执行>>>计时器
-		
-		
-		
+		}
 //		new TimeOnclisten();
-		
 //		findViewById(R.id.home_btn_up).setOnClickListener(new TimeOnclisten());
-	}
-
 	
 //	private class TimeOnclisten implements OnClickListener{
 //        @Override
@@ -127,8 +118,6 @@ public class TimerActivity extends Activity {
 	        		st_time++;//记录学生学习时间
 	                if(round==10){
 	                	integral_double++;//每到600秒,积分倍数+1(初始值0)
-	                	
-	                	
 //	                	System.out.println("alltime>>>>>"+alltime);
 //	                	System.out.println("round>>>>>"+round);
 //	                	System.out.println("integral_double>>>>>"+integral_double);
@@ -222,24 +211,13 @@ public class TimerActivity extends Activity {
     	{
     		String url ="http://10.201.1.26:8080/xuetuWeb/AddStudyTime";
     		
-//    		String integral="5";
-    		System.out.println("1>>>");
     		HttpUtils httpUtils = new HttpUtils();
-    		System.out.println("2>>>");
     		RequestParams requestParams = new RequestParams();
-//    		String time = ;
-    		System.out.println("3>>>");
     		requestParams.addBodyParameter("st_time", String.valueOf(st_time));
-    		System.out.println("4>>>"+st_time);
     		requestParams.addBodyParameter("integral",String.valueOf(getIntegral(integral_double)));
-    		System.out.println("5>>>"+getIntegral(integral_double));
     		requestParams.addBodyParameter("st_date", getTime());
-    		System.out.println("6>>>"+getTime());
     		requestParams.addBodyParameter("st_id", "1");
-    		System.out.println("7>>>"+st_id);
 //    		requestParams.addBodyParameter("stu_id", student.getStuId()+"");//学生id
-    		System.out.println("8>>>>>"+student);
-    		
     		httpUtils.send(HttpMethod.POST, url,requestParams,new RequestCallBack<String>() {
     			
     			@Override
