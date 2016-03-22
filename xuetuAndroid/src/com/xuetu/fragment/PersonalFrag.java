@@ -19,6 +19,7 @@ import com.xuetu.ui.CourseActivity;
 import com.xuetu.ui.LoginActivity;
 import com.xuetu.ui.PersonInfomationActivity;
 import com.xuetu.ui.TheCollectionOfYouHuiJuanActivity;
+import com.xuetu.ui.WoDeShouCangActivity;
 import com.xuetu.ui.XueTuApplication;
 
 import android.app.Application;
@@ -26,6 +27,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -58,7 +60,7 @@ public class PersonalFrag extends Fragment implements OnClickListener {
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 		View view = inflater.inflate(R.layout.personal_frag, null);
 		view_user = (RelativeLayout) view.findViewById(R.id.view_user);
-		txt_pay = (TextView) view.findViewById(R.id.txt_pay);
+		txt_pay = (TextView) view.findViewById(R.id.txt_mypoint);
 		txt_youhuijuan = (TextView) view.findViewById(R.id.txt_youhuijuan);
 		txt_myquestion = (TextView) view.findViewById(R.id.txt_myquestion);
 		txt_mylike = (TextView) view.findViewById(R.id.txt_mylike);
@@ -71,29 +73,37 @@ public class PersonalFrag extends Fragment implements OnClickListener {
 		txt_mylike.setOnClickListener(this);
 		txt_course.setOnClickListener(this);
 		txt_paihangbang.setOnClickListener(this);
-		student = ((XueTuApplication) (getActivity().getApplication())).getStudent();
+//		student = ((XueTuApplication) (getActivity().getApplication())).getStudent();
+//		Log.i("TAG", "------>" + student.getStuId() + "");
 		return view;
 	}
+
+	@Override
+	public void onResume() {
+		student = ((XueTuApplication) (getActivity().getApplication())).getStudent();
+		Log.i("TAG", "onResume------>" + student.getStuId() + "");
+		super.onResume();
+	}
+
 
 	@Override
 	public void onClick(View v) {
 		switch (v.getId()) {
 		case R.id.view_user:
+			
+			if (student.getStuId() <= 0) {
+				Intent intent = new Intent();
+				intent.setClass(getActivity(), LoginActivity.class);
+				getActivity().startActivity(intent);
+			} else {
+				Intent intent1 = new Intent();
+				intent1.setClass(getActivity(), PersonInfomationActivity.class);
+				getActivity().startActivity(intent1);
 
-			Intent intent = new Intent();
-			intent.setClass(getActivity(), LoginActivity.class);
-			getActivity().startActivity(intent);
-
-//			if (student == null || "null".equals(student)) {
-//			} else {
-//				Intent intent1 = new Intent();
-//				intent1.setClass(getActivity(), PersonInfomationActivity.class);
-//				getActivity().startActivity(intent1);
-//
-//			}
+			}
 
 			break;
-		case R.id.txt_pay:
+		case R.id.txt_mypoint:
 
 			break;
 
@@ -109,6 +119,9 @@ public class PersonalFrag extends Fragment implements OnClickListener {
 			break;
 
 		case R.id.txt_mylike:
+			Intent intent4 = new Intent();
+			intent4.setClass(getActivity(), WoDeShouCangActivity.class);
+			getActivity().startActivity(intent4);
 
 			break;
 

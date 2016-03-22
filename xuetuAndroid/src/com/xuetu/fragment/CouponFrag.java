@@ -18,6 +18,7 @@ import com.xuetu.adapter.MyBasesadapter;
 import com.xuetu.adapter.ViewHodle;
 import com.xuetu.entity.Coupon;
 import com.xuetu.ui.CouponActivity;
+import com.xuetu.ui.CouponInfoActivity;
 import com.xuetu.ui.ShowCouponActivity;
 import com.xuetu.ui.StoneNameActivity;
 import com.xuetu.utils.GetHttp;
@@ -67,7 +68,7 @@ public class CouponFrag extends Fragment implements OnRefreshListener, OnItemCli
 				viewHolder.setText(R.id.tv_coupon_name, item.getCouName());
 				viewHolder.setText(R.id.tv_shoppingname, item.getStoreName().getStoName());
 				viewHolder.setText(R.id.tv_coupon_all, item.getConNum() + "");
-				viewHolder.SetUrlImage(R.id.tv_coupon_ima, item.getStoreName().getStoImg());
+				viewHolder.SetUrlImage(R.id.tv_coupon_ima, GetHttp.getHttpLJ()+item.getStoreName().getStoImg());
 			}
 		};
 		rListView.setAdapter(myBaseAdapter);
@@ -148,9 +149,9 @@ public class CouponFrag extends Fragment implements OnRefreshListener, OnItemCli
 	@Override
 	public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 		Intent intent = new Intent();
-		users.get(position);
-		intent.setClass(getActivity(), StoneNameActivity.class);
-		intent.putExtra("coupon", users.get(position));
+		users.get(position-1);
+		intent.setClass(getActivity(), CouponInfoActivity.class);
+		intent.putExtra("coupon", users.get(position-1));
 		startActivity(intent);
 		
 	}

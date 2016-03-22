@@ -1,0 +1,182 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:title="http://schemas.android.com/apk/res/com.xuetu"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/background"
+    android:orientation="vertical" >
+
+    <com.xuetu.view.TitleBar
+        android:id="@+id/title_my"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:layout_weight="0"
+        title:titleBarLeftImage="@drawable/ic_menu_back"
+        title:titleBarTitle="兑换" >
+    </com.xuetu.view.TitleBar>
+
+    <ScrollView
+        android:id="@+id/scrollView1"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:layout_weight="1"
+        android:padding="5dp"
+        android:scrollbars="none" >
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:orientation="vertical" >
+
+            <ImageView
+                android:scaleType="fitXY"
+                android:id="@+id/ima_stone"
+                android:layout_width="match_parent"
+                android:layout_height="100dp"
+                android:src="@drawable/ic_launcher" />
+
+            <TextView
+                android:layout_width="fill_parent"
+                android:layout_height="37dp"
+                android:background="#fffffe"
+                android:gravity="center_vertical"
+                android:paddingLeft="10dp"
+                android:text="丨✿ 优惠劵"
+                android:textSize="12dp" />
+
+            <TextView
+                android:layout_width="fill_parent"
+                android:layout_height="0.1dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:background="#fffffe" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:background="#757575" />
+
+            <TextView
+                android:id="@+id/dianjiadejutixingxi"
+                android:layout_width="fill_parent"
+                android:layout_height="37dp"
+                android:background="#fffffe"
+                android:gravity="center_vertical"
+                android:paddingLeft="20dp"
+                android:text="店家的具体信息"
+                android:textSize="14dp" />
+
+            <TextView
+                android:layout_width="fill_parent"
+                android:layout_height="37dp"
+                android:layout_marginTop="10dp"
+                android:background="#fffffe"
+                android:gravity="center_vertical"
+                android:paddingLeft="10dp"
+                android:text="丨✿ 所需积分"
+                android:textSize="12dp" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:background="#757575" />
+
+            <TextView
+                android:id="@+id/xuyaojifen"
+                android:layout_width="fill_parent"
+                android:layout_height="37dp"
+                android:background="#fffffe"
+                android:gravity="center_vertical"
+                android:paddingLeft="20dp"
+                android:text="折扣的具体信息"
+                android:textSize="14dp" />
+
+            <TextView
+                android:layout_width="fill_parent"
+                android:layout_height="37dp"
+                android:layout_marginTop="10dp"
+                android:background="#fffffe"
+                android:gravity="center_vertical"
+                android:paddingLeft="10dp"
+                android:text="丨✿ 折扣"
+                android:textSize="12dp" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:background="#757575" />
+
+            <TextView
+                android:id="@+id/zhekoudejutixingxi"
+                android:layout_width="fill_parent"
+                android:layout_height="37dp"
+                android:background="#fffffe"
+                android:gravity="center_vertical"
+                android:paddingLeft="20dp"
+                android:text="折扣的具体信息"
+                android:textSize="14dp" />
+
+            <TextView
+                android:layout_width="fill_parent"
+                android:layout_height="0.1dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:background="#fffffe" />
+
+            <TextView
+                android:layout_width="fill_parent"
+                android:layout_height="37dp"
+                android:layout_marginTop="10dp"
+                android:background="#fffffe"
+                android:gravity="center_vertical"
+                android:paddingLeft="10dp"
+                android:text="丨✿ 使用地点"
+                android:textSize="12dp" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:background="#757575" />
+
+            <TextView
+                android:layout_width="fill_parent"
+                android:layout_height="0.1dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:background="#fffffe" />
+
+            <TextView
+                android:id="@+id/shiyongdidianshuoming"
+                android:layout_width="fill_parent"
+                android:layout_height="50dp"
+                android:background="#fffffe"
+                android:gravity="center_vertical"
+                android:paddingLeft="20dp"
+                android:text="使用地点的说明"
+                android:textSize="14dp" />
+        </LinearLayout>
+    </ScrollView>
+
+    <TextView
+        android:id="@+id/button_lijishiyong"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_weight="0"
+        android:background="#fffffe"
+        android:clickable="true"
+        android:focusable="true"
+        android:gravity="center"
+        android:onClick="onclick"
+        android:text="立即兑换" />
+
+</LinearLayout>

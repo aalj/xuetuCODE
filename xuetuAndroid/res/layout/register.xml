@@ -7,10 +7,11 @@
     android:orientation="vertical" >
 
     <com.xuetu.view.TitleBar
+        android:id="@+id/backtologin"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        title:titleBarTitle="学徒"
-        title:titleBarLeftImage="@drawable/ic_menu_back" >
+        title:titleBarLeftImage="@drawable/ic_menu_back"
+        title:titleBarTitle="学徒" >
     </com.xuetu.view.TitleBar>
 
     <LinearLayout
@@ -49,6 +50,7 @@
                 android:textColor="#353535"
                 android:textSize="16sp" />
         </RelativeLayout>
+
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="48dp"
@@ -67,9 +69,10 @@
                 android:paddingLeft="90dp"
                 android:singleLine="true"
                 android:textColorHint="#999999"
-                android:textSize="16sp"/>
+                android:textSize="16sp" />
 
             <TextView
+                android:id="@+id/textView2"
                 android:layout_width="90dp"
                 android:layout_height="wrap_content"
                 android:layout_alignLeft="@id/et_checkedNumber"
@@ -78,6 +81,28 @@
                 android:text="验证码"
                 android:textColor="#353535"
                 android:textSize="16sp" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="20dp"
+            android:background="#00000000" >
+
+            <TextView
+                android:id="@+id/huoqvyanzhengma"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentTop="true"
+                android:layout_marginRight="29dp"
+                android:background="@drawable/textchangebackground"
+                android:gravity="center_horizontal"
+                android:focusable="true"
+                android:onClick="onclick"
+                android:clickable="true"
+                android:text="获取验证码"
+                android:textColor="#353535"
+                android:textSize="14sp" />
         </RelativeLayout>
 
         <RelativeLayout
@@ -109,27 +134,26 @@
                 android:textColor="#353535"
                 android:textSize="16sp" />
         </RelativeLayout>
-        
 
         <Button
-            android:onClick="onclick"
             android:id="@+id/btn_register"
             android:layout_width="match_parent"
             android:layout_height="45dp"
             android:layout_marginTop="40dp"
             android:background="@drawable/buttonchangecolor"
+            android:onClick="onclick"
             android:paddingBottom="7dp"
             android:paddingTop="7dp"
             android:text="注册"
             android:textColor="@android:color/white"
             android:textSize="18sp" />
     </LinearLayout>
-    <RelativeLayout 
+
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        >
+        android:layout_height="wrap_content" >
+
         <Button
-            android:onClick="onclick"
             android:id="@+id/text_back"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -138,13 +162,10 @@
             android:layout_marginRight="19dp"
             android:layout_marginTop="19dp"
             android:background="@drawable/textchangebackground"
+            android:onClick="onclick"
             android:text="已有帐号，立即登录"
             android:textColor="#353535"
             android:textSize="15sp" />
-        
-        
-        
-        
     </RelativeLayout>
 
 </LinearLayout>

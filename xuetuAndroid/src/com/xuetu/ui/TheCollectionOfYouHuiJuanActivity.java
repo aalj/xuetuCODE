@@ -21,6 +21,7 @@ import com.xuetu.adapter.ViewHodle;
 import com.xuetu.entity.MyCoupon;
 import com.xuetu.entity.Student;
 import com.xuetu.utils.GetHttp;
+import com.xuetu.view.TitleBar;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -32,6 +33,7 @@ import android.view.View.OnClickListener;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ListView;
+import android.widget.Toast;
 
 /**
  * 
@@ -41,11 +43,12 @@ import android.widget.ListView;
  * @author BCL
  *
  */
-public class TheCollectionOfYouHuiJuanActivity extends Activity implements OnItemClickListener {
+public class TheCollectionOfYouHuiJuanActivity extends Activity implements OnItemClickListener,OnClickListener{
 	ListView listview;
 	List<MyCoupon> datas = new ArrayList<MyCoupon>();
 	MyBasesadapter<MyCoupon> myadapter;
 	Student student;
+	TitleBar titlebar;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -54,10 +57,17 @@ public class TheCollectionOfYouHuiJuanActivity extends Activity implements OnIte
 		setContentView(R.layout.activity_the_collection_of_you_hui_juan);
 		listview = (ListView) findViewById(R.id.listView);
 		listview.setOnItemClickListener(this);
+		titlebar = (TitleBar) findViewById(R.id.title_back);
+		titlebar.setLeftLayoutClickListener(this);
 		getCoupon();
 
 	}
+	@Override
+	public void onClick(View v) {
+		Toast.makeText(getApplicationContext(), "点击了", 1).show();
+		finish();
 
+	}
 	/**
 	 * listview的加载
 	 */
@@ -92,8 +102,8 @@ public class TheCollectionOfYouHuiJuanActivity extends Activity implements OnIte
 		String url = GetHttp.getHttpBCL() + "TheCollectionOfYouHuiJuanServlet";
 		RequestParams params = new RequestParams();
 		try {
-			URLEncoder.encode(String.valueOf(student.getStuId()), "utf-8");
-			params.addBodyParameter("stuid", 3 + "");
+
+			params.addBodyParameter("stuid", URLEncoder.encode(String.valueOf(student.getStuId()), "utf-8"));
 		} catch (UnsupportedEncodingException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
