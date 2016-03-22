@@ -46,7 +46,6 @@ public class AddStudyTime extends HttpServlet {
 		response.setCharacterEncoding("utf-8");
 		request.setCharacterEncoding("utf-8");
 		
-		System.out.println("add dopost");
 		
 		//从手机端获取值
 //		String name = request.getParameter("name");
@@ -91,7 +90,6 @@ public class AddStudyTime extends HttpServlet {
 		// TODO Auto-generated method stub
 		response.setCharacterEncoding("utf-8");
 		request.setCharacterEncoding("utf-8");
-		System.out.println("add doget");
 		doGet(request, response);
 		
 		
