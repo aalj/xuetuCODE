@@ -12,6 +12,7 @@ import com.xuetu.view.CircleImageView;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -51,7 +52,9 @@ public class YouHuiJuanInfomationActivity extends Activity {
 
 	public void getDatasAndsetDates() {
 		Intent intent = this.getIntent();
-		mycoupon = (MyCoupon) intent.getSerializableExtra("MyCoupon");
+		Bundle extras = intent.getExtras();
+		
+		mycoupon = (MyCoupon) extras.getSerializable("MyCoupon");
 		coupon = mycoupon.getCoupon();
 		BitmapUtils bitmapUtils = new BitmapUtils(this);
 		bitmapUtils.display(head, GetHttp.getHttpBCL() + coupon.getStoreName().getStoImg());

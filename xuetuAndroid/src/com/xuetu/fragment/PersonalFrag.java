@@ -107,7 +107,7 @@ public class PersonalFrag extends Fragment implements OnClickListener {
 
 			break;
 
-		case R.id.txt_youhuijuan:
+		case R.id.txt_youhuijuan://优惠券管理
 			Intent intent3 = new Intent();
 			intent3.setClass(getActivity(), TheCollectionOfYouHuiJuanActivity.class);
 			getActivity().startActivity(intent3);
