@@ -94,7 +94,8 @@ public class SubmitQuestion extends HttpServlet {
 			quesTimeStr = smartUpload.getRequest().getParameter("quesTime");
 			long parseLong = Long.parseLong(quesTimeStr);
 			quesTime = new Date(new Timestamp(parseLong).getTime());
-			quesImg = smartUpload.getRequest().getParameter("quesImg");
+			quesImg = "xuetuImg//"+poster.getFileName();
+			System.out.println("quesImg"+quesImg);
 			acpoNum = Integer.parseInt(smartUpload.getRequest().getParameter("acpoNum"));
 			subId = Integer.parseInt(smartUpload.getRequest().getParameter("subId"));
 			q = Qservice.createQuestion(stuId, quesText,quesImg,quesTime, acpoNum, subId,Qservice.getSchIdByStuId(stuId));

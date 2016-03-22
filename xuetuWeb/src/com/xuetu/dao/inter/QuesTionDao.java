@@ -48,7 +48,6 @@ public interface QuesTionDao {
 	 * @since  CodingExample　Ver 1.1
 	 */
 	public  List<Question> queryQuestionByStuID(Student stu);
-	
 	/**
 	 * 
 	 * getAnswerByQuesId:(根据问题获得所有该问题的答案)<br/>
@@ -59,7 +58,8 @@ public interface QuesTionDao {
 	 * @throws 
 	 * @since  CodingExample　Ver 1.1
 	 */
-	public Answer getAnswerByQuesId(Question qu);
+	
+	public List<Answer> getAnswerByQuesId(int ques_id,int page,int num);
 	/**
 	 * 
 	 * queryQuestionByStuJectId:(根据学科类别获得属于该学科的所有问题)<br/>
@@ -204,6 +204,21 @@ public interface QuesTionDao {
 	 * @throws 
 	 * @since  CodingExample　Ver 1.1
 	 */
-	public Answer createAnswer(int ques_id,int stu_id,String ans_text,Date ans_time);
+	public Answer createAnswer(int ques_id,int stu_id,String ans_text,String ans_ima,Date ans_time);
+	/**int ques_id = 0;
+			int stu_id = 0;
+			String ans_text = null;
+			String ans_ima = null;
+			String ans_timeS = null;
+	 * 
+	 * queryQuestionByStuID:(根据用户名获得该用户名对应所有问题对象)<br/>
+	 *
+	 * @param  @param stu
+	 * @param  @return    设定文件
+	 * @return List<Question>    DOM对象
+	 * @throws 
+	 * @since  CodingExample　Ver 1.1
+	 */
+	
 }
 

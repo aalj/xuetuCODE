@@ -3,19 +3,113 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-	<LinearLayout
-	    android:id="@+id/ll_answeritem"
+   
+            <include 
+                android:id="@+id/title_question_answer"
+        layout="@layout/title"
+        android:layout_alignParentTop="true"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+    <LinearLayout 
+        android:id="@+id/ll_ques"
+        android:layout_width="match_parent"
+    	android:layout_height="wrap_content"
+    	android:layout_below="@id/title_question_answer"
+        >
+        
+    <RelativeLayout
+        android:id="@+id/rl_ans1_top"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" >
+ 		<TextView
+            android:id="@+id/tv_ans1_text"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="10dp"
+            android:layout_alignLeft="@+id/iv_ans1_userImg"
+            android:layout_below="@id/iv_ans1_userImg"
+            android:layout_marginTop="5dp"
+            android:text="问题描述ques_text 111111111111111111111111111111111111" />
+        <TextView
+            android:id="@+id/tv_ans1_time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+			android:layout_alignRight="@id/tv_ans1_text"
+            android:layout_alignParentTop="true"
+            android:layout_marginRight="15dp"
+            android:layout_marginTop="10dp"
+            android:text="2小时前" />
+
+       
+
+        <ImageView
+            android:id="@+id/iv_ans1_first_img"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@+id/tv_ans1_text"
+            android:layout_below="@+id/tv_ans1_text"
+            android:layout_marginTop="5dp"
+            android:layout_marginBottom="5dp"
+            android:src="@drawable/login_lib_logo" />
+
+        <TextView
+            android:id="@+id/tv_ans1_sub"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@+id/tv_ans1_text"
+            android:layout_below="@+id/iv_ans1_first_img"
+            android:layout_marginBottom="3dp"
+            android:textColor="@color/gray"
+            android:text="学科" />
+
+        <ImageView
+            android:id="@+id/iv_ans1_userImg"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_alignTop="@+id/iv_ans1_userImg"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="10dp"
+            android:src="@drawable/userimg" />
+
+        <TextView
+            android:id="@+id/tv_ans1_stuName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_above="@+id/tv_ans1_text"
+            android:layout_alignTop="@id/tv_ans1_time"
+            android:layout_marginLeft="49dp"
+            android:text="用户名" />
+
+        <ImageView
+            android:id="@+id/iv_ans1_img"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+			android:layout_alignRight="@id/tv_ans1_text"
+			android:layout_alignTop="@id/tv_ans1_sub"
+            android:src="@drawable/collect" />
+
+        <View
+        android:layout_width="match_parent"
+        android:layout_height="2.0dip"
+        android:layout_below="@id/tv_ans1_sub"
+        android:background="#E2E2E2" 
+        />
+    </RelativeLayout>
+    </LinearLayout>
+	<RelativeLayout
 	    android:layout_width="match_parent"
 	    android:layout_height="wrap_content"
-	    android:orientation="vertical" >
+	    android:layout_below="@id/ll_ques" >
 
 		<ListView
-		    android:id="@+id/listView1"
+		    android:id="@+id/lv_answer"
 		    android:layout_width="match_parent"
-		    android:layout_height="wrap_content" >
+		    android:layout_height="wrap_content" 
+		    android:dividerHeight="2.0dp">
 		</ListView>
 
-	</LinearLayout>
+	</RelativeLayout>
 
 	<LinearLayout 
             android:orientation="horizontal"
@@ -24,17 +118,29 @@
             android:layout_alignParentBottom="true"
             android:background="@color/touming"
             >
-            <Button
-     android:id="@+id/btn_ans"
-     android:layout_width="match_parent"
-     android:layout_height="wrap_content"
-     android:layout_marginLeft="10dp"
-     android:layout_marginTop="10dp"
-     android:layout_marginRight="10dp"
-     android:layout_marginBottom="10dp"
-     android:textColor="@color/white"
-     android:background="@color/blue1"
-     android:onClick="answer"
-     android:text="@string/answer" />
+
+		<ImageButton
+		    android:id="@+id/btn_photo"
+		    android:layout_width="50dp"
+		    android:layout_height="50dp"
+		    android:layout_gravity="center"
+		    android:src="@drawable/ask"
+		     />
+		
+		<EditText 
+		    android:id="@+id/et_ans_text"
+		    android:layout_width="150dp"
+		    android:layout_height="50dp"
+		    android:layout_gravity="center"/>
+		<Button
+		    android:id="@+id/btn_ans"
+		    android:layout_width="50dp"
+		    android:layout_height="50dp"
+			android:layout_marginLeft="50dp"
+		    android:background="@color/blue1"
+		    android:text="@string/answer"
+		    android:textColor="@color/white"
+		    android:layout_gravity="center" />
+
         </LinearLayout>
 </RelativeLayout>

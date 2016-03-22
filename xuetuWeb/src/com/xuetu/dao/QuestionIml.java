@@ -26,9 +26,43 @@ public class QuestionIml implements QuesTionDao {
 	}
 
 	@Override
-	public Answer getAnswerByQuesId(Question qu) {
+	public List<Answer> getAnswerByQuesId(int ques_id,int page,int num) {
 		// TODO Auto-generated method stub
-		return null;
+		Connection conn = null;
+		String sql = null;
+		
+		PreparedStatement prep = null;
+		try {
+			conn = DBconnection.getConnection();
+			sql = "select * from answer where ques_id=? order by answer.ans_time desc limit"+ (page-1)*num+","+num;
+			prep = conn.prepareStatement(sql);
+			prep.setInt(1, ques_id);
+			ResultSet rs = prep.executeQuery();
+			List<Answer> answers = new ArrayList<Answer>();
+			// 指针从第一行属性字段开始
+			while (rs.next()) {
+				Answer a = new Answer();
+				a.setAnsID(rs.getInt("ans_id"));
+				a.setQuestion(getQuestionByQuesId(rs.getInt("ques_id")));
+				a.setStudent(getStudentByStuId(rs.getInt("stu_id"), getSchIdByStuId(rs.getInt("stu_id"))));
+				a.setAnsText(rs.getString("ans_text"));
+				a.setAnsImg(rs.getString("ans_ima"));
+				a.setAnsTime(rs.getTimestamp("ans_time"));
+				answers.add(a);
+			}
+			return answers;
+		} catch (Exception e) {
+			throw new RuntimeException(e);
+		} finally {
+			try {
+				if (conn != null)
+					conn.close();
+				if (prep != null)
+					prep.close();
+			} catch (Exception e) {
+				throw new RuntimeException(e);
+			}
+		}
 	}
 
 	@Override
@@ -59,7 +93,7 @@ public class QuestionIml implements QuesTionDao {
 				q.setQuesID(rs.getInt("ques_id"));
 				q.setStudent(getStudentByStuId(rs.getInt("stu_id"), getSchIdByStuId(rs.getInt("stu_id"))));
 				q.setQuesText(rs.getString("ques_text"));
-				//q.setQuesIma(quesIma);
+				q.setQuesIma(rs.getString("ques_img"));
 				q.setQuesDate(rs.getTimestamp("ques_time"));
 				q.setAcpo_num(rs.getInt("acpo_num"));
 				q.setSubject(getSubjectBySubId(rs.getInt("sub_id")));
@@ -281,18 +315,16 @@ public class QuestionIml implements QuesTionDao {
 			conn = DBconnection.getConnection();
 			// 2、SQL语句,图品还没加
 			String sql = "insert into answer"
-					+ "(ques_id,stu_id,ans_text,ans_time)" 
-			+ "values (?,?,?,?)";
+					+ "(ques_id,stu_id,ans_text,ans_ima,ans_time)" 
+			+ "values (?,?,?,?,?)";
 			// 3、获得preparedStatement对象
 			prep = conn.prepareStatement(sql);
 			// 4、设置？的值
 			prep.setInt(1,answer.getQuestion().getQuesID());
 			prep.setInt(2,answer.getStudent().getStuId());
-//			prep.setDate(3, new java.sql.Date(q.getQuesDate().getTime()));
 			prep.setString(3,answer.getAnsText());
-//			prep.setString(4,answer.getAnsImg());
-			prep.setTimestamp(4, new Timestamp(answer.getAnsTime().getTime()));
-			//prep.setDate(6, new java.sql.Date(student.getBirthday().getTime()));
+			prep.setString(4,answer.getAnsImg());
+			prep.setTimestamp(5, new Timestamp(answer.getAnsTime().getTime()));
 			// 5、执行sql语句
 			prep.executeUpdate();
 		} catch (Exception e) {
@@ -315,7 +347,43 @@ public class QuestionIml implements QuesTionDao {
 	@Override
 	public List<Answer> queryLimitAnswer(int page, int num) {
 		// TODO Auto-generated method stub
-		return null;
+		Connection conn = null;
+		PreparedStatement prep= null;
+		String sql = null;
+		List<Answer> answers = new ArrayList<Answer>();
+		ResultSet rs = null;
+		// 指针从第一行属性字段开始
+		try {
+			conn = DBconnection.getConnection();
+			sql = "select * from answer order by ans_time desc limit "
+					+ (page-1)*num+","+num;
+			prep = conn.prepareStatement(sql);
+			/*prep.setInt(1, 2);
+			prep.setInt(2, 2);*/
+			rs = prep.executeQuery(sql);
+			while (rs.next()) {
+				Answer a = new Answer();
+				a.setAnsID(rs.getInt("ans_id"));
+				a.setQuestion(getQuestionByQuesId(rs.getInt("ques_id")));
+				a.setStudent(getStudentByStuId(rs.getInt("stu_id"), getSchIdByStuId(rs.getInt("stu_id"))));
+				a.setAnsText(rs.getString("ans_text"));
+				a.setAnsImg(rs.getString("ans_ima"));
+				a.setAnsTime(rs.getTimestamp("ans_time"));
+				answers.add(a);
+			}
+			return answers;
+		} catch (Exception e) {
+			throw new RuntimeException(e);
+		} finally {
+			try {
+				if (conn != null)
+					conn.close();
+				if (prep != null)
+					prep.close();
+			} catch (Exception e) {
+				throw new RuntimeException(e);
+			}
+		}
 	}
 
 	@Override
@@ -336,7 +404,7 @@ public class QuestionIml implements QuesTionDao {
 				q.setQuesID(rs.getInt("ques_id"));
 				q.setStudent(getStudentByStuId(rs.getInt("stu_id"), getSchIdByStuId(rs.getInt("stu_id"))));
 				q.setQuesText(rs.getString("ques_text"));
-				//q.setQuesIma(quesIma);
+				q.setQuesIma(rs.getString("ques_img"));
 				q.setQuesDate(rs.getTimestamp("ques_time"));
 				q.setAcpo_num(rs.getInt("acpo_num"));
 				q.setSubject(getSubjectBySubId(rs.getInt("sub_id")));
@@ -357,9 +425,9 @@ public class QuestionIml implements QuesTionDao {
 	}
 
 	@Override
-	public Answer createAnswer(int ques_id, int stu_id, String ans_text,Date ans_time) {
+	public Answer createAnswer(int ques_id, int stu_id, String ans_text,String ans_ima,Date ans_time) {
 		// TODO Auto-generated method stub
-		return new Answer(getQuestionByQuesId(ques_id), getStudentByStuId(stu_id, getSchIdByStuId(stu_id)), ans_text, ans_time);
+		return new Answer(stu_id, getQuestionByQuesId(ques_id),getStudentByStuId(stu_id, getSchIdByStuId(stu_id)), ans_text, ans_ima, ans_time);
 	}
 
 	

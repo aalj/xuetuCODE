@@ -16,7 +16,7 @@
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
             android:layout_alignParentTop="true"
-            android:layout_marginRight="15dp"
+            android:layout_marginRight="10dp"
             android:layout_marginTop="5dp"
             android:text="2小时前" />
 
@@ -24,6 +24,7 @@
             android:id="@+id/tv_ques_text"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginRight="10dp"
             android:layout_alignLeft="@+id/iv_userImg"
             android:layout_below="@id/tv_time"
             android:layout_marginTop="5dp"
@@ -39,7 +40,7 @@
             android:src="@drawable/login_lib_logo" />
 
         <TextView
-            android:id="@+id/delete"
+            android:id="@+id/tv_delete"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignLeft="@+id/tv_ques_text"
@@ -53,7 +54,7 @@
             android:layout_height="wrap_content"
             android:layout_alignParentLeft="true"
             android:layout_alignTop="@+id/iv_userImg"
-            android:layout_marginLeft="15dp"
+            android:layout_marginLeft="10dp"
             android:layout_marginTop="15dp"
             android:src="@drawable/userimg" />
 
@@ -71,7 +72,6 @@
             android:layout_height="wrap_content"
             android:orientation="horizontal"
             android:layout_alignParentRight="true"
-            android:layout_alignTop="@id/sub_name"
             android:layout_below="@+id/iv_ques_img"
             android:layout_toRightOf="@+id/iv_ques_img">
         <ImageView
@@ -83,7 +83,9 @@
         <TextView 
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginRight="10dp"
             android:text="大拇指图标+数字(点赞数)"
+            android:layout_marginBottom="@id/tv_delete"
             />
         </LinearLayout>
     </RelativeLayout>

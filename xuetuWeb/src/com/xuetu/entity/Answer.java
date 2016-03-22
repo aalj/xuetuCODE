@@ -35,6 +35,9 @@ public class Answer {
 	private String ansText = null;
 	private String ansImg = null;
 	private Date ansTime = null;
+	public Answer(){
+		
+	}
 	public int getAnsID() {
 		return ansID;
 	}

@@ -63,11 +63,18 @@ public class LinTest {
 	}
 	@Test
 	public void createAnswer(){
-		System.out.println(Qservice.createAnswer(1, 2, "x趋近于0，求y的值", new Date(System.currentTimeMillis())));
+		System.out.println(Qservice.createAnswer(1, 2, "x趋近于0，求y的值", null,new Date(System.currentTimeMillis())));
 	}
 	@Test
 	public void submitAnswer(){
-		Qservice.submitAnswer(Qservice.createAnswer(1, 2, "x趋近于0，求y的值", new Date(System.currentTimeMillis())));
-		
+		Qservice.submitAnswer(Qservice.createAnswer(1, 2, "听着老歌","xuetuImg/1.jpg", new Date(System.currentTimeMillis())));
+	}
+	@Test
+	public void getAnswerByQuesId(){
+		System.out.println(Qservice.getAnswerByQuesId(1).get(1).getAnsText());
+	}
+	@Test
+	public void querylimitAnswers(){
+		System.out.println(Qservice.queryLimitAnswer(1, 1).get(0).getAnsTime());
 	}
 }

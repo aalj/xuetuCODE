@@ -30,7 +30,7 @@ public interface QuestionServiceInter {
 	public List<Question> queryQuestionByStuID(Student stu);
 
 	
-	public Answer getAnswerByQuesId(Question qu);
+	public List<Answer> getAnswerByQuesId(int ques_id,int page,int num);
 
 	
 	public List<Question> queryQuestionByStuJectId(Subject sub);
@@ -51,7 +51,7 @@ public interface QuestionServiceInter {
 
 	public int getSchIdByStuId(int StuId); 
 	
-	public Answer createAnswer(int ques_id,int stu_id,String ans_text,Date ans_time);
+	public Answer createAnswer(int ques_id,int stu_id,String ans_text,String ans_ima,Date ans_time);
 	
 	public List<Answer> queryLimitAnswer(int page,int num);
 	

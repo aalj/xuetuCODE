@@ -13,6 +13,7 @@ import com.lidroid.xutils.http.ResponseInfo;
 import com.lidroid.xutils.http.callback.RequestCallBack;
 import com.lidroid.xutils.http.client.HttpRequest.HttpMethod;
 import com.xuetu.R;
+import com.xuetu.R.color;
 import com.xuetu.utils.GetHttp;
 import com.xuetu.view.TitleBar;
 
@@ -24,6 +25,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
@@ -35,6 +37,7 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.View.OnTouchListener;
+import android.view.ViewGroup;
 import android.view.ViewGroup.LayoutParams;
 import android.widget.Button;
 import android.widget.EditText;
@@ -74,6 +77,7 @@ public class Question_ask extends Activity implements OnClickListener{
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
+		Toast.makeText(Question_ask.this, subId+"", Toast.LENGTH_SHORT).show();
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.question_ask);
 		title = (TitleBar) findViewById(R.id.title_questionAsk);
@@ -91,21 +95,19 @@ public class Question_ask extends Activity implements OnClickListener{
 		mContext = this;
 		init();
 		
-		
 	}
 	
 	@Override
 	public void onClick(View v) {
 		// TODO Auto-generated method stub
-		// TODO Auto-generated method stub
 				switch (v.getId()) {
 				case R.id.btn_ask:
-					Toast.makeText(Question_ask.this, "ssfs", 1).show();
+					Toast.makeText(Question_ask.this, "ssfs", 0).show();
 					ask();
 					finish();
 					break;
 				case R.id.tv_sub:
-					Toast.makeText(Question_ask.this, "xueke", 1).show();
+//					this.getWindow().getDecorView().setBackgroundColor(Color.TRANSPARENT);
 					showPopupWinow(v);
 					break;
 				case R.id.rl_prop:
@@ -118,8 +120,22 @@ public class Question_ask extends Activity implements OnClickListener{
 							prop(which);
 						}
 					}).create().show();
-					
+				case R.id.tv_sub1:
+					subId = 1;
+					//((TextView) v).setTextColor(this.getResources().getColor(R.color.blue1));
+					Toast.makeText(Question_ask.this, subId+"", 0).show();
 					break;
+				case R.id.tv_sub2:
+					subId = 2;
+					break;
+				case R.id.tv_sub3:
+					subId = 3;
+					break;
+				case R.id.tv_sub4:
+					subId = 4;
+					break;
+				case R.id.left_layout:
+					finish();
 					default:;
 				}
 	}
@@ -137,7 +153,7 @@ public class Question_ask extends Activity implements OnClickListener{
 		//积分
 		acpoNum =10;
 		//学科
-		subId = 1;
+//		subId = 1;
 		HttpUtils hutils = new HttpUtils();
 		String url = GetHttp.getHttpLC()+"SubmitQuestion";
 		RequestParams params = new RequestParams();
@@ -180,35 +196,22 @@ public class Question_ask extends Activity implements OnClickListener{
 	public void showPopupWinow(View v){
 		 // 一个自定义的布局，作为显示的内容
         View contentView = LayoutInflater.from(mContext).inflate(
-                R.layout.subject_pop, null);
+                R.layout.subject_pop,null);
         //设置4个学科选项的监听实践
-        v.findViewById(R.id.tv_sub1).setOnClickListener(Question_ask.this);
-        v.findViewById(R.id.tv_sub2).setOnClickListener(Question_ask.this);
-        v.findViewById(R.id.tv_sub3).setOnClickListener(Question_ask.this);
-        v.findViewById(R.id.tv_sub4).setOnClickListener(Question_ask.this);
+        contentView.findViewById(R.id.tv_sub1).setOnClickListener(Question_ask.this);
+        contentView.findViewById(R.id.tv_sub2).setOnClickListener(Question_ask.this);
+        contentView.findViewById(R.id.tv_sub3).setOnClickListener(Question_ask.this);
+        contentView.findViewById(R.id.tv_sub4).setOnClickListener(Question_ask.this);
         
-        // 设置按钮的点击事件
-//      
-//        Button button = (Button) contentView.findViewById(R.id.button1);
-//        button.setOnClickListener(new OnClickListener() {
-//
-//            @Override
-//            public void onClick(View v) {
-//                Toast.makeText(mContext, "button is pressed",
-//                        Toast.LENGTH_SHORT).show();
-//            }
-//        });
-
+       
         final PopupWindow popupWindow = new PopupWindow(contentView,
-                LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT, true);
-
+                LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT, true);
         popupWindow.setTouchable(true);
-
         popupWindow.setTouchInterceptor(new OnTouchListener() {
-
 			@Override
 			public boolean onTouch(View v, MotionEvent event) {
 				// TODO Auto-generated method stub
+				popupWindow.dismiss();
 				return false;
 				// 这里如果返回true的话，touch事件将被拦截
                 // 拦截后 PopupWindow的onTouchEvent不被调用，这样点击外部区域无法dismiss
@@ -217,11 +220,20 @@ public class Question_ask extends Activity implements OnClickListener{
            
         });
 
+        // 设置按钮的点击事件
+        
+        Button btn_sure = (Button) contentView.findViewById(R.id.btn_sure);
+        btn_sure.setOnClickListener(new OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+              popupWindow.dismiss();
+            }
+        });
         // 如果不设置PopupWindow的背景，无论是点击外部区域还是Back键都无法dismiss弹框
         // 我觉得这里是API的一个bug
-        popupWindow.setBackgroundDrawable(getResources().getDrawable(
-                R.drawable.ic_launcher));
-
+//        popupWindow.setBackgroundDrawable(getResources().getDrawable(
+//                R.drawable.ic_launcher));
         // 设置好参数之后再show
         popupWindow.showAsDropDown(v);
      // popupWindow.showAtLocation(view.getParent(),ce, x, y)
@@ -234,18 +246,7 @@ public class Question_ask extends Activity implements OnClickListener{
 		public void onClick(View v) {
 			// TODO Auto-generated method stub
 			switch (v.getId()) {
-			case R.id.tv_sub1:
-				
-				break;
-			case R.id.tv_sub2:
-				
-				break;
-			case R.id.tv_sub3:
-	
-				break;
-			case R.id.tv_sub4:
-	
-				break;
+			
 
 			default:
 				break;
