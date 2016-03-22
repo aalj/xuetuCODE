@@ -11,6 +11,7 @@ import java.util.List;
 
 import com.xuetu.dao.inter.PersonalDaoInterface;
 import com.xuetu.entity.Answer;
+import com.xuetu.entity.Coupon;
 import com.xuetu.entity.FavoritesCoupons;
 import com.xuetu.entity.MyClass;
 import com.xuetu.entity.MyCoupon;
@@ -163,7 +164,7 @@ public class LoginDao implements PersonalDaoInterface {
 			prepareStatement.setInt(1, stuID);
 			ResultSet resultSet = prepareStatement.executeQuery();
 			MyCoupon myCoupon;
-			List<MyCoupon> myCoupons=new ArrayList<>();
+			List<MyCoupon> myCoupons = new ArrayList<>();
 			while (resultSet.next()) {
 				myCoupon = new MyCoupon();
 				myCoupon.setMycouExchangeTime(resultSet.getTimestamp("mycou_exchange_time"));
@@ -172,8 +173,8 @@ public class LoginDao implements PersonalDaoInterface {
 				myCoupon.setCoupon(couponDao2.queryCoupon(resultSet.getInt("cou_id")));
 				myCoupon.setStudent(getStuByID(resultSet.getInt("stu_id")));
 				myCoupons.add(myCoupon);
-				return myCoupons;
 			}
+			return myCoupons;
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -210,8 +211,36 @@ public class LoginDao implements PersonalDaoInterface {
 
 	@Override
 	public List<FavoritesCoupons> getFavoritecouByStuID(int id) {
-		// TODO Auto-generated method stub
-		return null;
+		Connection connection = DBconnection.getConnection();
+		PreparedStatement prepareStatement = null;
+		CouponDao2 couponDao2 = new CouponDao2();
+		ResultSet resultSet = null;
+		FavoritesCoupons favoritesCoupons = null;
+		String sql = "select * from favoritescoupons where stu_id= ?";
+		try {
+			prepareStatement = connection.prepareStatement(sql);
+			prepareStatement.setInt(1, id);
+			resultSet = prepareStatement.executeQuery();
+			List<FavoritesCoupons> couponlist = new ArrayList<>();
+			favoritesCoupons=new FavoritesCoupons();
+			while (resultSet.next()) {
+				favoritesCoupons.setCreateDate(resultSet.getDate("cou_date"));
+				favoritesCoupons.setCoupon(couponDao2.queryCoupon(resultSet.getInt("cou_id")));
+				favoritesCoupons.setFacoID(resultSet.getInt("faco_id"));
+				favoritesCoupons.setStudent(getStuByID(id));
+				couponlist.add(favoritesCoupons);
+			}
+			return couponlist;
+		} catch (SQLException e) {
+
+			//
+			e.printStackTrace();
+			return null;
+		} finally {
+			CloseDb.close(connection, resultSet, prepareStatement);
+
+		}
+
 	}
 
 	/**

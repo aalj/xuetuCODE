@@ -46,16 +46,25 @@
                     android:layout_marginRight="15dp"
                     android:src="@drawable/right" />
 
-                <ImageView
+                <com.xuetu.view.CircleImageView
                     android:id="@+id/head"
                     android:layout_width="80.0dip"
                     android:layout_height="80.0dip"
                     android:layout_centerVertical="true"
                     android:layout_marginRight="15dp"
                     android:layout_toLeftOf="@+id/imageView1"
-                    android:src="@drawable/head" />
+                    
+                    android:src="@drawable/iu" />
+                <!-- <ImageView -->
+                <!-- android:id="@+id/head" -->
+                <!-- android:layout_width="80.0dip" -->
+                <!-- android:layout_height="80.0dip" -->
+                <!-- android:layout_centerVertical="true" -->
+                <!-- android:layout_marginRight="15dp" -->
+                <!-- android:layout_toLeftOf="@+id/imageView1" -->
+                <!-- android:src="@drawable/head" /> -->
 
-                <TextView
+<TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
@@ -105,7 +114,7 @@
                         android:layout_alignBottom="@+id/study"
                         android:layout_alignTop="@+id/study"
                         android:layout_toLeftOf="@+id/imageView3"
-                        android:text="TextView" />
+                        android:text="你的昵称" />
                 </RelativeLayout>
 
                 <View
@@ -148,7 +157,7 @@
                         android:layout_alignBottom="@+id/study_qianming"
                         android:layout_alignTop="@+id/study_qianming"
                         android:layout_toLeftOf="@+id/imageView33"
-                        android:text="TextView" />
+                        android:text="签名" />
                 </RelativeLayout>
             </LinearLayout>
 
@@ -198,7 +207,7 @@
                         android:layout_alignBottom="@+id/study_sex"
                         android:layout_alignTop="@+id/study_sex"
                         android:layout_toLeftOf="@+id/imageView34"
-                        android:text="TextView" />
+                        android:text="男" />
                 </RelativeLayout>
 
                 <View
@@ -241,7 +250,7 @@
                         android:layout_alignBottom="@+id/study_age"
                         android:layout_alignTop="@+id/study_age"
                         android:layout_toLeftOf="@+id/imageView345"
-                        android:text="TextView" />
+                        android:text="16" />
                 </RelativeLayout>
 
                 <View
@@ -284,7 +293,7 @@
                         android:layout_alignBottom="@+id/study_grade"
                         android:layout_alignTop="@+id/study_grade"
                         android:layout_toLeftOf="@+id/imageView3456"
-                        android:text="TextView" />
+                        android:text="幼稚园" />
                 </RelativeLayout>
 
                 <View
@@ -327,7 +336,7 @@
                         android:layout_alignBottom="@+id/study_school"
                         android:layout_alignTop="@+id/study_school"
                         android:layout_toLeftOf="@+id/imageView34567"
-                        android:text="TextView" />
+                        android:text="密立根加立顿大学" />
                 </RelativeLayout>
             </LinearLayout>
         </LinearLayout>

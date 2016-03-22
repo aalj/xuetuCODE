@@ -33,24 +33,33 @@ public class GetCouponServlet extends HttpServlet {
 		response.setContentType("text/html;charset=utf-8");
 		String page = request.getParameter("page");
 		String unm = request.getParameter("num");
+		String reqtemp = request.getParameter("reqtemp");
 		int pageunm = 0;
 		int unmunm = 10;
+		int reqtempnum=-1;
 		if(page!=null&&unm!=null){
 			pageunm = Integer.parseInt(page);
 			unmunm = Integer.parseInt(unm);
 		}
-		List<Coupon> couponAll = shoppingInter.getCouponlimmit(pageunm,unmunm);
+		if(reqtemp != null)
+		reqtempnum=Integer.parseInt(reqtemp);
+		System.out.println(reqtemp+"----------->reqtemp");
+		List<Coupon> couponAll = null;
+		if(reqtempnum==0){//查询全部的优惠券
+			couponAll = shoppingInter.getCouponlimmit(pageunm,unmunm);
+			
+		}else{//查询有ID上网店家
+			couponAll= shoppingInter.getCouponAll(reqtempnum);
+			
+			
+		}
 		System.out.println("刷新数据");
-		
-		
-		
-		
-		
 		PrintWriter writer = response.getWriter();
 		Gson gson = new GsonBuilder()  
 				  .setDateFormat("yyyy-MM-dd HH:mm:ss")  
 				  .create();
 		String temp = gson.toJson(couponAll);
+		System.out.println(gson);
 		writer.print(temp);
 		
 		

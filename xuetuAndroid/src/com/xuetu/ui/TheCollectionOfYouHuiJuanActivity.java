@@ -21,11 +21,19 @@ import com.xuetu.adapter.ViewHodle;
 import com.xuetu.entity.MyCoupon;
 import com.xuetu.entity.Student;
 import com.xuetu.utils.GetHttp;
+import com.xuetu.view.TitleBar;
 
 import android.app.Activity;
+import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
+import android.view.View.OnClickListener;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ListView;
+import android.widget.Toast;
 
 /**
  * 
@@ -35,11 +43,12 @@ import android.widget.ListView;
  * @author BCL
  *
  */
-public class TheCollectionOfYouHuiJuanActivity extends Activity {
+public class TheCollectionOfYouHuiJuanActivity extends Activity implements OnItemClickListener,OnClickListener{
 	ListView listview;
 	List<MyCoupon> datas = new ArrayList<MyCoupon>();
 	MyBasesadapter<MyCoupon> myadapter;
 	Student student;
+	TitleBar titlebar;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -47,11 +56,18 @@ public class TheCollectionOfYouHuiJuanActivity extends Activity {
 		student = ((XueTuApplication) getApplication()).getStudent();
 		setContentView(R.layout.activity_the_collection_of_you_hui_juan);
 		listview = (ListView) findViewById(R.id.listView);
-
+		listview.setOnItemClickListener(this);
+		titlebar = (TitleBar) findViewById(R.id.title_back);
+		titlebar.setLeftLayoutClickListener(this);
 		getCoupon();
 
 	}
+	@Override
+	public void onClick(View v) {
+		Toast.makeText(getApplicationContext(), "点击了", 1).show();
+		finish();
 
+	}
 	/**
 	 * listview的加载
 	 */
@@ -68,11 +84,9 @@ public class TheCollectionOfYouHuiJuanActivity extends Activity {
 						GetHttp.getHttpBCL() + mycoupon.getCoupon().getStoreName().getStoImg());
 				viewHolder.setText(R.id.youhuijuanshiyongqingkuang, mycoupon.getUserState().getUstaName());
 				if (mycoupon.getUserState().getUstaID() == 2) {
-					viewHolder.setIayoutBgColor(R.id.layout, getResources().getColor(R.color.blue));
-				}else{
-					
-					
+					viewHolder.setIayoutBgColor(R.id.layout, R.drawable.cornor_layout);
 				}
+
 			}
 		});
 
@@ -88,8 +102,8 @@ public class TheCollectionOfYouHuiJuanActivity extends Activity {
 		String url = GetHttp.getHttpBCL() + "TheCollectionOfYouHuiJuanServlet";
 		RequestParams params = new RequestParams();
 		try {
-			URLEncoder.encode(String.valueOf(student.getStuId()), "utf-8");
-			params.addBodyParameter("stuid", 3 + "");
+
+			params.addBodyParameter("stuid", URLEncoder.encode(String.valueOf(student.getStuId()), "utf-8"));
 		} catch (UnsupportedEncodingException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -116,6 +130,16 @@ public class TheCollectionOfYouHuiJuanActivity extends Activity {
 
 		});
 
+	}
+
+	@Override
+	public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+		Intent intent = new Intent();
+		intent.setClass(this, YouHuiJuanInfomationActivity.class);
+		Bundle bundle = new Bundle();
+		bundle.putSerializable("MyCoupon", datas.get(position));
+		intent.putExtras(bundle);
+		startActivity(intent);
 	}
 
 }

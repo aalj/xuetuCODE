@@ -4,11 +4,14 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 
 import com.xuetu.dao.inter.ShoppintDaoInter;
 import com.xuetu.entity.Coupon;
+import com.xuetu.entity.FavoritesCoupons;
+import com.xuetu.entity.MyCoupon;
 import com.xuetu.entity.StoreName;
 import com.xuetu.utils.CloseDb;
 import com.xuetu.utils.DBconnection;
@@ -60,14 +63,14 @@ public class ShoppingDao implements ShoppintDaoInter {
 	}
 
 	@Override
-	public List<Coupon> queryCouponall() {
+	public List<Coupon> queryCouponall(int stoID) {
 		Connection conn = DBconnection.getConnection();
 		PreparedStatement statement=null;
-//		String sql = "select * from coupon   ORDER BY cou_create_time DESC" ;
-		String sql = "select * from coupon   ;";
+		String sql = "select * from coupon  where sto_id=? ;";
 		ResultSet query = null;
 		try {
 			statement = conn.prepareStatement(sql);
+			statement.setInt(1, stoID);
 			query = statement.executeQuery();
 			List<Coupon> list = new ArrayList<>();
 			Coupon coupon = null;;
@@ -98,6 +101,68 @@ public class ShoppingDao implements ShoppintDaoInter {
 			CloseDb.close(conn, query, statement);
 		}
 		
+	}
+
+	@Override
+	public boolean insertFavoritesCoupons(FavoritesCoupons fa) {
+		Connection conn = DBconnection.getConnection();
+		PreparedStatement statement = null;
+		String sql="insert into favoritescoupons (stu_id,cou_id,cou_date) values(?,?,?)";
+		try {
+			  statement = conn.prepareStatement(sql);
+			  statement.setInt(1, fa.getStudent().getStuId());
+			  statement.setInt(2, fa.getCoupon().getCouID());
+			  statement.setTimestamp(3, new Timestamp(fa.getCreateDate().getTime()));
+			  int executeUpdate = statement.executeUpdate();
+			  if(executeUpdate>0){
+				  return true;
+			  }
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return false;
+	}
+
+	@Override
+	public boolean queryIssavefavorites(int coupID, int studentid) {
+		Connection conn = DBconnection.getConnection();
+		String sql= "select * from favoritescoupons where stu_id=? and cou_id=?";
+		try {
+			PreparedStatement statement = conn.prepareStatement(sql);
+			statement.setInt(1, studentid);
+			statement.setInt(2, coupID);
+			ResultSet querly = statement.executeQuery();
+			if(querly.next()){
+				return true;
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		
+		
+		return false;
+	}
+
+	@Override
+	public boolean insertMycoupon(MyCoupon mycoupon) {
+		Connection conn = DBconnection.getConnection();
+		String sql="insert into   mucoupon  (cou_id, stu_id,mycou_exchange_time) values(?,?,?)";
+		PreparedStatement statement;
+		try {
+			statement = conn.prepareStatement(sql);
+			statement.setInt(1, mycoupon.getCoupon().getCouID());
+			statement.setInt(2, mycoupon.getStudent().getStuId());
+			statement.setTimestamp(3, new Timestamp(mycoupon.getMycouExchangeTime().getTime()));
+			statement.executeQuery();
+			return true;
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return false;
 	}
 
 }

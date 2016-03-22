@@ -25,7 +25,7 @@ import com.xuetu.service.inter.QuestionServiceInter;
 /**
  * Servlet implementation class GetAllQuestion
  */
-@WebServlet("/GetPageQuestion")
+@WebServlet("/GetPageQuestion1")
 public class GetPageQuestion extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	QuestionServiceInter q = new QuestionService(new QuestionIml());
@@ -41,6 +41,7 @@ public class GetPageQuestion extends HttpServlet {
 		response.setContentType("text/html;charset=UTF-8");
 		List<Question> questions = new ArrayList<Question>();
 		questions = q.queryLimitQuestion(1, 5);
+		System.out.println(questions.get(2).getQuesIma());
 		String jsonStr = null;
 		Gson gson = new GsonBuilder()  
 				  .setDateFormat("yyyy-MM-dd HH:mm:ss")  

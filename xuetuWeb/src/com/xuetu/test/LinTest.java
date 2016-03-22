@@ -71,7 +71,7 @@ public class LinTest {
 	}
 	@Test
 	public void getAnswerByQuesId(){
-		System.out.println(Qservice.getAnswerByQuesId(1).get(1).getAnsText());
+		System.out.println(Qservice.getAnswerByQuesId(1,1,2).get(1).getAnsText());
 	}
 	@Test
 	public void querylimitAnswers(){

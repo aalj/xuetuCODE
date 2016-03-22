@@ -8,8 +8,17 @@
         android:minSdkVersion="14"
         android:targetSdkVersion="22" />
 
+    <uses-permission android:name="android.permission.READ_CONTACTS" />
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
     <uses-permission android:name="android.permission.INTERNET" />
-	<uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.RECEIVE_SMS" />
+    <uses-permission android:name="android.permission.GET_TASKS" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+
     <application
         android:name=".ui.XueTuApplication"
         android:allowBackup="true"
@@ -37,6 +46,10 @@
             android:label="@string/title_activity_timer" >
         </activity>
         <activity
+            android:name=".ui.RegisterActivity"
+            android:label="注册" >
+        </activity>
+        <activity
             android:name=".ui.FindTaskListActivity"
             android:label="@string/title_activity_find_task_list" >
         </activity>
@@ -56,7 +69,7 @@
             android:name=".ui.ForgetPwdActivity"
             android:label="@string/title_activity_forget_pwd" >
         </activity>
-        <activity android:name=".ui.Question_ask">
+        <activity android:name=".ui.Question_ask" >
         </activity>
         <activity
             android:name=".ui.PerCerter"
@@ -78,7 +91,7 @@
             android:name=".ui.AddSelfPlanActivity"
             android:label="@string/title_activity_add_self_plan" >
         </activity>
-        <activity android:name="com.xuetu.ui.Answer_list" >
+        <activity android:name=".ui.Answer_list" >
         </activity>
         <activity
             android:name=".ui.ChangeAgeActivity"
@@ -96,12 +109,38 @@
             android:name=".ui.SaveYouHuiJuanActivity"
             android:label="@string/title_activity_save_you_hui_juan" >
         </activity>
+        <activity android:name=".TheCollectionOfYouHuiJuanActivity" >
+        </activity>
         <activity
-            android:name=".TheCollectionOfYouHuiJuanActivity"
+            android:name=".ui.TheCollectionOfYouHuiJuanActivity"
             android:label="@string/title_activity_the_collection_of_you_hui_juan" >
+        </activity>
+        <activity
+            android:name="com.xuetu.ui.CouponActivity"
+            android:label="@string/title_activity_coupon" >
+        </activity>
+        <activity
+            android:name=".ui.ShowCouponActivity"
+            android:label="@string/title_activity_show_coupon" >
+        </activity>
+        <activity
+            android:name=".ui.StoneNameActivity"
+            android:label="@string/title_activity_stone_name" >
+        </activity>
 
-            android:name="com.xuetu.ui.TheCollectionOfYouHuiJuanActivity"
-            android:label="@string/title_activity_the_collection_of_you_hui_juan" >
+     
+
+        <activity android:name=".ui.CouponInfoActivity" />
+        <activity
+            android:name="com.xuetu.ui.ExchangeCouponActivity"
+            android:label="@string/title_activity_exchange_coupon" />
+        <activity
+            android:name="com.xuetu.ui.YouHuiJuanInfomationActivity"
+            android:label="@string/title_activity_you_hui_juan_infomation" >
+        </activity>
+        <activity
+            android:name="com.xuetu.ui.WoDeShouCangActivity"
+            android:label="@string/title_activity_wo_de_shou_cang" >
         </activity>
     </application>
 

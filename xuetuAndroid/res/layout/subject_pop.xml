@@ -2,7 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="350dp"
-    android:orientation="vertical">
+    android:orientation="vertical" >
 
     <TextView
         android:layout_width="match_parent"
@@ -15,77 +15,78 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:background="@color/white"
         android:orientation="horizontal"
-        android:paddingTop="10dp"
-        
-        android:background="@color/white" >
+        android:paddingTop="10dp" >
 
         <TextView
             android:id="@+id/tv_sub1"
- 			android:textSize="20sp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:gravity="center"
-            android:clickable="true"
-            android:onClick="setSub"
             android:background="@drawable/setting_sub_selector"
-            android:text="@string/sub1" />
+            android:clickable="true"
+            android:gravity="center"
+            android:onClick="setSub"
+            android:text="@string/sub1"
+            android:textSize="20sp" />
 
         <TextView
             android:id="@+id/tv_sub2"
-            android:textSize="20sp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:onClick="setSub"
-            android:clickable="true"
             android:background="@drawable/setting_sub_selector"
+            android:clickable="true"
             android:gravity="center"
-            android:text="@string/sub2" />
+            android:onClick="setSub"
+            android:text="@string/sub2"
+            android:textSize="20sp" />
 
         <TextView
             android:id="@+id/tv_sub3"
-            android:textSize="20sp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:clickable="true"
             android:background="@drawable/setting_sub_selector"
-            android:onClick="setSub"
+            android:clickable="true"
             android:gravity="center"
-            android:text="@string/sub3" />
+            android:onClick="setSub"
+            android:text="@string/sub3"
+            android:textSize="20sp" />
 
         <TextView
             android:id="@+id/tv_sub4"
-            android:textSize="20sp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:clickable="true"
             android:background="@drawable/setting_sub_selector"
-            android:onClick="setSub"
+            android:clickable="true"
             android:gravity="center"
-            android:text="@string/sub4" />
+            android:onClick="setSub"
+            android:text="@string/sub4"
+            android:textSize="20sp" />
     </LinearLayout>
-<LinearLayout 
-            android:orientation="horizontal"
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:background="@color/touming"
+        android:orientation="horizontal" >
+
+        <Button
+            android:id="@+id/btn_sure"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
-            android:background="@color/touming"
-            >
-            <Button
-     android:id="@+id/btn_sure"
-     android:layout_width="match_parent"
-     android:layout_height="30dp"
-     android:layout_marginLeft="10dp"
-     android:layout_marginTop="10dp"
-     android:layout_marginRight="10dp"
-     android:layout_marginBottom="10dp"
-     android:textColor="@color/white"
-     android:background="@color/blue1"
-     android:onClick="answer"
-     android:text="确定" />
-        </LinearLayout>
+            android:layout_height="30dp"
+            android:layout_marginBottom="10dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:layout_marginTop="10dp"
+            android:background="@color/blue1"
+            android:onClick="answer"
+            android:text="确定"
+            android:textColor="@color/white" />
+    </LinearLayout>
+
 </LinearLayout>

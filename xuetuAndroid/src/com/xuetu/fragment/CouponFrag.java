@@ -17,19 +17,24 @@ import com.xuetu.R;
 import com.xuetu.adapter.MyBasesadapter;
 import com.xuetu.adapter.ViewHodle;
 import com.xuetu.entity.Coupon;
-import com.xuetu.ui.XueTuApplication;
+import com.xuetu.ui.CouponActivity;
+import com.xuetu.ui.CouponInfoActivity;
+import com.xuetu.ui.ShowCouponActivity;
+import com.xuetu.ui.StoneNameActivity;
 import com.xuetu.utils.GetHttp;
 import com.xuetu.view.OnRefreshListener;
 import com.xuetu.view.RefreshListView;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
 
-public class CouponFrag extends Fragment implements OnRefreshListener {
+public class CouponFrag extends Fragment implements OnRefreshListener, OnItemClickListener {
 	HttpUtils httpUtlis = new HttpUtils();
 	List<Coupon> users = null;
 	View view;
@@ -43,28 +48,40 @@ public class CouponFrag extends Fragment implements OnRefreshListener {
 	private int pageIndex = 0;
 	MyBasesadapter<Coupon> myBaseAdapter = null;
 	RefreshListView rListView;
+	//表示是否是第一次进入改也页面
+	boolean firstInto = true;
 
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 		view = inflater.inflate(R.layout.coupon_frag, null);
-		users = ((XueTuApplication) getActivity().getApplication()).getListConpun();
+//		olduser= ((XueTuApplication) getActivity().getApplication()).getListConpun();
+//		olduser=users;
+		users= new ArrayList<Coupon>();
 		rListView = (RefreshListView) view.findViewById(R.id.refreshlistview);
+		getDate(1, REFRESH_TEMP);
+		
 		myBaseAdapter = new MyBasesadapter<Coupon>(getActivity(), users, R.layout.coupon_item) {
+			
 
 			@Override
 			public void convert(ViewHodle viewHolder, Coupon item) {
 				viewHolder.setText(R.id.tv_coupon_name, item.getCouName());
 				viewHolder.setText(R.id.tv_shoppingname, item.getStoreName().getStoName());
 				viewHolder.setText(R.id.tv_coupon_all, item.getConNum() + "");
-				viewHolder.SetUrlImage(R.id.tv_coupon_ima, item.getStoreName().getStoImg());
+				viewHolder.SetUrlImage(R.id.tv_coupon_ima, GetHttp.getHttpLJ()+item.getStoreName().getStoImg());
 			}
 		};
 		rListView.setAdapter(myBaseAdapter);
+		rListView.setOnItemClickListener(this);
 		rListView.setOnRefreshListener(this);
 		return view;
 	}
 
 	private void getDate(final int tempnum, int temp) {
+		
+		
+		
+		
 
 		String url = GetHttp.getHttpLJ() + "GetCouponServlet";
 
@@ -77,6 +94,7 @@ public class CouponFrag extends Fragment implements OnRefreshListener {
 
 		}
 		parterm.addBodyParameter("num", "10");// 每页显示10条
+		parterm.addBodyParameter("reqtemp", "0");// 每页显示10条
 		httpUtlis.send(HttpMethod.POST, url, parterm, new RequestCallBack<String>() {
 
 			@Override
@@ -99,7 +117,7 @@ public class CouponFrag extends Fragment implements OnRefreshListener {
 					users.addAll(0,user);
 					myBaseAdapter.notifyDataSetChanged();
 					rListView.hideHeaderView();
-					
+					olduser=user;
 				}
 				else{
 					users.addAll(user);
@@ -107,7 +125,7 @@ public class CouponFrag extends Fragment implements OnRefreshListener {
 					// 控制脚布局隐藏
 					rListView.hideFooterView();
 				}
-				olduser=user;
+				
 
 			}
 		});
@@ -126,6 +144,16 @@ public class CouponFrag extends Fragment implements OnRefreshListener {
 	public void onLoadingMore() {
 		// 这是加载更多出来的数据1
 		getDate(2, REFRESH_LIMIT);
+	}
+
+	@Override
+	public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+		Intent intent = new Intent();
+		users.get(position-1);
+		intent.setClass(getActivity(), CouponInfoActivity.class);
+		intent.putExtra("coupon", users.get(position-1));
+		startActivity(intent);
+		
 	}
 
 }

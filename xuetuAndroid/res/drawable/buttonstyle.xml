@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item android:drawable="@drawable/clr_presseds" android:state_pressed="true"><shape>
+
+            <!-- 实心 -->
+            <!-- <solid android:color="@android:color/white" /> -->
+            <!-- 边框 -->
+            <stroke android:width="0.1dp" android:color="@android:color/white" />
+            <!-- 圆角 -->
+            <corners android:radius="3dp" />
+            <!-- 边距 -->
+            <!-- <padding -->
+            <!-- android:bottom="10dp" -->
+            <!-- android:left="10dp" -->
+            <!-- android:right="10dp" -->
+            <!-- android:top="10dp" /> -->
+            <!-- 渐变 -->
+            <!-- <gradient -->
+            <!-- android:angle="270" -->
+            <!-- android:endColor="#FFFF782" -->
+            <!-- android:startColor="#13C7AF" /> -->
+
+        </shape></item>
+    <item><shape>
+
+            <!-- 实心 -->
+            <!-- <solid android:color="@android:color/white" /> -->
+            <!-- 边框 -->
+            <stroke android:width="0.1dp" android:color="@android:color/white" />
+            <!-- 圆角 -->
+            <corners android:radius="3dp" />
+            <!-- 边距 -->
+            <!-- <padding -->
+            <!-- android:bottom="10dp" -->
+            <!-- android:left="10dp" -->
+            <!-- android:right="10dp" -->
+            <!-- android:top="10dp" /> -->
+            <!-- 渐变 -->
+            <!-- <gradient -->
+            <!-- android:angle="270" -->
+            <!-- android:endColor="#FFFF782" -->
+            <!-- android:startColor="#13C7AF" /> -->
+
+        </shape></item>
+
+</selector> <!-- <shape> -->
+
+
+<!-- 实心 -->
+<!-- <solid android:color="@android:color/white" /> -->
+<!-- 边框 -->
+<!-- <stroke -->
+<!-- android:width="0.1dp" -->
+<!-- android:color="@android:color/white" /> -->
+<!-- 圆角 -->
+<!-- <corners android:radius="3dp" /> -->
+<!-- 边距 -->
+<!-- <padding -->
+<!-- android:bottom="10dp" -->
+<!-- android:left="10dp" -->
+<!-- android:right="10dp" -->
+<!-- android:top="10dp" /> -->
+<!-- 渐变 -->
+<!-- <gradient -->
+<!-- android:angle="270" -->
+<!-- android:endColor="#FFFF782" -->
+<!-- android:startColor="#13C7AF" /> -->
+
+
+<!-- </shape> -->

@@ -34,9 +34,14 @@ public class Answer {
 	private Student student = null;
 	private String ansText = null;
 	private String ansImg = null;
+	@Override
+	public String toString() {
+		return "Answer [ansID=" + ansID + ", question=" + question + ", student=" + student + ", ansText=" + ansText
+				+ ", ansImg=" + ansImg + ", ansTime=" + ansTime + "]";
+	}
 	private Date ansTime = null;
-	public Answer(){
-		
+	public Answer() {
+		// TODO Auto-generated constructor stub
 	}
 	public int getAnsID() {
 		return ansID;

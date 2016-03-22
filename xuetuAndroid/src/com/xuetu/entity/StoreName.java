@@ -12,6 +12,9 @@
 */
 
 package com.xuetu.entity;
+
+import java.io.Serializable;
+
 /**
  * ClassName:StoreName<br/>
  * Function: 店家实体表<br/>
@@ -25,7 +28,7 @@ package com.xuetu.entity;
  * @see 	 
 
  */
-public class StoreName {
+public class StoreName implements Serializable{
 	private int  stoID = 0;
 	private String stoUserName = null;
 	

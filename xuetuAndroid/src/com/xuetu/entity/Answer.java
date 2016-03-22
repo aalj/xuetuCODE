@@ -1,3 +1,4 @@
+
 /**
  * Answer.java
  * com.xuetu.entity
@@ -82,3 +83,4 @@ public class Answer implements Serializable{
 		this.ansTime = ansTime;
 	}
 }
+

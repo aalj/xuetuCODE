@@ -3,6 +3,7 @@ package com.xuetu.service;
 import java.util.List;
 
 import com.xuetu.dao.inter.PersonalDaoInterface;
+import com.xuetu.entity.FavoritesCoupons;
 import com.xuetu.entity.MyClass;
 import com.xuetu.entity.MyCoupon;
 import com.xuetu.entity.Student;
@@ -38,6 +39,12 @@ public class LoginService implements PersonalServiceInter {
 	public List<MyCoupon> getPoinCouByStuId(int stuID) {
 		// TODO Auto-generated method stub
 		return personalDaoInterface.getPoinCouByStuId(stuID);
+	}
+
+	@Override
+	public List<FavoritesCoupons> getFavoritecouByStuID(int stuID) {
+		// TODO Auto-generated method stub
+		return personalDaoInterface.getFavoritecouByStuID(stuID);
 	}
 
 }
