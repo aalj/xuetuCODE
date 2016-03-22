@@ -222,8 +222,8 @@ public class LoginDao implements PersonalDaoInterface {
 			prepareStatement.setInt(1, id);
 			resultSet = prepareStatement.executeQuery();
 			List<FavoritesCoupons> couponlist = new ArrayList<>();
-			favoritesCoupons=new FavoritesCoupons();
 			while (resultSet.next()) {
+				favoritesCoupons=new FavoritesCoupons();
 				favoritesCoupons.setCreateDate(resultSet.getDate("cou_date"));
 				favoritesCoupons.setCoupon(couponDao2.queryCoupon(resultSet.getInt("cou_id")));
 				favoritesCoupons.setFacoID(resultSet.getInt("faco_id"));
