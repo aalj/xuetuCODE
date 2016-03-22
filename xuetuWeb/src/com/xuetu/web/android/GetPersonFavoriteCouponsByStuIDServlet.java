@@ -34,6 +34,7 @@ public class GetPersonFavoriteCouponsByStuIDServlet extends HttpServlet {
 		// TODO Auto-generated method stub
 		response.setContentType("text/html;charset=utf-8");
 		String parameter = request.getParameter("stuid");
+
 		String stuid = URLDecoder.decode(parameter, "UTF-8");
 		int stuID = Integer.parseInt(stuid);
 		List<FavoritesCoupons> favoritesCoup = personalServiceInter.getFavoritecouByStuID(stuID);
@@ -42,6 +43,7 @@ public class GetPersonFavoriteCouponsByStuIDServlet extends HttpServlet {
 		Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create();
 		
 		String favcoupons = gson.toJson(favoritesCoup);
+
 		response.getWriter().print(favcoupons);
 	}
 

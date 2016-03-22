@@ -17,9 +17,12 @@ import com.xuetu.R.id;
 import com.xuetu.R.layout;
 import com.xuetu.R.menu;
 import com.xuetu.entity.Student;
+import com.xuetu.fragment.HomePageFrag;
+import com.xuetu.utils.GetHttp;
 
 import android.app.Activity;
 import android.app.backup.FullBackupDataOutput;
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
@@ -71,7 +74,7 @@ public class TimerActivity extends Activity {
 	//用来显示在TextView上面的时间,同时记录总的学习时间(秒)
 	int second=0;
 	//alltime 从服务器上获取学生对象这节课/学习计划的总的学习时间
-	int alltime = 10;
+	long alltime = 10;
 	//获取这节课/学习计划的学习时间
 	int st_time = 0;
 	
@@ -82,57 +85,41 @@ public class TimerActivity extends Activity {
 	int round = 0;
 	Student student ;
 	
-	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.home_timer);
 		
+		Intent intent = getIntent();
+		alltime = intent.getLongExtra("ss", 0);
+		
 		showTime=(TextView) findViewById(R.id.tv_showtime);
 //		runTime= (Button) findViewById(R.id.home_btn_up);
 		showss=(TextView) findViewById(R.id.tv_show_ss);
 		
-		
 		student= ((XueTuApplication) getApplication()).getStudent();
 
-		
-		
 		//功能还没有完善,需要添加判断条件,从数据库获得课程表时间,与当前时间\课程进行判断,并且判断经纬度是否相同
 		Thread th =  new Thread(new ClassCut());//创建一个新线程,并且赋值给一个变量
 		th.start(); //运行这个线程执行>>>计时器
-		
-		
-		
-//		new TimeOnclisten();
-		
-//		findViewById(R.id.home_btn_up).setOnClickListener(new TimeOnclisten());
-	}
-
-	
-//	private class TimeOnclisten implements OnClickListener{
-//        @Override
-//        public void onClick(View v) {
-//            new Thread(new ClassCut()).start();//开启倒计时
-//        }
-//    }
+		}
 	
     class ClassCut implements Runnable{//倒计时逻辑子线程
         @Override
         public void run() {
+        	
             // TODO Auto-generated method stub
 	        	while(alltime>0)//当循环达到10分钟的时候,执行该语句
 	            {
+	        		System.out.println("alltime>>>>>>>>>>>>>>>>>>>"+alltime);
 	            	alltime--;//学习总时间 逐渐减少
 	        		round++;//10分钟循环变量
 	        		st_time++;//记录学生学习时间
+	        		System.out.println("round="+round);
 	                if(round==10){
+	                	System.out.println("````````111```````````");
 	                	integral_double++;//每到600秒,积分倍数+1(初始值0)
-	                	
-	                	
-//	                	System.out.println("alltime>>>>>"+alltime);
-//	                	System.out.println("round>>>>>"+round);
-//	                	System.out.println("integral_double>>>>>"+integral_double);
-//	                	System.out.println("st_time>>>>>"+st_time);
+	                	System.out.println("``````````222`````````"+integral_double);
 	                	mHandler.post(new Runnable() {//通过它在UI主线程中修改显示的剩余时间
 	                    @Override
 	                    public void run() {
@@ -141,24 +128,7 @@ public class TimerActivity extends Activity {
 	                    	showss.setText(ssFormat(st_time)); //显示00 秒
 	                    	round=0;//初始时间赋值0;重新开始计时
 	                        
-	                    	if(alltime==0){
-	   	                	 //下面是倒计时结束逻辑
-	   	                    mHandler.post(new Runnable() {
-	   	                    	
-	   	                        @Override
-	   	                        public void run() {
-	   	                            // TODO Auto-generated method stub
-	   	                        	showTime.setText("00:00");//计时器结束,把时分秒的值归零
-	   	                        	showss.setText("00");
-	   	                        	new SaveTimeAndIntegral().saveStudyTime(st_time, integral_double);
-	   	                            Toast.makeText(TimerActivity.this, "下课啦"+getIntegral(integral_double)+"积分到手咯!!", Toast.LENGTH_LONG).show();//提示倒计时完成
-//	   	                            System.out.println("alltime>>>>>"+alltime);
-//	   	                        	System.out.println("round>>>>>"+round);
-//	   	                        	System.out.println("integral_double>>>>>"+integral_double);
-//	   	                        	System.out.println("st_time>>>>>"+st_time);
-	   	                        }
-	   	                    });
-	   	                }
+	                    	
 	                    }
 	                });
 	                try {
@@ -182,13 +152,22 @@ public class TimerActivity extends Activity {
 		                        e.printStackTrace();
 		                    }
 	                }
-	                
+	                System.out.println("-----------------"+integral_double);
+	                System.out.println("-----------------"+st_time);
+	                if(alltime==0){
+  	                	 //下面是倒计时结束逻辑
+  	                    mHandler.post(new Runnable() {
+  	                    	
+  	                        @Override
+  	                        public void run() {
+  	                        	endTime();
+  	                        }
+  	                    });
+  	                }
 	                
             }
            
-            alltime = 0;//修改倒计时剩余时间变量为0秒
-            integral_double=0;
-            st_time=0;
+           
         }
     }
     
@@ -220,26 +199,15 @@ public class TimerActivity extends Activity {
     	
     	public void saveStudyTime(int st_time,int integral_double)
     	{
-    		String url ="http://10.201.1.26:8080/xuetuWeb/AddStudyTime";
+    		String url =GetHttp.getHttpKY()+"AddStudyTime";
     		
-//    		String integral="5";
-    		System.out.println("1>>>");
     		HttpUtils httpUtils = new HttpUtils();
-    		System.out.println("2>>>");
     		RequestParams requestParams = new RequestParams();
-//    		String time = ;
-    		System.out.println("3>>>");
     		requestParams.addBodyParameter("st_time", String.valueOf(st_time));
-    		System.out.println("4>>>"+st_time);
     		requestParams.addBodyParameter("integral",String.valueOf(getIntegral(integral_double)));
-    		System.out.println("5>>>"+getIntegral(integral_double));
     		requestParams.addBodyParameter("st_date", getTime());
-    		System.out.println("6>>>"+getTime());
     		requestParams.addBodyParameter("st_id", "1");
-    		System.out.println("7>>>"+st_id);
 //    		requestParams.addBodyParameter("stu_id", student.getStuId()+"");//学生id
-    		System.out.println("8>>>>>"+student);
-    		
     		httpUtils.send(HttpMethod.POST, url,requestParams,new RequestCallBack<String>() {
     			
     			@Override
@@ -281,4 +249,19 @@ public class TimerActivity extends Activity {
     }
     
 
+    
+    /**
+     * 计时页面结束时执行的语句
+     */
+    public  void endTime()
+    {
+            // TODO Auto-generated method stub
+           	showTime.setText("00:00");//计时器结束,把时分秒的值归零
+           	showss.setText("00");
+           	new SaveTimeAndIntegral().saveStudyTime(st_time, integral_double);
+            Toast.makeText(TimerActivity.this, "下课啦"+getIntegral(integral_double)+"积分到手咯!!", Toast.LENGTH_LONG).show();//提示倒计时完成
+            alltime = 0;//修改倒计时剩余时间变量为0秒
+            integral_double=0;
+            st_time=0;
+    }
 }

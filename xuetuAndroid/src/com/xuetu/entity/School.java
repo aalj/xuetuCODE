@@ -26,6 +26,7 @@ import java.io.Serializable;
  * @see
  * 
  */
+
 public class School  implements Serializable{
 	/**
 	 * 学校的ID

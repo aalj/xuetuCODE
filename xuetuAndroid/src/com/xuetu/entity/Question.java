@@ -13,6 +13,7 @@
 
 package com.xuetu.entity;
 
+import java.io.Serializable;
 import java.util.Date;
 
 /**
@@ -27,7 +28,7 @@ import java.util.Date;
  * @see 	 
 
  */
-public class Question {
+public class Question implements Serializable{
 	private int quesID = 0;
 	private Student student = null;
 	private String quesText = null;
