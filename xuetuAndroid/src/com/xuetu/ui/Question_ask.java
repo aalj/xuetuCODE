@@ -49,7 +49,7 @@ import android.widget.Toast;
 
 public class Question_ask extends Activity implements OnClickListener{
 	//声明变量
-	int stuId = 0;
+	int stu_id = 0;
 	String quesText = null;
 	String quesIma = null;
 	int acpoNum = 0;
@@ -96,15 +96,23 @@ public class Question_ask extends Activity implements OnClickListener{
 		init();
 		
 	}
-	
+	@Override
+	public void onResume() {
+		stu_id = ((XueTuApplication)getApplication()).getStudent().getStuId();
+		
+		super.onResume();
+	}
 	@Override
 	public void onClick(View v) {
 		// TODO Auto-generated method stub
 				switch (v.getId()) {
 				case R.id.btn_ask:
-					Toast.makeText(Question_ask.this, "ssfs", 0).show();
+					if(stu_id>0){
 					ask();
 					finish();
+					}else{
+						Toast.makeText(Question_ask.this, "请先登录哟！", 0).show();
+					}
 					break;
 				case R.id.tv_sub:
 //					this.getWindow().getDecorView().setBackgroundColor(Color.TRANSPARENT);
@@ -141,15 +149,14 @@ public class Question_ask extends Activity implements OnClickListener{
 	}
 	public void ask(){
 		//学生id
-		stuId = 1;
 		//问题信息
 		quesText = et_question.getText().toString();
 		//提问时间
 		quesTime = System.currentTimeMillis();
-		Log.i("hehe", quesTime+"");
+//		Log.i("hehe", quesTime+"");
 		//图片
 		quesIma = Environment.getExternalStorageDirectory().getAbsolutePath()+"/"+quesTime+".jpg";
-		Log.i("hehe", String.valueOf(quesTime));
+//		Log.i("hehe", String.valueOf(quesTime));
 		//积分
 		acpoNum =10;
 		//学科
@@ -158,8 +165,7 @@ public class Question_ask extends Activity implements OnClickListener{
 		String url = GetHttp.getHttpLC()+"SubmitQuestion";
 		RequestParams params = new RequestParams();
 		params.addBodyParameter(file.getAbsolutePath().replace("/", ""),file);
-		Log.i("hehe", quesIma);
-		params.addBodyParameter("stuId",String.valueOf(stuId));
+		params.addBodyParameter("stuId",String.valueOf(stu_id));
 		params.addBodyParameter("quesText",et_question.getText().toString());
 		params.addBodyParameter("quesTime",quesTime+"");
 		params.addBodyParameter("acpoNum",String.valueOf(acpoNum));

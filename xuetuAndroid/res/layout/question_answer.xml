@@ -3,13 +3,61 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-   
-            <include 
-                android:id="@+id/title_question_answer"
-        layout="@layout/title"
-        android:layout_alignParentTop="true"
+    <RelativeLayout 
+    android:id="@+id/title_question_answer"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/height_top_bar"
+   android:background="#44a6d5"
+    android:gravity="center_vertical" >
+
+    
+    <!-- 按钮选中后，会有背景色 -->
+    <RelativeLayout
+        android:id="@+id/left_ans_layout"
+        android:layout_width="50dip"
+        android:layout_height="match_parent"
+        android:background="@drawable/common_tab_bg"
+        android:clickable="true" >
+
+        <ImageView 
+            android:id="@+id/left_ans_image"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/back_title" />
+    </RelativeLayout>
+
+    <TextView
+        android:id="@+id/tv_ans_title"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"/>
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:textColor="#ffffff"
+        android:text="回答"
+        android:textSize="20sp" />
+
+    
+    <RelativeLayout
+        android:id="@+id/right_ans_layout"
+        android:layout_width="50dp"
+        android:layout_height="match_parent"
+        android:layout_alignParentRight="true"
+        android:background="@drawable/common_tab_bg" >
+
+        <ImageView
+            android:id="@+id/right_ans_image"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true" />
+    </RelativeLayout>
+
+</RelativeLayout>
+           
+
+    
+    
+    
+    
+    
 	<RelativeLayout
 	    android:layout_width="match_parent"
 	    android:layout_height="wrap_content"
@@ -32,37 +80,44 @@
 	    android:gravity="center"
 	    android:orientation="horizontal" >
 
-		<ImageButton
+		<!-- <ImageButton
 		    android:id="@+id/btn_photo"
 		    android:layout_width="wrap_content"
 		    android:layout_height="wrap_content"
 		    android:padding="10dp"
 		    android:src="@drawable/ask"
 		    android:contentDescription="@string/app_name"
-		     />
-
-		<Button
-		    android:id="@+id/btn_ans"
-		    android:layout_width="50dp"
-		    android:layout_height="50dp"
-		    android:layout_marginRight="10dp"
-		    android:layout_alignParentRight="true"
-		    android:background="@color/blue1"
-		    android:text="@string/answer"
-		    android:textColor="@color/white" />
-
+		     /> -->
+		<com.xuetu.view.CircleImageView 
+		     android:layout_width="40dp"
+		    android:layout_height="40dp"
+		    android:padding="10dp"
+		    android:layout_marginRight="5dp"
+		    android:id="@+id/btn_photo"
+		    android:src="@drawable/ask"
+		    />
 		<EditText
 		    android:id="@+id/et_ans_text"
 		    android:layout_toRightOf="@id/btn_photo"
 		    android:layout_width="wrap_content"
 		    android:layout_height="50dp"
 			android:paddingBottom="5dp"
+			android:layout_marginRight="5dp"
 		    android:layout_centerHorizontal="true"
 		    android:ems="10" >
 
 		    <requestFocus />
 		</EditText>
-
+		
+		<Button
+		    android:id="@+id/btn_ans"
+		    android:layout_width="50dp"
+		    android:layout_height="50dp"
+		    android:layout_marginRight="10dp"
+		    android:layout_toRightOf="@id/et_ans_text"
+		    android:background="@color/blue1"
+		    android:text="@string/answer"
+		    android:textColor="@color/white" />
         </RelativeLayout>
  
 </RelativeLayout>

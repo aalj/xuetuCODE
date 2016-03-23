@@ -36,7 +36,7 @@
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
         android:textColor="#ffffff"
-        android:text="title"
+        android:text="选择学科"
         android:textSize="20sp" />
 
     
@@ -52,7 +52,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
-            android:scaleType="centerInside" />
+            android:src="@drawable/ic_item_ask" />
     </RelativeLayout>
 
 </RelativeLayout>

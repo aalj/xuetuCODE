@@ -38,6 +38,11 @@ public class MyCoupon {
 		// 
 
 	}
+	@Override
+	public String toString() {
+		return "MyCoupon [mycouID=" + mycouID + ", userState=" + userState + ", coupon=" + coupon + ", student="
+				+ student + ", mycouExchangeTime=" + mycouExchangeTime + "]";
+	}
 	/**
 	 * 
 	 * getMycouID:(得到我的优惠券的ID)<br/>

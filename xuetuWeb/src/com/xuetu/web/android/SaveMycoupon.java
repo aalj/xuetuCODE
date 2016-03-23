@@ -37,10 +37,12 @@ public class SaveMycoupon extends HttpServlet {
 		if(parameter!=null){
 			parameter=URLDecoder.decode(parameter, "utf-8");
 		}
+		System.out.println(parameter);
 		Gson  gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create();
-		Type type = new TypeToken<FavoritesCoupons>() {
+		Type type = new TypeToken<MyCoupon>() {
 		}.getType();
 		MyCoupon myCoupon=gson.fromJson(parameter, type);
+		System.out.println(myCoupon);
 		boolean b = shoppingInter.saveMycoupon(myCoupon);
 		PrintWriter writer = response.getWriter();
 		if(b){

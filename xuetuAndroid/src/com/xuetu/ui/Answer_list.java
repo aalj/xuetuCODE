@@ -8,7 +8,6 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-import java.util.zip.Inflater;
 
 
 
@@ -25,15 +24,9 @@ import com.lidroid.xutils.http.ResponseInfo;
 import com.lidroid.xutils.http.callback.RequestCallBack;
 import com.lidroid.xutils.http.client.HttpRequest.HttpMethod;
 import com.xuetu.R;
-import com.xuetu.adapter.MyBasesadapter;
-import com.xuetu.adapter.ViewHodle;
 import com.xuetu.entity.Answer;
-import com.xuetu.entity.Coupon;
 import com.xuetu.entity.Question;
-import com.xuetu.ui.StoneNameActivity.ViewHolder;
-import com.xuetu.ui.StoneNameActivity.ViewPagerHolder;
 import com.xuetu.utils.GetHttp;
-import com.xuetu.utils.MyBaseAdapter;
 import com.xuetu.view.TitleBar;
 
 import android.app.Activity;
@@ -55,6 +48,7 @@ import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -86,14 +80,19 @@ public class Answer_list extends Activity implements OnClickListener{
 	ImageView iv_ans1_first_img;
 	ImageView btn_photo;
 	ImageView iv_ans1_userImg;
-	TextView tv_subAll;
+//	TextView tv_ans_title;
 	Button btn_ans;
 	View view_title;
 	TitleBar titlebar;
+	RelativeLayout left_ans_layout;
+	int stu_id = 0;
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
+		//获取当前用户对象
+	
+		
 		setContentView(R.layout.question_answer);
 		Intent intent = getIntent();
 		curQues= (Question) intent.getSerializableExtra("curQues");
@@ -104,46 +103,55 @@ public class Answer_list extends Activity implements OnClickListener{
 		//初始化控件
 		titlebar = (TitleBar) findViewById(R.id.titlebar);
 		lv_answer = (ListView) findViewById(R.id.lv_answer);
-		tv_ans1_text =(TextView) findViewById(R.id.tv_ans1_text);
-		tv_ans1_time =(TextView) findViewById(R.id.tv_ans1_time);
-		tv_ans1_stuName =(TextView) findViewById(R.id.tv_ans1_stuName);
-		tv_ans1_sub =(TextView) findViewById(R.id.tv_ans1_sub);
-		iv_ans1_first_img =(ImageView) findViewById(R.id.iv_ans1_first_img);
-		iv_ans1_userImg =(ImageView) findViewById(R.id.iv_ans1_userImg);
+//		tv_ans1_text =(TextView) findViewById(R.id.tv_ans1_text);
+//		tv_ans1_time =(TextView) findViewById(R.id.tv_ans1_time);
+//		tv_ans1_stuName =(TextView) findViewById(R.id.tv_ans1_stuName);
+//		tv_ans1_sub =(TextView) findViewById(R.id.tv_ans1_sub);
+//		iv_ans1_first_img =(ImageView) findViewById(R.id.iv_ans1_first_img);
+//		iv_ans1_userImg =(ImageView) findViewById(R.id.iv_ans1_userImg);
 		btn_photo = (ImageView) findViewById(R.id.btn_photo);
 		btn_ans = (Button) findViewById(R.id.btn_ans);
 		et_ans_text = (TextView) findViewById(R.id.et_ans_text);
+		left_ans_layout = (RelativeLayout) findViewById(R.id.left_ans_layout);
 		//控件赋值
-		tv_ans1_text.setText(curQues.getQuesText());
-		tv_ans1_time.setText(sdf2.format(curQues.getQuesDate())+"");
-		tv_ans1_stuName.setText(curQues.getStudent().getStuName());
-		tv_ans1_sub.setText(curQues.getSubject().getName());
-		BitmapUtils bitmapUtils = new BitmapUtils(this);
+//		tv_ans1_text.setText(curQues.getQuesText());
+//		tv_ans1_time.setText(sdf2.format(curQues.getQuesDate())+"");
+//		tv_ans1_stuName.setText(curQues.getStudent().getStuName());
+//		tv_ans1_sub.setText(curQues.getSubject().getName());
+//		BitmapUtils bitmapUtils = new BitmapUtils(this);
 		//设置监听事件
 		btn_ans.setOnClickListener(this);
+		left_ans_layout.setOnClickListener(this);
 //		titlebar.setLeftLayoutClickListener(this);
 		btn_photo.setOnClickListener(this);
 		// 加载网络图片
-		bitmapUtils.display(iv_ans1_first_img, GetHttp.getHttpLC()+curQues.getQuesIma());
-		bitmapUtils.display(iv_ans1_userImg, GetHttp.getHttpLC()+curQues.getStudent().getStuIma());
-		getAllAnswer();
+//		bitmapUtils.display(iv_ans1_first_img, GetHttp.getHttpLC()+curQues.getQuesIma());
+//		bitmapUtils.display(iv_ans1_userImg, GetHttp.getHttpLC()+curQues.getStudent().getStuIma());
+		getPageAnswerByQues();
 	}
-
+	@Override
+	public void onResume() {
+		stu_id = ((XueTuApplication)getApplication()).getStudent().getStuId();
+		
+		super.onResume();
+	}
 
 	@Override
 	public void onClick(View v) {
 		// TODO Auto-generated method stub
 		switch(v.getId()){
-		case R.id.left_layout:
+		case R.id.left_ans_layout:
 			finish();
 			break;
 		case R.id.btn_ans:
-			Toast.makeText(this, "submit OK", 0).show();
+			if(stu_id>0){
 			submitAnswer();
 			finish();
+			}
+			else
+				Toast.makeText(Answer_list.this, "请先登陆哟！", 0).show();
 			break;
 		case R.id.btn_photo:
-			Toast.makeText(this, "ththth", 0);
 			AlertDialog.Builder builder = new AlertDialog.Builder(Answer_list.this);
 			builder.setItems(new String[]{"拍照","从相册中选择"},new DialogInterface.OnClickListener() {
 				
@@ -233,7 +241,7 @@ public class Answer_list extends Activity implements OnClickListener{
 			}
 		}
 		
-		public void getAllAnswer(){
+		public void getPageAnswerByQues(){
 			String url = GetHttp.getHttpLC()+"GetPageAnswer";
 			RequestParams paramsQuesId = new RequestParams();
 			paramsQuesId.addBodyParameter("Ques_id",curQues.getQuesID()+"");
@@ -255,7 +263,11 @@ public class Answer_list extends Activity implements OnClickListener{
 					.setDateFormat("yyyy-MM-dd HH:mm:ss").create();
 					Type type = new TypeToken<List<Answer>>(){}.getType();
 					list = gson.fromJson(arg0.result, type);
+					
 //					Log.i("hehe", "------>"+list.size());
+//					Log.i("hehe", "------>"+list.get(0).toString());
+//					
+//					Log.i("hehe", "------>"+list.get(1).toString());
 //					Log.i("hehe", "------>"+sdf2.format(new Date(list.get(0).getAnsTime().getTime())));
 					/*adapter = new MyBasesadapter<Answer>(Answer_list.this, list, R.layout.question_answeritem) {
 						@Override
@@ -293,7 +305,7 @@ public class Answer_list extends Activity implements OnClickListener{
 			
 			RequestParams params = new RequestParams();
 			params.addBodyParameter("ques_id",curQues.getQuesID()+"");
-			params.addBodyParameter("stu_id",2+"");
+			params.addBodyParameter("stu_id",stu_id+"");
 			params.addBodyParameter("ans_text",et_ans_text.getText().toString());
 			params.addBodyParameter(file.getAbsolutePath().replace("/", ""),file);
 			params.addBodyParameter("ans_time",String.valueOf(ans_time));
@@ -371,6 +383,7 @@ public class Answer_list extends Activity implements OnClickListener{
 //						viewHolder.SetUrlImage(R.id.iv_ans_userImg,GetHttp.getHttpLC()+item.getStudent().getStuIma());
 						holder.tv_ans_stuName = (TextView) view.findViewById(R.id.tv_ans_stuName);
 						holder.tv_ans_time = (TextView) view.findViewById(R.id.tv_ans_time);
+						holder.tv_ans_text = (TextView) view.findViewById(R.id.tv_ans_text);			
 						holder.iv_ans_img = (ImageView) view.findViewById(R.id.iv_ans_img);
 						holder.iv_ans_userImg = (ImageView) view.findViewById(R.id.iv_ans_userImg);
 						
@@ -381,6 +394,8 @@ public class Answer_list extends Activity implements OnClickListener{
 					}
 
 					holder.tv_ans_stuName.setText(answers.get(position).getStudent().getStuName());
+					
+					holder.tv_ans_text.setText(answers.get(position).getAnsText());
 
 					holder.tv_ans_time.setText(sdf2.format(new Date(answers.get(position).getAnsTime().getTime())));
 
@@ -394,28 +409,31 @@ public class Answer_list extends Activity implements OnClickListener{
 					if (convertView == null) {
 
 						
-						view = m_inflater.inflate(R.layout.question_answeritem, null);
+						view = m_inflater.inflate(R.layout.question_answer_firstitem, null);
 						holder = new FirstViewHolder();
-						holder.tv_ans1_text = (TextView) view.findViewById(R.id.tv_ans1_text);
+
+						holder.tv_ans1_ques_text = (TextView) view.findViewById(R.id.tv_ans1_ques_text);
 						holder.tv_ans1_time = (TextView) view.findViewById(R.id.tv_ans1_time);
 						holder.tv_ans1_stuName = (TextView) view.findViewById(R.id.tv_ans1_stuName);
 						holder.tv_ans1_sub = (TextView) view.findViewById(R.id.tv_ans1_sub);
+//						holder.tv_ans_num = (TextView) view.findViewById(R.id.tv_ans_num);
 						holder.iv_ans1_first_img = (ImageView) view.findViewById(R.id.iv_ans1_first_img);
 						holder.iv_ans1_userImg = (ImageView) view.findViewById(R.id.iv_ans1_userImg);
 						view.setTag(holder);
 					} else {
 						view = convertView;
 						holder = (FirstViewHolder) view.getTag();
-
 					}
-					holder.tv_ans1_text.setText(answers.get(position).getAnsText());
-					holder.tv_ans1_time.setText(sdf2.format(new Date(answers.get(position).getAnsTime().getTime())));
-					holder.tv_ans1_stuName.setText(answers.get(position).getStudent().getStuName());
-					holder.tv_ans1_sub.setText(answers.get(position).getQuestion().getSubject().getName());
+					
+					holder.tv_ans1_ques_text.setText(curQues.getQuesText());
+					holder.tv_ans1_time.setText(sdf2.format(new Date(curQues.getQuesDate().getTime())));
+					holder.tv_ans1_stuName.setText(curQues.getStudent().getStuName());
+					holder.tv_ans1_sub.setText(curQues.getSubject().getName());
+//					holder.tv_ans_num.setText(getCount());
 					bitmapUtils.display(holder.iv_ans1_first_img,
-							GetHttp.getHttpLC() + answers.get(position).getAnsImg());
+							GetHttp.getHttpLC() + curQues.getQuesIma());
 					bitmapUtils.display(holder.iv_ans1_userImg,
-							GetHttp.getHttpLC() + answers.get(position).getStudent().getStuIma());
+							GetHttp.getHttpLC() + curQues.getStudent().getStuIma());
 				}
 
 				return view;
@@ -423,10 +441,11 @@ public class Answer_list extends Activity implements OnClickListener{
 
 		}
 		public static class FirstViewHolder{
-			public TextView tv_ans1_text;
+			public TextView tv_ans1_ques_text;
 			public TextView tv_ans1_time;
 			public TextView tv_ans1_stuName;
 			public TextView tv_ans1_sub;
+			public TextView tv_ans_num;
 			public ImageView iv_ans1_first_img;
 			public ImageView iv_ans1_userImg;
 			
@@ -442,6 +461,7 @@ public class Answer_list extends Activity implements OnClickListener{
 		public static class ViewHolder {
 			public TextView tv_ans_time;
 			public TextView tv_ans_stuName;
+			public TextView tv_ans_text;
 			public ImageView iv_ans_img;
 			public ImageView iv_ans_userImg;
 			

@@ -86,9 +86,6 @@ public class ClassTime {
 				{
 					classtime++;
 					b=i+1;
-					System.out.println(i);
-					System.out.println("bbbbbbbbbbbbbb"+b);
-					System.out.println("classtime"+classtime);
 					break;
 				}
 			}
@@ -99,4 +96,27 @@ public class ClassTime {
 			}
 			return b;
 		}
+		
+		
+		//计算现在的时间,到下课的时间
+		public long getSS(int few)
+		{
+			long l=0;
+			String s = class_time[1][few-1];
+			String [] time =s.split(":".toString()); 
+			int first  = Integer.parseInt(time[0]) ;
+			int second = Integer.parseInt(time[1]) ;
+			int ss=(first*60+second)*60;
+			Calendar c = Calendar.getInstance();
+			int mm= c.get(Calendar.HOUR_OF_DAY)*60*60+c.get(Calendar.MINUTE)*60+c.get(Calendar.SECOND);
+			l=ss-mm;
+			return l;
+		}
+		
+		
+//		//传入第几节课,计算出课程从0点到结束时的时间
+//		public int getEndTime()
+//		{
+//			
+//		}
 }

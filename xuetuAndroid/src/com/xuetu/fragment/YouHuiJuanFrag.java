@@ -20,6 +20,7 @@ import com.xuetu.adapter.MyBasesadapter;
 import com.xuetu.adapter.ViewHodle;
 import com.xuetu.entity.FavoritesCoupons;
 import com.xuetu.entity.Student;
+import com.xuetu.ui.CouponInfoActivity;
 import com.xuetu.ui.XueTuApplication;
 import com.xuetu.ui.YouHuiJuanInfomationActivity;
 import com.xuetu.utils.GetHttp;
@@ -121,11 +122,9 @@ public class YouHuiJuanFrag extends Fragment implements OnItemClickListener{
 	public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 		Intent intent = new Intent();
 		/* 跳转到优惠劵信息页面 */
-		intent.setClass(getActivity(), YouHuiJuanInfomationActivity.class);
-		Bundle bundle = new Bundle();
-		bundle.putSerializable("MyCoupon", datas.get(position));
-		intent.putExtras(bundle);
-		startActivity(intent);
+		intent.setClass(getActivity(), CouponInfoActivity.class);
+		intent.putExtra("coupon", datas.get(position).getCoupon());
+		getActivity().startActivity(intent);
 
 	}
 

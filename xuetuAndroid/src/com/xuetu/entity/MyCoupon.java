@@ -56,6 +56,12 @@ public class MyCoupon implements Serializable {
 		return mycouID;
 	}
 
+	@Override
+	public String toString() {
+		return "MyCoupon [mycouID=" + mycouID + ", userState=" + userState + ", coupon=" + coupon + ", student="
+				+ student + ", mycouExchangeTime=" + mycouExchangeTime + "]";
+	}
+
 	/**
 	 * 
 	 * setMycouID:(设置我的优惠券的ID)<br/>
