@@ -70,6 +70,7 @@ public class AddStudyTime extends HttpServlet {
 		studytime.setTime(Long.parseLong(st_time));  //学习时长
 		studytime.setStudent(null);					//学生对象id
 		studytime.setAcpo_num(Integer.parseInt(integral));
+//		studytime.set
 		
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 		try {
