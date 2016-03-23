@@ -435,5 +435,49 @@ public class HomePageFrag extends Fragment implements OnTouchListener {
 					}
 				});
 	}
+	
+	/**
+	 * 下滑判定,获取自学计划时间
+	 */
+	public void getStudyPlan()
+	{
+		String url = "http://10.201.1.26:8080/xuetuWeb/BackStudyTime";
+		HttpUtils httpUtils = new HttpUtils();
+		RequestParams requestParams = new RequestParams();
+		requestParams.addBodyParameter("stu_id", stu_id + "");
+		System.out.println(stu_id);
+		httpUtils.send(HttpMethod.POST, url, requestParams,
+				new RequestCallBack<String>() {
+					@Override
+					public void onFailure(HttpException arg0, String arg1) {
+						// TODO Auto-generated method stub
+						System.out.println("链接失败");
+						flag = true;
+						System.out.println("flag=true;");
+					}
+
+					@Override
+					public void onSuccess(ResponseInfo<String> arg0) {
+						// TODO Auto-generated method stub
+						System.out.println("链接成功");
+						String arg = arg0.result;
+						Type type = new TypeToken<String>() {
+						}.getType();
+						Gson gson = new GsonBuilder().setDateFormat(
+								"yyyy-MM-dd").create();
+						String s = gson.fromJson(arg, type);
+						ss = Long.parseLong(s);
+						System.out.println("ssssssssssss" + ss);
+						
+						Message message = Message.obtain();
+						message.what=456;
+						message.obj=ss;
+						handler.sendMessage(message);
+					}
+				});
+	}
+	
+	
+	
 
 }
