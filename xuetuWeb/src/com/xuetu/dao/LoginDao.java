@@ -368,4 +368,55 @@ public class LoginDao implements PersonalDaoInterface {
 		}
 		return null;
 	}
+	
+	
+	public boolean savePerInfo(String temp,String stuID,String value){
+		Connection conn = DBconnection.getConnection();
+		PreparedStatement statement;
+		String sql = null;
+		switch (temp) {
+		case "2":
+			
+			sql = "update student set stu_name = ? where stu_id = ?";
+			break;
+		case "3":
+			sql = "update student set stu_age = ? where stu_id = ?";
+			break;
+		case "4":
+			sql = "update student set stu_ugrade = ? where stu_id = ?";
+			break;
+		
+		case "6":
+			sql = "update student stu_signer = ? where stu_id = ?";
+			break;
+
+		default:
+			break;
+		}
+		
+		
+		
+		try {
+			statement = conn.prepareStatement(sql);
+			statement.setString(1, value);
+			statement.setInt(2, Integer.parseInt(stuID));
+			int executeUpdate = statement.executeUpdate();
+			if(executeUpdate>0){
+				return true;
+			}
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		
+		
+		return false;
+	}
+	
+	
+	
+	
+	
 }

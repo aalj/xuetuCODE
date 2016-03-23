@@ -77,9 +77,7 @@ public class JunText {
 
 	@Test
 	public void getCoupon() {
-		List<FavoritesCoupons> coupons = new LoginDao().getFavoritecouByStuID(1);
-
-		System.out.println(coupons);
+		new LoginDao().savePerInfo(4+"","3","nnnnnnnnnnnnnn");
 
 	}
 
