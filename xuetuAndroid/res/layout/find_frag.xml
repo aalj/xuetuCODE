@@ -188,12 +188,12 @@
             </LinearLayout>
         </LinearLayout>
 
-        <LinearLayout
-            android:layout_width="match_parent"
+        <com.xuetu.view.BarChartView
+            android:id="@+id/bar"
+            android:layout_width="fill_parent"
             android:layout_height="300dp"
             android:layout_marginTop="25dp"
-            android:background="#fffffe" >
-        </LinearLayout>
+            android:padding="10px" />
     </LinearLayout>
 
 </ScrollView>

@@ -24,6 +24,7 @@ import java.util.List;
 
 import com.xuetu.dao.inter.FindInter;
 import com.xuetu.entity.Countdown;
+import com.xuetu.entity.LongTime;
 import com.xuetu.entity.Pattern;
 import com.xuetu.entity.SelfStudyPlan;
 import com.xuetu.entity.Student;
@@ -233,6 +234,40 @@ public class FindIml implements FindInter {
 			CloseDb.close(connection, prepareStatement);
 		}
 		
+	}
+
+	@Override
+	public List<LongTime> getWeekTime(int stu_id) {
+		Connection conn = DBconnection.getConnection();
+		List<LongTime> list = new ArrayList<>();
+		PreparedStatement statement = null;
+		ResultSet query=null;
+		try {
+		String sql="select sum(sto_time) as mytime,"
+				+ "date_format(st_date,'%Y-%m-%d') as myDate,"
+				+ "stu_id from studytime "
+				+ "where stu_id=? and date_sub(curdate(), INTERVAL 7 DAY) <= date(`st_date`) "
+				+ "group by date_format(st_date,'%Y-%m-%d');";
+			statement = conn.prepareStatement(sql);
+			statement.setInt(1, stu_id);
+			query = statement.executeQuery();
+			LongTime e=null;
+			while (query.next()) {
+				e= new LongTime();
+				e.setMyDate(query.getDate("myDate"));
+				e.setMyTime(query.getLong("mytime"));
+				e.setStudent(null);
+				list.add(e);
+				
+			}
+			return list;
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			CloseDb.close(conn, query, statement);
+		}
+		return null;
 	}
 
 }
