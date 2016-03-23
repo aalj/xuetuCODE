@@ -14,6 +14,10 @@
 package com.xuetu.fragment;
 
 import java.lang.reflect.Type;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 import com.google.gson.Gson;
@@ -26,12 +30,18 @@ import com.lidroid.xutils.http.ResponseInfo;
 import com.lidroid.xutils.http.callback.RequestCallBack;
 import com.lidroid.xutils.http.client.HttpRequest.HttpMethod;
 import com.xuetu.R;
+import com.xuetu.entity.IsStudy;
 import com.xuetu.entity.MyCoupon;
+import com.xuetu.entity.SelfStudyPlan;
 import com.xuetu.ui.TimerActivity;
+import com.xuetu.utils.GetHttp;
 
 import android.R.integer;
 import android.animation.ObjectAnimator;
 import android.animation.PropertyValuesHolder;
+import android.app.AlertDialog;
+import android.app.Dialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Rect;
 import android.os.Bundle;
@@ -68,7 +78,7 @@ import android.widget.Toast;
  */
 public class HomePageFrag extends Fragment implements OnTouchListener {
 
-	int stu_id = 3;
+	int stu_id = 1;
 	Button btn_up, btn_down, btn_center;
 	ImageView img1, img2, img3, img4, img5, img6, imgup, imgdown;
 	View view;
@@ -91,6 +101,10 @@ public class HomePageFrag extends Fragment implements OnTouchListener {
 	int ii;
 	private long ss;
 	boolean flag = true;
+	boolean planflag=true;
+	boolean is_today_studyplan=false;//判断是不是今天的学习计划
+	IsStudy isstudy;
+	SelfStudyPlan studyplan;
 
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -116,6 +130,8 @@ public class HomePageFrag extends Fragment implements OnTouchListener {
 		activity_height = display.getWidth();
 		// activity_top=display.
 
+		flag     = true;
+		planflag = true;
 		tv = (TextView) getActivity().findViewById(R.id.person_tv);
 		tv.getHeight();
 		System.out.println("tv>>>>>>>>>>>>>>>>>>" + tv.getHeight());
@@ -130,7 +146,7 @@ public class HomePageFrag extends Fragment implements OnTouchListener {
 
 		imgup = (ImageView) view.findViewById(R.id.imageView1);
 		imgdown = (ImageView) view.findViewById(R.id.imageView2);
-
+		isstudy = new IsStudy();
 		// Rect rect = new Rect();
 		// System.out.println(ii);
 		// getWindow().getDecorView().getWindowVisibleDisplayFrame(rect);
@@ -205,23 +221,22 @@ public class HomePageFrag extends Fragment implements OnTouchListener {
 				break;
 			case 456:
 				ss=(Long)msg.obj;
-//				Toast.makeText(getActivity(), ss+"", 0).show();
-				System.out.println("方法执行完毕");
-				
 				if (ss>0) {
 					Intent intent = new Intent(getActivity(),
 							TimerActivity.class);
-					// Bundle bundle = new Bundle();
-					// bundle.putLong("ss", ss);
-					// intent.putExtras(bundle);
 					intent.putExtra("ss", ss);
 					flag = false;
 					startActivity(intent);
 				}else
 				{
+					
 					Toast.makeText(getActivity(), "当前没有课程", Toast.LENGTH_SHORT).show();
 //		            Toast.makeText(TimerActivity.this, "下课啦"+getIntegral(integral_double)+"积分到手咯!!", Toast.LENGTH_LONG).show();//提示倒计时完成
-					flag = true;
+					flag     = true;
+					planflag = true;
+					
+					//获取课程失败后  执行下滑判断语句
+					
 				}
 				break;
 
@@ -328,8 +343,6 @@ public class HomePageFrag extends Fragment implements OnTouchListener {
 			moveBack(v);
 			layoutParams.leftMargin = tm;
 			layoutParams.topMargin = lm;
-			// layoutParams.addRule(RelativeLayout.CENTER_IN_PARENT,RelativeLayout.TRUE);
-			// layoutParams.addRule(RelativeLayout.BELOW ,RelativeLayout.TRUE);
 
 			btn_center.setLayoutParams(layoutParams);
 
@@ -339,46 +352,28 @@ public class HomePageFrag extends Fragment implements OnTouchListener {
 		case MotionEvent.ACTION_POINTER_UP:
 			break;
 		case MotionEvent.ACTION_MOVE:
-			// final int yy = (int) event.getRawY();
-			// final int xx = (int) event.getRawX();
-			// layoutParams.leftMargin=xx;
-			//
-			// System.out.println("yy"+xx);
-			// System.out.println("yy"+yy);
-			// System.out.println("y>>"+img5.getY());
 			RelativeLayout.LayoutParams layoutParams = (RelativeLayout.LayoutParams) v
 					.getLayoutParams();
 
-			// layoutParams.addRule(RelativeLayout.CENTER_VERTICAL,0);
-			// layoutParams.addRule(RelativeLayout.CENTER_HORIZONTAL,0);
-
-			// layoutParams.leftMargin = X - _x; //控制按钮在X轴移动
 			layoutParams.topMargin = Y - _y; // 控制按钮在Y轴移动
-			// layoutParams.rightMargin = -250;
-			// layoutParams.bottomMargin = -250;
 			v.setLayoutParams(layoutParams);
-			// 判断上下滑动距离
-			// 640
-			if ((Y < (fHeight / 2 - 150) || Y > (fHeight / 2 + 150))
-					&& flag == true) {
-				System.out.println("``````进行判断");
-				if (Y < (fHeight / 2 - 150)) {
+			if (Y < (fHeight / 2 - 150) && flag == true) 
+				{
+					flag     = false;
+					planflag = false;
 					System.out.println("进行的是上滑动");
 					get_stu_studyTime();
-//					System.out.println("方法执行完毕");
-					System.out.println(ss + "<<<<<<<<<<<<<<sssssssssssss");
 					
-				} else {
-					System.out.println("下滑动执行");
-				}
+				} 
 
-			}
-			// if(Y==(fHeight/2+150)){
-			// System.out.println("下滑动执行");
-			// break;
-			// }else{
-			// break;
-			// }
+			if(Y > (fHeight / 2 + 150) && planflag==true)
+				{
+					flag     = false;
+					planflag = false;
+					getStudyPlan();
+					
+				}
+			
 
 			break;
 		}
@@ -398,7 +393,6 @@ public class HomePageFrag extends Fragment implements OnTouchListener {
 	}
 
 	public void get_stu_studyTime() {
-		flag = false;
 		
 		String url = "http://10.201.1.26:8080/xuetuWeb/GetClassTime";
 		HttpUtils httpUtils = new HttpUtils();
@@ -411,8 +405,8 @@ public class HomePageFrag extends Fragment implements OnTouchListener {
 					public void onFailure(HttpException arg0, String arg1) {
 						// TODO Auto-generated method stub
 						System.out.println("链接失败");
-						flag = true;
-						System.out.println("flag=true;");
+						flag     = true;
+						planflag = true;
 					}
 
 					@Override
@@ -441,41 +435,123 @@ public class HomePageFrag extends Fragment implements OnTouchListener {
 	 */
 	public void getStudyPlan()
 	{
-		String url = "http://10.201.1.26:8080/xuetuWeb/BackStudyTime";
+		String url =GetHttp.getHttpKY()+"BackStudyTime";
+//		String url = "http://10.201.1.26:8080/xuetuWeb/BackStudyTime";
 		HttpUtils httpUtils = new HttpUtils();
 		RequestParams requestParams = new RequestParams();
-		requestParams.addBodyParameter("stu_id", stu_id + "");
-		System.out.println(stu_id);
+		requestParams.addBodyParameter("StuID", 1 + "");
 		httpUtils.send(HttpMethod.POST, url, requestParams,
 				new RequestCallBack<String>() {
 					@Override
 					public void onFailure(HttpException arg0, String arg1) {
 						// TODO Auto-generated method stub
 						System.out.println("链接失败");
-						flag = true;
-						System.out.println("flag=true;");
+						flag     = true;
+						planflag = true;
 					}
 
 					@Override
 					public void onSuccess(ResponseInfo<String> arg0) {
-						// TODO Auto-generated method stub
 						System.out.println("链接成功");
-						String arg = arg0.result;
-						Type type = new TypeToken<String>() {
-						}.getType();
-						Gson gson = new GsonBuilder().setDateFormat(
-								"yyyy-MM-dd").create();
-						String s = gson.fromJson(arg, type);
-						ss = Long.parseLong(s);
-						System.out.println("ssssssssssss" + ss);
+						//创建个人学习计划对象
+//						SelfStudyPlan studyplan=new SelfStudyPlan();
 						
-						Message message = Message.obtain();
-						message.what=456;
-						message.obj=ss;
-						handler.sendMessage(message);
+						String arg = arg0.result;
+						
+						Type type = new TypeToken<SelfStudyPlan>() {}.getType();
+						Gson gson = new GsonBuilder().setDateFormat(
+								"yyyy-MM-dd HH:mm:ss").create();
+						
+						studyplan = gson.fromJson(arg, type);
+						System.out.println(">>>>>>>>>>>111>>>>>>>>>>>"+studyplan.getPlanID());
+						//进行判断,得到的对象是否为空,  如果不为空,在判断是不是今天的计划
+						
+						if(studyplan.getStartTime()!=null)
+						{
+//							isstudy = new IsStudy();
+							is_today_studyplan = isstudy.getStudyPlan(studyplan);
+							
+							if(is_today_studyplan)  //如果为true 则表明今天有计划
+							{
+								//计划学习时间 
+								ss = isstudy.studyplanTime(studyplan);
+								long starttime = isstudy.time_to_study(studyplan);
+								//判断现在的时间  距离   计划学习开始时间,是否大于一个小时,不大于一个小时
+								long p =isstudy.time_to_study(studyplan)- isstudy.zero_to_now_ss();
+								if(p>3600)
+								{
+									System.out.println("距离学习计划时间还有一个小时以上,是否执行学习");
+									new AlertDialog.Builder(getActivity())
+										.setTitle("提示")
+										.setMessage("离学习计划还有1个小时以上,是否提前学习")
+										.setNegativeButton("取消", new DialogInterface.OnClickListener() {
+											
+											@Override
+											public void onClick(DialogInterface dialog, int which) {
+												// TODO Auto-generated method stub
+												flag     = true;
+												planflag = true;
+											}
+										})
+										.setPositiveButton("确定", new DialogInterface.OnClickListener() {
+											
+											@Override
+											public void onClick(DialogInterface dialog, int which) {
+												// TODO Auto-generated method stub
+												System.out.println("开始执行计划时间");
+												flag     = false;
+												planflag = false;
+												Intent intent = new Intent(getActivity(),
+														TimerActivity.class);
+												intent.putExtra("ss", ss);
+												intent.putExtra("stu_id", stu_id);
+												startActivity(intent);
+											}
+										}).show();
+									
+								}else              //不大于一个小时执行这个语句
+								{
+									if(p>=0&&p<=3600)   //   if true  执行设定的学习时间    if false  执行剩余的时间
+									{
+										flag     = false;
+										planflag = false;
+										System.out.println("开始执行计划时间");
+										Intent intent = new Intent(getActivity(),
+												TimerActivity.class);
+										intent.putExtra("ss", ss);
+										intent.putExtra("stu_id", stu_id);
+										startActivity(intent);
+										
+									}else         //这里的p肯定为负数
+									{
+										flag     = false;
+										planflag = false;
+										System.out.println("开始执行剩余的计划时间");
+										Intent intent = new Intent(getActivity(),
+												TimerActivity.class);
+										intent.putExtra("ss", ss+p);
+										intent.putExtra("stu_id", stu_id);
+										startActivity(intent);
+									}
+									
+									
+									
+								}
+								
+							}else{						//表明今天没有学习计划
+								Toast.makeText(getActivity(), "今天没有计划", Toast.LENGTH_SHORT).show();
+								flag     = true;
+								planflag = true;
+							}
+						}
+						
+						
+						
 					}
 				});
 	}
+	
+	
 	
 	
 	

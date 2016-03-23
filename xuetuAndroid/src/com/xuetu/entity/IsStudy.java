@@ -1,6 +1,8 @@
 package com.xuetu.entity;
 
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Date;
 
 public class IsStudy {
 	
@@ -65,5 +67,150 @@ public class IsStudy {
 		
 		return "ppp";
 	}
+	
+	
+	
+	/**
+	 * 学习计划取得学习时间
+	 * 
+	 */
+	
+	public long getplanTime(String starttime, String endtime)
+	{
+		long ss=0;
+		
+		
+		
+		return ss;
+	}
+	
+	/**
+	 * 判断今天有没有学习计划
+	 */
+	
+	public boolean getStudyPlan(SelfStudyPlan studyplan)
+	{
+		boolean b = false;
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+		//数据库的开始时间转换成String
+		String time = sdf.format(studyplan.getStartTime());
+		
+		//得到现在的时间,并转换成String
+        Date d = new Date();  
+        System.out.println(d);  
+        String nowtime = sdf.format(d);  
+        System.out.println("当前日期：" + nowtime);  
+        System.out.println("``````time``````"+time);
+        System.out.println("```````nowtime`````"+nowtime);
+        if(time.equals(nowtime))
+        {
+        	System.out.println("是当天");
+        	//表名今天有学习计划,并开始学习,学习时间为计划学习的时间
+        	b = true;
+        	
+        }
+		return  b;
+			
+	}
+	
+	
+	public long studyplanTime(SelfStudyPlan studyplan)
+	{
+		SimpleDateFormat hms = new SimpleDateFormat("HH-mm-ss");
+		
+		String starttime  = null;  //开始时间的字符串类型("HH-mm-ss")
+		String endtime    = null;  //结束时间
+		long studyttime = 0;       //学习时间  秒计算
+		
+		//得到"HH-mm-ss"  String的学习时间
+		starttime = hms.format(studyplan.getStartTime());
+		endtime   = hms.format(studyplan.getEndTime());
+		
+		System.out.println("````````starttime```````"+starttime);
+		System.out.println("````````endtime```````"+endtime);
+		//将上面的starttime转换成时间,秒...
+		String [] time_s = starttime.split("-".toString());
+		long first  =Long.parseLong(time_s[0])*60*60;
+		long second =Long.parseLong(time_s[1])*60;
+		long third =Long.parseLong(time_s[2]);
+		//将上面的endtime转换成时间,秒...
+		
+		
+		String [] time_e = endtime.split("-".toString());
+		long first_e  =Long.parseLong(time_e[0])*60*60;
+		long second_e =Long.parseLong(time_e[1])*60;
+		long third_e =Long.parseLong(time_e[2]);
+		
+		System.out.println("1----"+first);
+		System.out.println("2----"+second);
+		System.out.println("3----"+third);
+		
+		System.out.println("1----"+first_e);
+		System.out.println("2----"+second_e);
+		System.out.println("3----"+third_e);
+		System.out.println("```````````````"+(first_e+second_e+third_e)+"```````````````"+(first+second+third));
+		
+		studyttime = (first_e+second_e+third_e)-(first+second+third);
+		return studyttime;
+	}
+	
+	
+	
+	
+	
+	/**
+	 * 判断现在是否到了学习计划时间,一个小时内,
+	 * 超前一个小时进行提醒,不超过自动进行计时
+	 */
+	public long time_to_study(SelfStudyPlan studyplan)
+	{
+		System.out.println("判断现在是否到了学习计划时间,一个小时内,* 超前一个小时进行提醒,不超过自动进行计时");
+		long ss = 0;
+		SimpleDateFormat sdf = new SimpleDateFormat("HH:mm:ss");
+		String hhmmss = sdf.format(studyplan.getStartTime()); 
+		ss=gotoss(hhmmss);
+		System.out.println("-------开始时间的ss---------"+ss);
+		return ss;
+	}
+	
+	
+	
+	/**
+	 * 从0点到现在的秒数
+	 */
+	public long zero_to_now_ss()
+	{
+		long ss = 0;
+		Calendar c = Calendar.getInstance();
+		ss = c.get(Calendar.HOUR_OF_DAY)*60*60+c.get(Calendar.MINUTE)*60+c.get(Calendar.SECOND);
+		return ss;
+	}
+	
+	
+	/**
+	 * 
+	 * 给我一个参数  字符串  "HH:mm:ss"  可以转化成ss  00  到改时间的秒数
+	 * 
+	 */
+	public long gotoss(String hhmmss)
+	{
+		System.out.println("计算秒数");
+		long ss = 0;
+//		SimpleDateFormat sdf = new SimpleDateFormat("HH:mm:ss");
+//		String sss=sdf.format(hhmmss);
+		String [] timess = hhmmss.split(":".toString());
+		long first  = Long.parseLong(timess[0])*60*60;
+		long second = Long.parseLong(timess[1])*60;
+		long third  = Long.parseLong(timess[2]);
+		
+		ss= first+second+third;
+		return ss;
+	}
+	
+
+	
+	
+	
+	
 	
 }
