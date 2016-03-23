@@ -17,6 +17,7 @@ import com.xuetu.dao.FindIml;
 import com.xuetu.entity.SelfStudyPlan;
 import com.xuetu.service.FindService;
 import com.xuetu.service.inter.FindServicesInter;
+import com.xuetu.utils.ChuliShijian;
 
 /**
  * 
@@ -52,10 +53,13 @@ public class GetSelfStudyPlan extends HttpServlet {
 		parameter = URLDecoder.decode(parameter, "utf-8");
 		System.out.println(parameter);
 		List<SelfStudyPlan> allSelfStudyPlan =  null;
-		
+		List<SelfStudyPlan> allSelfStudyPlantemp =  null;
 		if(parameter!=null){
 			
-			allSelfStudyPlan = findService.getAllSelfStudyPlan(Integer .parseInt(parameter));
+			allSelfStudyPlantemp = findService.getAllSelfStudyPlan(Integer .parseInt(parameter));
+			System.out.println(allSelfStudyPlantemp.size());
+			//去除时间
+			allSelfStudyPlan = ChuliShijian.shijianpanduan(allSelfStudyPlantemp);
 			
 		}
 		PrintWriter writer = response.getWriter();
@@ -63,11 +67,14 @@ public class GetSelfStudyPlan extends HttpServlet {
 				  .setDateFormat("yyyy-MM-dd HH:mm:ss")  
 				  .create();
 		String temp = gson.toJson(allSelfStudyPlan);
+		System.out.println(temp);
 		writer.print(temp);
 		
 		
 		
 	}
+
+	
 
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)

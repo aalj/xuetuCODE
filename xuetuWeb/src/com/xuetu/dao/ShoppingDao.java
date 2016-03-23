@@ -149,14 +149,14 @@ public class ShoppingDao implements ShoppintDaoInter {
 	@Override
 	public boolean insertMycoupon(MyCoupon mycoupon) {
 		Connection conn = DBconnection.getConnection();
-		String sql="insert into   mucoupon  (cou_id, stu_id,mycou_exchange_time) values(?,?,?)";
+		String sql="insert into   mycoupon  (cou_id, stu_id,mycou_exchange_time) values(?,?,?)";
 		PreparedStatement statement;
 		try {
 			statement = conn.prepareStatement(sql);
 			statement.setInt(1, mycoupon.getCoupon().getCouID());
 			statement.setInt(2, mycoupon.getStudent().getStuId());
 			statement.setTimestamp(3, new Timestamp(mycoupon.getMycouExchangeTime().getTime()));
-			statement.executeQuery();
+			statement.executeUpdate();
 			return true;
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block

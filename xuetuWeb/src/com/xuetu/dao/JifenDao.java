@@ -155,19 +155,24 @@ public class JifenDao {
 	
 	
 	public int countjifen(int stuId){
-		int count = 10;
+		int count = 100;
+		System.out.println("coun1t----->"+count);
 		count+= queryAllAnswerByid(stuId).size()*5;
+		System.out.println("count2----->"+count);
 		count-=queryAllAnswerByid(stuId).size()*3;
+		System.out.println("count3----->"+count);
 		List<StudyTime> queryAllStudyTimeById = queryAllStudyTimeById(stuId);
 		
 		for(int i = 0;i<queryAllStudyTimeById.size();i++){
 			count+=queryAllStudyTimeById.get(i).getAcpo_num();
 		}
+		System.out.println("count4----->"+count);
 		List<MyCoupon> queryAllCouponById = queryAllCouponById(stuId);
 		for (int i = 0; i < queryAllCouponById.size(); i++) {
 			count-=queryAllCouponById.get(i).getCoupon().getCoouRedeemPoints();
 		}
-		
+		System.out.println("count5----->"+count);
+		System.out.println("count-zong----->"+count);
 		
 		return count;
 	}

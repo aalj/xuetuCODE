@@ -34,6 +34,7 @@ public class FavoritesCoupons implements Serializable {
 	private Student student = null;
 	private 	Coupon coupon = null;
 	private Date createDate = null;
+	
 	public FavoritesCoupons() {
 
 		// 

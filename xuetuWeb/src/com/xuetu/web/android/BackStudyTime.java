@@ -1,6 +1,7 @@
 package com.xuetu.web.android;
 
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.net.URLDecoder;
 import java.util.List;
 
@@ -12,18 +13,19 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import com.xuetu.dao.LoginDao;
-import com.xuetu.entity.FavoritesCoupons;
-import com.xuetu.service.LoginService;
-import com.xuetu.service.inter.PersonalServiceInter;
+import com.xuetu.dao.FindIml;
+import com.xuetu.entity.SelfStudyPlan;
+import com.xuetu.service.FindService;
+import com.xuetu.service.inter.FindServicesInter;
+import com.xuetu.utils.ChuliShijian;
 
 /**
- * Servlet implementation class GetPersonFavoriteCouponsByStuID
+ * Servlet implementation class Back
  */
-@WebServlet("/GetPersonFavoriteCouponsByStuIDServlet")
-public class GetPersonFavoriteCouponsByStuIDServlet extends HttpServlet {
+@WebServlet("/BackStudyTime")
+public class BackStudyTime extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	PersonalServiceInter personalServiceInter = new LoginService(new LoginDao());
+	FindServicesInter findService = new FindService(new FindIml());
 
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
@@ -31,20 +33,25 @@ public class GetPersonFavoriteCouponsByStuIDServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		// TODO Auto-generated method stub
 		response.setContentType("text/html;charset=utf-8");
-		String parameter = request.getParameter("stuid");
+		String parameter = request.getParameter("StuID");
+		parameter = URLDecoder.decode(parameter, "utf-8");
+		System.out.println(parameter);
+		SelfStudyPlan allSelfStudyPlan = null;
+		List<SelfStudyPlan> allSelfStudyPlantemp = null;
+		PrintWriter writer = response.getWriter();
+		if (parameter != null) {
 
-		String stuid = URLDecoder.decode(parameter, "UTF-8");
-		int stuID = Integer.parseInt(stuid);
-		List<FavoritesCoupons> favoritesCoup = personalServiceInter.getFavoritecouByStuID(stuID);
-		System.out.println("favoritesCoup.toString()-----<<<"+favoritesCoup.toString());
-		System.out.println("favoritesCoup.size()-------->"+favoritesCoup.size());
+			allSelfStudyPlantemp = findService.getAllSelfStudyPlan(Integer.parseInt(parameter));
+			System.out.println(allSelfStudyPlantemp.size());
+			// 去除时间
+			allSelfStudyPlan = ChuliShijian.shiJianPanDuanZuiJing(allSelfStudyPlantemp);
+		}
 		Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create();
 		
-		String favcoupons = gson.toJson(favoritesCoup);
-
-		response.getWriter().print(favcoupons);
+		String favcoupons = gson.toJson(allSelfStudyPlan);
+		writer.print(favcoupons);
+		
 	}
 
 	/**

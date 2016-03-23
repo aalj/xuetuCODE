@@ -57,7 +57,7 @@ public class TheCollectionOfYouHuiJuanActivity extends Activity implements OnIte
 		setContentView(R.layout.activity_the_collection_of_you_hui_juan);
 		listview = (ListView) findViewById(R.id.listView);
 		listview.setOnItemClickListener(this);
-		titlebar = (TitleBar) findViewById(R.id.title_back);
+		titlebar = (TitleBar) findViewById(R.id.backtoperson);
 		titlebar.setLeftLayoutClickListener(this);
 		getCoupon();
 
@@ -84,7 +84,7 @@ public class TheCollectionOfYouHuiJuanActivity extends Activity implements OnIte
 						GetHttp.getHttpBCL() + mycoupon.getCoupon().getStoreName().getStoImg());
 				viewHolder.setText(R.id.youhuijuanshiyongqingkuang, mycoupon.getUserState().getUstaName());
 				if (mycoupon.getUserState().getUstaID() == 2) {
-					viewHolder.setIayoutBgColor(R.id.layout, R.drawable.cornor_layout);
+					viewHolder.setIayoutBgColor(R.id.layout, R.drawable.cornor_layout_green);
 				}
 
 			}
