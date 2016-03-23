@@ -13,6 +13,7 @@ import com.lidroid.xutils.http.RequestParams;
 import com.lidroid.xutils.http.ResponseInfo;
 import com.lidroid.xutils.http.callback.RequestCallBack;
 import com.lidroid.xutils.http.client.HttpRequest.HttpMethod;
+import com.loc.ed;
 import com.xuetu.R;
 import com.xuetu.entity.Student;
 import com.xuetu.utils.GetHttp;
@@ -20,6 +21,8 @@ import com.xuetu.view.TitleBar;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.content.SharedPreferences.Editor;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Log;
@@ -34,11 +37,20 @@ public class LoginActivity extends Activity implements OnClickListener {
 	TitleBar titlebar;
 	EditText et_usertel;
 	EditText et_password;
+	SharedPreferences sp = null;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		int stuId = ((XueTuApplication)getApplication()).getStudent().getStuId();
+		if(stuId>0){
+			Intent intent = new Intent(this,MainActivity.class);
+			startActivity(intent);
+		}
 		setContentView(R.layout.activity_login);
+		
+		
+		sp = getSharedPreferences("config",Activity.MODE_PRIVATE);
 		titlebar = (TitleBar) findViewById(R.id.title_back);
 		titlebar.setLeftLayoutClickListener(this);
 		et_usertel = (EditText) findViewById(R.id.et_tel);
@@ -96,7 +108,7 @@ public class LoginActivity extends Activity implements OnClickListener {
 		getLogin(telephone, password);
 	}
 
-	public void getLogin(String telephone, String password) {
+	public void getLogin(final String telephone, final String password) {
 		if (!TextUtils.isEmpty(telephone) && !TextUtils.isEmpty(password)) {
 			// 使用框架utils发送数据到服务器，
 			HttpUtils httpUtils = new HttpUtils();
@@ -131,6 +143,10 @@ public class LoginActivity extends Activity implements OnClickListener {
 					} else {
 						Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create();
 						student = gson.fromJson(result, Student.class);
+						Editor edit = sp.edit();
+						edit.putString("uasename", telephone);
+						edit.putString("pwd", password);
+						edit.commit();
 						((XueTuApplication) getApplication()).setStudent(student);
 						Intent intent = new Intent();
 						intent.setClass(getApplicationContext(), MainActivity.class);
@@ -146,4 +162,5 @@ public class LoginActivity extends Activity implements OnClickListener {
 			Toast.makeText(getApplicationContext(), "请填写帐号或密码", 1).show();
 		}
 	}
+	
 }

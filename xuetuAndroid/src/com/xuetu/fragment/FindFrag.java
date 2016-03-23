@@ -76,7 +76,7 @@ public class FindFrag extends Fragment {
 					br.setGroupData(entry.getKey(), new float[] { f });
 				}
 				
-				br.setBarColor(new int[] { Color.RED });
+				br.setBarColor(new int[] { Color.MAGENTA });
 				br.setDataTitle(new String[] { "星期" });
 				br.setGroupTitle(new String[] { "1", "2", "3", "4", "5", "6", "7" });
 			}
@@ -109,7 +109,7 @@ public class FindFrag extends Fragment {
         br.setGroupData(4, new float[]{45f});
         br.setGroupData(5, new float[]{10f});
         br.setGroupData(6, new float[]{20f});
-        br.setBarColor(new int[] { Color.RED });
+        br.setBarColor(new int[] { 0xff9575cd });
 		br.setDataTitle(new String[] { "星期" });
 		br.setGroupTitle(new String[] { "1", "2", "3", "4", "5", "6", "7" });
 		

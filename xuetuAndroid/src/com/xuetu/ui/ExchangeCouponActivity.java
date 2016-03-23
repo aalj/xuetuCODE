@@ -22,14 +22,13 @@ import com.xuetu.entity.Student;
 import com.xuetu.utils.GetHttp;
 import com.xuetu.view.TitleBar;
 
-import android.R.integer;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.AlertDialog.Builder;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
-import android.preference.PreferenceActivity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -149,6 +148,9 @@ public class ExchangeCouponActivity extends Activity implements OnClickListener 
 						mycoupon.setMycouExchangeTime(new Date(System.currentTimeMillis()));
 						mycoupon.setStudent(student);
 						saveMycoupon(mycoupon);
+						Intent intent= new Intent();
+						intent.setClass(ExchangeCouponActivity.this, TheCollectionOfYouHuiJuanActivity.class);
+						startActivity(intent);
 					} else {
 						Toast.makeText(getApplicationContext(), "兑换失败，积分不足", 1).show();
 					}
@@ -173,6 +175,14 @@ public class ExchangeCouponActivity extends Activity implements OnClickListener 
 
 	}
 
+	@Override
+	public void onBackPressed() {
+		if (progressDialog != null)
+			progressDialog.dismiss();
+		super.onBackPressed();
+	}
+	
+	
 	private void saveMycoupon(MyCoupon myCoupon) {
 		try {
 			Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create();

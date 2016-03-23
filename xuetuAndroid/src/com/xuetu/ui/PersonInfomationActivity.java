@@ -32,6 +32,7 @@ public class PersonInfomationActivity extends Activity implements OnClickListene
 	RelativeLayout xuexiao;
 	TextView text_nicheng;
 	TextView sex;
+	TextView study_gexingqianming;
 	TextView text_age;
 	TextView text_grade;
 	TextView text_school;
@@ -48,6 +49,7 @@ public class PersonInfomationActivity extends Activity implements OnClickListene
 		nicheng = (RelativeLayout) findViewById(R.id.nicheng);
 		nicheng.setOnClickListener(this);
 		gexingqianming = (RelativeLayout) findViewById(R.id.gexingqianming);
+		study_gexingqianming = (TextView) findViewById(R.id.study_gexingqianming);
 		gexingqianming.setOnClickListener(this);
 		xingbie = (RelativeLayout) findViewById(R.id.xingbie);
 		xingbie.setOnClickListener(this);
@@ -62,7 +64,8 @@ public class PersonInfomationActivity extends Activity implements OnClickListene
 		text_grade = (TextView) findViewById(R.id.text_grade);
 		text_school = (TextView) findViewById(R.id.text_school);
 		sex = (TextView) findViewById(R.id.sex);
-
+		titlebar.setLeftLayoutClickListener(this);
+		titlebar.setRightLayoutClickListener(this);
 	}
 
 	@Override
@@ -78,10 +81,14 @@ public class PersonInfomationActivity extends Activity implements OnClickListene
 		case R.id.nicheng:
 			Intent intent = new Intent();
 			intent.setClass(this, EditNameActivity.class);
+			intent.putExtra("key2", 2);
 			startActivityForResult(intent, 2);
 			break;
 		case R.id.gexingqianming:
-
+			Intent intent3 = new Intent();
+			intent3.setClass(this, EditNameActivity.class);
+			intent3.putExtra("key2", 6);
+			startActivityForResult(intent3, 6);
 			break;
 		case R.id.xingbie:
 			showChangeSexDialog();
@@ -89,24 +96,36 @@ public class PersonInfomationActivity extends Activity implements OnClickListene
 		case R.id.nianling:
 			Intent intentage = new Intent();
 			intentage.setClass(this, ChangeAgeActivity.class);
+			intentage.putExtra("key2", 3);
 			startActivityForResult(intentage, 3);
 			break;
 		case R.id.nianji_grade:
 			Intent intentgrade = new Intent();
 			intentgrade.setClass(this, ChangeAgeActivity.class);
+			intentgrade.putExtra("key2", 4);
 			startActivityForResult(intentgrade, 4);
 			break;
 
 		case R.id.xuexiao:
-			Intent intentschool = new Intent();
-			intentschool.setClass(this, ChangeAgeActivity.class);
-			startActivityForResult(intentschool, 5);
+//			Intent intentschool = new Intent();
+//			intentschool.setClass(this, ChangeAgeActivity.class);
+//			intentschool.putExtra("key2", 5);
+//			startActivityForResult(intentschool, 5);
 			break;
+
+		
+
 		default:
 			break;
 		}
 
 	}
+	
+	
+	
+	
+	
+	
 
 	@Override
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -114,19 +133,30 @@ public class PersonInfomationActivity extends Activity implements OnClickListene
 		super.onActivityResult(requestCode, resultCode, data);
 		if (resultCode == 2 && requestCode == 2) {
 			String backResult = data.getStringExtra("ed_name");
-			text_nicheng.setText(backResult);
+			if (backResult != null)
+				text_nicheng.setText(backResult);
 		}
-		if (requestCode == 3 && requestCode == 3) {
-			String ageResult = data.getStringExtra("ed_age");
-			text_age.setText(ageResult);
+		if (resultCode == 3 && requestCode == 3) {
+			String ageResult = data.getStringExtra("ed_name");
+			if (ageResult != null)
+				text_age.setText(ageResult);
 		}
-		if (requestCode == 4 && requestCode == 4) {
-			String gradeResult = data.getStringExtra("ed_grade");
-			text_grade.setText(gradeResult);
+		if (resultCode == 4 && requestCode == 4) {
+			String gradeResult = data.getStringExtra("ed_name");
+			if (gradeResult != null)
+				text_grade.setText(gradeResult);
 		}
-		if (requestCode == 5 && requestCode == 5) {
-			String schoolResult = data.getStringExtra("ed_school");
-			text_grade.setText(schoolResult);
+		if (resultCode == 5 && requestCode == 5) {
+			String schoolResult = data.getStringExtra("ed_name");
+			if (schoolResult != null)
+
+				text_school.setText(schoolResult);
+		}
+		if (resultCode == 6 && requestCode == 6) {
+			String schoolResult = data.getStringExtra("ed_name");
+			if (schoolResult != null)
+				
+				study_gexingqianming.setText(schoolResult);
 		}
 
 	}

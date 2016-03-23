@@ -17,10 +17,12 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.UnsupportedEncodingException;
 import java.lang.reflect.Type;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.net.URLEncoder;
 import java.util.List;
 
 import org.json.JSONException;
@@ -28,6 +30,7 @@ import org.json.JSONObject;
 
 import com.xuetu.R;
 import com.xuetu.entity.Coupon;
+import com.xuetu.entity.Student;
 import com.xuetu.utils.GetHttp;
 import com.xuetu.utils.StreamUtils;
 import com.google.gson.Gson;
@@ -46,6 +49,7 @@ import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.SharedPreferences.Editor;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.content.pm.PackageManager.NameNotFoundException;
@@ -55,6 +59,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.os.SystemClock;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
@@ -168,13 +173,17 @@ public class SplashActivity extends Activity {
 	 * @throws @since CodingExample Ver 1.1
 	 */
 	private void initView() {
+		// 读取配置文件(设置功能生成的),判断设置里面是否,需要提醒升级
+		preferences = getSharedPreferences("config", MODE_PRIVATE);
 		getDate();
+		String telephone = preferences.getString("uasename", null);
+		String pwd = preferences.getString("pwd", null);
+		Log.i("TAG", telephone+"<<<------------->>>"+pwd);
+		getLogin(telephone,pwd);
 		tv_version = (TextView) findViewById(R.id.tv_splash_version);
 		tv_version.setText("版本号： " + getVersionNum());
 		tv_splash_progress = (TextView) findViewById(R.id.tv_splash_progress);
 
-		// 读取配置文件(设置功能生成的),判断设置里面是否,需要提醒升级
-		preferences = getSharedPreferences("config", MODE_PRIVATE);
 		//联网获取优惠券的信息
 		
 		
@@ -414,7 +423,7 @@ public class SplashActivity extends Activity {
 	 */
 	protected void enterHome() {
 		Intent intent = new Intent();
-		intent.setClass(SplashActivity.this, MainActivity.class);
+		intent.setClass(SplashActivity.this, LoginActivity.class);
 		startActivity(intent);
 		finish();
 
@@ -533,5 +542,56 @@ public class SplashActivity extends Activity {
 		}
 
 	}
+	
+	
+	public void getLogin(final String telephone, final String password) {
+		if (!TextUtils.isEmpty(telephone) && !TextUtils.isEmpty(password)) {
+			// 使用框架utils发送数据到服务器，
+			HttpUtils httpUtils = new HttpUtils();
+			// 10.201.1.5
+			String url = GetHttp.getHttpBCL()+"LoginAndroid";
+
+			RequestParams params = new RequestParams();
+			try {
+				params.addBodyParameter("telephone", URLEncoder.encode(telephone, "utf-8"));
+				params.addBodyParameter("pwd", URLEncoder.encode(password, "utf-8"));
+			} catch (UnsupportedEncodingException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			httpUtils.send(HttpMethod.POST, url, params, new RequestCallBack<String>() {
+
+				@Override
+				public void onFailure(HttpException arg0, String arg1) {
+					Log.i("TAG", arg1);
+					// TODO Auto-generated method stub
+
+				}
+
+				@Override
+				public void onSuccess(ResponseInfo<String> arg0) {
+					Log.i("TAG", "login");
+					// 从服务器得值 是否是正确
+					String result = arg0.result;
+					System.out.println(result);
+					if (result == null || "null".equals(result)) {
+						Toast.makeText(getApplicationContext(), "帐号或密码错误", 1).show();
+					} else {
+						Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create();
+						Student	student = gson.fromJson(result, Student.class);
+						
+						((XueTuApplication) getApplication()).setStudent(student);
+						
+						
+					}
+				}
+			});
+
+		} else {
+			Toast.makeText(getApplicationContext(), "请填写帐号或密码", 1).show();
+		}
+	}
+	
+	
 
 }
