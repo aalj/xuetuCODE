@@ -69,24 +69,26 @@ public class SubmitQuestion extends HttpServlet {
 			smartUpload.upload();
 			String realPath = this.getServletContext().getRealPath("xuetuImg");
 			File dir = new File(realPath);
+			System.out.println("realPath:"+realPath);
 			if(!dir.exists()){
 				//创建文件夹
 				dir.mkdir();
 				System.out.println("创建新文件夹");
 			}
 			
-			System.out.println(smartUpload.getFiles().getCount()+"count");
+//			System.out.println(smartUpload.getFiles().getCount()+"count");
 			com.jspsmart.upload.File poster = smartUpload.getFiles().getFile(0);
 			if(!poster.isMissing()){	
 				//poster.getFileName()    原文件名
 				File file = new File(getServletContext().getRealPath("xuetuImg"),poster.getFileName());
-				System.out.println("filename"+poster.getFileName());
+				System.out.println("posterfilename"+poster.getFileName());
+				System.out.println("getrealpathxurtuImg"+getServletContext().getRealPath("xuetuImg"));
 				String saveFileName = file.getAbsolutePath();
-				System.out.println("saveFileName"+saveFileName);
+				System.out.println("file getabsolutepath"+saveFileName);
 				//文件保存路径
 				poster.saveAs(saveFileName);
 				poster.saveAs("F:\\xuetuGIT\\xuetuCODE\\xuetuWeb\\WebContent\\xuetuImg\\"+poster.getFileName());
-				System.out.println(getServletContext().getRealPath("xuetuImg")+"-----servletContextrealPath");
+//				System.out.println(getServletContext().getRealPath("xuetuImg")+"-----servletContextrealPath");
 			}
 			//获得question对象,发表问题
 			stuId = Integer.parseInt(smartUpload.getRequest().getParameter("stuId"));
@@ -94,7 +96,7 @@ public class SubmitQuestion extends HttpServlet {
 			quesTimeStr = smartUpload.getRequest().getParameter("quesTime");
 			long parseLong = Long.parseLong(quesTimeStr);
 			quesTime = new Date(new Timestamp(parseLong).getTime());
-			quesImg = "xuetuImg//"+poster.getFileName();
+			quesImg = "xuetuImg/"+poster.getFileName();
 			System.out.println("quesImg"+quesImg);
 			acpoNum = Integer.parseInt(smartUpload.getRequest().getParameter("acpoNum"));
 			subId = Integer.parseInt(smartUpload.getRequest().getParameter("subId"));

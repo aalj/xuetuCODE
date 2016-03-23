@@ -25,7 +25,7 @@ import com.xuetu.service.inter.QuestionServiceInter;
 /**
  * Servlet implementation class GetAllQuestion
  */
-@WebServlet("/GetPageQuestion1")
+@WebServlet("/GetPageQuestion")
 public class GetPageQuestion extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	QuestionServiceInter q = new QuestionService(new QuestionIml());
@@ -35,13 +35,12 @@ public class GetPageQuestion extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		SimpleDateFormat sdf = new SimpleDateFormat("HH:mm:ss");
-		System.out.println("In"+sdf.format(new Date(System.currentTimeMillis())));
+//		System.out.println("In"+sdf.format(new Date(System.currentTimeMillis())));
 		request.setCharacterEncoding("utf-8");
 		response.setCharacterEncoding("utf-8");
 		response.setContentType("text/html;charset=UTF-8");
 		List<Question> questions = new ArrayList<Question>();
 		questions = q.queryLimitQuestion(1, 5);
-		System.out.println(questions.get(2).getQuesIma());
 		String jsonStr = null;
 		Gson gson = new GsonBuilder()  
 				  .setDateFormat("yyyy-MM-dd HH:mm:ss")  
@@ -50,7 +49,7 @@ public class GetPageQuestion extends HttpServlet {
 		PrintWriter pw = response.getWriter();
 		pw.write(jsonStr);
 
-		System.out.println("end"+sdf.format(new Date(System.currentTimeMillis())));
+//		System.out.println("end"+sdf.format(new Date(System.currentTimeMillis())));
 		pw.close();
 	}
 

@@ -13,6 +13,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
 import com.xuetu.dao.QuestionIml;
 import com.xuetu.entity.Answer;
@@ -49,10 +50,15 @@ public class GetPageAnswer extends HttpServlet {
 		response.setCharacterEncoding("utf-8");
 		response.setContentType("text/html;charset=UTF-8");
 		ques_id = Integer.parseInt(request.getParameter("Ques_id"));
-		list = Qservice.getAnswerByQuesId(ques_id,1,2);
-		Gson gson = new Gson();
+		list = Qservice.getAnswerByQuesId(ques_id,1,5);
+		Gson gson = new GsonBuilder()
+				.enableComplexMapKeySerialization()
+				.setPrettyPrinting()
+				.disableHtmlEscaping()
+				.setDateFormat("yyyy-MM-dd HH:mm:ss").create();
 		jsonStr = gson.toJson(list);
 		PrintWriter pw = response.getWriter();
+		System.out.println(jsonStr);
 		pw.write(jsonStr);
 		pw.flush();
 		pw.close();

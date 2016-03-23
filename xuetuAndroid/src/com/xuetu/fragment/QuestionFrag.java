@@ -35,6 +35,7 @@ import com.xuetu.adapter.ViewHodle;
 import com.xuetu.entity.Question;
 import com.xuetu.ui.Answer_list;
 import com.xuetu.ui.Question_ask;
+import com.xuetu.ui.XueTuApplication;
 import com.xuetu.utils.GetHttp;
 
 import android.content.Context;
@@ -83,30 +84,38 @@ public class QuestionFrag extends Fragment implements OnClickListener{
 	RelativeLayout rl_top;
 	RelativeLayout rl_left;
 	RelativeLayout rl_right;
-	TextView tv_sub;
+	RelativeLayout right_layout;
+	TextView tv_title;
 	ImageView iv_back;
 	String url = null;
+	int sub_id = 0;
+	int stu_id = 0;
 	SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 	MyBasesadapter<Question> adapter = null;
 //	MyQuestionListBaseAdapter adapter = null;
 	@Override
 	public View onCreateView(final LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 		view = inflater.inflate(R.layout.question_frag, null);
+		right_layout = (RelativeLayout) view.findViewById(R.id.right_layout);
 		viewPop = inflater.inflate(R.layout.title, null);
-		tv_sub = (TextView) viewPop.findViewById(R.id.tv_subAll);
-		iv_back = (ImageView) view.findViewById(R.id.iv_back);
-		iv_back.setVisibility(View.INVISIBLE);
+		tv_title = (TextView) view.findViewById(R.id.tv_title);
 		lv = (ListView) view.findViewById(R.id.lv_question);
 		InitData();
 		return view;
 
 		
 	}
-	
+	@Override
+	public void onResume() {
+		stu_id = ((XueTuApplication)getActivity().getApplication()).getStudent().getStuId();
+		
+		super.onResume();
+	}
 	
 	public void setOnclickListener(){
 		rl_right.setOnClickListener(this);
-		tv_sub.setOnClickListener(this);
+		tv_title.setOnClickListener(this);
+		right_layout.setOnClickListener(this);
 	}
 	/**发送网络请求，下载所有问题信息
 	 * 
@@ -139,7 +148,7 @@ public class QuestionFrag extends Fragment implements OnClickListener{
 				adapter = new MyBasesadapter<Question>(getContext(),list,R.layout.question_listitem) {
 
 					@Override
-					public void convert(ViewHodle viewHolder, final Question item) {
+					public void convert(ViewHodle viewHolder,   final Question item) {
 						// TODO Auto-generated method stub
 						viewHolder.setText(R.id.tv_ques_text, item.getQuesText());
 						viewHolder.setText(R.id.tv_subject, item.getSubject().getName());
@@ -149,10 +158,22 @@ public class QuestionFrag extends Fragment implements OnClickListener{
 						}
 						sdf.format(new Date(item.getQuesDate().getTime()));
 						rl_top = viewHolder.getView(R.id.rl_top);
-						rl_left = viewHolder.getView(R.id.rl_top);
+						rl_left = viewHolder.getView(R.id.rl_left);
 						rl_right = viewHolder.getView(R.id.rl_right);
 						setOnclickListener();
 						rl_top.setOnClickListener(new OnClickListener() {
+							
+							@Override
+							public void onClick(View v) {
+								// TODO Auto-generated method stub
+								Intent intentAnswer = new Intent(getContext(),Answer_list.class);
+								Bundle bundle = new Bundle();
+								bundle.putSerializable("curQues",item);
+								intentAnswer.putExtras(bundle);
+								startActivity(intentAnswer);
+							}
+						});
+						rl_left.setOnClickListener(new OnClickListener() {
 							
 							@Override
 							public void onClick(View v) {
@@ -197,7 +218,7 @@ public class QuestionFrag extends Fragment implements OnClickListener{
 //           }
 //       });
        final PopupWindow popupWindow = new PopupWindow(contentView,
-               LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT, true);
+               LayoutParams.MATCH_PARENT, 180, true);
        popupWindow.setTouchable(true);
        popupWindow.setTouchInterceptor(new OnTouchListener() {
 			@Override
@@ -222,12 +243,35 @@ public class QuestionFrag extends Fragment implements OnClickListener{
 		// TODO Auto-generated method stub
 		switch(v.getId()){
 		case R.id.rl_right:
+			Toast.makeText(getContext(), "这是一个未完成的点赞功能", 0).show();
+			break;
+		case R.id.tv_title:
+			showPopupWinow(v);
+			lv.setFocusableInTouchMode(true);
+			break;
+		case R.id.right_layout:
+			Toast.makeText(getContext(), stu_id+"", 0).show();
+			if(stu_id>0){
 			Intent intent = new Intent(getContext(),Question_ask.class);
 			getContext().startActivity(intent);
-			Toast.makeText(getContext(), "right", Toast.LENGTH_LONG).show();
-		case R.id.tv_sub:
-			showPopupWinow(v);
-		
+			}else{
+				Toast.makeText(getContext(), "请先登录哟！", 0).show();
+			}
+			break;
+		case R.id.tv_sub1:
+			sub_id = 1;
+			break;
+		case R.id.tv_sub2:
+			sub_id = 2;
+			Toast.makeText(getContext(), "这个学科还没有问题，快去当第一人吧!!", 0).show();
+			break;
+		case R.id.tv_sub3:
+			sub_id = 3;
+			Toast.makeText(getContext(), "这个学科还没有问题，快去当第一人吧!!", 0).show();
+			break;
+		case R.id.tv_sub4:
+			sub_id = 4;
+			Toast.makeText(getContext(), "这个学科还没有问题，快去当第一人吧!!", 0).show();
 			break;
 		}
 	}

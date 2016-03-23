@@ -34,7 +34,7 @@ public class QuestionIml implements QuesTionDao {
 		PreparedStatement prep = null;
 		try {
 			conn = DBconnection.getConnection();
-			sql = "select * from answer where ques_id=? order by answer.ans_time desc limit"+ (page-1)*num+","+num;
+			sql = "select * from answer where ques_id=? order by answer.ans_time desc limit "+ (page-1)*num+","+num;
 			prep = conn.prepareStatement(sql);
 			prep.setInt(1, ques_id);
 			ResultSet rs = prep.executeQuery();

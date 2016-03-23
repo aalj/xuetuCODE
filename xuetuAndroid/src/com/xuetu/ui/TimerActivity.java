@@ -67,8 +67,11 @@ public class TimerActivity extends Activity {
 	private String st_date = null;
 	private int st_id = 0;
 	
-	
-	
+//	boolean flag = true;
+//	boolean planflag=true;
+//	//这两个判断 实在改页面结束时返回给home_page_fragment 的值,以确保首页可以进行滑动判定
+//	
+//	
 
 	
 	//用来显示在TextView上面的时间,同时记录总的学习时间(秒)
@@ -92,6 +95,7 @@ public class TimerActivity extends Activity {
 		
 		Intent intent = getIntent();
 		alltime = intent.getLongExtra("ss", 0);
+		stu_id = intent.getIntExtra("stu_id", 0);
 		
 		showTime=(TextView) findViewById(R.id.tv_showtime);
 //		runTime= (Button) findViewById(R.id.home_btn_up);
@@ -111,15 +115,12 @@ public class TimerActivity extends Activity {
             // TODO Auto-generated method stub
 	        	while(alltime>0)//当循环达到10分钟的时候,执行该语句
 	            {
-	        		System.out.println("alltime>>>>>>>>>>>>>>>>>>>"+alltime);
 	            	alltime--;//学习总时间 逐渐减少
 	        		round++;//10分钟循环变量
 	        		st_time++;//记录学生学习时间
 	        		System.out.println("round="+round);
 	                if(round==10){
-	                	System.out.println("````````111```````````");
 	                	integral_double++;//每到600秒,积分倍数+1(初始值0)
-	                	System.out.println("``````````222`````````"+integral_double);
 	                	mHandler.post(new Runnable() {//通过它在UI主线程中修改显示的剩余时间
 	                    @Override
 	                    public void run() {
@@ -155,7 +156,7 @@ public class TimerActivity extends Activity {
 	                System.out.println("-----------------"+integral_double);
 	                System.out.println("-----------------"+st_time);
 	                if(alltime==0){
-  	                	 //下面是倒计时结束逻辑
+  	                	 //下面是计时结束逻辑
   	                    mHandler.post(new Runnable() {
   	                    	
   	                        @Override
@@ -207,7 +208,7 @@ public class TimerActivity extends Activity {
     		requestParams.addBodyParameter("integral",String.valueOf(getIntegral(integral_double)));
     		requestParams.addBodyParameter("st_date", getTime());
     		requestParams.addBodyParameter("st_id", "1");
-//    		requestParams.addBodyParameter("stu_id", student.getStuId()+"");//学生id
+    		requestParams.addBodyParameter("stu_id", stu_id+"");//学生id
     		httpUtils.send(HttpMethod.POST, url,requestParams,new RequestCallBack<String>() {
     			
     			@Override
@@ -263,5 +264,22 @@ public class TimerActivity extends Activity {
             alltime = 0;//修改倒计时剩余时间变量为0秒
             integral_double=0;
             st_time=0;
+            
+//            Intent intent = new Intent(this,
+//					HomePageFrag.class);
+//			intent.putExtra("flag", flag);
+//			intent.putExtra("planflag", planflag);
+//			
+			finish();
+            
+    }
+    
+    
+    @Override
+    public void onBackPressed() {
+    	// TODO Auto-generated method stub
+    	endTime();
+    	
+    	super.onBackPressed();
     }
 }

@@ -50,6 +50,7 @@ public class BackStudyTime extends HttpServlet {
 		Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create();
 		
 		String favcoupons = gson.toJson(allSelfStudyPlan);
+		System.out.println(favcoupons+"aaaaaaaaaaaaaaaaaaa");
 		writer.print(favcoupons);
 		
 	}
