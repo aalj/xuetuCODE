@@ -83,7 +83,7 @@ public class QuestionFrag extends Fragment implements OnClickListener{
 	RelativeLayout rl_top;
 	RelativeLayout rl_left;
 	RelativeLayout rl_right;
-	TextView tv_sub;
+	TextView tv_subAll;
 	ImageView iv_back;
 	String url = null;
 	SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
@@ -93,9 +93,7 @@ public class QuestionFrag extends Fragment implements OnClickListener{
 	public View onCreateView(final LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 		view = inflater.inflate(R.layout.question_frag, null);
 		viewPop = inflater.inflate(R.layout.title, null);
-		tv_sub = (TextView) viewPop.findViewById(R.id.tv_subAll);
-		iv_back = (ImageView) view.findViewById(R.id.iv_back);
-		iv_back.setVisibility(View.INVISIBLE);
+		tv_subAll = (TextView) viewPop.findViewById(R.id.tv_subAll);
 		lv = (ListView) view.findViewById(R.id.lv_question);
 		InitData();
 		return view;
@@ -106,7 +104,7 @@ public class QuestionFrag extends Fragment implements OnClickListener{
 	
 	public void setOnclickListener(){
 		rl_right.setOnClickListener(this);
-		tv_sub.setOnClickListener(this);
+		tv_subAll.setOnClickListener(this);
 	}
 	/**发送网络请求，下载所有问题信息
 	 * 
@@ -136,11 +134,13 @@ public class QuestionFrag extends Fragment implements OnClickListener{
 				  .create();
 				Type listtype = new TypeToken<List<Question>>(){}.getType();
 				list = gson.fromJson(arg0.result, listtype);
+				Log.i("hehe", "convert");
 				adapter = new MyBasesadapter<Question>(getContext(),list,R.layout.question_listitem) {
 
 					@Override
-					public void convert(ViewHodle viewHolder, final Question item) {
+					public void convert(ViewHodle viewHolder,   final Question item) {
 						// TODO Auto-generated method stub
+						Log.i("hehe", "convert");
 						viewHolder.setText(R.id.tv_ques_text, item.getQuesText());
 						viewHolder.setText(R.id.tv_subject, item.getSubject().getName());
 						viewHolder.setText(R.id.tv_time,sdf.format(new Date(item.getQuesDate().getTime())) );

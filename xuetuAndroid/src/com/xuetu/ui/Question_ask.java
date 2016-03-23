@@ -158,10 +158,10 @@ public class Question_ask extends Activity implements OnClickListener{
 		String url = GetHttp.getHttpLC()+"SubmitQuestion";
 		RequestParams params = new RequestParams();
 		params.addBodyParameter(file.getAbsolutePath().replace("/", ""),file);
+		Log.i("hehe", quesIma);
 		params.addBodyParameter("stuId",String.valueOf(stuId));
 		params.addBodyParameter("quesText",et_question.getText().toString());
 		params.addBodyParameter("quesTime",quesTime+"");
-		System.out.println(String.valueOf(quesTime));
 		params.addBodyParameter("acpoNum",String.valueOf(acpoNum));
 		params.addBodyParameter("subId",String.valueOf(subId));
 		params.addBodyParameter("quesIma",quesIma);

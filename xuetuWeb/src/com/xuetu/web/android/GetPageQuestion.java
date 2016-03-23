@@ -25,7 +25,7 @@ import com.xuetu.service.inter.QuestionServiceInter;
 /**
  * Servlet implementation class GetAllQuestion
  */
-@WebServlet("/GetPageQuestion1")
+@WebServlet("/GetPageQuestion")
 public class GetPageQuestion extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	QuestionServiceInter q = new QuestionService(new QuestionIml());

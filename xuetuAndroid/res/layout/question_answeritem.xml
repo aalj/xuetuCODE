@@ -4,14 +4,14 @@
     android:layout_height="match_parent" >
 
     <RelativeLayout
-        android:id="@+id/rl_top"
+        android:id="@+id/rl_ans_top"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
         android:layout_alignParentTop="true" >
 
         <TextView
-            android:id="@+id/tv_time"
+            android:id="@+id/tv_ans_time"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
@@ -20,74 +20,81 @@
             android:layout_marginTop="5dp"
             android:text="2小时前" />
 
-        <TextView
-            android:id="@+id/tv_ques_text"
+      <TextView
+            android:id="@+id/tv_ans_ques_text"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
             android:layout_marginRight="10dp"
-            android:layout_alignLeft="@+id/iv_userImg"
-            android:layout_below="@id/tv_time"
+            android:layout_below="@id/tv_ans_time"
             android:layout_marginTop="5dp"
             android:text="问题描述ques_text 111111111111111111111111111111111111" />
 
         <ImageView
-            android:id="@+id/iv_ques_img"
+            android:id="@+id/iv_ans_img"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignLeft="@+id/tv_ques_text"
-            android:layout_below="@+id/tv_ques_text"
+            android:layout_alignLeft="@+id/tv_ans_ques_text"
+            android:layout_below="@+id/tv_ans_ques_text"
             android:layout_marginTop="5dp"
             android:src="@drawable/login_lib_logo" />
 
-        <TextView
-            android:id="@+id/tv_delete"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignLeft="@+id/tv_ques_text"
-            android:layout_below="@+id/iv_ques_img"
-            android:layout_marginTop="5dp"
-            android:text="删除" />
-
         <ImageView
-            android:id="@+id/iv_userImg"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:id="@+id/iv_ans_userImg"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
             android:layout_alignParentLeft="true"
-            android:layout_alignTop="@+id/iv_userImg"
+            android:layout_alignParentTop="true"
+            android:layout_alignTop="@+id/iv_ans_userImg"
             android:layout_marginLeft="10dp"
-            android:layout_marginTop="15dp"
+            android:layout_marginTop="5dp"
             android:src="@drawable/userimg" />
-
-        <TextView
-            android:id="@+id/tv_stuName"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_above="@+id/tv_ques_text"
-            android:layout_alignParentLeft="true"
-            android:layout_marginLeft="49dp"
-            android:text="用户名" />
 
         <LinearLayout 
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
             android:layout_alignParentRight="true"
-            android:layout_below="@+id/iv_ques_img"
-            android:layout_toRightOf="@+id/iv_ques_img">
-        <ImageView
-            android:id="@+id/imageView1"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            
-            android:src="@drawable/collect" />
-        <TextView 
+            android:layout_below="@+id/iv_ans_ques_img"
+            android:layout_toRightOf="@+id/iv_ans_ques_img">
+        </LinearLayout>
+        <!--   
+            android:layout_marginBottom="@id/tv_delete"  -->
+        <TextView
+        android:id="@+id/tv_ans_delete"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@id/iv_ans_img"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="5dp"
+        android:text="删除" />
+
+<TextView 
+    		android:id="@+id/tv_argreement"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginRight="10dp"
             android:text="大拇指图标+数字(点赞数)"
-            android:layout_marginBottom="@id/tv_delete"
+            android:layout_alignParentRight="true"
+         	android:layout_alignBottom="@id/tv_ans_delete"
             />
-        </LinearLayout>
+<ImageView
+            android:id="@+id/imageView1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toLeftOf="@id/tv_argreement"
+         	android:layout_alignBottom="@id/tv_ans_delete"
+            
+            android:src="@drawable/collect" />
+        <TextView
+            android:id="@+id/tv_ans_stuName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@+id/iv_ans_userImg"
+            android:layout_toRightOf="@+id/tv_ans_delete"
+            android:text="用户名" />
+
     </RelativeLayout>
 
 </RelativeLayout>

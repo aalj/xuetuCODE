@@ -86,9 +86,10 @@ public class SubmitAnswer extends HttpServlet {
 			ques_id = Integer.parseInt(smartUpload.getRequest().getParameter("ques_id"));
 			stu_id =  Integer.parseInt(smartUpload.getRequest().getParameter("stu_id"));
 			ans_text = smartUpload.getRequest().getParameter("ans_text");
+			ans_timeStr = smartUpload.getRequest().getParameter("ans_time");
 			long parseLong = Long.parseLong(ans_timeStr);
 			ans_time = new Date(new Timestamp(parseLong).getTime());
-			ans_ima = "xuetuImg//"+poster.getFileName();
+			ans_ima = "xuetuImg/"+poster.getFileName();
 			a = Qservice.createAnswer(ques_id, stu_id, ans_text, ans_ima, ans_time);
 			Qservice.submitAnswer(a);
 		} catch (Exception e) {

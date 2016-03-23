@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+    <RelativeLayout
+        android:id="@+id/rl_ans1_top"
+        android:layout_below="@id/title_question_answer"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" >
+ 		<TextView
+            android:id="@+id/tv_ans1_text"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="10dp"
+            android:layout_alignLeft="@+id/iv_ans1_userImg"
+            android:layout_below="@id/iv_ans1_userImg"
+            android:layout_marginTop="5dp"
+            android:text="问题描述ques_text 111111111111111111111111111111111111" />
+        <TextView
+            android:id="@+id/tv_ans1_time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+			android:layout_alignRight="@id/tv_ans1_text"
+            android:layout_alignParentTop="true"
+            android:layout_marginRight="15dp"
+            android:layout_marginTop="10dp"
+            android:text="2小时前" />
+
+       
+
+        <ImageView
+            android:id="@+id/iv_ans1_first_img"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@+id/tv_ans1_text"
+            android:layout_below="@+id/tv_ans1_text"
+            android:contentDescription="@string/app_name"
+            android:layout_marginTop="5dp"
+            android:layout_marginBottom="5dp"
+            android:src="@drawable/login_lib_logo" />
+
+        <TextView
+            android:id="@+id/tv_ans1_sub"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@+id/tv_ans1_text"
+            android:layout_below="@+id/iv_ans1_first_img"
+            android:layout_marginBottom="3dp"
+            android:textColor="@color/gray"
+            android:text="学科" />
+
+        <ImageView
+            android:id="@+id/iv_ans1_userImg"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_alignTop="@+id/iv_ans1_userImg"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="10dp"
+            android:contentDescription="@string/app_name"
+            android:src="@drawable/userimg" />
+
+        <TextView
+            android:id="@+id/tv_ans1_stuName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_above="@+id/tv_ans1_text"
+            android:layout_alignTop="@id/tv_ans1_time"
+            android:layout_marginLeft="49dp"
+            android:text="用户名" />
+
+        <ImageView
+            android:id="@+id/iv_ans1_img"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+			android:layout_alignRight="@id/tv_ans1_text"
+			android:layout_alignTop="@id/tv_ans1_sub"
+			android:contentDescription="@string/app_name"
+            android:src="@drawable/collect" />
+
+        <TextView
+            android:id="@+id/textView1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toLeftOf="@+id/iv_ans1_img"
+			android:layout_alignTop="@id/tv_ans1_sub"
+            android:text="评论数目" />
+
+    </RelativeLayout>
+
+</LinearLayout>
