@@ -1,10 +1,14 @@
 package com.xuetu.ui;
 
+import java.lang.reflect.Type;
 import java.sql.Date;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Locale;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.google.gson.reflect.TypeToken;
 import com.lidroid.xutils.HttpUtils;
 import com.lidroid.xutils.exception.HttpException;
 import com.lidroid.xutils.http.RequestParams;
@@ -16,6 +20,7 @@ import com.xuetu.R;
 import com.xuetu.R.id;
 import com.xuetu.R.layout;
 import com.xuetu.R.menu;
+import com.xuetu.entity.SelfStudyPlan;
 import com.xuetu.entity.Student;
 import com.xuetu.fragment.HomePageFrag;
 import com.xuetu.utils.GetHttp;
@@ -81,13 +86,13 @@ public class TimerActivity extends Activity {
 	//获取这节课/学习计划的学习时间
 	int st_time = 0;
 	
-	int stu_id = 3;
+	int stu_id = 0;
 	//每过十分钟,积分倍数+1
 	int integral_double=0;
 	//十分钟循环体
 	int round = 0;
 	Student student ;
-	
+	String stu_from_home;
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -96,6 +101,11 @@ public class TimerActivity extends Activity {
 		Intent intent = getIntent();
 		alltime = intent.getLongExtra("ss", 0);
 		stu_id = intent.getIntExtra("stu_id", 0);
+		stu_from_home = intent.getStringExtra("student");
+		Type type = new TypeToken<Student>() {}.getType();
+		Gson gson = new GsonBuilder().setDateFormat(
+				"yyyy-MM-dd HH:mm:ss").create();
+		student = gson.fromJson(stu_from_home, type);
 		
 		showTime=(TextView) findViewById(R.id.tv_showtime);
 //		runTime= (Button) findViewById(R.id.home_btn_up);
@@ -128,8 +138,6 @@ public class TimerActivity extends Activity {
 	                    	showTime.setText(secondFormat(st_time));//显示 00:00
 	                    	showss.setText(ssFormat(st_time)); //显示00 秒
 	                    	round=0;//初始时间赋值0;重新开始计时
-	                        
-	                    	
 	                    }
 	                });
 	                try {
@@ -153,8 +161,6 @@ public class TimerActivity extends Activity {
 		                        e.printStackTrace();
 		                    }
 	                }
-	                System.out.println("-----------------"+integral_double);
-	                System.out.println("-----------------"+st_time);
 	                if(alltime==0){
   	                	 //下面是计时结束逻辑
   	                    mHandler.post(new Runnable() {
@@ -198,7 +204,7 @@ public class TimerActivity extends Activity {
     
     class SaveTimeAndIntegral {
     	
-    	public void saveStudyTime(int st_time,int integral_double)
+    	public void saveStudyTime(int st_time,int integral_double,String stu_from_home)
     	{
     		String url =GetHttp.getHttpKY()+"AddStudyTime";
     		
@@ -209,6 +215,9 @@ public class TimerActivity extends Activity {
     		requestParams.addBodyParameter("st_date", getTime());
     		requestParams.addBodyParameter("st_id", "1");
     		requestParams.addBodyParameter("stu_id", stu_id+"");//学生id
+    		requestParams.addBodyParameter("student", stu_from_home);//学生id
+    		System.out.println(stu_from_home);
+    		System.out.println("------------1----------"+stu_id);
     		httpUtils.send(HttpMethod.POST, url,requestParams,new RequestCallBack<String>() {
     			
     			@Override
@@ -249,7 +258,6 @@ public class TimerActivity extends Activity {
     	return itg ;
     }
     
-
     
     /**
      * 计时页面结束时执行的语句
@@ -259,21 +267,17 @@ public class TimerActivity extends Activity {
             // TODO Auto-generated method stub
            	showTime.setText("00:00");//计时器结束,把时分秒的值归零
            	showss.setText("00");
-           	new SaveTimeAndIntegral().saveStudyTime(st_time, integral_double);
-            Toast.makeText(TimerActivity.this, "下课啦"+getIntegral(integral_double)+"积分到手咯!!", Toast.LENGTH_LONG).show();//提示倒计时完成
+           	if(alltime!=0)
+           	{
+               	new SaveTimeAndIntegral().saveStudyTime(st_time, integral_double,stu_from_home);
+                Toast.makeText(TimerActivity.this, "下课啦"+getIntegral(integral_double)+"积分到手咯!!", Toast.LENGTH_LONG).show();//提示倒计时完成
+
+           	}
             alltime = 0;//修改倒计时剩余时间变量为0秒
             integral_double=0;
             st_time=0;
-            
-//            Intent intent = new Intent(this,
-//					HomePageFrag.class);
-//			intent.putExtra("flag", flag);
-//			intent.putExtra("planflag", planflag);
-//			
 			finish();
-            
     }
-    
     
     @Override
     public void onBackPressed() {

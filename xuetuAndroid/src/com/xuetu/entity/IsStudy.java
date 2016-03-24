@@ -5,6 +5,9 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+
 public class IsStudy {
 	
 	private String [][] class_time={
@@ -210,8 +213,16 @@ public class IsStudy {
 	
 
 	
+	/**
+	 * Student 类转化成json
+	 */
 	
-	
+	public String stu_to_json(Student student)
+	{
+		Gson  gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create();
+		String stu = gson.toJson(student);
+		return stu;
+	}
 	
 	
 }
