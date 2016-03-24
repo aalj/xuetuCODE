@@ -285,6 +285,7 @@ public class Answer_list extends Activity implements OnClickListener{
 //							Log.i("hehe", "------>"+sdf2.format(new Date(item.getAnsTime().getTime())));
 							viewHolder.setText(R.id.tv_ans_time,sdf2.format(new Date(item.getAnsTime().getTime())));
 							viewHolder.setText(R.id.tv_ans_stuName, item.getStudent().getStuName());
+							http://10.201.1.13:8080/xuetuWeb/+
 							viewHolder.SetUrlImage(R.id.iv_ans_img,GetHttp.getHttpLC()+item.getAnsImg());
 							viewHolder.SetUrlImage(R.id.iv_ans_userImg,GetHttp.getHttpLC()+item.getStudent().getStuIma());
 							

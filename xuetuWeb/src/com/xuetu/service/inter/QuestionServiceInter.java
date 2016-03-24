@@ -59,5 +59,5 @@ public interface QuestionServiceInter {
 	
 	public Question getQuestionByQuesId(int ques_id);
 	
-	
+	public List<Question> getAllQuestion();
 }

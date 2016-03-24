@@ -47,4 +47,16 @@ public class LoginService implements PersonalServiceInter {
 		return personalDaoInterface.getFavoritecouByStuID(stuID);
 	}
 
+	@Override
+	public void updateStu_img(int stu_id, String stu_img) {
+		// TODO Auto-generated method stub
+		personalDaoInterface.updateStu_img(stu_id, stu_img);
+	}
+
+	@Override
+	public Student getStuByID(int Id) {
+		// TODO Auto-generated method stub
+		return personalDaoInterface.getStuByID(Id);
+	}
+
 }

@@ -16,7 +16,14 @@ public interface PersonalServiceInter {
 	 * @return
 	 */
 	public Student getStusByPhoneAndPwd(String telephone, String password);
-
+	/**
+	 * 通过stu_id获得student对象
+	 * 
+	 * @param telephpne
+	 * @param password
+	 * @return
+	 */
+	public Student getStuByID(int Id);
 	public List<MyClass> getListCourse(int Stuid);
 
 	/**
@@ -38,5 +45,5 @@ public interface PersonalServiceInter {
 	 */
 	public List<FavoritesCoupons> getFavoritecouByStuID(int stuID);
 	
-
+	public void updateStu_img(int stu_id,String stu_img);
 }

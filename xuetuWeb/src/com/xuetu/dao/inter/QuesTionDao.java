@@ -219,6 +219,6 @@ public interface QuesTionDao {
 	 * @throws 
 	 * @since  CodingExample　Ver 1.1
 	 */
-	
+	public List<Question> getAllQuestion();
 }
 

@@ -368,4 +368,31 @@ public class LoginDao implements PersonalDaoInterface {
 		}
 		return null;
 	}
+
+	@Override
+	public void updateStu_img(int stu_id, String stu_img) {
+		// TODO Auto-generated method stub
+		Connection connection = DBconnection.getConnection();
+		PreparedStatement prepareStatement = null;
+		String sql = " update student set stu_img=? where stu_id=?;";
+		try {
+			prepareStatement = connection.prepareStatement(sql);
+			prepareStatement.setString(1, stu_img);
+			prepareStatement.setInt(2, stu_id);
+			prepareStatement.executeUpdate();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+
+		} finally {
+			try {
+				if (connection != null)
+					connection.close();
+				if (prepareStatement != null)
+					prepareStatement.close();
+			} catch (Exception e) {
+				throw new RuntimeException(e);
+			}
+		}
+	}
 }

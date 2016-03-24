@@ -16,14 +16,15 @@
         android:id="@+id/left_ans_layout"
         android:layout_width="50dip"
         android:layout_height="match_parent"
-        android:background="@drawable/common_tab_bg"
-        android:clickable="true" >
+        android:background="@drawable/common_tab_bg" >
 
-        <ImageView 
+        <ImageView
             android:id="@+id/left_ans_image"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
             android:src="@drawable/back_title" />
+
     </RelativeLayout>
 
     <TextView

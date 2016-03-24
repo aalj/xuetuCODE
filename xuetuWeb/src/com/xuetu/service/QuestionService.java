@@ -128,5 +128,11 @@ public class QuestionService implements QuestionServiceInter {
 		// TODO Auto-generated method stub
 		return q.getQuestionByQuesId(ques_id);
 	}
+
+	@Override
+	public List<Question> getAllQuestion() {
+		// TODO Auto-generated method stub
+		return q.getAllQuestion();
+	}
 	
 }

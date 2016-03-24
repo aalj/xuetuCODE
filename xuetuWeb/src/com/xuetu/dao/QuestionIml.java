@@ -430,7 +430,47 @@ public class QuestionIml implements QuesTionDao {
 		return new Answer(stu_id, getQuestionByQuesId(ques_id),getStudentByStuId(stu_id, getSchIdByStuId(stu_id)), ans_text, ans_ima, ans_time);
 	}
 
-	
+	@Override
+	public List<Question> getAllQuestion() {
+		// TODO Auto-generated method stub
+			Connection conn = null;
+			PreparedStatement prep= null;
+			String sql = null;
+			List<Question> questions = new ArrayList<Question>();
+			ResultSet rs = null;
+			// 指针从第一行属性字段开始
+			try {
+				conn = DBconnection.getConnection();
+				sql = "select * from question order by ques_time desc ";
+				prep = conn.prepareStatement(sql);
+				/*prep.setInt(1, 2);
+				prep.setInt(2, 2);*/
+				rs = prep.executeQuery(sql);
+				while (rs.next()) {
+					Question q = new Question();
+					q.setQuesID(rs.getInt("ques_id"));
+					q.setStudent(getStudentByStuId(rs.getInt("stu_id"), getSchIdByStuId(rs.getInt("stu_id"))));
+					q.setQuesText(rs.getString("ques_text"));
+					q.setQuesIma(rs.getString("ques_img"));
+					q.setQuesDate(rs.getTimestamp("ques_time"));
+					q.setAcpo_num(rs.getInt("acpo_num"));
+					q.setSubject(getSubjectBySubId(rs.getInt("sub_id")));
+					questions.add(q);
+				}
+				return questions;
+			} catch (Exception e) {
+				throw new RuntimeException(e);
+			} finally {
+				try {
+					if (conn != null)
+						conn.close();
+					if (prep != null)
+						prep.close();
+				} catch (Exception e) {
+					throw new RuntimeException(e);
+				}
+			}
+		}
 }
 
 

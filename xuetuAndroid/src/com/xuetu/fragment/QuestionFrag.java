@@ -26,17 +26,21 @@ import com.google.gson.GsonBuilder;
 
 import com.lidroid.xutils.HttpUtils;
 import com.lidroid.xutils.exception.HttpException;
+import com.lidroid.xutils.http.RequestParams;
 import com.lidroid.xutils.http.ResponseInfo;
 import com.lidroid.xutils.http.callback.RequestCallBack;
 import com.lidroid.xutils.http.client.HttpRequest.HttpMethod;
 import com.xuetu.R;
 import com.xuetu.adapter.MyBasesadapter;
 import com.xuetu.adapter.ViewHodle;
+import com.xuetu.entity.Coupon;
 import com.xuetu.entity.Question;
 import com.xuetu.ui.Answer_list;
 import com.xuetu.ui.Question_ask;
 import com.xuetu.ui.XueTuApplication;
 import com.xuetu.utils.GetHttp;
+import com.xuetu.view.OnRefreshListener;
+import com.xuetu.view.RefreshListView;
 
 import android.content.Context;
 import android.content.Intent;
@@ -76,11 +80,27 @@ import android.widget.Toast;
  * @see 	 
 
  */
-public class QuestionFrag extends Fragment implements OnClickListener{
+public class QuestionFrag extends Fragment implements OnClickListener,OnRefreshListener{
+	
+	
+	// 显示所有问题的列表
+
+	private final int REFRESH_TEMP = 1;
+	private final int REFRESH_LIMIT = 2;
+	int countpage = 1;
+	/** 请求数据的页数 */
+	private int pageIndex = 0;
+	//表示是否是第一次进入改也页面
+	boolean firstInto = true;
+	
+
+	RefreshListView lv = null;
+	HttpUtils hutils = new HttpUtils();
 	List<Question> list = new ArrayList<Question>();
+	List<Question> oldlist=new ArrayList<Question>();
 	View view = null;
 	View viewPop = null;
-	ListView lv = null;
+//	ListView lv = null;
 	RelativeLayout rl_top;
 	RelativeLayout rl_left;
 	RelativeLayout rl_right;
@@ -99,12 +119,63 @@ public class QuestionFrag extends Fragment implements OnClickListener{
 		right_layout = (RelativeLayout) view.findViewById(R.id.right_layout);
 		viewPop = inflater.inflate(R.layout.title, null);
 		tv_title = (TextView) view.findViewById(R.id.tv_title);
-		lv = (ListView) view.findViewById(R.id.lv_question);
-		InitData();
+		lv = (RefreshListView) view.findViewById(R.id.lv_question);
+		InitData(1, REFRESH_TEMP);
+		
+		adapter = new MyBasesadapter<Question>(getContext(),list,R.layout.question_listitem) {
+
+			@Override
+			public void convert(ViewHodle viewHolder,   final Question item) {
+				// TODO Auto-generated method stub
+				viewHolder.setText(R.id.tv_ques_text, item.getQuesText());
+				viewHolder.setText(R.id.tv_subject, item.getSubject().getName());
+				viewHolder.setText(R.id.tv_time,sdf.format(new Date(item.getQuesDate().getTime())) );
+				if(item.getQuesIma()!=null){
+				viewHolder.SetUrlImage(R.id.iv_ques_img, GetHttp.getHttpLC()+item.getQuesIma());
+				}
+				sdf.format(new Date(item.getQuesDate().getTime()));
+				rl_top = viewHolder.getView(R.id.rl_top);
+				rl_left = viewHolder.getView(R.id.rl_left);
+				rl_right = viewHolder.getView(R.id.rl_right);
+				setOnclickListener();
+				rl_top.setOnClickListener(new OnClickListener() {
+					
+					@Override
+					public void onClick(View v) {
+						// TODO Auto-generated method stub
+						Intent intentAnswer = new Intent(getContext(),Answer_list.class);
+						Bundle bundle = new Bundle();
+						bundle.putSerializable("curQues",item);
+						intentAnswer.putExtras(bundle);
+						startActivity(intentAnswer);
+					}
+				});
+				rl_left.setOnClickListener(new OnClickListener() {
+					
+					@Override
+					public void onClick(View v) {
+						// TODO Auto-generated method stub
+						Intent intentAnswer = new Intent(getContext(),Answer_list.class);
+						Bundle bundle = new Bundle();
+						bundle.putSerializable("curQues",item);
+						intentAnswer.putExtras(bundle);
+						startActivity(intentAnswer);
+					}
+				});
+			}
+		};
+//		lv.setAdapter(adapter);
+		lv.setOnRefreshListener(this);
 		return view;
 
 		
 	}
+	
+	//下拉刷新
+	
+	
+	
+	
 	@Override
 	public void onResume() {
 		stu_id = ((XueTuApplication)getActivity().getApplication()).getStudent().getStuId();
@@ -120,15 +191,24 @@ public class QuestionFrag extends Fragment implements OnClickListener{
 	/**发送网络请求，下载所有问题信息
 	 * 
 	 */int count=0;
-	public void InitData(){
+	public void InitData(final int tempnum,int temp){
 		
 		
 		url = GetHttp.getHttpLC()+"GetPageQuestion";
-		HttpUtils hutils = new HttpUtils();
+		RequestParams params = new RequestParams();
+		if (temp == REFRESH_TEMP) {
+			params.addBodyParameter("page", "1");// 查询第1页
+		} else {
+			countpage++;
+			params.addBodyParameter("page", countpage + "");// 查询第1页
+
+		}
+		params.addBodyParameter("num", "5");// 每页显示10条
+		params.addBodyParameter("reqtemp", "0");// 每页显示10条
 //		hutils.configCurrentHttpCacheExpiry(1000);
 		/*SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 		System.out.println(sdf.format(new java.sql.Timestamp(System.currentTimeMillis())));*/
-		hutils.send(HttpMethod.GET, url, new RequestCallBack<String>() {
+		hutils.send(HttpMethod.POST, url,params, new RequestCallBack<String>() {
 			@Override
 			public void onFailure(HttpException arg0, String arg1) {
 				// TODO Auto-generated method stub
@@ -144,56 +224,84 @@ public class QuestionFrag extends Fragment implements OnClickListener{
 				  .setDateFormat("yyyy-MM-dd HH:mm:ss")  
 				  .create();
 				Type listtype = new TypeToken<List<Question>>(){}.getType();
-				list = gson.fromJson(arg0.result, listtype);
-				adapter = new MyBasesadapter<Question>(getContext(),list,R.layout.question_listitem) {
-
-					@Override
-					public void convert(ViewHodle viewHolder,   final Question item) {
-						// TODO Auto-generated method stub
-						viewHolder.setText(R.id.tv_ques_text, item.getQuesText());
-						viewHolder.setText(R.id.tv_subject, item.getSubject().getName());
-						viewHolder.setText(R.id.tv_time,sdf.format(new Date(item.getQuesDate().getTime())) );
-						if(item.getQuesIma()!=null){
-						viewHolder.SetUrlImage(R.id.iv_ques_img, GetHttp.getHttpLC()+item.getQuesIma());
-						}
-						sdf.format(new Date(item.getQuesDate().getTime()));
-						rl_top = viewHolder.getView(R.id.rl_top);
-						rl_left = viewHolder.getView(R.id.rl_left);
-						rl_right = viewHolder.getView(R.id.rl_right);
-						setOnclickListener();
-						rl_top.setOnClickListener(new OnClickListener() {
-							
-							@Override
-							public void onClick(View v) {
-								// TODO Auto-generated method stub
-								Intent intentAnswer = new Intent(getContext(),Answer_list.class);
-								Bundle bundle = new Bundle();
-								bundle.putSerializable("curQues",item);
-								intentAnswer.putExtras(bundle);
-								startActivity(intentAnswer);
-							}
-						});
-						rl_left.setOnClickListener(new OnClickListener() {
-							
-							@Override
-							public void onClick(View v) {
-								// TODO Auto-generated method stub
-								Intent intentAnswer = new Intent(getContext(),Answer_list.class);
-								Bundle bundle = new Bundle();
-								bundle.putSerializable("curQues",item);
-								intentAnswer.putExtras(bundle);
-								startActivity(intentAnswer);
-							}
-						});
-					}
-				};
+				List<Question> lists = gson.fromJson(arg0.result, listtype);
 				
-				lv.setAdapter(adapter);
+//				adapter = new MyBasesadapter<Question>(getContext(),list,R.layout.question_listitem) {
+//
+//					@Override
+//					public void convert(ViewHodle viewHolder,   final Question item) {
+//						// TODO Auto-generated method stub
+//						viewHolder.setText(R.id.tv_ques_text, item.getQuesText());
+//						viewHolder.setText(R.id.tv_subject, item.getSubject().getName());
+//						viewHolder.setText(R.id.tv_time,sdf.format(new Date(item.getQuesDate().getTime())) );
+//						if(item.getQuesIma()!=null){
+//						viewHolder.SetUrlImage(R.id.iv_ques_img, GetHttp.getHttpLC()+item.getQuesIma());
+//						}
+//						sdf.format(new Date(item.getQuesDate().getTime()));
+//						rl_top = viewHolder.getView(R.id.rl_top);
+//						rl_left = viewHolder.getView(R.id.rl_left);
+//						rl_right = viewHolder.getView(R.id.rl_right);
+//						setOnclickListener();
+//						rl_top.setOnClickListener(new OnClickListener() {
+//							
+//							@Override
+//							public void onClick(View v) {
+//								// TODO Auto-generated method stub
+//								Intent intentAnswer = new Intent(getContext(),Answer_list.class);
+//								Bundle bundle = new Bundle();
+//								bundle.putSerializable("curQues",item);
+//								intentAnswer.putExtras(bundle);
+//								startActivity(intentAnswer);
+//							}
+//						});
+//						rl_left.setOnClickListener(new OnClickListener() {
+//							
+//							@Override
+//							public void onClick(View v) {
+//								// TODO Auto-generated method stub
+//								Intent intentAnswer = new Intent(getContext(),Answer_list.class);
+//								Bundle bundle = new Bundle();
+//								bundle.putSerializable("curQues",item);
+//								intentAnswer.putExtras(bundle);
+//								startActivity(intentAnswer);
+//							}
+//						});
+//					}
+//				};
+				//lv.setAdapter(adapter);
+					if(tempnum==1){
+					
+					list.removeAll(oldlist);
+					list.addAll(0,lists);
+					adapter.notifyDataSetChanged();
+					lv.hideHeaderView();
+					oldlist = lists;
+				}
+				else{
+					list.addAll(lists);
+					adapter.notifyDataSetChanged();
+					// 控制脚布局隐藏
+					lv.hideFooterView();
+				}
 				if(adapter!=null)
 					adapter.notifyDataSetChanged();
 			}
-			
 		});
+	}
+
+	//
+	@Override
+	public void onDownPullRefresh() {
+		// 这是下拉刷新出来的数据
+		
+		InitData(1, REFRESH_TEMP);
+
+	}
+
+	@Override
+	public void onLoadingMore() {
+		// 这是加载更多出来的数据1
+		InitData(2, REFRESH_LIMIT);
 	}
 
 	//弹出学科列表

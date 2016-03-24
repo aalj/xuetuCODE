@@ -94,12 +94,9 @@
                     <ImageView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_centerHorizontal="true"
-                        android:layout_centerInParent="true"
-                        android:layout_centerVertical="true"
                         android:layout_gravity="center_vertical"
                         android:layout_marginRight="10dp"
-                        android:src="@drawable/ic_add_post_aite" />
+                        android:src="@drawable/ic_ans" />
 
                     <TextView
                         android:id="@+id/tv_answerNum"
@@ -141,21 +138,20 @@
                     android:orientation="horizontal" >
 
                     <ImageView
+                        android:id="@+id/iv_like"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_centerHorizontal="true"
-                        android:layout_centerInParent="true"
-                        android:layout_centerVertical="true"
                         android:layout_gravity="center_vertical"
                         android:layout_marginRight="10dp"
-                        android:src="@drawable/ic_add_post_aite" />
+                        android:src="@drawable/ic_like" />
 
                     <TextView
+                        android:id="@+id/tv_agree"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_vertical"
-                        android:text="收藏爱心"
-                         />
+                        android:text="收藏爱心" />
+
                 </LinearLayout>
             </RelativeLayout>
         </LinearLayout>

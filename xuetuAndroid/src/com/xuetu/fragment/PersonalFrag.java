@@ -13,6 +13,9 @@
 
 package com.xuetu.fragment;
 
+import org.apache.http.client.methods.HttpGet;
+
+import com.lidroid.xutils.BitmapUtils;
 import com.xuetu.R;
 import com.xuetu.entity.Student;
 import com.xuetu.ui.CourseActivity;
@@ -21,8 +24,11 @@ import com.xuetu.ui.PersonInfomationActivity;
 import com.xuetu.ui.TheCollectionOfYouHuiJuanActivity;
 import com.xuetu.ui.WoDeShouCangActivity;
 import com.xuetu.ui.XueTuApplication;
+import com.xuetu.utils.GetHttp;
+import com.xuetu.view.CircleImageView;
 
 import android.app.Application;
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -33,6 +39,7 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -54,6 +61,7 @@ public class PersonalFrag extends Fragment implements OnClickListener {
 	TextView txt_mylike;
 	TextView txt_course;
 	TextView txt_paihangbang;
+	CircleImageView img_head;
 	Student student;
 
 	@Override
@@ -65,7 +73,12 @@ public class PersonalFrag extends Fragment implements OnClickListener {
 		txt_myquestion = (TextView) view.findViewById(R.id.txt_myquestion);
 		txt_mylike = (TextView) view.findViewById(R.id.txt_mylike);
 		txt_course = (TextView) view.findViewById(R.id.txt_course);
+		img_head = (CircleImageView) view.findViewById(R.id.img_head);
 		txt_paihangbang = (TextView) view.findViewById(R.id.txt_paihangbang);
+		if(student!=null)
+		setHeadByUrl(view.getContext(),img_head,GetHttp.getHttpLC()+student.getStuIma());
+		
+		
 		view_user.setOnClickListener(this);
 		txt_pay.setOnClickListener(this);
 		txt_youhuijuan.setOnClickListener(this);
@@ -73,18 +86,19 @@ public class PersonalFrag extends Fragment implements OnClickListener {
 		txt_mylike.setOnClickListener(this);
 		txt_course.setOnClickListener(this);
 		txt_paihangbang.setOnClickListener(this);
-//		student = ((XueTuApplication) (getActivity().getApplication())).getStudent();
-//		Log.i("TAG", "------>" + student.getStuId() + "");
 		return view;
 	}
 
 	@Override
 	public void onResume() {
 		student = ((XueTuApplication) (getActivity().getApplication())).getStudent();
-		Log.i("TAG", "onResume------>" + student.getStuId() + "");
 		super.onResume();
 	}
 
+	public void setHeadByUrl(Context context,ImageView v,String url){
+		BitmapUtils bm = new BitmapUtils(context);
+		bm.display(v, url);
+	}
 
 	@Override
 	public void onClick(View v) {

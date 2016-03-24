@@ -209,5 +209,9 @@ public interface PersonalDaoInterface {
 	 * 
 	 */
 	public UserState findUserStateByUsta_id(int usta_id);
-
+	/**
+	 * 改变id 为 stu_id的用户的头像
+	 * 
+	 */
+	public void updateStu_img(int stu_id,String stu_img);
 }
