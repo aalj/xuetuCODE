@@ -1,4 +1,4 @@
-package com.xuetu.ui;
+package com.xuetu;
 
 import java.io.UnsupportedEncodingException;
 import java.lang.reflect.Type;
@@ -12,7 +12,8 @@ import com.lidroid.xutils.http.RequestParams;
 import com.lidroid.xutils.http.ResponseInfo;
 import com.lidroid.xutils.http.callback.RequestCallBack;
 import com.lidroid.xutils.http.client.HttpRequest.HttpMethod;
-import com.xuetu.R;
+import com.xuetu.ui.PersonInfomationActivity;
+import com.xuetu.ui.XueTuApplication;
 import com.xuetu.utils.GetHttp;
 import com.xuetu.view.TitleBar;
 
@@ -25,38 +26,35 @@ import android.view.View.OnClickListener;
 import android.widget.EditText;
 import android.widget.Toast;
 
-public class EditNameActivity extends Activity implements OnClickListener {
-	EditText edit_name;
+public class EditSignerActivity extends Activity implements OnClickListener{
+	EditText edit_qianming;
 	TitleBar titlebar;
 	int stuId;
+	
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_edit_name);
-		edit_name = (EditText) findViewById(R.id.edit_name);
+		setContentView(R.layout.activity_edit_signer);
+		edit_qianming = (EditText) findViewById(R.id.edit_qianming);
 		titlebar = (TitleBar) findViewById(R.id.titlebar);
 		titlebar.setLeftLayoutClickListener(this);
 		titlebar.setRightLayoutClickListener(this);
 		stuId = ((XueTuApplication) getApplication()).getStudent().getStuId();
-		Log.i("TAG", "-----到达编辑框“”");
-		
 	}
-
 	@Override
 	public void onClick(View v) {
 		switch (v.getId()) {
 		case R.id.left_layout:
 			finish();
 			break;
-
 		case R.id.right_layout:
 			update();
 			Log.i("TAG", "~~~~~~~~~~~~update执行完");
 			Intent intent = new Intent();
-			String ed_name = edit_name.getText().toString();
-			intent.putExtra("ed_name", ed_name);
-			setResult(2, intent);
+			String ed_name = edit_qianming.getText().toString();
+			intent.putExtra("edit_qianming", ed_name);
+			setResult(6, intent);
 			finish();
 			break;
 		default:
@@ -64,14 +62,13 @@ public class EditNameActivity extends Activity implements OnClickListener {
 		}
 
 	}
-
 	public void update() {
 		HttpUtils httpUtils = new HttpUtils();
-		String url = GetHttp.getHttpBCL() + "ChangeStuNameServlet";
+		String url = GetHttp.getHttpBCL() + "ChangeQianMingServlet";
 		RequestParams params = new RequestParams();
 		try {
 			params.addBodyParameter("id", URLEncoder.encode(stuId + "", "utf-8"));
-			params.addBodyParameter("changename", URLEncoder.encode(edit_name.getText().toString(), "utf-8"));
+			params.addBodyParameter("changeqianming", URLEncoder.encode(edit_qianming.getText().toString(), "utf-8"));
 		} catch (UnsupportedEncodingException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

@@ -13,6 +13,7 @@
 
 package com.xuetu.fragment;
 
+import com.xuetu.PaiHangBangActivity;
 import com.xuetu.R;
 import com.xuetu.entity.Student;
 import com.xuetu.ui.CourseActivity;
@@ -55,6 +56,8 @@ public class PersonalFrag extends Fragment implements OnClickListener {
 	TextView txt_course;
 	TextView txt_paihangbang;
 	Student student;
+	TextView tvname;
+	TextView tvmsg;
 
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -73,24 +76,39 @@ public class PersonalFrag extends Fragment implements OnClickListener {
 		txt_mylike.setOnClickListener(this);
 		txt_course.setOnClickListener(this);
 		txt_paihangbang.setOnClickListener(this);
-//		student = ((XueTuApplication) (getActivity().getApplication())).getStudent();
-//		Log.i("TAG", "------>" + student.getStuId() + "");
+		tvname = (TextView) view.findViewById(R.id.tvname);
+		tvmsg = (TextView) view.findViewById(R.id.tvmsg);
+		 
+		student = ((XueTuApplication) (getActivity().getApplication())).getStudent();
+		// Log.i("TAG", "------>" + student.getStuId() + "");
+		addView();
 		return view;
+	}
+
+	public void addView() {
+		tvname.setText(student.getStuName());
+		tvmsg.setText(student.getStuSigner());
 	}
 
 	@Override
 	public void onResume() {
 		student = ((XueTuApplication) (getActivity().getApplication())).getStudent();
-		Log.i("TAG", "onResume------>" + student.getStuId() + "");
+		addView();
 		super.onResume();
 	}
+	
 
+	@Override
+	public void onPause() {
+		addView();
+		super.onPause();
+	}
 
 	@Override
 	public void onClick(View v) {
 		switch (v.getId()) {
 		case R.id.view_user:
-			
+
 			if (student.getStuId() <= 0) {
 				Intent intent = new Intent();
 				intent.setClass(getActivity(), LoginActivity.class);
@@ -107,7 +125,7 @@ public class PersonalFrag extends Fragment implements OnClickListener {
 
 			break;
 
-		case R.id.txt_youhuijuan://优惠券管理
+		case R.id.txt_youhuijuan:// 优惠券管理
 			Intent intent3 = new Intent();
 			intent3.setClass(getActivity(), TheCollectionOfYouHuiJuanActivity.class);
 			getActivity().startActivity(intent3);
@@ -133,6 +151,7 @@ public class PersonalFrag extends Fragment implements OnClickListener {
 			break;
 
 		case R.id.txt_paihangbang:
+			getActivity().startActivity(new Intent(getActivity(), PaiHangBangActivity.class));
 
 			break;
 		default:

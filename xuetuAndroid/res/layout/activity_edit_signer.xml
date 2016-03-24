@@ -1,0 +1,32 @@
+ <LinearLayout 
+     android:layout_width="fill_parent"
+     android:layout_height="fill_parent"
+     android:orientation="vertical"
+     xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res/com.xuetu">
+     
+     <com.xuetu.view.TitleBar 
+         android:id="@+id/titlebar"
+         android:layout_width="fill_parent"
+         android:layout_height="wrap_content"
+         app:titleBarLeftImage="@drawable/ic_menu_back"
+         app:titleBarRightImage="@drawable/ic_menu_set"
+         app:titleBarTitle="修改签名"
+         ></com.xuetu.view.TitleBar>
+       <EditText
+                android:id="@+id/edit_qianming"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:background="@drawable/edittext_changename"
+                android:hint="请输入您要修改的签名"
+                android:gravity="center"
+                android:layout_marginTop="10dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+                android:singleLine="true"
+                android:textColor="@color/blackk1"
+                android:textColorHint="@color/gray"
+                android:textSize="16sp" /> 
+     
+     
+     
+ </LinearLayout>
