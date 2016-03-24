@@ -20,7 +20,7 @@ public class LearingRecordActivity extends Activity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_learing_record);
 		
-		calendarView=(CalendarView) findViewById(R.id.calendarView1);
+		calendarView=(CalendarView) findViewById(R.id.calendar_view);
 //		calendarView.ca
 	}
 	
