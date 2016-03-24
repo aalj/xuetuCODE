@@ -19,6 +19,7 @@ import com.xuetu.entity.Answer;
 import com.xuetu.entity.FavoritesCoupons;
 import com.xuetu.entity.MyClass;
 import com.xuetu.entity.MyCoupon;
+import com.xuetu.entity.PersonalStudyTimeAll;
 import com.xuetu.entity.PointNum;
 import com.xuetu.entity.Question;
 import com.xuetu.entity.School;
@@ -214,4 +215,22 @@ public interface PersonalDaoInterface {
 	 * 
 	 */
 	public void updateStu_img(int stu_id,String stu_img);
+	/***
+	 * 查询所有积分 按照id分组
+	 */
+	public List<PersonalStudyTimeAll> findAllTime();
+
+	/**
+	 * 通过stuid和et_name修改昵称
+	 */
+	public boolean ChangeName(int stuID, String change_name);
+
+	public boolean ChangeQianMing(int stuID, String change_qianming);
+
+	public boolean ChangeSex(int stuID, String change_sex);
+
+	public boolean ChangeAge(int stuID, String change_age);
+
+	public boolean ChangeGrade(int stuID, String change_grade);
+
 }
