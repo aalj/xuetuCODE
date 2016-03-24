@@ -97,6 +97,11 @@ public class TitleBar extends RelativeLayout{
         rightImage.setImageResource(resId);
     }
     
+    public void shoelayout(int i){
+    	titleLayout.setVisibility(i);
+    }
+    
+    
     public void setLeftLayoutClickListener(OnClickListener listener){
         leftLayout.setOnClickListener(listener);
     }

@@ -97,6 +97,9 @@ public class FindTaskItemActivity extends FragmentActivity implements OnClickLis
 	 */
 	private void initView() {
 		selfStudyPlan = (SelfStudyPlan) getIntent().getSerializableExtra("plans");
+		endTime=selfStudyPlan.getEndTime();
+		
+		
 		tv_startTime_info.setText(DataToTime.dataToT(selfStudyPlan.getStartTime()));
 		tv_endTime_info.setText(DataToTime.dataToT(selfStudyPlan.getEndTime()));
 		study_info.setText(selfStudyPlan.getPattern().getPattrenText());
@@ -109,7 +112,7 @@ public class FindTaskItemActivity extends FragmentActivity implements OnClickLis
 
 	}
 
-	private SimpleDateFormat mFormatter = new SimpleDateFormat("MM-dd hh:mm");
+	private SimpleDateFormat mFormatter = new SimpleDateFormat("MM-dd HH:mm");
 
 	private SlideDateTimeListener listener = new SlideDateTimeListener() {
 
@@ -155,7 +158,7 @@ public class FindTaskItemActivity extends FragmentActivity implements OnClickLis
 					.setInitialDate(new Date())
 					// .setMinDate(minDate)
 					// .setMaxDate(maxDate)
-					// .setIs24HourTime(true)
+					 .setIs24HourTime(true)
 					// .setTheme(SlideDateTimePicker.HOLO_DARK)
 					// .setIndicatorColor(Color.parseColor("#990000"))
 					.build().show();
@@ -163,10 +166,10 @@ public class FindTaskItemActivity extends FragmentActivity implements OnClickLis
 		case R.id.tiem_end:// 设置结束时间
 
 			new SlideDateTimePicker.Builder(getSupportFragmentManager()).setListener(listener2)
-					.setInitialDate(new Date())
+					.setInitialDate(startTime)
 					// .setMinDate(minDate)
 					// .setMaxDate(maxDate)
-					// .setIs24HourTime(true)
+					 .setIs24HourTime(true)
 					// .setTheme(SlideDateTimePicker.HOLO_DARK)
 					// .setIndicatorColor(Color.parseColor("#990000"))
 					.build().show();
@@ -179,13 +182,22 @@ public class FindTaskItemActivity extends FragmentActivity implements OnClickLis
 			break;
 		case R.id.right_layout:
 			Intent intent = new Intent();
+			//设置开始时间
+			selfStudyPlan.setStartTime(startTime);
+			//这是结束时间
+			selfStudyPlan.setEndTime(endTime);
+			//设置计划信息
 			selfStudyPlan.setPlanText(xuexi_info.getText().toString());
+			//设置是否需要提醒
 			if(study_parrt_info.isCheck()){
 				selfStudyPlan.setPlanReming(1);
 			}else{
 				selfStudyPlan.setPlanReming(0);
 			}
 			intent.putExtra("name1", selfStudyPlan);
+			//设置执行模式在选择的时候已经确定
+			
+			
 			setResult(1010,intent);
 			finish();
 			
