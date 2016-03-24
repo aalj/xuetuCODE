@@ -140,7 +140,7 @@
             android:label="@string/title_activity_wo_de_shou_cang" >
         </activity>
         <activity
-            android:name=".LearingRecordActivity"
+            android:name="com.xuetu.ui.LearingRecordActivity"
             android:label="@string/title_activity_learing_record" >
         </activity>
     </application>

@@ -374,22 +374,25 @@ public class HomePageFrag extends Fragment implements OnTouchListener {
 
 			layoutParams.topMargin = Y - _y; // 控制按钮在Y轴移动
 			v.setLayoutParams(layoutParams);
-			if (Y < (fHeight / 2 - 150) && flag == true) 
-				{
-					flag     = false;
-					planflag = false;
-					System.out.println("进行的是上滑动");
-					get_stu_studyTime();
-					
-				} 
-
-			if(Y > (fHeight / 2 + 150) && planflag==true)
-				{
-					flag     = false;
-					planflag = false;
-					getStudyPlan();
-					
-				}
+			if(stu_id!=0)
+			{
+						if (Y < (fHeight / 2 - 150) && flag == true) 
+							{
+								flag     = false;
+								planflag = false;
+								System.out.println("进行的是上滑动");
+								get_stu_studyTime();
+								
+							} 
+			
+						if(Y > (fHeight / 2 + 250) && planflag==true)
+							{
+								flag     = false;
+								planflag = false;
+								getStudyPlan();
+								
+							}
+			}
 			
 
 			break;
@@ -493,7 +496,6 @@ public class HomePageFrag extends Fragment implements OnTouchListener {
 								"yyyy-MM-dd HH:mm:ss").create();
 						
 						studyplan = gson.fromJson(arg, type);
-						System.out.println(">>>>>>>>>>>111>>>>>>>>>>>"+studyplan.getPlanID());
 						//进行判断,得到的对象是否为空,  如果不为空,在判断是不是今天的计划
 						
 						if(studyplan.getStartTime()!=null)

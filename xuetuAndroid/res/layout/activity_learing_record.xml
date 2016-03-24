@@ -3,9 +3,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:gravity="center_horizontal"
-    android:orientation="vertical" 
-    tools:context="com.xuetu.LearingRecordActivity" >
-
+    android:orientation="vertical"
+    tools:context="com.xuetu.ui.LearingRecordActivity" >
     
     <View
                 android:layout_width="fill_parent"
@@ -58,5 +57,19 @@
 	     android:layout_width="fill_parent"
 	     android:layout_height="1.0dip"
 	     android:background="@color/black2" />
+
+	 
+     
+	 <RelativeLayout 
+	     android:layout_width="match_parent"
+	     android:layout_height="500dip"
+	     >
+
+	     <CalendarView
+	         android:id="@+id/calendar_view"
+	         android:layout_width="match_parent"
+	         android:layout_height="500dip" />
+	     
+	 </RelativeLayout>
 
 </LinearLayout>
