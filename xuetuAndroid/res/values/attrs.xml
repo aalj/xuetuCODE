@@ -12,4 +12,12 @@
         <attr name="border_width" format="dimension" />
         <attr name="border_color" format="color" />
     </declare-styleable>
+    <declare-styleable name="BarGraphView">
+<!--         barGraph_title="自定义柱状图"   -->
+<!--         eleven:barGraph_titleSize="24sp"   -->
+<!--         eleven:barGraph_titleColor -->
+        <attr name="barGraph_title" format="string" />
+        <attr name="barGraph_titleSize" format="dimension" />
+        <attr name="barGraph_titleColor" format="reference|color" />
+    </declare-styleable>
 </resources>

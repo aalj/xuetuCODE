@@ -1,6 +1,7 @@
 package com.xuetu.web.android;
 
 import java.io.IOException;
+import java.lang.reflect.Type;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 
@@ -10,8 +11,12 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.google.gson.reflect.TypeToken;
 import com.xuetu.dao.FindIml;
 import com.xuetu.dao.TimeDao;
+import com.xuetu.entity.Student;
 import com.xuetu.entity.StudyTime;
 import com.xuetu.service.FindService;
 import com.xuetu.service.TimeService;
@@ -46,6 +51,16 @@ public class AddStudyTime extends HttpServlet {
 		response.setCharacterEncoding("utf-8");
 		request.setCharacterEncoding("utf-8");
 		
+		//新建一个学生对象
+		Student student = new Student();
+		//取到解析过的student类
+		String student_from_android = request.getParameter("student");
+		Type type = new TypeToken<Student>() {}.getType();
+		System.out.println(student_from_android);
+		Gson gson = new GsonBuilder().setDateFormat(
+				"yyyy-MM-dd HH:mm:ss").create();
+		student = gson.fromJson(student_from_android, type);
+		
 		
 		//从手机端获取值
 //		String name = request.getParameter("name");
@@ -68,7 +83,7 @@ public class AddStudyTime extends HttpServlet {
 		
 		studytime.setSttID(15);  //学习时间id
 		studytime.setTime(Long.parseLong(st_time));  //学习时长
-		studytime.setStudent(null);					//学生对象id
+		studytime.setStudent(student);					//学生对象
 		studytime.setAcpo_num(Integer.parseInt(integral));
 //		studytime.set
 		

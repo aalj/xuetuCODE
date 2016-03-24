@@ -168,7 +168,7 @@ public class FindTaskListActivity extends Activity implements OnItemClickListene
 	public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 		// 使用万能适配器写ListView 数据
 		Intent intent = new Intent(this, FindTaskItemActivity.class);
-		intent.putExtra("plans", users.get(position));
+		intent.putExtra("plans", users.get(position-1));
 		index = position;
 
 		startActivityForResult(intent, SELF_CODE);

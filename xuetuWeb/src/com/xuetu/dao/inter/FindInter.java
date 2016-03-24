@@ -15,6 +15,7 @@ package com.xuetu.dao.inter;
 import java.util.List;
 
 import com.xuetu.entity.Countdown;
+import com.xuetu.entity.LongTime;
 import com.xuetu.entity.Pattern;
 import com.xuetu.entity.SelfStudyPlan;
 import com.xuetu.entity.Student;
@@ -46,7 +47,7 @@ public interface FindInter {
 	public Countdown getCountDown();
 	
 	
-	
+	public List<LongTime> getWeekTime(int stu_id);
 	
 	/**
 	 * 

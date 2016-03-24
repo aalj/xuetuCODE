@@ -33,7 +33,9 @@ import com.xuetu.R;
 import com.xuetu.entity.IsStudy;
 import com.xuetu.entity.MyCoupon;
 import com.xuetu.entity.SelfStudyPlan;
+import com.xuetu.entity.Student;
 import com.xuetu.ui.TimerActivity;
+import com.xuetu.ui.XueTuApplication;
 import com.xuetu.utils.GetHttp;
 
 import android.R.integer;
@@ -78,7 +80,7 @@ import android.widget.Toast;
  */
 public class HomePageFrag extends Fragment implements OnTouchListener {
 
-	int stu_id = 1;
+	int stu_id = 0;
 	Button btn_up, btn_down, btn_center;
 	ImageView img1, img2, img3, img4, img5, img6, imgup, imgdown;
 	View view;
@@ -105,22 +107,30 @@ public class HomePageFrag extends Fragment implements OnTouchListener {
 	boolean is_today_studyplan=false;//判断是不是今天的学习计划
 	IsStudy isstudy;
 	SelfStudyPlan studyplan;
+	Student student ;
 
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
+		
+		//先获取Student对象
+		
+		XueTuApplication xuetu = (XueTuApplication) getActivity().getApplication();
+		student = xuetu.getStudent();
+		stu_id=student.getStuId();
+		
 		view = inflater.inflate(R.layout.home_page_frag, null);
 
-		view.findViewById(R.id.home_btn_up).setOnClickListener(
-				new OnClickListener() {
-					@Override
-					public void onClick(View v) {
-						// TODO Auto-generated method stub
-						Intent intent = new Intent(getActivity(),
-								TimerActivity.class);
-						startActivity(intent);
-					}
-				});
+//		view.findViewById(R.id.home_btn_up).setOnClickListener(
+//				new OnClickListener() {
+//					@Override
+//					public void onClick(View v) {
+//						// TODO Auto-generated method stub
+//						Intent intent = new Intent(getActivity(),
+//								TimerActivity.class);
+//						startActivity(intent);
+//					}
+//				});
 		layoutParams = new RelativeLayout.LayoutParams(
 				LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
 		display = getActivity().getWindowManager().getDefaultDisplay();
@@ -224,8 +234,15 @@ public class HomePageFrag extends Fragment implements OnTouchListener {
 				if (ss>0) {
 					Intent intent = new Intent(getActivity(),
 							TimerActivity.class);
+					
 					intent.putExtra("ss", ss);
-					flag = false;
+					intent.putExtra("student", isstudy.stu_to_json(student));
+//					Gson  gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create();
+//					String st = gson.toJson(student);
+//					intent.putExtra("student", st);
+					
+					flag = true;
+					planflag=true;
 					startActivity(intent);
 				}else
 				{
@@ -357,22 +374,25 @@ public class HomePageFrag extends Fragment implements OnTouchListener {
 
 			layoutParams.topMargin = Y - _y; // 控制按钮在Y轴移动
 			v.setLayoutParams(layoutParams);
-			if (Y < (fHeight / 2 - 150) && flag == true) 
-				{
-					flag     = false;
-					planflag = false;
-					System.out.println("进行的是上滑动");
-					get_stu_studyTime();
-					
-				} 
-
-			if(Y > (fHeight / 2 + 150) && planflag==true)
-				{
-					flag     = false;
-					planflag = false;
-					getStudyPlan();
-					
-				}
+			if(stu_id!=0)
+			{
+						if (Y < (fHeight / 2 - 150) && flag == true) 
+							{
+								flag     = false;
+								planflag = false;
+								System.out.println("进行的是上滑动");
+								get_stu_studyTime();
+								
+							} 
+			
+						if(Y > (fHeight / 2 + 250) && planflag==true)
+							{
+								flag     = false;
+								planflag = false;
+								getStudyPlan();
+								
+							}
+			}
 			
 
 			break;
@@ -392,13 +412,26 @@ public class HomePageFrag extends Fragment implements OnTouchListener {
 		return aa;
 	}
 
+	
+	
+	/**
+	 * 上滑执行方法
+	 */
 	public void get_stu_studyTime() {
 		
-		String url = "http://10.201.1.26:8080/xuetuWeb/GetClassTime";
+		String url =GetHttp.getHttpKY()+"GetClassTime";
+//		String url = "http://10.201.1.8:8080/xuetuWeb/GetClassTime";
 		HttpUtils httpUtils = new HttpUtils();
 		RequestParams requestParams = new RequestParams();
 		requestParams.addBodyParameter("stu_id", stu_id + "");
-		System.out.println(stu_id);
+		System.out.println("```````````11`````stu_id```````````"+stu_id);
+		//json 解析Student对象,并传给服务器
+		Gson  gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create();
+		System.out.println("````````````22```````````````");
+		String st = gson.toJson(student);
+		System.out.println("````````````33```````````````");
+		requestParams.addBodyParameter("student", st);
+		System.out.println("````````````44```````````````");
 		httpUtils.send(HttpMethod.POST, url, requestParams,
 				new RequestCallBack<String>() {
 					@Override
@@ -439,7 +472,7 @@ public class HomePageFrag extends Fragment implements OnTouchListener {
 //		String url = "http://10.201.1.26:8080/xuetuWeb/BackStudyTime";
 		HttpUtils httpUtils = new HttpUtils();
 		RequestParams requestParams = new RequestParams();
-		requestParams.addBodyParameter("StuID", 1 + "");
+		requestParams.addBodyParameter("StuID",stu_id+"");
 		httpUtils.send(HttpMethod.POST, url, requestParams,
 				new RequestCallBack<String>() {
 					@Override
@@ -463,7 +496,6 @@ public class HomePageFrag extends Fragment implements OnTouchListener {
 								"yyyy-MM-dd HH:mm:ss").create();
 						
 						studyplan = gson.fromJson(arg, type);
-						System.out.println(">>>>>>>>>>>111>>>>>>>>>>>"+studyplan.getPlanID());
 						//进行判断,得到的对象是否为空,  如果不为空,在判断是不是今天的计划
 						
 						if(studyplan.getStartTime()!=null)
@@ -505,6 +537,9 @@ public class HomePageFrag extends Fragment implements OnTouchListener {
 														TimerActivity.class);
 												intent.putExtra("ss", ss);
 												intent.putExtra("stu_id", stu_id);
+												intent.putExtra("student", isstudy.stu_to_json(student));
+												flag = true;
+												planflag=true;
 												startActivity(intent);
 											}
 										}).show();
@@ -520,6 +555,9 @@ public class HomePageFrag extends Fragment implements OnTouchListener {
 												TimerActivity.class);
 										intent.putExtra("ss", ss);
 										intent.putExtra("stu_id", stu_id);
+										intent.putExtra("student", isstudy.stu_to_json(student));
+										flag = true;
+										planflag=true;
 										startActivity(intent);
 										
 									}else         //这里的p肯定为负数
@@ -531,6 +569,9 @@ public class HomePageFrag extends Fragment implements OnTouchListener {
 												TimerActivity.class);
 										intent.putExtra("ss", ss+p);
 										intent.putExtra("stu_id", stu_id);
+										intent.putExtra("student", isstudy.stu_to_json(student));
+										flag = true;
+										planflag=true;
 										startActivity(intent);
 									}
 									
