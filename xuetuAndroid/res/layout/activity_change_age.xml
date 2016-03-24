@@ -23,6 +23,7 @@
         android:background="@drawable/edittext_changename"
         android:gravity="center"
         android:hint="修改的年龄"
+        android:maxLength = "2"
         android:numeric="integer"
         android:singleLine="true"
         android:textColor="@color/blackk1"

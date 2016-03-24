@@ -5,6 +5,7 @@ import java.util.List;
 import com.xuetu.entity.FavoritesCoupons;
 import com.xuetu.entity.MyClass;
 import com.xuetu.entity.MyCoupon;
+import com.xuetu.entity.PersonalStudyTimeAll;
 import com.xuetu.entity.Student;
 
 public interface PersonalServiceInter {
@@ -46,4 +47,20 @@ public interface PersonalServiceInter {
 	public List<FavoritesCoupons> getFavoritecouByStuID(int stuID);
 	
 	public void updateStu_img(int stu_id,String stu_img);
+
+	/**
+	 * 查询所有学生的学习时间
+	 */
+	public List<PersonalStudyTimeAll> findAllTime();
+
+	public boolean ChangeName(int stuID, String change_name);
+
+	public boolean ChangeQianMing(int stuID, String change_qianming);
+
+	public boolean ChangeSex(int stuID, String change_sex);
+
+	public boolean ChangeAge(int stuID, String change_age);
+
+	public boolean ChangeGrade(int stuID, String change_grade);
+
 }

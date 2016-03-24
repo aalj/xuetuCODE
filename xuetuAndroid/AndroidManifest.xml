@@ -143,6 +143,14 @@
             android:name="com.xuetu.ui.LearingRecordActivity"
             android:label="@string/title_activity_learing_record" >
         </activity>
+         <activity
+            android:name=".ui.PaiHangBangActivity"
+            android:label="@string/title_activity_pai_hang_bang" >
+        </activity>
+        <activity
+            android:name=".ui.EditSignerActivity"
+            android:label="@string/title_activity_edit_signer" >
+        </activity>
     </application>
 
 </manifest>
