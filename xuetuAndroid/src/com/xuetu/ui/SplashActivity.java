@@ -98,6 +98,7 @@ public class SplashActivity extends Activity {
 	 * 解析jsone异常
 	 */
 	protected static final int SPLASH_JSONE_ERROR = 4;
+	private static final String TAG = "TAG";
 	/**
 	 * 显示下载信息
 	 */
@@ -158,6 +159,7 @@ public class SplashActivity extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.splash_activity);
+		Log.i(TAG, "SplashActivity");
 		initView();
 
 	}
@@ -176,8 +178,8 @@ public class SplashActivity extends Activity {
 		// 读取配置文件(设置功能生成的),判断设置里面是否,需要提醒升级
 		preferences = getSharedPreferences("config", MODE_PRIVATE);
 		getDate();
-		String telephone = preferences.getString("uasename", null);
-		String pwd = preferences.getString("pwd", null);
+		String telephone = preferences.getString("uasename", "0");
+		String pwd = preferences.getString("pwd", "0");
 		Log.i("TAG", telephone + "<<<------------->>>" + pwd);
 		getLogin(telephone, pwd);
 		tv_version = (TextView) findViewById(R.id.tv_splash_version);
