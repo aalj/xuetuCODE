@@ -86,6 +86,10 @@ public class DataToTime {
 		data = data / 1000;
 		int h = (int) data / 3600;
 		int f = (int) data % 60 / 60;
+		String ff= "00";
+		if(f==0){
+			return h + ":" +ff+ ":00";
+		}
 
 		return h + ":" + f + ":00";
 
