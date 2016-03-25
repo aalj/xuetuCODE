@@ -15,6 +15,7 @@ import com.xuetu.entity.Coupon;
 import com.xuetu.entity.FavoritesCoupons;
 import com.xuetu.entity.MyClass;
 import com.xuetu.entity.MyCoupon;
+import com.xuetu.entity.PersonalStudyTimeAll;
 import com.xuetu.entity.PointNum;
 import com.xuetu.entity.Question;
 import com.xuetu.entity.School;
@@ -395,4 +396,145 @@ public class LoginDao implements PersonalDaoInterface {
 			}
 		}
 	}
+	@Override
+	public List<PersonalStudyTimeAll> findAllTime() {
+		Connection connection = DBconnection.getConnection();
+		// SELECT COUNT(*), finddate FROM yourtable GROUP BY finddate;
+		String sql = "select sum(sto_time),stu_id  from studytime group by stu_id order by sum(sto_time) desc;";
+		PreparedStatement prepareStatement = null;
+		ResultSet resultSet = null;
+		try {
+			prepareStatement = connection.prepareStatement(sql);
+			resultSet = prepareStatement.executeQuery();
+			PersonalStudyTimeAll personalStudyTimeAlls;
+			List<PersonalStudyTimeAll> lists = new ArrayList<>();
+			while (resultSet.next()) {
+				personalStudyTimeAlls = new PersonalStudyTimeAll();
+				personalStudyTimeAlls.setStudent(getStuByID(resultSet.getInt("stu_id")));
+				personalStudyTimeAlls.setTimeAll(resultSet.getString("sum(sto_time)"));
+				lists.add(personalStudyTimeAlls);
+			}
+			return lists;
+
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			CloseDb.close(connection, resultSet, prepareStatement);
+		}
+
+		return null;
+	}
+
+	@Override
+	public boolean ChangeName(int stuID, String change_name) {
+		Connection connection = DBconnection.getConnection();
+		String sql = "update student set stu_name = ? where stu_id = ?";
+		PreparedStatement prepareStatement = null;
+		try {
+			prepareStatement = connection.prepareStatement(sql);
+			prepareStatement.setString(1, change_name);
+			prepareStatement.setInt(2, stuID);
+			int executeUpdate = prepareStatement.executeUpdate();
+			if (executeUpdate > 0) {
+				return true;
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			CloseDb.close(connection, prepareStatement);
+		}
+		return false;
+	}
+
+	@Override
+	public boolean ChangeQianMing(int stuID, String change_qianming) {
+		Connection connection = DBconnection.getConnection();
+		String sql = "update student set stu_signer = ? where stu_id = ?";
+		PreparedStatement prepareStatement = null;
+		try {
+			prepareStatement = connection.prepareStatement(sql);
+			prepareStatement.setString(1, change_qianming);
+			prepareStatement.setInt(2, stuID);
+			int executeUpdate = prepareStatement.executeUpdate();
+			if (executeUpdate > 0) {
+				return true;
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			CloseDb.close(connection, prepareStatement);
+		}
+		return false;
+	}
+
+	@Override
+	public boolean ChangeSex(int stuID, String change_sex) {
+		Connection connection = DBconnection.getConnection();
+		String sql = "update student set stu_sex = ? where stu_id = ?";
+		PreparedStatement prepareStatement = null;
+		try {
+			prepareStatement = connection.prepareStatement(sql);
+			prepareStatement.setString(1, change_sex);
+			prepareStatement.setInt(2, stuID);
+			int executeUpdate = prepareStatement.executeUpdate();
+			if (executeUpdate > 0) {
+				return true;
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			CloseDb.close(connection, prepareStatement);
+		}
+		return false;
+	}
+
+	@Override
+	public boolean ChangeAge(int stuID, String change_age) {
+		Connection connection = DBconnection.getConnection();
+		String sql = "update student set stu_age = ? where stu_id = ?";
+		PreparedStatement prepareStatement = null;
+		try {
+			prepareStatement = connection.prepareStatement(sql);
+			prepareStatement.setString(1, change_age);
+			prepareStatement.setInt(2, stuID);
+			int executeUpdate = prepareStatement.executeUpdate();
+			if (executeUpdate > 0) {
+				return true;
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			CloseDb.close(connection, prepareStatement);
+		}
+		return false;
+	}
+
+	@Override
+	public boolean ChangeGrade(int stuID, String change_grade) {
+		Connection connection = DBconnection.getConnection();
+		String sql = "update student set stu_ugrade = ? where stu_id = ?";
+		PreparedStatement prepareStatement = null;
+		try {
+			prepareStatement = connection.prepareStatement(sql);
+			prepareStatement.setString(1, change_grade);
+			prepareStatement.setInt(2, stuID);
+			int executeUpdate = prepareStatement.executeUpdate();
+			if (executeUpdate > 0) {
+				return true;
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			CloseDb.close(connection, prepareStatement);
+		}
+		return false;
+	}
+
+	
 }

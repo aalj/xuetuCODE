@@ -15,12 +15,20 @@
         title:titleBarTitle="学习计划" >
     </com.xuetu.view.TitleBar>
 
-    <com.xuetu.view.RefreshListView
-        android:id="@+id/activity_find_task_list"
+    <android.support.v4.widget.SwipeRefreshLayout
+        android:id="@+id/id_swipe_ly"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:layout_alignParentLeft="true"
         android:layout_below="@+id/title_my" >
-    </com.xuetu.view.RefreshListView>
+
+        <ListView
+            android:id="@+id/activity_find_task_list"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" >
+        </ListView>
+    </android.support.v4.widget.SwipeRefreshLayout>
+
+   
 
 </RelativeLayout>

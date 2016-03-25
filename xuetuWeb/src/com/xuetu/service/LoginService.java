@@ -6,6 +6,7 @@ import com.xuetu.dao.inter.PersonalDaoInterface;
 import com.xuetu.entity.FavoritesCoupons;
 import com.xuetu.entity.MyClass;
 import com.xuetu.entity.MyCoupon;
+import com.xuetu.entity.PersonalStudyTimeAll;
 import com.xuetu.entity.Student;
 import com.xuetu.service.inter.PersonalServiceInter;
 
@@ -57,6 +58,41 @@ public class LoginService implements PersonalServiceInter {
 	public Student getStuByID(int Id) {
 		// TODO Auto-generated method stub
 		return personalDaoInterface.getStuByID(Id);
+	}
+	@Override
+	public List<PersonalStudyTimeAll> findAllTime() {
+		// TODO Auto-generated method stub
+		return personalDaoInterface.findAllTime();
+	}
+
+	@Override
+	public boolean ChangeName(int stuID, String change_name) {
+		// TODO Auto-generated method stub
+		return personalDaoInterface.ChangeName(stuID, change_name);
+	}
+
+	@Override
+	public boolean ChangeQianMing(int stuID, String change_qianming) {
+		// TODO Auto-generated method stub
+		return personalDaoInterface.ChangeQianMing(stuID, change_qianming);
+	}
+
+	@Override
+	public boolean ChangeSex(int stuID, String change_sex) {
+		// TODO Auto-generated method stub
+		return personalDaoInterface.ChangeSex(stuID, change_sex);
+	}
+
+	@Override
+	public boolean ChangeAge(int stuID, String change_age) {
+		// TODO Auto-generated method stub
+		return personalDaoInterface.ChangeAge(stuID, change_age);
+	}
+
+	@Override
+	public boolean ChangeGrade(int stuID, String change_grade) {
+		// TODO Auto-generated method stub
+		return personalDaoInterface.ChangeGrade(stuID, change_grade);
 	}
 
 }

@@ -13,13 +13,12 @@
 
 package com.xuetu.fragment;
 
-import org.apache.http.client.methods.HttpGet;
-
 import com.lidroid.xutils.BitmapUtils;
 import com.xuetu.R;
 import com.xuetu.entity.Student;
 import com.xuetu.ui.CourseActivity;
 import com.xuetu.ui.LoginActivity;
+import com.xuetu.ui.PaiHangBangActivity;
 import com.xuetu.ui.PersonInfomationActivity;
 import com.xuetu.ui.TheCollectionOfYouHuiJuanActivity;
 import com.xuetu.ui.WoDeShouCangActivity;
@@ -27,18 +26,14 @@ import com.xuetu.ui.XueTuApplication;
 import com.xuetu.utils.GetHttp;
 import com.xuetu.view.CircleImageView;
 
-import android.app.Application;
 import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -63,6 +58,8 @@ public class PersonalFrag extends Fragment implements OnClickListener {
 	TextView txt_paihangbang;
 	CircleImageView img_head;
 	Student student;
+	TextView tvname;
+	TextView tvmsg;
 
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -86,8 +83,17 @@ public class PersonalFrag extends Fragment implements OnClickListener {
 		txt_mylike.setOnClickListener(this);
 		txt_course.setOnClickListener(this);
 		txt_paihangbang.setOnClickListener(this);
+		tvname = (TextView) view.findViewById(R.id.tvname);
+		tvmsg = (TextView) view.findViewById(R.id.tvmsg);
+		student = ((XueTuApplication) (getActivity().getApplication())).getStudent();
+		addView();
 		return view;
 	}
+	public void addView() {
+		tvname.setText(student.getStuName());
+		tvmsg.setText(student.getStuSigner());
+	}
+
 
 	@Override
 	public void onResume() {
@@ -147,7 +153,7 @@ public class PersonalFrag extends Fragment implements OnClickListener {
 			break;
 
 		case R.id.txt_paihangbang:
-
+			getActivity().startActivity(new Intent(getActivity(), PaiHangBangActivity.class));
 			break;
 		default:
 			break;

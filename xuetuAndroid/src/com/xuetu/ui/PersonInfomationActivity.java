@@ -3,7 +3,9 @@ package com.xuetu.ui;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.InputStream;
+import java.io.UnsupportedEncodingException;
 import java.lang.reflect.Type;
+import java.net.URLEncoder;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
@@ -59,6 +61,7 @@ public class PersonInfomationActivity extends Activity implements OnClickListene
 	RelativeLayout nianji_grade;
 	RelativeLayout xuexiao;
 	TextView text_nicheng;
+	TextView study_gexingqianming;
 	TextView sex;
 	TextView text_age;
 	TextView text_grade;
@@ -66,7 +69,7 @@ public class PersonInfomationActivity extends Activity implements OnClickListene
 	CircleImageView img_head;
 	HttpUtils hutils = new HttpUtils();
 	private String SexData[] = { "男", "女" };
-	
+	int stuId;
 
 	public static final int SELECT_PIC = 11;
 	public static final int TAKE_PHOTO = 12;
@@ -77,7 +80,7 @@ public class PersonInfomationActivity extends Activity implements OnClickListene
 	Bitmap bm = null;
 	SimpleDateFormat sdf = new SimpleDateFormat("yyyy_MM_dd_HH_mm_ss");
 	private Student student = new Student();
-	
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -89,6 +92,7 @@ public class PersonInfomationActivity extends Activity implements OnClickListene
 		nicheng = (RelativeLayout) findViewById(R.id.nicheng);
 		nicheng.setOnClickListener(this);
 		gexingqianming = (RelativeLayout) findViewById(R.id.gexingqianming);
+		study_gexingqianming = (TextView) findViewById(R.id.study_gexingqianming);
 		gexingqianming.setOnClickListener(this);
 		xingbie = (RelativeLayout) findViewById(R.id.xingbie);
 		xingbie.setOnClickListener(this);
@@ -103,38 +107,62 @@ public class PersonInfomationActivity extends Activity implements OnClickListene
 		text_grade = (TextView) findViewById(R.id.text_grade);
 		text_school = (TextView) findViewById(R.id.text_school);
 		sex = (TextView) findViewById(R.id.sex);
+		titlebar.setLeftLayoutClickListener(this);
+		titlebar.setRightLayoutClickListener(this);
+		student = ((XueTuApplication) getApplication()).getStudent();
+		stuId = student.getStuId();
+		loadView();
 		img_head = (CircleImageView) findViewById(R.id.img_head);
-		//保存照片的file对象和imageUri
-		file = new File(Environment.getExternalStorageDirectory(),sdf.format(new Date(System.currentTimeMillis()))+".jpg");
+		// 保存照片的file对象和imageUri
+		file = new File(Environment.getExternalStorageDirectory(),
+				sdf.format(new Date(System.currentTimeMillis())) + ".jpg");
 		imageUri = Uri.fromFile(file);
 
 	}
+
+	public void loadView() {
+		text_nicheng.setText(student.getStuName());
+		study_gexingqianming.setText(student.getStuSigner());
+		sex.setText(student.getStuSex());
+		text_age.setText(student.getStuAge() + "");
+		text_grade.setText(student.getStuUgrade());
+
+	}
+
 	@Override
 	public void onResume() {
-		student  = ((XueTuApplication) (getApplication())).getStudent();
+		student = ((XueTuApplication) (getApplication())).getStudent();
 		BitmapUtils bt = new BitmapUtils(this);
-		bt.display(img_head, GetHttp.getHttpLC()+student.getStuIma());
+		bt.display(img_head, GetHttp.getHttpLC() + student.getStuIma());
 		super.onResume();
 	}
-	
+
 	@Override
 	public void onClick(View v) {
 		switch (v.getId()) {
+		case R.id.left_layout:
+			finish();
+			break;
 		case R.id.backtoperson:
 			finish();
 			break;
 		case R.id.view_user:
-			//换头像
+			// 换头像
 			showPropDialog();
-			
+
 			break;
 
 		case R.id.nicheng:
 			Intent intent = new Intent();
 			intent.setClass(this, EditNameActivity.class);
+			intent.putExtra("key2", 2);
 			startActivityForResult(intent, 2);
 			break;
 		case R.id.gexingqianming:
+			Intent intent3 = new Intent();
+			intent3.setClass(this, EditSignerActivity.class);
+			intent3.putExtra("key2", 6);
+			startActivityForResult(intent3, 6);
 
 			break;
 		case R.id.xingbie:
@@ -143,18 +171,20 @@ public class PersonInfomationActivity extends Activity implements OnClickListene
 		case R.id.nianling:
 			Intent intentage = new Intent();
 			intentage.setClass(this, ChangeAgeActivity.class);
+			intentage.putExtra("key2", 3);
 			startActivityForResult(intentage, 3);
 			break;
 		case R.id.nianji_grade:
 			Intent intentgrade = new Intent();
-			intentgrade.setClass(this, ChangeAgeActivity.class);
+			intentgrade.setClass(this, ChangeGradeActivity.class);
+			intentgrade.putExtra("key2", 4);
 			startActivityForResult(intentgrade, 4);
 			break;
 
 		case R.id.xuexiao:
-			Intent intentschool = new Intent();
-			intentschool.setClass(this, ChangeAgeActivity.class);
-			startActivityForResult(intentschool, 5);
+			// Intent intentschool = new Intent();
+			// intentschool.setClass(this, ChangeAgeActivity.class);
+			// startActivityForResult(intentschool, 5);
 			break;
 		default:
 			break;
@@ -162,70 +192,83 @@ public class PersonInfomationActivity extends Activity implements OnClickListene
 
 	}
 
-	public void setHeadByUrl(Context context,ImageView v,String url){
+	public void setHeadByUrl(Context context, ImageView v, String url) {
 		BitmapUtils bm = new BitmapUtils(context);
 		bm.display(v, url);
 	}
+
 	@Override
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 		// TODO Auto-generated method stub
 		super.onActivityResult(requestCode, resultCode, data);
 		if (resultCode == 2 && requestCode == 2) {
 			String backResult = data.getStringExtra("ed_name");
-			text_nicheng.setText(backResult);
+			if (backResult != null)
+				text_nicheng.setText(backResult);
 		}
-		if (requestCode == 3 && requestCode == 3) {
-			String ageResult = data.getStringExtra("ed_age");
-			text_age.setText(ageResult);
+		if (resultCode == 3 && requestCode == 3) {
+			String ageResult = data.getStringExtra("edit_age");
+			if (ageResult != null)
+				text_age.setText(ageResult);
 		}
-		if (requestCode == 4 && requestCode == 4) {
+		if (resultCode == 4 && requestCode == 4) {
 			String gradeResult = data.getStringExtra("ed_grade");
-			text_grade.setText(gradeResult);
+			if (gradeResult != null)
+				text_grade.setText(gradeResult);
 		}
-		if (requestCode == 5 && requestCode == 5) {
-			String schoolResult = data.getStringExtra("ed_school");
-			text_grade.setText(schoolResult);
+		if (resultCode == 5 && requestCode == 5) {
+			String schoolResult = data.getStringExtra("ed_name");
+			if (schoolResult != null)
+
+				text_school.setText(schoolResult);
+		}
+		if (resultCode == 6 && requestCode == 6) {
+			String schoolResult = data.getStringExtra("edit_qianming");
+			if (schoolResult != null)
+
+				study_gexingqianming.setText(schoolResult);
 		}
 
-		//调用系统相机
-		if(resultCode != RESULT_OK){
+		// 调用系统相机
+		if (resultCode != RESULT_OK) {
 			Log.i("MainActivity", "select pic error!");
 			return;
 		}
-		if(requestCode == SELECT_PIC){
-			if(imageUri != null){
+		if (requestCode == SELECT_PIC) {
+			if (imageUri != null) {
 				InputStream is = null;
 				try {
-					//读取图片到io流
+					// 读取图片到io流
 					is = getContentResolver().openInputStream(imageUri);
-					//内存中的图片
+					// 内存中的图片
 					Bitmap bm = BitmapFactory.decodeStream(is);
 					img_head.setImageBitmap(bm);
 				} catch (FileNotFoundException e) {
 					e.printStackTrace();
 				}
 			}
-		}else if(requestCode == TAKE_PHOTO){
-		    Intent intent = new Intent("com.android.camera.action.CROP");
-		    intent.setDataAndType(imageUri, "image/*");
-		    intent.putExtra("crop", "true");
-		    intent.putExtra("aspectX", 1);
-		    intent.putExtra("aspectY", 1);
-		    intent.putExtra("outputX", 300);
-		    intent.putExtra("outputY", 300);
-		    intent.putExtra("scale", true);
-		    intent.putExtra("return-data", true);
-		    startActivityForResult(intent, CROP_PHOTO);//启动裁剪
-		}else if(requestCode == CROP_PHOTO){//获取裁剪后的结果
+		} else if (requestCode == TAKE_PHOTO) {
+			Intent intent = new Intent("com.android.camera.action.CROP");
+			intent.setDataAndType(imageUri, "image/*");
+			intent.putExtra("crop", "true");
+			intent.putExtra("aspectX", 1);
+			intent.putExtra("aspectY", 1);
+			intent.putExtra("outputX", 300);
+			intent.putExtra("outputY", 300);
+			intent.putExtra("scale", true);
+			intent.putExtra("return-data", true);
+			startActivityForResult(intent, CROP_PHOTO);// 启动裁剪
+		} else if (requestCode == CROP_PHOTO) {// 获取裁剪后的结果
 			Bundle bundle = data.getExtras();
-			if(bundle != null){
-				bm = data.getParcelableExtra("data");//  bundle.putParceable("data",bm);
-//				bm.compress(CompressFormat.JPEG, 100, new FileOutputStream());
+			if (bundle != null) {
+				bm = data.getParcelableExtra("data");// bundle.putParceable("data",bm);
+				// bm.compress(CompressFormat.JPEG, 100, new
+				// FileOutputStream());
 				img_head.setImageBitmap(bm);
 			}
 		}
 		setphotoByUrl();
-		
+
 	}
 
 	private void showChangeSexDialog() {
@@ -235,91 +278,130 @@ public class PersonInfomationActivity extends Activity implements OnClickListene
 
 					@Override
 					public void onClick(DialogInterface dInterface, int whitch) {
-						sex.setText(SexData[whitch]);
-						Toast.makeText(getApplication(), "您选择了：" + SexData[whitch], 2).show();
+						String sexdata = SexData[whitch];
+						sex.setText(sexdata);
+						Toast.makeText(getApplication(), "您选择了：" + sexdata, 2).show();
+						/**
+						 * 传值
+						 */
+						HttpUtils httpUtils = new HttpUtils();
+						String url = GetHttp.getHttpBCL() + "ChangeSexServlet";
+						RequestParams params = new RequestParams();
+						try {
+							params.addBodyParameter("id", URLEncoder.encode(stuId + "", "utf-8"));
+							params.addBodyParameter("changesex", URLEncoder.encode(sexdata.toString(), "utf-8"));
+						} catch (UnsupportedEncodingException e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+						}
+
+						httpUtils.send(HttpMethod.POST, url, params, new RequestCallBack<String>() {
+
+							@Override
+							public void onFailure(HttpException arg0, String arg1) {
+								// TODO Auto-generated method stub
+
+							}
+
+							@Override
+							public void onSuccess(ResponseInfo<String> arg0) {
+
+								Gson gson = new Gson();
+								Type type = new TypeToken<Boolean>() {
+								}.getType();
+								Boolean result_back = gson.fromJson(arg0.result, type);
+								Log.i("TAG", "-----" + result_back);
+								if (result_back == true) {
+									Toast.makeText(getApplicationContext(), "修改成功", 1).show();
+								} else {
+									Toast.makeText(getApplicationContext(), "boom", 1).show();
+								}
+
+							}
+						});
+
 					}
 				}).setPositiveButton("确定", null).create();
 		dialog.show();
 	}
-	
-	private void showPropDialog(){
-		
-		AlertDialog.Builder builder = new AlertDialog.Builder(PersonInfomationActivity.this,AlertDialog.THEME_HOLO_LIGHT);
-		builder.setItems(new String[]{"拍照","从相册中选择"},new DialogInterface.OnClickListener() {
-			
+
+	private void showPropDialog() {
+
+		AlertDialog.Builder builder = new AlertDialog.Builder(PersonInfomationActivity.this,
+				AlertDialog.THEME_HOLO_LIGHT);
+		builder.setItems(new String[] { "拍照", "从相册中选择" }, new DialogInterface.OnClickListener() {
+
 			@Override
 			public void onClick(DialogInterface dialog, int which) {
-				// which==0,拍照	which==1,从相册中选择
+				// which==0,拍照 which==1,从相册中选择
 				prop(which);
 			}
 		}).create().show();
 	}
-	
-	//拍照
-			public void prop(int location){
-			
-				if(location == 1){//从相册中选择
-					Intent intent = new Intent(); 
-					intent.setAction(Intent.ACTION_PICK);
-					intent.setType("image/*");
-					//裁剪
-					intent.putExtra("crop", "true");
-					//宽高比例
-					intent.putExtra("aspectX", 1);
-					intent.putExtra("aspectY", 1);
-					//定义宽和高
-					intent.putExtra("outputX", 300);
-					intent.putExtra("outputY", 300);
-					//图片是否缩放
-					intent.putExtra("scale", true);
-					//是否要返回值
-					intent.putExtra("return-data", false);
-					//把图片存放到imageUri
-					intent.putExtra(MediaStore.EXTRA_OUTPUT, imageUri);
-					//图片输出格式
-					intent.putExtra("outputFormat", Bitmap.CompressFormat.JPEG.toString());
-					intent.putExtra("noFaceDetection", true); // no face detection
-					startActivityForResult(intent, SELECT_PIC);
-				}else if(location==0){//拍照
-					// api guide: cemera
-					Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-					intent.putExtra(MediaStore.EXTRA_OUTPUT, imageUri);
-					startActivityForResult(intent, TAKE_PHOTO);
-				}
-				
-			}
-			
-			//
-			public void setphotoByUrl(){
-				
-				String url = GetHttp.getHttpLC()+"SaveHead";
-				RequestParams params = new RequestParams();
-				params.addBodyParameter("stu_id",student.getStuId()+"");
-				Log.i("hehe", student.getStuId()+"");
-				params.addBodyParameter(file.getAbsolutePath().replace("/", ""),file);
-				Log.i("hehe", file+"");
-				hutils.send(HttpMethod.POST, url, params, new RequestCallBack<String>() {
 
-					@Override
-					public void onFailure(HttpException arg0, String arg1) {
-						// TODO Auto-generated method stub
-						Log.i("hehe", "buxing");
-					}
+	// 拍照
+	public void prop(int location) {
 
-					@Override
-					public void onSuccess(ResponseInfo<String> arg0) {
-						// TODO Auto-generated method stub
-						Log.i("hehe", "keyi");
-						Gson gson = new GsonBuilder()
-						.enableComplexMapKeySerialization()
-						.setPrettyPrinting()
-						.disableHtmlEscaping()
-						.setDateFormat("yyyy-MM-dd HH:mm:ss").create();
-						Type type = new TypeToken<Student>(){}.getType();
-						Student stuNew = gson.fromJson(arg0.result, type);
-						((XueTuApplication) (getApplication())).setStudent(stuNew);
-						
-					}
-				});
+		if (location == 1) {// 从相册中选择
+			Intent intent = new Intent();
+			intent.setAction(Intent.ACTION_PICK);
+			intent.setType("image/*");
+			// 裁剪
+			intent.putExtra("crop", "true");
+			// 宽高比例
+			intent.putExtra("aspectX", 1);
+			intent.putExtra("aspectY", 1);
+			// 定义宽和高
+			intent.putExtra("outputX", 300);
+			intent.putExtra("outputY", 300);
+			// 图片是否缩放
+			intent.putExtra("scale", true);
+			// 是否要返回值
+			intent.putExtra("return-data", false);
+			// 把图片存放到imageUri
+			intent.putExtra(MediaStore.EXTRA_OUTPUT, imageUri);
+			// 图片输出格式
+			intent.putExtra("outputFormat", Bitmap.CompressFormat.JPEG.toString());
+			intent.putExtra("noFaceDetection", true); // no face detection
+			startActivityForResult(intent, SELECT_PIC);
+		} else if (location == 0) {// 拍照
+			// api guide: cemera
+			Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+			intent.putExtra(MediaStore.EXTRA_OUTPUT, imageUri);
+			startActivityForResult(intent, TAKE_PHOTO);
+		}
+
+	}
+
+	//
+	public void setphotoByUrl() {
+
+		String url = GetHttp.getHttpLC() + "SaveHead";
+		RequestParams params = new RequestParams();
+		params.addBodyParameter("stu_id", student.getStuId() + "");
+		Log.i("hehe", student.getStuId() + "");
+		params.addBodyParameter(file.getAbsolutePath().replace("/", ""), file);
+		Log.i("hehe", file + "");
+		hutils.send(HttpMethod.POST, url, params, new RequestCallBack<String>() {
+
+			@Override
+			public void onFailure(HttpException arg0, String arg1) {
+				// TODO Auto-generated method stub
+				Log.i("hehe", "buxing");
 			}
+
+			@Override
+			public void onSuccess(ResponseInfo<String> arg0) {
+				// TODO Auto-generated method stub
+				Log.i("hehe", "keyi");
+				Gson gson = new GsonBuilder().enableComplexMapKeySerialization().setPrettyPrinting()
+						.disableHtmlEscaping().setDateFormat("yyyy-MM-dd HH:mm:ss").create();
+				Type type = new TypeToken<Student>() {
+				}.getType();
+				Student stuNew = gson.fromJson(arg0.result, type);
+				((XueTuApplication) (getApplication())).setStudent(stuNew);
+
+			}
+		});
+	}
 }

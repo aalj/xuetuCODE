@@ -1,6 +1,7 @@
 package com.xuetu.utils;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import com.xuetu.entity.SelfStudyPlan;
@@ -10,7 +11,7 @@ public class ChuliShijian {
 	public  static List<SelfStudyPlan> shijianpanduan(List<SelfStudyPlan> list) {
 		List<SelfStudyPlan> listtemp=new ArrayList<>();
 		long time = System.currentTimeMillis();
-		System.out.println("time----->"+time);
+		System.out.println("time----->"+new Date(time));
 		for (int i = 0; i < list.size(); i++) {
 			if(list.get(i).getStartTime().getTime()>=time){
 				listtemp.add(list.get(i));

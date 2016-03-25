@@ -4,12 +4,22 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.xuetu.entity.Coupon;
+import com.xuetu.entity.LongTime;
 import com.xuetu.entity.Student;
 
 import android.app.Application;
 
 public class XueTuApplication extends Application {
 	 private Student student = null;
+	private  List<float[]> list = new ArrayList<float[]>();
+	public List<float[]> getList() {
+		return list;
+	}
+
+	public void setList(List<float[]> list) {
+		this.list = list;
+	}
+
 	private List<Coupon> listConpun = new ArrayList<Coupon>();
 	public Student getStudent() {
 		return student;
