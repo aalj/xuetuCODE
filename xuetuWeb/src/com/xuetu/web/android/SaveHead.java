@@ -78,8 +78,9 @@ public class SaveHead extends HttpServlet {
 				System.out.println("saveFileName" + saveFileName);
 				// 文件保存路径
 				poster.saveAs(saveFileName);
-				poster.saveAs("F:\\xuetuGIT\\xuetuCODE\\xuetuWeb\\WebContent\\xuetuImg\\" + poster.getFileName());
-			}
+				poster.saveAs("E:\\XueTu\\xuetuCCOODDEE\\2016.3.24\\xuetuCODE\\xuetuWeb\\WebContent\\xuetuImg\\"
+						+ poster.getFileName());
+			} // E:\XueTu\xuetuCCOODDEE\2016.3.24\xuetuCODE\xuetuWeb\WebContent\xuetuImg
 			stu_img = "xuetuImg/" + poster.getFileName();
 			stu_id = Integer.parseInt(smartUpload.getRequest().getParameter("stu_id"));
 			person.updateStu_img(stu_id, stu_img);
