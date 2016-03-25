@@ -46,6 +46,7 @@ public class LoginActivity extends Activity implements OnClickListener {
 			Intent intent = new Intent(this, MainActivity.class);
 			startActivity(intent);
 		}
+		finish();
 		setContentView(R.layout.activity_login);
 		sp = getSharedPreferences("config", Activity.MODE_PRIVATE);
 		titlebar = (TitleBar) findViewById(R.id.title_back);
