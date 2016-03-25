@@ -13,6 +13,7 @@ import com.lidroid.xutils.http.ResponseInfo;
 import com.lidroid.xutils.http.callback.RequestCallBack;
 import com.lidroid.xutils.http.client.HttpRequest.HttpMethod;
 import com.xuetu.R;
+import com.xuetu.entity.Student;
 import com.xuetu.utils.GetHttp;
 import com.xuetu.view.TitleBar;
 
@@ -40,7 +41,7 @@ public class EditNameActivity extends Activity implements OnClickListener {
 		titlebar.setRightLayoutClickListener(this);
 		stuId = ((XueTuApplication) getApplication()).getStudent().getStuId();
 		Log.i("TAG", "-----到达编辑框“”");
-		
+
 	}
 
 	@Override
@@ -55,6 +56,8 @@ public class EditNameActivity extends Activity implements OnClickListener {
 			Log.i("TAG", "~~~~~~~~~~~~update执行完");
 			Intent intent = new Intent();
 			String ed_name = edit_name.getText().toString();
+			Student student = ((XueTuApplication) getApplication()).getStudent();
+			student.setStuName(ed_name);
 			intent.putExtra("ed_name", ed_name);
 			setResult(2, intent);
 			finish();
@@ -92,8 +95,8 @@ public class EditNameActivity extends Activity implements OnClickListener {
 				Type type = new TypeToken<Boolean>() {
 				}.getType();
 				Boolean result_back = gson.fromJson(arg0.result, type);
-				Log.i("TAG", "-----"+result_back);
-				if (result_back==true) {
+				Log.i("TAG", "-----" + result_back);
+				if (result_back == true) {
 					Toast.makeText(getApplicationContext(), "修改成功", 1).show();
 				} else {
 					Toast.makeText(getApplicationContext(), "boom", 1).show();

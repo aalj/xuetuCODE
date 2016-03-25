@@ -56,26 +56,25 @@ public class PersonalFrag extends Fragment implements OnClickListener {
 	TextView txt_mylike;
 	TextView txt_course;
 	TextView txt_paihangbang;
-	CircleImageView img_head;
-	Student student;
+	CircleImageView head;
+
 	TextView tvname;
 	TextView tvmsg;
+	View view;
 
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-		View view = inflater.inflate(R.layout.personal_frag, null);
+		view = inflater.inflate(R.layout.personal_frag, null);
 		view_user = (RelativeLayout) view.findViewById(R.id.view_user);
 		txt_pay = (TextView) view.findViewById(R.id.txt_mypoint);
 		txt_youhuijuan = (TextView) view.findViewById(R.id.txt_youhuijuan);
 		txt_myquestion = (TextView) view.findViewById(R.id.txt_myquestion);
 		txt_mylike = (TextView) view.findViewById(R.id.txt_mylike);
 		txt_course = (TextView) view.findViewById(R.id.txt_course);
-		img_head = (CircleImageView) view.findViewById(R.id.img_head);
+		head = (CircleImageView) view.findViewById(R.id.head);
 		txt_paihangbang = (TextView) view.findViewById(R.id.txt_paihangbang);
-		if(student!=null)
-		setHeadByUrl(view.getContext(),img_head,GetHttp.getHttpLC()+student.getStuIma());
-		
-		
+	
+
 		view_user.setOnClickListener(this);
 		txt_pay.setOnClickListener(this);
 		txt_youhuijuan.setOnClickListener(this);
@@ -85,23 +84,26 @@ public class PersonalFrag extends Fragment implements OnClickListener {
 		txt_paihangbang.setOnClickListener(this);
 		tvname = (TextView) view.findViewById(R.id.tvname);
 		tvmsg = (TextView) view.findViewById(R.id.tvmsg);
-		student = ((XueTuApplication) (getActivity().getApplication())).getStudent();
+
 		addView();
 		return view;
 	}
-	public void addView() {
-		tvname.setText(student.getStuName());
-		tvmsg.setText(student.getStuSigner());
-	}
 
+	public void addView() {
+		Student student1 = ((XueTuApplication) (getActivity().getApplication())).getStudent();
+		if (student1.getStuId() > 0)
+			setHeadByUrl(view.getContext(), head, GetHttp.getHttpLC() + student1.getStuIma());
+		tvname.setText(student1.getStuName());
+		tvmsg.setText(student1.getStuSigner());
+	}
 
 	@Override
 	public void onResume() {
-		student = ((XueTuApplication) (getActivity().getApplication())).getStudent();
+		addView();
 		super.onResume();
 	}
 
-	public void setHeadByUrl(Context context,ImageView v,String url){
+	public void setHeadByUrl(Context context, ImageView v, String url) {
 		BitmapUtils bm = new BitmapUtils(context);
 		bm.display(v, url);
 	}
@@ -110,7 +112,8 @@ public class PersonalFrag extends Fragment implements OnClickListener {
 	public void onClick(View v) {
 		switch (v.getId()) {
 		case R.id.view_user:
-			
+			Student student = ((XueTuApplication) (getActivity().getApplication())).getStudent();
+
 			if (student.getStuId() <= 0) {
 				Intent intent = new Intent();
 				intent.setClass(getActivity(), LoginActivity.class);
@@ -127,7 +130,7 @@ public class PersonalFrag extends Fragment implements OnClickListener {
 
 			break;
 
-		case R.id.txt_youhuijuan://优惠券管理
+		case R.id.txt_youhuijuan:// 优惠券管理
 			Intent intent3 = new Intent();
 			intent3.setClass(getActivity(), TheCollectionOfYouHuiJuanActivity.class);
 			getActivity().startActivity(intent3);

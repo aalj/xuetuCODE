@@ -58,5 +58,6 @@
     <string name="title_activity_learing_record">LearingRecordActivity</string>
     <string name="title_activity_pai_hang_bang">PaiHangBangActivity</string>
     <string name="title_activity_edit_signer">EditSignerActivity</string>
+    <string name="title_activity_share">ShareActivity</string>
 
 </resources>

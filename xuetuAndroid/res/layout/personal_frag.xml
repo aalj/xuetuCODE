@@ -51,7 +51,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="20dp"
                     android:layout_toRightOf="@+id/head"
-                    android:text="雾里看花终隔一层"
+                    android:text="你看见我的小熊了吗"
                     android:textSize="18.0dip" />
 
                 <TextView
@@ -60,7 +60,7 @@
                     android:layout_below="@+id/tvname"
                     android:layout_marginTop="10dp"
                     android:layout_toRightOf="@+id/head"
-                    android:text="做一个阳光的妹纸"
+                    android:text="做一个明媚的女子"
                     android:textSize="14.0dip" />
 
                 <ImageView
@@ -71,14 +71,7 @@
                     android:layout_marginRight="15dp"
                     android:src="@drawable/right" />
 
-                <ImageView
-                    android:id="@+id/iv_sex"
-                    android:layout_width="20dp"
-                    android:layout_height="20dp"
-                    android:layout_marginLeft="5dp"
-                    android:layout_marginTop="22dp"
-                    android:layout_toRightOf="@+id/tvname"
-                    android:src="@drawable/ic_sex_female" />
+                
             </RelativeLayout>
 
             <View

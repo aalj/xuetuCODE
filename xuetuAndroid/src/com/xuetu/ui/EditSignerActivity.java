@@ -13,6 +13,7 @@ import com.lidroid.xutils.http.ResponseInfo;
 import com.lidroid.xutils.http.callback.RequestCallBack;
 import com.lidroid.xutils.http.client.HttpRequest.HttpMethod;
 import com.xuetu.R;
+import com.xuetu.entity.Student;
 import com.xuetu.ui.PersonInfomationActivity;
 import com.xuetu.ui.XueTuApplication;
 import com.xuetu.utils.GetHttp;
@@ -54,6 +55,8 @@ public class EditSignerActivity extends Activity implements OnClickListener {
 			Log.i("TAG", "~~~~~~~~~~~~update执行完");
 			Intent intent = new Intent();
 			String ed_name = edit_qianming.getText().toString();
+			Student student = ((XueTuApplication) getApplication()).getStudent();
+			student.setStuSigner(ed_name);
 			intent.putExtra("edit_qianming", ed_name);
 			setResult(6, intent);
 			finish();
