@@ -498,7 +498,7 @@ public class HomePageFrag extends Fragment implements OnTouchListener {
 						studyplan = gson.fromJson(arg, type);
 						//进行判断,得到的对象是否为空,  如果不为空,在判断是不是今天的计划
 						
-						if(studyplan.getStartTime()!=null)
+						if(studyplan!=null)
 						{
 //							isstudy = new IsStudy();
 							is_today_studyplan = isstudy.getStudyPlan(studyplan);
@@ -585,7 +585,11 @@ public class HomePageFrag extends Fragment implements OnTouchListener {
 								planflag = true;
 							}
 						}
-						
+						else{
+							Toast.makeText(getActivity(), "今天没有计划", Toast.LENGTH_SHORT).show();
+							flag     = true;
+							planflag = true;
+						}
 						
 						
 					}
