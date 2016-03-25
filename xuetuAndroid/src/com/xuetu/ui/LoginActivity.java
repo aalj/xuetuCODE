@@ -41,12 +41,15 @@ public class LoginActivity extends Activity implements OnClickListener {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		Log.i("TAG", "LoginActivity");
 		int stuId = ((XueTuApplication) getApplication()).getStudent().getStuId();
 		if (stuId > 0) {
 			Intent intent = new Intent(this, MainActivity.class);
 			startActivity(intent);
+			finish();
 		}
 		setContentView(R.layout.activity_login);
+
 		sp = getSharedPreferences("config", Activity.MODE_PRIVATE);
 		titlebar = (TitleBar) findViewById(R.id.title_back);
 		titlebar.setLeftLayoutClickListener(this);

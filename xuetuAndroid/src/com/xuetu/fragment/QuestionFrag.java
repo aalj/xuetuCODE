@@ -122,7 +122,7 @@ public class QuestionFrag extends Fragment implements OnClickListener,OnRefreshL
 		lv = (RefreshListView) view.findViewById(R.id.lv_question);
 		InitData(1, REFRESH_TEMP);
 		
-		adapter = new MyBasesadapter<Question>(getContext(),list,R.layout.question_listitem) {
+		adapter = new MyBasesadapter<Question>(getActivity(),list,R.layout.question_listitem) {
 
 			@Override
 			public void convert(ViewHodle viewHolder,   final Question item) {
@@ -164,7 +164,7 @@ public class QuestionFrag extends Fragment implements OnClickListener,OnRefreshL
 				});
 			}
 		};
-//		lv.setAdapter(adapter);
+		lv.setAdapter(adapter);
 		lv.setOnRefreshListener(this);
 		return view;
 

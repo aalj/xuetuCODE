@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
  	<!-- 白色 -->
-	<color name="white">#ffffff</color> 
+<!-- 	<color name="white">#ffffff</color>  -->
      <!-- 透明 -->
 	<color name="transparent">#00000000</color>
 	<color name="transparent2">#50000000</color> 
@@ -18,7 +18,7 @@
     
     <color name="blackk1">#ff7c8081</color>
     <color name="blackk">#ffe6e6e6</color>
-    <color name="black2">#ffeeeeee</color>
+   
     <color name="blue0">#ff88c1e8</color>
     <color name="black3">#fff7f7f7</color>
     <color name="black4">#ffeaeaea</color>
@@ -46,7 +46,7 @@
     <color name="list_bg3">#ffffcccc</color>
     <color name="list_pressed">#ffa0a0a3</color>
     <color name="title_back">#ff293852</color>
-    <color name="blue">#ff3300ff</color>
+<!--     <color name="blue">#ff3300ff</color> -->
     <color name="greeny">#00CB0D</color>
     <color name="orange3">#ffffd1b3</color>
     <color name="notice_detail_pressedc">#ff99cccc</color>
@@ -64,7 +64,7 @@
     <color name="greenn">#ff96cf99</color>
     <color name="blue2">#ff31859b</color>
     <color name="red4">#ff953734</color>
-    <color name="blue1">#ff00a4e8</color>
+<!--     <color name="blue1">#ff00a4e8</color> -->
     <color name="red2">#fff79646</color>
     <color name="red0">#ffb7393a</color>
     <color name="pur">#ff7030a0</color>
@@ -104,6 +104,6 @@
     <color name="isToday_BgColor">#ffebdcc1</color>
     <color name="specialReminder">#ffff0000</color>
     <color name="commonReminder">#ffbdbab5</color>
-    <color name="gray">#ff808080</color>
+     
     <color name="gray2">#ffeef2fb</color>
 </resources>
