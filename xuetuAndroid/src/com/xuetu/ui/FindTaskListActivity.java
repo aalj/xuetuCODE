@@ -32,6 +32,8 @@ import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.support.v4.widget.SwipeRefreshLayout;
+import android.support.v4.widget.SwipeRefreshLayout.OnRefreshListener;
 import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -55,7 +57,7 @@ import android.widget.Toast;
  *
  * @see
  */
-public class FindTaskListActivity extends Activity implements OnItemClickListener, OnClickListener {
+public class FindTaskListActivity extends Activity implements OnItemClickListener, OnClickListener, OnRefreshListener {
 	@ViewInject(R.id.activity_find_task_list)
 	ListView activityFindTaskList;
 	// 从网上下来的数据源
@@ -77,12 +79,21 @@ public class FindTaskListActivity extends Activity implements OnItemClickListene
 	List<Integer> list = new ArrayList<Integer>();
 	List<Pattern> listpattern;
 	Gson gson = null;
+	SwipeRefreshLayout mSwipeLayout;
+	boolean tempre=true;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_find_task_list);
 		ViewUtils.inject(this);
+		mSwipeLayout = (SwipeRefreshLayout) findViewById(R.id.id_swipe_ly);
+		mSwipeLayout.setOnRefreshListener(this);
+		/**
+		 * 设置刷新时候的颜色
+		 */
+		mSwipeLayout.setColorScheme(android.R.color.holo_blue_bright, android.R.color.holo_green_light,
+				android.R.color.holo_orange_light, android.R.color.holo_red_light);
 		dbFindManager = new DBFindManager(this);
 		viewInit();
 		mySengHttp();
@@ -103,17 +114,18 @@ public class FindTaskListActivity extends Activity implements OnItemClickListene
 	}
 
 	private void getData() {
-		System.out.println("huode shuju ");
+		
+		
 			httpUtils = new HttpUtils();
 			String url = GetHttp.getHttpLJ() + "GetSelfStudyPlan";
 			Log.i("TAG", url);
 			RequestParams pram = new RequestParams();
 			// TODO 无法获得学生对象的数据
 
-			// String StuId =
-			// ((XueTuApplication)getApplication()).getStudent().getStuId()+"";
+			 String StuId =
+			 ((XueTuApplication)getApplication()).getStudent().getStuId()+"";
 
-			pram.addBodyParameter("StuID", "1");
+			pram.addBodyParameter("StuID", StuId);
 			httpUtils.send(HttpMethod.POST, url, pram, new RequestCallBack<String>() {
 
 				@Override
@@ -129,6 +141,7 @@ public class FindTaskListActivity extends Activity implements OnItemClickListene
 					Type type = new TypeToken<List<SelfStudyPlan>>() {
 					}.getType();
 					users = gson.fromJson(arg0.result, type);
+					Log.i("TAG", "gerenjihua tinahus "+users.size()+"");
 
 //					dbFindManager.addSelf(users);
 //					sp.edit().putBoolean("SELELIST", true).commit();
@@ -154,7 +167,19 @@ public class FindTaskListActivity extends Activity implements OnItemClickListene
 						}
 
 					};
-					activityFindTaskList.setAdapter(adapter);
+					
+					
+					if(tempre){
+						activityFindTaskList.setAdapter(adapter);
+						
+					}else{
+						adapter.notifyDataSetChanged();
+						/**
+						 * 设置刷新结束之后，圈停止转动
+						 */
+						mSwipeLayout.setRefreshing(false);
+					}
+					
 				}
 			});
 			
@@ -168,7 +193,7 @@ public class FindTaskListActivity extends Activity implements OnItemClickListene
 	public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 		// 使用万能适配器写ListView 数据
 		Intent intent = new Intent(this, FindTaskItemActivity.class);
-		intent.putExtra("plans", users.get(position-1));
+		intent.putExtra("plans", users.get(position));
 		index = position;
 
 		startActivityForResult(intent, SELF_CODE);
@@ -184,6 +209,7 @@ public class FindTaskListActivity extends Activity implements OnItemClickListene
 			users.remove(index);
 			users.add(index, selfStudyPlan);
 			adapter.notifyDataSetChanged();
+			Log.i("TAG", "selfStudyPlan.toString()------->>>>"+selfStudyPlan.toString());
 			saveChangSelf(selfStudyPlan);
 			Toast.makeText(getApplicationContext(), selfStudyPlan.getPlanText(), 0).show();
 		}
@@ -308,6 +334,15 @@ public class FindTaskListActivity extends Activity implements OnItemClickListene
 					}
 				});
 
+			}
+
+			@Override
+			public void onRefresh() {
+				tempre=false;
+				getData();
+				
+				
+				
 			}
 
 }

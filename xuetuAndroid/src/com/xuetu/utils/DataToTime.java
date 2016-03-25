@@ -16,7 +16,9 @@ import android.util.Log;
 
 public class DataToTime {
 
-	public static int dayForWeek(Date pTime) throws Throwable {
+	private static final String TAG = "TAG";
+
+	public static int dayForWeek(Date pTime) {
 
 		Calendar cal = new GregorianCalendar();
 
@@ -26,56 +28,50 @@ public class DataToTime {
 
 	}
 
-	public static List<LongTime> getshijainshuju(List<LongTime> list) {
-		List<LongTime> mylist = new ArrayList<LongTime>();
-		try {for(int i=0;i<7;i++){
-			mylist.add(new LongTime());
-			for (LongTime longTime : list) {
+	public static List<float[]> getshijainshuju(List<LongTime> list) {
+		List<float[]> mylist = new ArrayList<float[]>();
 
-				int dayForWeek = dayForWeek(longTime.getMyDate());
-				switch (dayForWeek) {
-				case 0:
-					mylist.remove(0);
-					mylist.add(0, list.get(0));
-					
-					break;
-				case 1:
-					mylist.remove(1);
-					mylist.add(1, list.get(1));					
-					break;
-				case 2:
-					mylist.remove(2);
-					mylist.add(2, list.get(2));					
-					break;
-				case 3:
-					mylist.remove(3);
-					mylist.add(3, list.get(3));					
-					break;
-				case 4:
-					mylist.remove(4);
-					mylist.add(4, list.get(4));					
-					break;
-				case 5:
-					mylist.remove(5);
-					mylist.add(5, list.get(5));					
-					break;
-				case 6:
-					mylist.remove(6);
-					mylist.add(0, list.get(6));					
-					break;
+		for (int i = 0; i < 7; i++) {
+			mylist.add(new float[]{2});
+		}
+		for (int i = 0; i < list.size(); i++) {
 
-				default:
-					break;
-				}}
-				
+			int dayForWeek = dayForWeek(list.get(i).getMyDate());
+
+			if (dayForWeek == 0) {
+				mylist.remove(0);
+				mylist.add(0, new float[]{list.get(i).getMyTime()});
 			}
-		return mylist;
-		} catch (Throwable e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			if (dayForWeek == 1) {
+				mylist.remove(1);
+				mylist.add(1, new float[]{list.get(i).getMyTime()});
+			}
+			if (dayForWeek == 2) {
+				mylist.remove(2);
+				mylist.add(2, new float[]{list.get(i).getMyTime()});
+			}
+			if (dayForWeek == 3) {
+				mylist.remove(3);
+				mylist.add(3, new float[]{list.get(i).getMyTime()});
+			}
+			if (dayForWeek == 4) {
+				mylist.remove(4);
+				mylist.add(4, new float[]{list.get(i).getMyTime()});
+			}
+			if (dayForWeek == 5) {
+				mylist.remove(5);
+				mylist.add(5, new float[]{list.get(i).getMyTime()});
+			}
+
+			if (dayForWeek == 6) {
+				mylist.remove(6);
+				mylist.add(6, new float[]{list.get(i).getMyTime()});
+			}
+
 		}
 
-		return null;
+		return mylist;
+
 	}
 
 	public static String dataToT(Date data) {
