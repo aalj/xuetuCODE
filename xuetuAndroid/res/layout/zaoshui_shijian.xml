@@ -1,0 +1,315 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+        
+        >
+<LinearLayout 
+    android:orientation="vertical" 
+      android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    
+    
+    <View
+                android:layout_width="fill_parent"
+                android:layout_height="1.0dip"
+                android:layout_marginTop="5dp"
+                android:background="@color/black2" />
+    <LinearLayout 
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        >
+         <TextView
+        android:id="@+id/zaoshuimoshi"
+        style="@style/TxtTitle"
+        android:layout_width="fill_parent"
+        android:layout_weight="3"
+        android:layout_height="50dp"
+        android:background="@drawable/setting_item_selector"
+        android:gravity="center_vertical"
+        android:onClick="onclick"
+        android:paddingLeft="16dp"
+        android:paddingRight="16dp"
+        android:text="早睡模式"
+        android:textSize="16sp" />
+         <TextView
+        android:id="@+id/zaoshuimoshi_tv"
+        style="@style/TxtTitle"
+        android:layout_width="fill_parent"
+        android:layout_weight="5"
+        android:layout_height="50dp"
+        android:background="@drawable/setting_item_selector"
+        android:drawablePadding="10dp"
+        android:drawableRight="@drawable/right"
+        android:gravity=""
+        android:onClick="onclick"
+        android:paddingLeft="16dp"
+        android:paddingRight="16dp"
+        android:text="彪悍模式"
+        android:textSize="16sp"
+        android:textColor="#bcbcbc"
+         />
+    </LinearLayout>
+      
+    
+   
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_marginLeft="28dip"
+        android:layout_height="1.0dip"
+        android:layout_marginRight="0dip"
+        android:background="@color/black2" />
+	
+	 <LinearLayout 
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        >
+         <TextView
+        android:id="@+id/zaoshui_chongfu_tv"
+        style="@style/TxtTitle"
+        android:layout_width="fill_parent"
+        android:layout_weight="1"
+        android:layout_height="50dp"
+        android:background="@drawable/setting_item_selector"
+        android:gravity="center_vertical"
+        android:onClick="onclick"
+        android:paddingLeft="16dp"
+        android:paddingRight="16dp"
+        android:text="重复"
+        android:textSize="16sp" />
+
+         <TextView
+             android:id="@+id/zaoshui_riqixianshi_tv"
+             style="@style/TxtTitle"
+             android:layout_width="wrap_content"
+             android:layout_height="50dp"
+             android:background="@drawable/setting_item_selector"
+             android:drawablePadding="10dp"
+             android:drawableRight="@drawable/right"
+             android:gravity=""
+             android:onClick="onclick"
+             android:paddingLeft="16dp"
+             android:paddingRight="16dp"
+             android:text="周一、周二、周三、周四、周五、"
+             android:textColor="#bcbcbc"
+             android:textSize="10sp" />
+
+    </LinearLayout>
+    
+
+	 <View
+        android:layout_width="match_parent"
+        android:layout_marginLeft="28dip"
+        android:layout_height="1.0dip"
+        android:layout_marginRight="0dip"
+        android:background="@color/black2" />
+    
+    <TextView
+        android:id="@+id/xiaoshui_anniu"
+        style="@style/TxtTitle"
+        android:layout_width="fill_parent"
+        android:layout_height="50dp"
+        android:background="@drawable/setting_item_selector"
+        android:gravity="center_vertical"
+        android:onClick="onclick"
+        android:drawablePadding="10dp"
+        android:drawableRight="@drawable/right"
+        android:paddingLeft="16dp"
+        android:paddingRight="16dp"
+        android:text="小睡"
+        android:textSize="16sp" />
+    
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1.0dip"
+        android:background="@color/black2" />
+    
+    <View
+                android:layout_width="fill_parent"
+                android:layout_height="1.0dip"
+                android:layout_marginTop="15dp"
+                android:background="@color/black2" />
+    <LinearLayout 
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        >
+         <TextView
+        android:id="@+id/zaoshui_beijingtu_tv"
+        style="@style/TxtTitle"
+        android:layout_width="fill_parent"
+        android:layout_weight="3"
+        android:layout_height="50dp"
+        android:background="@drawable/setting_item_selector"
+        android:gravity="center_vertical"
+        android:onClick="onclick"
+        android:paddingLeft="16dp"
+        android:paddingRight="16dp"
+        android:text="背景图"
+        android:textSize="16sp" />
+         <TextView
+        android:id="@+id/zaoshui_beijingtu_shezhi_tv"
+        style="@style/TxtTitle"
+        android:layout_width="fill_parent"
+        android:layout_weight="5"
+        android:layout_height="50dp"
+        android:background="@drawable/setting_item_selector"
+        android:drawablePadding="10dp"
+        android:drawableRight="@drawable/right"
+        android:gravity=""
+        android:onClick="onclick"
+        android:paddingLeft="16dp"
+        android:paddingRight="16dp"
+        android:text="未设置"
+        android:textSize="16sp"
+        android:textColor="#bcbcbc"
+         />
+    </LinearLayout>
+    <View
+        android:layout_width="match_parent"
+        android:layout_marginLeft="28dip"
+        android:layout_height="1.0dip"
+        android:background="@color/black2" />
+      <LinearLayout 
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        >
+         <TextView
+        android:id="@+id/zaoshui_tishiyu_tv"
+        style="@style/TxtTitle"
+        android:layout_width="fill_parent"
+        android:layout_weight="3"
+        android:layout_height="50dp"
+        android:background="@drawable/setting_item_selector"
+        android:gravity="center_vertical"
+        android:onClick="onclick"
+        android:paddingLeft="16dp"
+        android:paddingRight="16dp"
+        android:text="提示语"
+        android:textSize="16sp" />
+         <TextView
+        android:id="@+id/zaoshui_tishiyu_shezhi_tv"
+        style="@style/TxtTitle"
+        android:layout_width="fill_parent"
+        android:layout_weight="5"
+        android:layout_height="50dp"
+        android:background="@drawable/setting_item_selector"
+        android:drawablePadding="10dp"
+        android:drawableRight="@drawable/right"
+        android:gravity=""
+        android:onClick="onclick"
+        android:paddingLeft="16dp"
+        android:paddingRight="16dp"
+        android:text="未设置"
+        android:textSize="16sp"
+        android:textColor="#bcbcbc"
+         />
+    </LinearLayout>
+    
+   
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1.0dip"
+        android:background="@color/black2" />
+    
+     <View
+                android:layout_width="fill_parent"
+                android:layout_height="1.0dip"
+                android:layout_marginTop="15dp"
+                android:background="@color/black2" />
+    <LinearLayout 
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        >
+         <TextView
+        android:id="@+id/zaoshui_xiangling_tv"
+        style="@style/TxtTitle"
+        android:layout_width="fill_parent"
+        android:layout_weight="3"
+        android:layout_height="50dp"
+        android:background="@drawable/setting_item_selector"
+        android:gravity="center_vertical"
+        android:onClick="onclick"
+        android:paddingLeft="16dp"
+        android:paddingRight="16dp"
+        android:text="响铃"
+        android:textSize="16sp" />
+         <TextView
+        android:id="@+id/zaoshui_xiangling_kaiguan_tv"
+        style="@style/TxtTitle"
+        android:layout_width="fill_parent"
+        android:layout_weight="5"
+        android:layout_height="50dp"
+        android:background="@drawable/setting_item_selector"
+        android:drawablePadding="10dp"
+        android:drawableRight="@drawable/right"
+        android:gravity=""
+        android:onClick="onclick"
+        android:paddingLeft="16dp"
+        android:paddingRight="16dp"
+        android:text="未设置"
+        android:textSize="16sp"
+        android:textColor="#bcbcbc"
+         />
+    </LinearLayout>
+    <View
+        android:layout_width="match_parent"
+        android:layout_marginLeft="28dip"
+        android:layout_height="1.0dip"
+        android:background="@color/black2" />
+      <LinearLayout 
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        >
+         <TextView
+        android:id="@+id/zaoshui_lingyin_tv"
+        style="@style/TxtTitle"
+        android:layout_width="fill_parent"
+        android:layout_weight="3"
+        android:layout_height="50dp"
+        android:background="@drawable/setting_item_selector"
+        android:gravity="center_vertical"
+        android:onClick="onclick"
+        android:paddingLeft="16dp"
+        android:paddingRight="16dp"
+        android:text="铃音"
+        android:textSize="16sp" />
+         <TextView
+        android:id="@+id/zaoshui_lingyin_kaiguan_tv"
+        style="@style/TxtTitle"
+        android:layout_width="fill_parent"
+        android:layout_weight="5"
+        android:layout_height="50dp"
+        android:background="@drawable/setting_item_selector"
+        android:drawablePadding="10dp"
+        android:drawableRight="@drawable/right"
+        android:gravity=""
+        android:onClick="onclick"
+        android:paddingLeft="16dp"
+        android:paddingRight="16dp"
+        android:text="未设置"
+        android:textSize="16sp"
+        android:textColor="#bcbcbc"
+         />
+    </LinearLayout>
+    
+   
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1.0dip"
+        android:background="@color/black2" />
+    
+    
+    
+</LinearLayout>
+</ScrollView>
