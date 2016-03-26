@@ -36,7 +36,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-public class FindTaskItemActivity extends FragmentActivity implements OnClickListener {
+public class FindTaskItemActivity extends Baseactivity implements OnClickListener {
 	@ViewInject(R.id.tiem_start)
 	RelativeLayout tiem_start;
 	@ViewInject(R.id.tiem_end)
@@ -97,7 +97,7 @@ public class FindTaskItemActivity extends FragmentActivity implements OnClickLis
 	private void initView() {
 		selfStudyPlan = (SelfStudyPlan) getIntent().getSerializableExtra("plans");
 		endTime = selfStudyPlan.getEndTime();
-
+		startTime = selfStudyPlan.getStartTime();
 		tv_startTime_info.setText(DataToTime.dataToT(selfStudyPlan.getStartTime()));
 		tv_endTime_info.setText(DataToTime.dataToT(selfStudyPlan.getEndTime()));
 		study_info.setText(selfStudyPlan.getPattern().getPattrenText());
@@ -153,7 +153,7 @@ public class FindTaskItemActivity extends FragmentActivity implements OnClickLis
 		case R.id.tiem_start:// 设置开始时间
 
 			new SlideDateTimePicker.Builder(getSupportFragmentManager()).setListener(listener)
-					.setInitialDate(new Date())
+					.setInitialDate(startTime)
 					// .setMinDate(minDate)
 					// .setMaxDate(maxDate)
 					.setIs24HourTime(true)
@@ -164,7 +164,7 @@ public class FindTaskItemActivity extends FragmentActivity implements OnClickLis
 		case R.id.tiem_end:// 设置结束时间
 
 			new SlideDateTimePicker.Builder(getSupportFragmentManager()).setListener(listener2)
-					.setInitialDate(startTime)
+					.setInitialDate(endTime)
 					// .setMinDate(minDate)
 					// .setMaxDate(maxDate)
 					.setIs24HourTime(true)
@@ -206,7 +206,7 @@ public class FindTaskItemActivity extends FragmentActivity implements OnClickLis
 		case R.id.button1:// 删除按钮
 			Intent intent3 = new Intent();
 			deleSelf(selfStudyPlan.getPlanID());
-//			intent3.putExtra("name1", selfStudyPlan);
+			// intent3.putExtra("name1", selfStudyPlan);
 			// 设置执行模式在选择的时候已经确定
 
 			setResult(1012, intent3);
@@ -270,19 +270,6 @@ public class FindTaskItemActivity extends FragmentActivity implements OnClickLis
 
 	}
 
-	/**
-	 * 获得学系
-	 */
-	// private void getpattern() {
-	// list = dbFindManager.getPattern();
-	// dbFindManager.addPatter(list);
-	// // TODO 需要把数据存到本地数据库
-	//
-	// Log.i("TAG", list.toString());
-	// item = new String[list.size()];
-	// for (int i = 0; i < list.size(); i++) {
-	// item[i] = list.get(i).getPattrenText();
-	// }
-	// }
+	
 
 }

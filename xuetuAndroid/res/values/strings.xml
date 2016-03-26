@@ -28,6 +28,9 @@
     <string name="sub4">化学</string>
     <string name="question_hint">请详细描述问题</string>
 
+    
+    <drawable name="re_normal">#fffffe</drawable>
+    <drawable name="re_pressed">#A3DBF5</drawable>
     <drawable name="clr_normal">#44a6c0</drawable>
     <drawable name="clr_pressed">#65b8e0</drawable>
     <drawable name="clr_change">#33cc99</drawable>

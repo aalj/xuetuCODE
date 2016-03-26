@@ -214,38 +214,38 @@ public class SplashActivity extends Activity {
 
 	}
 
-	/**
-	 * 加载学习时间
-	 */
-	public void gettime(int stuid) {
-		HttpUtils httpUtils = new HttpUtils();
-		String url = GetHttp.getHttpLJ() + "GetLongTime";
-
-		RequestParams pra = new RequestParams();
-		pra.addBodyParameter("stuID", stuid + "");
-		httpUtils.send(HttpMethod.POST, url, pra, new RequestCallBack<String>() {
-
-			@Override
-			public void onFailure(HttpException arg0, String arg1) {
-				// TODO Auto-generated method stub
-
-			}
-
-			@Override
-			public void onSuccess(ResponseInfo<String> arg0) {
-				Type type = new TypeToken<List<LongTime>>() {
-				}.getType();
-				Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create();
-				List<LongTime> time = gson.fromJson(arg0.result, type);
-				Log.i("TAG", time.size()+"time-------------->");
-				 List<float[]> getshijainshuju = DataToTime.getshijainshuju(time);
-				// TODO
-				Log.i("TAG", getshijainshuju.size()+"getshijainshuju-------------->");
-				((XueTuApplication) getApplication()).setList(getshijainshuju);
-
-			}
-		});
-	}
+//	/**
+//	 * 加载学习时间
+//	 */
+//	public void gettime(int stuid) {
+//		HttpUtils httpUtils = new HttpUtils();
+//		String url = GetHttp.getHttpLJ() + "GetLongTime";
+//
+//		RequestParams pra = new RequestParams();
+//		pra.addBodyParameter("stuID", stuid + "");
+//		httpUtils.send(HttpMethod.POST, url, pra, new RequestCallBack<String>() {
+//
+//			@Override
+//			public void onFailure(HttpException arg0, String arg1) {
+//				// TODO Auto-generated method stub
+//
+//			}
+//
+//			@Override
+//			public void onSuccess(ResponseInfo<String> arg0) {
+//				Type type = new TypeToken<List<LongTime>>() {
+//				}.getType();
+//				Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create();
+//				List<LongTime> time = gson.fromJson(arg0.result, type);
+//				Log.i("TAG", time.size()+"time-------------->");
+//				 List<float[]> getshijainshuju = DataToTime.getshijainshuju(time);
+//				// TODO
+//				Log.i("TAG", getshijainshuju.size()+"getshijainshuju-------------->");
+//				((XueTuApplication) getApplication()).setList(getshijainshuju);
+//
+//			}
+//		});
+//	}
 
 	HttpUtils httpUtils = new HttpUtils();
 
@@ -612,9 +612,9 @@ public class SplashActivity extends Activity {
 
 						((XueTuApplication) getApplication()).setStudent(student);
 						// 获取学生的学习时间
-						if (student.getStuId() > 0) {
-							gettime(student.getStuId());
-						}
+//						if (student.getStuId() > 0) {
+//							gettime(student.getStuId());
+//						}
 
 					}
 				}

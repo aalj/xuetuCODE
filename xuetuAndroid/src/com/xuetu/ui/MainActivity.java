@@ -159,7 +159,7 @@ public class MainActivity extends FragmentActivity implements OnPageChangeListen
 		viewPage.setAdapter(new FragmentViewPageAdapter(getSupportFragmentManager(), fragments));
 		viewPage.addOnPageChangeListener(this);
 		viewPage.setCurrentItem(2);
-
+		viewPage.setOffscreenPageLimit(5);
 	}
 
 	/**

@@ -5,10 +5,12 @@
     android:orientation="horizontal" >
 
     <RelativeLayout
+        android:id="@+id/relativeL"
         android:layout_width="match_parent"
         android:layout_height="80dp"
         android:layout_alignParentTop="true"
         android:layout_marginLeft="5dp"
+        android:background="@drawable/relatichangecolor"
         android:orientation="vertical" >
 
         <ImageView
