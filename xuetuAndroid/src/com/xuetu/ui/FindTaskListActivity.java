@@ -61,7 +61,7 @@ public class FindTaskListActivity extends Activity implements OnItemClickListene
 	@ViewInject(R.id.activity_find_task_list)
 	ListView activityFindTaskList;
 	// 从网上下来的数据源
-	List<SelfStudyPlan> users = null;
+	List<SelfStudyPlan> users = new ArrayList<SelfStudyPlan>();
 	public static final int SELF_CODE = 100;
 	private static final int ADD_SELF = 101;
 	SharedPreferences sp = null;
@@ -95,9 +95,9 @@ public class FindTaskListActivity extends Activity implements OnItemClickListene
 		mSwipeLayout.setColorScheme(android.R.color.holo_blue_bright, android.R.color.holo_green_light,
 				android.R.color.holo_orange_light, android.R.color.holo_red_light);
 		dbFindManager = new DBFindManager(this);
+		getData();
 		viewInit();
 		mySengHttp();
-		getData();
 
 		activityFindTaskList.setOnItemClickListener(this);
 
@@ -105,7 +105,29 @@ public class FindTaskListActivity extends Activity implements OnItemClickListene
 
 	// 页面初始化方法
 	private void viewInit() {
+		adapter = new MyBasesadapter<SelfStudyPlan>(FindTaskListActivity.this, users,
+				R.layout.find_task_item) {
 
+			@Override
+			public void convert(ViewHodle viewHolder, SelfStudyPlan item) {
+				viewHolder.setText(R.id.tilte, item.getPlanText());
+				viewHolder.setText(R.id.info, DataToTime.dataToT(item.getStartTime()));
+				if (item.getPlanReming() == 1) {
+					viewHolder.setClick(R.id.myswitch, true);
+				} else {
+					viewHolder.setClick(R.id.myswitch, false);
+				}
+
+				long timete = (item.getEndTime().getTime() - item.getStartTime().getTime());
+				String dataToHS = DataToTime.dataToHS(timete);
+				Log.i("TAG", dataToHS);
+
+				viewHolder.setText(R.id.tv_time, dataToHS);
+
+			}
+
+		};
+		activityFindTaskList.setAdapter(adapter);
 		titleBar.setRightLayoutClickListener(this);
 		titleBar.setLeftLayoutClickListener(this);
 		
@@ -145,32 +167,32 @@ public class FindTaskListActivity extends Activity implements OnItemClickListene
 
 //					dbFindManager.addSelf(users);
 //					sp.edit().putBoolean("SELELIST", true).commit();
-					adapter = new MyBasesadapter<SelfStudyPlan>(FindTaskListActivity.this, users,
-							R.layout.find_task_item) {
-
-						@Override
-						public void convert(ViewHodle viewHolder, SelfStudyPlan item) {
-							viewHolder.setText(R.id.tilte, item.getPlanText());
-							viewHolder.setText(R.id.info, DataToTime.dataToT(item.getStartTime()));
-							if (item.getPlanReming() == 1) {
-								viewHolder.setClick(R.id.myswitch, true);
-							} else {
-								viewHolder.setClick(R.id.myswitch, false);
-							}
-
-							long timete = (item.getEndTime().getTime() - item.getStartTime().getTime());
-							String dataToHS = DataToTime.dataToHS(timete);
-							Log.i("TAG", dataToHS);
-
-							viewHolder.setText(R.id.tv_time, dataToHS);
-
-						}
-
-					};
+//					adapter = new MyBasesadapter<SelfStudyPlan>(FindTaskListActivity.this, users,
+//							R.layout.find_task_item) {
+//
+//						@Override
+//						public void convert(ViewHodle viewHolder, SelfStudyPlan item) {
+//							viewHolder.setText(R.id.tilte, item.getPlanText());
+//							viewHolder.setText(R.id.info, DataToTime.dataToT(item.getStartTime()));
+//							if (item.getPlanReming() == 1) {
+//								viewHolder.setClick(R.id.myswitch, true);
+//							} else {
+//								viewHolder.setClick(R.id.myswitch, false);
+//							}
+//
+//							long timete = (item.getEndTime().getTime() - item.getStartTime().getTime());
+//							String dataToHS = DataToTime.dataToHS(timete);
+//							Log.i("TAG", dataToHS);
+//
+//							viewHolder.setText(R.id.tv_time, dataToHS);
+//
+//						}
+//
+//					};
 					
 					
 					if(tempre){
-						activityFindTaskList.setAdapter(adapter);
+//						activityFindTaskList.setAdapter(adapter);
 						
 					}else{
 						adapter.notifyDataSetChanged();
@@ -219,6 +241,12 @@ public class FindTaskListActivity extends Activity implements OnItemClickListene
 			SelfStudyPlan selfStudyPlan = (SelfStudyPlan) data.getSerializableExtra("selfa");
 			users.add(selfStudyPlan);
 			addChangSelf(selfStudyPlan);
+			adapter.notifyDataSetChanged();
+			
+		}
+		if(resultCode==1012 && requestCode==SELF_CODE){
+//			SelfStudyPlan selfStudyPlan = (SelfStudyPlan) data.getSerializableExtra("name1");
+			users.remove(index);
 			adapter.notifyDataSetChanged();
 			
 		}
