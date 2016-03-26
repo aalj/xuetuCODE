@@ -408,8 +408,10 @@ public class LoginDao implements PersonalDaoInterface {
 			resultSet = prepareStatement.executeQuery();
 			PersonalStudyTimeAll personalStudyTimeAlls;
 			List<PersonalStudyTimeAll> lists = new ArrayList<>();
+			int i=1;
 			while (resultSet.next()) {
 				personalStudyTimeAlls = new PersonalStudyTimeAll();
+				personalStudyTimeAlls.setTimePosition(i++);
 				personalStudyTimeAlls.setStudent(getStuByID(resultSet.getInt("stu_id")));
 				personalStudyTimeAlls.setTimeAll(resultSet.getString("sum(sto_time)"));
 				lists.add(personalStudyTimeAlls);

@@ -77,9 +77,7 @@ public class JunText {
 
 	@Test
 	public void getCoupon() {
-		List<FavoritesCoupons> coupons = new LoginDao().getFavoritecouByStuID(1);
-
-		System.out.println(coupons);
+	System.out.println(new LoginDao().findAllTime());
 
 	}
 
