@@ -3,7 +3,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent" >
-
     <com.xuetu.view.TitleBar
         android:id="@+id/title_my"
         android:layout_width="wrap_content"

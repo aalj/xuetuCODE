@@ -81,6 +81,13 @@ public class DataToTime {
 		return string;
 
 	}
+	public static String dataToh(Date data) {
+		DateFormat dateFormat = new SimpleDateFormat("HH:mm");
+		String string = dateFormat.format(data);
+		
+		return string;
+		
+	}
 
 	
 	public static String secToTime(int time) {  
