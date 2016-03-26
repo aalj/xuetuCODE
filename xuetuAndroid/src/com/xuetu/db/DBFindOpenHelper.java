@@ -22,6 +22,13 @@ public class DBFindOpenHelper extends SQLiteOpenHelper {
 				+ "integer NOT NULL PRIMARY KEY AUTOINCREMENT, "
 				+ " `pattern_text` varchar(300) NOT NULL )";
 		db.execSQL(pattern);
+		String sql="CREATE TABLE `alarm` ( "
+				+ "`alarm_id` integer NOT NULL PRIMARY KEY AUTOINCREMENT, "
+				+ "`start_time` date NOT NULL,  "
+				+ "`temp_index`  NOT NULL default 0, "
+				+ "`week` varchar(30) NOT NULL,"
+				+ "`temp` integer NOT NULL default 0)";
+		db.execSQL(sql);
 
 	}
 

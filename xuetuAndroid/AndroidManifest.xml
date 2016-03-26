@@ -189,6 +189,9 @@
             android:name=".ShareActivity"
             android:label="@string/title_activity_share" >
         </activity>
+        <activity
+            android:name="com.xuetu.ui.AlarmZaoShang">
+        </activity>
     </application>
 
 </manifest>

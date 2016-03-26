@@ -104,18 +104,5 @@ public class ViewHodle {
 		return this;
 
 	}
-//	rl_top = viewHolder.getView(R.id.rl_top);
-//	rl_left = viewHolder.getView(R.id.rl_top);
-//	rl_right =
-	
-//	RelativeLayout rl_top;
-//	RelativeLayout rl_left;
-//	RelativeLayout rl_right;
-//	public ViewHodle setOnRlToplis(int resID,OnClickListener onClickListener){
-//		RelativeLayout rl_top=(RelativeLayout)getView(resID);
-//		rl_top.setOnClickListener(onClickListener);
-//		
-//		return this;
-//	}
 	
 }
