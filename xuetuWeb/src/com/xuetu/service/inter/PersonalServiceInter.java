@@ -62,5 +62,7 @@ public interface PersonalServiceInter {
 	public boolean ChangeAge(int stuID, String change_age);
 
 	public boolean ChangeGrade(int stuID, String change_grade);
+	public boolean UpdataByUid(String telephone) ;
+	public boolean addNewUser(String telephone, String sex, String name, String img);
 
 }

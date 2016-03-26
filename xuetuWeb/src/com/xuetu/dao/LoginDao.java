@@ -224,7 +224,7 @@ public class LoginDao implements PersonalDaoInterface {
 			resultSet = prepareStatement.executeQuery();
 			List<FavoritesCoupons> couponlist = new ArrayList<>();
 			while (resultSet.next()) {
-				favoritesCoupons=new FavoritesCoupons();
+				favoritesCoupons = new FavoritesCoupons();
 				favoritesCoupons.setCreateDate(resultSet.getDate("cou_date"));
 				favoritesCoupons.setCoupon(couponDao2.queryCoupon(resultSet.getInt("cou_id")));
 				favoritesCoupons.setFacoID(resultSet.getInt("faco_id"));
@@ -396,6 +396,7 @@ public class LoginDao implements PersonalDaoInterface {
 			}
 		}
 	}
+
 	@Override
 	public List<PersonalStudyTimeAll> findAllTime() {
 		Connection connection = DBconnection.getConnection();
@@ -408,7 +409,7 @@ public class LoginDao implements PersonalDaoInterface {
 			resultSet = prepareStatement.executeQuery();
 			PersonalStudyTimeAll personalStudyTimeAlls;
 			List<PersonalStudyTimeAll> lists = new ArrayList<>();
-			int i=1;
+			int i = 1;
 			while (resultSet.next()) {
 				personalStudyTimeAlls = new PersonalStudyTimeAll();
 				personalStudyTimeAlls.setTimePosition(i++);
@@ -538,5 +539,56 @@ public class LoginDao implements PersonalDaoInterface {
 		return false;
 	}
 
-	
+	@Override
+	public boolean UpdataByUid(String telephone) {
+		Connection connection = DBconnection.getConnection();
+		String sql = "insert into student (stu_phone) values (?)";
+		PreparedStatement prepareStatement = null;
+		try {
+			prepareStatement = connection.prepareStatement(sql);
+			prepareStatement.setString(1, telephone);
+			int executeUpdate = prepareStatement.executeUpdate();
+			if (executeUpdate > 0) {
+				return true;
+			} else {
+				return false;
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			CloseDb.close(connection, prepareStatement);
+		}
+
+		return false;
+	}
+
+	@Override
+	public boolean addNewUser(String telephone, String sex, String name, String img) {
+		Connection connection = DBconnection.getConnection();
+
+		String sql = "insert into student (stu_phone,stu_sex,stu_name,sex_img) values (?,?,?,?) ";
+		PreparedStatement prepareStatement = null;
+		try {
+			prepareStatement = connection.prepareStatement(sql);
+			prepareStatement.setString(1, telephone);
+			prepareStatement.setString(1, sex);
+			prepareStatement.setString(1, name);
+			prepareStatement.setString(1, img);
+			int executeUpdate = prepareStatement.executeUpdate();
+			if (executeUpdate > 0) {
+				return true;
+			} else {
+				return false;
+			}
+
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			CloseDb.close(connection, prepareStatement);
+		}
+		return false;
+	}
+
 }
