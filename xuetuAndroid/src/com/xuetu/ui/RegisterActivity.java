@@ -29,6 +29,8 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 import cn.smssdk.EventHandler;
+//import cn.smssdk.EventHandler;
+//import cn.smssdk.SMSSDK;
 import cn.smssdk.SMSSDK;
 
 //┏┓　　　┏┓  
