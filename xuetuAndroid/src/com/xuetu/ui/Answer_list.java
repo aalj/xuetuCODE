@@ -144,9 +144,11 @@ public class Answer_list extends Activity implements OnClickListener{
 			finish();
 			break;
 		case R.id.btn_ans:
+			Toast.makeText(getApplicationContext(), "回答", 1).show();
+			
 			if(stu_id>0){
 			submitAnswer();
-			finish();
+//			finish();
 			}
 			else
 				Toast.makeText(Answer_list.this, "请先登陆哟！", 0).show();
@@ -300,6 +302,7 @@ public class Answer_list extends Activity implements OnClickListener{
 		}
 		
 		public void submitAnswer(){
+			
 			ans_time = System.currentTimeMillis();
 			ans_img = Environment.getExternalStorageDirectory().getAbsolutePath()+"/"+ans_time+".jpg";
 			String url = GetHttp.getHttpLC() + "SubmitAnswer";
@@ -314,13 +317,14 @@ public class Answer_list extends Activity implements OnClickListener{
 
 				@Override
 				public void onFailure(HttpException arg0, String arg1) {
-					// TODO Auto-generated method stub
+					Toast.makeText(getApplicationContext(), "连接失败", 1).show();
 					
 				}
 
 				@Override
 				public void onSuccess(ResponseInfo<String> arg0) {
-					// TODO Auto-generated method stub
+					Toast.makeText(getApplicationContext(), "充公", 1).show();
+					finish();
 					
 				}
 			});

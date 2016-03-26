@@ -40,6 +40,8 @@ import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
+import android.os.Handler;
+import android.os.Message;
 import android.provider.MediaStore;
 import android.util.Log;
 import android.view.Menu;
@@ -131,6 +133,21 @@ public class PersonInfomationActivity extends Activity implements OnClickListene
 		text_grade.setText(student1.getStuUgrade());
 
 	}
+	
+	Handler handler = new Handler(){
+		@Override
+		public void handleMessage(Message msg) {
+			if(msg.what==123){
+			Bitmap bb=	(Bitmap) msg.obj;
+			img_head.setImageBitmap(bb);
+			}
+			super.handleMessage(msg);
+		}
+	};
+	
+	
+	
+	
 
 	@Override
 	public void onResume() {
@@ -203,8 +220,9 @@ public class PersonInfomationActivity extends Activity implements OnClickListene
 
 	@Override
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-		// TODO Auto-generated method stub
 		super.onActivityResult(requestCode, resultCode, data);
+		Message message = Message.obtain();
+		message.what=123;
 		if (resultCode == 2 && requestCode == 2) {
 			String backResult = data.getStringExtra("ed_name");
 			if (backResult != null)
@@ -236,6 +254,7 @@ public class PersonInfomationActivity extends Activity implements OnClickListene
 		// 调用系统相机
 		if (resultCode != RESULT_OK) {
 			Log.i("MainActivity", "select pic error!");
+			
 			return;
 		}
 		if (requestCode == SELECT_PIC) {
@@ -247,7 +266,12 @@ public class PersonInfomationActivity extends Activity implements OnClickListene
 					is = getContentResolver().openInputStream(imageUri);
 					// 内存中的图片
 					Bitmap bm = BitmapFactory.decodeStream(is);
-					img_head.setImageBitmap(bm);
+					//TODO   FADFAS 
+					
+					message.obj=bm;
+					
+					handler.sendMessage(message);
+//					img_head.setImageBitmap(bm);
 				} catch (FileNotFoundException e) {
 					e.printStackTrace();
 				}
@@ -270,12 +294,18 @@ public class PersonInfomationActivity extends Activity implements OnClickListene
 				// bm.compress(CompressFormat.JPEG, 100, new
 				// FileOutputStream());
 				Log.i("SYS", "这边可是很腻害的图片哦"+bm);
-				img_head.setImageBitmap(bm);
+				message.obj=bm;
+				
+				handler.sendMessage(message);
+//				img_head.setImageBitmap(bm);
 			}
 		}
 		setphotoByUrl();
 
 	}
+	
+	
+	
 
 	private void showChangeSexDialog() {
 
