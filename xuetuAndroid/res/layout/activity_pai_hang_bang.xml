@@ -11,6 +11,7 @@
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         app:titleBarLeftImage="@drawable/ic_menu_back"
+        app:titleBarRightImage="@drawable/ic_menu_share"
         app:titleBarTitle="排行榜" >
     </com.xuetu.view.TitleBar>
 

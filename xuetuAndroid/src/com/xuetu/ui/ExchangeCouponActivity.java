@@ -41,7 +41,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-public class ExchangeCouponActivity extends Activity implements OnClickListener, OnKeyListener {
+public class ExchangeCouponActivity extends Baseactivity implements OnClickListener, OnKeyListener {
 	protected static final String TAG = null;
 	@ViewInject(R.id.ima_stone)
 	ImageView ima_stone;

@@ -75,7 +75,7 @@ public class FindIml implements FindInter {
 		PreparedStatement statement = null;
 		try {
 
-			String sql = "select * from selfstudyplan where  stu_id =? ORDER BY start_time  ";
+			String sql = "select * from selfstudyplan where  stu_id =? and del_flag=0 ORDER BY start_time  ";
 			statement = connection.prepareStatement(sql);
 
 			statement.setInt(1, stuId);
@@ -206,25 +206,16 @@ public class FindIml implements FindInter {
 			// update 表名 set name=?,password=?.... where id=?
 			String sql = "Insert into selfstudyplan  (start_time,end_time,plan_text,plan_remind,pattern_id,stu_id,plan_date)  values(?,?,?,?,?,?,?);";
 			prepareStatement = connection.prepareStatement(sql);
-			System.out.println("ok");
 			prepareStatement.setTimestamp(1, new Timestamp(plan.getStartTime().getTime()));
-			System.out.println("ok1");
 			prepareStatement.setTimestamp(2, new Timestamp(plan.getEndTime().getTime()));
-			System.out.println("ok2");
 			prepareStatement.setString(3, plan.getPlanText());
-			System.out.println("ok3");
 			prepareStatement.setInt(4, plan.getPlanReming());
-			System.out.println("ok4");
 			prepareStatement.setInt(5, plan.getPattern().getPatternID());
-			System.out.println("ok5");
 			//TODO 暂时存储的是固定的学生
-			prepareStatement.setInt(6, 1);
-			System.out.println("ok6");
+			prepareStatement.setInt(6, plan.getStudent().getStuId());
 			
 			prepareStatement.setTimestamp(7, new Timestamp(plan.getPlanDate().getTime()));
-			System.out.println("ok7");
 			prepareStatement.executeUpdate();
-			System.out.println("ok8");
 			return true;
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -269,5 +260,32 @@ public class FindIml implements FindInter {
 		}
 		return null;
 	}
+	
+	
+	public boolean delSelfPlan(int planid){
+		Connection conn = DBconnection.getConnection();
+		PreparedStatement statement = null;
+		
+		String sql = "update selfstudyplan set del_flag=? where plan_id =? ";
+		try {
+			statement = conn.prepareStatement(sql);
+			statement.setInt(1, 1);
+			statement.setInt(2, planid);
+			int executeUpdate = statement.executeUpdate();
+			if(executeUpdate>0){
+				return true;
+			}
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		finally {
+			CloseDb.close(conn, statement);
+		}
+		return false;
+	}
+	
+	
 
 }

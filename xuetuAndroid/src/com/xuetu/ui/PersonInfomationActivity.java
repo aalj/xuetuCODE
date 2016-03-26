@@ -79,7 +79,7 @@ public class PersonInfomationActivity extends Activity implements OnClickListene
 	File file = null;
 	Bitmap bm = null;
 	SimpleDateFormat sdf = new SimpleDateFormat("yyyy_MM_dd_HH_mm_ss");
-	private Student student = new Student();
+	private Student student ;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -121,19 +121,23 @@ public class PersonInfomationActivity extends Activity implements OnClickListene
 	}
 
 	public void loadView() {
-		text_nicheng.setText(student.getStuName());
-		study_gexingqianming.setText(student.getStuSigner());
-		sex.setText(student.getStuSex());
-		text_age.setText(student.getStuAge() + "");
-		text_grade.setText(student.getStuUgrade());
+		Student student1 = ((XueTuApplication) (getApplication())).getStudent();
+		BitmapUtils bt = new BitmapUtils(this);
+		bt.display(img_head, GetHttp.getHttpLC() + student1.getStuIma());
+		text_nicheng.setText(student1.getStuName());
+		study_gexingqianming.setText(student1.getStuSigner());
+		sex.setText(student1.getStuSex());
+		text_age.setText(student1.getStuAge() + "");
+		text_grade.setText(student1.getStuUgrade());
 
 	}
 
 	@Override
 	public void onResume() {
-		student = ((XueTuApplication) (getApplication())).getStudent();
-		BitmapUtils bt = new BitmapUtils(this);
-		bt.display(img_head, GetHttp.getHttpLC() + student.getStuIma());
+//		student = ((XueTuApplication) (getApplication())).getStudent();
+//		BitmapUtils bt = new BitmapUtils(this);
+//		bt.display(img_head, GetHttp.getHttpLC() + student.getStuIma());
+		loadView();
 		super.onResume();
 	}
 
@@ -235,8 +239,9 @@ public class PersonInfomationActivity extends Activity implements OnClickListene
 			return;
 		}
 		if (requestCode == SELECT_PIC) {
+			Log.i("SYS", "开始搞图了"+bm);
 			if (imageUri != null) {
-				InputStream is = null;
+				InputStream is ;
 				try {
 					// 读取图片到io流
 					is = getContentResolver().openInputStream(imageUri);
@@ -264,6 +269,7 @@ public class PersonInfomationActivity extends Activity implements OnClickListene
 				bm = data.getParcelableExtra("data");// bundle.putParceable("data",bm);
 				// bm.compress(CompressFormat.JPEG, 100, new
 				// FileOutputStream());
+				Log.i("SYS", "这边可是很腻害的图片哦"+bm);
 				img_head.setImageBitmap(bm);
 			}
 		}

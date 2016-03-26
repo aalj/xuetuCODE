@@ -29,12 +29,14 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 
-public class CouponFrag extends Fragment implements OnRefreshListener, OnItemClickListener {
+public class CouponFrag extends Fragment implements OnRefreshListener{
 	HttpUtils httpUtlis = new HttpUtils();
 	List<Coupon> users = null;
 	View view;
@@ -64,19 +66,37 @@ public class CouponFrag extends Fragment implements OnRefreshListener, OnItemCli
 			
 
 			@Override
-			public void convert(ViewHodle viewHolder, Coupon item) {
+			public void convert(ViewHodle viewHolder, final Coupon item) {
 				viewHolder.setText(R.id.tv_coupon_name, item.getCouName());
 				viewHolder.setText(R.id.tv_shoppingname, item.getStoreName().getStoName());
 				viewHolder.setText(R.id.tv_coupon_all, item.getConNum() + "");
 				viewHolder.SetUrlImage(R.id.tv_coupon_ima, GetHttp.getHttpLJ()+item.getStoreName().getStoImg());
+				viewHolder.getView(R.id.relativeL).setOnClickListener(new OnClickListener() {
+					
+					@Override
+					public void onClick(View v) {
+						Intent intent = new Intent();
+//						users.get(position-1);
+						intent.setClass(getActivity(), CouponInfoActivity.class);
+						intent.putExtra("coupon", item);
+						startActivity(intent);
+						
+					}
+				});
+			
+			
 			}
 		};
 		rListView.setAdapter(myBaseAdapter);
-		rListView.setOnItemClickListener(this);
+//		rListView.setOnItemClickListener(this);
 		rListView.setOnRefreshListener(this);
 		return view;
 	}
 
+	
+	
+	
+	
 	private void getDate(final int tempnum, int temp) {
 		
 		
@@ -146,14 +166,14 @@ public class CouponFrag extends Fragment implements OnRefreshListener, OnItemCli
 		getDate(2, REFRESH_LIMIT);
 	}
 
-	@Override
-	public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-		Intent intent = new Intent();
-		users.get(position-1);
-		intent.setClass(getActivity(), CouponInfoActivity.class);
-		intent.putExtra("coupon", users.get(position-1));
-		startActivity(intent);
-		
-	}
+//	@Override
+//	public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+//		Intent intent = new Intent();
+//		users.get(position-1);
+//		intent.setClass(getActivity(), CouponInfoActivity.class);
+//		intent.putExtra("coupon", users.get(position-1));
+//		startActivity(intent);
+//		
+//	}
 
 }

@@ -16,6 +16,12 @@ public class PersonalStudyTimeAll {
 		this.timeAll = timeAll;
 	}
 
+	@Override
+	public String toString() {
+		return "PersonalStudyTimeAll [timePosition=" + timePosition + ", student=" + student + ", timeAll=" + timeAll
+				+ "]";
+	}
+
 	public int getTimePosition() {
 		return timePosition;
 	}

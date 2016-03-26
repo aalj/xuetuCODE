@@ -13,6 +13,7 @@ import com.xuetu.R;
 import com.xuetu.db.DBFindManager;
 import com.xuetu.entity.Pattern;
 import com.xuetu.entity.SelfStudyPlan;
+import com.xuetu.entity.Student;
 import com.xuetu.view.TitleBar;
 
 import android.app.AlertDialog;
@@ -56,7 +57,8 @@ public class AddSelfPlanActivity extends FragmentActivity implements OnClickList
 	String[] item = null;
 	List<Pattern> list;
 	Date date = new Date(System.currentTimeMillis());
-	private SimpleDateFormat mFormatter = new SimpleDateFormat("MM-dd hh:mm");
+	Student student;
+	private SimpleDateFormat mFormatter = new SimpleDateFormat("MM-dd HH:mm");
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -65,6 +67,8 @@ public class AddSelfPlanActivity extends FragmentActivity implements OnClickList
 		selfStudyPlan = new SelfStudyPlan();
 		ViewUtils.inject(this);
 		dbFindManager = new DBFindManager(this);
+		student = ((XueTuApplication)getApplication()).getStudent();
+		
 		setOnclick();
 		getpattern();
 		selfStudyPlan.setPattern(list.get(0));
@@ -109,12 +113,12 @@ public class AddSelfPlanActivity extends FragmentActivity implements OnClickList
 		case R.id.tiem_start:// 设置开始时间
 
 			new SlideDateTimePicker.Builder(getSupportFragmentManager()).setListener(listener)
-					.setInitialDate(new Date()).build().show();
+					.setInitialDate(new Date()).setIs24HourTime(true).build().show();
 			break;
 		case R.id.tiem_end:// 设置结束时间
 
 			new SlideDateTimePicker.Builder(getSupportFragmentManager()).setListener(listener2)
-					.setInitialDate(new Date()).build().show();
+					.setInitialDate(startTime).setIs24HourTime(true).build().show();
 			break;
 		case R.id.moshi:// 设置模式
 
@@ -122,7 +126,14 @@ public class AddSelfPlanActivity extends FragmentActivity implements OnClickList
 
 			break;
 		case R.id.right_layout:
+			
+			if(panDuanTimeSize(endTime, startTime)){
+				
+				
+			
 			Intent intent = new Intent();
+			selfStudyPlan.setStudent(student);
+			Log.i("TAG", "xuesheng duiiang   --- - -- - - -"+selfStudyPlan.getStudent().getStuName());
 			selfStudyPlan.setStartTime(startTime);
 			selfStudyPlan.setPlanDate(new Date(System.currentTimeMillis()));
 			selfStudyPlan.setEndTime(endTime);
@@ -137,6 +148,9 @@ public class AddSelfPlanActivity extends FragmentActivity implements OnClickList
 			Log.i("TAG", "shixain ===========" + selfStudyPlan.toString());
 			setResult(1011, intent);
 			finish();
+			}else{
+				Toast.makeText(getApplicationContext(), "时间不能小于开始时间时间", 0).show();
+			}
 
 			break;
 		case R.id.left_layout:
@@ -150,6 +164,21 @@ public class AddSelfPlanActivity extends FragmentActivity implements OnClickList
 		}
 
 	}
+	
+	/**
+	 * 比较时间的大小
+	 * @param startTime
+	 * @param endTime
+	 * @return
+	 */
+	public boolean panDuanTimeSize(Date endTime ,Date startTime){
+		Log.i("TAG",endTime.getTime()-startTime.getTime()+"------------------<<<<<<<<<<");
+		return (endTime.getTime()-startTime.getTime())>60*1000;
+	}
+	
+	
+	
+	
 
 	private void showChangeItemDialog() {
 		getpattern();
@@ -179,6 +208,7 @@ public class AddSelfPlanActivity extends FragmentActivity implements OnClickList
 		public void onDateTimeSet(Date date) {
 
 			startTime = date;
+			Log.i("TAG", startTime.getTime()+"<<<<<startTime><<<<<<<<<<<<<<<<");
 			Log.i("TAG", mFormatter.format(date));
 			tv_startTime_info.setText(mFormatter.format(date));
 			Toast.makeText(AddSelfPlanActivity.this, mFormatter.format(date), Toast.LENGTH_SHORT).show();
@@ -196,9 +226,10 @@ public class AddSelfPlanActivity extends FragmentActivity implements OnClickList
 		@Override
 		public void onDateTimeSet(Date date) {
 			endTime = date;
+			
+			Log.i("TAG", endTime.getTime()+"<<<<<endTime><<<<<<<<<<<<<<<<");
 			tv_endTime_info.setText(mFormatter.format(date));
-			Toast.makeText(AddSelfPlanActivity.this, mFormatter.format(date), Toast.LENGTH_SHORT).show();
-
+			
 		}
 
 		// Optional cancel listener
