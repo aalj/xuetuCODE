@@ -34,6 +34,7 @@ import com.xuetu.entity.IsStudy;
 import com.xuetu.entity.MyCoupon;
 import com.xuetu.entity.SelfStudyPlan;
 import com.xuetu.entity.Student;
+import com.xuetu.ui.LearingRecordActivity;
 import com.xuetu.ui.TimerActivity;
 import com.xuetu.ui.XueTuApplication;
 import com.xuetu.utils.GetHttp;
@@ -108,7 +109,8 @@ public class HomePageFrag extends Fragment implements OnTouchListener {
 	IsStudy isstudy;
 	SelfStudyPlan studyplan;
 	Student student ;
-
+	Intent intent_learning;
+	int x1=0,y1=0,x2=0,y2=0;
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
@@ -131,6 +133,12 @@ public class HomePageFrag extends Fragment implements OnTouchListener {
 //						startActivity(intent);
 //					}
 //				});
+		
+				intent_learning = new Intent(getActivity(),
+						LearingRecordActivity.class);
+				
+		
+		
 		layoutParams = new RelativeLayout.LayoutParams(
 				LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
 		display = getActivity().getWindowManager().getDefaultDisplay();
@@ -342,10 +350,20 @@ public class HomePageFrag extends Fragment implements OnTouchListener {
 		// );
 		final int Y = (int) event.getRawY();
 
+		
+		
 		switch (event.getAction() & MotionEvent.ACTION_MASK) {
-
+		
 		case MotionEvent.ACTION_DOWN:
-
+			
+			//监控点击事件,这里不采用onclick 而是由用户点击来确定,当按下时的xy坐标与弹起式的xy坐标不超过6是,跳转页面
+				x1 = (int) event.getX(); 
+				y1 = (int) event.getY(); 
+				
+			
+			
+			
+			
 			move(v);
 
 			RelativeLayout.LayoutParams lParams = (RelativeLayout.LayoutParams) v
@@ -357,6 +375,21 @@ public class HomePageFrag extends Fragment implements OnTouchListener {
 
 		case MotionEvent.ACTION_UP:
 
+			//检测upshihouxy的坐标
+			x2 = (int) event.getX(); 
+			y2 = (int) event.getY(); 
+			
+			System.out.println("x1="+x1);
+			System.out.println("x2="+x2);
+			System.out.println("y1="+y1);
+			System.out.println("y2="+y2);
+			
+			if((Math.abs(x2-x1)<6&&Math.abs(x2-x1)>-6)&&(Math.abs(y2-y1)<6&&Math.abs(y2-y1)>-6))
+			{
+				startActivity(intent_learning);
+			}
+			
+			
 			moveBack(v);
 			layoutParams.leftMargin = tm;
 			layoutParams.topMargin = lm;
