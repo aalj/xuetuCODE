@@ -238,8 +238,11 @@
             android:name=".ShareActivity"
             android:label="@string/title_activity_share" >
         </activity>
+        <activity android:name=".ui.AlarmZaoShang" >
+        </activity>
         <activity
-            android:name="com.xuetu.ui.AlarmZaoShang">
+            android:name="com.xuetu.ui.SettingActivity"
+            android:label="@string/title_activity_setting" >
         </activity>
     </application>
 

@@ -35,6 +35,7 @@ import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
@@ -72,7 +73,7 @@ public class PersonInfomationActivity extends Activity implements OnClickListene
 	HttpUtils hutils = new HttpUtils();
 	private String SexData[] = { "男", "女" };
 	int stuId;
-
+SharedPreferences sp = null;
 	public static final int SELECT_PIC = 11;
 	public static final int TAKE_PHOTO = 12;
 	public static final int CROP_PHOTO = 13;
@@ -82,11 +83,14 @@ public class PersonInfomationActivity extends Activity implements OnClickListene
 	Bitmap bm = null;
 	SimpleDateFormat sdf = new SimpleDateFormat("yyyy_MM_dd_HH_mm_ss");
 	private Student student ;
+	
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_person_infomation);
+		//
+		sp = getSharedPreferences("config",Activity.MODE_PRIVATE);
 		titlebar = (TitleBar) findViewById(R.id.backtoperson);
 		titlebar.setLeftLayoutClickListener(this);
 		view_user = (RelativeLayout) findViewById(R.id.view_user);
@@ -125,7 +129,13 @@ public class PersonInfomationActivity extends Activity implements OnClickListene
 	public void loadView() {
 		Student student1 = ((XueTuApplication) (getApplication())).getStudent();
 		BitmapUtils bt = new BitmapUtils(this);
-		bt.display(img_head, GetHttp.getHttpLC() + student1.getStuIma());
+		boolean boolean1 = sp.getBoolean("SANFANG", false);
+		if(boolean1){
+			bt.display(img_head, student1.getStuIma());
+		}else{
+			bt.display(img_head, GetHttp.getHttpLC() + student1.getStuIma());
+			
+		}
 		text_nicheng.setText(student1.getStuName());
 		study_gexingqianming.setText(student1.getStuSigner());
 		sex.setText(student1.getStuSex());
@@ -411,7 +421,7 @@ public class PersonInfomationActivity extends Activity implements OnClickListene
 
 	//
 	public void setphotoByUrl() {
-
+		
 		String url = GetHttp.getHttpLC() + "SaveHead";
 		RequestParams params = new RequestParams();
 		params.addBodyParameter("stu_id", student.getStuId() + "");
@@ -436,6 +446,7 @@ public class PersonInfomationActivity extends Activity implements OnClickListene
 				}.getType();
 				Student stuNew = gson.fromJson(arg0.result, type);
 				((XueTuApplication) (getApplication())).setStudent(stuNew);
+				sp.edit().putBoolean("SANFANG", false).commit();
 
 			}
 		});

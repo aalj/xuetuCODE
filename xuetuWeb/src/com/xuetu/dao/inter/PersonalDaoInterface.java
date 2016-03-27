@@ -243,5 +243,10 @@ public interface PersonalDaoInterface {
 	/**
 	 * 
 	 */
-	public boolean addNewUser(String telephone, String sex, String name, String img);
+	public boolean addNewUser(String telephone, String sex, String name, String img, String telephone_pwd);
+
+	/**
+	 * 
+	 */
+	public Student getStuByTelephone(String telephone);
 }

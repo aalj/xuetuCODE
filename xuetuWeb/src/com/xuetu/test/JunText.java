@@ -77,7 +77,7 @@ public class JunText {
 
 	@Test
 	public void getCoupon() {
-	System.out.println(new LoginDao().findAllTime());
+		new LoginDao().register(""+123, ""+123);
 
 	}
 

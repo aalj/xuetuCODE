@@ -1,6 +1,7 @@
 package com.xuetu.web.android;
 
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.net.URLDecoder;
 
 import javax.servlet.ServletException;
@@ -10,7 +11,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import com.xuetu.dao.LoginDao;
+import com.xuetu.entity.Student;
 import com.xuetu.service.LoginService;
 import com.xuetu.service.inter.PersonalServiceInter;
 
@@ -48,13 +51,30 @@ public class ReadSQLByUidServlet extends HttpServlet {
 		String stu_sex = URLDecoder.decode(sex, "utf-8");
 		String stu_image = URLDecoder.decode(image, "utf-8");
 		String stu_name = URLDecoder.decode(name, "utf-8");
-		boolean bb = personalServiceInter.addNewUser(telephone, stu_sex, stu_name, stu_image);
-		boolean b = personalServiceInter.UpdataByUid(telephone);
+		Student student = null;
+		Gson gson1 = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create();
+		PrintWriter writer = response.getWriter();
+		// xianpandua
+		Student login = new LoginDao().login(telephone, telephone);
+		if (login == null) {
 
-		Gson gson = new Gson();
-		String json = gson.toJson(b);
-		System.out.println(b);
-		response.getWriter().print(json);
+			boolean bb = personalServiceInter.addNewUser(telephone, stu_sex, stu_name, stu_image, telephone);
+			if (bb = true) {
+				student = personalServiceInter.getStuByTelephone(telephone);
+				String stusByPhone = gson1.toJson(student);
+				response.getWriter().print(stusByPhone);
+			} else {
+				System.out.println("没存进来啊 傻吊");
+			}
+
+		} else {
+			writer.print(gson1.toJson(login));
+		}
+		// Gson gson1 = new GsonBuilder().setDateFormat("yyyy-MM-dd
+		// HH:mm:ss").create();
+		// String stusByPhone = gson1.toJson(student);
+		// System.out.println(bb);
+		// response.getWriter().print(stusByPhone);
 
 	}
 

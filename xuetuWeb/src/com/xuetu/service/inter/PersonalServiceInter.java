@@ -17,6 +17,7 @@ public interface PersonalServiceInter {
 	 * @return
 	 */
 	public Student getStusByPhoneAndPwd(String telephone, String password);
+
 	/**
 	 * 通过stu_id获得student对象
 	 * 
@@ -25,6 +26,7 @@ public interface PersonalServiceInter {
 	 * @return
 	 */
 	public Student getStuByID(int Id);
+
 	public List<MyClass> getListCourse(int Stuid);
 
 	/**
@@ -36,17 +38,20 @@ public interface PersonalServiceInter {
 	 * @return
 	 */
 	public boolean creatStudent(String telephone, String password);
+
 	/**
 	 * 通过学生id得到个人优惠劵
 	 * 
 	 */
 	public List<MyCoupon> getPoinCouByStuId(int stuID);
+
 	/**
 	 * 通过学生id得到个人收藏的优惠劵
 	 */
 	public List<FavoritesCoupons> getFavoritecouByStuID(int stuID);
-	
-	public void updateStu_img(int stu_id,String stu_img);
+
+	public void updateStu_img(int stu_id, String stu_img);
+	public boolean register(String telephone, String password) ;
 
 	/**
 	 * 查询所有学生的学习时间
@@ -62,7 +67,10 @@ public interface PersonalServiceInter {
 	public boolean ChangeAge(int stuID, String change_age);
 
 	public boolean ChangeGrade(int stuID, String change_grade);
-	public boolean UpdataByUid(String telephone) ;
-	public boolean addNewUser(String telephone, String sex, String name, String img);
 
+	public boolean UpdataByUid(String telephone);
+
+	public boolean addNewUser(String telephone, String sex, String name, String img, String telephone_pwd);
+
+	public Student getStuByTelephone(String telephone);
 }

@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-	<string name="share">丢个螺母给你</string>
+
+    <string name="share">丢个螺母给你</string>
     <string name="app_name">学途</string>
     <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>
@@ -28,7 +29,6 @@
     <string name="sub4">化学</string>
     <string name="question_hint">请详细描述问题</string>
 
-    
     <drawable name="re_normal">#fffffe</drawable>
     <drawable name="re_pressed">#A3DBF5</drawable>
     <drawable name="clr_normal">#44a6c0</drawable>
@@ -62,5 +62,6 @@
     <string name="title_activity_pai_hang_bang">PaiHangBangActivity</string>
     <string name="title_activity_edit_signer">EditSignerActivity</string>
     <string name="title_activity_share">ShareActivity</string>
+    <string name="title_activity_setting">SettingActivity</string>
 
 </resources>
