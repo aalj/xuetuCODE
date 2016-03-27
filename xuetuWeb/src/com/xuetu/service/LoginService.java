@@ -103,9 +103,21 @@ public class LoginService implements PersonalServiceInter {
 	}
 
 	@Override
-	public boolean addNewUser(String telephone, String sex, String name, String img) {
+	public boolean addNewUser(String telephone, String sex, String name, String img, String telephone_pwd) {
 		// TODO Auto-generated method stub
-		return personalDaoInterface.addNewUser(telephone, sex, name, img);
+		return personalDaoInterface.addNewUser(telephone, sex, name, img, telephone_pwd);
+	}
+
+	@Override
+	public Student getStuByTelephone(String telephone) {
+		// TODO Auto-generated method stub
+		return personalDaoInterface.getStuByTelephone(telephone);
+	}
+
+	@Override
+	public boolean register(String telephone, String password) {
+		// TODO Auto-generated method stub
+		return personalDaoInterface.register(telephone, password);
 	}
 
 }

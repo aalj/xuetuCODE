@@ -271,6 +271,8 @@ public class LoginActivity extends Activity implements OnClickListener {
 
 			@Override
 			public void onComplete(int status, Map<String, Object> info) {
+
+				addToWeb(info);
 				if (status == 200 && info != null) {
 					StringBuilder sb = new StringBuilder();
 					Set<String> keys = info.keySet();
@@ -327,12 +329,13 @@ public class LoginActivity extends Activity implements OnClickListener {
 	}
 
 	public void addToWeb(Map<String, Object> info) {
-
+		Log.i("TAG", info + "执行。。。。。。。。");
 		String uid = (String) info.get("uid");
 		String gender = (String) info.get("gender");
 		String image_url = (String) info.get("profile_image_url");
 		String name = (String) info.get("screen_name");
-
+		
+		Log.i("TAG", uid+"  **********  " +gender+"  执行。。。。。。。。");
 		HttpUtils httpUtils = new HttpUtils();
 		String url = GetHttp.getHttpBCL() + "ReadSQLByUidServlet";
 		RequestParams params = new RequestParams();
@@ -350,24 +353,29 @@ public class LoginActivity extends Activity implements OnClickListener {
 			@Override
 			public void onFailure(HttpException arg0, String arg1) {
 				// TODO Auto-generated method stub
+				Log.i("TAG", "失败了？");
 
 			}
 
 			@Override
 			public void onSuccess(ResponseInfo<String> arg0) {
-				Gson gson = new Gson();
-				Type type = new TypeToken<Boolean>() {
-				}.getType();
-				Boolean flag = gson.fromJson(arg0.result, type);
-
+				Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create();
+				student = gson.fromJson(arg0.result, Student.class);
+				((XueTuApplication) getApplication()).setStudent(student);
+				Intent intent = new Intent();
+				Editor edit = sp.edit();
+				edit.putBoolean("SANFANG", true);
+				edit.putString("uasename", student.getStuPhone());
+				edit.putString("pwd", student.getStuPwd());
+				edit.commit();
+				intent.setClass(getApplicationContext(), MainActivity.class);
+				Bundle bundle = new Bundle();
+				bundle.putSerializable("KEY", student);
+				startActivity(intent);
+				finish();
 			}
 		});
-		Intent intent = new Intent();
-		intent.setClass(getApplicationContext(), MainActivity.class);
-		Bundle bundle = new Bundle();
-		bundle.putSerializable("KEY", student);
-		startActivity(intent);
-		finish();
+
 
 	}
 

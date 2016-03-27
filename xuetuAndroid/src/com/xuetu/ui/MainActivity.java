@@ -24,8 +24,10 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.widget.FrameLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 /**
  * 
@@ -38,7 +40,7 @@ import android.widget.TextView;
  *
  * @see
  */
-public class MainActivity extends FragmentActivity implements OnPageChangeListener{
+public class MainActivity extends FragmentActivity implements OnPageChangeListener, OnClickListener{
 	private FragmentManager manager = null;
 	private FragmentTransaction beginTransaction = null;
 	private TitleBar title;
@@ -116,7 +118,8 @@ public class MainActivity extends FragmentActivity implements OnPageChangeListen
 		fragmeLayout = new FrameLayout[5];
 		textView = new TextView[5];
 		title = (TitleBar) findViewById(R.id.main_title);
-
+//
+		title.setRightLayoutClickListener(this);
 		manager = getSupportFragmentManager();
 		beginTransaction = manager.beginTransaction();
 
@@ -192,6 +195,7 @@ public class MainActivity extends FragmentActivity implements OnPageChangeListen
 //			title.shoelayout(View.INVISIBLE);
 			break;
 		case R.id.personal_page:// 个人中心页面
+			title.setRightImageResource(R.drawable.more_setting);
 			viewPage.setCurrentItem(4);
 			title.shoelayout(View.VISIBLE);
 			break;
@@ -233,6 +237,9 @@ public class MainActivity extends FragmentActivity implements OnPageChangeListen
 	@Override
 	public void onPageSelected(int arg0) {
 		if (showFragment != arg0) {
+			if(arg0==4){
+				title.setRightImageResource(R.drawable.more_setting);
+			}
 			if(arg0==3){
 				title.shoelayout(View.GONE);
 			}else{
@@ -260,5 +267,15 @@ public class MainActivity extends FragmentActivity implements OnPageChangeListen
 
 		showFragment = arg0;
 		//
+	}
+
+	@Override
+	public void onClick(View v) {
+		Intent intent = new Intent();
+		intent.setClass(MainActivity.this, SettingActivity.class)
+		;
+		startActivity(intent);
+		Toast.makeText(getApplicationContext(), "sesdfsdf", 0).show();
+		
 	}
 }

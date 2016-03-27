@@ -25,9 +25,11 @@ import com.xuetu.ui.WoDeShouCangActivity;
 import com.xuetu.ui.XueTuApplication;
 import com.xuetu.utils.GetHttp;
 import com.xuetu.view.CircleImageView;
+import com.xuetu.view.TitleBar;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -37,6 +39,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 /**
  * ClassName:PersonalFrag Function: TODO ADD FUNCTION Reason: TODO ADD REASON
@@ -61,11 +64,13 @@ public class PersonalFrag extends Fragment implements OnClickListener {
 	TextView tvname;
 	TextView tvmsg;
 	View view;
-
+	SharedPreferences sp = null;
+	TitleBar main_title = null;
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 		view = inflater.inflate(R.layout.personal_frag, null);
 		view_user = (RelativeLayout) view.findViewById(R.id.view_user);
+		sp = getActivity().getSharedPreferences("config", getActivity().MODE_PRIVATE);
 		txt_pay = (TextView) view.findViewById(R.id.txt_mypoint);
 		txt_youhuijuan = (TextView) view.findViewById(R.id.txt_youhuijuan);
 		txt_myquestion = (TextView) view.findViewById(R.id.txt_myquestion);
@@ -73,8 +78,9 @@ public class PersonalFrag extends Fragment implements OnClickListener {
 		txt_course = (TextView) view.findViewById(R.id.txt_course);
 		head = (CircleImageView) view.findViewById(R.id.head);
 		txt_paihangbang = (TextView) view.findViewById(R.id.txt_paihangbang);
-	
-
+//		main_title = (TitleBar) view.findViewById(R.id.main_title);
+//
+//		main_title.setRightLayoutClickListener(this);
 		view_user.setOnClickListener(this);
 		txt_pay.setOnClickListener(this);
 		txt_youhuijuan.setOnClickListener(this);
@@ -91,8 +97,16 @@ public class PersonalFrag extends Fragment implements OnClickListener {
 
 	public void addView() {
 		Student student1 = ((XueTuApplication) (getActivity().getApplication())).getStudent();
-		if (student1.getStuId() > 0)
-			setHeadByUrl(view.getContext(), head, GetHttp.getHttpLC() + student1.getStuIma());
+		if (student1.getStuId() > 0) {
+			boolean bool = sp.getBoolean("SANFANG", false);
+			if (bool) {
+				setHeadByUrl(view.getContext(), head,  student1.getStuIma());
+
+			} else {
+				setHeadByUrl(view.getContext(), head, GetHttp.getHttpLC() + student1.getStuIma());
+
+			}
+		}
 		tvname.setText(student1.getStuName());
 		tvmsg.setText(student1.getStuSigner());
 	}
@@ -158,6 +172,7 @@ public class PersonalFrag extends Fragment implements OnClickListener {
 		case R.id.txt_paihangbang:
 			getActivity().startActivity(new Intent(getActivity(), PaiHangBangActivity.class));
 			break;
+
 		default:
 			break;
 		}
