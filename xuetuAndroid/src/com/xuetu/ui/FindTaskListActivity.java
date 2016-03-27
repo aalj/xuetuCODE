@@ -34,6 +34,7 @@ import android.content.DialogInterface;
 import android.content.DialogInterface.OnKeyListener;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.SharedPreferences.Editor;
 import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v4.widget.SwipeRefreshLayout.OnRefreshListener;
@@ -69,7 +70,6 @@ public class FindTaskListActivity extends Baseactivity implements OnItemClickLis
 	public static final int SELF_CODE = 100;
 	private static final int ADD_SELF = 101;
 	SharedPreferences sp = null;
-	DBFindOpenHelper dbFindOpenHelper = null;
 	DBFindManager dbFindManager = null;
 	@ViewInject(R.id.title_my)
 	TitleBar titleBar = null;
@@ -92,6 +92,7 @@ public class FindTaskListActivity extends Baseactivity implements OnItemClickLis
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_find_task_list);
 		ViewUtils.inject(this);
+		sp = getSharedPreferences("config", Activity.MODE_PRIVATE);
 		mSwipeLayout = (SwipeRefreshLayout) findViewById(R.id.id_swipe_ly);
 		mSwipeLayout.setOnRefreshListener(this);
 		/**
@@ -102,8 +103,10 @@ public class FindTaskListActivity extends Baseactivity implements OnItemClickLis
 		dbFindManager = new DBFindManager(this);
 		getData();
 		viewInit();
+		boolean savePatternBoolean = sp.getBoolean("savePatternBoolean", true);
+		if(savePatternBoolean){
 		mySengHttp();
-
+		}
 		activityFindTaskList.setOnItemClickListener(this);
 
 	}
@@ -355,9 +358,13 @@ public class FindTaskListActivity extends Baseactivity implements OnItemClickLis
 				Type type = new TypeToken<List<Pattern>>() {
 				}.getType();
 				listpattern = gson.fromJson(arg0.result, type);
-
+				Editor edit = sp.edit();
+				
 				dbFindManager.addPatter(listpattern);
+				edit.putBoolean("savePatternBoolean", false);
+				edit.commit();
 				// TODO 需要把数据存到本地数据库
+				
 
 			}
 		});

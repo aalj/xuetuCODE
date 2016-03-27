@@ -15,6 +15,7 @@ import com.lidroid.xutils.http.client.HttpRequest.HttpMethod;
 import com.xuetu.R;
 import com.xuetu.entity.LongTime;
 import com.xuetu.entity.Student;
+import com.xuetu.ui.AddSelfPlanActivity;
 import com.xuetu.ui.AlarmZaoShang;
 import com.xuetu.ui.FindTaskListActivity;
 import com.xuetu.ui.XueTuApplication;
@@ -197,6 +198,8 @@ public class FindFrag extends Fragment {
 
 				break;
 			case R.id.linear_sleep:// 早起
+				intent.setClass(getActivity(), AddSelfPlanActivity.class);
+				getActivity().startActivity(intent);
 				Toast.makeText(getContext(), "开发中", 0).show();
 
 				break;
