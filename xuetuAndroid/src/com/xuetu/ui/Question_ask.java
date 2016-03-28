@@ -64,6 +64,7 @@ public class Question_ask extends Activity implements OnClickListener{
 	public static final int TAKE_PHOTO = 12;
 	public static final int CROP_PHOTO = 13;
 	File file = null;
+	private String url = null;
 	//声明页面控件
 	private EditText et_question = null;
 	private Button btn_ask = null;
@@ -74,6 +75,7 @@ public class Question_ask extends Activity implements OnClickListener{
 	private TextView tv_sub3;
 	private TextView tv_sub4;
 	private Uri imageUri;
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
@@ -162,15 +164,19 @@ public class Question_ask extends Activity implements OnClickListener{
 		//学科
 //		subId = 1;
 		HttpUtils hutils = new HttpUtils();
-		String url = GetHttp.getHttpLC()+"SubmitQuestion";
 		RequestParams params = new RequestParams();
+		if(file.exists()){
+		url = GetHttp.getHttpLC()+"SubmitQuestion";
 		params.addBodyParameter(file.getAbsolutePath().replace("/", ""),file);
+		}
+		else{
+			url = GetHttp.getHttpLC()+"SubmitQuestionWithoutImg";
+		}
 		params.addBodyParameter("stuId",String.valueOf(stu_id));
 		params.addBodyParameter("quesText",et_question.getText().toString());
 		params.addBodyParameter("quesTime",quesTime+"");
 		params.addBodyParameter("acpoNum",String.valueOf(acpoNum));
 		params.addBodyParameter("subId",String.valueOf(subId));
-		params.addBodyParameter("quesIma",quesIma);
 		
 		hutils.send(HttpMethod.POST,url,params,new RequestCallBack<String>(){
 

@@ -2,6 +2,7 @@ package com.xuetu.web.android;
 
 import java.io.File;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.sql.Date;
 import java.sql.Timestamp;
 import java.util.List;
@@ -12,6 +13,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import com.jspsmart.upload.SmartUpload;
 import com.xuetu.dao.QuestionIml;
 import com.xuetu.dao.inter.QuesTionDao;
@@ -44,7 +47,7 @@ public class SubmitAnswer extends HttpServlet {
 		// TODO Auto-generated method stub
 		request.setCharacterEncoding("utf-8");
 		response.setCharacterEncoding("utf-8");
-		doGet(request, response);
+		doPost(request, response);
 	}
 
 	/**
@@ -85,8 +88,8 @@ public class SubmitAnswer extends HttpServlet {
 				poster.saveAs(path+poster.getFileName());	
 //				poster.saveAs("F:\\xuetuGIT\\xuetuCODE\\xuetuWeb\\WebContent\\xuetuImg\\"+poster.getFileName());	
 			}
-			
-			ques_id = Integer.parseInt(smartUpload.getRequest().getParameter("ques_id"));
+			System.out.println(smartUpload.getRequest().getParameter("quesId"));
+			ques_id = Integer.parseInt(smartUpload.getRequest().getParameter("quesId"));
 			stu_id =  Integer.parseInt(smartUpload.getRequest().getParameter("stu_id"));
 			ans_text = smartUpload.getRequest().getParameter("ans_text");
 			ans_timeStr = smartUpload.getRequest().getParameter("ans_time");
@@ -99,6 +102,16 @@ public class SubmitAnswer extends HttpServlet {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		Gson gson = new GsonBuilder()
+				.enableComplexMapKeySerialization()
+				.setPrettyPrinting()
+				.disableHtmlEscaping()
+				.setDateFormat("yyyy-MM-dd HH:mm:ss").create();
+		String jsonStr = gson.toJson(a);
+		PrintWriter pw = response.getWriter();
+		pw.write(jsonStr);
+		pw.flush();
+		pw.close();
 	}
 
 }
