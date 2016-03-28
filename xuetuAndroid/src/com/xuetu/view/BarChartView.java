@@ -138,7 +138,7 @@ public class BarChartView extends View{
         if(maxCeil <= 1){
             float tmp = maxData;
             int c = 0;
-            while(tmp < 1){
+            while(tmp < 0){
                 tmp = tmp * 10;
                 if(c == 0)
                     c = 10;
