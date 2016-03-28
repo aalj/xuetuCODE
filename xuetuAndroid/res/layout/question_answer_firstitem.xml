@@ -78,7 +78,7 @@
 			android:layout_alignRight="@id/tv_ans1_ques_text"
 			android:layout_alignTop="@id/tv_ans1_sub"
 			android:contentDescription="@string/app_name"
-            android:src="@drawable/collect" />
+            android:src="@drawable/ic_ans" />
 
         <TextView
             android:id="@+id/tv_ans1_num"
