@@ -210,11 +210,13 @@ public interface PersonalDaoInterface {
 	 * 
 	 */
 	public UserState findUserStateByUsta_id(int usta_id);
+
 	/**
 	 * 改变id 为 stu_id的用户的头像
 	 * 
 	 */
-	public void updateStu_img(int stu_id,String stu_img);
+	public void updateStu_img(int stu_id, String stu_img);
+
 	/***
 	 * 查询所有积分 按照id分组
 	 */
@@ -233,4 +235,18 @@ public interface PersonalDaoInterface {
 
 	public boolean ChangeGrade(int stuID, String change_grade);
 
+	/**
+	 * 自动登录通过uid比较手机号
+	 */
+	public boolean UpdataByUid(String telephone);
+
+	/**
+	 * 
+	 */
+	public boolean addNewUser(String telephone, String sex, String name, String img, String telephone_pwd);
+
+	/**
+	 * 
+	 */
+	public Student getStuByTelephone(String telephone);
 }

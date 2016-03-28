@@ -32,7 +32,7 @@ public class DataToTime {
 		List<float[]> mylist = new ArrayList<float[]>();
 
 		for (int i = 0; i < 7; i++) {
-			mylist.add(new float[]{2});
+			mylist.add(new float[]{0});
 		}
 		for (int i = 0; i < list.size(); i++) {
 
@@ -80,6 +80,13 @@ public class DataToTime {
 
 		return string;
 
+	}
+	public static String dataToh(Date data) {
+		DateFormat dateFormat = new SimpleDateFormat("HH:mm");
+		String string = dateFormat.format(data);
+		
+		return string;
+		
 	}
 
 	

@@ -43,7 +43,7 @@ import android.widget.Toast;
  * @author BCL
  *
  */
-public class TheCollectionOfYouHuiJuanActivity extends Activity implements OnItemClickListener,OnClickListener{
+public class TheCollectionOfYouHuiJuanActivity extends Baseactivity implements OnItemClickListener,OnClickListener{
 	ListView listview;
 	List<MyCoupon> datas = new ArrayList<MyCoupon>();
 	MyBasesadapter<MyCoupon> myadapter;

@@ -33,7 +33,7 @@ public class LoginService implements PersonalServiceInter {
 
 	@Override
 	public boolean creatStudent(String telephone, String password) {
-		 return personalDaoInterface.register(telephone, password);
+		return personalDaoInterface.register(telephone, password);
 	}
 
 	@Override
@@ -59,6 +59,7 @@ public class LoginService implements PersonalServiceInter {
 		// TODO Auto-generated method stub
 		return personalDaoInterface.getStuByID(Id);
 	}
+
 	@Override
 	public List<PersonalStudyTimeAll> findAllTime() {
 		// TODO Auto-generated method stub
@@ -93,6 +94,30 @@ public class LoginService implements PersonalServiceInter {
 	public boolean ChangeGrade(int stuID, String change_grade) {
 		// TODO Auto-generated method stub
 		return personalDaoInterface.ChangeGrade(stuID, change_grade);
+	}
+
+	@Override
+	public boolean UpdataByUid(String telephone) {
+		// TODO Auto-generated method stub
+		return personalDaoInterface.UpdataByUid(telephone);
+	}
+
+	@Override
+	public boolean addNewUser(String telephone, String sex, String name, String img, String telephone_pwd) {
+		// TODO Auto-generated method stub
+		return personalDaoInterface.addNewUser(telephone, sex, name, img, telephone_pwd);
+	}
+
+	@Override
+	public Student getStuByTelephone(String telephone) {
+		// TODO Auto-generated method stub
+		return personalDaoInterface.getStuByTelephone(telephone);
+	}
+
+	@Override
+	public boolean register(String telephone, String password) {
+		// TODO Auto-generated method stub
+		return personalDaoInterface.register(telephone, password);
 	}
 
 }

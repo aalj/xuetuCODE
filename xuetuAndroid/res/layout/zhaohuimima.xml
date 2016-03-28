@@ -7,11 +7,11 @@
     android:orientation="vertical" >
 
     <com.xuetu.view.TitleBar
+        android:id="@+id/titlebar_forgetpwd"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        title:titleBarTitle="找回密码" 
         title:titleBarLeftImage="@drawable/ic_menu_back"
-        >
+        title:titleBarTitle="找回密码" >
     </com.xuetu.view.TitleBar>
 
     <LinearLayout
@@ -27,7 +27,7 @@
             android:background="#00000000" >
 
             <EditText
-                android:id="@+id/et_usertel"
+                android:id="@+id/et_usertel_forgetpwd"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
@@ -43,13 +43,14 @@
             <TextView
                 android:layout_width="90dp"
                 android:layout_height="wrap_content"
-                android:layout_alignLeft="@id/et_usertel"
+                android:layout_alignLeft="@id/et_usertel_forgetpwd"
                 android:layout_centerVertical="true"
                 android:layout_marginLeft="24dp"
                 android:text="账户 "
                 android:textColor="#353535"
                 android:textSize="16sp" />
         </RelativeLayout>
+
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="48dp"
@@ -57,7 +58,7 @@
             android:background="#00000000" >
 
             <EditText
-                android:id="@+id/et_email"
+                android:id="@+id/et_checknum_forget_pwd"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
@@ -73,7 +74,7 @@
             <TextView
                 android:layout_width="90dp"
                 android:layout_height="wrap_content"
-                android:layout_alignLeft="@id/et_email"
+                android:layout_alignLeft="@id/et_checknum_forget_pwd"
                 android:layout_centerVertical="true"
                 android:layout_marginLeft="24dp"
                 android:text="验证码"
@@ -83,11 +84,33 @@
 
         <RelativeLayout
             android:layout_width="match_parent"
+            android:layout_height="20dp"
+            android:background="#00000000" >
+
+            <TextView
+                android:id="@+id/huoqvyanzhengma_forgetpwd"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentTop="true"
+                android:layout_marginRight="29dp"
+                android:background="@drawable/textchangebackground"
+                android:clickable="true"
+                android:focusable="true"
+                android:gravity="center_horizontal"
+                android:onClick="onclick"
+                android:text="获取验证码"
+                android:textColor="#353535"
+                android:textSize="14sp" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
             android:layout_height="48dp"
             android:layout_marginTop="10dp" >
 
             <EditText
-                android:id="@+id/et_password"
+                android:id="@+id/et_password_new"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
@@ -103,34 +126,63 @@
                 android:id="@+id/tv_password"
                 android:layout_width="90dp"
                 android:layout_height="wrap_content"
-                android:layout_alignLeft="@id/et_password"
+                android:layout_alignLeft="@id/et_password_new"
                 android:layout_centerVertical="true"
                 android:layout_marginLeft="24dp"
                 android:text="密码"
                 android:textColor="#353535"
                 android:textSize="16sp" />
         </RelativeLayout>
-        
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:layout_marginTop="10dp" >
+
+            <EditText
+                android:id="@+id/et_password_newagain"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:background="@drawable/edittext_login"
+                android:hint="再次输入次密码"
+                android:paddingLeft="90dp"
+                android:password="true"
+                android:singleLine="true"
+                android:textColorHint="#999999"
+                android:textSize="16sp" />
+
+            <TextView
+                android:id="@+id/tv_new_password"
+                android:layout_width="90dp"
+                android:layout_height="wrap_content"
+                android:layout_alignLeft="@id/et_password_newagain"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="24dp"
+                android:text="密码"
+                android:textColor="#353535"
+                android:textSize="16sp" />
+        </RelativeLayout>
 
         <Button
-            android:onClick="onclick"
-            android:id="@+id/btn_finish"
+            android:id="@+id/btn_finish_forgetpwd"
             android:layout_width="match_parent"
             android:layout_height="45dp"
             android:layout_marginTop="40dp"
             android:background="@drawable/buttonchangecolor"
+            android:onClick="onclick"
             android:paddingBottom="7dp"
             android:paddingTop="7dp"
             android:text="完成"
             android:textColor="@android:color/white"
             android:textSize="18sp" />
     </LinearLayout>
-    <RelativeLayout 
+
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        >
+        android:layout_height="wrap_content" >
+
         <Button
-            android:onClick="onclick"
             android:id="@+id/text_back"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -139,13 +191,10 @@
             android:layout_marginRight="19dp"
             android:layout_marginTop="19dp"
             android:background="@drawable/textchangebackground"
+            android:onClick="onclick"
             android:text="已有帐号，立即登录"
             android:textColor="#353535"
             android:textSize="15sp" />
-        
-        
-        
-        
     </RelativeLayout>
 
 </LinearLayout>

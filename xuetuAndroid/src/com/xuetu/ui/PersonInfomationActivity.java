@@ -35,11 +35,14 @@ import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
+import android.os.Handler;
+import android.os.Message;
 import android.provider.MediaStore;
 import android.util.Log;
 import android.view.Menu;
@@ -51,7 +54,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-public class PersonInfomationActivity extends Activity implements OnClickListener {
+public class PersonInfomationActivity extends Baseactivity implements OnClickListener {
 	TitleBar titlebar;
 	RelativeLayout view_user;
 	RelativeLayout nicheng;
@@ -70,7 +73,7 @@ public class PersonInfomationActivity extends Activity implements OnClickListene
 	HttpUtils hutils = new HttpUtils();
 	private String SexData[] = { "男", "女" };
 	int stuId;
-
+SharedPreferences sp = null;
 	public static final int SELECT_PIC = 11;
 	public static final int TAKE_PHOTO = 12;
 	public static final int CROP_PHOTO = 13;
@@ -80,11 +83,14 @@ public class PersonInfomationActivity extends Activity implements OnClickListene
 	Bitmap bm = null;
 	SimpleDateFormat sdf = new SimpleDateFormat("yyyy_MM_dd_HH_mm_ss");
 	private Student student ;
+	
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_person_infomation);
+		//
+		sp = getSharedPreferences("config",Activity.MODE_PRIVATE);
 		titlebar = (TitleBar) findViewById(R.id.backtoperson);
 		titlebar.setLeftLayoutClickListener(this);
 		view_user = (RelativeLayout) findViewById(R.id.view_user);
@@ -123,7 +129,13 @@ public class PersonInfomationActivity extends Activity implements OnClickListene
 	public void loadView() {
 		Student student1 = ((XueTuApplication) (getApplication())).getStudent();
 		BitmapUtils bt = new BitmapUtils(this);
-		bt.display(img_head, GetHttp.getHttpLC() + student1.getStuIma());
+		boolean boolean1 = sp.getBoolean("SANFANG", false);
+		if(boolean1){
+			bt.display(img_head, student1.getStuIma());
+		}else{
+			bt.display(img_head, GetHttp.getHttpLC() + student1.getStuIma());
+			
+		}
 		text_nicheng.setText(student1.getStuName());
 		study_gexingqianming.setText(student1.getStuSigner());
 		sex.setText(student1.getStuSex());
@@ -131,6 +143,21 @@ public class PersonInfomationActivity extends Activity implements OnClickListene
 		text_grade.setText(student1.getStuUgrade());
 
 	}
+	
+	Handler handler = new Handler(){
+		@Override
+		public void handleMessage(Message msg) {
+			if(msg.what==123){
+			Bitmap bb=	(Bitmap) msg.obj;
+			img_head.setImageBitmap(bb);
+			}
+			super.handleMessage(msg);
+		}
+	};
+	
+	
+	
+	
 
 	@Override
 	public void onResume() {
@@ -203,8 +230,9 @@ public class PersonInfomationActivity extends Activity implements OnClickListene
 
 	@Override
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-		// TODO Auto-generated method stub
 		super.onActivityResult(requestCode, resultCode, data);
+		Message message = Message.obtain();
+		message.what=123;
 		if (resultCode == 2 && requestCode == 2) {
 			String backResult = data.getStringExtra("ed_name");
 			if (backResult != null)
@@ -236,6 +264,7 @@ public class PersonInfomationActivity extends Activity implements OnClickListene
 		// 调用系统相机
 		if (resultCode != RESULT_OK) {
 			Log.i("MainActivity", "select pic error!");
+			
 			return;
 		}
 		if (requestCode == SELECT_PIC) {
@@ -247,7 +276,12 @@ public class PersonInfomationActivity extends Activity implements OnClickListene
 					is = getContentResolver().openInputStream(imageUri);
 					// 内存中的图片
 					Bitmap bm = BitmapFactory.decodeStream(is);
-					img_head.setImageBitmap(bm);
+					//TODO   FADFAS 
+					
+					message.obj=bm;
+					
+					handler.sendMessage(message);
+//					img_head.setImageBitmap(bm);
 				} catch (FileNotFoundException e) {
 					e.printStackTrace();
 				}
@@ -270,12 +304,18 @@ public class PersonInfomationActivity extends Activity implements OnClickListene
 				// bm.compress(CompressFormat.JPEG, 100, new
 				// FileOutputStream());
 				Log.i("SYS", "这边可是很腻害的图片哦"+bm);
-				img_head.setImageBitmap(bm);
+				message.obj=bm;
+				
+				handler.sendMessage(message);
+//				img_head.setImageBitmap(bm);
 			}
 		}
 		setphotoByUrl();
 
 	}
+	
+	
+	
 
 	private void showChangeSexDialog() {
 
@@ -381,7 +421,7 @@ public class PersonInfomationActivity extends Activity implements OnClickListene
 
 	//
 	public void setphotoByUrl() {
-
+		
 		String url = GetHttp.getHttpLC() + "SaveHead";
 		RequestParams params = new RequestParams();
 		params.addBodyParameter("stu_id", student.getStuId() + "");
@@ -406,6 +446,7 @@ public class PersonInfomationActivity extends Activity implements OnClickListene
 				}.getType();
 				Student stuNew = gson.fromJson(arg0.result, type);
 				((XueTuApplication) (getApplication())).setStudent(stuNew);
+				sp.edit().putBoolean("SANFANG", false).commit();
 
 			}
 		});

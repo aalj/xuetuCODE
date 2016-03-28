@@ -26,7 +26,7 @@ import android.view.View.OnClickListener;
 import android.widget.EditText;
 import android.widget.Toast;
 
-public class EditNameActivity extends Activity implements OnClickListener {
+public class EditNameActivity extends Baseactivity implements OnClickListener {
 	EditText edit_name;
 	TitleBar titlebar;
 	int stuId;
