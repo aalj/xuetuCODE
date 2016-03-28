@@ -167,9 +167,6 @@ public class FindFrag extends Fragment {
 				 
 				 
 				 
-				// TODO
-				Log.i("TAG", getshijainshuju.size()+"getshijainshuju-------------->");
-//				((XueTuApplication) getApplication()).setList(getshijainshuju);
 
 			}
 		});

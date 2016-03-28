@@ -119,6 +119,29 @@ public class LoginDao implements PersonalDaoInterface {
 
 		return null;
 	}
+	public boolean getStuByID(String phone) {
+		Connection connection = DBconnection.getConnection();
+		String sql = "select * from student where stu_phone=?;";
+		PreparedStatement prepareStatement = null;
+		Student student = null;
+		ResultSet resultSet = null;
+		try {
+			prepareStatement = connection.prepareStatement(sql);
+			prepareStatement.setString(1, phone);
+			resultSet = prepareStatement.executeQuery();
+			if (resultSet.next()) {
+				return true;
+			}
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			CloseDb.close(connection, resultSet, prepareStatement);
+		}
+		
+		return false;
+	}
 
 	@Override
 	public School getSchoolById(int schID) {
@@ -401,6 +424,31 @@ public class LoginDao implements PersonalDaoInterface {
 				throw new RuntimeException(e);
 			}
 		}
+	}
+	/**
+	 * 修改密码
+	 */
+	public boolean updateStu_pwd(String phone,String pwd) {
+		// TODO Auto-generated method stub
+		Connection connection = DBconnection.getConnection();
+		PreparedStatement prepareStatement = null;
+		String sql = " update student set stu_pwd=? where stu_phone=?;";
+		try {
+			prepareStatement = connection.prepareStatement(sql);
+			prepareStatement.setString(1, pwd);
+			prepareStatement.setString(2, phone);
+			int executeUpdate = prepareStatement.executeUpdate();
+			if(executeUpdate>0){
+				return true;
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			
+		} finally {
+			CloseDb.close(connection, prepareStatement);
+		}
+		return false;
 	}
 
 	@Override

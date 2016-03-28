@@ -21,7 +21,7 @@ import android.widget.Toast;
  * 
  * 
  */
-public class CourseActivity extends Activity {
+public class CourseActivity extends Baseactivity {
 	SharedPreferences preferences = null;
 
 	CourseService service;

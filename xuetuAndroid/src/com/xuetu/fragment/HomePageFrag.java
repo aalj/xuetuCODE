@@ -34,6 +34,7 @@ import com.xuetu.entity.IsStudy;
 import com.xuetu.entity.MyCoupon;
 import com.xuetu.entity.SelfStudyPlan;
 import com.xuetu.entity.Student;
+import com.xuetu.ui.AddSelfPlanActivity;
 import com.xuetu.ui.LearingRecordActivity;
 import com.xuetu.ui.TimerActivity;
 import com.xuetu.ui.XueTuApplication;
@@ -111,6 +112,9 @@ public class HomePageFrag extends Fragment implements OnTouchListener {
 	Student student ;
 	Intent intent_learning;
 	int x1=0,y1=0,x2=0,y2=0;
+	//中间按钮  点击事件  触发条件
+	boolean center_click_flag=true;
+	
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
@@ -257,8 +261,10 @@ public class HomePageFrag extends Fragment implements OnTouchListener {
 					
 					Toast.makeText(getActivity(), "当前没有课程", Toast.LENGTH_SHORT).show();
 //		            Toast.makeText(TimerActivity.this, "下课啦"+getIntegral(integral_double)+"积分到手咯!!", Toast.LENGTH_LONG).show();//提示倒计时完成
-					flag     = true;
-					planflag = true;
+//					flag     = true;
+//					planflag = true;
+					
+					getStudyPlan();
 					
 					//获取课程失败后  执行下滑判断语句
 					
@@ -384,7 +390,7 @@ public class HomePageFrag extends Fragment implements OnTouchListener {
 			System.out.println("y1="+y1);
 			System.out.println("y2="+y2);
 			
-			if((Math.abs(x2-x1)<6&&Math.abs(x2-x1)>-6)&&(Math.abs(y2-y1)<6&&Math.abs(y2-y1)>-6))
+			if(((Math.abs(x2-x1)<6&&Math.abs(x2-x1)>-6)&&(Math.abs(y2-y1)<6&&Math.abs(y2-y1)>-6))&&center_click_flag==true)
 			{
 				startActivity(intent_learning);
 			}
@@ -457,14 +463,10 @@ public class HomePageFrag extends Fragment implements OnTouchListener {
 		HttpUtils httpUtils = new HttpUtils();
 		RequestParams requestParams = new RequestParams();
 		requestParams.addBodyParameter("stu_id", stu_id + "");
-		System.out.println("```````````11`````stu_id```````````"+stu_id);
 		//json 解析Student对象,并传给服务器
 		Gson  gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create();
-		System.out.println("````````````22```````````````");
 		String st = gson.toJson(student);
-		System.out.println("````````````33```````````````");
 		requestParams.addBodyParameter("student", st);
-		System.out.println("````````````44```````````````");
 		httpUtils.send(HttpMethod.POST, url, requestParams,
 				new RequestCallBack<String>() {
 					@Override
@@ -486,8 +488,6 @@ public class HomePageFrag extends Fragment implements OnTouchListener {
 								"yyyy-MM-dd").create();
 						String s = gson.fromJson(arg, type);
 						ss = Long.parseLong(s);
-						System.out.println("ssssssssssss" + ss);
-						
 						Message message = Message.obtain();
 						message.what=456;
 						message.obj=ss;
@@ -501,6 +501,7 @@ public class HomePageFrag extends Fragment implements OnTouchListener {
 	 */
 	public void getStudyPlan()
 	{
+		center_click_flag=false;
 		String url =GetHttp.getHttpKY()+"BackStudyTime";
 //		String url = "http://10.201.1.26:8080/xuetuWeb/BackStudyTime";
 		HttpUtils httpUtils = new HttpUtils();
@@ -612,16 +613,26 @@ public class HomePageFrag extends Fragment implements OnTouchListener {
 									
 								}
 								
-							}else{						//表明今天没有学习计划
+							}else{					
+								flag     = false;
+								planflag = false;
+								//表明今天没有学习计划
 								Toast.makeText(getActivity(), "今天没有计划", Toast.LENGTH_SHORT).show();
-								flag     = true;
-								planflag = true;
+								
+								//跳转到学习计划添加页
+								gotoInsertplan();
+								
 							}
 						}
 						else{
+							flag     = false;
+							planflag = false;
 							Toast.makeText(getActivity(), "今天没有计划", Toast.LENGTH_SHORT).show();
-							flag     = true;
-							planflag = true;
+							
+							//跳转到学习计划添加页
+							gotoInsertplan();
+							
+							
 						}
 						
 						
@@ -630,7 +641,40 @@ public class HomePageFrag extends Fragment implements OnTouchListener {
 	}
 	
 	
-	
+	public void gotoInsertplan()
+	{
+		new AlertDialog.Builder(getActivity())
+		.setTitle("提示")
+		.setMessage("当前没有学习计划,是否添加")
+		.setNegativeButton("取消", new DialogInterface.OnClickListener() {
+			
+			@Override
+			public void onClick(DialogInterface dialog, int which) {
+				// TODO Auto-generated method stub
+				flag     = true;
+				planflag = true;
+				center_click_flag=true;
+			}
+		})
+		.setPositiveButton("确定", new DialogInterface.OnClickListener() {
+			
+			@Override
+			public void onClick(DialogInterface dialog, int which) {
+				// TODO Auto-generated method stub
+				System.out.println("开始执行计划时间");
+				flag     = false;
+				planflag = false;
+				center_click_flag=false;
+				Intent intent = new Intent(getActivity(),
+						AddSelfPlanActivity.class);
+				flag = true;
+				planflag=true;
+				center_click_flag=true;
+				startActivity(intent);
+			}
+		}).show();
+		
+	}
 	
 	
 
