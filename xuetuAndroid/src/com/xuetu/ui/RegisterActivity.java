@@ -57,7 +57,7 @@ import cn.smssdk.SMSSDK;
  *
  */
 
-public class RegisterActivity extends Activity implements OnClickListener {
+public class RegisterActivity extends Baseactivity implements OnClickListener {
 	EditText et_usertelephone;
 	EditText et_checkedNumber;
 	EditText et_password;
@@ -234,14 +234,15 @@ public class RegisterActivity extends Activity implements OnClickListener {
 	// }
 
 	public void register() {
+		
 		String password = et_password.getText().toString();
 		String checkedNumber = et_checkedNumber.getText().toString();
-		String usertelephone = et_usertelephone.getText().toString();
+//		String usertelephone = et_usertelephone.getText().toString();
 		HttpUtils httpUtils = new HttpUtils();
 		String url = GetHttp.getHttpBCL() + "RegisterAndroid";
 		RequestParams params = new RequestParams();
 		try {
-			params.addBodyParameter("usertelephone", URLEncoder.encode(usertelephone, "utf-8"));
+			params.addBodyParameter("usertelephone", URLEncoder.encode(phonenum, "utf-8"));
 			params.addBodyParameter("password", URLEncoder.encode(password, "utf-8"));
 			params.addBodyParameter("checkedNumber", URLEncoder.encode(checkedNumber, "utf-8"));
 		} catch (UnsupportedEncodingException e) {

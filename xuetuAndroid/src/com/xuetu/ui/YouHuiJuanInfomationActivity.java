@@ -17,7 +17,7 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-public class YouHuiJuanInfomationActivity extends Activity {
+public class YouHuiJuanInfomationActivity extends Baseactivity {
 	CircleImageView head;
 	CircleImageView head_CircleImageView;
 	TextView youhuijuanxingxi;
@@ -53,7 +53,7 @@ public class YouHuiJuanInfomationActivity extends Activity {
 	public void getDatasAndsetDates() {
 		Intent intent = this.getIntent();
 		Bundle extras = intent.getExtras();
-		
+
 		mycoupon = (MyCoupon) extras.getSerializable("MyCoupon");
 		coupon = mycoupon.getCoupon();
 		BitmapUtils bitmapUtils = new BitmapUtils(this);
@@ -82,7 +82,8 @@ public class YouHuiJuanInfomationActivity extends Activity {
 		/** 跳转到店家 **/
 		case R.id.head_CircleImageView:
 			Intent intent1 = new Intent();
-			// intent1.setClass(this,StoneNameActivity.class);
+			intent1.setClass(this, StoneNameActivity.class);
+			intent1.putExtra("coupon", coupon);
 			startActivity(intent1);
 			break;
 		default:

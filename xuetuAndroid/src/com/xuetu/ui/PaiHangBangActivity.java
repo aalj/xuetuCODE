@@ -27,7 +27,7 @@ import android.widget.ListView;
 import cn.sharesdk.framework.ShareSDK;
 import cn.sharesdk.onekeyshare.OnekeyShare;
 
-public class PaiHangBangActivity extends Activity implements OnClickListener {
+public class PaiHangBangActivity extends Baseactivity implements OnClickListener {
 	ListView listView_paihangbang;
 	TitleBar titlebar;
 	MyBasesadapter<PersonalStudyTimeAll> myadapter;

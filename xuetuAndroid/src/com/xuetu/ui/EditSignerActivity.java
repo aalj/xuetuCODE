@@ -28,7 +28,7 @@ import android.view.View.OnClickListener;
 import android.widget.EditText;
 import android.widget.Toast;
 
-public class EditSignerActivity extends Activity implements OnClickListener {
+public class EditSignerActivity extends Baseactivity implements OnClickListener {
 	EditText edit_qianming;
 	TitleBar titlebar;
 	int stuId;
