@@ -4,6 +4,7 @@ import java.lang.reflect.Type;
 import java.util.List;
 
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
 import com.lidroid.xutils.HttpUtils;
 import com.lidroid.xutils.exception.HttpException;
@@ -76,11 +77,10 @@ public class PaiHangBangActivity extends Baseactivity implements OnClickListener
 
 			@Override
 			public void onSuccess(ResponseInfo<String> arg0) {
-				Gson gson = new Gson();
+				Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create();
 				Type type = new TypeToken<List<PersonalStudyTimeAll>>() {
 				}.getType();
 				datas = gson.fromJson(arg0.result, type);
-
 				loadView();
 
 			}
@@ -94,22 +94,22 @@ public class PaiHangBangActivity extends Baseactivity implements OnClickListener
 	int i = 1;
 
 	public void loadView() {
-	boolean temp=true;
+		boolean temp = true;
 		listView_paihangbang.setAdapter(
 				myadapter = new MyBasesadapter<PersonalStudyTimeAll>(this, datas, R.layout.listitem_of_paihangbang) {
 
 					@Override
 					public void convert(ViewHodle viewHolder, PersonalStudyTimeAll item) {
-						
+
 						Log.i("TAG", "66666666666" + datas.size());
 						Log.i("TAG", "```````````" + i);
-						viewHolder.setText(R.id.paihangbangxuhao, item.getTimePosition()+"");
+						viewHolder.setText(R.id.paihangbangxuhao, item.getTimePosition() + "");
 						i++;
 						viewHolder.SetUrlImage(R.id.head_paihangbang,
 								GetHttp.getHttpBCL() + item.getStudent().getStuIma());
 						viewHolder.setText(R.id.nicheng_paihangbang, item.getStudent().getStuName());
 						viewHolder.setText(R.id.number_paihangbang, item.getTimeAll());
-					
+
 					}
 				});
 
