@@ -47,7 +47,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
-public class LoginActivity extends Activity implements OnClickListener {
+public class LoginActivity extends Baseactivity implements OnClickListener {
 	private UMSocialService mController = UMServiceFactory.getUMSocialService("com.umeng.login");
 
 	TitleBar titlebar;

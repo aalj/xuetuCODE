@@ -54,7 +54,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-public class PersonInfomationActivity extends Activity implements OnClickListener {
+public class PersonInfomationActivity extends Baseactivity implements OnClickListener {
 	TitleBar titlebar;
 	RelativeLayout view_user;
 	RelativeLayout nicheng;
