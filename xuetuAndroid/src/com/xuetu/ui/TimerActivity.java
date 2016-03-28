@@ -28,6 +28,7 @@ import com.xuetu.utils.GetHttp;
 import android.app.Activity;
 import android.app.backup.FullBackupDataOutput;
 import android.content.Intent;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
@@ -71,13 +72,19 @@ public class TimerActivity extends Activity {
 	private int acpo_num = 5;
 	private String st_date = null;
 	private int st_id = 0;
-	
+	private TextView tv_text;
+	private TextView tv_selectedPlan;
+	private TextView tv_pointText;
+	private TextView tv_pointSum;
+	private TextView tv_textPlan;
 //	boolean flag = true;
 //	boolean planflag=true;
 //	//这两个判断 实在改页面结束时返回给home_page_fragment 的值,以确保首页可以进行滑动判定
 //	
 //	
-
+	int tag = 0;
+	String start_and_end_time = null;
+	String text = null;
 	
 	//用来显示在TextView上面的时间,同时记录总的学习时间(秒)
 	int second=0;
@@ -110,7 +117,26 @@ public class TimerActivity extends Activity {
 		showTime=(TextView) findViewById(R.id.tv_showtime);
 //		runTime= (Button) findViewById(R.id.home_btn_up);
 		showss=(TextView) findViewById(R.id.tv_show_ss);
+		tv_text=(TextView) findViewById(R.id.tv_text);
+		tv_selectedPlan=(TextView) findViewById(R.id.tv_selectedPlan);
+		tv_pointText=(TextView) findViewById(R.id.tv_pointText);
+		tv_pointSum=(TextView) findViewById(R.id.tv_pointSum);
+		tv_textPlan = (TextView) findViewById(R.id.tv_textPlan);
+		Intent intentGet = getIntent();
+		tag = intentGet.getIntExtra("tag", 0);
+		start_and_end_time = intentGet.getStringExtra("start_and_end_time");	//tv_selectedPlan
+		if(tag==1){
+			tv_text.setText("正在执行课程");
+		}if(tag==2){
+			tv_text.setText("正在执行自学计划");
+			tv_selectedPlan.setText(start_and_end_time);
+		}	
+		tv_textPlan.setText(intentGet.getStringExtra("text"));
+		//tv_text
 		
+//		Drawable drawable = getResources().getDrawable(R.drawable.spinner_checked);
+//		drawable.setBounds(0, 0, drawable.getMinimumWidth(), drawable.getMinimumHeight()); //设置边界
+//		tv_text.setCompoundDrawables(null, null, drawable, null);
 		student= ((XueTuApplication) getApplication()).getStudent();
 
 		//功能还没有完善,需要添加判断条件,从数据库获得课程表时间,与当前时间\课程进行判断,并且判断经纬度是否相同
@@ -131,10 +157,14 @@ public class TimerActivity extends Activity {
 	        		System.out.println("round="+round);
 	                if(round==10){
 	                	integral_double++;//每到600秒,积分倍数+1(初始值0)
+	                	Log.i("hehe",getIntegral(integral_double)+"");
+	                	//  显示已获得积分，10秒刷新一次
+	                	
 	                	mHandler.post(new Runnable() {//通过它在UI主线程中修改显示的剩余时间
 	                    @Override
 	                    public void run() {
 	                        // TODO Auto-generated method stub
+	                    	tv_pointSum.setText(getIntegral(integral_double)+"");
 	                    	showTime.setText(secondFormat(st_time));//显示 00:00
 	                    	showss.setText(ssFormat(st_time)); //显示00 秒
 	                    	round=0;//初始时间赋值0;重新开始计时

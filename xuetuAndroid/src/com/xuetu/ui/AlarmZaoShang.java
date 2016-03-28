@@ -29,7 +29,7 @@ public class AlarmZaoShang extends Activity implements OnClickListener {
 	protected void onCreate(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.listview);
+		setContentView(R.layout.alarm);
 		title = (TitleBar) findViewById(R.id.title_my);
 		title.setTitle("早起");
 		dbManager= new DBFindManager(this);

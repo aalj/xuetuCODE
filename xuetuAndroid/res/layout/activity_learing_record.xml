@@ -24,6 +24,7 @@
     	     android:src="@drawable/haibao" />
 
     	 <Button
+    	     android:id="@+id/qiandao_btn"
     	     android:layout_width="60dp"
     	     android:layout_height="60dp"
     	     android:layout_below="@+id/haibao_img"
@@ -31,7 +32,10 @@
     	     android:background="@drawable/qiandao_button"
     	     android:text="签到"
     	     android:layout_marginTop="-25dp"
-    	     android:textColor="#ffffff" />
+    	     android:textColor="#d54643"
+    	     android:onClick="onclick"
+    	     android:textSize="16dp"
+    	      />
     	 
     </RelativeLayout>
     <View
