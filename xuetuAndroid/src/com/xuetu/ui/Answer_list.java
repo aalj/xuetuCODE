@@ -113,27 +113,30 @@ public class Answer_list extends Activity implements OnClickListener, OnHeaderRe
 		file = new File(Environment.getExternalStorageDirectory(),sdf.format(new Date(System.currentTimeMillis()))+".jpg");
 		imageUri = Uri.fromFile(file);
 		//初始化控件
-		tv_ans1_num = (TextView) findViewById(R.id.tv_ans1_num);
-		titlebar = (TitleBar) findViewById(R.id.titlebar);
+		
+		titlebar = (TitleBar) findViewById(R.id.title_my);
 		btn_photo = (ImageView) findViewById(R.id.btn_photo);
 		btn_ans = (Button) findViewById(R.id.btn_ans);
 		et_ans_text = (TextView) findViewById(R.id.et_ans_text);
 		lv_answer = (ListView) findViewById(R.id.lv_answer);
+		tv_ans1_sub = (TextView) findViewById(R.id.tv_ans1_sub);
 		//设置监听事件
 		btn_ans.setOnClickListener(this);
 //		titlebar.setLeftLayoutClickListener(this);
 		btn_photo.setOnClickListener(this);
+		tv_ans1_num = (TextView) findViewById(R.id.tv_ans1_num);
 		tv_ans1_stuName = (TextView) findViewById(R.id.tv_ans1_stuName);
 		iv_ans1_ques_img = (ImageView) findViewById(R.id.iv_ans1_ques_img);
 		tv_ans1_time = (TextView) findViewById(R.id.tv_ans1_time);
 		tv_ans1_ques_text = (TextView) findViewById(R.id.tv_ans1_ques_text);
 		tv_ans1_ques_text.setText(curQues.getQuesText());
 		tv_ans1_num.setText(curQues.getAns_num()+"");
-		
-		tv_ans1_time.setText(sdf.format(new Date(curQues.getQuesDate().getTime())));
+		tv_ans1_sub.setText(curQues.getSubject().getName());
+		tv_ans1_time.setText(sdf2.format(new Date(curQues.getQuesDate().getTime())));
 		bitmapUtils.display(iv_ans1_ques_img, GetHttp.getHttpLC()+curQues.getQuesIma());
 		tv_ans1_stuName.setText(curQues.getStudent().getStuName());
 		titlebar.setLeftLayoutClickListener(this);
+		titlebar.setRightLayoutVisibility(View.INVISIBLE);
 	}
 	@Override
 	public void onResume() {
