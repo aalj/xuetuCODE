@@ -5,6 +5,13 @@
     android:orientation="vertical" 
     android:id="@+id/_root">
     
+  <View android:layout_width="match_parent"
+    		android:layout_height="match_parent"
+    		android:id="@+id/view_ontouch"
+    		android:background="#00000000"
+    />
+    
+    
 
     <Button
         android:id="@+id/imageButton1"
@@ -122,4 +129,32 @@
 		android:layout_marginRight="70dp"
         android:src="@drawable/home_6" />
 
+    <TextView
+        android:id="@+id/tv_xianshi1"
+        android:layout_width="wrap_content"
+        android:layout_height="100dp"
+        android:layout_alignBottom="@+id/home_btn_up"
+        android:layout_alignParentRight="true"
+        android:layout_alignTop="@+id/home_btn_up"
+        android:layout_toRightOf="@+id/home_btn_up"
+        android:gravity="center"
+        android:textColor="#404040"
+           android:background="@drawable/home_page_tv_background"
+        android:text="点击进入课程学习(*提前不超过5分钟,迟到不超过10分钟*)  " />
+
+    <TextView
+        android:id="@+id/tv_xianshi2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/imageButton3"
+        android:layout_alignParentRight="true"
+        android:layout_alignTop="@+id/imageButton3"
+        android:layout_toRightOf="@+id/imageButton3"
+        android:text="点击进入自定义学习计划"
+        android:gravity="center_vertical" 
+        android:textColor="#404040"
+        android:background="@drawable/home_page_tv_background"
+        />
+
+    
 </RelativeLayout>
