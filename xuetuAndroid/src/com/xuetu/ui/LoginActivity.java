@@ -243,6 +243,12 @@ public class LoginActivity extends Baseactivity implements OnClickListener {
 				if (!TextUtils.isEmpty(uid)) {
 					// uid不为空，获取用户信息
 					getUserInfo(platform);
+					Intent intent = new Intent();
+					intent.setClass(getApplicationContext(), MainActivity.class);
+					Bundle bundle = new Bundle();
+					bundle.putSerializable("KEY", student);
+					startActivity(intent);
+					finish();
 				} else {
 					Toast.makeText(LoginActivity.this, "授权失败...", Toast.LENGTH_LONG).show();
 				}
@@ -273,22 +279,23 @@ public class LoginActivity extends Baseactivity implements OnClickListener {
 			public void onComplete(int status, Map<String, Object> info) {
 
 				addToWeb(info);
-				if (status == 200 && info != null) {
-					StringBuilder sb = new StringBuilder();
-					Set<String> keys = info.keySet();
-					for (String key : keys) {
-						sb.append(key + "=" + info.get(key).toString() + "\r\n");
-					}
-					Log.i("TestData", sb.toString());
-				} else {
-					Log.d("TestData", "发生错误：" + status);
-				}
-				Log.i("TAG", "************应该有的*******************");
-
-				if (info != null) {
-					Toast.makeText(LoginActivity.this, info.toString(), Toast.LENGTH_SHORT).show();
-					Log.i("YYY", info.toString());
-				}
+				
+//				if (status == 200 && info != null) {
+//					StringBuilder sb = new StringBuilder();
+//					Set<String> keys = info.keySet();
+//					for (String key : keys) {
+//						sb.append(key + "=" + info.get(key).toString() + "\r\n");
+//					}
+//					Log.i("TestData", sb.toString());
+//				} else {
+//					Log.d("TestData", "发生错误：" + status);
+//				}
+//				Log.i("TAG", "************应该有的*******************");
+//
+//				if (info != null) {
+//					Toast.makeText(LoginActivity.this, info.toString(), Toast.LENGTH_SHORT).show();
+//					Log.i("YYY", info.toString());
+//				}
 			}
 		});
 	}
@@ -362,17 +369,13 @@ public class LoginActivity extends Baseactivity implements OnClickListener {
 				Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create();
 				student = gson.fromJson(arg0.result, Student.class);
 				((XueTuApplication) getApplication()).setStudent(student);
-				Intent intent = new Intent();
+				
 				Editor edit = sp.edit();
 				edit.putBoolean("SANFANG", true);
 				edit.putString("uasename", student.getStuPhone());
 				edit.putString("pwd", student.getStuPwd());
 				edit.commit();
-				intent.setClass(getApplicationContext(), MainActivity.class);
-				Bundle bundle = new Bundle();
-				bundle.putSerializable("KEY", student);
-				startActivity(intent);
-				finish();
+				
 			}
 		});
 

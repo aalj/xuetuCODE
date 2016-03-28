@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import com.xuetu.dao.LoginDao;
 import com.xuetu.entity.PersonalStudyTimeAll;
 import com.xuetu.service.LoginService;
@@ -39,7 +40,7 @@ public class PaiHangbangServlet extends HttpServlet {
 			throws ServletException, IOException {
 		response.setContentType("text/html;charset=utf-8");
 		List<PersonalStudyTimeAll> findAllTime = personalServiceInter.findAllTime();
-		Gson gson = new Gson();
+		Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create();
 		String timeAll = gson.toJson(findAllTime);
 		response.getWriter().print(timeAll);
 	}
