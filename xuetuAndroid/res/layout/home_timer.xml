@@ -32,29 +32,6 @@
         android:textSize="20dp" />
 
     <TextView
-        android:id="@+id/tv_text"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/tv_showtime"
-        android:layout_alignParentTop="true"
-        android:layout_marginTop="40dp" 
-        android:layout_marginRight="5dp"
-        android:textColor="#ffffff"
-        android:textSize="20dp"
-        android:text="1231efadf"/>
-
-    <TextView
-        android:id="@+id/tv_selectedPlan"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignBottom="@+id/tv_text"
-        android:layout_alignTop="@+id/tv_text"
-        android:layout_toRightOf="@+id/tv_text"
-        android:textColor="#ffffff"
-        android:textSize="20dp"
-        android:text="TextView" />
-
-    <TextView
         android:id="@+id/tv_pointText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -74,5 +51,35 @@
         android:textSize="20dp"
         android:textColor="#ffffff"
         android:text="0" />
+
+    <TextView
+        android:id="@+id/tv_selectedPlan"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/tv_text"
+        android:layout_below="@+id/tv_text"
+        android:layout_marginTop="14dp"
+        android:text="TextView"
+        android:textColor="#ffffff"
+        android:textSize="20dp" />
+
+    <TextView
+        android:id="@+id/tv_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/tv_textPlan"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="30dp"
+        android:text="1231efadf"
+        android:textColor="#ffffff"
+        android:textSize="20dp" />
+
+    <TextView
+        android:id="@+id/tv_textPlan"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/tv_show_ss"
+        android:layout_alignLeft="@+id/tv_showtime"
+        android:text="TextView" />
 
 </RelativeLayout>

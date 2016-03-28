@@ -76,12 +76,15 @@ public class TimerActivity extends Activity {
 	private TextView tv_selectedPlan;
 	private TextView tv_pointText;
 	private TextView tv_pointSum;
+	private TextView tv_textPlan;
 //	boolean flag = true;
 //	boolean planflag=true;
 //	//这两个判断 实在改页面结束时返回给home_page_fragment 的值,以确保首页可以进行滑动判定
 //	
 //	
-
+	int tag = 0;
+	String start_and_end_time = null;
+	String text = null;
 	
 	//用来显示在TextView上面的时间,同时记录总的学习时间(秒)
 	int second=0;
@@ -118,9 +121,19 @@ public class TimerActivity extends Activity {
 		tv_selectedPlan=(TextView) findViewById(R.id.tv_selectedPlan);
 		tv_pointText=(TextView) findViewById(R.id.tv_pointText);
 		tv_pointSum=(TextView) findViewById(R.id.tv_pointSum);
-//		Intent intentGet = getIntent();
-//		intent.getStringExtra("");	//tv_text
-//		intent.getStringExtra("");	//tv_selectedPlan
+		tv_textPlan = (TextView) findViewById(R.id.tv_textPlan);
+		Intent intentGet = getIntent();
+		tag = intentGet.getIntExtra("tag", 0);
+		start_and_end_time = intentGet.getStringExtra("start_and_end_time");	//tv_selectedPlan
+		if(tag==1){
+			tv_text.setText("正在执行课程");
+		}if(tag==2){
+			tv_text.setText("正在执行自学计划");
+			tv_selectedPlan.setText(start_and_end_time);
+		}	
+		tv_textPlan.setText(intentGet.getStringExtra("text"));
+		//tv_text
+		
 //		Drawable drawable = getResources().getDrawable(R.drawable.spinner_checked);
 //		drawable.setBounds(0, 0, drawable.getMinimumWidth(), drawable.getMinimumHeight()); //设置边界
 //		tv_text.setCompoundDrawables(null, null, drawable, null);
