@@ -47,6 +47,7 @@ import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Rect;
 import android.os.Bundle;
 import android.os.Handler;
@@ -114,19 +115,33 @@ public class HomePageFrag extends Fragment implements OnTouchListener {
 	int x1=0,y1=0,x2=0,y2=0;
 	//中间按钮  点击事件  触发条件
 	boolean center_click_flag=true;
+	private SharedPreferences pref;
+	private Calendar c;
+	//提示按钮
+	TextView tv1,tv2;
+	RelativeLayout rl;
+	private String class_name;;
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	
 	@Override
-	public View onCreateView(LayoutInflater inflater, ViewGroup container,
-			Bundle savedInstanceState) {
+	public View onCreateView(LayoutInflater inflater, ViewGroup container,Bundle savedInstanceState) {
 		
 		//先获取Student对象
 		
 		XueTuApplication xuetu = (XueTuApplication) getActivity().getApplication();
 		student = xuetu.getStudent();
 		stu_id=student.getStuId();
-		
 		view = inflater.inflate(R.layout.home_page_frag, null);
-
+		c=Calendar.getInstance();
+		pref =getActivity().getSharedPreferences("qiandao",0);
 //		view.findViewById(R.id.home_btn_up).setOnClickListener(
 //				new OnClickListener() {
 //					@Override
@@ -169,15 +184,15 @@ public class HomePageFrag extends Fragment implements OnTouchListener {
 		imgup = (ImageView) view.findViewById(R.id.imageView1);
 		imgdown = (ImageView) view.findViewById(R.id.imageView2);
 		isstudy = new IsStudy();
-		// Rect rect = new Rect();
-		// System.out.println(ii);
-		// getWindow().getDecorView().getWindowVisibleDisplayFrame(rect);
-
+		
 		layoutParams = new RelativeLayout.LayoutParams(
 				LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
 		btn_center.setLayoutParams(layoutParams);
 		btn_center.setOnTouchListener(this);
 
+		
+		
+		
 		new Thread() {
 			@Override
 			public void run() {
@@ -204,9 +219,27 @@ public class HomePageFrag extends Fragment implements OnTouchListener {
 			}
 		}.start();
 
+		if(	qiandao_ed())
+		{
+			btn_center.setText("");
+		}
+	
+		
+        
+        
+		ontouchinview();
 		return view;
 
 	}
+	
+	
+	
+	private View findViewById(int root2) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+
 
 	private Handler handler = new Handler() {
 		@Override
@@ -249,6 +282,11 @@ public class HomePageFrag extends Fragment implements OnTouchListener {
 					
 					intent.putExtra("ss", ss);
 					intent.putExtra("student", isstudy.stu_to_json(student));
+					
+					intent.putExtra("tag", 1);
+					intent.putExtra("start_and_end_time",new SimpleDateFormat("hh:MM:ss").format(studyplan.getStartTime())
+							+" ~ "+new SimpleDateFormat("hh:MM:ss").format(studyplan.getEndTime()));
+					
 //					Gson  gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create();
 //					String st = gson.toJson(student);
 //					intent.putExtra("student", st);
@@ -260,11 +298,35 @@ public class HomePageFrag extends Fragment implements OnTouchListener {
 				{
 					
 					Toast.makeText(getActivity(), "当前没有课程", Toast.LENGTH_SHORT).show();
-//		            Toast.makeText(TimerActivity.this, "下课啦"+getIntegral(integral_double)+"积分到手咯!!", Toast.LENGTH_LONG).show();//提示倒计时完成
-//					flag     = true;
-//					planflag = true;
+					new AlertDialog.Builder(getActivity())
+									.setTitle("提示")
+									.setMessage("当前时间不符合课程开始,是否进行自定义学习计划")
+									
+									.setNegativeButton("取消", new DialogInterface.OnClickListener() {
+										
+										@Override
+										public void onClick(DialogInterface dialog, int which) {
+											// TODO Auto-generated method stub
+											flag = true;
+											planflag=true;
+										}
+									})
+									.setPositiveButton("确定", new DialogInterface.OnClickListener() {
+										
+										@Override
+										public void onClick(DialogInterface dialog, int which) {
+											// TODO Auto-generated method stub
+											flag = true;
+											planflag=true;
+											getStudyPlan();
+										}
+									}).show();
 					
-					getStudyPlan();
+					
+					
+					
+					
+					
 					
 					//获取课程失败后  执行下滑判断语句
 					
@@ -365,43 +427,24 @@ public class HomePageFrag extends Fragment implements OnTouchListener {
 			//监控点击事件,这里不采用onclick 而是由用户点击来确定,当按下时的xy坐标与弹起式的xy坐标不超过6是,跳转页面
 				x1 = (int) event.getX(); 
 				y1 = (int) event.getY(); 
-				
-			
-			
-			
-			
 			move(v);
-
 			RelativeLayout.LayoutParams lParams = (RelativeLayout.LayoutParams) v
 					.getLayoutParams();
-
-			// _x = X - lParams.leftMargin;
 			_y = Y - lParams.topMargin;
 			break;
-
 		case MotionEvent.ACTION_UP:
-
 			//检测upshihouxy的坐标
 			x2 = (int) event.getX(); 
 			y2 = (int) event.getY(); 
-			
-			System.out.println("x1="+x1);
-			System.out.println("x2="+x2);
-			System.out.println("y1="+y1);
-			System.out.println("y2="+y2);
 			
 			if(((Math.abs(x2-x1)<6&&Math.abs(x2-x1)>-6)&&(Math.abs(y2-y1)<6&&Math.abs(y2-y1)>-6))&&center_click_flag==true)
 			{
 				startActivity(intent_learning);
 			}
-			
-			
 			moveBack(v);
 			layoutParams.leftMargin = tm;
 			layoutParams.topMargin = lm;
-
 			btn_center.setLayoutParams(layoutParams);
-
 			break;
 		case MotionEvent.ACTION_POINTER_DOWN:
 			break;
@@ -410,7 +453,6 @@ public class HomePageFrag extends Fragment implements OnTouchListener {
 		case MotionEvent.ACTION_MOVE:
 			RelativeLayout.LayoutParams layoutParams = (RelativeLayout.LayoutParams) v
 					.getLayoutParams();
-
 			layoutParams.topMargin = Y - _y; // 控制按钮在Y轴移动
 			v.setLayoutParams(layoutParams);
 			if(stu_id!=0)
@@ -429,11 +471,8 @@ public class HomePageFrag extends Fragment implements OnTouchListener {
 								flag     = false;
 								planflag = false;
 								getStudyPlan();
-								
 							}
 			}
-			
-
 			break;
 		}
 		root.invalidate();
@@ -572,6 +611,12 @@ public class HomePageFrag extends Fragment implements OnTouchListener {
 												intent.putExtra("ss", ss);
 												intent.putExtra("stu_id", stu_id);
 												intent.putExtra("student", isstudy.stu_to_json(student));
+												
+												intent.putExtra("tag", 2);
+												intent.putExtra("start_and_end_time",new SimpleDateFormat("hh:MM:ss").format(studyplan.getStartTime())
+														+" ~ "+new SimpleDateFormat("hh:MM:ss").format(studyplan.getEndTime()));
+												intent.putExtra("text", studyplan.getPlanText())	;	
+												
 												flag = true;
 												planflag=true;
 												startActivity(intent);
@@ -590,10 +635,13 @@ public class HomePageFrag extends Fragment implements OnTouchListener {
 										intent.putExtra("ss", ss);
 										intent.putExtra("stu_id", stu_id);
 										intent.putExtra("student", isstudy.stu_to_json(student));
+										intent.putExtra("tag", 2);
+										intent.putExtra("start_and_end_time",new SimpleDateFormat("hh:MM:ss").format(studyplan.getStartTime())
+												+" ~ "+new SimpleDateFormat("hh:MM:ss").format(studyplan.getEndTime()));
+										intent.putExtra("text", studyplan.getPlanText())	;	
 										flag = true;
 										planflag=true;
 										startActivity(intent);
-										
 									}else         //这里的p肯定为负数
 									{
 										flag     = false;
@@ -604,42 +652,34 @@ public class HomePageFrag extends Fragment implements OnTouchListener {
 										intent.putExtra("ss", ss+p);
 										intent.putExtra("stu_id", stu_id);
 										intent.putExtra("student", isstudy.stu_to_json(student));
+										intent.putExtra("tag", 2);
+										intent.putExtra("start_and_end_time",new SimpleDateFormat("hh:MM:ss").format(studyplan.getStartTime())
+												+" ~ "+new SimpleDateFormat("hh:MM:ss").format(studyplan.getEndTime()));
+										intent.putExtra("text", studyplan.getPlanText())	;	
 										flag = true;
 										planflag=true;
 										startActivity(intent);
 									}
-									
-									
-									
 								}
-								
 							}else{					
 								flag     = false;
 								planflag = false;
 								//表明今天没有学习计划
 								Toast.makeText(getActivity(), "今天没有计划", Toast.LENGTH_SHORT).show();
-								
 								//跳转到学习计划添加页
 								gotoInsertplan();
-								
 							}
 						}
 						else{
 							flag     = false;
 							planflag = false;
 							Toast.makeText(getActivity(), "今天没有计划", Toast.LENGTH_SHORT).show();
-							
 							//跳转到学习计划添加页
 							gotoInsertplan();
-							
-							
 						}
-						
-						
 					}
 				});
 	}
-	
 	
 	public void gotoInsertplan()
 	{
@@ -657,7 +697,6 @@ public class HomePageFrag extends Fragment implements OnTouchListener {
 			}
 		})
 		.setPositiveButton("确定", new DialogInterface.OnClickListener() {
-			
 			@Override
 			public void onClick(DialogInterface dialog, int which) {
 				// TODO Auto-generated method stub
@@ -676,6 +715,42 @@ public class HomePageFrag extends Fragment implements OnTouchListener {
 		
 	}
 	
+	/**
+	 * 判断是否已经签到
+	 * @return
+	 */
+	public boolean qiandao_ed()
+	{
+		
+		boolean b  = false;
+		int i = pref.getInt("签到", 0);  //获取储存在文件里的   DAY_OF_YEAR  int 类型
+		System.out.println("i>>>>>>>>>>>>>>>"+i);
+		if(i ==  c.get(Calendar.DAY_OF_YEAR ))
+		{
+			b =true;
+		}
+		return b;
+	}
 	
-
+	/**
+	 * 屏幕触摸事件
+	 * 
+	 * 
+	 */
+	public void ontouchinview()
+	{
+		tv1 = (TextView) view.findViewById(R.id.tv_xianshi1);
+		tv2 = (TextView) view.findViewById(R.id.tv_xianshi2);
+		rl = (RelativeLayout) view.findViewById(R.id._root);
+		rl.setOnTouchListener(new View.OnTouchListener() {
+			@Override
+			public boolean onTouch(View v, MotionEvent event) {
+				// TODO Auto-generated method stub
+				tv1.setVisibility(View.GONE);
+				tv2.setVisibility(View.GONE);
+				return false;
+			}
+		});		
+	}
 }
+	

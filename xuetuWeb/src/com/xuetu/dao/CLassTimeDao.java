@@ -200,4 +200,36 @@ public class CLassTimeDao implements ClassTimeServiceInter{
 		return null;
 	}
 	
+	
+	
+//
+//	/**
+//	 * 通过已经获取  学生选课id,与 MyClass对象中的      选课id匹配
+//	 * @param cls_id                 返回课程名
+//	 * @param listmyclass
+//	 * @return
+//	 */
+//	
+//	public int getcls_id  (List<Integer> cls_id,List<MyClass> listmyclass)
+//	{
+//		int jj=0;
+//		boolean bl = false;
+//		System.out.println("ccccccccccccccccc"+cls_id.size());
+//		for(int i=0;i<cls_id.size();i++)
+//		{
+//			for(int j=0;j<listmyclass.size();j++)
+//			{
+//				if((cls_id.get(i))==listmyclass.get(j).getClsId())
+//				{
+//					bl=true;
+//					jj=
+//					break;
+//				}
+//			}
+//		}
+//		return jj;
+//	}
+	
+	
+	
 }	
