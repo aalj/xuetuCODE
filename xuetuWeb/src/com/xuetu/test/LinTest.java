@@ -55,7 +55,7 @@ public class LinTest {
 	}
 	@Test
 	public void getPageQuestion(){
-		System.out.println(Qservice.queryLimitQuestion(1, 20).get(7).getQuesDate());
+		System.out.println(Qservice.queryLimitQuestion(1, 10).get(5).getAns_num());
 	}
 	@Test
 	public void getQuestionByQuesId(){

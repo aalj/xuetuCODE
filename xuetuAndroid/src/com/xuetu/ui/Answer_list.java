@@ -24,9 +24,15 @@ import com.lidroid.xutils.http.ResponseInfo;
 import com.lidroid.xutils.http.callback.RequestCallBack;
 import com.lidroid.xutils.http.client.HttpRequest.HttpMethod;
 import com.xuetu.R;
+import com.xuetu.adapter.MyBasesadapter;
+import com.xuetu.adapter.ViewHodle;
 import com.xuetu.entity.Answer;
 import com.xuetu.entity.Question;
 import com.xuetu.utils.GetHttp;
+import com.xuetu.view.MyListView;
+import com.xuetu.view.PullToRefreshView;
+import com.xuetu.view.PullToRefreshView.OnFooterRefreshListener;
+import com.xuetu.view.PullToRefreshView.OnHeaderRefreshListener;
 import com.xuetu.view.TitleBar;
 
 import android.app.Activity;
@@ -38,6 +44,8 @@ import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
+import android.os.Handler;
+import android.os.Message;
 import android.provider.MediaStore;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -52,11 +60,10 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-public class Answer_list extends Activity implements OnClickListener{
+public class Answer_list extends Activity implements OnClickListener, OnHeaderRefreshListener, OnFooterRefreshListener{
 
 	//声明变量
-//	MyBasesadapter<Answer> adapter = null;
-	MyListViewAdatper adapter = null;
+	MyBasesadapter<Answer> adapter = null;
 	Question curQues = null;
 	List<Answer> list = null;
 	Long ans_time = null;
@@ -73,61 +80,63 @@ public class Answer_list extends Activity implements OnClickListener{
 	private ListView lv_answer = null;
 	private Uri imageUri;
 	private TextView et_ans_text;
-	TextView tv_ans1_text;
+	TextView tv_ans1_ques_text;
 	TextView tv_ans1_time;
 	TextView tv_ans1_stuName;
 	TextView tv_ans1_sub;
-	ImageView iv_ans1_first_img;
+	TextView tv_ans1_num;
+	ImageView iv_ans1_ques_img;
 	ImageView btn_photo;
 	ImageView iv_ans1_userImg;
 //	TextView tv_ans_title;
 	Button btn_ans;
 	View view_title;
 	TitleBar titlebar;
-	RelativeLayout left_ans_layout;
+	String url = null;
 	int stu_id = 0;
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
-		//获取当前用户对象
-	
-		
 		setContentView(R.layout.question_answer);
+		initia();
+		
+		getPageAnswerByQues();
+	}
+	public void initia(){
+		BitmapUtils bitmapUtils = new 
+				BitmapUtils(Answer_list.this);
 		Intent intent = getIntent();
 		curQues= (Question) intent.getSerializableExtra("curQues");
-		
+		Log.i("hehe", curQues.getQuesID()+"id");
 		file = new File(Environment.getExternalStorageDirectory(),sdf.format(new Date(System.currentTimeMillis()))+".jpg");
-//		Log.i("hehe", file.getName());
 		imageUri = Uri.fromFile(file);
 		//初始化控件
-		titlebar = (TitleBar) findViewById(R.id.titlebar);
-		lv_answer = (ListView) findViewById(R.id.lv_answer);
-//		tv_ans1_text =(TextView) findViewById(R.id.tv_ans1_text);
-//		tv_ans1_time =(TextView) findViewById(R.id.tv_ans1_time);
-//		tv_ans1_stuName =(TextView) findViewById(R.id.tv_ans1_stuName);
-//		tv_ans1_sub =(TextView) findViewById(R.id.tv_ans1_sub);
-//		iv_ans1_first_img =(ImageView) findViewById(R.id.iv_ans1_first_img);
-//		iv_ans1_userImg =(ImageView) findViewById(R.id.iv_ans1_userImg);
+		
+		titlebar = (TitleBar) findViewById(R.id.title_my);
 		btn_photo = (ImageView) findViewById(R.id.btn_photo);
 		btn_ans = (Button) findViewById(R.id.btn_ans);
 		et_ans_text = (TextView) findViewById(R.id.et_ans_text);
-		left_ans_layout = (RelativeLayout) findViewById(R.id.left_ans_layout);
-		//控件赋值
-//		tv_ans1_text.setText(curQues.getQuesText());
-//		tv_ans1_time.setText(sdf2.format(curQues.getQuesDate())+"");
-//		tv_ans1_stuName.setText(curQues.getStudent().getStuName());
-//		tv_ans1_sub.setText(curQues.getSubject().getName());
-//		BitmapUtils bitmapUtils = new BitmapUtils(this);
+		lv_answer = (ListView) findViewById(R.id.lv_answer);
+		tv_ans1_sub = (TextView) findViewById(R.id.tv_ans1_sub);
 		//设置监听事件
 		btn_ans.setOnClickListener(this);
-		left_ans_layout.setOnClickListener(this);
 //		titlebar.setLeftLayoutClickListener(this);
 		btn_photo.setOnClickListener(this);
-		// 加载网络图片
-//		bitmapUtils.display(iv_ans1_first_img, GetHttp.getHttpLC()+curQues.getQuesIma());
-//		bitmapUtils.display(iv_ans1_userImg, GetHttp.getHttpLC()+curQues.getStudent().getStuIma());
-		getPageAnswerByQues();
+		tv_ans1_num = (TextView) findViewById(R.id.tv_ans1_num);
+		tv_ans1_stuName = (TextView) findViewById(R.id.tv_ans1_stuName);
+		iv_ans1_ques_img = (ImageView) findViewById(R.id.iv_ans1_ques_img);
+		tv_ans1_time = (TextView) findViewById(R.id.tv_ans1_time);
+		tv_ans1_ques_text = (TextView) findViewById(R.id.tv_ans1_ques_text);
+		tv_ans1_ques_text.setText(curQues.getQuesText());
+		tv_ans1_num.setText(curQues.getAns_num()+"");
+		tv_ans1_sub.setText(curQues.getSubject().getName());
+		tv_ans1_time.setText(sdf2.format(new Date(curQues.getQuesDate().getTime())));
+		bitmapUtils.display(iv_ans1_ques_img, GetHttp.getHttpLC()+curQues.getQuesIma());
+		tv_ans1_stuName.setText(curQues.getStudent().getStuName());
+		titlebar.setLeftLayoutClickListener(this);
+		titlebar.setRightLayoutVisibility(View.INVISIBLE);
 	}
 	@Override
 	public void onResume() {
@@ -135,14 +144,28 @@ public class Answer_list extends Activity implements OnClickListener{
 		
 		super.onResume();
 	}
-
+	Handler handler = new Handler(){
+		@Override
+		public void handleMessage(Message msg) {
+			switch(msg.what){
+			case 1:
+				list =(List<Answer>) msg.obj;break;	
+			case 2:
+				list = (List<Answer>) msg.obj;break;	
+			}
+			if(adapter !=null){
+				adapter.notifyDataSetChanged();
+			}else{
+			setMyAapter(list);
+			lv_answer.setAdapter(adapter);
+			}
+			super.handleMessage(msg);
+		}
+	};
 	@Override
 	public void onClick(View v) {
 		// TODO Auto-generated method stub
 		switch(v.getId()){
-		case R.id.left_ans_layout:
-			finish();
-			break;
 		case R.id.btn_ans:
 			Toast.makeText(getApplicationContext(), "回答", 1).show();
 			
@@ -163,6 +186,10 @@ public class Answer_list extends Activity implements OnClickListener{
 					prop(which);
 				}
 			}).create().show();
+			break;
+		case R.id.left_layout:
+			finish();
+			break;
 		}
 	}
 	
@@ -244,7 +271,7 @@ public class Answer_list extends Activity implements OnClickListener{
 		}
 		
 		public void getPageAnswerByQues(){
-			String url = GetHttp.getHttpLC()+"GetPageAnswer";
+			url = GetHttp.getHttpLC()+"GetPageAnswer";
 			RequestParams paramsQuesId = new RequestParams();
 			paramsQuesId.addBodyParameter("Ques_id",curQues.getQuesID()+"");
 			hutils.send(HttpMethod.POST, url, paramsQuesId, new RequestCallBack<String>() {
@@ -265,55 +292,37 @@ public class Answer_list extends Activity implements OnClickListener{
 					.setDateFormat("yyyy-MM-dd HH:mm:ss").create();
 					Type type = new TypeToken<List<Answer>>(){}.getType();
 					list = gson.fromJson(arg0.result, type);
-					
-//					Log.i("hehe", "------>"+list.size());
-//					Log.i("hehe", "------>"+list.get(0).toString());
-//					
-//					Log.i("hehe", "------>"+list.get(1).toString());
-//					Log.i("hehe", "------>"+sdf2.format(new Date(list.get(0).getAnsTime().getTime())));
-					/*adapter = new MyBasesadapter<Answer>(Answer_list.this, list, R.layout.question_answeritem) {
-						@Override
-						public void convert(ViewHodle viewHolder, Answer item) {
-							// TODO Auto-generated method stub
-//							viewHolder.setText(resID, info)tv_stuName
-//							tv_ans1_text =(TextView) findViewById(R.id.tv_ans1_text);
-//							tv_ans1_time =(TextView) findViewById(R.id.tv_ans1_time);
-//							tv_ans1_stuName =(TextView) findViewById(R.id.tv_ans1_stuName);
-//							tv_ans1_sub =(TextView) findViewById(R.id.tv_ans1_sub);
-//							iv_ans1_first_img =(ImageView) findViewById(R.id.iv_ans1_first_img);
-//							iv_ans1_userImg =(ImageView) findViewById(R.id.iv_ans1_userImg);
-							viewHolder.setText(R.id.tv_ans_ques_text, item.getAnsText());
-
-//							Log.i("hehe", "------>"+sdf2.format(new Date(item.getAnsTime().getTime())));
-							viewHolder.setText(R.id.tv_ans_time,sdf2.format(new Date(item.getAnsTime().getTime())));
-							viewHolder.setText(R.id.tv_ans_stuName, item.getStudent().getStuName());
-							http://10.201.1.13:8080/xuetuWeb/+
-							viewHolder.SetUrlImage(R.id.iv_ans_img,GetHttp.getHttpLC()+item.getAnsImg());
-							viewHolder.SetUrlImage(R.id.iv_ans_userImg,GetHttp.getHttpLC()+item.getStudent().getStuIma());
-							
-						}
-					};
-					lv_answer.setAdapter(adapter);*/
-					adapter = new MyListViewAdatper(list);
-					lv_answer.setAdapter(adapter);
+					 Message msg = Message.obtain();
+					 msg.what=1;
+					 msg.obj=list;
+					handler.sendMessage(msg );
+					;
 				}
 			});
 			
 		}
 		
 		public void submitAnswer(){
-			
+			RequestParams paramsSub = new RequestParams();
 			ans_time = System.currentTimeMillis();
-			ans_img = Environment.getExternalStorageDirectory().getAbsolutePath()+"/"+ans_time+".jpg";
-			String url = GetHttp.getHttpLC() + "SubmitAnswer";
-			
-			RequestParams params = new RequestParams();
-			params.addBodyParameter("ques_id",curQues.getQuesID()+"");
-			params.addBodyParameter("stu_id",stu_id+"");
-			params.addBodyParameter("ans_text",et_ans_text.getText().toString());
-			params.addBodyParameter(file.getAbsolutePath().replace("/", ""),file);
-			params.addBodyParameter("ans_time",String.valueOf(ans_time));
-			hutils.send(HttpMethod.POST, url, params,new RequestCallBack<String>() {
+			if(file.exists()){
+				url = GetHttp.getHttpLC()+"SubmitAnswer";
+				paramsSub.addBodyParameter(file.getAbsolutePath().replace("/", ""),file);
+				Log.i("hehe","yes file");
+				}
+				else{
+					Log.i("hehe","no file");
+					url = GetHttp.getHttpLC()+"SubmitAnswerWithoutImg";
+					Log.i("hehe",url);
+				}
+			paramsSub.addBodyParameter("quesId",curQues.getQuesID()+"");
+			Log.i("hehe",curQues.getQuesID()+"id");
+			Log.i("hehe",stu_id+"id");
+			paramsSub.addBodyParameter("x","sb");
+			paramsSub.addBodyParameter("stu_id",stu_id+"");
+			paramsSub.addBodyParameter("ans_text",et_ans_text.getText().toString());
+			paramsSub.addBodyParameter("ans_time",String.valueOf(ans_time));
+			hutils.send(HttpMethod.POST, url, paramsSub,new RequestCallBack<String>() {
 
 				@Override
 				public void onFailure(HttpException arg0, String arg1) {
@@ -324,154 +333,50 @@ public class Answer_list extends Activity implements OnClickListener{
 				@Override
 				public void onSuccess(ResponseInfo<String> arg0) {
 					Toast.makeText(getApplicationContext(), "充公", 1).show();
-					finish();
+					Gson gson = new GsonBuilder()
+					.enableComplexMapKeySerialization()
+					.setPrettyPrinting()
+					.disableHtmlEscaping()
+					.setDateFormat("yyyy-MM-dd HH:mm:ss").create();
+					Type type = new TypeToken<Answer>(){}.getType();
+					Answer a = gson.fromJson(arg0.result, type);
+					list.add(a);
+					 Message msg = Message.obtain();
+					 msg.what=2;
+					 msg.obj=list;
+					handler.sendMessage(msg );
 					
 				}
 			});
 		}
-		
-		private class MyListViewAdatper extends BaseAdapter {
-			BitmapUtils bitmapUtils = new BitmapUtils(Answer_list.this);
-			LayoutInflater m_inflater = null;
-			private List<Answer> answers = new ArrayList<Answer>();
-
-			public MyListViewAdatper(List<Answer> answers) {
-				m_inflater = LayoutInflater.from(Answer_list.this);
-				this.answers = (ArrayList<Answer>) answers;
-			}
-
-			@Override
-			public int getItemViewType(int position) {
-				// TODO Auto-generated method stub
-				return position > 0 ? 0 : 1;
-			}
-
-			@Override
-			public int getViewTypeCount() {
-				// TODO Auto-generated method stub
-				return 2;
-			}
-
-			@Override
-			public int getCount() {
-				// TODO Auto-generated method stub
-				return answers.size();
-			}
-
-			@Override
-			public Object getItem(int position) {
-				// TODO Auto-generated method stub
-				return answers.get(position);
-			}
-
-			@Override
-			public long getItemId(int arg0) {
-				// TODO Auto-generated method stub
-				return arg0;
-			}
-
-			@Override
-			public View getView(int position, View convertView, ViewGroup parent) {
-				// TODO Auto-generated method stub
-				View view = null;
-				if (getItemViewType(position) == 0)//不是第一条
-				{
-					ViewHolder holder = null;
-
-					if (convertView == null) {
-
-						view = m_inflater.inflate(R.layout.question_answeritem, null);
-						holder = new ViewHolder();
-//						viewHolder.setText(R.id.tv_ans_time,sdf2.format(new Date(item.getAnsTime().getTime())));
-//						viewHolder.setText(R.id.tv_ans_stuName, item.getStudent().getStuName());
-//						viewHolder.SetUrlImage(R.id.iv_ans_img,GetHttp.getHttpLC()+item.getAnsImg());
-//						viewHolder.SetUrlImage(R.id.iv_ans_userImg,GetHttp.getHttpLC()+item.getStudent().getStuIma());
-						holder.tv_ans_stuName = (TextView) view.findViewById(R.id.tv_ans_stuName);
-						holder.tv_ans_time = (TextView) view.findViewById(R.id.tv_ans_time);
-						holder.tv_ans_text = (TextView) view.findViewById(R.id.tv_ans_text);			
-						holder.iv_ans_img = (ImageView) view.findViewById(R.id.iv_ans_img);
-						holder.iv_ans_userImg = (ImageView) view.findViewById(R.id.iv_ans_userImg);
-						
-						view.setTag(holder);
-					} else {
-						view = convertView;
-						holder = (ViewHolder) view.getTag();
-					}
-
-					holder.tv_ans_stuName.setText(answers.get(position).getStudent().getStuName());
+		//标记适配器是否初始化
+		boolean temp = false;
+		public void setMyAapter(List<Answer> list){
+			
+			adapter = new MyBasesadapter<Answer>(this,list,R.layout.question_answeritem) {
+				
+				@Override
+				public void convert(ViewHodle viewHolder, Answer item) {
+					Log.i("hehe","Stuname"+item.getStudent().getStuName());
+					Log.i("hehe","Stuname"+item.getStudent().getStuName());
 					
-					holder.tv_ans_text.setText(answers.get(position).getAnsText());
-
-					holder.tv_ans_time.setText(sdf2.format(new Date(answers.get(position).getAnsTime().getTime())));
-
-					bitmapUtils.display(holder.iv_ans_img,
-							GetHttp.getHttpLC() + answers.get(position).getAnsImg());
-					bitmapUtils.display(holder.iv_ans_userImg,
-							GetHttp.getHttpLC() + answers.get(position).getStudent().getStuIma());
-				} else if (getItemViewType(position) == 1)// 如果是顶部viewpager
-				{
-					FirstViewHolder holder = null;
-					if (convertView == null) {
-
-						
-						view = m_inflater.inflate(R.layout.question_answer_firstitem, null);
-						holder = new FirstViewHolder();
-
-						holder.tv_ans1_ques_text = (TextView) view.findViewById(R.id.tv_ans1_ques_text);
-						holder.tv_ans1_time = (TextView) view.findViewById(R.id.tv_ans1_time);
-						holder.tv_ans1_stuName = (TextView) view.findViewById(R.id.tv_ans1_stuName);
-						holder.tv_ans1_sub = (TextView) view.findViewById(R.id.tv_ans1_sub);
-//						holder.tv_ans_num = (TextView) view.findViewById(R.id.tv_ans_num);
-						holder.iv_ans1_first_img = (ImageView) view.findViewById(R.id.iv_ans1_first_img);
-						holder.iv_ans1_userImg = (ImageView) view.findViewById(R.id.iv_ans1_userImg);
-						view.setTag(holder);
-					} else {
-						view = convertView;
-						holder = (FirstViewHolder) view.getTag();
-					}
-					
-					holder.tv_ans1_ques_text.setText(curQues.getQuesText());
-					holder.tv_ans1_time.setText(sdf2.format(new Date(curQues.getQuesDate().getTime())));
-					holder.tv_ans1_stuName.setText(curQues.getStudent().getStuName());
-					holder.tv_ans1_sub.setText(curQues.getSubject().getName());
-//					holder.tv_ans_num.setText(getCount());
-					bitmapUtils.display(holder.iv_ans1_first_img,
-							GetHttp.getHttpLC() + curQues.getQuesIma());
-					bitmapUtils.display(holder.iv_ans1_userImg,
-							GetHttp.getHttpLC() + curQues.getStudent().getStuIma());
+					viewHolder.setText(R.id.tv_ans_stuName, item.getStudent().getStuName());
+					viewHolder.setText(R.id.tv_ans_text, item.getAnsText());
+					viewHolder.setText(R.id.tv_ans_time, sdf2.format(new Date(item.getAnsTime().getTime())));
+					viewHolder.SetUrlImage(R.id.iv_ans_img, GetHttp.getHttpLC()+item.getAnsImg());
 				}
-
-				return view;
-			}
+			};
+			temp = true;
+		}
+		@Override
+		public void onHeaderRefresh(PullToRefreshView view) {
+			// TODO Auto-generated method stub
 
 		}
-		public static class FirstViewHolder{
-			public TextView tv_ans1_ques_text;
-			public TextView tv_ans1_time;
-			public TextView tv_ans1_stuName;
-			public TextView tv_ans1_sub;
-			public TextView tv_ans_num;
-			public ImageView iv_ans1_first_img;
-			public ImageView iv_ans1_userImg;
-			
-//			tv_ans1_text =(TextView) findViewById(R.id.tv_ans1_text);
-//			tv_ans1_time =(TextView) findViewById(R.id.tv_ans1_time);
-//			tv_ans1_stuName =(TextView) findViewById(R.id.tv_ans1_stuName);
-//			tv_ans1_sub =(TextView) findViewById(R.id.tv_ans1_sub);
-//			iv_ans1_first_img =(ImageView) findViewById(R.id.iv_ans1_first_img);
-//			iv_ans1_userImg =(ImageView) findViewById(R.id.iv_ans1_userImg);
 
-		}
-		
-		public static class ViewHolder {
-			public TextView tv_ans_time;
-			public TextView tv_ans_stuName;
-			public TextView tv_ans_text;
-			public ImageView iv_ans_img;
-			public ImageView iv_ans_userImg;
-			
-
-			
+		@Override
+		public void onFooterRefresh(PullToRefreshView view) {
+			// TODO Auto-generated method stub
 
 		}
 }

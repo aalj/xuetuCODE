@@ -37,6 +37,8 @@ SharedPreferences sp = null;
 			Intent intent = new Intent();
 			intent.setClass(SettingActivity.this, LoginActivity.class);
 			startActivity(intent);
+			finish();
+			
 			break;
 
 		default:

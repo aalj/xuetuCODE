@@ -336,7 +336,7 @@
                         android:layout_alignBottom="@+id/study_school"
                         android:layout_alignTop="@+id/study_school"
                         android:layout_toLeftOf="@+id/imageView34567"
-                        android:text="密立根加立顿大学" />
+                        android:text="❤以韶华之年宛君心" />
                 </RelativeLayout>
             </LinearLayout>
         </LinearLayout>

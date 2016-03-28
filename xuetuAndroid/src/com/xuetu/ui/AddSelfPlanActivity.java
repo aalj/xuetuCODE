@@ -1,6 +1,8 @@
 package com.xuetu.ui;
 
+import java.io.UnsupportedEncodingException;
 import java.lang.reflect.Type;
+import java.net.URLEncoder;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
@@ -9,10 +11,12 @@ import com.gc.materialdesign.views.Switch;
 import com.github.jjobes.slidedatetimepicker.SlideDateTimeListener;
 import com.github.jjobes.slidedatetimepicker.SlideDateTimePicker;
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
 import com.lidroid.xutils.HttpUtils;
 import com.lidroid.xutils.ViewUtils;
 import com.lidroid.xutils.exception.HttpException;
+import com.lidroid.xutils.http.RequestParams;
 import com.lidroid.xutils.http.ResponseInfo;
 import com.lidroid.xutils.http.callback.RequestCallBack;
 import com.lidroid.xutils.http.client.HttpRequest.HttpMethod;
@@ -74,8 +78,9 @@ public class AddSelfPlanActivity extends FragmentActivity implements OnClickList
 	boolean getPateern = false;
 	//标记是点击过学习模式
 	boolean  pateernMode = false;
-	
-	
+	int tempself = 0;
+	//用于返回传值回去
+	Intent intent= null;
 	
 	private SimpleDateFormat mFormatter = new SimpleDateFormat("MM-dd HH:mm");
 SharedPreferences sp= null;
@@ -85,6 +90,8 @@ SharedPreferences sp= null;
 		setContentView(R.layout.activity_add_self_plan);
 		ViewUtils.inject(this);
 		dbFindManager = new DBFindManager(this);
+		//用于标记是重那个页面跳转过来的
+		  tempself = getIntent().getIntExtra("tempself", 0);
 		student = ((XueTuApplication)getApplication()).getStudent();
 		sp = getSharedPreferences("config", Activity.MODE_PRIVATE);
 		setOnclick();
@@ -101,7 +108,8 @@ SharedPreferences sp= null;
 		endTime = date;
 		tv_startTime_info.setText(mFormatter.format(date));
 		tv_endTime_info.setText(mFormatter.format(date));
-		study_info.setText(list.get(0).getPattrenText());
+		//数据为空
+//		study_info.setText(list.get(0).getPattrenText());
 
 	}
 	
@@ -125,6 +133,7 @@ SharedPreferences sp= null;
 					Type type = new TypeToken<List<Pattern>>() {
 					}.getType();
 					list = gson.fromJson(arg0.result, type);
+					study_info.setText(list.get(0).getPattrenText());
 					item = new String[list.size()];
 					for (int i = 0; i < list.size(); i++) {
 						item[i] = list.get(i).getPattrenText();
@@ -150,6 +159,7 @@ SharedPreferences sp= null;
 	 */
 	private void getpattern() {
 		list = dbFindManager.getPattern();
+		study_info.setText(list.get(0).getPattrenText());
 //		dbFindManager.addPatter(list);
 		// TODO 需要把数据存到本地数据库
 
@@ -198,7 +208,7 @@ SharedPreferences sp= null;
 				}
 				
 			
-			Intent intent = new Intent();
+			  intent = new Intent();
 			selfStudyPlan.setStudent(student);
 			Log.i("TAG", "xuesheng duiiang   --- - -- - - -"+selfStudyPlan.getStudent().getStuName());
 			selfStudyPlan.setStartTime(startTime);
@@ -211,11 +221,12 @@ SharedPreferences sp= null;
 				selfStudyPlan.setPlanReming(0);
 			}
 			// dbFindManager.addSelfOne(selfStudyPlan);
-			intent.putExtra("selfa", selfStudyPlan);
-			Log.i("TAG", "shixain ===========" + selfStudyPlan.toString());
-			setResult(1011, intent);
-			finish();
+			addChangSelf(selfStudyPlan);
+			
+//			setResult(1011, intent);
+			
 			}else{
+				
 				Toast.makeText(getApplicationContext(), "时间不能小于开始时间时间", 0).show();
 			}
 
@@ -231,6 +242,51 @@ SharedPreferences sp= null;
 		}
 
 	}
+	
+	
+	
+	private void addChangSelf(final SelfStudyPlan selfStudyPlan) {
+		Log.i("TAG", "添加计划----------------------->>>>>>>>>>>");
+		HttpUtils httpUtils = new HttpUtils();
+		if (httpUtils != null) {
+			String url = GetHttp.getHttpLJ() + "InsertSelfServlrt";
+			RequestParams patram = new RequestParams();
+			Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create();
+			String json = gson.toJson(selfStudyPlan);
+			try {
+				patram.addBodyParameter("self", URLEncoder.encode(json, "utf-8"));
+			} catch (UnsupportedEncodingException e) {
+				e.printStackTrace();
+			}
+			httpUtils.send(HttpMethod.POST, url, patram, new RequestCallBack<String>() {
+
+				@Override
+				public void onFailure(HttpException arg0, String arg1) {
+
+				}
+
+				@Override
+				public void onSuccess(ResponseInfo<String> arg0) {
+					if(tempself==1){
+						intent.putExtra("selfa", selfStudyPlan);
+						setResult(1011, intent);
+					}else{
+						finish();
+					}
+					
+					
+					Toast.makeText(getApplicationContext(), arg0.result, 0).show();
+
+				}
+			});
+		}
+
+	}
+	
+	
+	
+	
+	
 	
 	/**
 	 * 比较时间的大小

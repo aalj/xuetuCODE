@@ -13,6 +13,7 @@
 
 package com.xuetu.entity;
 
+import java.io.Serializable;
 import java.sql.Date;
 
 /**
@@ -27,7 +28,7 @@ import java.sql.Date;
  * @see
  * 
  */
-public class Student {
+public class Student implements Serializable{
 
 	private int stuId = 0;
 

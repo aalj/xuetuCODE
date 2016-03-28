@@ -190,7 +190,7 @@ public class DBFindManager {
 	 * 去时间
 	 */
 	public List<Alarm> queryAlarm(int temp){
-		String selection ="temp";
+		String selection ="temp=?";
 		String[] selectionArgs={temp+""};
 		Cursor query = db.query("alarm", null,  selection, selectionArgs, null, null, "start_time" + " DESC");
 		List<Alarm> list = new ArrayList<Alarm>();
