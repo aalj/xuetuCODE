@@ -14,6 +14,7 @@
 package com.xuetu.fragment;
 
 import com.lidroid.xutils.BitmapUtils;
+import com.xuetu.PersonalQuestionCollectionActivity;
 import com.xuetu.R;
 import com.xuetu.entity.Student;
 import com.xuetu.ui.CourseActivity;
@@ -66,6 +67,7 @@ public class PersonalFrag extends Fragment implements OnClickListener {
 	View view;
 	SharedPreferences sp = null;
 	TitleBar main_title = null;
+
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 		view = inflater.inflate(R.layout.personal_frag, null);
@@ -78,9 +80,9 @@ public class PersonalFrag extends Fragment implements OnClickListener {
 		txt_course = (TextView) view.findViewById(R.id.txt_course);
 		head = (CircleImageView) view.findViewById(R.id.head);
 		txt_paihangbang = (TextView) view.findViewById(R.id.txt_paihangbang);
-//		main_title = (TitleBar) view.findViewById(R.id.main_title);
-//
-//		main_title.setRightLayoutClickListener(this);
+		// main_title = (TitleBar) view.findViewById(R.id.main_title);
+		//
+		// main_title.setRightLayoutClickListener(this);
 		view_user.setOnClickListener(this);
 		txt_pay.setOnClickListener(this);
 		txt_youhuijuan.setOnClickListener(this);
@@ -100,7 +102,7 @@ public class PersonalFrag extends Fragment implements OnClickListener {
 		if (student1.getStuId() > 0) {
 			boolean bool = sp.getBoolean("SANFANG", false);
 			if (bool) {
-				setHeadByUrl(view.getContext(), head,  student1.getStuIma());
+				setHeadByUrl(view.getContext(), head, student1.getStuIma());
 
 			} else {
 				setHeadByUrl(view.getContext(), head, GetHttp.getHttpLC() + student1.getStuIma());
@@ -152,6 +154,7 @@ public class PersonalFrag extends Fragment implements OnClickListener {
 			break;
 
 		case R.id.txt_myquestion:
+			getActivity().startActivity(new Intent(getActivity(), PersonalQuestionCollectionActivity.class));
 
 			break;
 
