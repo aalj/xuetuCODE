@@ -40,7 +40,7 @@ import android.widget.Toast;
  *
  * @see
  */
-public class MainActivity extends FragmentActivity implements OnPageChangeListener, OnClickListener{
+public class MainActivity extends FragmentActivity implements OnPageChangeListener, OnClickListener {
 	private FragmentManager manager = null;
 	private FragmentTransaction beginTransaction = null;
 	private TitleBar title;
@@ -54,7 +54,7 @@ public class MainActivity extends FragmentActivity implements OnPageChangeListen
 	FrameLayout question_page;
 	@ViewInject(R.id.personal_page)
 	FrameLayout personal_page;
-	
+
 	FrameLayout[] fragmeLayout = null;
 
 	@ViewInject(R.id.coupon_tv)
@@ -101,7 +101,7 @@ public class MainActivity extends FragmentActivity implements OnPageChangeListen
 		// 登录成功传值出来
 		Intent intent = this.getIntent();
 		Student student = (Student) intent.getSerializableExtra("KEY");
-		
+
 	}
 
 	/**
@@ -114,11 +114,13 @@ public class MainActivity extends FragmentActivity implements OnPageChangeListen
 	 *             CodingExample Ver 1.1
 	 */
 	private void initView() {
+		int intExtra = getIntent().getIntExtra("page", -1);
+
 		fragments = new Fragment[5];
 		fragmeLayout = new FrameLayout[5];
 		textView = new TextView[5];
 		title = (TitleBar) findViewById(R.id.main_title);
-//
+		//
 		title.setRightLayoutClickListener(this);
 		manager = getSupportFragmentManager();
 		beginTransaction = manager.beginTransaction();
@@ -161,8 +163,19 @@ public class MainActivity extends FragmentActivity implements OnPageChangeListen
 
 		viewPage.setAdapter(new FragmentViewPageAdapter(getSupportFragmentManager(), fragments));
 		viewPage.addOnPageChangeListener(this);
-		viewPage.setCurrentItem(2);
+		if (intExtra == 0) {
+			//当跳转到当前页面的时候显示优惠券页面
+			viewPage.setCurrentItem(0);
+			Log.i("TAG", "这里是否有进入这里的东西");
+		} else {
+			//显示主页
+			viewPage.setCurrentItem(2);
+		}
 		viewPage.setOffscreenPageLimit(5);
+	}
+
+	public void setViepage(int i) {
+		viewPage.setCurrentItem(i);
 	}
 
 	/**
@@ -178,23 +191,28 @@ public class MainActivity extends FragmentActivity implements OnPageChangeListen
 	public void onclick(View v) {
 		switch (v.getId()) {
 		case R.id.coupon_fra:// 搜索页面点击
+			title.shoerightLayout(View.INVISIBLE);
 			viewPage.setCurrentItem(0);
 			title.shoelayout(View.VISIBLE);
 			break;
 		case R.id.find_fra:// 发现页面
+			title.shoerightLayout(View.INVISIBLE);
 			viewPage.setCurrentItem(1);
 			title.shoelayout(View.VISIBLE);
 			break;
 		case R.id.home_fra:// 首页面
+			title.shoerightLayout(View.INVISIBLE);
 			viewPage.setCurrentItem(2);
 			title.shoelayout(View.VISIBLE);
 			break;
 		case R.id.question_page:// 问题页面
+			title.shoerightLayout(View.INVISIBLE);
 			viewPage.setCurrentItem(3);
 			title.shoelayout(View.GONE);
-//			title.shoelayout(View.INVISIBLE);
+			// title.shoelayout(View.INVISIBLE);
 			break;
 		case R.id.personal_page:// 个人中心页面
+			title.shoerightLayout(View.VISIBLE);
 			title.setRightImageResource(R.drawable.more_setting);
 			viewPage.setCurrentItem(4);
 			title.shoelayout(View.VISIBLE);
@@ -237,12 +255,15 @@ public class MainActivity extends FragmentActivity implements OnPageChangeListen
 	@Override
 	public void onPageSelected(int arg0) {
 		if (showFragment != arg0) {
-			if(arg0==4){
+			if (arg0 == 4) {
+				title.shoerightLayout(View.VISIBLE);
 				title.setRightImageResource(R.drawable.more_setting);
+			} else {
+				title.shoerightLayout(View.INVISIBLE);
 			}
-			if(arg0==3){
+			if (arg0 == 3) {
 				title.shoelayout(View.GONE);
-			}else{
+			} else {
 				title.shoelayout(View.VISIBLE);
 			}
 			for (int i = 0; i < fragmeLayout.length; i++) {
@@ -272,10 +293,9 @@ public class MainActivity extends FragmentActivity implements OnPageChangeListen
 	@Override
 	public void onClick(View v) {
 		Intent intent = new Intent();
-		intent.setClass(MainActivity.this, SettingActivity.class)
-		;
+		intent.setClass(MainActivity.this, SettingActivity.class);
 		startActivity(intent);
 		Toast.makeText(getApplicationContext(), "sesdfsdf", 0).show();
-		
+
 	}
 }

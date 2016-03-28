@@ -3,8 +3,8 @@
     xmlns:app="http://schemas.android.com/apk/res/com.xuetu"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
-    android:orientation="vertical" 
-    android:background="@color/bgcolor">
+    android:background="@color/bgcolor"
+    android:orientation="vertical" >
 
     <com.xuetu.view.TitleBar
         android:id="@+id/backtoperson"
@@ -14,92 +14,113 @@
         app:titleBarTitle="积分详情" >
     </com.xuetu.view.TitleBar>
 
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="#44a6d5"
-        android:padding="4dp" >
+    <com.xuetu.view.PullToRefreshView
+        android:id="@+id/main_pull_refresh_view"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:layout_marginTop="4dip"
+        android:layout_weight="1"
+        android:background="#00000000"
+        android:weightSum="1" >
 
-        <LinearLayout
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical" 
-            android:background="@drawable/cornor_bg">
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="fill_parent" >
 
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_weight="1" >
-
-                <TextView
-                    android:id="@+id/textView1"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="10dp"
-                    android:gravity="center_vertical"
-                    android:text="当前积分"
-                    android:textColor="#c9cccc"
-                    android:textSize="13dp" />
-            </RelativeLayout>
-
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_weight="2" >
-
-                <TextView
-                    android:id="@+id/textView2"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="10dp"
-                    android:text="12345"
-                    android:textColor="@color/greenn"
-                    android:textSize="30dp" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignBaseline="@+id/textView2"
-                    android:layout_alignBottom="@+id/textView2"
-                    android:layout_toRightOf="@+id/textView2"
-                    android:text="分"
-                    android:textColor="@color/greenn"
-                    android:textSize="15dp" />
-            </RelativeLayout>
-
-            <RelativeLayout
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_weight="2"
-                android:paddingBottom="5dp"
-                android:paddingTop="5dp" >
+                android:orientation="vertical" >
 
-                <Button
-                    android:id="@+id/btn_login"
+                <RelativeLayout
                     android:layout_width="match_parent"
-                    android:layout_height="45dp"
-                    android:layout_marginLeft="10dp"
-                    android:layout_marginRight="10dp"
-                    android:background="@drawable/corner_button"
-                    android:onClick="onclick"
-                    android:text="积分兑换商品"
-                    android:textColor="@android:color/white"
-                    android:textSize="18sp" />
-            </RelativeLayout>
-        </LinearLayout>
-    </RelativeLayout>
+                    android:layout_height="wrap_content"
+                    android:background="#44a6d5"
+                    android:padding="4dp" >
 
-    <TextView
-        android:id="@+id/textView3"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:text="   积分记录" 
-        android:textSize="15dp"/>
+                    <LinearLayout
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/cornor_bg"
+                        android:orientation="vertical" >
 
-    <ListView
-        android:id="@+id/listView"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" >
-    </ListView>
+                        <RelativeLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1" >
+
+                            <TextView
+                                android:id="@+id/textView1"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginLeft="10dp"
+                                android:gravity="center_vertical"
+                                android:text="当前积分"
+                                android:textColor="#c9cccc"
+                                android:textSize="13dp" />
+                        </RelativeLayout>
+
+                        <RelativeLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="2" >
+
+                            <TextView
+                                android:id="@+id/textView2"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginLeft="10dp"
+                                android:text="12345"
+                                android:textColor="@color/greenn"
+                                android:textSize="30dp" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_alignBaseline="@+id/textView2"
+                                android:layout_alignBottom="@+id/textView2"
+                                android:layout_toRightOf="@+id/textView2"
+                                android:text="分"
+                                android:textColor="@color/greenn"
+                                android:textSize="15dp" />
+                        </RelativeLayout>
+
+                        <RelativeLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_weight="2"
+                            android:paddingBottom="5dp"
+                            android:paddingTop="5dp" >
+
+                            <Button
+                                android:id="@+id/btn_login"
+                                android:layout_width="match_parent"
+                                android:layout_height="45dp"
+                                android:layout_marginLeft="10dp"
+                                android:layout_marginRight="10dp"
+                                android:background="@drawable/corner_button"
+                                android:onClick="onclick"
+                                android:text="积分兑换商品"
+                                android:textColor="@android:color/white"
+                                android:textSize="18sp" />
+                        </RelativeLayout>
+                    </LinearLayout>
+                </RelativeLayout>
+
+                <TextView
+                    android:id="@+id/textView3"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:text="   积分记录"
+                    android:textSize="15dp" />
+
+                <com.xuetu.view.MyListView
+                    android:id="@+id/listView"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent" >
+                </com.xuetu.view.MyListView>
+            </LinearLayout>
+        </ScrollView>
+    </com.xuetu.view.PullToRefreshView>
 
 </LinearLayout>

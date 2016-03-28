@@ -142,7 +142,8 @@
         </activity>
         <activity
             android:name=".ui.LoginActivity"
-            android:label="@string/title_activity_login" >
+            android:label="@string/title_activity_login"
+            android:launchMode="singleTop" >
         </activity>
         <activity
             android:name=".ui.FindTaskItemActivity"
@@ -241,8 +242,12 @@
         <activity android:name=".ui.AlarmZaoShang" >
         </activity>
         <activity
-            android:name="com.xuetu.ui.SettingActivity"
+            android:name=".ui.SettingActivity"
             android:label="@string/title_activity_setting" >
+        </activity>
+        <activity
+            android:name="com.xuetu.ui.PointliShiActivity"
+            android:label="@string/title_activity_pointli_shi" >
         </activity>
     </application>
 
