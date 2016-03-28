@@ -9,6 +9,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.swing.plaf.synth.SynthSpinnerUI;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -76,11 +77,12 @@ public class SaveHead extends HttpServlet {
 				File file = new File(getServletContext().getRealPath("xuetuImg"), poster.getFileName());
 				System.out.println("filename" + poster.getFileName());
 				String saveFileName = file.getAbsolutePath();
+				stu_img = "xuetuImg/" + poster.getFileName();
 				System.out.println("saveFileName" + saveFileName);
 				// 文件保存路径
 				poster.saveAs(saveFileName);
-				poster.saveAs(path
-						+ poster.getFileName());
+				poster.saveAs(path + stu_img);
+				System.out.println(path + poster.getFileName()+"--------------->>>>>");
 			} // E:\XueTu\xuetuCCOODDEE\2016.3.24\xuetuCODE\xuetuWeb\WebContent\xuetuImg
 			stu_img = "xuetuImg/" + poster.getFileName();
 			stu_id = Integer.parseInt(smartUpload.getRequest().getParameter("stu_id"));
