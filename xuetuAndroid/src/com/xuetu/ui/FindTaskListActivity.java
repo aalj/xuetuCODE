@@ -245,7 +245,7 @@ public class FindTaskListActivity extends Baseactivity implements OnItemClickLis
 			Toast.makeText(getApplicationContext(), "qingjian sekf", 0).show();
 			SelfStudyPlan selfStudyPlan = (SelfStudyPlan) data.getSerializableExtra("selfa");
 			users.add(selfStudyPlan);
-			addChangSelf(selfStudyPlan);
+//			addChangSelf(selfStudyPlan);
 			adapter.notifyDataSetChanged();
 
 		}
@@ -260,32 +260,32 @@ public class FindTaskListActivity extends Baseactivity implements OnItemClickLis
 		super.onActivityResult(requestCode, resultCode, data);
 	}
 
-	private void addChangSelf(SelfStudyPlan selfStudyPlan) {
-		if (httpUtils != null) {
-			String url = GetHttp.getHttpLJ() + "InsertSelfServlrt";
-			RequestParams patram = new RequestParams();
-			String json = gson.toJson(selfStudyPlan);
-			try {
-				patram.addBodyParameter("self", URLEncoder.encode(json, "utf-8"));
-			} catch (UnsupportedEncodingException e) {
-				e.printStackTrace();
-			}
-			httpUtils.send(HttpMethod.POST, url, patram, new RequestCallBack<String>() {
-
-				@Override
-				public void onFailure(HttpException arg0, String arg1) {
-
-				}
-
-				@Override
-				public void onSuccess(ResponseInfo<String> arg0) {
-					Toast.makeText(getApplicationContext(), arg0.result, 0).show();
-
-				}
-			});
-		}
-
-	}
+//	private void addChangSelf(SelfStudyPlan selfStudyPlan) {
+//		if (httpUtils != null) {
+//			String url = GetHttp.getHttpLJ() + "InsertSelfServlrt";
+//			RequestParams patram = new RequestParams();
+//			String json = gson.toJson(selfStudyPlan);
+//			try {
+//				patram.addBodyParameter("self", URLEncoder.encode(json, "utf-8"));
+//			} catch (UnsupportedEncodingException e) {
+//				e.printStackTrace();
+//			}
+//			httpUtils.send(HttpMethod.POST, url, patram, new RequestCallBack<String>() {
+//
+//				@Override
+//				public void onFailure(HttpException arg0, String arg1) {
+//
+//				}
+//
+//				@Override
+//				public void onSuccess(ResponseInfo<String> arg0) {
+//					Toast.makeText(getApplicationContext(), arg0.result, 0).show();
+//
+//				}
+//			});
+//		}
+//
+//	}
 
 	// 保存修改的内容
 	private void saveChangSelf(SelfStudyPlan selfStudyPlan) {
@@ -322,7 +322,7 @@ public class FindTaskListActivity extends Baseactivity implements OnItemClickLis
 		case R.id.right_layout:
 			Intent intent = new Intent();
 			intent.setClass(FindTaskListActivity.this, AddSelfPlanActivity.class);
-
+			intent.putExtra("tempself", 1);
 			startActivityForResult(intent, ADD_SELF);
 			Toast.makeText(getApplicationContext(), "添加", 0).show();
 

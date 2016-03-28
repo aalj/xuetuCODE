@@ -45,7 +45,7 @@ public class ChangeGradeActivity extends Activity implements OnClickListener {
 
 	@Override
 	public void onClick(View v) {
-	
+
 		switch (v.getId()) {
 		case R.id.left_layout:
 			finish();
@@ -54,6 +54,8 @@ public class ChangeGradeActivity extends Activity implements OnClickListener {
 			update();
 			Intent intent = new Intent();
 			String ed_grade = edit_grade.getText().toString();
+			Student student = ((XueTuApplication) getApplication()).getStudent();
+			student.setStuUgrade(ed_grade);
 			intent.putExtra("ed_grade", ed_grade);
 			setResult(4, intent);
 			finish();

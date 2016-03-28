@@ -1,36 +1,26 @@
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:title="http://schemas.android.com/apk/res/com.xuetu"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:paddingBottom="@dimen/activity_vertical_margin"
-    android:paddingLeft="@dimen/activity_horizontal_margin"
-    android:paddingRight="@dimen/activity_horizontal_margin"
-    android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context="com.xuetu.ui.SettingActivity" >
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res/com.xuetu"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent" >
 
     <com.xuetu.view.TitleBar
-        android:id="@+id/titleBar1"
-        android:layout_width="wrap_content"
+        android:id="@+id/titlebar"
+        android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        title:titleBarLeftImage="@drawable/ic_menu_cancel"
-        title:titleBarRightImage="@drawable/ic_menu_set"
-        title:titleBarTitle="设置" >
+        app:titleBarLeftImage="@drawable/ic_menu_back"
+        app:titleBarTitle="设置" >
     </com.xuetu.view.TitleBar>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_weight="1" >
-    </LinearLayout>
+    <!-- app:titleBarRightImage="@drawable/ic_menu_set" -->
 
     <Button
-        android:onClick="onclick"
         android:id="@+id/zuxiao"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
+        android:layout_marginBottom="110dp"
         android:layout_weight="00"
+        android:onClick="onclick"
         android:text="注销" />
 
-</LinearLayout>
+</RelativeLayout>
