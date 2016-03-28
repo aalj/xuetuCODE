@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -97,6 +98,7 @@ public class QuestionIml implements QuesTionDao {
 				q.setQuesDate(rs.getTimestamp("ques_time"));
 				q.setAcpo_num(rs.getInt("acpo_num"));
 				q.setSubject(getSubjectBySubId(rs.getInt("sub_id")));
+				q.setAns_num(getAnsNum(rs.getInt("ques_id")));
 				questions.add(q);
 			}
 			return questions;
@@ -113,7 +115,28 @@ public class QuestionIml implements QuesTionDao {
 			}
 		}
 	}
-
+	public int getAnsNum(int ques_id){
+		int count = 0;
+		Connection conn = null;
+		PreparedStatement prep = null;
+		String sql = null;
+		conn = DBconnection.getConnection();
+		try {
+			sql = "select * from answer where ques_id = ?";
+			prep = conn.prepareStatement(sql);
+			prep.setInt(1,ques_id);
+			ResultSet rs = prep.executeQuery();
+			// 指针从第一行属性字段开始
+			while (rs.next()) {
+				count++;
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		return count;
+	}
 	@Override
 	public Student getStudentByStuId(int stuId,int sch_id) {
 		// TODO Auto-generated method stub

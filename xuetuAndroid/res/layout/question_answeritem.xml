@@ -76,7 +76,6 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginRight="10dp"
-            android:text="大拇指图标+数字(点赞数)"
             android:layout_alignParentRight="true"
          	android:layout_alignBottom="@id/tv_ans_delete"
             />
@@ -87,7 +86,7 @@
             android:layout_toLeftOf="@id/tv_argreement"
          	android:layout_alignBottom="@id/tv_ans_delete"
             
-            android:src="@drawable/collect" />
+            android:src="@drawable/ic_like" />
         <TextView
             android:id="@+id/tv_ans_stuName"
             android:layout_width="wrap_content"

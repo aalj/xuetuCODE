@@ -52,6 +52,9 @@ public class RegisterServlet extends HttpServlet {
 		/*
 		 * 设置编码 获得页面数据，封装成StoreName对象，调用Service层的注册方法
 		 */
+		System.out.println("组侧");
+		
+		
 		request.setCharacterEncoding("utf-8");
 		response.setCharacterEncoding("utf-8");
 		String sto_user_name = request.getParameter("sto_user_name");
@@ -71,7 +74,7 @@ public class RegisterServlet extends HttpServlet {
 		Part p = request.getPart("sto_img");
 		// 将这个文件保存在服务器的一个地方
 		//TODO  在这里需要判断如何实现在验证码你没有素如正确的情况下对用户进行提醒
-		if (attribute.equals(valima)) {
+//		if (attribute.equals(valima)) {
 
 			StoreName storeName = new StoreName();
 			storeName.setStoUserName(sto_user_name);
@@ -83,10 +86,10 @@ public class RegisterServlet extends HttpServlet {
 			// 调用Service层方法将storeName添加到数据库
 			storenameService.registerStore(storeName);
 			request.getRequestDispatcher("/index.jsp").forward(request, response);
-		} else {
-			System.out.println("验证码错误");
-			request.getRequestDispatcher("/register.jsp").forward(request, response);
-		}
+//		} else {
+//			System.out.println("验证码错误");
+//			request.getRequestDispatcher("/register.jsp").forward(request, response);
+//		}
 
 	}
 

@@ -42,27 +42,20 @@ public class GetPageQuestion extends HttpServlet {
 		
 		String page = request.getParameter("page");
 		String unm = request.getParameter("num");
-		String reqtemp = request.getParameter("reqtemp");
 		int pageunm = 1;
 		int unmunm = 10;
-		int reqtempnum=-1;
 		if(page!=null&&unm!=null){
 			pageunm = Integer.parseInt(page);
 			unmunm = Integer.parseInt(unm);
 		}
-		if(reqtemp != null)
-		reqtempnum=Integer.parseInt(reqtemp);
 		List<Question> questions = new ArrayList<Question>();
-		if(reqtempnum==0){//查询全部的问题
 			questions = q.queryLimitQuestion(pageunm, unmunm);
-			
-		}else{
-			questions= q.getAllQuestion();
-		}
 		String jsonStr = null;
-		Gson gson = new GsonBuilder()  
-				  .setDateFormat("yyyy-MM-dd HH:mm:ss")  
-				  .create();
+		Gson gson = new GsonBuilder()
+				.enableComplexMapKeySerialization()
+				.setPrettyPrinting()
+				.disableHtmlEscaping()
+				.setDateFormat("yyyy-MM-dd HH:mm:ss").create();
 		jsonStr = gson.toJson(questions);
 		PrintWriter pw = response.getWriter();
 		pw.write(jsonStr);

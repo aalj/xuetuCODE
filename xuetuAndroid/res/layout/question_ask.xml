@@ -50,7 +50,7 @@
 	    android:id="@+id/iv_prop"
 	    android:layout_width="200dp"
 	    android:layout_height="150dp"
-	    android:src="@drawable/ask"
+	    android:src="@drawable/crop"
 	    android:layout_gravity="center"
 	    />
 

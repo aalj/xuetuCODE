@@ -141,16 +141,9 @@
                         android:id="@+id/iv_like"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_gravity="center_vertical"
-                        android:layout_marginRight="10dp"
-                        android:src="@drawable/ic_like" />
+                        android:layout_gravity="center"
+                        android:src="@drawable/ic_save" />
 
-                    <TextView
-                        android:id="@+id/tv_agree"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center_vertical"
-                        android:text="收藏爱心" />
 
                 </LinearLayout>
             </RelativeLayout>

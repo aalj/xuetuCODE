@@ -61,7 +61,7 @@ public class AddSelfPlanActivity extends FragmentActivity implements OnClickList
 	@ViewInject(R.id.titleBar1)
 	TitleBar titleBar1;
 	// 用于存储该页面的全部信息
-	SelfStudyPlan selfStudyPlan=null;
+	SelfStudyPlan selfStudyPlan=new SelfStudyPlan();
 
 	Date startTime = null;
 	Date endTime = null;
@@ -72,7 +72,8 @@ public class AddSelfPlanActivity extends FragmentActivity implements OnClickList
 	Student student;
 	
 	boolean getPateern = false;
-	//用于学习模式内容存储内容
+	//标记是点击过学习模式
+	boolean  pateernMode = false;
 	
 	
 	
@@ -95,10 +96,7 @@ SharedPreferences sp= null;
 			getpattern();
 			
 		}
-		if(selfStudyPlan!=null){
-			
-			selfStudyPlan.setPattern(list.get(0));
-		}
+		
 		startTime = date;
 		endTime = date;
 		tv_startTime_info.setText(mFormatter.format(date));
@@ -195,7 +193,9 @@ SharedPreferences sp= null;
 		case R.id.right_layout:
 			
 			if(panDuanTimeSize(endTime, startTime)){
-				
+				if(!pateernMode){//如果没有选择学习模式的话设置默认的值
+					selfStudyPlan.setPattern(list.get(0));
+				}
 				
 			
 			Intent intent = new Intent();
@@ -259,6 +259,7 @@ SharedPreferences sp= null;
 				// 保存当前的页面信心的是否需要提醒
 				selfStudyPlan.setPattern(list.get(which));
 				study_info.setText(list.get(which).getPattrenText());
+				pateernMode= true;
 				dialog.dismiss();
 
 			}

@@ -98,10 +98,6 @@ public class CouponFrag extends Fragment implements OnRefreshListener{
 	
 	
 	private void getDate(final int tempnum, int temp) {
-		
-		
-		
-		
 
 		String url = GetHttp.getHttpLJ() + "GetCouponServlet";
 

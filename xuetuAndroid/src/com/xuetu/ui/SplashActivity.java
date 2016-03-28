@@ -182,6 +182,7 @@ public class SplashActivity extends Activity {
 		String pwd = preferences.getString("pwd", "0");
 		Log.i("TAG", telephone + "<<<------------->>>" + pwd);
 		getLogin(telephone, pwd);
+		Toast.makeText(getApplicationContext(), "正在登陆", 0).show();
 		tv_version = (TextView) findViewById(R.id.tv_splash_version);
 		tv_version.setText("版本号： " + getVersionNum());
 		tv_splash_progress = (TextView) findViewById(R.id.tv_splash_progress);
