@@ -31,4 +31,48 @@
         android:textColor="#ffffff"
         android:textSize="20dp" />
 
+    <TextView
+        android:id="@+id/tv_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/tv_showtime"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="40dp" 
+        android:layout_marginRight="5dp"
+        android:textColor="#ffffff"
+        android:textSize="20dp"
+        android:text="1231efadf"/>
+
+    <TextView
+        android:id="@+id/tv_selectedPlan"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/tv_text"
+        android:layout_alignTop="@+id/tv_text"
+        android:layout_toRightOf="@+id/tv_text"
+        android:textColor="#ffffff"
+        android:textSize="20dp"
+        android:text="TextView" />
+
+    <TextView
+        android:id="@+id/tv_pointText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="93dp"
+        android:textSize="20dp"
+        android:textColor="#ffffff"
+        android:text="累计已获得积分:" />
+
+    <TextView
+        android:id="@+id/tv_pointSum"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/tv_pointText"
+        android:layout_toRightOf="@+id/tv_pointText"
+        android:textSize="20dp"
+        android:textColor="#ffffff"
+        android:text="0" />
+
 </RelativeLayout>
