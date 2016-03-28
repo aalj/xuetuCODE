@@ -21,7 +21,7 @@ public class LearingRecordActivity extends Activity {
 	List<TextView> tv_list ;
 	Calendar c ;
 	int today_num;
-	int day_of_week_in_month;
+	int week_of_month;
 	int day_of_week;
 	int today_day;
 	int start_day;
@@ -82,14 +82,15 @@ public class LearingRecordActivity extends Activity {
 		
 		c  = Calendar.getInstance();
         today_num = c.getActualMaximum(Calendar.DATE);	//这个月的最大天数
-        day_of_week_in_month = c.get(Calendar.DAY_OF_WEEK_IN_MONTH);	//今天是这个月的第几个礼拜
+     
+        week_of_month = c.get(Calendar.WEEK_OF_MONTH);	//今天是这个月的第几个礼拜
         day_of_week = c.get(Calendar.DAY_OF_WEEK); // 今天是这个礼拜的
         today_day=c.get(Calendar.DAY_OF_MONTH); // 今天几号
 		
 		tv_rili  = (TextView) findViewById(R.id.tv_qiandaorili);
 		tv_rili.setText(getdate());
         
-        
+		   System.out.println("这个月的最大天数"+today_num+"今天是这个月的第几个礼拜"+week_of_month+"今天是这个礼拜的第几天"+day_of_week+"几号"+today_day);
         
 		getRili(Rili);
 		
@@ -101,12 +102,14 @@ public class LearingRecordActivity extends Activity {
 	public void getRili( TextView [] Rili)
 	{
 
-        start_day = ((day_of_week_in_month-1)*7+day_of_week)-today_day;          //就从XXXX[start_day] 开始settext
+        start_day = ((week_of_month-1)*7+day_of_week)-today_day;          //就从XXXX[start_day] 开始settext
+//		start_day=7-((today_day - day_of_week)%7);
         int add_day_ = start_day;
         int qiandaori [] ={1,2,3,4,5,6,9,12,10,11,13,14,15,16,26};
         
         for(int i=1;i<=today_num;i++)  // 这个月所有天数的数值         31天   循环这么多天
         {
+        	System.out.println(start_day);
         	Rili[start_day].setBackgroundResource(R.drawable.background_nothing);  //先给每个textview增加背景,保证尺寸
         	Rili[start_day].setText(i+"");																		//向textview  添加日期  
         	 for(int j=0;j<qiandaori.length;j++)   														//遍历所有从服务器上 获取的签到日期
