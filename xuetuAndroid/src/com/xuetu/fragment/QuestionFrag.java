@@ -106,6 +106,7 @@ public class QuestionFrag extends Fragment implements OnClickListener,OnRefreshL
 	RelativeLayout rl_right;
 	RelativeLayout right_layout;
 	TextView tv_title;
+	TextView tv_ansNum;
 	ImageView iv_back;
 	String url = null;
 	int sub_id = 0;
@@ -123,10 +124,10 @@ public class QuestionFrag extends Fragment implements OnClickListener,OnRefreshL
 		InitData(1, REFRESH_TEMP);
 		
 		adapter = new MyBasesadapter<Question>(getActivity(),list,R.layout.question_listitem) {
-
 			@Override
-			public void convert(ViewHodle viewHolder,   final Question item) {
+			public void convert(ViewHodle viewHolder,final Question item) {
 				// TODO Auto-generated method stub
+				viewHolder.setText(R.id.tv_answerNum, item.getAns_num()+"");
 				viewHolder.setText(R.id.tv_ques_text, item.getQuesText());
 				viewHolder.setText(R.id.tv_subject, item.getSubject().getName());
 				viewHolder.setText(R.id.tv_time,sdf.format(new Date(item.getQuesDate().getTime())) );
@@ -164,6 +165,7 @@ public class QuestionFrag extends Fragment implements OnClickListener,OnRefreshL
 				});
 			}
 		};
+		Log.i("hehe", "setdada");
 		lv.setAdapter(adapter);
 		lv.setOnRefreshListener(this);
 		return view;
@@ -203,8 +205,7 @@ public class QuestionFrag extends Fragment implements OnClickListener,OnRefreshL
 			params.addBodyParameter("page", countpage + "");// 查询第1页
 
 		}
-		params.addBodyParameter("num", "5");// 每页显示10条
-		params.addBodyParameter("reqtemp", "0");// 每页显示10条
+		params.addBodyParameter("num", "5");// 每页显示5条
 //		hutils.configCurrentHttpCacheExpiry(1000);
 		/*SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 		System.out.println(sdf.format(new java.sql.Timestamp(System.currentTimeMillis())));*/
@@ -220,57 +221,14 @@ public class QuestionFrag extends Fragment implements OnClickListener,OnRefreshL
 				// TODO Auto-generated method stub
 				//指定date格式的gson对象
 				Log.i("hehe", "success");
-				Gson gson = new GsonBuilder()  
-				  .setDateFormat("yyyy-MM-dd HH:mm:ss")  
-				  .create();
+				Gson gson = new GsonBuilder()
+				.enableComplexMapKeySerialization()
+				.setPrettyPrinting()
+				.disableHtmlEscaping()
+				.setDateFormat("yyyy-MM-dd HH:mm:ss").create();
 				Type listtype = new TypeToken<List<Question>>(){}.getType();
 				List<Question> lists = gson.fromJson(arg0.result, listtype);
-				
-//				adapter = new MyBasesadapter<Question>(getContext(),list,R.layout.question_listitem) {
-//
-//					@Override
-//					public void convert(ViewHodle viewHolder,   final Question item) {
-//						// TODO Auto-generated method stub
-//						viewHolder.setText(R.id.tv_ques_text, item.getQuesText());
-//						viewHolder.setText(R.id.tv_subject, item.getSubject().getName());
-//						viewHolder.setText(R.id.tv_time,sdf.format(new Date(item.getQuesDate().getTime())) );
-//						if(item.getQuesIma()!=null){
-//						viewHolder.SetUrlImage(R.id.iv_ques_img, GetHttp.getHttpLC()+item.getQuesIma());
-//						}
-//						sdf.format(new Date(item.getQuesDate().getTime()));
-//						rl_top = viewHolder.getView(R.id.rl_top);
-//						rl_left = viewHolder.getView(R.id.rl_left);
-//						rl_right = viewHolder.getView(R.id.rl_right);
-//						setOnclickListener();
-//						rl_top.setOnClickListener(new OnClickListener() {
-//							
-//							@Override
-//							public void onClick(View v) {
-//								// TODO Auto-generated method stub
-//								Intent intentAnswer = new Intent(getContext(),Answer_list.class);
-//								Bundle bundle = new Bundle();
-//								bundle.putSerializable("curQues",item);
-//								intentAnswer.putExtras(bundle);
-//								startActivity(intentAnswer);
-//							}
-//						});
-//						rl_left.setOnClickListener(new OnClickListener() {
-//							
-//							@Override
-//							public void onClick(View v) {
-//								// TODO Auto-generated method stub
-//								Intent intentAnswer = new Intent(getContext(),Answer_list.class);
-//								Bundle bundle = new Bundle();
-//								bundle.putSerializable("curQues",item);
-//								intentAnswer.putExtras(bundle);
-//								startActivity(intentAnswer);
-//							}
-//						});
-//					}
-//				};
-				//lv.setAdapter(adapter);
 					if(tempnum==1){
-					
 					list.removeAll(oldlist);
 					list.addAll(0,lists);
 					adapter.notifyDataSetChanged();

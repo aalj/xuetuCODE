@@ -36,6 +36,13 @@ public class Question implements Serializable{
 	private Date quesDate = null;
 	private Subject subject = null;
 	private int acpo_num = 0;
+	private int ans_num = 0;
+	public int getAns_num() {
+		return ans_num;
+	}
+	public void setAns_num(int ans_num) {
+		this.ans_num = ans_num;
+	}
 	public Subject getSubject() {
 		return subject;
 	}

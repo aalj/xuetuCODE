@@ -1,79 +1,51 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:title="http://schemas.android.com/apk/res/com.xuetu"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:orientation="vertical"
+    android:layout_height="match_parent" >
 
-    <RelativeLayout 
-    android:id="@+id/title_question_answer"
-    android:layout_width="match_parent"
-    android:layout_height="@dimen/height_top_bar"
-   android:background="#44a6d5"
-    android:gravity="center_vertical" >
-
-    
-    <!-- 按钮选中后，会有背景色 -->
-    <RelativeLayout
-        android:id="@+id/left_ans_layout"
-        android:layout_width="50dip"
-        android:layout_height="match_parent"
-        android:background="@drawable/common_tab_bg" >
-
-        <ImageView
-            android:id="@+id/left_ans_image"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerInParent="true"
-            android:src="@drawable/back_title" />
-
-    </RelativeLayout>
-
-    <TextView
-        android:id="@+id/tv_ans_title"
+    <com.xuetu.view.TitleBar
+        android:id="@+id/title_my"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_centerInParent="true"
-        android:textColor="#ffffff"
-        android:text="回答"
-        android:textSize="20sp" />
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        title:titleBarLeftImage="@drawable/ic_menu_back"
+        title:titleBarRightImage="@drawable/ic_menu_add"
+        title:titleBarTitle="回答" >
+    </com.xuetu.view.TitleBar>
 
-    
+    <com.xuetu.view.PullToRefreshView
+        android:id="@+id/main_pull_refresh_view"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:layout_marginTop="4dip"
+        android:layout_weight="1"
+        android:background="#00000000"
+        android:weightSum="1" >
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="fill_parent" >
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical" >
+                
+                <include layout="@layout/question_answer_firstitem"/>
+
+                <com.xuetu.view.MyListView
+                    android:id="@+id/lv_answer"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent" >
+                </com.xuetu.view.MyListView>
+            </LinearLayout>
+        </ScrollView>
+    </com.xuetu.view.PullToRefreshView>
+
     <RelativeLayout
-        android:id="@+id/right_ans_layout"
-        android:layout_width="50dp"
-        android:layout_height="match_parent"
-        android:layout_alignParentRight="true"
-        android:background="@drawable/common_tab_bg" >
-
-        <ImageView
-            android:id="@+id/right_ans_image"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerInParent="true" />
-    </RelativeLayout>
-
-</RelativeLayout>
-           
-
-    
-    
-    
-    
-    
-	<RelativeLayout
-	    android:layout_width="match_parent"
-	    android:layout_height="wrap_content"
-	    android:layout_below="@id/title_question_answer" >
-
-		<ListView
-		    android:id="@+id/lv_answer"
-		    android:layout_width="match_parent"
-		    android:layout_height="wrap_content" 
-		    android:dividerHeight="2.0dp">
-		</ListView>
-
-	</RelativeLayout>
-
-	<RelativeLayout
 	    android:layout_width="match_parent"
 	    android:layout_height="wrap_content"
 	    android:layout_alignParentBottom="true"
@@ -127,5 +99,5 @@
 		    android:textSize="15sp"
 		    android:textColor="@color/white" />
         </RelativeLayout>
- 
-</RelativeLayout>
+
+</LinearLayout>
