@@ -12,10 +12,14 @@ import com.xuetu.utils.DataToTime;
 import com.xuetu.view.TitleBar;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
+import android.view.View.OnClickListener;
 import android.widget.ListView;
+import android.widget.Toast;
 
-public class AlarmZaoqi extends Activity {
+public class AlarmZaoqi extends Activity implements OnClickListener {
 	DBFindManager dbManager = null; 
 	List<Alarm> queryAlarm = new ArrayList<Alarm>();
 	ListView list;
@@ -33,6 +37,8 @@ public class AlarmZaoqi extends Activity {
 		list = (ListView) findViewById(R.id.listview);
 		setAdapter();
 		list.setAdapter(mybaseAdapter);
+		title.setLeftLayoutClickListener(this);
+		title.setRightLayoutClickListener(this);
 	}
 	
 	
@@ -41,7 +47,8 @@ public class AlarmZaoqi extends Activity {
 			
 			@Override
 			public void convert(ViewHodle viewHolder, Alarm item) {
-				viewHolder.setText(R.id.tv_teme, DataToTime.dataToh(item.getStartTime()));
+				//TODO 
+//				viewHolder.setText(R.id.tv_teme, DataToTime.dataToh(item.getStartTime()));
 				viewHolder.setText(R.id.tv_text, item.getWeek());
 				if(0==item.getTemp_index()){
 					
@@ -54,6 +61,39 @@ public class AlarmZaoqi extends Activity {
 		};
 	}
 	
+	@Override
+	public void onClick(View v) {
+		switch (v.getId()) {
+		case R.id.right_layout:
+			Intent intent = new Intent();
+			intent.setClass(AlarmZaoqi.this, AddAlarm.class);
+			intent.putExtra("temp", "1");
+			startActivityForResult(intent, 111);
+			
+			//TODO
+			Toast.makeText(getApplicationContext(), "添加", 0).show();
+
+			break;
+		case R.id.left_layout:
+			//TODO
+			finish();
+			Toast.makeText(getApplicationContext(), "返回", 0).show();
+
+			break;
+
+		default:
+			break;
+		}
+
+	}
 	
+	
+	@Override
+	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+		if(requestCode==111&&resultCode==1111){
+			
+		}
+		super.onActivityResult(requestCode, resultCode, data);
+	}
 
 }

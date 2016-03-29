@@ -279,6 +279,8 @@ public class JifenDao {
 				jiFenMingXi = new JiFenMingXi();
 				query.getInt("cou_id");
 				jiFenMingXi.setImgUrl(getStoneNameByMyCouponId(query.getInt("mycou_id")));
+				String stoneNameByMyCouponId = getStoneNameByMyCouponId(query.getInt("mycou_id"));
+				System.out.println("stoneNameByMyCouponId___-----____"+stoneNameByMyCouponId);
 				jiFenMingXi.setText("兑换优惠券花费到积分");
 				jiFenMingXi.setTime(query.getTimestamp("mycou_exchange_time"));
 				
@@ -345,11 +347,13 @@ public class JifenDao {
 			Connection conn = DBconnection.getConnection();
 			PreparedStatement statement = null;
 			ResultSet query = null;
-			String sql = "select * from mycoupon";
+			String sql = "select * from mycoupon where mycou_id = ? ";
 			statement = conn.prepareStatement(sql);
+			statement.setInt(1,myCouponid);
 			query = statement.executeQuery();
 			
 			if (query.next()) {
+				//通过的到优惠券的id查询优惠券的，然后通过优惠券的到店家图片的
 				Coupon queryCoupon = dao2.queryCoupon(query.getInt("cou_id"));
 				String stoImg = queryCoupon.getStoreName().getStoImg();
 				return stoImg;
