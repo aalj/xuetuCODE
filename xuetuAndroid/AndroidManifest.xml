@@ -7,7 +7,10 @@
     <uses-sdk
         android:minSdkVersion="14"
         android:targetSdkVersion="22" />
+    <!-- 监听开机自启 -->
 
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
+     <uses-permission android:name="android.permission.VIBRATE" />
     <uses-permission android:name="android.permission.GET_TASKS" />
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
@@ -142,7 +145,8 @@
         </activity>
         <activity
             android:name=".ui.LoginActivity"
-            android:label="@string/title_activity_login" >
+            android:label="@string/title_activity_login"
+            android:launchMode="singleTop" >
         </activity>
         <activity
             android:name=".ui.FindTaskItemActivity"
@@ -240,18 +244,44 @@
         </activity>
         <activity android:name=".ui.AlarmZaoShang" >
         </activity>
+        <activity android:name="com.xuetu.ui.AlarmZaoqi" >
+        </activity>
+        <activity android:name="com.xuetu.ui.AddAlarm" >
+        </activity>
         <activity
             android:name=".ui.SettingActivity"
             android:label="@string/title_activity_setting" >
         </activity>
         <activity
+<<<<<<< HEAD
             android:name="com.xuetu.ui.PersonalQuestionCollectionActivity"
+=======
+            android:name=".ui.PointliShiActivity"
+            android:label="@string/title_activity_pointli_shi" >
+        </activity>
+        <activity
+            android:name=".PersonalQuestionCollectionActivity"
+
             android:label="@string/title_activity_personal_question_collection" >
         </activity>
         <activity
             android:name=".PersonQuestionInformationActivity"
             android:label="@string/title_activity_person_question_information" >
         </activity>
+        <activity
+            android:name=".JiFenXiangQingActivity"
+            android:label="@string/title_activity_ji_fen_xiang_qing" >
+        </activity>
+
+        <receiver
+            android:name="com.xuetu.ui.AlarmBroadcastReceiver"
+            android:process=":remote" />
+        <receiver android:name=".BootBroadcastReceiver" >
+            <intent-filter>
+                <action android:name="android.intent.action.BOOT_COMPLETED" />
+            </intent-filter>
+        </receiver>
+        <service android:name="com.xuetu.services.MyServices"></service>
     </application>
 
 </manifest>

@@ -171,7 +171,7 @@ public class DBFindManager {
 	public boolean insertAlarm(Alarm alarm){
 		
 		ContentValues values= new ContentValues();
-		values.put("start_time", alarm.getStartTime().getTime());
+		values.put("start_time", alarm.getStartTime());
 		values.put("temp_index", alarm.getTemp_index());
 		values.put("week", alarm.getWeek());
 		values.put("temp", alarm.getTemp());
@@ -190,17 +190,25 @@ public class DBFindManager {
 	 * 去时间
 	 */
 	public List<Alarm> queryAlarm(int temp){
-		String selection ="temp=?";
-		String[] selectionArgs={temp+""};
-		Cursor query = db.query("alarm", null,  selection, selectionArgs, null, null, "start_time" + " DESC");
+		Cursor query;
+		if(temp<0){
+		
+		query = db.query("alarm", null,  null, null, null, null, "start_time" + " DESC");
+		}else{
+			String selection ="temp=?";
+			String[] selectionArgs={temp+""};
+			query = db.query("alarm", null,  selection, selectionArgs, null, null, "start_time");
+			
+		}
+		
 		List<Alarm> list = new ArrayList<Alarm>();
 		Alarm alarm = null;
 		while(query.moveToNext()){
 			alarm = new Alarm();
 			alarm.setAlarm_id(query.getInt(query.getColumnIndex("alarm_id")));
-
-			int columnIndex = query.getColumnIndex("start_time");
-			alarm.setStartTime(new Date(query.getInt(columnIndex)));
+Log.i("TAG", query.getInt(query.getColumnIndex("alarm_id"))+"------->>>>>>取出来的内容id");
+//			String columnIndex = query.getColumnIndex("start_time");
+			alarm.setStartTime(query.getString(query.getColumnIndex("start_time")));
 			
 			alarm.setTemp_index(query.getInt(query.getColumnIndex("temp_index")));
 			alarm.setWeek(query.getString(query.getColumnIndex("week")));
@@ -216,7 +224,7 @@ public class DBFindManager {
 	
 	public boolean updateAlarm(int alarm_id,Alarm alarm){
 		ContentValues values = new ContentValues();
-		values.put("start_time", alarm.getStartTime().getTime());
+		values.put("start_time", alarm.getStartTime());
 		values.put("temp_index", alarm.getTemp_index());
 		values.put("week", alarm.getWeek());
 		values.put("temp", alarm.getTemp());

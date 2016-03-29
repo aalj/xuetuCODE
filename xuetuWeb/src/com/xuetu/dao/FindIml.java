@@ -113,6 +113,50 @@ public class FindIml implements FindInter {
 		}
 
 	}
+	public List<SelfStudyPlan> getDaySelfPlan(int stuId) {
+		connection = DBconnection.getConnection();
+		ResultSet query = null;
+		PreparedStatement statement = null;
+		try {
+			
+			String sql = "select * from selfstudyplan where  stu_id =? and del_flag=0 and start_time>= now()   ORDER BY start_time ";
+			statement = connection.prepareStatement(sql);
+			
+			statement.setInt(1, stuId);
+			query = statement.executeQuery();
+			SelfStudyPlan plan = null;
+			List<SelfStudyPlan> list = new ArrayList<>();
+			while (query.next()) {
+				plan = new SelfStudyPlan();
+				plan.setPlanID(query.getInt("plan_id"));
+				Date date = query.getDate("start_time");
+				plan.setStartTime(query.getTimestamp("start_time"));
+				plan.setEndTime(query.getTimestamp("end_time"));
+				plan.setPlanText(query.getString("plan_text"));
+				plan.setPlanReming(query.getInt("plan_remind"));
+				// 通过学习模式的Id的到对应的学习模式对象
+				Pattern pattern = getPatternById(query.getInt("pattern_id"));
+				plan.setPattern(pattern);
+				// TODO 无法调用方法得到对应的对象
+				plan.setStudent(null);
+				plan.setPlanDate(query.getTimestamp("plan_date"));
+				
+				list.add(plan);
+				
+			}
+			return list;
+			
+		} catch (SQLException e) {
+			
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			return null;
+			
+		} finally {
+			CloseDb.close(connection, query, statement);
+		}
+		
+	}
 
 	@Override
 	public Pattern getPatternById(int patID) {

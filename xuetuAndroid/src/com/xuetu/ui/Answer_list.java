@@ -25,6 +25,7 @@ import com.lidroid.xutils.http.callback.RequestCallBack;
 import com.lidroid.xutils.http.client.HttpRequest.HttpMethod;
 import com.xuetu.R;
 import com.xuetu.adapter.MyBasesadapter;
+import com.xuetu.adapter.MyQuestionBaseAdapter;
 import com.xuetu.adapter.ViewHodle;
 import com.xuetu.entity.Answer;
 import com.xuetu.entity.Question;
@@ -41,6 +42,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
@@ -63,9 +65,11 @@ import android.widget.Toast;
 public class Answer_list extends Activity implements OnClickListener, OnHeaderRefreshListener, OnFooterRefreshListener{
 
 	//声明变量
-	MyBasesadapter<Answer> adapter = null;
+//	MyBasesadapter<Answer> adapter = null;
+	MyQuestionBaseAdapter<Answer> adapter = null;
 	Question curQues = null;
 	List<Answer> list = null;
+	Answer newAnswer;
 	Long ans_time = null;
 	String ans_img = null;
 	HttpUtils hutils = new HttpUtils();
@@ -93,14 +97,23 @@ public class Answer_list extends Activity implements OnClickListener, OnHeaderRe
 	View view_title;
 	TitleBar titlebar;
 	String url = null;
+	private String urlAgree;
 	int stu_id = 0;
-
+	TextView tv = null;
+	HttpUtils hutilsAgree = new HttpUtils();
+	RequestParams paramsAgree ;
+	//存放点赞按钮tag的集合
+	List<Integer> listTag = new ArrayList<Integer>();
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.question_answer);
+
 		
+
+		stu_id = ((XueTuApplication)getApplication()).getStudent().getStuId();
+
 		initia();
 		
 		getPageAnswerByQues();
@@ -325,6 +338,8 @@ public class Answer_list extends Activity implements OnClickListener, OnHeaderRe
 			paramsSub.addBodyParameter("ans_time",String.valueOf(ans_time));
 			hutils.send(HttpMethod.POST, url, paramsSub,new RequestCallBack<String>() {
 
+				
+
 				@Override
 				public void onFailure(HttpException arg0, String arg1) {
 					Toast.makeText(getApplicationContext(), "连接失败", 1).show();
@@ -340,8 +355,8 @@ public class Answer_list extends Activity implements OnClickListener, OnHeaderRe
 					.disableHtmlEscaping()
 					.setDateFormat("yyyy-MM-dd HH:mm:ss").create();
 					Type type = new TypeToken<Answer>(){}.getType();
-					Answer a = gson.fromJson(arg0.result, type);
-					list.add(a);
+					newAnswer = gson.fromJson(arg0.result, type);
+					list.add(newAnswer);
 					 Message msg = Message.obtain();
 					 msg.what=2;
 					 msg.obj=list;
@@ -354,30 +369,111 @@ public class Answer_list extends Activity implements OnClickListener, OnHeaderRe
 		boolean temp = false;
 		public void setMyAapter(List<Answer> list){
 			
-			adapter = new MyBasesadapter<Answer>(this,list,R.layout.question_answeritem) {
+			adapter = new MyQuestionBaseAdapter<Answer>(this,list,R.layout.question_answeritem) {
 				
 				@Override
-				public void convert(ViewHodle viewHolder, Answer item) {
-					Log.i("hehe","Stuname"+item.getStudent().getStuName());
-					Log.i("hehe","Stuname"+item.getStudent().getStuName());
+				public void convert(ViewHodle viewHolder, final Answer item,int position) {
 					
+					TextView tv = viewHolder.getView(R.id.tv_like);
 					viewHolder.setText(R.id.tv_ans_stuName, item.getStudent().getStuName());
 					viewHolder.setText(R.id.tv_ans_text, item.getAnsText());
 					viewHolder.setText(R.id.tv_ans_time, sdf2.format(new Date(item.getAnsTime().getTime())));
 					viewHolder.SetUrlImage(R.id.iv_ans_img, GetHttp.getHttpLC()+item.getAnsImg());
+					
+					viewHolder.setTextDrawbleLeft(R.id.tv_like, R.drawable.ic_like);
+					
+					//判断复用
+					if(listTag.contains(position)){
+						viewHolder.setTextDrawbleLeft(R.id.tv_like, R.drawable.ic_liked);
+//						viewHolder.setTextColor(R.id.tv_like, Answer_list.this.getResources().getColor(R.color.likedText));
+					}else{
+						viewHolder.setTextDrawbleLeft(R.id.tv_like, R.drawable.ic_like);
+//						viewHolder.setTextColor(R.id.tv_like, Answer_list.this.getResources().getColor(R.color.likeText));
+					}
+					tv.setTag(position);
+					tv.setOnClickListener(new OnClickListener() {
+						@Override
+						public void onClick(View v1) {
+							// TODO Auto-generated method stub
+							paramsAgree = new RequestParams();
+							TextView v = (TextView) v1;
+							if(listTag.contains(v.getTag())){
+								listTag.remove((Integer)v1.getTag());
+								Drawable drawable= Answer_list.this.getResources().getDrawable(R.drawable.ic_like);
+								/// 这一步必须要做,否则不会显示.
+								drawable.setBounds(0, 0,40, 40);
+								v.setCompoundDrawables(drawable,null,null,null);
+//								v.setTextColor(Answer_list.this.getResources().getColor(R.color.likedText));
+								v.setText((Integer.parseInt(v.getText()+"")-1)+"");
+								//将取消赞的操作保存到数据库
+								urlAgree = GetHttp.getHttpLC() + "DisAgreeAnswer";
+								paramsAgree.addBodyParameter("ans_id",item.getAnsID()+"");
+//								Log.i("hehe", stu_id+"---quxiao");
+//								Log.i("hehe", item.getAnsID()+"---quxiao");
+								paramsAgree.addBodyParameter("stu_id",stu_id+"");
+								hutilsAgree.send(HttpMethod.POST, urlAgree,paramsAgree, new RequestCallBack<String>() {
+
+									@Override
+									public void onFailure(HttpException arg0,
+											String arg1) {
+										// TODO Auto-generated method stub
+										Toast.makeText(Answer_list.this, "取消点赞失败", 0).show();
+									}
+
+									@Override
+									public void onSuccess(
+											ResponseInfo<String> arg0) {
+										// TODO Auto-generated method stub
+										Toast.makeText(Answer_list.this, "取消点赞成功", 0).show();
+									}
+								});
+							}else{
+								listTag.add((Integer)v1.getTag());
+								Drawable drawable= Answer_list.this.getResources().getDrawable(R.drawable.ic_liked);
+								drawable.setBounds(0, 0,40, 40);
+								v.setCompoundDrawables(drawable,null,null,null);
+								v.setText((Integer.parseInt(v.getText()+"")+1)+"");
+//								v.setTextColor(Answer_list.this.getResources().getColor(R.color.likeText));
+								//将点赞的操作保存到数据库
+								urlAgree = GetHttp.getHttpLC() + "AngreeAnswer";
+//								Log.i("hehe", stu_id+"---zan");
+//								Log.i("hehe", item.getAnsID()+"---zan");
+								
+								paramsAgree.addBodyParameter("ans_id",item.getAnsID()+"");
+								paramsAgree.addBodyParameter("stu_id",stu_id+"");
+								paramsAgree.addBodyParameter("agr_date",System.currentTimeMillis()+"");
+								hutilsAgree.send(HttpMethod.POST, urlAgree,paramsAgree, new RequestCallBack<String>() {
+
+									@Override
+									public void onFailure(HttpException arg0,
+											String arg1) {
+										// TODO Auto-generated method stub
+										Toast.makeText(Answer_list.this, "点赞失败", 0).show();
+									}
+
+									@Override
+									public void onSuccess(
+											ResponseInfo<String> arg0) {
+										// TODO Auto-generated method stub
+										Toast.makeText(Answer_list.this, "点赞成功", 0).show();
+									}
+								});
+							}
+						}
+					});
 				}
 			};
 			temp = true;
 		}
 		@Override
 		public void onHeaderRefresh(PullToRefreshView view) {
-			// TODO Auto-generated method stub
+			
 
 		}
 
 		@Override
 		public void onFooterRefresh(PullToRefreshView view) {
-			// TODO Auto-generated method stub
+			
 
 		}
 }

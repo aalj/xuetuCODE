@@ -21,6 +21,8 @@ import com.xuetu.ui.LoginActivity;
 import com.xuetu.ui.PaiHangBangActivity;
 import com.xuetu.ui.PersonInfomationActivity;
 import com.xuetu.ui.PersonalQuestionCollectionActivity;
+
+import com.xuetu.ui.PointliShiActivity;
 import com.xuetu.ui.TheCollectionOfYouHuiJuanActivity;
 import com.xuetu.ui.WoDeShouCangActivity;
 import com.xuetu.ui.XueTuApplication;
@@ -143,6 +145,9 @@ public class PersonalFrag extends Fragment implements OnClickListener {
 
 			break;
 		case R.id.txt_mypoint:
+			Intent intent10= new Intent();
+			intent10.setClass(getActivity(), PointliShiActivity.class);
+			getActivity().startActivity(intent10);
 
 			break;
 

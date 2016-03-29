@@ -198,7 +198,6 @@ public class FindFrag extends Fragment {
 			case R.id.linear_sleep:// 早起
 				intent.setClass(getActivity(), AlarmZaoqi.class);
 				getActivity().startActivity(intent);
-				Toast.makeText(getContext(), "开发中", 0).show();
 
 				break;
 			case R.id.linear_countdown:// 倒计时

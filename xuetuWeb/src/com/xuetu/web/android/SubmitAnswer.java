@@ -72,14 +72,14 @@ public class SubmitAnswer extends HttpServlet {
 				dir.mkdir();
 				System.out.println("创建新文件夹");
 			}
-			System.out.println("tijiao tpain 回答");
-			
+			System.out.println("realPath---------"+realPath);
 			System.out.println(smartUpload.getFiles().getCount()+"count");
 			com.jspsmart.upload.File poster = smartUpload.getFiles().getFile(0);
 			if(!poster.isMissing()){	
 				String path = request.getServletContext().getRealPath("/");
 				//poster.getFileName()    原文件名
 				File file = new File(getServletContext().getRealPath("xuetuImg"),poster.getFileName());
+				System.out.println("path---------"+path);
 				System.out.println("filename"+poster.getFileName());
 				String saveFileName = file.getAbsolutePath();
 				System.out.println("saveFileName"+saveFileName);
