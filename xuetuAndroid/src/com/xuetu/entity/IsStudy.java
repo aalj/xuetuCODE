@@ -61,32 +61,9 @@ public class IsStudy {
 		return b;
 	}
 	
-	/**
-	 * 上课时间时间是没到,还是迟到了10分钟.
-	 */
-	
-	public String say(int b)
-	{
-		
-		
-		return "ppp";
-	}
 	
 	
 	
-	/**
-	 * 学习计划取得学习时间
-	 * 
-	 */
-	
-	public long getplanTime(String starttime, String endtime)
-	{
-		long ss=0;
-		
-		
-		
-		return ss;
-	}
 	
 	/**
 	 * 判断今天有没有学习计划
@@ -223,6 +200,73 @@ public class IsStudy {
 		String stu = gson.toJson(student);
 		return stu;
 	}
+	
+	
+	/**
+	 * 判断当前是第几节课
+	 */
+	
+	public int get_which_chass()
+	{
+		int cls=0;
+		Calendar c = Calendar.getInstance();
+		
+		int ss= c.get(Calendar.HOUR_OF_DAY)*60+c.get(Calendar.MINUTE);
+		
+		if ((ss>(480-5))  && (ss<(480+55)) )
+		{
+			cls=1;
+		}else{
+			if((ss>(480-5)+55)  && (ss<(540+40)) ){
+				cls=2;
+			}else{
+				if((ss>(540-5)+55)  && (ss<(600+40)) ){
+					cls=3;
+				}else{
+					if((ss>(600-5)+50)  && (ss<(660+35)) ){
+						cls=4;
+					}else{
+						if((ss>(660-5)+45)  && (ss<(12*60+50)) ){
+						cls=5;
+						}else{
+							if((ss>(13*60-5)+30)  && (ss<(14*60+15)) ){
+								cls=6;
+							}else{
+								if((ss>(14*60-5)+25)  && (ss<(15*60+10)) ){
+									cls=7;
+								}else{
+									if((ss>(15*60-5)+20)  && (ss<(16*60+5)) ){
+										cls=8;
+									}if((ss>(16*60-5)+15)  && (ss<(17*60)) ){
+										cls=9;
+									}else{
+										if((ss>(17*60-5)+10)  && (ss<(17*60+55)) ){
+											cls=10;
+										}else{
+											if((ss>(18*60-5)+30)  && (ss<(19*60+15)) ){
+											cls=11;	
+											}else{
+												if((ss>(19*60-5)+25)  && (ss<(20*60+10)) ){
+													cls=12;
+												}
+											}
+										}
+									}
+								}
+							}
+						}
+					}
+				}
+			}
+		}
+		return cls ;
+	}
+	
+	
+	
+	
+	
+	
 	
 	
 }

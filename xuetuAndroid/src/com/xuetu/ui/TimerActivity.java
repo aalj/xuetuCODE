@@ -77,6 +77,7 @@ public class TimerActivity extends Activity {
 	private TextView tv_pointText;
 	private TextView tv_pointSum;
 	private TextView tv_textPlan;
+	String class_name;
 //	boolean flag = true;
 //	boolean planflag=true;
 //	//这两个判断 实在改页面结束时返回给home_page_fragment 的值,以确保首页可以进行滑动判定
@@ -119,19 +120,21 @@ public class TimerActivity extends Activity {
 		showss=(TextView) findViewById(R.id.tv_show_ss);
 		tv_text=(TextView) findViewById(R.id.tv_text);
 		tv_selectedPlan=(TextView) findViewById(R.id.tv_selectedPlan);
-		tv_pointText=(TextView) findViewById(R.id.tv_pointText);
 		tv_pointSum=(TextView) findViewById(R.id.tv_pointSum);
 		tv_textPlan = (TextView) findViewById(R.id.tv_textPlan);
 		Intent intentGet = getIntent();
 		tag = intentGet.getIntExtra("tag", 0);
 		start_and_end_time = intentGet.getStringExtra("start_and_end_time");	//tv_selectedPlan
+		
 		if(tag==1){
-			tv_text.setText("正在执行课程");
+			tv_text.setText("课程任务");
+			tv_textPlan.setText(intentGet.getStringExtra("class_name"));
 		}if(tag==2){
-			tv_text.setText("正在执行自学计划");
-			tv_selectedPlan.setText(start_and_end_time);
+			tv_text.setText("自学计划");
+			tv_selectedPlan.setText("原计划时间"+start_and_end_time);
+			tv_textPlan.setText(intentGet.getStringExtra("text"));
 		}	
-		tv_textPlan.setText(intentGet.getStringExtra("text"));
+		
 		//tv_text
 		
 //		Drawable drawable = getResources().getDrawable(R.drawable.spinner_checked);
@@ -164,7 +167,7 @@ public class TimerActivity extends Activity {
 	                    @Override
 	                    public void run() {
 	                        // TODO Auto-generated method stub
-	                    	tv_pointSum.setText(getIntegral(integral_double)+"");
+	                    	tv_pointSum.setText("累积获得积分:"+getIntegral(integral_double));
 	                    	showTime.setText(secondFormat(st_time));//显示 00:00
 	                    	showss.setText(ssFormat(st_time)); //显示00 秒
 	                    	round=0;//初始时间赋值0;重新开始计时
