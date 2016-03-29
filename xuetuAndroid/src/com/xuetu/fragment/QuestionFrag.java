@@ -44,6 +44,7 @@ import com.xuetu.view.RefreshListView;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.drawable.Drawable;
 import android.media.Image;
 import android.opengl.Visibility;
 import android.os.Bundle;
@@ -94,6 +95,8 @@ public class QuestionFrag extends Fragment implements OnClickListener,OnRefreshL
 	boolean firstInto = true;
 	
 
+
+	
 	RefreshListView lv = null;
 	HttpUtils hutils = new HttpUtils();
 	List<Question> list = new ArrayList<Question>();
@@ -108,7 +111,10 @@ public class QuestionFrag extends Fragment implements OnClickListener,OnRefreshL
 	TextView tv_title;
 	TextView tv_ansNum;
 	ImageView iv_back;
+	ImageView iv_like;
 	String url = null;
+	Drawable dr_save;
+	Drawable dr_saved;
 	int sub_id = 0;
 	int stu_id = 0;
 	SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
@@ -117,6 +123,8 @@ public class QuestionFrag extends Fragment implements OnClickListener,OnRefreshL
 	@Override
 	public View onCreateView(final LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 		view = inflater.inflate(R.layout.question_frag, null);
+		dr_save = getActivity().getResources().getDrawable(R.drawable.ic_save);
+		dr_saved = getActivity().getResources().getDrawable(R.drawable.ic_saved);
 		right_layout = (RelativeLayout) view.findViewById(R.id.right_layout);
 		viewPop = inflater.inflate(R.layout.title, null);
 		tv_title = (TextView) view.findViewById(R.id.tv_title);
@@ -131,41 +139,16 @@ public class QuestionFrag extends Fragment implements OnClickListener,OnRefreshL
 				viewHolder.setText(R.id.tv_ques_text, item.getQuesText());
 				viewHolder.setText(R.id.tv_subject, item.getSubject().getName());
 				viewHolder.setText(R.id.tv_time,sdf.format(new Date(item.getQuesDate().getTime())) );
+				iv_like = viewHolder.getView(R.id.iv_like);
 				if(item.getQuesIma()!=null){
 				viewHolder.SetUrlImage(R.id.iv_ques_img, GetHttp.getHttpLC()+item.getQuesIma());
 				}
 				sdf.format(new Date(item.getQuesDate().getTime()));
-				rl_top = viewHolder.getView(R.id.rl_top);
-				rl_left = viewHolder.getView(R.id.rl_left);
-				rl_right = viewHolder.getView(R.id.rl_right);
-				setOnclickListener();
-				rl_top.setOnClickListener(new OnClickListener() {
-					
-					@Override
-					public void onClick(View v) {
-						// TODO Auto-generated method stub
-						Intent intentAnswer = new Intent(getContext(),Answer_list.class);
-						Bundle bundle = new Bundle();
-						bundle.putSerializable("curQues",item);
-						intentAnswer.putExtras(bundle);
-						startActivity(intentAnswer);
-					}
-				});
-				rl_left.setOnClickListener(new OnClickListener() {
-					
-					@Override
-					public void onClick(View v) {
-						// TODO Auto-generated method stub
-						Intent intentAnswer = new Intent(getContext(),Answer_list.class);
-						Bundle bundle = new Bundle();
-						bundle.putSerializable("curQues",item);
-						intentAnswer.putExtras(bundle);
-						startActivity(intentAnswer);
-					}
-				});
+				viewHolder.getView(R.id.rl_right).setOnClickListener(new MyOnclickListener(item));
+				viewHolder.getView(R.id.rl_left).setOnClickListener(new MyOnclickListener(item));
+				
 			}
 		};
-		Log.i("hehe", "setdada");
 		lv.setAdapter(adapter);
 		lv.setOnRefreshListener(this);
 		return view;
@@ -173,6 +156,39 @@ public class QuestionFrag extends Fragment implements OnClickListener,OnRefreshL
 		
 	}
 	
+	public class MyOnclickListener implements OnClickListener{
+		Question curQues = null;
+		public MyOnclickListener(Question curQues){
+			this.curQues = curQues;
+		}
+		@Override
+		public void onClick(View v) {
+			// TODO Auto-generated method stub
+			switch(v.getId()){
+			case R.id.rl_left:
+				Intent intentAnswer = new Intent(getContext(),Answer_list.class);
+				Bundle bundle = new Bundle();
+				bundle.putSerializable("curQues",curQues);
+				intentAnswer.putExtras(bundle);
+				startActivity(intentAnswer);
+			case R.id.rl_top:
+				// TODO Auto-generated method stub
+				Toast.makeText(getContext(), "click", 0).show();
+				Intent intentAnswer1 = new Intent(getContext(),Answer_list.class);
+				Bundle bundle1 = new Bundle();
+				bundle1.putSerializable("curQues",curQues);
+				intentAnswer1.putExtras(bundle1);
+				startActivity(intentAnswer1);
+				break;
+			case R.id.rl_right:
+				Toast.makeText(getContext(), "zan", 0).show();
+//				iv_like.setVisibility(view.INVISIBLE);
+//				iv_like.setImageDrawable(getActivity().getResources().getDrawable(R.drawable.ic_saved));
+				
+			}
+		}
+		
+	}
 	//下拉刷新
 	
 	
@@ -186,7 +202,7 @@ public class QuestionFrag extends Fragment implements OnClickListener,OnRefreshL
 	}
 	
 	public void setOnclickListener(){
-		rl_right.setOnClickListener(this);
+//		rl_right.setOnClickListener(this);
 		tv_title.setOnClickListener(this);
 		right_layout.setOnClickListener(this);
 	}
@@ -194,8 +210,6 @@ public class QuestionFrag extends Fragment implements OnClickListener,OnRefreshL
 	 * 
 	 */int count=0;
 	public void InitData(final int tempnum,int temp){
-		
-		
 		url = GetHttp.getHttpLC()+"GetPageQuestion";
 		RequestParams params = new RequestParams();
 		if (temp == REFRESH_TEMP) {
@@ -241,8 +255,6 @@ public class QuestionFrag extends Fragment implements OnClickListener,OnRefreshL
 					// 控制脚布局隐藏
 					lv.hideFooterView();
 				}
-				if(adapter!=null)
-					adapter.notifyDataSetChanged();
 			}
 		});
 	}
@@ -308,9 +320,6 @@ public class QuestionFrag extends Fragment implements OnClickListener,OnRefreshL
 	public void onClick(View v) {
 		// TODO Auto-generated method stub
 		switch(v.getId()){
-		case R.id.rl_right:
-			Toast.makeText(getContext(), "这是一个未完成的点赞功能", 0).show();
-			break;
 		case R.id.tv_title:
 			showPopupWinow(v);
 			lv.setFocusableInTouchMode(true);

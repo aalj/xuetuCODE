@@ -47,6 +47,7 @@ public class GetPageQuestion extends HttpServlet {
 		if(page!=null&&unm!=null){
 			pageunm = Integer.parseInt(page);
 			unmunm = Integer.parseInt(unm);
+			
 		}
 		List<Question> questions = new ArrayList<Question>();
 			questions = q.queryLimitQuestion(pageunm, unmunm);

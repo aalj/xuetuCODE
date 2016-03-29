@@ -119,6 +119,7 @@ public class LoginDao implements PersonalDaoInterface {
 
 		return null;
 	}
+
 	public boolean getStuByID(String phone) {
 		Connection connection = DBconnection.getConnection();
 		String sql = "select * from student where stu_phone=?;";
@@ -132,14 +133,14 @@ public class LoginDao implements PersonalDaoInterface {
 			if (resultSet.next()) {
 				return true;
 			}
-			
+
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} finally {
 			CloseDb.close(connection, resultSet, prepareStatement);
 		}
-		
+
 		return false;
 	}
 
@@ -223,7 +224,34 @@ public class LoginDao implements PersonalDaoInterface {
 
 	@Override
 	public List<Question> getPoinQuesByStuID(int stuID) {
-		// TODO Auto-generated method stub
+		QuestionIml questionIml = new QuestionIml();
+		Connection connection = DBconnection.getConnection();
+		String sql = "select * from question where stu_id=?;";
+		PreparedStatement prepareStatement = null;
+		ResultSet resultSet = null;
+		List<Question> questionPersons = new ArrayList<>();
+		Question question;
+		try {
+			prepareStatement = connection.prepareStatement(sql);
+			prepareStatement.setInt(1, stuID);
+			resultSet = prepareStatement.executeQuery();
+			while (resultSet.next()) {
+				question = new Question();
+				question.setAcpo_num(resultSet.getInt("acpo_num"));
+				question.setQuesID(resultSet.getInt("ques_id"));
+				question.setQuesText(resultSet.getString("ques_text"));
+				question.setQuesIma(resultSet.getString("ques_img"));
+				Date date = new Date(resultSet.getTimestamp("ques_time").getTime());
+				question.setQuesDate(date);
+				question.setSubject(questionIml.getSubjectBySubId(resultSet.getInt("sub_id")));
+				questionPersons.add(question);
+			}
+			return questionPersons;
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
 		return null;
 	}
 
@@ -425,10 +453,11 @@ public class LoginDao implements PersonalDaoInterface {
 			}
 		}
 	}
+
 	/**
 	 * 修改密码
 	 */
-	public boolean updateStu_pwd(String phone,String pwd) {
+	public boolean updateStu_pwd(String phone, String pwd) {
 		// TODO Auto-generated method stub
 		Connection connection = DBconnection.getConnection();
 		PreparedStatement prepareStatement = null;
@@ -438,13 +467,13 @@ public class LoginDao implements PersonalDaoInterface {
 			prepareStatement.setString(1, pwd);
 			prepareStatement.setString(2, phone);
 			int executeUpdate = prepareStatement.executeUpdate();
-			if(executeUpdate>0){
+			if (executeUpdate > 0) {
 				return true;
 			}
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-			
+
 		} finally {
 			CloseDb.close(connection, prepareStatement);
 		}

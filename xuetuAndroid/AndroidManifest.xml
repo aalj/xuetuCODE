@@ -249,6 +249,14 @@
             android:name="com.xuetu.ui.PointliShiActivity"
             android:label="@string/title_activity_pointli_shi" >
         </activity>
+        <activity
+            android:name=".PersonalQuestionCollectionActivity"
+            android:label="@string/title_activity_personal_question_collection" >
+        </activity>
+        <activity
+            android:name=".PersonQuestionInformationActivity"
+            android:label="@string/title_activity_person_question_information" >
+        </activity>
     </application>
 
 </manifest>

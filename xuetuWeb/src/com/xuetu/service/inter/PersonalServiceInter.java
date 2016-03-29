@@ -6,6 +6,7 @@ import com.xuetu.entity.FavoritesCoupons;
 import com.xuetu.entity.MyClass;
 import com.xuetu.entity.MyCoupon;
 import com.xuetu.entity.PersonalStudyTimeAll;
+import com.xuetu.entity.Question;
 import com.xuetu.entity.Student;
 
 public interface PersonalServiceInter {
@@ -73,4 +74,6 @@ public interface PersonalServiceInter {
 	public boolean addNewUser(String telephone, String sex, String name, String img, String telephone_pwd);
 
 	public Student getStuByTelephone(String telephone);
+	public List<Question> getPoinQuesByStuID(int stuID);
+	 
 }

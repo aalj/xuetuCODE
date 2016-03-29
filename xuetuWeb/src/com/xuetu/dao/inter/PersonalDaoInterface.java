@@ -249,4 +249,6 @@ public interface PersonalDaoInterface {
 	 * 
 	 */
 	public Student getStuByTelephone(String telephone);
+
+ 
 }
