@@ -191,7 +191,7 @@ public class MainActivity extends FragmentActivity implements OnPageChangeListen
 			break;
 		case R.id.question_page:// 问题页面
 			viewPage.setCurrentItem(3);
-			title.shoelayout(View.GONE);
+//			title.shoelayout(View.GONE);
 //			title.shoelayout(View.INVISIBLE);
 			break;
 		case R.id.personal_page:// 个人中心页面
@@ -240,11 +240,11 @@ public class MainActivity extends FragmentActivity implements OnPageChangeListen
 			if(arg0==4){
 				title.setRightImageResource(R.drawable.more_setting);
 			}
-			if(arg0==3){
-				title.shoelayout(View.GONE);
-			}else{
-				title.shoelayout(View.VISIBLE);
-			}
+//			if(arg0==3){
+//				title.shoelayout(View.GONE);
+//			}else{
+//				title.shoelayout(View.VISIBLE);
+//			}
 			for (int i = 0; i < fragmeLayout.length; i++) {
 				if (i != arg0) {
 					fragmeLayout[i].setSelected(false);

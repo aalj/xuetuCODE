@@ -32,6 +32,7 @@ import com.lidroid.xutils.http.callback.RequestCallBack;
 import com.lidroid.xutils.http.client.HttpRequest.HttpMethod;
 import com.xuetu.R;
 import com.xuetu.adapter.MyBasesadapter;
+import com.xuetu.adapter.QuestionFragAdapter;
 import com.xuetu.adapter.ViewHodle;
 import com.xuetu.entity.Coupon;
 import com.xuetu.entity.Question;
@@ -118,7 +119,8 @@ public class QuestionFrag extends Fragment implements OnClickListener,OnRefreshL
 	int sub_id = 0;
 	int stu_id = 0;
 	SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-	MyBasesadapter<Question> adapter = null;
+	QuestionFragAdapter adapter = null;
+//	MyBasesadapter<Question> adapter = null;
 //	MyQuestionListBaseAdapter adapter = null;
 	@Override
 	public View onCreateView(final LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -131,7 +133,7 @@ public class QuestionFrag extends Fragment implements OnClickListener,OnRefreshL
 		lv = (RefreshListView) view.findViewById(R.id.lv_question);
 		InitData(1, REFRESH_TEMP);
 		
-		adapter = new MyBasesadapter<Question>(getActivity(),list,R.layout.question_listitem) {
+		/*adapter = new MyBasesadapter<Question>(getActivity(),list,R.layout.question_listitem) {
 			@Override
 			public void convert(ViewHodle viewHolder,final Question item) {
 				// TODO Auto-generated method stub
@@ -146,9 +148,13 @@ public class QuestionFrag extends Fragment implements OnClickListener,OnRefreshL
 				sdf.format(new Date(item.getQuesDate().getTime()));
 				viewHolder.getView(R.id.rl_right).setOnClickListener(new MyOnclickListener(item));
 				viewHolder.getView(R.id.rl_left).setOnClickListener(new MyOnclickListener(item));
+				viewHolder.getView(R.id.rl_top).setOnClickListener(new MyOnclickListener(item));
 				
 			}
 		};
+		lv.setAdapter(adapter);*/
+		stu_id = ((XueTuApplication)getActivity().getApplication()).getStudent().getStuId();
+		adapter = new QuestionFragAdapter(list, getContext(),stu_id);
 		lv.setAdapter(adapter);
 		lv.setOnRefreshListener(this);
 		return view;
@@ -166,11 +172,6 @@ public class QuestionFrag extends Fragment implements OnClickListener,OnRefreshL
 			// TODO Auto-generated method stub
 			switch(v.getId()){
 			case R.id.rl_left:
-				Intent intentAnswer = new Intent(getContext(),Answer_list.class);
-				Bundle bundle = new Bundle();
-				bundle.putSerializable("curQues",curQues);
-				intentAnswer.putExtras(bundle);
-				startActivity(intentAnswer);
 			case R.id.rl_top:
 				// TODO Auto-generated method stub
 				Toast.makeText(getContext(), "click", 0).show();
