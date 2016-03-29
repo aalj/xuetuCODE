@@ -100,6 +100,9 @@ public class TitleBar extends RelativeLayout{
     public void shoelayout(int i){
     	titleLayout.setVisibility(i);
     }
+    public void shoerightLayout(int i){
+    	rightLayout.setVisibility(i);
+    }
     
     
     public void setLeftLayoutClickListener(OnClickListener listener){

@@ -138,7 +138,7 @@ public class BarChartView extends View{
         if(maxCeil <= 1){
             float tmp = maxData;
             int c = 0;
-            while(tmp < 0){
+            while(tmp < 1){
                 tmp = tmp * 10;
                 if(c == 0)
                     c = 10;
@@ -259,7 +259,7 @@ public class BarChartView extends View{
             float c = i * gridGap;
             if(maxCeil <= 1){
                 if(String.valueOf(c).length() > maxDataWidth){
-                    c = roundFloat(c*1.00f);
+                    c = roundFloat(c);
                 }
             }
             String dtxt = String.valueOf(c);

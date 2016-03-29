@@ -260,32 +260,6 @@ public class FindTaskListActivity extends Baseactivity implements OnItemClickLis
 		super.onActivityResult(requestCode, resultCode, data);
 	}
 
-//	private void addChangSelf(SelfStudyPlan selfStudyPlan) {
-//		if (httpUtils != null) {
-//			String url = GetHttp.getHttpLJ() + "InsertSelfServlrt";
-//			RequestParams patram = new RequestParams();
-//			String json = gson.toJson(selfStudyPlan);
-//			try {
-//				patram.addBodyParameter("self", URLEncoder.encode(json, "utf-8"));
-//			} catch (UnsupportedEncodingException e) {
-//				e.printStackTrace();
-//			}
-//			httpUtils.send(HttpMethod.POST, url, patram, new RequestCallBack<String>() {
-//
-//				@Override
-//				public void onFailure(HttpException arg0, String arg1) {
-//
-//				}
-//
-//				@Override
-//				public void onSuccess(ResponseInfo<String> arg0) {
-//					Toast.makeText(getApplicationContext(), arg0.result, 0).show();
-//
-//				}
-//			});
-//		}
-//
-//	}
 
 	// 保存修改的内容
 	private void saveChangSelf(SelfStudyPlan selfStudyPlan) {

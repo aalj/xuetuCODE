@@ -77,7 +77,12 @@ public class JunText {
 
 	@Test
 	public void getCoupon() {
-		new LoginDao().register(""+123, ""+123);
+		JifenDao jifenDao = new JifenDao();
+//		System.out.println(jifenDao.getCouponLimitByStuId(3, 1).size());
+//		System.out.println(jifenDao.getQuestionLimitByStuId(3, 1).size());
+//		System.out.println(jifenDao.getStudyTimeLimitByStuId(3, 1).size());
+//		System.out.println(jifenDao.getAnswerLimitByStuId(3, 1).size());
+		System.out.println(jifenDao.paixuJifenMingxi(1,1));
 
 	}
 

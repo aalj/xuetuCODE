@@ -34,9 +34,15 @@ SharedPreferences sp = null;
 			edit.putString("pwd", null);
 			((XueTuApplication)getApplication()).setStudent(new Student());
 			edit.commit();
+			
+			
+			
+			
 			Intent intent = new Intent();
 			intent.setClass(SettingActivity.this, LoginActivity.class);
 			startActivity(intent);
+			intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+			
 			finish();
 			
 			break;
