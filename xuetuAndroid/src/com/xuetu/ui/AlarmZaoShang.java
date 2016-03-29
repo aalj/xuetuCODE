@@ -31,7 +31,7 @@ public class AlarmZaoShang extends Activity implements OnClickListener {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.alarm);
 		title = (TitleBar) findViewById(R.id.title_my);
-		title.setTitle("早起");
+		title.setTitle("早睡");
 		dbManager= new DBFindManager(this);
 		queryAlarm = dbManager.queryAlarm(0);
 		list = (ListView) findViewById(R.id.listview);
@@ -48,7 +48,7 @@ public class AlarmZaoShang extends Activity implements OnClickListener {
 			
 			@Override
 			public void convert(ViewHodle viewHolder, Alarm item) {
-				viewHolder.setText(R.id.tv_teme, DataToTime.dataToh(item.getStartTime()));
+//				viewHolder.setText(R.id.tv_teme, DataToTime.dataToh(item.getStartTime()));
 				viewHolder.setText(R.id.tv_text, item.getWeek());
 				if(0==item.getTemp_index()){
 					
@@ -67,6 +67,9 @@ public class AlarmZaoShang extends Activity implements OnClickListener {
 		switch (v.getId()) {
 		case R.id.right_layout:
 			Intent intent = new Intent();
+			intent.setClass(AlarmZaoShang.this, AddAlarm.class);
+			intent.putExtra("temp", "0");
+			startActivityForResult(intent, 000);
 			//TODO
 			Toast.makeText(getApplicationContext(), "添加", 0).show();
 
@@ -83,7 +86,13 @@ public class AlarmZaoShang extends Activity implements OnClickListener {
 		}
 
 	}
-	
+	@Override
+	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+		if(requestCode==001&&resultCode==0001){
+			
+		}
+		super.onActivityResult(requestCode, resultCode, data);
+	}
 	
 
 }

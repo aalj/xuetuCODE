@@ -463,13 +463,13 @@ public class Answer_list extends Activity implements OnClickListener, OnHeaderRe
 		}
 		@Override
 		public void onHeaderRefresh(PullToRefreshView view) {
-			// TODO Auto-generated method stub
+			
 
 		}
 
 		@Override
 		public void onFooterRefresh(PullToRefreshView view) {
-			// TODO Auto-generated method stub
+			
 
 		}
 }

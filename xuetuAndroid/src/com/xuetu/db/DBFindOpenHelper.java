@@ -24,9 +24,10 @@ public class DBFindOpenHelper extends SQLiteOpenHelper {
 		db.execSQL(pattern);
 		String sql="CREATE TABLE `alarm` ( "
 				+ "`alarm_id` integer NOT NULL PRIMARY KEY AUTOINCREMENT, "
-				+ "`start_time` date NOT NULL,  "
+				+ "`start_time` integer NOT NULL,  "
 				+ "`temp_index`  NOT NULL default 0, "
 				+ "`week` varchar(30) NOT NULL,"
+				+"'tishiyu' 	varchar(100) not null default '？？？？',"
 				+ "`temp` integer NOT NULL default 0)";
 		db.execSQL(sql);
 

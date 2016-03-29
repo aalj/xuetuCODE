@@ -64,5 +64,9 @@
     <string name="title_activity_edit_signer">EditSignerActivity</string>
     <string name="title_activity_share">ShareActivity</string>
     <string name="title_activity_setting">SettingActivity</string>
+    <string name="title_activity_pointli_shi">PointliShiActivity</string>
+    <string name="title_activity_personal_question_collection">PersonalQuestionCollectionActivity</string>
+    <string name="title_activity_person_question_information">PersonQuestionInformationActivity</string>
+    <string name="title_activity_ji_fen_xiang_qing">JiFenXiangQingActivity</string>
 
 </resources>

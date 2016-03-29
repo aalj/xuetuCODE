@@ -154,8 +154,9 @@ public class CLassTimeDao implements ClassTimeServiceInter{
 	 * @return
 	 */
 	
-	public boolean isStudy(List<Integer> cls_id,List<MyClass> listmyclass)
+	public MyClass isStudy(List<Integer> cls_id,List<MyClass> listmyclass)
 	{
+		MyClass myclass = null;
 		boolean  bl=false;
 		System.out.println("ccccccccccccccccc"+cls_id.size());
 		for(int i=0;i<cls_id.size();i++)
@@ -164,12 +165,13 @@ public class CLassTimeDao implements ClassTimeServiceInter{
 			{
 				if((cls_id.get(i))==listmyclass.get(j).getClsId())
 				{
+					myclass=listmyclass.get(j);
 					bl=true;
 					break;
 				}
 			}
 		}
-		return bl;
+		return myclass;
 	}
 	
 	
@@ -178,18 +180,13 @@ public class CLassTimeDao implements ClassTimeServiceInter{
 	 * @param boo
 	 * @return
 	 */
-	public long sendTime_SS(boolean boo)
+	public long sendTime_SS()
 	{
 		long l=0;
-		if(boo)
-		{
 			//创建一个对象
 			ClassTime  classtime = new ClassTime();
 			//用对象获取现在应该是第几节课,然后将第几节课传入 getSS()内,获取现在距离课程结束所需要的秒数,SS
 			l = classtime.getSS(classtime.getFwe());
-			
-			
-		}
 		return l;
 	}
 

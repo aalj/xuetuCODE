@@ -7,6 +7,7 @@ import com.xuetu.entity.FavoritesCoupons;
 import com.xuetu.entity.MyClass;
 import com.xuetu.entity.MyCoupon;
 import com.xuetu.entity.PersonalStudyTimeAll;
+import com.xuetu.entity.Question;
 import com.xuetu.entity.Student;
 import com.xuetu.service.inter.PersonalServiceInter;
 
@@ -118,6 +119,12 @@ public class LoginService implements PersonalServiceInter {
 	public boolean register(String telephone, String password) {
 		// TODO Auto-generated method stub
 		return personalDaoInterface.register(telephone, password);
+	}
+
+	@Override
+	public List<Question> getPoinQuesByStuID(int stuID) {
+		// TODO Auto-generated method stub
+		return personalDaoInterface.getPoinQuesByStuID(stuID);
 	}
 
 }

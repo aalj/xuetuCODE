@@ -171,7 +171,7 @@ public class DBFindManager {
 	public boolean insertAlarm(Alarm alarm){
 		
 		ContentValues values= new ContentValues();
-		values.put("start_time", alarm.getStartTime().getTime());
+		values.put("start_time", alarm.getStartTime());
 		values.put("temp_index", alarm.getTemp_index());
 		values.put("week", alarm.getWeek());
 		values.put("temp", alarm.getTemp());
@@ -200,7 +200,7 @@ public class DBFindManager {
 			alarm.setAlarm_id(query.getInt(query.getColumnIndex("alarm_id")));
 
 			int columnIndex = query.getColumnIndex("start_time");
-			alarm.setStartTime(new Date(query.getInt(columnIndex)));
+			alarm.setStartTime(query.getInt(columnIndex));
 			
 			alarm.setTemp_index(query.getInt(query.getColumnIndex("temp_index")));
 			alarm.setWeek(query.getString(query.getColumnIndex("week")));
@@ -216,7 +216,7 @@ public class DBFindManager {
 	
 	public boolean updateAlarm(int alarm_id,Alarm alarm){
 		ContentValues values = new ContentValues();
-		values.put("start_time", alarm.getStartTime().getTime());
+		values.put("start_time", alarm.getStartTime());
 		values.put("temp_index", alarm.getTemp_index());
 		values.put("week", alarm.getWeek());
 		values.put("temp", alarm.getTemp());

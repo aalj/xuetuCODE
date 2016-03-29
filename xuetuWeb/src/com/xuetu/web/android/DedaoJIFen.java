@@ -25,10 +25,12 @@ public class DedaoJIFen extends HttpServlet {
 		
 		JifenDao dao = new JifenDao();
 		String parameter = request.getParameter("stuid");
+		System.out.println("------------->>>>>>>>>>的到积分");
 		int countjifen = dao.countjifen(Integer.parseInt(parameter));
 		
 		PrintWriter writer = response.getWriter();
 		writer.print(countjifen);
+		System.out.println("------------->>>>>>>>>>的到积分结束");
 	}
 
 	/**

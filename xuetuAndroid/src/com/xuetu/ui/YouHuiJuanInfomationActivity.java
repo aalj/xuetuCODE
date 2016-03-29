@@ -49,7 +49,7 @@ public class YouHuiJuanInfomationActivity extends Baseactivity {
 		backToDecember = (ImageView) findViewById(R.id.imageView_backToDecember);
 		getDatasAndsetDates();
 	}
-
+	
 	public void getDatasAndsetDates() {
 		Intent intent = this.getIntent();
 		Bundle extras = intent.getExtras();
@@ -78,6 +78,7 @@ public class YouHuiJuanInfomationActivity extends Baseactivity {
 			Intent intent = new Intent();
 			intent.setClass(this, TheCollectionOfYouHuiJuanActivity.class);
 			startActivity(intent);
+			finish();
 			break;
 		/** 跳转到店家 **/
 		case R.id.head_CircleImageView:

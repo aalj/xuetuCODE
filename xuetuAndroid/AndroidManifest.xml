@@ -142,7 +142,8 @@
         </activity>
         <activity
             android:name=".ui.LoginActivity"
-            android:label="@string/title_activity_login" >
+            android:label="@string/title_activity_login"
+            android:launchMode="singleTop" >
         </activity>
         <activity
             android:name=".ui.FindTaskItemActivity"
@@ -240,9 +241,29 @@
         </activity>
         <activity android:name=".ui.AlarmZaoShang" >
         </activity>
+        <activity android:name="com.xuetu.ui.AlarmZaoqi" >
+        </activity>
+        <activity android:name="com.xuetu.ui.AddAlarm" >
+        </activity>
         <activity
-            android:name="com.xuetu.ui.SettingActivity"
+            android:name=".ui.SettingActivity"
             android:label="@string/title_activity_setting" >
+        </activity>
+        <activity
+            android:name=".ui.PointliShiActivity"
+            android:label="@string/title_activity_pointli_shi" >
+        </activity>
+        <activity
+            android:name=".PersonalQuestionCollectionActivity"
+            android:label="@string/title_activity_personal_question_collection" >
+        </activity>
+        <activity
+            android:name=".PersonQuestionInformationActivity"
+            android:label="@string/title_activity_person_question_information" >
+        </activity>
+        <activity
+            android:name=".JiFenXiangQingActivity"
+            android:label="@string/title_activity_ji_fen_xiang_qing" >
         </activity>
     </application>
 
