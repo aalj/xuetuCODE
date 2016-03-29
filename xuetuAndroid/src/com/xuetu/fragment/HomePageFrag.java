@@ -153,7 +153,7 @@ public class HomePageFrag extends Fragment implements OnTouchListener {
 		activity_width = display.getHeight();
 		activity_height = display.getWidth();
 		// activity_top=display.
-
+		
 		flag     = true;
 		planflag = true;
 		tv = (TextView) getActivity().findViewById(R.id.person_tv);
@@ -297,9 +297,6 @@ public class HomePageFrag extends Fragment implements OnTouchListener {
 					intent.putExtra("text", "目前是"+isstudy.get_which_chass()+"节课");
 					
 					
-//					Gson  gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create();
-//					String st = gson.toJson(student);
-//					intent.putExtra("student", st);
 					
 					flag = true;
 					planflag=true;
@@ -563,6 +560,7 @@ public class HomePageFrag extends Fragment implements OnTouchListener {
 						System.out.println("链接失败");
 						flag     = true;
 						planflag = true;
+						center_click_flag=true;
 					}
 
 					@Override
@@ -605,6 +603,7 @@ public class HomePageFrag extends Fragment implements OnTouchListener {
 												// TODO Auto-generated method stub
 												flag     = true;
 												planflag = true;
+												center_click_flag=true;
 											}
 										})
 										.setPositiveButton("确定", new DialogInterface.OnClickListener() {
@@ -615,6 +614,7 @@ public class HomePageFrag extends Fragment implements OnTouchListener {
 												System.out.println("开始执行计划时间");
 												flag     = false;
 												planflag = false;
+												center_click_flag=false;
 												Intent intent = new Intent(getActivity(),
 														TimerActivity.class);
 												intent.putExtra("ss", ss);
@@ -630,6 +630,7 @@ public class HomePageFrag extends Fragment implements OnTouchListener {
 												
 												flag = true;
 												planflag=true;
+												center_click_flag=true;
 												startActivity(intent);
 											}
 										}).show();
@@ -640,6 +641,7 @@ public class HomePageFrag extends Fragment implements OnTouchListener {
 									{
 										flag     = false;
 										planflag = false;
+										center_click_flag=false;
 										System.out.println("开始执行计划时间");
 										Intent intent = new Intent(getActivity(),
 												TimerActivity.class);
@@ -652,11 +654,13 @@ public class HomePageFrag extends Fragment implements OnTouchListener {
 										intent.putExtra("text", studyplan.getPlanText())	;	
 										flag = true;
 										planflag=true;
+										center_click_flag=true;
 										startActivity(intent);
 									}else         //这里的p肯定为负数
 									{
 										flag     = false;
 										planflag = false;
+										center_click_flag=false;
 										System.out.println("开始执行剩余的计划时间");
 										Intent intent = new Intent(getActivity(),
 												TimerActivity.class);
@@ -669,6 +673,7 @@ public class HomePageFrag extends Fragment implements OnTouchListener {
 										intent.putExtra("text", studyplan.getPlanText())	;	
 										flag = true;
 										planflag=true;
+										center_click_flag=true;
 										startActivity(intent);
 									}
 								}
