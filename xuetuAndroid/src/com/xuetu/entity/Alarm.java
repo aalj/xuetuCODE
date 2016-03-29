@@ -1,11 +1,12 @@
 package com.xuetu.entity;
 
+import java.io.Serializable;
 import java.util.Date;
 
-public class Alarm {
+public class Alarm implements Serializable{
 	private int Alarm_id = 0;
 	/**时间*/
-	private int StartTime = 0;
+	private String StartTime = null;
 	/**模式*/
 	private int temp_index = 0;
 	/**提醒时间*/
@@ -19,14 +20,14 @@ public class Alarm {
 	public void setTishiyu(String tishiyu) {
 		this.tishiyu = tishiyu;
 	}
-	public Alarm(int startTime, int temp_index, String week, int temp) {
+	public Alarm(String startTime, int temp_index, String week, int temp) {
 		super();
 		StartTime = startTime;
 		this.temp_index = temp_index;
 		this.week = week;
 		this.temp = temp;
 	}
-	public Alarm(int alarm_id, int startTime, int temp_index, String week, int temp) {
+	public Alarm(int alarm_id, String startTime, int temp_index, String week, int temp) {
 		super();
 		Alarm_id = alarm_id;
 		StartTime = startTime;
@@ -40,10 +41,10 @@ public class Alarm {
 	public void setAlarm_id(int alarm_id) {
 		Alarm_id = alarm_id;
 	}
-	public int getStartTime() {
+	public String getStartTime() {
 		return StartTime;
 	}
-	public void setStartTime(int startTime) {
+	public void setStartTime(String startTime) {
 		StartTime = startTime;
 	}
 	public int getTemp_index() {

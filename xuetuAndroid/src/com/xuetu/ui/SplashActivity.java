@@ -23,12 +23,16 @@ import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLEncoder;
+import java.util.Calendar;
 import java.util.List;
+import java.util.Locale;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import com.xuetu.R;
+import com.xuetu.db.DBFindManager;
+import com.xuetu.entity.Alarm;
 import com.xuetu.entity.Coupon;
 import com.xuetu.entity.LongTime;
 import com.xuetu.entity.Student;
@@ -47,7 +51,10 @@ import com.lidroid.xutils.http.client.HttpRequest.HttpMethod;
 import com.lidroid.xutils.util.IOUtils;
 
 import android.app.Activity;
+import android.app.AlarmManager;
 import android.app.AlertDialog;
+import android.app.PendingIntent;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -160,6 +167,8 @@ public class SplashActivity extends Activity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.splash_activity);
 		Log.i(TAG, "SplashActivity");
+		// 读取配置文件(设置功能生成的),判断设置里面是否,需要提醒升级
+		preferences = getSharedPreferences("config", MODE_PRIVATE);
 		initView();
 
 	}
@@ -175,8 +184,13 @@ public class SplashActivity extends Activity {
 	 *             CodingExample Ver 1.1
 	 */
 	private void initView() {
-		// 读取配置文件(设置功能生成的),判断设置里面是否,需要提醒升级
-		preferences = getSharedPreferences("config", MODE_PRIVATE);
+		if (preferences.getBoolean("alarm", false)) {
+			// 设置闹钟，
+			DBFindManager dbFindManager = new DBFindManager(this);
+			List<Alarm> queryAlarm = dbFindManager.queryAlarm(-1);
+			setAlarm(queryAlarm);
+		}
+
 		getDate();
 		String telephone = preferences.getString("uasename", "0");
 		String pwd = preferences.getString("pwd", "0");
@@ -215,38 +229,39 @@ public class SplashActivity extends Activity {
 
 	}
 
-//	/**
-//	 * 加载学习时间
-//	 */
-//	public void gettime(int stuid) {
-//		HttpUtils httpUtils = new HttpUtils();
-//		String url = GetHttp.getHttpLJ() + "GetLongTime";
-//
-//		RequestParams pra = new RequestParams();
-//		pra.addBodyParameter("stuID", stuid + "");
-//		httpUtils.send(HttpMethod.POST, url, pra, new RequestCallBack<String>() {
-//
-//			@Override
-//			public void onFailure(HttpException arg0, String arg1) {
-//				// TODO Auto-generated method stub
-//
-//			}
-//
-//			@Override
-//			public void onSuccess(ResponseInfo<String> arg0) {
-//				Type type = new TypeToken<List<LongTime>>() {
-//				}.getType();
-//				Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create();
-//				List<LongTime> time = gson.fromJson(arg0.result, type);
-//				Log.i("TAG", time.size()+"time-------------->");
-//				 List<float[]> getshijainshuju = DataToTime.getshijainshuju(time);
-//				// TODO
-//				Log.i("TAG", getshijainshuju.size()+"getshijainshuju-------------->");
-//				((XueTuApplication) getApplication()).setList(getshijainshuju);
-//
-//			}
-//		});
-//	}
+	// /**
+	// * 加载学习时间
+	// */
+	// public void gettime(int stuid) {
+	// HttpUtils httpUtils = new HttpUtils();
+	// String url = GetHttp.getHttpLJ() + "GetLongTime";
+	//
+	// RequestParams pra = new RequestParams();
+	// pra.addBodyParameter("stuID", stuid + "");
+	// httpUtils.send(HttpMethod.POST, url, pra, new RequestCallBack<String>() {
+	//
+	// @Override
+	// public void onFailure(HttpException arg0, String arg1) {
+	// // TODO Auto-generated method stub
+	//
+	// }
+	//
+	// @Override
+	// public void onSuccess(ResponseInfo<String> arg0) {
+	// Type type = new TypeToken<List<LongTime>>() {
+	// }.getType();
+	// Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd
+	// HH:mm:ss").create();
+	// List<LongTime> time = gson.fromJson(arg0.result, type);
+	// Log.i("TAG", time.size()+"time-------------->");
+	// List<float[]> getshijainshuju = DataToTime.getshijainshuju(time);
+	// // TODO
+	// Log.i("TAG", getshijainshuju.size()+"getshijainshuju-------------->");
+	// ((XueTuApplication) getApplication()).setList(getshijainshuju);
+	//
+	// }
+	// });
+	// }
 
 	HttpUtils httpUtils = new HttpUtils();
 
@@ -613,9 +628,9 @@ public class SplashActivity extends Activity {
 
 						((XueTuApplication) getApplication()).setStudent(student);
 						// 获取学生的学习时间
-//						if (student.getStuId() > 0) {
-//							gettime(student.getStuId());
-//						}
+						// if (student.getStuId() > 0) {
+						// gettime(student.getStuId());
+						// }
 
 					}
 				}
@@ -624,6 +639,35 @@ public class SplashActivity extends Activity {
 		} else {
 			Toast.makeText(getApplicationContext(), "请填写帐号或密码", 1).show();
 		}
+	}
+
+	/** 设置闹钟 */
+	public void setAlarm(List<Alarm> queryAlarm) {
+		for (Alarm alarm : queryAlarm) {
+			if (alarm.getTemp() == 0) {// 表示提醒
+				sendAlarmEveryday1(SplashActivity.this, alarm);
+			}
+		}
+		preferences.edit().putBoolean("alarm", true).commit();
+
+	}
+
+	private void sendAlarmEveryday1(Context context, Alarm alarm) {
+		Log.i("TAG", "启动闹钟----------------->>>>>>>>" + alarm.getAlarm_id() + "");
+		AlarmManager alarmManager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
+		Calendar calendar = Calendar.getInstance(Locale.getDefault());
+		calendar.setTimeInMillis(System.currentTimeMillis());
+		String[] tt = alarm.getStartTime().split(":");
+		calendar.set(Calendar.HOUR_OF_DAY, Integer.parseInt(tt[0]));
+		calendar.set(Calendar.MINUTE, Integer.parseInt(tt[1]));
+		calendar.set(Calendar.SECOND, 0);
+		calendar.set(Calendar.MILLISECOND, 0);
+
+		Intent intent = new Intent(SplashActivity.this, AlarmBroadcastReceiver.class);
+		intent.setAction("alarm");
+		PendingIntent pendingIntent = PendingIntent.getBroadcast(context, 0, intent, PendingIntent.FLAG_CANCEL_CURRENT);
+		alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), AlarmManager.INTERVAL_DAY,
+				pendingIntent);
 	}
 
 }
