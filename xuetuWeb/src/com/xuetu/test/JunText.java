@@ -77,12 +77,8 @@ public class JunText {
 
 	@Test
 	public void getCoupon() {
-		JifenDao jifenDao = new JifenDao();
-//		System.out.println(jifenDao.getCouponLimitByStuId(3, 1).size());
-//		System.out.println(jifenDao.getQuestionLimitByStuId(3, 1).size());
-//		System.out.println(jifenDao.getStudyTimeLimitByStuId(3, 1).size());
-//		System.out.println(jifenDao.getAnswerLimitByStuId(3, 1).size());
-		System.out.println(jifenDao.paixuJifenMingxi(1,1));
+		List<SelfStudyPlan> daySelfPlan = new FindIml().getDaySelfPlan(3);
+		System.out.println(daySelfPlan.toString());
 
 	}
 

@@ -241,12 +241,16 @@
         </activity>
         <activity android:name=".ui.AlarmZaoShang" >
         </activity>
+        <activity android:name="com.xuetu.ui.AlarmZaoqi" >
+        </activity>
+        <activity android:name="com.xuetu.ui.AddAlarm" >
+        </activity>
         <activity
             android:name=".ui.SettingActivity"
             android:label="@string/title_activity_setting" >
         </activity>
         <activity
-            android:name="com.xuetu.ui.PointliShiActivity"
+            android:name=".ui.PointliShiActivity"
             android:label="@string/title_activity_pointli_shi" >
         </activity>
         <activity
@@ -256,6 +260,10 @@
         <activity
             android:name=".PersonQuestionInformationActivity"
             android:label="@string/title_activity_person_question_information" >
+        </activity>
+        <activity
+            android:name=".JiFenXiangQingActivity"
+            android:label="@string/title_activity_ji_fen_xiang_qing" >
         </activity>
     </application>
 
