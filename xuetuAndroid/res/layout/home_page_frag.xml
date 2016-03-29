@@ -139,7 +139,7 @@
         android:layout_toRightOf="@+id/home_btn_up"
         android:gravity="center"
         android:textColor="#404040"
-           android:background="@drawable/home_page_tv_background"
+        android:background="@drawable/home_page_tv_background"
         android:text="点击进入课程学习(*提前不超过5分钟,迟到不超过10分钟*)  " />
 
     <TextView

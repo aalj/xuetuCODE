@@ -51,22 +51,25 @@ public class GetClassTime extends HttpServlet {
 		// 获得符合现在时间的课程,(条件-- 星期几,第几节课,)得出符合现在时间段课程的所有课程对象
 		List<MyClass> myclasslist = classtimedao.getMyClass();
 		// 将两个所得出的值中的 classID进行匹配,匹配到相同的则 表示有对应的课程,并且符合 提前5分钟以内,并且迟到不超过10分钟
-		boolean b = classtimedao.isStudy(classID, myclasslist);
+		MyClass myclass = classtimedao.isStudy(classID, myclasslist);
 		long time_ss = 0;
-
-		// 全部匹配成功后则,如果b的值为true 获取time_ss的值,否则值为0;
-		if (b) {
-			time_ss = classtimedao.sendTime_SS(b);
+		String class_name=null;
+		//如果课程对象不为空
+		if (myclass!=null) {
+			time_ss = classtimedao.sendTime_SS();
+			class_name= myclass.getClasName();
 		}
 		System.out.println("sssssssssssssssss" + time_ss);
+		
 		PrintWriter pw = response.getWriter();
 	
 		// int intgson = 0;
 		String jsonStr = null;
 
-		jsonStr = gson.toJson(time_ss);
+		jsonStr = gson.toJson(time_ss+"-"+class_name);
 
 		pw.write(jsonStr);
+		
 		pw.close();
 
 	}
