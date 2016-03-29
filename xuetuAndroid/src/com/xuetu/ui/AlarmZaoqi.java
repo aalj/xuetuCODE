@@ -84,7 +84,7 @@ public class AlarmZaoqi extends Activity implements OnClickListener {
 			@Override
 			public void convert(ViewHodle viewHolder, Alarm item) {
 				//TODO 
-//				viewHolder.setText(R.id.tv_teme, DataToTime.dataToh(item.getStartTime()));
+				viewHolder.setText(R.id.tv_teme, item.getStartTime());
 				viewHolder.setText(R.id.tv_text, item.getWeek());
 				if(0==item.getTemp_index()){
 					
