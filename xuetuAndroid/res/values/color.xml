@@ -13,4 +13,6 @@
     <color name="blue1">#3099F8</color>
     <color name="background">#f7f7f7</color>
     <color name="srccolor">#fffffe</color>
+    <color name="likeText">#ABABAB</color>
+    <color name="likedText">#F48700</color>
 </resources>

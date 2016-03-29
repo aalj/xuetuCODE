@@ -35,6 +35,7 @@
     <drawable name="clr_pressed">#65b8e0</drawable>
     <drawable name="clr_change">#33cc99</drawable>
     <drawable name="clr_presseds">#a4c2f4</drawable>
+    
 
     <string name="title_activity_forget_pwd">ForgetPwdActivity</string>
     <string name="title_activity_person_infomation">PersonInfomationActivity</string>

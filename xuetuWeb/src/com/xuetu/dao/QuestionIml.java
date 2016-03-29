@@ -494,6 +494,144 @@ public class QuestionIml implements QuesTionDao {
 				}
 			}
 		}
+
+	@Override
+	public void collectQuestion(int stu_id, int ques_id, Date ques_time) {
+		// TODO Auto-generated method stub
+		PreparedStatement prep = null;
+		Connection conn = null;
+		try {
+			conn = DBconnection.getConnection();
+			// 2、SQL语句,图品还没加
+			String sql = "insert into collectionquestion"
+					+ "(stu_id,ques_id,ques_time_collect)" 
+			+ "values (?,?,?)";
+			// 3、获得preparedStatement对象
+			prep = conn.prepareStatement(sql);
+			// 4、设置？的值
+			prep.setInt(1,stu_id);
+			prep.setInt(2,ques_id);
+			prep.setTimestamp(3, new Timestamp(ques_time.getTime()));
+			// 5、执行sql语句
+			prep.executeUpdate();
+		} catch (Exception e) {
+			// 一定要处理异常,异常的信息要存在日志文件
+			// 转化为应用程序的异常，再抛出
+			throw new RuntimeException(e);
+		} finally {
+			// 6、关闭资源
+			try {
+				if (prep != null)
+					prep.close();
+				if (conn != null)
+					conn.close();
+			} catch (Exception e) {
+				throw new RuntimeException(e);
+			}
+		}
+	}
+
+	@Override
+	public void collectCancelQuestion(int stu_id, int ques_id) {
+		// TODO Auto-generated method stub
+		PreparedStatement prep = null;
+		Connection conn = null;
+		try {
+			conn = DBconnection.getConnection();
+			// 2、SQL语句,图品还没加
+			String sql = " delete from collectionquestion where stu_id=? and ques_id=?";
+			// 3、获得preparedStatement对象
+			prep = conn.prepareStatement(sql);
+			// 4、设置？的值
+			prep.setInt(1,stu_id);
+			prep.setInt(2,ques_id);
+			// 5、执行sql语句
+			prep.executeUpdate();
+		} catch (Exception e) {
+			// 一定要处理异常,异常的信息要存在日志文件
+			// 转化为应用程序的异常，再抛出
+			throw new RuntimeException(e);
+		} finally {
+			// 6、关闭资源
+			try {
+				if (prep != null)
+					prep.close();
+				if (conn != null)
+					conn.close();
+			} catch (Exception e) {
+				throw new RuntimeException(e);
+			}
+		}
+	}
+
+	@Override
+	public void agreeAnswer(int ans_id, int stu_id, Date agr_date) {
+		// TODO Auto-generated method stub
+		PreparedStatement prep = null;
+		Connection conn = null;
+		try {
+			conn = DBconnection.getConnection();
+			// 2、SQL语句,图品还没加
+			String sql = "insert into agreement"
+					+ "(ans_id,stu_id,agr_date)" 
+			+ "values (?,?,?)";
+			// 3、获得preparedStatement对象
+			prep = conn.prepareStatement(sql);
+			// 4、设置？的值
+			prep.setInt(1,ans_id);
+			prep.setInt(2,stu_id);
+			prep.setTimestamp(3, new Timestamp(agr_date.getTime()));
+			// 5、执行sql语句
+			prep.executeUpdate();
+		} catch (Exception e) {
+			// 一定要处理异常,异常的信息要存在日志文件
+			// 转化为应用程序的异常，再抛出
+			throw new RuntimeException(e);
+		} finally {
+			// 6、关闭资源
+			try {
+				if (prep != null)
+					prep.close();
+				if (conn != null)
+					conn.close();
+			} catch (Exception e) {
+				throw new RuntimeException(e);
+			}
+		}
+	}
+
+	@Override
+	public void disAgreeAnswer(int ans_id, int stu_id) {
+		// TODO Auto-generated method stub
+		PreparedStatement prep = null;
+		Connection conn = null;
+		try {
+			conn = DBconnection.getConnection();
+			// 2、SQL语句,图品还没加
+			String sql = " delete from agreement where ans_id=? and stu_id=?";
+			// 3、获得preparedStatement对象
+			prep = conn.prepareStatement(sql);
+			// 4、设置？的值
+			prep.setInt(1,ans_id);
+			prep.setInt(2,stu_id);
+			// 5、执行sql语句
+			prep.executeUpdate();
+		} catch (Exception e) {
+			// 一定要处理异常,异常的信息要存在日志文件
+			// 转化为应用程序的异常，再抛出
+			throw new RuntimeException(e);
+		} finally {
+			// 6、关闭资源
+			try {
+				if (prep != null)
+					prep.close();
+				if (conn != null)
+					conn.close();
+			} catch (Exception e) {
+				throw new RuntimeException(e);
+			}
+		}
+	}
 }
 
 

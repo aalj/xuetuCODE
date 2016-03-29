@@ -208,6 +208,8 @@ public class MainActivity extends FragmentActivity implements OnPageChangeListen
 		case R.id.question_page:// 问题页面
 			title.shoerightLayout(View.INVISIBLE);
 			viewPage.setCurrentItem(3);
+//			title.shoelayout(View.GONE);
+//			title.shoelayout(View.INVISIBLE);
 			title.shoelayout(View.GONE);
 			// title.shoelayout(View.INVISIBLE);
 			break;
@@ -261,6 +263,11 @@ public class MainActivity extends FragmentActivity implements OnPageChangeListen
 			} else {
 				title.shoerightLayout(View.INVISIBLE);
 			}
+//			if(arg0==3){
+//				title.shoelayout(View.GONE);
+//			}else{
+//				title.shoelayout(View.VISIBLE);
+//			}
 			if (arg0 == 3) {
 				title.shoelayout(View.GONE);
 			} else {
