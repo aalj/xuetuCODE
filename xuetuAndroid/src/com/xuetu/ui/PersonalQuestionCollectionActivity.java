@@ -1,4 +1,4 @@
-package com.xuetu;
+package com.xuetu.ui;
 
 import java.io.UnsupportedEncodingException;
 import java.lang.reflect.Type;
@@ -17,12 +17,13 @@ import com.lidroid.xutils.http.RequestParams;
 import com.lidroid.xutils.http.ResponseInfo;
 import com.lidroid.xutils.http.callback.RequestCallBack;
 import com.lidroid.xutils.http.client.HttpRequest.HttpMethod;
+import com.xuetu.R;
+import com.xuetu.R.id;
+import com.xuetu.R.layout;
 import com.xuetu.adapter.MyBasesadapter;
 import com.xuetu.adapter.ViewHodle;
 import com.xuetu.entity.Question;
 import com.xuetu.entity.Student;
-import com.xuetu.ui.Answer_list;
-import com.xuetu.ui.XueTuApplication;
 import com.xuetu.utils.GetHttp;
 import com.xuetu.utils.MyBaseAdapter;
 import com.xuetu.utils.ViewHolder;
@@ -37,6 +38,7 @@ import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
+import android.widget.Toast;
 
 public class PersonalQuestionCollectionActivity extends Activity implements OnClickListener, OnItemClickListener {
 	TitleBar backtoperson_question;
@@ -89,45 +91,58 @@ public class PersonalQuestionCollectionActivity extends Activity implements OnCl
 									GetHttp.getHttpLC() + item.getQuesIma());
 						} else {
 							viewHolder.getView(R.id.iv_ques_img_personquestion).setVisibility(View.GONE);
-
 						}
-						rl_top = viewHolder.getView(R.id.rl_top_personquestion);
-						rl_left = viewHolder.getView(R.id.rl_left_personquestion);
-						rl_right = viewHolder.getView(R.id.rl_right_personquestion);
-						rl_top.setOnClickListener(new OnClickListener() {
-
-							@Override
-							public void onClick(View v) {
-
-							}
-						});
-						rl_left.setOnClickListener(new OnClickListener() {
-
-							@Override
-							public void onClick(View v) {
-								Intent intentAnswer = new Intent(getApplicationContext(), Answer_list.class);
-								Bundle bundle = new Bundle();
-								bundle.putSerializable("curQues", item);
-								intentAnswer.putExtras(bundle);
-								startActivity(intentAnswer);
-
-							}
-						});
-						rl_right.setOnClickListener(new OnClickListener() {
-
-							@Override
-							public void onClick(View v) {
-								Intent intentAnswer = new Intent(getApplicationContext(), Answer_list.class);
-								Bundle bundle = new Bundle();
-								bundle.putSerializable("curQues", item);
-								intentAnswer.putExtras(bundle);
-								startActivity(intentAnswer);
-
-							}
-						});
+						viewHolder.getView(R.id.rl_right_personquestion)
+								.setOnClickListener(new MyOnclickListener(item));
+						viewHolder.getView(R.id.rl_left_personquestion)
+						.setOnClickListener(new MyOnclickListener(item));
+						viewHolder.getView(R.id.rl_top_personquestion)
+						.setOnClickListener(new MyOnclickListener(item));
 
 					}
 				});
+	}
+
+	public class MyOnclickListener implements OnClickListener {
+		Question curQues = null;
+
+		public MyOnclickListener(Question curQues) {
+			this.curQues = curQues;
+		}
+
+		@Override
+		public void onClick(View v) {
+			switch (v.getId()) {
+			case R.id.rl_left_personquestion:
+				Intent intentAnswer = new Intent(getApplicationContext(), Answer_list.class);
+				Bundle bundle = new Bundle();
+				bundle.putSerializable("curQues", curQues);
+				intentAnswer.putExtras(bundle);
+				startActivity(intentAnswer);
+				break;
+			case R.id.rl_top_personquestion:
+				// TODO Auto-generated method stub
+				Toast.makeText(getApplicationContext(), "click", 0).show();
+				Intent intentAnswer1 = new Intent(getApplicationContext(), Answer_list.class);
+				Bundle bundle1 = new Bundle();
+				bundle1.putSerializable("curQues", curQues);
+				intentAnswer1.putExtras(bundle1);
+				startActivity(intentAnswer1);
+				break;
+			case R.id.rl_right_personquestion:
+				Toast.makeText(getApplicationContext(), "zan", 0).show();
+				Intent intentAnswer2 = new Intent(getApplicationContext(), Answer_list.class);
+				Bundle bundle2 = new Bundle();
+				bundle2.putSerializable("curQues", curQues);
+				intentAnswer2.putExtras(bundle2);
+				startActivity(intentAnswer2);
+				// iv_like.setVisibility(view.INVISIBLE);
+				// iv_like.setImageDrawable(getActivity().getResources().getDrawable(R.drawable.ic_saved));
+
+			}
+
+		}
+
 	}
 
 	/**
@@ -166,7 +181,6 @@ public class PersonalQuestionCollectionActivity extends Activity implements OnCl
 
 	@Override
 	public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-		// TODO Auto-generated method stub
 
 	}
 }

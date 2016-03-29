@@ -245,7 +245,7 @@
             android:label="@string/title_activity_setting" >
         </activity>
         <activity
-            android:name=".PersonalQuestionCollectionActivity"
+            android:name="com.xuetu.ui.PersonalQuestionCollectionActivity"
             android:label="@string/title_activity_personal_question_collection" >
         </activity>
         <activity
