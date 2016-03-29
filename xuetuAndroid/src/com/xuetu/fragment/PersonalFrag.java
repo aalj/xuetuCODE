@@ -14,13 +14,14 @@
 package com.xuetu.fragment;
 
 import com.lidroid.xutils.BitmapUtils;
-import com.xuetu.PersonalQuestionCollectionActivity;
 import com.xuetu.R;
 import com.xuetu.entity.Student;
 import com.xuetu.ui.CourseActivity;
 import com.xuetu.ui.LoginActivity;
 import com.xuetu.ui.PaiHangBangActivity;
 import com.xuetu.ui.PersonInfomationActivity;
+import com.xuetu.ui.PersonalQuestionCollectionActivity;
+
 import com.xuetu.ui.PointliShiActivity;
 import com.xuetu.ui.TheCollectionOfYouHuiJuanActivity;
 import com.xuetu.ui.WoDeShouCangActivity;

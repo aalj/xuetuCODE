@@ -55,19 +55,11 @@ public class JunText {
 				new SelfStudyPlan(date, date, "dsknfl", 1, new Pattern(1, ""), new Student(), date));
 	}
 
-	
-	
-	
-	
-	
-	public void getmycou(){
+	public void getmycou() {
 		JifenDao dao = new JifenDao();
 		List<MyCoupon> queryAllCouponById = dao.queryAllCouponById(2);
 		System.out.println(queryAllCouponById.size());
 	}
-	
-	
-
 
 	public void getCouponte() {
 		List<Coupon> couponlimmit = new ShoppingDao().queryCouponlimmit(0, 10);
@@ -77,8 +69,10 @@ public class JunText {
 
 	@Test
 	public void getCoupon() {
+
 		List<SelfStudyPlan> daySelfPlan = new FindIml().getDaySelfPlan(3);
 		System.out.println(daySelfPlan.toString());
+
 
 	}
 

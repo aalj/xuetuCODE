@@ -253,11 +253,15 @@
             android:label="@string/title_activity_setting" >
         </activity>
         <activity
+<<<<<<< HEAD
+            android:name="com.xuetu.ui.PersonalQuestionCollectionActivity"
+=======
             android:name=".ui.PointliShiActivity"
             android:label="@string/title_activity_pointli_shi" >
         </activity>
         <activity
             android:name=".PersonalQuestionCollectionActivity"
+
             android:label="@string/title_activity_personal_question_collection" >
         </activity>
         <activity

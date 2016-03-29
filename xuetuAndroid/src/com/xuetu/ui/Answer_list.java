@@ -109,7 +109,11 @@ public class Answer_list extends Activity implements OnClickListener, OnHeaderRe
 		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.question_answer);
+
+		
+
 		stu_id = ((XueTuApplication)getApplication()).getStudent().getStuId();
+
 		initia();
 		
 		getPageAnswerByQues();
