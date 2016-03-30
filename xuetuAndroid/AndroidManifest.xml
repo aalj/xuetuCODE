@@ -259,7 +259,9 @@
             android:label="@string/title_activity_pointli_shi" >
         </activity>
         <activity
+
             android:name=".PersonalQuestionCollectionActivity"
+
             android:label="@string/title_activity_personal_question_collection" >
         </activity>
         <activity
@@ -280,13 +282,16 @@
             </intent-filter>
         </receiver>
 
-        <service android:name=".services.MyServices" >
-        </service>
+
+       
 
         <activity
             android:name="com.xuetu.ui.EditAlarmActivity"
             android:label="@string/title_activity_edit_alarm" >
         </activity>
+
+        <service android:name="com.xuetu.services.MyServices" >
+        </service>
     </application>
 
 </manifest>

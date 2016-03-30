@@ -7,6 +7,7 @@ import com.xuetu.entity.CollectionQuestion;
 import com.xuetu.entity.FavoritesCoupons;
 import com.xuetu.entity.MyClass;
 import com.xuetu.entity.MyCoupon;
+import com.xuetu.entity.PersonAnswerAll;
 import com.xuetu.entity.PersonalStudyTimeAll;
 import com.xuetu.entity.Question;
 import com.xuetu.entity.Student;
@@ -132,6 +133,12 @@ public class LoginService implements PersonalServiceInter {
 	public List<CollectionQuestion> getPersonalCollectionQuestionByStuID(int stuID) {
 		// TODO Auto-generated method stub
 		return personalDaoInterface.getPersonalCollectionQuestionByStuID(stuID);
+	}
+
+	@Override
+	public List<PersonAnswerAll> getAnswerAll() {
+		// TODO Auto-generated method stub
+		return personalDaoInterface.getAnswerAll();
 	}
 
 }
