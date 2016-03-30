@@ -28,13 +28,6 @@ public class AlarmBroadcastReceiver extends BroadcastReceiver {
 				}  
 			})  
 			
-//		    .setNegativeButton("不喜欢",new DialogInterface.OnClickListener() {  
-//		                @Override  
-//		                public void onClick(DialogInterface dialog,int which) {  
-//		                    // TODO Auto-generated method stub  
-//		                    Toast.makeText(context,"我一点也不喜欢海贼王", Toast.LENGTH_SHORT).show();  
-//		                }  
-//		            })
 			.create()	.show();// show很关键  
 			
 			

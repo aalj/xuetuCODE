@@ -2,7 +2,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.xuetu"
     android:versionCode="1"
-    android:versionName="1.0" >
+    android:versionName="2.0" >
 
     <uses-sdk
         android:minSdkVersion="14"
@@ -10,7 +10,7 @@
     <!-- 监听开机自启 -->
 
     <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
-     <uses-permission android:name="android.permission.VIBRATE" />
+    <uses-permission android:name="android.permission.VIBRATE" />
     <uses-permission android:name="android.permission.GET_TASKS" />
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
@@ -252,16 +252,14 @@
             android:name=".ui.SettingActivity"
             android:label="@string/title_activity_setting" >
         </activity>
+        <activity android:name="com.xuetu.ui.PersonalQuestionCollectionActivity" >
+        </activity>
         <activity
-<<<<<<< HEAD
-            android:name="com.xuetu.ui.PersonalQuestionCollectionActivity"
-=======
             android:name=".ui.PointliShiActivity"
             android:label="@string/title_activity_pointli_shi" >
         </activity>
         <activity
             android:name=".PersonalQuestionCollectionActivity"
-
             android:label="@string/title_activity_personal_question_collection" >
         </activity>
         <activity
@@ -281,7 +279,9 @@
                 <action android:name="android.intent.action.BOOT_COMPLETED" />
             </intent-filter>
         </receiver>
-        <service android:name="com.xuetu.services.MyServices"></service>
+
+        <service android:name="com.xuetu.services.MyServices" >
+        </service>
     </application>
 
 </manifest>
