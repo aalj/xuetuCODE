@@ -3,11 +3,18 @@ package com.xuetu.ui;
 import java.util.Calendar;
 import java.util.List;
 
+import com.lidroid.xutils.HttpUtils;
+import com.lidroid.xutils.exception.HttpException;
+import com.lidroid.xutils.http.RequestParams;
+import com.lidroid.xutils.http.ResponseInfo;
+import com.lidroid.xutils.http.callback.RequestCallBack;
+import com.lidroid.xutils.http.client.HttpRequest.HttpMethod;
 import com.xuetu.R;
 import com.xuetu.R.id;
 import com.xuetu.R.layout;
 import com.xuetu.R.menu;
 import com.xuetu.fragment.HomePageFrag;
+import com.xuetu.utils.GetHttp;
 
 import android.app.Activity;
 import android.app.FragmentManager;
@@ -210,18 +217,6 @@ public class LearingRecordActivity extends Activity {
 		btn_qiandao.setText("已签到");
 		btn_qiandao.setTextColor(0xffffffff);
 		
-		// 执行签到功能时,把 HomePageFragment里面  button 的按钮的text的值改变
-//		String ss = "";
-//		HomePageFrag homePageFrag = new HomePageFrag();
-//		Bundle bundle = new Bundle();
-//		bundle.putString("qiandao", "");
-//		homePageFrag.setArguments(bundle);
-//		FragmentManager fragmentManager =getFragmentManager();
-//		FragmentTransaction beginTransaction = fragmentManager.beginTransaction();
-//		beginTransaction.add
-		
-		
-		
 	}
 	
 	
@@ -252,7 +247,25 @@ public class LearingRecordActivity extends Activity {
 			
 			//往数据库发送签到日期信息
 			
-			
+			String url = GetHttp.getHttpKY()+"SendQiandaoDate";
+			HttpUtils httpUtils = new HttpUtils();
+//			RequestParams requestParams = new RequestParams();
+//			requestParams = null;
+			httpUtils.send(HttpMethod.POST, url, new RequestCallBack<String>() {
+				
+				
+				@Override
+				public void onFailure(HttpException arg0, String arg1) {
+					// TODO Auto-generated method stub
+					
+				}
+				
+				@Override
+				public void onSuccess(ResponseInfo<String> arg0) {
+					// TODO Auto-generated method stub
+					
+				}
+			});
 			
 			
 			

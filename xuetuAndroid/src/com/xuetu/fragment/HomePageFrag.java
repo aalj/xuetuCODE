@@ -16,6 +16,7 @@ package com.xuetu.fragment;
 import java.lang.reflect.Type;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
@@ -224,7 +225,7 @@ public class HomePageFrag extends Fragment implements OnTouchListener {
 		view.findViewById(R.id.imageButton3).setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				getStudyPlan();
+				search_today_studyplan();
 			}
 		});
 		
@@ -304,10 +305,40 @@ public class HomePageFrag extends Fragment implements OnTouchListener {
 				}else
 				{
 					
-					Toast.makeText(getActivity(), "当前没有课程", Toast.LENGTH_SHORT).show();
+					System.out.println(class_name+"<<<<<<<<<<<<<<classname<<<<<<<<<");
+					if(class_name.equals("null")){
+						new AlertDialog.Builder(getActivity())
+						.setTitle("提示")
+						.setMessage("现在没有课程,需要查看自学计划吗?")
+						.setNegativeButton("取消", new DialogInterface.OnClickListener() {
+							
+							@Override
+							public void onClick(DialogInterface dialog, int which) {
+								// TODO Auto-generated method stub
+								flag = true;
+								planflag=true;
+							}
+						})
+						.setPositiveButton("确定", new DialogInterface.OnClickListener() {
+							
+							@Override
+							public void onClick(DialogInterface dialog, int which) {
+								// TODO Auto-generated method stub
+								flag = true;
+								planflag=true;
+								search_today_studyplan();
+							}
+						}).show();
+						
+						
+						
+					}else{
+					
+					
+//					Toast.makeText(getActivity(), "当前时间不符合", Toast.LENGTH_SHORT).show();
 					new AlertDialog.Builder(getActivity())
 									.setTitle("提示")
-									.setMessage("当前时间不符合课程开始,是否进行自定义学习计划")
+									.setMessage("当前时间不符合时间规则,需要查看自学计划吗")
 									.setNegativeButton("取消", new DialogInterface.OnClickListener() {
 										
 										@Override
@@ -328,6 +359,7 @@ public class HomePageFrag extends Fragment implements OnTouchListener {
 										}
 									}).show();
 					//获取课程失败后  执行下滑判断语句
+					}
 				}
 				break;
 
@@ -592,7 +624,6 @@ public class HomePageFrag extends Fragment implements OnTouchListener {
 								long p =isstudy.time_to_study(studyplan)- isstudy.zero_to_now_ss();
 								if(p>3600)
 								{
-									System.out.println("距离学习计划时间还有一个小时以上,是否执行学习");
 									new AlertDialog.Builder(getActivity())
 										.setTitle("提示")
 										.setMessage("离学习计划还有1个小时以上,是否提前学习")
@@ -618,8 +649,6 @@ public class HomePageFrag extends Fragment implements OnTouchListener {
 												Intent intent = new Intent(getActivity(),
 														TimerActivity.class);
 												intent.putExtra("ss", ss);
-												System.out
-														.println("ssssssssssssssssssssssssssssssssssssssssssss"+ss);
 												intent.putExtra("stu_id", stu_id);
 												intent.putExtra("student", isstudy.stu_to_json(student));
 												
@@ -776,9 +805,10 @@ public class HomePageFrag extends Fragment implements OnTouchListener {
 	public void search_today_studyplan()
 	{
 		
-		String url =GetHttp.getHttpKY()+"BackStudyTime";    //  计划还未实现
+		String url =GetHttp.getHttpKY()+"GetDayTime";    //  计划还未实现
 		HttpUtils httpUtils = new HttpUtils();
 		RequestParams requestParams = new RequestParams();
+		requestParams.addBodyParameter("StuID", student.getStuId()+"");
 		httpUtils.send(HttpMethod.POST, url, requestParams,
 				new RequestCallBack<String>() {
 
@@ -796,15 +826,18 @@ public class HomePageFrag extends Fragment implements OnTouchListener {
 						// TODO Auto-generated method stub
 						
 						String arg = arg0.result;
+						System.out.println(arg+"arg<<<<<<<<<<<<<");
 						Type type = new TypeToken<List<SelfStudyPlan>>() {
 						}.getType();
 						Gson gson = new GsonBuilder().setDateFormat(
-								"yyyy-MM-dd").create();
+								"yyyy-MM-dd hh:mm:ss").create();
 						todayplan =gson.fromJson(arg, type); //如果这个时候,所有的值已经传完
+						System.out.println(todayplan);
 						//用for循环,把他们的备注显示在另一个集合里
-						
-						if(todayplan!=null){
-							String sss[] = null;
+						todayplan_note=new ArrayList<String>();
+						String [] dsss = new String  [todayplan.size()];
+						if(!arg.equals("[]")){
+							
 							
 							for(int i=0;i<todayplan.size();i++)
 							{
@@ -812,18 +845,18 @@ public class HomePageFrag extends Fragment implements OnTouchListener {
 							}
 							for(int i=0;i<todayplan_note.size();i++)
 							{
-								sss[i]=todayplan_note.get(i);
+								dsss[i]=todayplan_note.get(i);
 							}
 							
 							new AlertDialog.Builder(getActivity())
 							.setTitle("选择计划")
-							.setSingleChoiceItems(sss, 0, new DialogInterface.OnClickListener() {
+							.setSingleChoiceItems(dsss, 0, new DialogInterface.OnClickListener() {
 								
 								@Override
 								public void onClick(DialogInterface dialog, int which) {
 									w= which;
 								}
-							}).setPositiveButton("确定", new DialogInterface.OnClickListener() {
+							}).setPositiveButton("进入计划", new DialogInterface.OnClickListener() {
 								
 								@Override
 								public void onClick(DialogInterface dialog, int which) {
@@ -833,16 +866,17 @@ public class HomePageFrag extends Fragment implements OnTouchListener {
 									planflag = false;
 									Intent intent = new Intent(getActivity(),
 											TimerActivity.class);
+									System.out.println(todayplan.get(w).getEndTime()+"<<<<<<<<<<<<<<<<<<<<<");
 									intent.putExtra("ss",isstudy.gotoss(new SimpleDateFormat("hh:mm:ss").format(todayplan.get(w).getEndTime()))
 											- isstudy.gotoss(new SimpleDateFormat("hh:mm:ss").format(todayplan.get(w).getStartTime())));
-									intent.putExtra("stu_id", todayplan.get(w).getStudent().getStuId());
-									intent.putExtra("student",todayplan.get(w).getStudent());
+									intent.putExtra("stu_id", student.getStuId());
+									intent.putExtra("student",isstudy.stu_to_json(student));
 									
 									intent.putExtra("tag", 2);
 									intent.putExtra("start_and_end_time", new SimpleDateFormat("hh:mm:ss").format(todayplan.get(w).getStartTime())+" ~ "+
 											 new SimpleDateFormat("hh:mm:ss").format(todayplan.get(w).getEndTime())
 											);
-									intent.putExtra("text", studyplan.getPlanText())	;	
+									intent.putExtra("text", todayplan.get(w).getPlanText())	;	
 									
 									flag = true;
 									planflag=true;
