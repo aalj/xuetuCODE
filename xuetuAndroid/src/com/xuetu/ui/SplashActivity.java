@@ -658,7 +658,7 @@ public class SplashActivity extends Activity {
 		Calendar calendar = Calendar.getInstance(Locale.getDefault());
 		calendar.setTimeInMillis(System.currentTimeMillis());
 		String[] tt = alarm.getStartTime().split(":");
-		calendar.set(Calendar.HOUR_OF_DAY, Integer.parseInt(tt[0]));
+		calendar.set(Calendar.HOUR_OF_DAY, Integer.parseInt(tt[0])-1);
 		calendar.set(Calendar.MINUTE, Integer.parseInt(tt[1]));
 		calendar.set(Calendar.SECOND, 0);
 		calendar.set(Calendar.MILLISECOND, 0);

@@ -18,16 +18,16 @@ import com.lidroid.xutils.http.callback.RequestCallBack;
 import com.lidroid.xutils.http.client.HttpRequest.HttpMethod;
 import com.lidroid.xutils.view.annotation.ViewInject;
 import com.xuetu.R;
-import com.xuetu.adapter.MyBasesadapter;
+import com.xuetu.adapter.MyQuestionBaseAdapter;
 import com.xuetu.adapter.ViewHodle;
 import com.xuetu.db.DBFindManager;
-import com.xuetu.db.DBFindOpenHelper;
 import com.xuetu.entity.Pattern;
 import com.xuetu.entity.SelfStudyPlan;
 import com.xuetu.utils.DataToTime;
 import com.xuetu.utils.GetHttp;
 import com.xuetu.view.TitleBar;
 
+import android.R.integer;
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
@@ -45,6 +45,7 @@ import android.view.View.OnClickListener;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ListView;
+import android.widget.RelativeLayout;
 import android.widget.Toast;
 
 /**
@@ -76,7 +77,7 @@ public class FindTaskListActivity extends Baseactivity implements OnItemClickLis
 	// 用于保存是点击那个对象，然后进行修改
 	int index = 0;
 	// listView的适配器
-	MyBasesadapter<SelfStudyPlan> adapter = null;
+	MyQuestionBaseAdapter<SelfStudyPlan> adapter = null;
 	// 求情
 	HttpUtils httpUtils = null;
 	// 用于保存修改的数据
@@ -140,6 +141,11 @@ public class FindTaskListActivity extends Baseactivity implements OnItemClickLis
 
 	}
 
+	
+	//
+	List<Integer> listTag = new ArrayList<Integer>();
+	
+	
 	private void getData() {
 
 		httpUtils = new HttpUtils();
@@ -170,12 +176,20 @@ public class FindTaskListActivity extends Baseactivity implements OnItemClickLis
 
 				// dbFindManager.addSelf(users);
 				// sp.edit().putBoolean("SELELIST", true).commit();
-				adapter = new MyBasesadapter<SelfStudyPlan>(FindTaskListActivity.this, users, R.layout.find_task_item) {
+				adapter = new MyQuestionBaseAdapter<SelfStudyPlan>(FindTaskListActivity.this, users, R.layout.find_task_item) {
 
 					@Override
-					public void convert(ViewHodle viewHolder, SelfStudyPlan item) {
+					public void convert(ViewHodle viewHolder, SelfStudyPlan item,int position) {
+						RelativeLayout re = viewHolder.getView(R.id.layoutback);
+						re.setTag(position);
+						long time=System.currentTimeMillis();
+						//在集合中标记是否有同时用途判断是否复用
+						if(listTag.contains(position)){
+							viewHolder.setReLayoutBgColor(R.id.layoutback, R.drawable.back_find_list_self);
+						}
 						viewHolder.setText(R.id.tilte, item.getPlanText());
 						viewHolder.setText(R.id.info, DataToTime.dataToT(item.getStartTime()));
+						//设置选择选项
 						if (item.getPlanReming() == 1) {
 							viewHolder.setClick(R.id.myswitch, true);
 						} else {
@@ -187,6 +201,15 @@ public class FindTaskListActivity extends Baseactivity implements OnItemClickLis
 						Log.i("TAG", dataToHS);
 
 						viewHolder.setText(R.id.tv_time, dataToHS);
+						
+						if(item.getStartTime().getTime()>time){
+							
+						}else{
+							viewHolder.setText(R.id.lishi, "历史");
+							listTag.add((Integer)re.getTag());
+							viewHolder.setReLayoutBgColor(R.id.layoutback, R.drawable.back_find_list_self);
+							
+						}
 
 					}
 

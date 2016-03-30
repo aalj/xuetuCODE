@@ -13,6 +13,13 @@ public class Alarm implements Serializable{
 	private  String week = null;
 	/**标识早睡还是早起*/
 	int temp = 0;
+	int del_temp = 0;
+	public int getDel_temp() {
+		return del_temp;
+	}
+	public void setDel_temp(int del_temp) {
+		this.del_temp = del_temp;
+	}
 	private String tishiyu = null;
 	public String getTishiyu() {
 		return tishiyu;

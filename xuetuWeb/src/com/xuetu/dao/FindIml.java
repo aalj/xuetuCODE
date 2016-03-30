@@ -75,7 +75,7 @@ public class FindIml implements FindInter {
 		PreparedStatement statement = null;
 		try {
 
-			String sql = "select * from selfstudyplan where  stu_id =? and del_flag=0 ORDER BY start_time  ";
+			String sql = "select * from selfstudyplan where  stu_id =? and del_flag=0 ORDER BY start_time desc ";
 			statement = connection.prepareStatement(sql);
 
 			statement.setInt(1, stuId);

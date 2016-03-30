@@ -249,7 +249,7 @@ public class TimerActivity extends Activity {
     		requestParams.addBodyParameter("st_id", "1");
     		requestParams.addBodyParameter("stu_id", stu_id+"");//学生id
     		requestParams.addBodyParameter("student", stu_from_home);//学生id
-    		System.out.println(stu_from_home);
+//    		System.out.println(stu_from_home);
     		System.out.println("------------1----------"+stu_id);
     		httpUtils.send(HttpMethod.POST, url,requestParams,new RequestCallBack<String>() {
     			

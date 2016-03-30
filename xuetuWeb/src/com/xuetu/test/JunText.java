@@ -43,9 +43,10 @@ import com.xuetu.entity.Student;
  * 
  */
 public class JunText {
-
+	@Test
 	public void myTest() {
-		System.out.println(new FindIml().getSelfPlan(1));
+		
+		System.out.println(new FindIml().getSelfPlan(3));
 
 	}
 
@@ -75,5 +76,6 @@ public class JunText {
 
 
 	}
+	
 
 }

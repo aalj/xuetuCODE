@@ -37,6 +37,7 @@ public class GetDayTime extends HttpServlet {
 			
 			 allSelfStudyPlantemp = new FindIml().getDaySelfPlan(Integer.parseInt(parameter));
 		}
+		System.out.println(">>>>>>>>>>>>>>>>>>>>>"+allSelfStudyPlantemp);
 		Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create();
 		writer.print(gson.toJson(allSelfStudyPlantemp));
 		

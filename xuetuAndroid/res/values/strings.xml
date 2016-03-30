@@ -35,7 +35,6 @@
     <drawable name="clr_pressed">#65b8e0</drawable>
     <drawable name="clr_change">#33cc99</drawable>
     <drawable name="clr_presseds">#a4c2f4</drawable>
-    
 
     <string name="title_activity_forget_pwd">ForgetPwdActivity</string>
     <string name="title_activity_person_infomation">PersonInfomationActivity</string>
@@ -68,5 +67,6 @@
     <string name="title_activity_personal_question_collection">PersonalQuestionCollectionActivity</string>
     <string name="title_activity_person_question_information">PersonQuestionInformationActivity</string>
     <string name="title_activity_ji_fen_xiang_qing">JiFenXiangQingActivity</string>
+    <string name="title_activity_edit_alarm">EditAlarmActivity</string>
 
 </resources>

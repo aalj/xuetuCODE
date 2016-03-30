@@ -244,15 +244,15 @@
         </activity>
         <activity android:name=".ui.AlarmZaoShang" >
         </activity>
-        <activity android:name="com.xuetu.ui.AlarmZaoqi" >
+        <activity android:name=".ui.AlarmZaoqi" >
         </activity>
-        <activity android:name="com.xuetu.ui.AddAlarm" >
+        <activity android:name=".ui.AddAlarm" >
         </activity>
         <activity
             android:name=".ui.SettingActivity"
             android:label="@string/title_activity_setting" >
         </activity>
-        <activity android:name="com.xuetu.ui.PersonalQuestionCollectionActivity" >
+        <activity android:name=".ui.PersonalQuestionCollectionActivity" >
         </activity>
         <activity
             android:name=".ui.PointliShiActivity"
@@ -272,7 +272,7 @@
         </activity>
 
         <receiver
-            android:name="com.xuetu.ui.AlarmBroadcastReceiver"
+            android:name=".ui.AlarmBroadcastReceiver"
             android:process=":remote" />
         <receiver android:name=".BootBroadcastReceiver" >
             <intent-filter>
@@ -280,8 +280,13 @@
             </intent-filter>
         </receiver>
 
-        <service android:name="com.xuetu.services.MyServices" >
+        <service android:name=".services.MyServices" >
         </service>
+
+        <activity
+            android:name="com.xuetu.ui.EditAlarmActivity"
+            android:label="@string/title_activity_edit_alarm" >
+        </activity>
     </application>
 
 </manifest>
