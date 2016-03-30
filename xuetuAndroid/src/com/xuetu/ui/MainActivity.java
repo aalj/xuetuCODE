@@ -193,29 +193,31 @@ public class MainActivity extends FragmentActivity implements OnPageChangeListen
 		case R.id.coupon_fra:// 搜索页面点击
 			title.shoerightLayout(View.INVISIBLE);
 			viewPage.setCurrentItem(0);
-			title.shoelayout(View.VISIBLE);
+//			title.shoelayout(View.VISIBLE);
 			break;
 		case R.id.find_fra:// 发现页面
 			title.shoerightLayout(View.INVISIBLE);
 			viewPage.setCurrentItem(1);
-			title.shoelayout(View.VISIBLE);
+//			title.shoelayout(View.VISIBLE);
 			break;
 		case R.id.home_fra:// 首页面
 			title.shoerightLayout(View.INVISIBLE);
 			viewPage.setCurrentItem(2);
-			title.shoelayout(View.VISIBLE);
+//			title.shoelayout(View.VISIBLE);
 			break;
 		case R.id.question_page:// 问题页面
 			title.shoerightLayout(View.INVISIBLE);
 			viewPage.setCurrentItem(3);
-			title.shoelayout(View.GONE);
+//			title.shoelayout(View.GONE);
+//			title.shoelayout(View.INVISIBLE);
+//			title.shoelayout(View.GONE);
 			// title.shoelayout(View.INVISIBLE);
 			break;
 		case R.id.personal_page:// 个人中心页面
 			title.shoerightLayout(View.VISIBLE);
 			title.setRightImageResource(R.drawable.more_setting);
 			viewPage.setCurrentItem(4);
-			title.shoelayout(View.VISIBLE);
+//			title.shoelayout(View.VISIBLE);
 			break;
 
 		default:
@@ -261,11 +263,16 @@ public class MainActivity extends FragmentActivity implements OnPageChangeListen
 			} else {
 				title.shoerightLayout(View.INVISIBLE);
 			}
-			if (arg0 == 3) {
-				title.shoelayout(View.GONE);
-			} else {
-				title.shoelayout(View.VISIBLE);
-			}
+//			if(arg0==3){
+//				title.shoelayout(View.GONE);
+//			}else{
+//				title.shoelayout(View.VISIBLE);
+//			}
+//			if (arg0 == 3) {
+//				title.shoelayout(View.GONE);
+//			} else {
+//				title.shoelayout(View.VISIBLE);
+//			}
 			for (int i = 0; i < fragmeLayout.length; i++) {
 				if (i != arg0) {
 					fragmeLayout[i].setSelected(false);

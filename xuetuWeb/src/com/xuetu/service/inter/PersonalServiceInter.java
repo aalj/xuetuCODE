@@ -2,6 +2,7 @@ package com.xuetu.service.inter;
 
 import java.util.List;
 
+import com.xuetu.entity.CollectionQuestion;
 import com.xuetu.entity.FavoritesCoupons;
 import com.xuetu.entity.MyClass;
 import com.xuetu.entity.MyCoupon;
@@ -75,5 +76,5 @@ public interface PersonalServiceInter {
 
 	public Student getStuByTelephone(String telephone);
 	public List<Question> getPoinQuesByStuID(int stuID);
-	 
+	public List<CollectionQuestion> getPersonalCollectionQuestionByStuID(int stuID);
 }

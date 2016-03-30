@@ -220,5 +220,9 @@ public interface QuesTionDao {
 	 * @since  CodingExample　Ver 1.1
 	 */
 	public List<Question> getAllQuestion();
+	public void collectQuestion(int stu_id,int ques_id,Date ques_time);
+	public void collectCancelQuestion(int stu_id,int ques_id);
+	public void agreeAnswer(int ans_id,int stu_id,Date agr_date);
+	public void disAgreeAnswer(int ans_id,int stu_id);
 }
 

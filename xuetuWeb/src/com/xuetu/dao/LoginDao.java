@@ -12,6 +12,7 @@ import java.util.List;
 
 import com.xuetu.dao.inter.PersonalDaoInterface;
 import com.xuetu.entity.Answer;
+import com.xuetu.entity.CollectionQuestion;
 import com.xuetu.entity.FavoritesCoupons;
 import com.xuetu.entity.MyClass;
 import com.xuetu.entity.MyCoupon;
@@ -237,6 +238,7 @@ public class LoginDao implements PersonalDaoInterface {
 			resultSet = prepareStatement.executeQuery();
 			while (resultSet.next()) {
 				question = new Question();
+				question.setStudent(getStuByID(resultSet.getInt("stu_id")));
 				question.setAcpo_num(resultSet.getInt("acpo_num"));
 				question.setQuesID(resultSet.getInt("ques_id"));
 				question.setQuesText(resultSet.getString("ques_text"));
@@ -710,6 +712,40 @@ public class LoginDao implements PersonalDaoInterface {
 			e.printStackTrace();
 		} finally {
 			CloseDb.close(connection, prepareStatement);
+		}
+		return null;
+	}
+
+	@Override
+	public List<CollectionQuestion> getPersonalCollectionQuestionByStuID(int stuID) {
+		Connection connection = DBconnection.getConnection();
+		String sql = "select * from collectionquestion where stu_id=?;";
+		PreparedStatement prepareStatement = null;
+		QuestionIml questionIml = new QuestionIml();
+		ResultSet resultSet = null;
+		CollectionQuestion collectionQuestion;
+		List<CollectionQuestion> listPerCollQuestions = new ArrayList<>();
+		try {
+			prepareStatement = connection.prepareStatement(sql);
+			prepareStatement.setInt(1, stuID);
+			resultSet = prepareStatement.executeQuery();
+			while (resultSet.next()) {
+				collectionQuestion = new CollectionQuestion();
+				collectionQuestion.setCoqoID(resultSet.getInt("coqu_id"));
+				collectionQuestion.setStudent(getStuByID(resultSet.getInt("stu_id")));
+				collectionQuestion.setQuestion(questionIml.getQuestionByQuesId(resultSet.getInt("ques_id")));
+				Date date = new Date(resultSet.getTimestamp("ques_time_collect").getTime());
+				collectionQuestion.setQues_time(date);
+				listPerCollQuestions.add(collectionQuestion);
+			}
+			return listPerCollQuestions;
+
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			CloseDb.close(connection, resultSet, prepareStatement);
+
 		}
 		return null;
 	}

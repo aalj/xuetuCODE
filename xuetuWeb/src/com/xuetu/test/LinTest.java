@@ -6,6 +6,7 @@ import java.text.SimpleDateFormat;
 import org.junit.Test;
 
 import com.xuetu.dao.QuestionIml;
+import com.xuetu.dao.inter.QuesTionDao;
 import com.xuetu.service.QuestionService;
 import com.xuetu.service.inter.QuestionServiceInter;
 
@@ -24,6 +25,7 @@ import com.xuetu.service.inter.QuestionServiceInter;
  */
 public class LinTest {
 	QuestionServiceInter Qservice = new QuestionService(new QuestionIml());
+	QuesTionDao q = new QuestionIml();
 	@Test 
 	public void getSchoolBySchId(){
 		System.out.println(Qservice.getSchoolBySch_id(1).getSchLatitude());
@@ -76,5 +78,19 @@ public class LinTest {
 	@Test
 	public void querylimitAnswers(){
 		System.out.println(Qservice.queryLimitAnswer(1, 1).get(0).getAnsTime());
+	}
+	@Test
+	public void agree(){
+		q.agreeAnswer(2, 3, new Date(System.currentTimeMillis()));
+		System.out.println("ok");
+	}
+	@Test
+	public void diaAgree(){
+		q.disAgreeAnswer(2, 3);
+		System.out.println("ok");
+	}
+	@Test
+	public void collectCancelQuestion(){
+		q.collectCancelQuestion(2, 3);
 	}
 }

@@ -16,6 +16,7 @@ package com.xuetu.dao.inter;
 import java.util.List;
 
 import com.xuetu.entity.Answer;
+import com.xuetu.entity.CollectionQuestion;
 import com.xuetu.entity.FavoritesCoupons;
 import com.xuetu.entity.MyClass;
 import com.xuetu.entity.MyCoupon;
@@ -241,14 +242,18 @@ public interface PersonalDaoInterface {
 	public boolean UpdataByUid(String telephone);
 
 	/**
-	 * 
+	 * 三方登录注册
 	 */
 	public boolean addNewUser(String telephone, String sex, String name, String img, String telephone_pwd);
 
 	/**
-	 * 
+	 * 通过手机号查人
 	 */
 	public Student getStuByTelephone(String telephone);
 
- 
+	/**
+	 * 通过学生ID查个人收藏的问题
+	 */
+	public List<CollectionQuestion> getPersonalCollectionQuestionByStuID(int stuID);
+
 }
