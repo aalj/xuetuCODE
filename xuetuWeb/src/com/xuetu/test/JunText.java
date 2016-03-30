@@ -67,11 +67,19 @@ public class JunText {
 
 	}
 
-	@Test
+	 
 	public void getCoupon() {
 
 		List<SelfStudyPlan> daySelfPlan = new FindIml().getDaySelfPlan(3);
 		System.out.println(daySelfPlan.toString());
+
+
+	}
+	@Test
+	public void getCoupon1() {
+		System.out.println(new LoginDao().getAnswerAll());
+//		List<SelfStudyPlan> daySelfPlan = new FindIml().getDaySelfPlan(3);
+//		System.out.println(daySelfPlan.toString());
 
 
 	}

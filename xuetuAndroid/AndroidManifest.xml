@@ -10,7 +10,7 @@
     <!-- 监听开机自启 -->
 
     <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
-     <uses-permission android:name="android.permission.VIBRATE" />
+    <uses-permission android:name="android.permission.VIBRATE" />
     <uses-permission android:name="android.permission.GET_TASKS" />
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
@@ -253,15 +253,11 @@
             android:label="@string/title_activity_setting" >
         </activity>
         <activity
-<<<<<<< HEAD
-            android:name="com.xuetu.ui.PersonalQuestionCollectionActivity"
-=======
             android:name=".ui.PointliShiActivity"
             android:label="@string/title_activity_pointli_shi" >
         </activity>
         <activity
-            android:name=".PersonalQuestionCollectionActivity"
-
+            android:name="com.xuetu.ui.PersonalQuestionCollectionActivity"
             android:label="@string/title_activity_personal_question_collection" >
         </activity>
         <activity
@@ -281,7 +277,9 @@
                 <action android:name="android.intent.action.BOOT_COMPLETED" />
             </intent-filter>
         </receiver>
-        <service android:name="com.xuetu.services.MyServices"></service>
+
+        <service android:name="com.xuetu.services.MyServices" >
+        </service>
     </application>
 
 </manifest>

@@ -13,7 +13,6 @@
 
 package com.xuetu.fragment;
 
-import java.sql.Date;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
@@ -31,10 +30,7 @@ import com.lidroid.xutils.http.ResponseInfo;
 import com.lidroid.xutils.http.callback.RequestCallBack;
 import com.lidroid.xutils.http.client.HttpRequest.HttpMethod;
 import com.xuetu.R;
-import com.xuetu.adapter.MyBasesadapter;
 import com.xuetu.adapter.QuestionFragAdapter;
-import com.xuetu.adapter.ViewHodle;
-import com.xuetu.entity.Coupon;
 import com.xuetu.entity.Question;
 import com.xuetu.ui.Answer_list;
 import com.xuetu.ui.Question_ask;
@@ -43,15 +39,10 @@ import com.xuetu.utils.GetHttp;
 import com.xuetu.view.OnRefreshListener;
 import com.xuetu.view.RefreshListView;
 
-import android.content.Context;
 import android.content.Intent;
 import android.graphics.drawable.Drawable;
-import android.media.Image;
-import android.opengl.Visibility;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.ListFragment;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
@@ -60,10 +51,7 @@ import android.view.View.OnClickListener;
 import android.view.View.OnTouchListener;
 import android.view.ViewGroup.LayoutParams;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
-import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ImageView;
-import android.widget.ListView;
 import android.widget.PopupWindow;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
