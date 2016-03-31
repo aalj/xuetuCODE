@@ -805,7 +805,7 @@ public class HomePageFrag extends Fragment implements OnTouchListener {
 	public void search_today_studyplan()
 	{
 		
-		String url =GetHttp.getHttpKY()+"GetDayTime";    //  计划还未实现
+		String url =GetHttp.getHttpKY()+"GetDayTime";    //
 		HttpUtils httpUtils = new HttpUtils();
 		RequestParams requestParams = new RequestParams();
 		requestParams.addBodyParameter("StuID", student.getStuId()+"");
@@ -841,7 +841,7 @@ public class HomePageFrag extends Fragment implements OnTouchListener {
 							
 							for(int i=0;i<todayplan.size();i++)
 							{
-								todayplan_note.add(todayplan.get(i).getPlanText());
+								todayplan_note.add(todayplan.get(i).getPlanText()+"  开始时间"+new SimpleDateFormat("HH:mm").format(todayplan.get(i).getStartTime()));
 							}
 							for(int i=0;i<todayplan_note.size();i++)
 							{
@@ -866,15 +866,14 @@ public class HomePageFrag extends Fragment implements OnTouchListener {
 									planflag = false;
 									Intent intent = new Intent(getActivity(),
 											TimerActivity.class);
-									System.out.println(todayplan.get(w).getEndTime()+"<<<<<<<<<<<<<<<<<<<<<");
 									intent.putExtra("ss",isstudy.gotoss(new SimpleDateFormat("HH:mm:ss").format(todayplan.get(w).getEndTime()))
 											- isstudy.gotoss(new SimpleDateFormat("HH:mm:ss").format(todayplan.get(w).getStartTime())));
 									intent.putExtra("stu_id", student.getStuId());
 									intent.putExtra("student",isstudy.stu_to_json(student));
 									
 									intent.putExtra("tag", 2);
-									intent.putExtra("start_and_end_time", new SimpleDateFormat("HH:mm:ss").format(todayplan.get(w).getStartTime())+" ~ "+
-											 new SimpleDateFormat("HH:mm:ss").format(todayplan.get(w).getEndTime())
+									intent.putExtra("start_and_end_time", new SimpleDateFormat("HH:mm").format(todayplan.get(w).getStartTime())+"~"+
+											 new SimpleDateFormat("HH:mm").format(todayplan.get(w).getEndTime())
 											);
 									intent.putExtra("text", todayplan.get(w).getPlanText())	;	
 									
@@ -924,6 +923,7 @@ public class HomePageFrag extends Fragment implements OnTouchListener {
 			planflag=false;
 			System.out.println("``````````````2````````````````````");
 			if(classend.what_time()==0)  //不迟到也不太早,可以上课
+//			if(true )	
 			{System.out.println("`````````````3`````````````````````");
 				new AlertDialog.Builder(getActivity()).setTitle("提示").setMessage("即将进入课程"+ classend.get_class_name( which_class-1 )).setNegativeButton("返回", null).setPositiveButton("立即进入", new DialogInterface.OnClickListener() {
 					
@@ -937,7 +937,7 @@ public class HomePageFrag extends Fragment implements OnTouchListener {
 						intent.putExtra("student", isstudy.stu_to_json(student));
 						intent.putExtra("class_name", classend.get_class_name( which_class-1 ));
 						intent.putExtra("tag", 1);System.out.println("```````````````5```````````````````");
-						intent.putExtra("start_and_end_time",classend.get_start_time(which_class-1) + classend.get_end_time(which_class-1)  );
+						intent.putExtra("start_and_end_time",classend.get_start_time(which_class-1) +"~"+ classend.get_end_time(which_class-1)  );
 						intent.putExtra("text", "目前是第"+which_class+"节课");
 						System.out.println("````````````````6``````````````````");
 						flag = true;
@@ -969,8 +969,8 @@ public class HomePageFrag extends Fragment implements OnTouchListener {
 					flag = false;
 					planflag=false;
 					new AlertDialog.Builder(getActivity())
-					.setTitle("提示")
-					.setMessage("课程:"+classend.get_class_name( which_class-1 )+"   你迟到的太久了,不能进入计时积分页面")
+					.setTitle("提示")                                              
+					.setMessage("课程:"+classend.get_class_name( which_class-1 )+"   你迟到了"+classend.getmin()+"分钟,不能进入计时积分页面")
 					.setNegativeButton("返回", new DialogInterface.OnClickListener() {
 						
 						@Override
@@ -1011,26 +1011,6 @@ public class HomePageFrag extends Fragment implements OnTouchListener {
 				}
 			}).show();
 				
-			
-			
-			
-			
-			
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
 		
 //		new AlertDialog.Builder(getActivity()).setTitle("提示").setMessage("即将进入课程"+ classend.get_class_name( which_class-1 )).setNegativeButton("返回", null).setPositiveButton("立即进入", new DialogInterface.OnClickListener() {
 //			

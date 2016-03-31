@@ -37,17 +37,10 @@ public class GetPaiMing extends HttpServlet {
 		int [] today_studytime = sendQianDaoDateDao.get_every_studytime(stu_all_id); //全体学生的学习时间
 		
 		int time = (int) sendQianDaoDateDao.get_today_studytime(stu_id);//当前学生的学习时间
-		System.out.println(time+"````````````````````");
 		String paixu = null;
-		
-		
-		
 		if(time==0){
-			System.out.println("`````````````1``````````");
-
 			paixu="0%的学霸";
 		}else{
-			System.out.println("`````````````2``````````");
 			//用冒泡排序进行排序
 			today_studytime = new PaiXu().paixu(today_studytime);
 			int  hh=0;
@@ -59,8 +52,6 @@ public class GetPaiMing extends HttpServlet {
 				}
 			}
 			int students = today_studytime.length;
-			
-			
 			if( students - hh ==0 )     //    总的学生数8  ,与   当前学生的排名  5
 			{
 				paixu="100%的学霸";
@@ -68,21 +59,13 @@ public class GetPaiMing extends HttpServlet {
 			{
 				paixu=new PaiXu().getPercent(hh, students)+"的学霸";
 			}
-			
 		}
 		
-		
-				System.out.println(paixu);
-				
 				PrintWriter writer = response.getWriter();
 				Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd").create();
 				String qiandaoDate = gson.toJson(paixu);
 				writer.print(qiandaoDate);
 				
-				
-				
-		
-		
 	}
 
 	/**
