@@ -6,6 +6,7 @@ package com.xuetu.service;
 import java.sql.Date;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import com.xuetu.dao.inter.QuesTionDao;
 import com.xuetu.entity.Answer;
@@ -56,7 +57,7 @@ public class QuestionService implements QuestionServiceInter {
 	 * @see com.xuetu.service.inter.QuestionServiceInter#queryLimitQuestion(int, int)
 	 */
 	@Override
-	public Map<List<Integer>, List<Question>> queryLimitQuestion(int page, int num) {
+	public List<Question> queryLimitQuestion(int page, int num) {
 		// TODO Auto-generated method stub
 		return q.queryLimitQuestion(page, num);
 	}

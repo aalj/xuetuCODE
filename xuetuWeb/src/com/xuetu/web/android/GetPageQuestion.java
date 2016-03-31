@@ -9,6 +9,7 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -31,6 +32,7 @@ import com.xuetu.service.inter.QuestionServiceInter;
 public class GetPageQuestion extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	QuestionServiceInter q = new QuestionService(new QuestionIml());
+	List<Question> questions = new ArrayList<Question>();
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
@@ -50,8 +52,9 @@ public class GetPageQuestion extends HttpServlet {
 			pageunm = Integer.parseInt(page);
 			unmunm = Integer.parseInt(unm);
 		}
-		Map<List<Integer>, List<Question>> questions = new HashMap<List<Integer>, List<Question>>();
-			questions = q.queryLimitQuestion(pageunm, unmunm);
+//		Map<Set<Integer>, List<Question>> questions = new HashMap<Set<Integer>, List<Question>>();
+//			questions = q.queryLimitQuestion(pageunm, unmunm);
+		questions = q.queryLimitQuestion(pageunm, unmunm);
 		String jsonStr = null;
 		Gson gson = new GsonBuilder()
 				.enableComplexMapKeySerialization()
