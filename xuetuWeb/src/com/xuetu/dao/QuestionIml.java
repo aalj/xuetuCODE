@@ -9,8 +9,10 @@ import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import com.xuetu.dao.inter.QuesTionDao;
 import com.xuetu.entity.Answer;
@@ -77,15 +79,15 @@ public class QuestionIml implements QuesTionDao {
 	}
 	//分页查询所有问题
 	@Override
-	public Map<List<Integer>,List<Question>> queryLimitQuestion(int page, int num) {
+	public Map<Set<Integer>,List<Question>> queryLimitQuestion(int page, int num) {
 		// TODO Auto-generated method stub
 		Connection conn = null;
 		PreparedStatement prep= null;
 		String sql = null;
 		List<Question> questions = new ArrayList<Question>();
 		ResultSet rs = null;
-		List<Integer> saveNum = null;
-		Map<List<Integer>,List<Question>> qreturn = new HashMap<List<Integer>,List<Question>>();
+		Set<Integer> saveNum = null;
+		Map<Set<Integer>,List<Question>> qreturn = new HashMap<Set<Integer>,List<Question>>();
 		// 指针从第一行属性字段开始
 		try {
 			conn = DBconnection.getConnection();
@@ -641,12 +643,12 @@ public class QuestionIml implements QuesTionDao {
 		}
 	}
 	@Override
-	public List<Integer> isSave() {
+	public Set<Integer> isSave() {
 		Connection conn = null;
 		PreparedStatement prep= null;
 		String sql = null;
 		ResultSet rs = null;
-		List<Integer> l = new ArrayList<Integer>();
+		Set<Integer> l = new HashSet<Integer>();
 		// 指针从第一行属性字段开始
 			conn = DBconnection.getConnection();
 //			sql = "select * from collectionquestion where stu_id=?";

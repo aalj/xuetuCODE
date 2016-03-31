@@ -1,7 +1,9 @@
 package com.xuetu.ui;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import com.xuetu.entity.Coupon;
 import com.xuetu.entity.LongTime;
@@ -12,6 +14,15 @@ import android.app.Application;
 public class XueTuApplication extends Application {
 	 private Student student = null;
 	private  List<float[]> list = new ArrayList<float[]>();
+	private Set<Integer> set = new HashSet<Integer>();
+	public Set<Integer> getSet() {
+		return set;
+	}
+
+	public void setSet(Set<Integer> set) {
+		this.set = set;
+	}
+
 	public List<float[]> getList() {
 		return list;
 	}
@@ -36,7 +47,7 @@ public class XueTuApplication extends Application {
 	public void setStudent(Student student) {
 		this.student = student;
 	}
-
+	
 	@Override
 	public void onCreate() {
 		

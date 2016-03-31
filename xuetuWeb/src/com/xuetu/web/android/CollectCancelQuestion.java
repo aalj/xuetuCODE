@@ -48,6 +48,7 @@ public class CollectCancelQuestion extends HttpServlet {
 //		long parseLong = Long.parseLong(timeStr);
 //		ques_time_collect = new Date(new Timestamp(parseLong).getTime());
 		q.collectCancelQuestion(stu_id, ques_id);
+		System.out.println("去小收藏了啊！！");
 	}
 
 }

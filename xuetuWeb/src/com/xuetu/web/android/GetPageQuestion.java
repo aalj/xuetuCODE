@@ -9,6 +9,7 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -50,7 +51,7 @@ public class GetPageQuestion extends HttpServlet {
 			pageunm = Integer.parseInt(page);
 			unmunm = Integer.parseInt(unm);
 		}
-		Map<List<Integer>, List<Question>> questions = new HashMap<List<Integer>, List<Question>>();
+		Map<Set<Integer>, List<Question>> questions = new HashMap<Set<Integer>, List<Question>>();
 			questions = q.queryLimitQuestion(pageunm, unmunm);
 		String jsonStr = null;
 		Gson gson = new GsonBuilder()
