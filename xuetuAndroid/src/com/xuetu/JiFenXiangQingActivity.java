@@ -9,18 +9,15 @@ import com.umeng.socialize.utils.Log;
 import com.xuetu.entity.JiFenMingXi;
 import com.xuetu.utils.GetHttp;
 import com.xuetu.view.CircleImageView;
+import com.xuetu.view.TitleBar;
 
 import android.app.Activity;
-import android.graphics.Bitmap;
 import android.os.Bundle;
-import android.os.Handler;
-import android.os.Message;
-import android.view.Menu;
-import android.view.MenuItem;
-import android.widget.SimpleAdapter;
+import android.view.View;
+import android.view.View.OnClickListener;
 import android.widget.TextView;
 
-public class JiFenXiangQingActivity extends Activity {
+public class JiFenXiangQingActivity extends Activity implements OnClickListener {
 
 	@ViewInject(R.id.jifen)
 	TextView jifen;
@@ -31,7 +28,7 @@ public class JiFenXiangQingActivity extends Activity {
 	@ViewInject(R.id.time)
 	TextView time;
 	
-	
+	TitleBar titleBar1 = null;
 
 
 	@Override
@@ -41,8 +38,8 @@ public class JiFenXiangQingActivity extends Activity {
 		JiFenMingXi jiFenMingxi = (JiFenMingXi) getIntent().getSerializableExtra("jifenIten");
 		ViewUtils.inject(this);
 		jifen.setText(jiFenMingxi.getUnmpuint() + "");
-		
-
+		titleBar1 = (TitleBar) findViewById(R.id.titleBar1);
+titleBar1.setLeftLayoutClickListener(this);
 		Log.i("TAG", "jiFenMingxi.getText()------->>>>" + jiFenMingxi.getText());
 		switch (jiFenMingxi.getImgUrl()) {
 		case "1":// 加载问题图片
@@ -69,6 +66,12 @@ public class JiFenXiangQingActivity extends Activity {
 		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 		time.setText(dateFormat.format(jiFenMingxi.getTime()));
 
+	}
+
+
+	@Override
+	public void onClick(View v) {
+	finish();
 	}
 
 	

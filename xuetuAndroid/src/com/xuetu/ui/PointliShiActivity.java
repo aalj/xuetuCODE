@@ -25,6 +25,7 @@ import com.xuetu.view.MyListView;
 import com.xuetu.view.PullToRefreshView;
 import com.xuetu.view.PullToRefreshView.OnFooterRefreshListener;
 import com.xuetu.view.PullToRefreshView.OnHeaderRefreshListener;
+import com.xuetu.view.TitleBar;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -33,12 +34,13 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.TextView;
 import android.widget.Toast;
 
-public class PointliShiActivity extends Activity implements OnHeaderRefreshListener, OnFooterRefreshListener, OnItemClickListener {
+public class PointliShiActivity extends Activity implements OnHeaderRefreshListener, OnFooterRefreshListener, OnItemClickListener, OnClickListener {
 	MyListView rListView = null;
 	SharedPreferences sp = null;
 	int stuId = 0;
@@ -60,6 +62,7 @@ public class PointliShiActivity extends Activity implements OnHeaderRefreshListe
 	//积分中心刷新出现问题
 	
 	
+	TitleBar title;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -72,14 +75,14 @@ public class PointliShiActivity extends Activity implements OnHeaderRefreshListe
 		jiaZaiShuJu(stuId);
 		rListView = (MyListView) findViewById(R.id.listView);
 		textvView = (TextView) findViewById(R.id.textView2);
-		
+		title = (TitleBar) findViewById(R.id.backtoperson);
 		main_pull_refresh_view.setOnHeaderRefreshListener(this);
 		main_pull_refresh_view.setOnFooterRefreshListener(this);
 		rListView.setOnItemClickListener(this);
 //		main_pull_refresh_view.setLastUpdated(new Date().toLocaleString());
 		//加载积分历史
 		getJifenShuju();
-		
+		title.setLeftLayoutClickListener(this);
 		
 		
 		
@@ -232,6 +235,13 @@ public class PointliShiActivity extends Activity implements OnHeaderRefreshListe
 		Intent intent = new Intent(PointliShiActivity.this,JiFenXiangQingActivity.class);
 		intent.putExtra("jifenIten", jiFenMingXiList.get(position));
 		startActivity(intent);
+		
+	}
+
+
+	@Override
+	public void onClick(View v) {
+		finish();
 		
 	}
 }

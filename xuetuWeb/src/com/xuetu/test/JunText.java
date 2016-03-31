@@ -43,9 +43,10 @@ import com.xuetu.entity.Student;
  * 
  */
 public class JunText {
-
+	@Test
 	public void myTest() {
-		System.out.println(new FindIml().getSelfPlan(1));
+		
+		System.out.println(new FindIml().getSelfPlan(3));
 
 	}
 
@@ -67,7 +68,7 @@ public class JunText {
 
 	}
 
-	@Test
+	 
 	public void getCoupon() {
 
 		List<SelfStudyPlan> daySelfPlan = new FindIml().getDaySelfPlan(3);
@@ -75,5 +76,15 @@ public class JunText {
 
 
 	}
+
+	@Test
+	public void getCoupon1() {
+		System.out.println(new LoginDao().getAnswerAll());
+//		List<SelfStudyPlan> daySelfPlan = new FindIml().getDaySelfPlan(3);
+//		System.out.println(daySelfPlan.toString());
+
+
+	}
+
 
 }

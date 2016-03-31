@@ -6,7 +6,6 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Timestamp;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -16,6 +15,7 @@ import com.xuetu.entity.CollectionQuestion;
 import com.xuetu.entity.FavoritesCoupons;
 import com.xuetu.entity.MyClass;
 import com.xuetu.entity.MyCoupon;
+import com.xuetu.entity.PersonAnswerAll;
 import com.xuetu.entity.PersonalStudyTimeAll;
 import com.xuetu.entity.PointNum;
 import com.xuetu.entity.Question;
@@ -747,6 +747,39 @@ public class LoginDao implements PersonalDaoInterface {
 			CloseDb.close(connection, resultSet, prepareStatement);
 
 		}
+		return null;
+	}
+
+	@Override
+	public List<PersonAnswerAll> getAnswerAll() {
+		Connection connection = DBconnection.getConnection();
+		// SELECT COUNT(*), finddate FROM yourtable GROUP BY finddate;
+		String sql="select count(ans_id),stu_id from answer group by stu_id order by count(ans_id) desc;";
+//		String sql = "select sum(sto_time),stu_id  from studytime group by stu_id order by sum(sto_time) desc;";
+		PreparedStatement prepareStatement = null;
+		ResultSet resultSet = null;
+		try {
+			prepareStatement = connection.prepareStatement(sql);
+			resultSet = prepareStatement.executeQuery();
+			PersonAnswerAll personAnswerAll;
+			List<PersonAnswerAll> lists = new ArrayList<>();
+			int i = 1;
+			while (resultSet.next()) {
+				personAnswerAll = new PersonAnswerAll();
+				personAnswerAll.setAnswerPosition(i++);
+				personAnswerAll.setStudent(getStuByID(resultSet.getInt("stu_id")));
+				personAnswerAll.setAnswerAll(resultSet.getString("count(ans_id)"));
+				lists.add(personAnswerAll);
+			}
+			return lists;
+
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			CloseDb.close(connection, resultSet, prepareStatement);
+		}
+
 		return null;
 	}
 

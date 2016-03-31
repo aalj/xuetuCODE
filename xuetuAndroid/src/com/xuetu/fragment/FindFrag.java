@@ -44,13 +44,13 @@ public class FindFrag extends Fragment {
 	LinearLayout linearTask;
 
 	Student student;
-	LinearLayout linearData;
+//	LinearLayout linearData;
 
 	LinearLayout linearGetup;
 
 	LinearLayout linearSleep;
 
-	LinearLayout linearCountdown;
+//	LinearLayout linearCountdown;
 
 	LinearLayout linearSupervise;
 	View inflate;
@@ -116,18 +116,18 @@ public class FindFrag extends Fragment {
 		
 
 		linearTask = (LinearLayout) inflate.findViewById(R.id.linear_task);
-		linearData = (LinearLayout) inflate.findViewById(R.id.linear_data);
+//		linearData = (LinearLayout) inflate.findViewById(R.id.linear_data);
 		linearGetup = (LinearLayout) inflate.findViewById(R.id.linear_getup);
 		linearSleep = (LinearLayout) inflate.findViewById(R.id.linear_sleep);
-		linearCountdown = (LinearLayout) inflate.findViewById(R.id.linear_countdown);
+//		linearCountdown = (LinearLayout) inflate.findViewById(R.id.linear_countdown);
 		linearSupervise = (LinearLayout) inflate.findViewById(R.id.linear_supervise);
 
 		MyOnClickLisener clickLisener = new MyOnClickLisener();
 		linearTask.setOnClickListener(clickLisener);
-		linearData.setOnClickListener(clickLisener);
+//		linearData.setOnClickListener(clickLisener);
 		linearGetup.setOnClickListener(clickLisener);
 		linearSleep.setOnClickListener(clickLisener);
-		linearCountdown.setOnClickListener(clickLisener);
+//		linearCountdown.setOnClickListener(clickLisener);
 		linearSupervise.setOnClickListener(clickLisener);
 
 	}
@@ -187,9 +187,9 @@ public class FindFrag extends Fragment {
 				intent.setClass(getActivity(), FindTaskListActivity.class);
 				getActivity().startActivity(intent);
 				break;
-			case R.id.linear_data:// 资料
-				Toast.makeText(getContext(), "开发中", 0).show();
-				break;
+//			case R.id.linear_data:// 资料
+//				Toast.makeText(getContext(), "开发中", 0).show();
+//				break;
 			case R.id.linear_getup:// 早睡
 				intent.setClass(getActivity(), AlarmZaoShang.class);
 				getActivity().startActivity(intent);
@@ -200,10 +200,10 @@ public class FindFrag extends Fragment {
 				getActivity().startActivity(intent);
 
 				break;
-			case R.id.linear_countdown:// 倒计时
-				Toast.makeText(getContext(), "开发中", 0).show();
-
-				break;
+//			case R.id.linear_countdown:// 倒计时
+//				Toast.makeText(getContext(), "开发中", 0).show();
+//
+//				break;
 			case R.id.linear_supervise:// 全天监督
 				Toast.makeText(getContext(), "开发中", 0).show();
 

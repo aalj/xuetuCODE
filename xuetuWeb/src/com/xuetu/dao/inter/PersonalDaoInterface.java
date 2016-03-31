@@ -20,6 +20,7 @@ import com.xuetu.entity.CollectionQuestion;
 import com.xuetu.entity.FavoritesCoupons;
 import com.xuetu.entity.MyClass;
 import com.xuetu.entity.MyCoupon;
+import com.xuetu.entity.PersonAnswerAll;
 import com.xuetu.entity.PersonalStudyTimeAll;
 import com.xuetu.entity.PointNum;
 import com.xuetu.entity.Question;
@@ -255,5 +256,12 @@ public interface PersonalDaoInterface {
 	 * 通过学生ID查个人收藏的问题
 	 */
 	public List<CollectionQuestion> getPersonalCollectionQuestionByStuID(int stuID);
-
+	/**
+	 * 
+	 * 查询所有答案 按照id分组
+	 * 
+	 * 
+	 * 
+	 */
+	public List<PersonAnswerAll> getAnswerAll();
 }

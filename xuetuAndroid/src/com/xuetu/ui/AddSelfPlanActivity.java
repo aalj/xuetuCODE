@@ -65,7 +65,7 @@ public class AddSelfPlanActivity extends FragmentActivity implements OnClickList
 	@ViewInject(R.id.titleBar1)
 	TitleBar titleBar1;
 	// 用于存储该页面的全部信息
-	SelfStudyPlan selfStudyPlan=new SelfStudyPlan();
+	SelfStudyPlan selfStudyPlan = new SelfStudyPlan();
 
 	Date startTime = null;
 	Date endTime = null;
@@ -74,85 +74,80 @@ public class AddSelfPlanActivity extends FragmentActivity implements OnClickList
 	List<Pattern> list;
 	Date date = new Date(System.currentTimeMillis());
 	Student student;
-	
+
 	boolean getPateern = false;
-	//标记是点击过学习模式
-	boolean  pateernMode = false;
+	// 标记是点击过学习模式
+	boolean pateernMode = false;
 	int tempself = 0;
-	//用于返回传值回去
-	Intent intent= null;
-	
+	// 用于返回传值回去
+	Intent intent = null;
+
 	private SimpleDateFormat mFormatter = new SimpleDateFormat("MM-dd HH:mm");
-SharedPreferences sp= null;
+	SharedPreferences sp = null;
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_add_self_plan);
 		ViewUtils.inject(this);
 		dbFindManager = new DBFindManager(this);
-		//用于标记是重那个页面跳转过来的
-		  tempself = getIntent().getIntExtra("tempself", 0);
-		student = ((XueTuApplication)getApplication()).getStudent();
+		// 用于标记是重那个页面跳转过来的
+		tempself = getIntent().getIntExtra("tempself", 0);
+		student = ((XueTuApplication) getApplication()).getStudent();
 		sp = getSharedPreferences("config", Activity.MODE_PRIVATE);
 		setOnclick();
 		getPateern = sp.getBoolean("savePatternBoolean", true);
-		if(getPateern){//表示当前本地数据库没有数据
-			//访问网络的到数据
-			 mySengHttp();
-		}else{
+		if (getPateern) {// 表示当前本地数据库没有数据
+			// 访问网络的到数据
+			mySengHttp();
+		} else {
 			getpattern();
-			
+
 		}
-		
+
 		startTime = date;
 		endTime = date;
 		tv_startTime_info.setText(mFormatter.format(date));
 		tv_endTime_info.setText(mFormatter.format(date));
-		//数据为空
-//		study_info.setText(list.get(0).getPattrenText());
+		// 数据为空
+		// study_info.setText(list.get(0).getPattrenText());
 
 	}
-	
-	
-	
+
 	// 获取学习类型的模式
-		private void mySengHttp() {
-			Log.i("TAG", "获取学习类型");
-			HttpUtils httpUtils = new HttpUtils();
-			String url = GetHttp.getHttpLJ() + "GetPatterServlet";
-			httpUtils.send(HttpMethod.GET, url, new RequestCallBack<String>() {
+	private void mySengHttp() {
+		Log.i("TAG", "获取学习类型");
+		HttpUtils httpUtils = new HttpUtils();
+		String url = GetHttp.getHttpLJ() + "GetPatterServlet";
+		httpUtils.send(HttpMethod.GET, url, new RequestCallBack<String>() {
 
-				@Override
-				public void onFailure(HttpException arg0, String arg1) {
+			@Override
+			public void onFailure(HttpException arg0, String arg1) {
 
+			}
+
+			@Override
+			public void onSuccess(ResponseInfo<String> arg0) {
+				Gson gson = new Gson();
+				Type type = new TypeToken<List<Pattern>>() {
+				}.getType();
+				list = gson.fromJson(arg0.result, type);
+				study_info.setText(list.get(0).getPattrenText());
+				item = new String[list.size()];
+				for (int i = 0; i < list.size(); i++) {
+					item[i] = list.get(i).getPattrenText();
 				}
+				Editor edit = sp.edit();
 
-				@Override
-				public void onSuccess(ResponseInfo<String> arg0) {
-					Gson gson = new Gson();
-					Type type = new TypeToken<List<Pattern>>() {
-					}.getType();
-					list = gson.fromJson(arg0.result, type);
-					study_info.setText(list.get(0).getPattrenText());
-					item = new String[list.size()];
-					for (int i = 0; i < list.size(); i++) {
-						item[i] = list.get(i).getPattrenText();
-					}
-					Editor edit = sp.edit();
-					
-					dbFindManager.addPatter(list);
-					edit.putBoolean("savePatternBoolean", false);
-					edit.commit();
-					// TODO 需要把数据存到本地数据库
-					
+				dbFindManager.addPatter(list);
+				edit.putBoolean("savePatternBoolean", false);
+				edit.commit();
+				// TODO 需要把数据存到本地数据库
 
-				}
-			});
+			}
+		});
 
-		}
-	
-	
-	
+	}
 
 	/**
 	 * 获得学系
@@ -160,7 +155,7 @@ SharedPreferences sp= null;
 	private void getpattern() {
 		list = dbFindManager.getPattern();
 		study_info.setText(list.get(0).getPattrenText());
-//		dbFindManager.addPatter(list);
+		// dbFindManager.addPatter(list);
 		// TODO 需要把数据存到本地数据库
 
 		Log.i("TAG", list.toString());
@@ -201,32 +196,31 @@ SharedPreferences sp= null;
 
 			break;
 		case R.id.right_layout:
-			
-			if(panDuanTimeSize(endTime, startTime)){
-				if(!pateernMode){//如果没有选择学习模式的话设置默认的值
+
+			if (panDuanTimeSize(endTime, startTime)) {
+				if (!pateernMode) {// 如果没有选择学习模式的话设置默认的值
 					selfStudyPlan.setPattern(list.get(0));
 				}
-				
-			
-			  intent = new Intent();
-			selfStudyPlan.setStudent(student);
-			Log.i("TAG", "xuesheng duiiang   --- - -- - - -"+selfStudyPlan.getStudent().getStuName());
-			selfStudyPlan.setStartTime(startTime);
-			selfStudyPlan.setPlanDate(new Date(System.currentTimeMillis()));
-			selfStudyPlan.setEndTime(endTime);
-			selfStudyPlan.setPlanText(xuexi_info.getText().toString());
-			if (study_parrt_info.isCheck()) {
-				selfStudyPlan.setPlanReming(1);
+
+				intent = new Intent();
+				selfStudyPlan.setStudent(student);
+				Log.i("TAG", "xuesheng duiiang   --- - -- - - -" + selfStudyPlan.getStudent().getStuName());
+				selfStudyPlan.setStartTime(startTime);
+				selfStudyPlan.setPlanDate(new Date(System.currentTimeMillis()));
+				selfStudyPlan.setEndTime(endTime);
+				selfStudyPlan.setPlanText(xuexi_info.getText().toString());
+				if (study_parrt_info.isCheck()) {
+					selfStudyPlan.setPlanReming(1);
+				} else {
+					selfStudyPlan.setPlanReming(0);
+				}
+				// dbFindManager.addSelfOne(selfStudyPlan);
+				addChangSelf(selfStudyPlan);
+				finish();
+				// setResult(1011, intent);
+
 			} else {
-				selfStudyPlan.setPlanReming(0);
-			}
-			// dbFindManager.addSelfOne(selfStudyPlan);
-			addChangSelf(selfStudyPlan);
-			
-//			setResult(1011, intent);
-			
-			}else{
-				
+
 				Toast.makeText(getApplicationContext(), "时间不能小于开始时间时间", 0).show();
 			}
 
@@ -242,9 +236,7 @@ SharedPreferences sp= null;
 		}
 
 	}
-	
-	
-	
+
 	private void addChangSelf(final SelfStudyPlan selfStudyPlan) {
 		Log.i("TAG", "添加计划----------------------->>>>>>>>>>>");
 		HttpUtils httpUtils = new HttpUtils();
@@ -267,14 +259,13 @@ SharedPreferences sp= null;
 
 				@Override
 				public void onSuccess(ResponseInfo<String> arg0) {
-					if(tempself==1){
+					if (tempself == 1) {
 						intent.putExtra("selfa", selfStudyPlan);
 						setResult(1011, intent);
-					}else{
+					} else {
 						finish();
 					}
-					
-					
+
 					Toast.makeText(getApplicationContext(), arg0.result, 0).show();
 
 				}
@@ -282,26 +273,18 @@ SharedPreferences sp= null;
 		}
 
 	}
-	
-	
-	
-	
-	
-	
+
 	/**
 	 * 比较时间的大小
+	 * 
 	 * @param startTime
 	 * @param endTime
 	 * @return
 	 */
-	public boolean panDuanTimeSize(Date endTime ,Date startTime){
-		Log.i("TAG",endTime.getTime()-startTime.getTime()+"------------------<<<<<<<<<<");
-		return (endTime.getTime()-startTime.getTime())>60*1000;
+	public boolean panDuanTimeSize(Date endTime, Date startTime) {
+		Log.i("TAG", endTime.getTime() - startTime.getTime() + "------------------<<<<<<<<<<");
+		return (endTime.getTime() - startTime.getTime()) > 60 * 1000;
 	}
-	
-	
-	
-	
 
 	private void showChangeItemDialog() {
 		getpattern();
@@ -315,7 +298,7 @@ SharedPreferences sp= null;
 				// 保存当前的页面信心的是否需要提醒
 				selfStudyPlan.setPattern(list.get(which));
 				study_info.setText(list.get(which).getPattrenText());
-				pateernMode= true;
+				pateernMode = true;
 				dialog.dismiss();
 
 			}
@@ -332,7 +315,7 @@ SharedPreferences sp= null;
 		public void onDateTimeSet(Date date) {
 
 			startTime = date;
-			Log.i("TAG", startTime.getTime()+"<<<<<startTime><<<<<<<<<<<<<<<<");
+			Log.i("TAG", startTime.getTime() + "<<<<<startTime><<<<<<<<<<<<<<<<");
 			Log.i("TAG", mFormatter.format(date));
 			tv_startTime_info.setText(mFormatter.format(date));
 			Toast.makeText(AddSelfPlanActivity.this, mFormatter.format(date), Toast.LENGTH_SHORT).show();
@@ -350,10 +333,10 @@ SharedPreferences sp= null;
 		@Override
 		public void onDateTimeSet(Date date) {
 			endTime = date;
-			
-			Log.i("TAG", endTime.getTime()+"<<<<<endTime><<<<<<<<<<<<<<<<");
+
+			Log.i("TAG", endTime.getTime() + "<<<<<endTime><<<<<<<<<<<<<<<<");
 			tv_endTime_info.setText(mFormatter.format(date));
-			
+
 		}
 
 		// Optional cancel listener
