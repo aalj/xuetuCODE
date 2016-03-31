@@ -103,7 +103,7 @@ public class QuestionFrag extends Fragment implements OnRefreshListener, OnKeyLi
 
 	
 	RefreshListView lv = null;
-	HttpUtils hutils = new HttpUtils(20000);
+	HttpUtils hutils = new HttpUtils();
 	List<Question> list = new ArrayList<Question>();
 	List<Question> oldlist=new ArrayList<Question>();
 	View view = null;
@@ -322,14 +322,15 @@ public class QuestionFrag extends Fragment implements OnRefreshListener, OnKeyLi
 			@Override
 			public void onFailure(HttpException arg0, String arg1) {
 				// TODO Auto-generated method stub
-//				Log.i("hehe", "fail");
+
+				Log.i("hehe", "failegetQuestion");
 			}
 
 			@Override
 			public void onSuccess(ResponseInfo<String> arg0) {
 				// TODO Auto-generated method stub
 				//指定date格式的gson对象
-//				Log.i("hehe", "success");
+				Log.i("hehe", "successGetQuestion");
 				Gson gson = new GsonBuilder()
 				.enableComplexMapKeySerialization()
 				.setPrettyPrinting()
@@ -340,7 +341,9 @@ public class QuestionFrag extends Fragment implements OnRefreshListener, OnKeyLi
 				Map<List<Integer>, List<Question>> maps = gson.fromJson(arg0.result, map);
 					Set<Entry<List<Integer>, List<Question>>> set = maps.entrySet();
 				for(Entry<List<Integer>, List<Question>> m: set){
-						listtag = m.getKey();
+					
+						listtag.addAll(0,m.getKey()) ;
+//						Log.i("hehe", listtag.size()+"listtagSize");
 						lists = m.getValue();
 					}
 					

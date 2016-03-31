@@ -274,7 +274,7 @@
         </activity>
 
         <receiver
-            android:name=".ui.AlarmBroadcastReceiver"
+            android:name="com.xuetu.Receive.AlarmBroadcastReceiver"
             android:process=":remote" />
         <receiver android:name=".BootBroadcastReceiver" >
             <intent-filter>

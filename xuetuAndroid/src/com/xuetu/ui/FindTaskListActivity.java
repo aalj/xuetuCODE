@@ -6,6 +6,7 @@ import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.gc.materialdesign.views.Switch;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
@@ -23,13 +24,14 @@ import com.xuetu.adapter.ViewHodle;
 import com.xuetu.db.DBFindManager;
 import com.xuetu.entity.Pattern;
 import com.xuetu.entity.SelfStudyPlan;
+import com.xuetu.ui.AddAlarm.TimeListener;
 import com.xuetu.utils.DataToTime;
 import com.xuetu.utils.GetHttp;
 import com.xuetu.view.TitleBar;
 
-import android.R.integer;
 import android.app.Activity;
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.DialogInterface.OnKeyListener;
 import android.content.Intent;
@@ -40,12 +42,16 @@ import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v4.widget.SwipeRefreshLayout.OnRefreshListener;
 import android.util.Log;
 import android.view.KeyEvent;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
+import android.widget.BaseAdapter;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 /**
@@ -63,7 +69,8 @@ import android.widget.Toast;
  *
  * @see
  */
-public class FindTaskListActivity extends Baseactivity implements OnItemClickListener, OnClickListener, OnRefreshListener, OnKeyListener {
+public class FindTaskListActivity extends Baseactivity
+		implements OnItemClickListener, OnClickListener, OnRefreshListener, OnKeyListener {
 	@ViewInject(R.id.activity_find_task_list)
 	ListView activityFindTaskList;
 	// 从网上下来的数据源
@@ -77,7 +84,7 @@ public class FindTaskListActivity extends Baseactivity implements OnItemClickLis
 	// 用于保存是点击那个对象，然后进行修改
 	int index = 0;
 	// listView的适配器
-	MyQuestionBaseAdapter<SelfStudyPlan> adapter = null;
+	MyQuestionBaseAdapter adapter = null;
 	// 求情
 	HttpUtils httpUtils = null;
 	// 用于保存修改的数据
@@ -105,8 +112,8 @@ public class FindTaskListActivity extends Baseactivity implements OnItemClickLis
 		getData();
 		viewInit();
 		boolean savePatternBoolean = sp.getBoolean("savePatternBoolean", true);
-		if(savePatternBoolean){
-		mySengHttp();
+		if (savePatternBoolean) {
+			mySengHttp();
 		}
 		activityFindTaskList.setOnItemClickListener(this);
 
@@ -131,8 +138,7 @@ public class FindTaskListActivity extends Baseactivity implements OnItemClickLis
 		}
 		return false;
 	}
-	
-	
+
 	// 页面初始化方法
 	private void viewInit() {
 		showDengdai();
@@ -141,11 +147,8 @@ public class FindTaskListActivity extends Baseactivity implements OnItemClickLis
 
 	}
 
-	
 	//
 	List<Integer> listTag = new ArrayList<Integer>();
-	
-	
 	private void getData() {
 
 		httpUtils = new HttpUtils();
@@ -174,60 +177,68 @@ public class FindTaskListActivity extends Baseactivity implements OnItemClickLis
 				users = gson.fromJson(arg0.result, type);
 				Log.i("TAG", "gerenjihua tinahus " + users.size() + "");
 
-				// dbFindManager.addSelf(users);
-				// sp.edit().putBoolean("SELELIST", true).commit();
-				adapter = new MyQuestionBaseAdapter<SelfStudyPlan>(FindTaskListActivity.this, users, R.layout.find_task_item) {
+				
+				dbFindManager.addSelf(users);
+				sp.edit().putBoolean("SELELIST", true).commit();
+				adapter = new MyQuestionBaseAdapter<SelfStudyPlan>(FindTaskListActivity.this, users,
+						R.layout.find_task_item) {
 
 					@Override
-					public void convert(ViewHodle viewHolder, SelfStudyPlan item,int position) {
+					public void convert(ViewHodle viewHolder, SelfStudyPlan item, int position) {
+						viewHolder.setReLayoutBgColor(R.id.layoutback, R.drawable.back_find_list_self2);
+						long time = System.currentTimeMillis();
+						long timete = (item.getEndTime().getTime() - item.getStartTime().getTime());
+
+						String dataToHS = DataToTime.secToTime((int) (timete / 1000));
 						RelativeLayout re = viewHolder.getView(R.id.layoutback);
-						re.setTag(position);
-						long time=System.currentTimeMillis();
-						//在集合中标记是否有同时用途判断是否复用
-						if(listTag.contains(position)){
-							viewHolder.setReLayoutBgColor(R.id.layoutback, R.drawable.back_find_list_self);
-						}
 						viewHolder.setText(R.id.tilte, item.getPlanText());
 						viewHolder.setText(R.id.info, DataToTime.dataToT(item.getStartTime()));
-						//设置选择选项
+						viewHolder.setText(R.id.tv_time, dataToHS);
+						
+						// 在集合中标记是否有同时用途判断是否复用
+//						if (listTag.contains(position)) {
+//							viewHolder.setReLayoutBgColor(R.id.layoutback, R.drawable.back_find_list_self);
+//						}
+//						re.setTag(position);
+						if (item.getStartTime().getTime() > time) {
+
+						} else {
+//							viewHolder.setText(R.id.lishi, "历史");
+//							listTag.add((Integer) re.getTag());
+							viewHolder.setReLayoutBgColor(R.id.layoutback, R.drawable.back_find_list_self);
+
+						}
+						// 设置选择选项
 						if (item.getPlanReming() == 1) {
 							viewHolder.setClick(R.id.myswitch, true);
 						} else {
 							viewHolder.setClick(R.id.myswitch, false);
 						}
 
-						long timete = (item.getEndTime().getTime() - item.getStartTime().getTime());
-						String dataToHS = DataToTime.secToTime((int)(timete/1000));
+						
 						Log.i("TAG", dataToHS);
 
-						viewHolder.setText(R.id.tv_time, dataToHS);
 						
-						if(item.getStartTime().getTime()>time){
-							
-						}else{
-							viewHolder.setText(R.id.lishi, "历史");
-							listTag.add((Integer)re.getTag());
-							viewHolder.setReLayoutBgColor(R.id.layoutback, R.drawable.back_find_list_self);
-							
-						}
+
+						
 
 					}
 
 				};
 
 				if (tempre) {
-					
+
 					if (progressDialog != null)
 						progressDialog.dismiss();
 					activityFindTaskList.setAdapter(adapter);
-					if(users.size()<=0){
+					if (users.size() <= 0) {
 						Toast.makeText(getApplicationContext(), "今天还没有计划,赶快去添加吧！", 0).show();
 					}
 
 				} else {
 					activityFindTaskList.setAdapter(adapter);
 
-//					adapter.notifyDataSetChanged();
+					// adapter.notifyDataSetChanged();
 					/**
 					 * 设置刷新结束之后，圈停止转动
 					 */
@@ -268,7 +279,7 @@ public class FindTaskListActivity extends Baseactivity implements OnItemClickLis
 			Toast.makeText(getApplicationContext(), "qingjian sekf", 0).show();
 			SelfStudyPlan selfStudyPlan = (SelfStudyPlan) data.getSerializableExtra("selfa");
 			users.add(selfStudyPlan);
-//			addChangSelf(selfStudyPlan);
+			// addChangSelf(selfStudyPlan);
 			adapter.notifyDataSetChanged();
 
 		}
@@ -282,7 +293,6 @@ public class FindTaskListActivity extends Baseactivity implements OnItemClickLis
 
 		super.onActivityResult(requestCode, resultCode, data);
 	}
-
 
 	// 保存修改的内容
 	private void saveChangSelf(SelfStudyPlan selfStudyPlan) {
@@ -356,17 +366,17 @@ public class FindTaskListActivity extends Baseactivity implements OnItemClickLis
 				}.getType();
 				listpattern = gson.fromJson(arg0.result, type);
 				Editor edit = sp.edit();
-				
+
 				dbFindManager.addPatter(listpattern);
 				edit.putBoolean("savePatternBoolean", false);
 				edit.commit();
 				// TODO 需要把数据存到本地数据库
-				
 
 			}
 		});
 
 	}
+
 
 	@Override
 	public void onRefresh() {
