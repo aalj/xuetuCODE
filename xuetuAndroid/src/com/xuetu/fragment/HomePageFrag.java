@@ -728,36 +728,36 @@ public class HomePageFrag extends Fragment implements OnTouchListener {
 	
 	public void gotoInsertplan()
 	{
-		new AlertDialog.Builder(getActivity())
-		.setTitle("提示")
-		.setMessage("当前没有学习计划,是否添加")
-		.setNegativeButton("取消", new DialogInterface.OnClickListener() {
-			
-			@Override
-			public void onClick(DialogInterface dialog, int which) {
-				// TODO Auto-generated method stub
-				flag     = true;
-				planflag = true;
-				center_click_flag=true;
-			}
-		})
-		.setPositiveButton("确定", new DialogInterface.OnClickListener() {
-			@Override
-			public void onClick(DialogInterface dialog, int which) {
-				// TODO Auto-generated method stub
-				System.out.println("开始执行计划时间");
-				flag     = false;
-				planflag = false;
-				center_click_flag=false;
+//		new AlertDialog.Builder(getActivity())
+//		.setTitle("提示")
+//		.setMessage("当前没有学习计划,是否添加")
+//		.setNegativeButton("取消", new DialogInterface.OnClickListener() {
+//			
+//			@Override
+//			public void onClick(DialogInterface dialog, int which) {
+//				// TODO Auto-generated method stub
+//				flag     = true;
+//				planflag = true;
+//				center_click_flag=true;
+//			}
+//		})
+//		.setPositiveButton("确定", new DialogInterface.OnClickListener() {
+//			@Override
+//			public void onClick(DialogInterface dialog, int which) {
+//				// TODO Auto-generated method stub
+//				System.out.println("开始执行计划时间");
+//				flag     = false;
+//				planflag = false;
+//				center_click_flag=false;
 				Intent intent = new Intent(getActivity(),
 						AddSelfPlanActivity.class);
 				flag = true;
 				planflag=true;
 				center_click_flag=true;
 				startActivity(intent);
-			}
-		}).show();
-		
+//			}
+//		}).show();
+//		
 	}
 	
 	/**
