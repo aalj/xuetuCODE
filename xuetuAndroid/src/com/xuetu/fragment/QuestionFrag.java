@@ -103,7 +103,7 @@ public class QuestionFrag extends Fragment implements OnRefreshListener, OnKeyLi
 
 	
 	RefreshListView lv = null;
-	HttpUtils hutils = new HttpUtils(20000);
+	HttpUtils hutils = new HttpUtils(30000);
 	List<Question> list = new ArrayList<Question>();
 	List<Question> oldlist=new ArrayList<Question>();
 	View view = null;
@@ -236,6 +236,10 @@ public class QuestionFrag extends Fragment implements OnRefreshListener, OnKeyLi
 				popupWindow.dismiss();
 				break;
 			}
+			getXueke();
+		}
+
+		private void getXueke() {
 			//按学科显示问题
 			if(sub_id!=0){
 				showDengdai();
@@ -322,14 +326,14 @@ public class QuestionFrag extends Fragment implements OnRefreshListener, OnKeyLi
 			@Override
 			public void onFailure(HttpException arg0, String arg1) {
 				// TODO Auto-generated method stub
-//				Log.i("hehe", "fail");
+				Log.i("hehe", "failGetQuestion");
 			}
 
 			@Override
 			public void onSuccess(ResponseInfo<String> arg0) {
 				// TODO Auto-generated method stub
 				//指定date格式的gson对象
-//				Log.i("hehe", "success");
+				Log.i("hehe", "successGetQuestion");
 				Gson gson = new GsonBuilder()
 				.enableComplexMapKeySerialization()
 				.setPrettyPrinting()

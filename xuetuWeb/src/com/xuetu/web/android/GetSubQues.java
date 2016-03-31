@@ -48,8 +48,9 @@ public class GetSubQues extends HttpServlet {
 		response.setContentType("text/html;charset=UTF-8");
 		
 		sub_id = Integer.parseInt(request.getParameter("sub_id"));
+		System.out.println(sub_id+"----->>>jjjjkasjdfkasjdfkasjdfkjsadkfjaskdj");
 		qs = q.getQuesBySubId(sub_id);
-		System.out.println(qs.get(2).getQuesText());
+		System.out.println(qs.get(2).getQuesText()+"-----<<<>>>><<<><><><><");
 		String jsonStr = null;
 		Gson gson = new GsonBuilder()
 				.enableComplexMapKeySerialization()

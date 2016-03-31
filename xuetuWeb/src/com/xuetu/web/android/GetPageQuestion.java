@@ -36,6 +36,7 @@ public class GetPageQuestion extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
+		System.out.println("getQuestion");
 		SimpleDateFormat sdf = new SimpleDateFormat("HH:mm:ss");
 //		System.out.println("In"+sdf.format(new Date(System.currentTimeMillis())));
 		request.setCharacterEncoding("utf-8");
