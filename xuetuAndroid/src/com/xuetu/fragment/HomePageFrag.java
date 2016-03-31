@@ -653,8 +653,8 @@ public class HomePageFrag extends Fragment implements OnTouchListener {
 												intent.putExtra("student", isstudy.stu_to_json(student));
 												
 												intent.putExtra("tag", 2);
-												intent.putExtra("start_and_end_time",new SimpleDateFormat("HH:mm:ss").format(studyplan.getStartTime())
-														+" ~ "+new SimpleDateFormat("HH:mm:ss").format(studyplan.getEndTime()));
+												intent.putExtra("start_and_end_time",new SimpleDateFormat("HH:mm").format(studyplan.getStartTime())
+														+"~"+new SimpleDateFormat("HH:mm").format(studyplan.getEndTime()));
 												intent.putExtra("text", studyplan.getPlanText())	;	
 												
 												flag = true;
@@ -678,8 +678,8 @@ public class HomePageFrag extends Fragment implements OnTouchListener {
 										intent.putExtra("stu_id", stu_id);
 										intent.putExtra("student", isstudy.stu_to_json(student));
 										intent.putExtra("tag", 2);
-										intent.putExtra("start_and_end_time",new SimpleDateFormat("HH:mm:ss").format(studyplan.getStartTime())
-												+" ~ "+new SimpleDateFormat("HH:mm:ss").format(studyplan.getEndTime()));
+										intent.putExtra("start_and_end_time",new SimpleDateFormat("HH:mm").format(studyplan.getStartTime())
+												+"~"+new SimpleDateFormat("HH:mm").format(studyplan.getEndTime()));
 										intent.putExtra("text", studyplan.getPlanText())	;	
 										flag = true;
 										planflag=true;
@@ -709,10 +709,16 @@ public class HomePageFrag extends Fragment implements OnTouchListener {
 							}else{					
 								flag     = false;
 								planflag = false;
-								//表明今天没有学习计划
-								Toast.makeText(getActivity(), "今天没有计划", Toast.LENGTH_SHORT).show();
-								//跳转到学习计划添加页
-								gotoInsertplan();
+								new AlertDialog.Builder(getActivity()).setTitle("注意").setMessage("当天没有可执行的学习计划,是否添加").setNegativeButton("返回", null).setPositiveButton("添加", new DialogInterface.OnClickListener() {
+									
+									@Override
+									public void onClick(DialogInterface dialog, int which) {
+										// TODO Auto-generated method stub
+													gotoInsertplan();
+									}
+								}).show();
+								flag     = true;
+								planflag = true;
 							}
 						}
 						else{
@@ -720,7 +726,17 @@ public class HomePageFrag extends Fragment implements OnTouchListener {
 							planflag = false;
 							Toast.makeText(getActivity(), "今天没有计划", Toast.LENGTH_SHORT).show();
 							//跳转到学习计划添加页
-							gotoInsertplan();
+new AlertDialog.Builder(getActivity()).setTitle("注意").setMessage("当天没有可执行的学习计划,是否添加").setNegativeButton("返回", null).setPositiveButton("添加", new DialogInterface.OnClickListener() {
+								
+								@Override
+								public void onClick(DialogInterface dialog, int which) {
+									// TODO Auto-generated method stub
+												gotoInsertplan();
+								}
+							}).show();
+							flag     = true;
+							planflag = true;
+//							gotoInsertplan();
 						}
 					}
 				});
