@@ -167,13 +167,6 @@
             <TextView
                 android:layout_weight="1"
                 android:gravity="center"
-                android:text=""
-                android:textColor="#878787"
-                android:textSize="18dp" />
-
-            <TextView
-                android:layout_weight="1"
-                android:gravity="center"
                 android:text="日"
                 android:textColor="#878787"
                 android:textSize="18dp" />
@@ -239,13 +232,6 @@
             android:layout_height="25dp" >
 
             <TextView
-                android:layout_weight="1"
-                android:gravity="center"
-                android:text=""
-                android:textColor="#000000"
-                android:textSize="17dp" />
-
-            <TextView
                 android:id="@+id/week_one_1"
                 android:layout_weight="1"
                 android:gravity="center"
@@ -265,7 +251,7 @@
                 android:id="@+id/week_one_3"
                 android:layout_weight="1"
                 android:gravity="center"
-                android:text=" "
+                android:text="1 "
                 android:textColor="#000000"
                 android:textSize="16dp" />
 
@@ -273,7 +259,7 @@
                 android:id="@+id/week_one_4"
                 android:layout_weight="1"
                 android:gravity="center"
-                android:text=" "
+                android:text=" 2"
                 android:textColor="#000000"
                 android:textSize="16dp" />
 
@@ -281,7 +267,7 @@
                 android:id="@+id/week_one_5"
                 android:layout_weight="1"
                 android:gravity="center"
-                android:text=" "
+                android:text=" 3"
                 android:textColor="#000000"
                 android:textSize="16dp" />
 
@@ -289,7 +275,7 @@
                 android:id="@+id/week_one_6"
                 android:layout_weight="1"
                 android:gravity="center"
-                android:text=" "
+                android:text=" 4"
                 android:textColor="#000000"
                 android:textSize="16dp" />
 
@@ -313,13 +299,6 @@
             android:id="@+id/tab_row_3"
             android:layout_width="match_parent"
             android:layout_height="25dp" >
-
-            <TextView
-                android:layout_weight="1"
-                android:gravity="center"
-                android:text=""
-                android:textColor="#000000"
-                android:textSize="17dp" />
 
             <TextView
                 android:id="@+id/week_two_1"
@@ -391,13 +370,6 @@
             android:layout_height="25dp" >
 
             <TextView
-                android:layout_weight="1"
-                android:gravity="center"
-                android:text=""
-                android:textColor="#000000"
-                android:textSize="17dp" />
-
-            <TextView
                 android:id="@+id/week_three_1"
                 android:layout_weight="1"
                 android:gravity="center"
@@ -467,13 +439,6 @@
             android:layout_height="25dp" >
 
             <TextView
-                android:layout_weight="1"
-                android:gravity="center"
-                android:text=""
-                android:textColor="#000000"
-                android:textSize="17dp" />
-
-            <TextView
                 android:id="@+id/week_four_1"
                 android:layout_weight="1"
                 android:gravity="center"
@@ -541,13 +506,6 @@
             android:id="@+id/tab_row_6"
             android:layout_width="match_parent"
             android:layout_height="25dp" >
-
-            <TextView
-                android:layout_weight="1"
-                android:gravity="center"
-                android:text=""
-                android:textColor="#000000"
-                android:textSize="17dp" />
 
             <TextView
                 android:id="@+id/week_five_1"

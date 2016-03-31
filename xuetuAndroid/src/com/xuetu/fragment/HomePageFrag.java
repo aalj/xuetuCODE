@@ -920,6 +920,8 @@ public class HomePageFrag extends Fragment implements OnTouchListener {
 		System.out.println("``````````````1````````````````````");
 		if(which_class!=0)
 		{
+			flag = false;
+			planflag=false;
 			System.out.println("``````````````2````````````````````");
 			if(classend.what_time()==0)  //不迟到也不太早,可以上课
 			{System.out.println("`````````````3`````````````````````");
@@ -948,20 +950,38 @@ public class HomePageFrag extends Fragment implements OnTouchListener {
 			}else{
 				System.out.println("`````````````8`````````````````````");
 				if(classend.what_time()==1)
-				{System.out.println("````````````````9``````````````````");
+				{
+					System.out.println("````````````````9``````````````````");
 					new AlertDialog.Builder(getActivity())
 					.setTitle("提示")
 					.setMessage("还没到上课时间呢,提前请在5分钟以内")
-					.setNegativeButton("返回", null).show();
-					flag = true;System.out.println("`````````````10`````````````````````");
-					planflag=true;System.out.println("``````````````11````````````````````");
+					.setNegativeButton("返回", new DialogInterface.OnClickListener() {
+						
+						@Override
+						public void onClick(DialogInterface dialog, int which) {
+							// TODO Auto-generated method stub
+							flag = true;
+							planflag=true;
+						}
+					}).show();
+					
 				}else{
+					flag = false;
+					planflag=false;
 					new AlertDialog.Builder(getActivity())
 					.setTitle("提示")
 					.setMessage("课程:"+classend.get_class_name( which_class-1 )+"   你迟到的太久了,不能进入计时积分页面")
-					.setNegativeButton("返回", null).show();System.out.println("````````````````12``````````````````");
-					flag = true;System.out.println("```````````````13```````````````````");
-					planflag=true;
+					.setNegativeButton("返回", new DialogInterface.OnClickListener() {
+						
+						@Override
+						public void onClick(DialogInterface dialog, int which) {
+							// TODO Auto-generated method stub
+							flag = true;
+							planflag=true;
+						}
+					}).show();
+					
+					
 				}
 			}
 			
