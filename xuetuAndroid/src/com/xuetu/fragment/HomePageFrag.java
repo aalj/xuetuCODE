@@ -31,6 +31,7 @@ import com.lidroid.xutils.http.ResponseInfo;
 import com.lidroid.xutils.http.callback.RequestCallBack;
 import com.lidroid.xutils.http.client.HttpRequest.HttpMethod;
 import com.xuetu.R;
+import com.xuetu.entity.Class_end;
 import com.xuetu.entity.IsStudy;
 import com.xuetu.entity.MyCoupon;
 import com.xuetu.entity.SelfStudyPlan;
@@ -217,7 +218,8 @@ public class HomePageFrag extends Fragment implements OnTouchListener {
 		new OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				get_stu_studyTime();
+//				get_stu_studyTime();
+				class_check();
 			}
 		});
         
@@ -296,8 +298,6 @@ public class HomePageFrag extends Fragment implements OnTouchListener {
 					intent.putExtra("start_and_end_time",new SimpleDateFormat("hh:MM:ss").format(studyplan.getStartTime())
 							+" ~ "+new SimpleDateFormat("hh:MM:ss").format(studyplan.getEndTime()));
 					intent.putExtra("text", "目前是"+isstudy.get_which_chass()+"节课");
-					
-					
 					
 					flag = true;
 					planflag=true;
@@ -500,7 +500,7 @@ public class HomePageFrag extends Fragment implements OnTouchListener {
 								flag     = false;
 								planflag = false;
 								System.out.println("进行的是上滑动");
-								get_stu_studyTime();
+								class_check();
 								
 							} 
 			
@@ -653,8 +653,8 @@ public class HomePageFrag extends Fragment implements OnTouchListener {
 												intent.putExtra("student", isstudy.stu_to_json(student));
 												
 												intent.putExtra("tag", 2);
-												intent.putExtra("start_and_end_time",new SimpleDateFormat("hh:MM:ss").format(studyplan.getStartTime())
-														+" ~ "+new SimpleDateFormat("hh:MM:ss").format(studyplan.getEndTime()));
+												intent.putExtra("start_and_end_time",new SimpleDateFormat("HH:mm:ss").format(studyplan.getStartTime())
+														+" ~ "+new SimpleDateFormat("HH:mm:ss").format(studyplan.getEndTime()));
 												intent.putExtra("text", studyplan.getPlanText())	;	
 												
 												flag = true;
@@ -678,8 +678,8 @@ public class HomePageFrag extends Fragment implements OnTouchListener {
 										intent.putExtra("stu_id", stu_id);
 										intent.putExtra("student", isstudy.stu_to_json(student));
 										intent.putExtra("tag", 2);
-										intent.putExtra("start_and_end_time",new SimpleDateFormat("hh:MM:ss").format(studyplan.getStartTime())
-												+" ~ "+new SimpleDateFormat("hh:MM:ss").format(studyplan.getEndTime()));
+										intent.putExtra("start_and_end_time",new SimpleDateFormat("HH:mm:ss").format(studyplan.getStartTime())
+												+" ~ "+new SimpleDateFormat("HH:mm:ss").format(studyplan.getEndTime()));
 										intent.putExtra("text", studyplan.getPlanText())	;	
 										flag = true;
 										planflag=true;
@@ -697,8 +697,8 @@ public class HomePageFrag extends Fragment implements OnTouchListener {
 										intent.putExtra("stu_id", stu_id);
 										intent.putExtra("student", isstudy.stu_to_json(student));
 										intent.putExtra("tag", 2);
-										intent.putExtra("start_and_end_time",new SimpleDateFormat("hh:MM:ss").format(studyplan.getStartTime())
-												+" ~ "+new SimpleDateFormat("hh:MM:ss").format(studyplan.getEndTime()));
+										intent.putExtra("start_and_end_time",new SimpleDateFormat("HH:mm:ss").format(studyplan.getStartTime())
+												+" ~ "+new SimpleDateFormat("HH:mm:ss").format(studyplan.getEndTime()));
 										intent.putExtra("text", studyplan.getPlanText())	;	
 										flag = true;
 										planflag=true;
@@ -830,7 +830,7 @@ public class HomePageFrag extends Fragment implements OnTouchListener {
 						Type type = new TypeToken<List<SelfStudyPlan>>() {
 						}.getType();
 						Gson gson = new GsonBuilder().setDateFormat(
-								"yyyy-MM-dd hh:mm:ss").create();
+								"yyyy-MM-dd HH:mm:ss").create();
 						todayplan =gson.fromJson(arg, type); //如果这个时候,所有的值已经传完
 						System.out.println(todayplan);
 						//用for循环,把他们的备注显示在另一个集合里
@@ -867,14 +867,14 @@ public class HomePageFrag extends Fragment implements OnTouchListener {
 									Intent intent = new Intent(getActivity(),
 											TimerActivity.class);
 									System.out.println(todayplan.get(w).getEndTime()+"<<<<<<<<<<<<<<<<<<<<<");
-									intent.putExtra("ss",isstudy.gotoss(new SimpleDateFormat("hh:mm:ss").format(todayplan.get(w).getEndTime()))
-											- isstudy.gotoss(new SimpleDateFormat("hh:mm:ss").format(todayplan.get(w).getStartTime())));
+									intent.putExtra("ss",isstudy.gotoss(new SimpleDateFormat("HH:mm:ss").format(todayplan.get(w).getEndTime()))
+											- isstudy.gotoss(new SimpleDateFormat("HH:mm:ss").format(todayplan.get(w).getStartTime())));
 									intent.putExtra("stu_id", student.getStuId());
 									intent.putExtra("student",isstudy.stu_to_json(student));
 									
 									intent.putExtra("tag", 2);
-									intent.putExtra("start_and_end_time", new SimpleDateFormat("hh:mm:ss").format(todayplan.get(w).getStartTime())+" ~ "+
-											 new SimpleDateFormat("hh:mm:ss").format(todayplan.get(w).getEndTime())
+									intent.putExtra("start_and_end_time", new SimpleDateFormat("HH:mm:ss").format(todayplan.get(w).getStartTime())+" ~ "+
+											 new SimpleDateFormat("HH:mm:ss").format(todayplan.get(w).getEndTime())
 											);
 									intent.putExtra("text", todayplan.get(w).getPlanText())	;	
 									
@@ -885,7 +885,14 @@ public class HomePageFrag extends Fragment implements OnTouchListener {
 							}).setNegativeButton("取消", null).show();
 							
 						}else{
-							new AlertDialog.Builder(getActivity()).setTitle("注意").setMessage("当天没有可执行的学习计划").setNegativeButton("确认", null).show();
+							new AlertDialog.Builder(getActivity()).setTitle("注意").setMessage("当天没有可执行的学习计划,是否添加").setNegativeButton("返回", null).setPositiveButton("添加", new DialogInterface.OnClickListener() {
+								
+								@Override
+								public void onClick(DialogInterface dialog, int which) {
+									// TODO Auto-generated method stub
+												gotoInsertplan();
+								}
+							}).show();
 							flag     = true;
 							planflag = true;
 //							gotoInsertplan();
@@ -894,4 +901,163 @@ public class HomePageFrag extends Fragment implements OnTouchListener {
 					}
 				});
 	}
+	
+	/**
+	 * 点击课程按钮获取信息
+	 */
+	
+	
+	Class_end classend ;
+	int which_class;
+	public void class_check()
+	{
+		flag = false;
+		planflag=false;
+		
+		classend = new Class_end();
+		
+		which_class = classend.get_which_chass();
+		System.out.println("``````````````1````````````````````");
+		if(which_class!=0)
+		{
+			System.out.println("``````````````2````````````````````");
+			if(classend.what_time()==0)  //不迟到也不太早,可以上课
+			{System.out.println("`````````````3`````````````````````");
+				new AlertDialog.Builder(getActivity()).setTitle("提示").setMessage("即将进入课程"+ classend.get_class_name( which_class-1 )).setNegativeButton("返回", null).setPositiveButton("立即进入", new DialogInterface.OnClickListener() {
+					
+					@Override
+					public void onClick(DialogInterface dialog, int which) {
+						// TODO Auto-generated method stub
+						ss = classend.getstu_time(classend.get_end_time(which_class-1)); //运行的时间
+						Intent intent = new Intent(getActivity(),
+								TimerActivity.class);
+						intent.putExtra("ss", ss);System.out.println("```````````````4```````````````````");
+						intent.putExtra("student", isstudy.stu_to_json(student));
+						intent.putExtra("class_name", classend.get_class_name( which_class-1 ));
+						intent.putExtra("tag", 1);System.out.println("```````````````5```````````````````");
+						intent.putExtra("start_and_end_time",classend.get_start_time(which_class-1) + classend.get_end_time(which_class-1)  );
+						intent.putExtra("text", "目前是第"+which_class+"节课");
+						System.out.println("````````````````6``````````````````");
+						flag = true;
+						planflag=true;
+						startActivity(intent);
+					}
+				}).show();
+				System.out.println("``````````````````7````````````````");
+				
+			}else{
+				System.out.println("`````````````8`````````````````````");
+				if(classend.what_time()==1)
+				{System.out.println("````````````````9``````````````````");
+					new AlertDialog.Builder(getActivity())
+					.setTitle("提示")
+					.setMessage("还没到上课时间呢,提前请在5分钟以内")
+					.setNegativeButton("返回", null).show();
+					flag = true;System.out.println("`````````````10`````````````````````");
+					planflag=true;System.out.println("``````````````11````````````````````");
+				}else{
+					new AlertDialog.Builder(getActivity())
+					.setTitle("提示")
+					.setMessage("课程:"+classend.get_class_name( which_class-1 )+"   你迟到的太久了,不能进入计时积分页面")
+					.setNegativeButton("返回", null).show();System.out.println("````````````````12``````````````````");
+					flag = true;System.out.println("```````````````13```````````````````");
+					planflag=true;
+				}
+			}
+			
+		}else
+		{
+			System.out.println("````````````````14``````````````````");
+			new AlertDialog.Builder(getActivity())
+			.setTitle("提示")
+			.setMessage("当前没有课程,是否查看学习计划")
+			.setNegativeButton("返回", new DialogInterface.OnClickListener() {
+				
+				@Override
+				public void onClick(DialogInterface dialog, int which) {
+					// TODO Auto-generated method stub
+					flag = true;System.out.println("````````````````15``````````````````");
+					planflag=true;
+				}
+			}).setPositiveButton("查看", new DialogInterface.OnClickListener() {
+				
+				@Override
+				public void onClick(DialogInterface dialog, int which) {
+					// TODO Auto-generated method stub
+					flag = true;System.out.println("```````````````16```````````````````");
+					planflag=true;
+					search_today_studyplan();
+					
+				}
+			}).show();
+				
+			
+			
+			
+			
+			
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+//		new AlertDialog.Builder(getActivity()).setTitle("提示").setMessage("即将进入课程"+ classend.get_class_name( which_class-1 )).setNegativeButton("返回", null).setPositiveButton("立即进入", new DialogInterface.OnClickListener() {
+//			
+//			@Override
+//			public void onClick(DialogInterface dialog, int which) {
+//				// TODO Auto-generated method stub
+//				ss = classend.getstu_time(classend.get_end_time(which_class-1)); //运行的时间
+//				Intent intent = new Intent(getActivity(),
+//						TimerActivity.class);
+//				intent.putExtra("ss", ss);
+//				intent.putExtra("student", isstudy.stu_to_json(student));
+//				intent.putExtra("class_name", classend.get_class_name( which_class-1 ));
+//				intent.putExtra("tag", 1);
+//				intent.putExtra("start_and_end_time",classend.get_start_time(which_class-1) + classend.get_end_time(which_class-1)  );
+//				intent.putExtra("text", "目前是第"+which_class+"节课");
+//				
+//				flag = true;
+//				planflag=true;
+//				startActivity(intent);
+//			}
+//		}).show();
+		
+		
+		
+		
+		
+		
+		
+		
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	}
+	
+	
+	
+	
 }

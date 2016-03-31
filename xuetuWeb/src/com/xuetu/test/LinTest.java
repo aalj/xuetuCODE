@@ -7,6 +7,7 @@ import org.junit.Test;
 
 import com.xuetu.dao.QuestionIml;
 import com.xuetu.dao.inter.QuesTionDao;
+import com.xuetu.entity.CollectionQuestion;
 import com.xuetu.service.QuestionService;
 import com.xuetu.service.inter.QuestionServiceInter;
 
@@ -57,7 +58,7 @@ public class LinTest {
 	}
 	@Test
 	public void getPageQuestion(){
-		System.out.println(Qservice.queryLimitQuestion(1, 10).get(5).getAns_num());
+		System.out.println(Qservice.queryLimitQuestion(1, 10).get(5));
 	}
 	@Test
 	public void getQuestionByQuesId(){
@@ -92,5 +93,13 @@ public class LinTest {
 	@Test
 	public void collectCancelQuestion(){
 		q.collectCancelQuestion(2, 3);
+	}
+	@Test
+	public void isSave(){
+		System.out.println(q.isSave().size()+"");
+	}
+	@Test 
+	public void getQuesBySubId(){
+		System.out.println(q.getQuesBySubId(1).size());
 	}
 }

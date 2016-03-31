@@ -34,25 +34,27 @@ public class CLassTimeDao implements ClassTimeServiceInter{
 		conn = DBconnection.getConnection();
 		
 		String sql;
-		try {
-			conn = DBconnection.getConnection();
-			cls_id=new ArrayList();
-			sql="select cls_id from courselist where stu_id=?;";
-			System.out.println("stu_id  prep.setInt(1, stu_id);           "+stu_id);
-			prep = conn.prepareStatement(sql);
-			prep.setInt(1, stu_id);
-			ResultSet rs = prep.executeQuery();
-			
-			while(rs.next())
+		try 
 			{
-				cls_id.add(rs.getInt("cls_id"));
+				conn = DBconnection.getConnection();
+				cls_id=new ArrayList();
+				sql="select cls_id from courselist where stu_id=?;";
+				prep = conn.prepareStatement(sql);
+				prep.setInt(1, stu_id);
+				ResultSet rs = prep.executeQuery();
+				
+				while(rs.next())
+				{
+					cls_id.add(rs.getInt("cls_id"));
+				}
+				return cls_id;
+				
+			} 
+		catch (SQLException e)
+			{
+				// TODO Auto-generated catch block
+				e.printStackTrace();
 			}
-			return cls_id;
-			
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
 		finally {
 			
 			try {
