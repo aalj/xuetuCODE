@@ -5,6 +5,7 @@ package com.xuetu.service.inter;
 
 import java.sql.Date;
 import java.util.List;
+import java.util.Map;
 
 import com.xuetu.entity.Answer;
 import com.xuetu.entity.Question;
@@ -35,7 +36,7 @@ public interface QuestionServiceInter {
 	
 	public List<Question> queryQuestionByStuJectId(Subject sub);
 
-	public List<Question> queryLimitQuestion(int page, int num);
+	public Map<List<Integer>, List<Question>> queryLimitQuestion(int page, int num);
 
 	public Question getQuestionByStuId(int stuId);
 	

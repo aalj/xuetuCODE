@@ -52,9 +52,6 @@ public class SubmitAnswerWithoutImg extends HttpServlet {
 		request.setCharacterEncoding("utf-8");
 		response.setCharacterEncoding("utf-8");
 		response.setContentType("text/html;charset=UTF-8");
-		System.out.println("stu_id-----------"+request.getParameter("stu_id"));
-			System.out.println(request.getParameter("quesId"));
-			System.out.println(request.getParameter("x"));
 			ques_id = Integer.parseInt(request.getParameter("quesId"));
 			stu_id =  Integer.parseInt(request.getParameter("stu_id"));
 			ans_text = request.getParameter("ans_text");

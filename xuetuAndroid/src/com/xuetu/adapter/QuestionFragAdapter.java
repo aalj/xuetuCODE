@@ -1,5 +1,6 @@
 package com.xuetu.adapter;
 
+import java.lang.reflect.Type;
 import java.sql.Date;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -7,6 +8,9 @@ import java.util.List;
 
 
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.google.gson.reflect.TypeToken;
 import com.lidroid.xutils.BitmapUtils;
 import com.lidroid.xutils.HttpUtils;
 import com.lidroid.xutils.exception.HttpException;
@@ -45,11 +49,14 @@ public class QuestionFragAdapter extends BaseAdapter{
 		String url = null;
 		HttpUtils hutils = new HttpUtils(10000);
 		RequestParams params ;
-		public QuestionFragAdapter(List<Question> questions,Context context,int stu_id){
+		private RequestParams paramIsSave;
+		private String urlIsSave;
+		public QuestionFragAdapter(List<Question> questions,Context context,int stu_id,List<Integer> listtag){
 			this.stu_id = stu_id;
 			bitmapUtils = new BitmapUtils(context);
 			this.questions=questions;
 			this.context=context;
+			this.listtag = listtag;
 			inflater=LayoutInflater.from(context);
 		}
 		
@@ -76,7 +83,7 @@ public class QuestionFragAdapter extends BaseAdapter{
 		
 		@Override
 		public View getView(final int position, View convertView, ViewGroup parent) {
-			ViewHolder v;
+			final ViewHolder v;
 			hutils.configCurrentHttpCacheExpiry(5000);
 			if(convertView==null){
 				System.out.println("convertView为空"+position);
@@ -102,14 +109,19 @@ public class QuestionFragAdapter extends BaseAdapter{
 			v.tv_subject.setText(questions.get(position).getSubject().getName());
 			v.tv_time.setText(sdf.format(new Date(questions.get(position).getQuesDate().getTime())));
 			bitmapUtils.display(v.iv_ques_img,GetHttp.getHttpLC()+questions.get(position).getQuesIma());
-		
+			//通过数据库查询是否被点赞
+			for(int l:listtag){
+				Log.i("hehe", "size------->"+l);
+			}
+			
+			v.iv_like.setTag(questions.get(position).getQuesID());
 			//判断复用
-			if(listtag.contains(position)){
+			if(listtag.contains(questions.get(position).getQuesID())){
 				v.iv_like.setImageResource(R.drawable.ic_saved);
 			}else
 				v.iv_like.setImageResource(R.drawable.ic_save);
 			//imageview加tag:
-			v.iv_like.setTag(position);
+			
 			//v.zan.setTag(key, tag); //key:控件id
 			v.rl_left.setOnClickListener(new MyOnclickListener(questions.get(position)));
 			v.rl_top.setOnClickListener(new MyOnclickListener(questions.get(position)));
@@ -129,13 +141,13 @@ public class QuestionFragAdapter extends BaseAdapter{
 					params = new RequestParams();
 					ImageView v=(ImageView) v1;
 					if(listtag.contains(v.getTag())){
-					listtag.remove((Integer) v1.getTag());
+					listtag.remove((Integer) v.getTag());
 					v.setImageResource(R.drawable.ic_save);
 					
 					//删除点赞记录写入数据库
 					url=GetHttp.getHttpLC()+"CollectCancelQuestion" ;
 					params.addBodyParameter("stu_id",stu_id+"");
-					params.addBodyParameter("ques_id",questions.get((Integer)v1.getTag()).getQuesID()+"");
+					params.addBodyParameter("ques_id",(Integer)v1.getTag()+"");
 					hutils.send(HttpMethod.POST, url, params, new RequestCallBack<String>() {
 
 						@Override
@@ -152,14 +164,14 @@ public class QuestionFragAdapter extends BaseAdapter{
 					});
 					}
 					else{
-						listtag.add((Integer)v1.getTag());
+						
 						v.setImageResource(R.drawable.ic_saved);
 						
 						//点赞记录写入数据库
 						url=GetHttp.getHttpLC()+"CollectQuestion" ;
-						Log.i("hehe", questions.get((Integer)v1.getTag()).getQuesID()+"");
+//						Log.i("hehe", questions.get((Integer)v1.getTag()).getQuesID()+"");
 						params.addBodyParameter("stu_id",stu_id+"");
-						params.addBodyParameter("ques_id",questions.get((Integer)v1.getTag()).getQuesID()+"");
+						params.addBodyParameter("ques_id",(Integer)v1.getTag()+"");
 						params.addBodyParameter("ques_time_collect",System.currentTimeMillis()+"");
 						hutils.send(HttpMethod.POST, url, params, new RequestCallBack<String>() {
 

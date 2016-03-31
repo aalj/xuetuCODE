@@ -50,7 +50,7 @@ public class GetPageAnswer extends HttpServlet {
 		response.setCharacterEncoding("utf-8");
 		response.setContentType("text/html;charset=UTF-8");
 		ques_id = Integer.parseInt(request.getParameter("Ques_id"));
-		list = Qservice.getAnswerByQuesId(ques_id,1,10);
+		list = Qservice.getAnswerByQuesId(ques_id,1,20);
 		Gson gson = new GsonBuilder()
 				.enableComplexMapKeySerialization()
 				.setPrettyPrinting()
