@@ -129,9 +129,10 @@ public class TimerActivity extends Activity {
 		if(tag==1){
 			tv_text.setText("课程任务");
 			tv_textPlan.setText(intentGet.getStringExtra("class_name"));
+			tv_selectedPlan.setText("课程时间"+start_and_end_time);
 		}if(tag==2){
 			tv_text.setText("自学计划");
-			tv_selectedPlan.setText("原计划时间"+start_and_end_time);
+			tv_selectedPlan.setText("原计划"+start_and_end_time);
 			tv_textPlan.setText(intentGet.getStringExtra("text"));
 		}	
 		
