@@ -95,7 +95,7 @@ public class Class_end {
 		Calendar c = Calendar.getInstance();
 		String start =class_time[0][ get_which_chass() -1]; 
 		
-		int mm= c.get(Calendar.HOUR_OF_DAY)*60+c.get(Calendar.MINUTE);// 当前0点到现在所用的秒数
+		int mm= c.get(Calendar.HOUR_OF_DAY)*60+c.get(Calendar.MINUTE);// 当前0点到现在所用的m
 		
 		String s []= start.split(":".toString()) ;
 		int first  = Integer.parseInt(s[0]) ;
@@ -117,8 +117,22 @@ public class Class_end {
 //	 ss = "提前上课不得超过5分钟";ss="迟到10分钟以上不能进入计时积分页面,下次记得早点哦";
 	
 	
-	
-	
+	/**
+	 * 获取 迟到的分钟数
+	 */
+	public int getmin()
+	{
+		Calendar c = Calendar.getInstance();
+		int mm= c.get(Calendar.HOUR_OF_DAY)*60+c.get(Calendar.MINUTE);// 当前0点到现在所用的分钟数
+		String start =class_time[0][ get_which_chass() -1]; 
+		String s []= start.split(":".toString()) ;
+		int first  = Integer.parseInt(s[0]) ;
+		int second = Integer.parseInt(s[1]) ;
+		
+		 int start_minutes = (first*60+second);
+		 mm=mm-start_minutes;
+		return mm;
+	}
 	
 	
 	
