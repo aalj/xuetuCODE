@@ -79,15 +79,15 @@ public class QuestionIml implements QuesTionDao {
 	}
 	//分页查询所有问题
 	@Override
-	public Map<Set<Integer>,List<Question>> queryLimitQuestion(int page, int num) {
+	public List<Question> queryLimitQuestion(int page, int num) {
 		// TODO Auto-generated method stub
 		Connection conn = null;
 		PreparedStatement prep= null;
 		String sql = null;
 		List<Question> questions = new ArrayList<Question>();
 		ResultSet rs = null;
-		Set<Integer> saveNum = null;
-		Map<Set<Integer>,List<Question>> qreturn = new HashMap<Set<Integer>,List<Question>>();
+//		Set<Integer> saveNum = null;
+//		Map<Set<Integer>,List<Question>> qreturn = new HashMap<Set<Integer>,List<Question>>();
 		// 指针从第一行属性字段开始
 		try {
 			conn = DBconnection.getConnection();
@@ -109,9 +109,8 @@ public class QuestionIml implements QuesTionDao {
 				q.setAns_num(getAnsNum(rs.getInt("ques_id")));
 				questions.add(q);
 			}
-			saveNum = isSave();
-			qreturn.put(saveNum, questions);
-			return qreturn;
+			
+			return questions;
 		} catch (Exception e) {
 			throw new RuntimeException(e);
 		} finally {

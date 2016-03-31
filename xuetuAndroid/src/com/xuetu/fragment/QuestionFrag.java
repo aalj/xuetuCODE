@@ -341,17 +341,19 @@ public class QuestionFrag extends Fragment implements OnRefreshListener, OnKeyLi
 				.disableHtmlEscaping()
 				.setDateFormat("yyyy-MM-dd HH:mm:ss").create();
 				List<Question> lists = new ArrayList<Question>();
-				Type map = new TypeToken<Map<List<Integer>, List<Question>>>(){}.getType();
-				Map<Set<Integer>, List<Question>> maps = gson.fromJson(arg0.result, map);
-					Set<Entry<Set<Integer>, List<Question>>> set = maps.entrySet();
-				for(Entry<Set<Integer>, List<Question>> m: set){
+//				Type map = new TypeToken<Map<List<Integer>, List<Question>>>(){}.getType();
+				Type listtype = new TypeToken<List<Question>>(){}.getType();
+				lists = gson.fromJson(arg0.result, listtype);
+//				Map<Set<Integer>, List<Question>> maps = gson.fromJson(arg0.result, map);
+//					Set<Entry<Set<Integer>, List<Question>>> set = maps.entrySet();
+//				for(Entry<Set<Integer>, List<Question>> m: set){
 					
 //					((XueTuApplication)getActivity().getApplication()).setSet(m.getKey());
 //					listtag.addAll(((XueTuApplication)getActivity().getApplication()).getSet());
 //					listtag = ((XueTuApplication)getActivity().getApplication()).getSet();
 //						Log.i("hehe", listtag.size()+"listtagSize");
-						lists = m.getValue();
-					}
+//						lists = m.getValue();
+//					}
 					
 					if(tempnum==1){
 					list.removeAll(oldlist);

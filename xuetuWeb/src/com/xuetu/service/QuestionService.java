@@ -57,7 +57,7 @@ public class QuestionService implements QuestionServiceInter {
 	 * @see com.xuetu.service.inter.QuestionServiceInter#queryLimitQuestion(int, int)
 	 */
 	@Override
-	public Map<Set<Integer>, List<Question>> queryLimitQuestion(int page, int num) {
+	public List<Question> queryLimitQuestion(int page, int num) {
 		// TODO Auto-generated method stub
 		return q.queryLimitQuestion(page, num);
 	}

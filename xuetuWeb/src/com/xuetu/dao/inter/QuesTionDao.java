@@ -86,7 +86,7 @@ public interface QuesTionDao {
 	 * @throws 
 	 * @since  CodingExample　Ver 1.1
 	 */
-	public Map<Set<Integer>,List<Question>> queryLimitQuestion(int page,int num);
+	public List<Question> queryLimitQuestion(int page,int num);
 	
 	/**
 	 * 
