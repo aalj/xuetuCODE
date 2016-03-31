@@ -9,35 +9,9 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-
-
-
-
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
-import com.google.gson.reflect.TypeToken;
-import com.lidroid.xutils.BitmapUtils;
-import com.lidroid.xutils.HttpUtils;
-import com.lidroid.xutils.exception.HttpException;
-import com.lidroid.xutils.http.RequestParams;
-import com.lidroid.xutils.http.ResponseInfo;
-import com.lidroid.xutils.http.callback.RequestCallBack;
-import com.lidroid.xutils.http.client.HttpRequest.HttpMethod;
-import com.xuetu.R;
-import com.xuetu.adapter.MyBasesadapter;
-import com.xuetu.adapter.MyQuestionBaseAdapter;
-import com.xuetu.adapter.ViewHodle;
-import com.xuetu.entity.Answer;
-import com.xuetu.entity.Question;
-import com.xuetu.utils.GetHttp;
-import com.xuetu.view.MyListView;
-import com.xuetu.view.PullToRefreshView;
-import com.xuetu.view.PullToRefreshView.OnFooterRefreshListener;
-import com.xuetu.view.PullToRefreshView.OnHeaderRefreshListener;
-import com.xuetu.view.TitleBar;
-
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -50,17 +24,36 @@ import android.os.Handler;
 import android.os.Message;
 import android.provider.MediaStore;
 import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.view.View.OnClickListener;
-import android.widget.BaseAdapter;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ListView;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.google.gson.reflect.TypeToken;
+import com.lidroid.xutils.BitmapUtils;
+import com.lidroid.xutils.HttpUtils;
+import com.lidroid.xutils.exception.HttpException;
+import com.lidroid.xutils.http.RequestParams;
+import com.lidroid.xutils.http.ResponseInfo;
+import com.lidroid.xutils.http.callback.RequestCallBack;
+import com.lidroid.xutils.http.client.HttpRequest.HttpMethod;
+import com.xuetu.R;
+import com.xuetu.adapter.MyQuestionBaseAdapter;
+import com.xuetu.adapter.ViewHodle;
+import com.xuetu.entity.Answer;
+import com.xuetu.entity.Question;
+import com.xuetu.utils.GetHttp;
+import com.xuetu.utils.KeyboardUtils;
+import com.xuetu.view.PullToRefreshView;
+import com.xuetu.view.PullToRefreshView.OnFooterRefreshListener;
+import com.xuetu.view.PullToRefreshView.OnHeaderRefreshListener;
+import com.xuetu.view.TitleBar;
 
 public class Answer_list extends Activity implements OnClickListener, OnHeaderRefreshListener, OnFooterRefreshListener{
 
@@ -83,7 +76,7 @@ public class Answer_list extends Activity implements OnClickListener, OnHeaderRe
 	//声明控件
 	private ListView lv_answer = null;
 	private Uri imageUri;
-	private TextView et_ans_text;
+	private EditText et_ans_text;
 	TextView tv_ans1_ques_text;
 	TextView tv_ans1_time;
 	TextView tv_ans1_stuName;
@@ -99,6 +92,7 @@ public class Answer_list extends Activity implements OnClickListener, OnHeaderRe
 	String url = null;
 	private String urlAgree;
 	int stu_id = 0;
+	Context context = null;
 	TextView tv = null;
 	HttpUtils hutilsAgree = new HttpUtils();
 	RequestParams paramsAgree ;
@@ -109,9 +103,7 @@ public class Answer_list extends Activity implements OnClickListener, OnHeaderRe
 		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.question_answer);
-
 		
-
 		stu_id = ((XueTuApplication)getApplication()).getStudent().getStuId();
 
 		initia();
@@ -131,7 +123,7 @@ public class Answer_list extends Activity implements OnClickListener, OnHeaderRe
 		titlebar = (TitleBar) findViewById(R.id.title_my);
 		btn_photo = (ImageView) findViewById(R.id.btn_photo);
 		btn_ans = (Button) findViewById(R.id.btn_ans);
-		et_ans_text = (TextView) findViewById(R.id.et_ans_text);
+		et_ans_text = (EditText) findViewById(R.id.et_ans_text);
 		lv_answer = (ListView) findViewById(R.id.lv_answer);
 		tv_ans1_sub = (TextView) findViewById(R.id.tv_ans1_sub);
 		//设置监听事件
@@ -172,6 +164,7 @@ public class Answer_list extends Activity implements OnClickListener, OnHeaderRe
 			}else{
 			setMyAapter(list);
 			lv_answer.setAdapter(adapter);
+			KeyboardUtils.closeKeybord(et_ans_text,Answer_list.this);
 			}
 			super.handleMessage(msg);
 		}
@@ -181,14 +174,20 @@ public class Answer_list extends Activity implements OnClickListener, OnHeaderRe
 		// TODO Auto-generated method stub
 		switch(v.getId()){
 		case R.id.btn_ans:
-			Toast.makeText(getApplicationContext(), "回答", 1).show();
-			
-			if(stu_id>0){
-			submitAnswer();
-//			finish();
-			}
-			else
+			if(stu_id<=0){
+				Log.i("hehe", "mei denglu");
 				Toast.makeText(Answer_list.this, "请先登陆哟！", 0).show();
+			}else{
+				if(et_ans_text.getText().toString().equals(null)||et_ans_text.getText().toString().equals("")){
+					Log.i("hehe", "no text");
+					Toast.makeText(this, "混水也要打几个字吧！！", 0).show();
+				}else{
+					submitAnswer();
+					et_ans_text.setText("");
+				}
+			}
+				
+		
 			break;
 		case R.id.btn_photo:
 			AlertDialog.Builder builder = new AlertDialog.Builder(Answer_list.this);
@@ -330,9 +329,6 @@ public class Answer_list extends Activity implements OnClickListener, OnHeaderRe
 					Log.i("hehe",url);
 				}
 			paramsSub.addBodyParameter("quesId",curQues.getQuesID()+"");
-			Log.i("hehe",curQues.getQuesID()+"id");
-			Log.i("hehe",stu_id+"id");
-			paramsSub.addBodyParameter("x","sb");
 			paramsSub.addBodyParameter("stu_id",stu_id+"");
 			paramsSub.addBodyParameter("ans_text",et_ans_text.getText().toString());
 			paramsSub.addBodyParameter("ans_time",String.valueOf(ans_time));
@@ -361,7 +357,6 @@ public class Answer_list extends Activity implements OnClickListener, OnHeaderRe
 					 msg.what=2;
 					 msg.obj=list;
 					handler.sendMessage(msg );
-					
 				}
 			});
 		}
@@ -437,7 +432,7 @@ public class Answer_list extends Activity implements OnClickListener, OnHeaderRe
 								//将点赞的操作保存到数据库
 								urlAgree = GetHttp.getHttpLC() + "AngreeAnswer";
 //								Log.i("hehe", stu_id+"---zan");
-//								Log.i("hehe", item.getAnsID()+"---zan");
+								Log.i("hehe", item.getAnsID()+"---zan");
 								
 								paramsAgree.addBodyParameter("ans_id",item.getAnsID()+"");
 								paramsAgree.addBodyParameter("stu_id",stu_id+"");

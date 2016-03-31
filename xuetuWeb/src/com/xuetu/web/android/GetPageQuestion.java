@@ -6,7 +6,9 @@ import java.lang.reflect.Type;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -47,9 +49,8 @@ public class GetPageQuestion extends HttpServlet {
 		if(page!=null&&unm!=null){
 			pageunm = Integer.parseInt(page);
 			unmunm = Integer.parseInt(unm);
-			
 		}
-		List<Question> questions = new ArrayList<Question>();
+		Map<List<Integer>, List<Question>> questions = new HashMap<List<Integer>, List<Question>>();
 			questions = q.queryLimitQuestion(pageunm, unmunm);
 		String jsonStr = null;
 		Gson gson = new GsonBuilder()
@@ -60,7 +61,6 @@ public class GetPageQuestion extends HttpServlet {
 		jsonStr = gson.toJson(questions);
 		PrintWriter pw = response.getWriter();
 		pw.write(jsonStr);
-
 //		System.out.println("end"+sdf.format(new Date(System.currentTimeMillis())));
 		pw.close();
 	}

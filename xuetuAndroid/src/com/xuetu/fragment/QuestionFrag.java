@@ -17,6 +17,9 @@ import java.sql.Date;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
+import java.util.Map.Entry;
+import java.util.Set;
 
 
 import java.lang.reflect.Type;
@@ -34,25 +37,34 @@ import com.xuetu.R;
 import com.xuetu.adapter.MyBasesadapter;
 import com.xuetu.adapter.QuestionFragAdapter;
 import com.xuetu.adapter.ViewHodle;
+import com.xuetu.entity.Answer;
 import com.xuetu.entity.Coupon;
 import com.xuetu.entity.Question;
 import com.xuetu.ui.Answer_list;
+import com.xuetu.ui.ExchangeCouponActivity;
 import com.xuetu.ui.Question_ask;
 import com.xuetu.ui.XueTuApplication;
 import com.xuetu.utils.GetHttp;
+import com.xuetu.utils.KeyboardUtils;
 import com.xuetu.view.OnRefreshListener;
 import com.xuetu.view.RefreshListView;
 
+import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.DialogInterface;
+import android.content.DialogInterface.OnKeyListener;
 import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.media.Image;
 import android.opengl.Visibility;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.ListFragment;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
@@ -82,7 +94,7 @@ import android.widget.Toast;
  * @see 	 
 
  */
-public class QuestionFrag extends Fragment implements OnClickListener,OnRefreshListener{
+public class QuestionFrag extends Fragment implements OnRefreshListener, OnKeyListener{
 	
 	
 	// 显示所有问题的列表
@@ -99,7 +111,7 @@ public class QuestionFrag extends Fragment implements OnClickListener,OnRefreshL
 
 	
 	RefreshListView lv = null;
-	HttpUtils hutils = new HttpUtils();
+	HttpUtils hutils = new HttpUtils(20000);
 	List<Question> list = new ArrayList<Question>();
 	List<Question> oldlist=new ArrayList<Question>();
 	View view = null;
@@ -118,80 +130,170 @@ public class QuestionFrag extends Fragment implements OnClickListener,OnRefreshL
 	Drawable dr_saved;
 	int sub_id = 0;
 	int stu_id = 0;
+	ProgressDialog progressDialog = null;
 	SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 	QuestionFragAdapter adapter = null;
+	PopupWindow popupWindow = null;
+	HttpUtils hutilsGetSubQues = new HttpUtils();
+	String urlSub = null;
+	RequestParams paramsSub = new RequestParams();
+	private List<Integer> listtag = new ArrayList<Integer>();
 //	MyBasesadapter<Question> adapter = null;
 //	MyQuestionListBaseAdapter adapter = null;
 	@Override
 	public View onCreateView(final LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+/*		Log.i("hehe", "sbxyh");
+		listtag = getSaveQuestion();
+		Log.i("hehe", listtag.size()+"-----listtagSize");*/
 		view = inflater.inflate(R.layout.question_frag, null);
-		dr_save = getActivity().getResources().getDrawable(R.drawable.ic_save);
-		dr_saved = getActivity().getResources().getDrawable(R.drawable.ic_saved);
+//		dr_save = getActivity().getResources().getDrawable(R.drawable.ic_save);
+//		dr_saved = getActivity().getResources().getDrawable(R.drawable.ic_saved);
 		right_layout = (RelativeLayout) view.findViewById(R.id.right_layout);
 		viewPop = inflater.inflate(R.layout.title, null);
 		tv_title = (TextView) view.findViewById(R.id.tv_title);
 		lv = (RefreshListView) view.findViewById(R.id.lv_question);
+		setOnclickListener();
 		InitData(1, REFRESH_TEMP);
-		
-		/*adapter = new MyBasesadapter<Question>(getActivity(),list,R.layout.question_listitem) {
-			@Override
-			public void convert(ViewHodle viewHolder,final Question item) {
-				// TODO Auto-generated method stub
-				viewHolder.setText(R.id.tv_answerNum, item.getAns_num()+"");
-				viewHolder.setText(R.id.tv_ques_text, item.getQuesText());
-				viewHolder.setText(R.id.tv_subject, item.getSubject().getName());
-				viewHolder.setText(R.id.tv_time,sdf.format(new Date(item.getQuesDate().getTime())) );
-				iv_like = viewHolder.getView(R.id.iv_like);
-				if(item.getQuesIma()!=null){
-				viewHolder.SetUrlImage(R.id.iv_ques_img, GetHttp.getHttpLC()+item.getQuesIma());
-				}
-				sdf.format(new Date(item.getQuesDate().getTime()));
-				viewHolder.getView(R.id.rl_right).setOnClickListener(new MyOnclickListener(item));
-				viewHolder.getView(R.id.rl_left).setOnClickListener(new MyOnclickListener(item));
-				viewHolder.getView(R.id.rl_top).setOnClickListener(new MyOnclickListener(item));
-				
-			}
-		};
-		lv.setAdapter(adapter);*/
 		stu_id = ((XueTuApplication)getActivity().getApplication()).getStudent().getStuId();
-		adapter = new QuestionFragAdapter(list, getContext(),stu_id);
+		
+		adapter = new QuestionFragAdapter(list, getContext(),stu_id,listtag);
+		
 		lv.setAdapter(adapter);
 		lv.setOnRefreshListener(this);
 		return view;
-
-		
 	}
-	
-	public class MyOnclickListener implements OnClickListener{
-		Question curQues = null;
-		public MyOnclickListener(Question curQues){
-			this.curQues = curQues;
+	Handler handler = new Handler(){
+		@Override
+		public void handleMessage(Message msg) {
+			switch(msg.what){
+			case 4:
+				list =(List<Question>) msg.obj;break;	
+			}
+			if(adapter !=null){
+				adapter.notifyDataSetChanged();
+			}else{
+			adapter = new QuestionFragAdapter(list, getContext(),stu_id,listtag);
+			lv.setAdapter(adapter);
+			}
+			super.handleMessage(msg);
 		}
+	};
+/*	public List<Integer> getSaveQuestion(){
+		String urlIsSave = GetHttp.getHttpLC()+"IsSaveQuestion";
+		RequestParams rp = new RequestParams();
+		hutils.send(HttpMethod.POST, urlIsSave,rp, new RequestCallBack<String>() {
+			@Override
+			public void onFailure(HttpException arg0, String arg1) {
+				// TODO Auto-generated method stub
+				Log.i("hehe", "failure getSaveQuestion");
+			}
+
+			@Override
+			public void onSuccess(ResponseInfo<String> arg0) {
+				// TODO Auto-generated method stub
+				Log.i("hehe", "success getSaveQuestion");
+				Gson gson = new GsonBuilder()
+				.enableComplexMapKeySerialization()
+				.setPrettyPrinting()
+				.disableHtmlEscaping()
+				.setDateFormat("yyyy-MM-dd HH:mm:ss").create();
+				//得到所有点赞问题的id集合
+				Type typeSave = new TypeToken<List<Integer>>(){}.getType();
+				listtag = gson.fromJson(arg0.result, typeSave);
+			}
+		});
+		return listtag;
+	}*/
+	public class MyOnclickListener implements OnClickListener{
 		@Override
 		public void onClick(View v) {
 			// TODO Auto-generated method stub
 			switch(v.getId()){
-			case R.id.rl_left:
-			case R.id.rl_top:
-				// TODO Auto-generated method stub
-				Toast.makeText(getContext(), "click", 0).show();
-				Intent intentAnswer1 = new Intent(getContext(),Answer_list.class);
-				Bundle bundle1 = new Bundle();
-				bundle1.putSerializable("curQues",curQues);
-				intentAnswer1.putExtras(bundle1);
-				startActivity(intentAnswer1);
+			case R.id.tv_title:
+				Log.i("hehe","popup");
+				showPopupWinow(v);
+				lv.setFocusableInTouchMode(true);
 				break;
-			case R.id.rl_right:
-				Toast.makeText(getContext(), "zan", 0).show();
-//				iv_like.setVisibility(view.INVISIBLE);
-//				iv_like.setImageDrawable(getActivity().getResources().getDrawable(R.drawable.ic_saved));
-				
+			case R.id.right_layout:
+				Toast.makeText(getContext(), stu_id+"", 0).show();
+				if(stu_id>0){
+				Intent intent = new Intent(getContext(),Question_ask.class);
+				getContext().startActivity(intent);
+				}else{
+					Toast.makeText(getContext(), "请先登录哟！", 0).show();
+				}
+				break;
+			case R.id.tv_sub1:
+				sub_id = 1;
+				tv_title.setText("英语");
+				popupWindow.dismiss();
+				break;
+			case R.id.tv_sub2:
+				sub_id = 2;
+				tv_title.setText("高数");
+				popupWindow.dismiss();
+				break;
+			case R.id.tv_sub3:
+				sub_id = 3;
+				tv_title.setText("地理");
+				popupWindow.dismiss();
+				break;
+			case R.id.tv_sub4:
+				sub_id = 4;
+				tv_title.setText("化学");
+				popupWindow.dismiss();
+				break;
+			}
+			//按学科显示问题
+			if(sub_id!=0){
+				showDengdai();
+				urlSub = GetHttp.getHttpLC()+"GetSubQues";
+				paramsSub.addBodyParameter("sub_id",sub_id+"");
+				hutilsGetSubQues.send(HttpMethod.POST, urlSub, paramsSub,new RequestCallBack<String>() {
+
+					@Override
+					public void onFailure(HttpException arg0, String arg1) {
+						// TODO Auto-generated method stub 
+						Toast.makeText(getContext(), "请求数据失败", 0).show();
+					}
+
+					@Override
+					public void onSuccess(ResponseInfo<String> arg0) {
+						// TODO Auto-generated method stub
+						if (progressDialog != null)
+							progressDialog.dismiss();
+						Gson gson = new GsonBuilder()
+						.enableComplexMapKeySerialization()
+						.setPrettyPrinting()
+						.disableHtmlEscaping()
+						.setDateFormat("yyyy-MM-dd HH:mm:ss").create();
+						Type typeSub = new TypeToken<List<Question>>(){}.getType();
+						List<Question> questionSub = gson.fromJson(arg0.result,typeSub);
+						list.removeAll(oldlist);
+						list.addAll(0,questionSub);
+						adapter.notifyDataSetChanged();
+						oldlist = questionSub;
+						Message msg = Message.obtain();
+						 msg.what=4;
+						 msg.obj=list;
+						handler.sendMessage(msg);
+					}
+				});
 			}
 		}
 		
 	}
-	//下拉刷新
-	
+	//正在加载dialog
+	private void showDengdai() {
+		if (progressDialog == null) {
+			progressDialog = ProgressDialog.show(getContext(), "", "正在加载...");
+			progressDialog.setCancelable(true);
+			progressDialog.show();
+			progressDialog.setOnKeyListener(this);
+		} else {
+
+		}
+	}
 	
 	
 	
@@ -204,8 +306,8 @@ public class QuestionFrag extends Fragment implements OnClickListener,OnRefreshL
 	
 	public void setOnclickListener(){
 //		rl_right.setOnClickListener(this);
-		tv_title.setOnClickListener(this);
-		right_layout.setOnClickListener(this);
+		tv_title.setOnClickListener(new MyOnclickListener());
+		right_layout.setOnClickListener(new MyOnclickListener());
 	}
 	/**发送网络请求，下载所有问题信息
 	 * 
@@ -228,21 +330,28 @@ public class QuestionFrag extends Fragment implements OnClickListener,OnRefreshL
 			@Override
 			public void onFailure(HttpException arg0, String arg1) {
 				// TODO Auto-generated method stub
-				Log.i("hehe", "fail");
+//				Log.i("hehe", "fail");
 			}
 
 			@Override
 			public void onSuccess(ResponseInfo<String> arg0) {
 				// TODO Auto-generated method stub
 				//指定date格式的gson对象
-				Log.i("hehe", "success");
+//				Log.i("hehe", "success");
 				Gson gson = new GsonBuilder()
 				.enableComplexMapKeySerialization()
 				.setPrettyPrinting()
 				.disableHtmlEscaping()
 				.setDateFormat("yyyy-MM-dd HH:mm:ss").create();
-				Type listtype = new TypeToken<List<Question>>(){}.getType();
-				List<Question> lists = gson.fromJson(arg0.result, listtype);
+				List<Question> lists = new ArrayList<Question>();
+				Type map = new TypeToken<Map<List<Integer>, List<Question>>>(){}.getType();
+				Map<List<Integer>, List<Question>> maps = gson.fromJson(arg0.result, map);
+					Set<Entry<List<Integer>, List<Question>>> set = maps.entrySet();
+				for(Entry<List<Integer>, List<Question>> m: set){
+						listtag = m.getKey();
+						lists = m.getValue();
+					}
+					
 					if(tempnum==1){
 					list.removeAll(oldlist);
 					list.addAll(0,lists);
@@ -281,10 +390,10 @@ public class QuestionFrag extends Fragment implements OnClickListener,OnRefreshL
        View contentView = LayoutInflater.from(getContext()).inflate(
                R.layout.subject_pop, null);
        //设置4个学科选项的监听实践
-       contentView.findViewById(R.id.tv_sub1).setOnClickListener(this);
-       contentView.findViewById(R.id.tv_sub2).setOnClickListener(this);
-       contentView.findViewById(R.id.tv_sub3).setOnClickListener(this);
-       contentView.findViewById(R.id.tv_sub4).setOnClickListener(this);
+       contentView.findViewById(R.id.tv_sub1).setOnClickListener(new MyOnclickListener());
+       contentView.findViewById(R.id.tv_sub2).setOnClickListener(new MyOnclickListener());
+       contentView.findViewById(R.id.tv_sub3).setOnClickListener(new MyOnclickListener());
+       contentView.findViewById(R.id.tv_sub4).setOnClickListener(new MyOnclickListener());
        // 设置按钮的点击事件
 //     
 //       Button button = (Button) contentView.findViewById(R.id.button1);
@@ -296,7 +405,8 @@ public class QuestionFrag extends Fragment implements OnClickListener,OnRefreshL
 //                       Toast.LENGTH_SHORT).show();
 //           }
 //       });
-       final PopupWindow popupWindow = new PopupWindow(contentView,
+       
+       popupWindow = new PopupWindow(contentView,
                LayoutParams.MATCH_PARENT, 180, true);
        popupWindow.setTouchable(true);
        popupWindow.setTouchInterceptor(new OnTouchListener() {
@@ -316,40 +426,18 @@ public class QuestionFrag extends Fragment implements OnClickListener,OnRefreshL
        popupWindow.showAsDropDown(v);
     // popupWindow.showAtLocation(view.getParent(),ce, x, y)
 	}
-	
+
+
+
 	@Override
-	public void onClick(View v) {
-		// TODO Auto-generated method stub
-		switch(v.getId()){
-		case R.id.tv_title:
-			showPopupWinow(v);
-			lv.setFocusableInTouchMode(true);
-			break;
-		case R.id.right_layout:
-			Toast.makeText(getContext(), stu_id+"", 0).show();
-			if(stu_id>0){
-			Intent intent = new Intent(getContext(),Question_ask.class);
-			getContext().startActivity(intent);
-			}else{
-				Toast.makeText(getContext(), "请先登录哟！", 0).show();
-			}
-			break;
-		case R.id.tv_sub1:
-			sub_id = 1;
-			break;
-		case R.id.tv_sub2:
-			sub_id = 2;
-			Toast.makeText(getContext(), "这个学科还没有问题，快去当第一人吧!!", 0).show();
-			break;
-		case R.id.tv_sub3:
-			sub_id = 3;
-			Toast.makeText(getContext(), "这个学科还没有问题，快去当第一人吧!!", 0).show();
-			break;
-		case R.id.tv_sub4:
-			sub_id = 4;
-			Toast.makeText(getContext(), "这个学科还没有问题，快去当第一人吧!!", 0).show();
-			break;
+	public boolean onKey(DialogInterface dialog, int keyCode, KeyEvent event) {
+		if (keyCode == KeyEvent.KEYCODE_BACK && event.getAction() == KeyEvent.ACTION_DOWN) {
+			if (progressDialog != null)
+				progressDialog.dismiss();
 		}
+		return false;
 	}
+	
+	
 }
 
