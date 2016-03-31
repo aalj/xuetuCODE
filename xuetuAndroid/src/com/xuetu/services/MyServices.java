@@ -32,6 +32,7 @@ public class MyServices extends Service {
 
 	@Override
 	public int onStartCommand(Intent intent, int flags, int startId) {
+		android.util.Log.i("TAG", "服务里面的那闹钟");
 		Toast.makeText(MyServices.this, "nanozhong ", 1).show();
 		return super.onStartCommand(intent, flags, startId);
 

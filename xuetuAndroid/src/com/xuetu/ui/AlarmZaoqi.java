@@ -76,8 +76,8 @@ public class AlarmZaoqi extends Activity implements OnClickListener, OnItemLongC
 			calendar.set(Calendar.MILLISECOND, 0);
 
 			Intent intent = new Intent(AlarmZaoqi.this, MyServices.class);
-			startService(intent);
-			intent.setAction("alarm1");
+//			startService(intent);
+//			intent.setAction("alarm1");
 			PendingIntent pendingIntent = PendingIntent.getBroadcast(context, alarm.getAlarm_id(), intent,
 					PendingIntent.FLAG_CANCEL_CURRENT);
 			alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), AlarmManager.INTERVAL_DAY,
