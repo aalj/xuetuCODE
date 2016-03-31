@@ -58,6 +58,8 @@ public class QuestionFragAdapter extends BaseAdapter{
 			this.context=context;
 			this.listtag = listtag;
 			inflater=LayoutInflater.from(context);
+			for(int i :listtag){
+			Log.i("hehe", "listtag-----"+i);}
 		}
 		
 
@@ -84,7 +86,8 @@ public class QuestionFragAdapter extends BaseAdapter{
 		@Override
 		public View getView(final int position, View convertView, ViewGroup parent) {
 			final ViewHolder v;
-			hutils.configCurrentHttpCacheExpiry(5000);
+//			hutils.configCurrentHttpCacheExpiry(5000);
+			Log.i("hehe", "listtagSize"+listtag.size());
 			if(convertView==null){
 				System.out.println("convertView为空"+position);
 				v=new ViewHolder();
@@ -110,9 +113,6 @@ public class QuestionFragAdapter extends BaseAdapter{
 			v.tv_time.setText(sdf.format(new Date(questions.get(position).getQuesDate().getTime())));
 			bitmapUtils.display(v.iv_ques_img,GetHttp.getHttpLC()+questions.get(position).getQuesIma());
 			//通过数据库查询是否被点赞
-			for(int l:listtag){
-				Log.i("hehe", "size------->"+l);
-			}
 			
 			v.iv_like.setTag(questions.get(position).getQuesID());
 			//判断复用
@@ -140,7 +140,7 @@ public class QuestionFragAdapter extends BaseAdapter{
 				public void onClick(View v1) {
 					params = new RequestParams();
 					ImageView v=(ImageView) v1;
-					if(listtag.contains(v.getTag())){
+					if(listtag.contains((Integer)v.getTag())){
 					listtag.remove((Integer) v.getTag());
 					v.setImageResource(R.drawable.ic_save);
 					

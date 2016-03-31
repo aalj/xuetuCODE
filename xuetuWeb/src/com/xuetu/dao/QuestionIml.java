@@ -85,7 +85,7 @@ public class QuestionIml implements QuesTionDao {
 		List<Question> questions = new ArrayList<Question>();
 		ResultSet rs = null;
 		List<Integer> saveNum = null;
-		Map<List<Integer>,List<Question>> qreturn = null;
+		Map<List<Integer>,List<Question>> qreturn = new HashMap<List<Integer>,List<Question>>();
 		// 指针从第一行属性字段开始
 		try {
 			conn = DBconnection.getConnection();

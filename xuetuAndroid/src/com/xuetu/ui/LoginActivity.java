@@ -49,7 +49,7 @@ import android.widget.Toast;
 
 public class LoginActivity extends Baseactivity implements OnClickListener {
 	private UMSocialService mController = UMServiceFactory.getUMSocialService("com.umeng.login");
- 
+
 	TitleBar titlebar;
 	EditText et_usertel;
 	EditText et_password;
@@ -281,23 +281,6 @@ public class LoginActivity extends Baseactivity implements OnClickListener {
 
 				addToWeb(info);
 
-				// if (status == 200 && info != null) {
-				// StringBuilder sb = new StringBuilder();
-				// Set<String> keys = info.keySet();
-				// for (String key : keys) {
-				// sb.append(key + "=" + info.get(key).toString() + "\r\n");
-				// }
-				// Log.i("TestData", sb.toString());
-				// } else {
-				// Log.d("TestData", "发生错误：" + status);
-				// }
-				// Log.i("TAG", "************应该有的*******************");
-				//
-				// if (info != null) {
-				// Toast.makeText(LoginActivity.this, info.toString(),
-				// Toast.LENGTH_SHORT).show();
-				// Log.i("YYY", info.toString());
-				// }
 			}
 		});
 	}
