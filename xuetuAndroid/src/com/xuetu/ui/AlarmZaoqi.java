@@ -7,6 +7,7 @@ import java.util.Locale;
 
 import com.umeng.socialize.utils.Log;
 import com.xuetu.R;
+import com.xuetu.Receive.AlarmBroadcastReceiver;
 import com.xuetu.adapter.MyBasesadapter;
 import com.xuetu.adapter.ViewHodle;
 import com.xuetu.db.DBFindManager;
@@ -75,9 +76,9 @@ public class AlarmZaoqi extends Activity implements OnClickListener, OnItemLongC
 			calendar.set(Calendar.SECOND, 0);
 			calendar.set(Calendar.MILLISECOND, 0);
 
-			Intent intent = new Intent(AlarmZaoqi.this, MyServices.class);
+			Intent intent = new Intent(AlarmZaoqi.this, AlarmBroadcastReceiver.class);
 //			startService(intent);
-//			intent.setAction("alarm1");
+			intent.setAction("alarm1");
 			PendingIntent pendingIntent = PendingIntent.getBroadcast(context, alarm.getAlarm_id(), intent,
 					PendingIntent.FLAG_CANCEL_CURRENT);
 			alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), AlarmManager.INTERVAL_DAY,

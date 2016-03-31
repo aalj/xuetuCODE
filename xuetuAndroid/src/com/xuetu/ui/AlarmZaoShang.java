@@ -9,6 +9,7 @@ import java.util.Locale;
 import com.loc.al;
 import com.umeng.socialize.utils.Log;
 import com.xuetu.R;
+import com.xuetu.Receive.AlarmBroadcastReceiver;
 import com.xuetu.adapter.MyBasesadapter;
 import com.xuetu.adapter.ViewHodle;
 import com.xuetu.db.DBFindManager;
@@ -67,23 +68,23 @@ public class AlarmZaoShang extends Activity implements OnClickListener, OnItemLo
 //
 //	}
 
-	private void sendAlarmEveryday1() {
-//		Log.i("TAG", "启动闹钟----------------->>>>>>>>" + alarm.getAlarm_id() + "");
-////		AlarmManager alarmManager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
-//		Calendar calendar = Calendar.getInstance(Locale.getDefault());
-////		calendar.setTimeInMillis(System.currentTimeMillis());
-//		String[] tt = alarm.getStartTime().split(":");
-//		calendar.set(Calendar.HOUR_OF_DAY, Integer.parseInt(tt[0]) - 1);
-//		calendar.set(Calendar.MINUTE, Integer.parseInt(tt[1]));
-//		calendar.set(Calendar.SECOND, 0);
-//		calendar.set(Calendar.MILLISECOND, 0);
+	private void sendAlarmEveryday1(Context context, Alarm alarm) {
+		Log.i("TAG", "启动闹钟----------------->>>>>>>>" + alarm.getAlarm_id() + "");
+		AlarmManager alarmManager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
+		Calendar calendar = Calendar.getInstance(Locale.getDefault());
+		calendar.setTimeInMillis(System.currentTimeMillis());
+		String[] tt = alarm.getStartTime().split(":");
+		calendar.set(Calendar.HOUR_OF_DAY, Integer.parseInt(tt[0]) - 1);
+		calendar.set(Calendar.MINUTE, Integer.parseInt(tt[1]));
+		calendar.set(Calendar.SECOND, 0);
+		calendar.set(Calendar.MILLISECOND, 0);
 		
-		Intent intent = new Intent(AlarmZaoShang.this, MyServices.class);
-		startService(intent);
-//		intent.setAction("alarm1");
-//		PendingIntent pendingIntent = PendingIntent.getBroadcast(context, 0, intent, PendingIntent.FLAG_CANCEL_CURRENT);
-//		alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), AlarmManager.INTERVAL_DAY,
-//				pendingIntent);
+		Intent intent = new Intent(AlarmZaoShang.this, AlarmBroadcastReceiver.class);
+//		startService(intent);
+		intent.setAction("alarm1");
+		PendingIntent pendingIntent = PendingIntent.getBroadcast(context, alarm.getAlarm_id(), intent, PendingIntent.FLAG_CANCEL_CURRENT);
+		alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), AlarmManager.INTERVAL_DAY,
+				pendingIntent);
 	}
 	public void setAdapter() {
 		mybaseAdapter = new MyBasesadapter<Alarm>(this, queryAlarm, R.layout.alarm_item) {
@@ -133,7 +134,7 @@ public class AlarmZaoShang extends Activity implements OnClickListener, OnItemLo
 		if (requestCode == 001 && resultCode == 0001) {
 			Alarm extra = (Alarm) data.getSerializableExtra("alarm");
 			queryAlarm.add(extra);
-			sendAlarmEveryday1( );
+			sendAlarmEveryday1(AlarmZaoShang.this, extra);
 			mybaseAdapter.notifyDataSetChanged();
 		}
 		
@@ -141,7 +142,8 @@ public class AlarmZaoShang extends Activity implements OnClickListener, OnItemLo
 		if(resultCode==1113){
 			Alarm extra = (Alarm) data.getSerializableExtra("alarm");
 			queryAlarm.add(extra);
-			sendAlarmEveryday1();
+			sendAlarmEveryday1(AlarmZaoShang.this, extra);
+//			sendAlarmEveryday1();
 		}
 		
 		
