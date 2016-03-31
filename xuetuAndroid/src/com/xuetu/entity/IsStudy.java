@@ -13,7 +13,7 @@ public class IsStudy {
 	private String [][] class_time={
 			{"8:00","8:55","9:55", "10:50","11:45","13:30","14:25","15:20","16:15","17:10","18:30","19:25"},
 			{"8:45","9:40","10:40","11:35","12:50","14:15","15:10","16:05","17:00","17:55","19:15","20:10"},
-			{"1","2","3","4","5","6","7","8","9","10","11","12"}};
+			{"1","2","3","4","5","6","7","8","9","10","11","12"  }  }  ;
 	
 	/**
 	 * 判断当前是否有课  条件,提前5分钟,并且迟到不超过10分钟
@@ -88,10 +88,8 @@ public class IsStudy {
         	System.out.println("是当天");
         	//表名今天有学习计划,并开始学习,学习时间为计划学习的时间
         	b = true;
-        	
         }
 		return  b;
-			
 	}
 	
 	
@@ -107,8 +105,6 @@ public class IsStudy {
 		starttime = hms.format(studyplan.getStartTime());
 		endtime   = hms.format(studyplan.getEndTime());
 		
-		System.out.println("````````starttime```````"+starttime);
-		System.out.println("````````endtime```````"+endtime);
 		//将上面的starttime转换成时间,秒...
 		String [] time_s = starttime.split("-".toString());
 		long first  =Long.parseLong(time_s[0])*60*60;
@@ -122,14 +118,6 @@ public class IsStudy {
 		long second_e =Long.parseLong(time_e[1])*60;
 		long third_e =Long.parseLong(time_e[2]);
 		
-		System.out.println("1----"+first);
-		System.out.println("2----"+second);
-		System.out.println("3----"+third);
-		
-		System.out.println("1----"+first_e);
-		System.out.println("2----"+second_e);
-		System.out.println("3----"+third_e);
-		System.out.println("```````````````"+(first_e+second_e+third_e)+"```````````````"+(first+second+third));
 		
 		studyttime = (first_e+second_e+third_e)-(first+second+third);
 		return studyttime;
@@ -263,9 +251,6 @@ public class IsStudy {
 	}
 	
 	
-	/**
-	 * 链接服务器获得课程表的名字
-	 */
 	
 	
 	
