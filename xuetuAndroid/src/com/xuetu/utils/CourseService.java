@@ -98,13 +98,13 @@ public class CourseService implements OnClickListener {
 
 	List<Button> buttons = new ArrayList<Button>();
 
-	// 处理Course对象
+	// 处理Course对象 
 	public void fillCourse(List<MyClass> myclasses) {
 		for (int i = 0; i < myclasses.size(); i++) {
 			myclass = myclasses.get(i);
 			int clsWeek = myclass.getClsWeek();
 			int clsFew = myclass.getClsFew();
-			Button lesson = (Button) context.findViewById(lessons[clsWeek - 1][clsFew - 1]);
+			Button lesson = (Button) context.findViewById(lessons[clsFew - 1][clsWeek - 1]);
 			lesson.setText(myclass.getClasName());
 			int bgRes = bg[CommonUtil.getRandom(bg.length - 1)];// 随机获取背景色
 			lesson.setBackgroundResource(bgRes);// 设置背景

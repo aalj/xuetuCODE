@@ -158,9 +158,6 @@ public class DBFindManager {
 		return list;
 	}
 
-	public void closeDB() {
-		db.close();
-	}
 
 	
 	/**
@@ -178,7 +175,6 @@ public class DBFindManager {
 		
 		
 		long insert = db.insert("alarm", null, values);
-		db.close();
 		if(!(insert>0)){
 			return false;
 		}
@@ -217,7 +213,6 @@ Log.i("TAG", query.getInt(query.getColumnIndex("alarm_id"))+"------->>>>>>取出
 			
 		}
 		query.close();
-		db.close();
 		return list;
 		
 	}
@@ -231,7 +226,6 @@ Log.i("TAG", query.getInt(query.getColumnIndex("alarm_id"))+"------->>>>>>取出
 		String whereClause="alarm_id=?";
 		String[] whereArgs={"alarm_id"};
 		int update = db.update("alarm", values, whereClause, whereArgs);
-		db.close();
 		if(!(update>0))
 		return false;
 		
@@ -240,9 +234,8 @@ Log.i("TAG", query.getInt(query.getColumnIndex("alarm_id"))+"------->>>>>>取出
 	}
 	public boolean deleteAlarm(int alarm_id,Alarm alarm){
 		String whereClause="alarm_id=?";
-		String[] whereArgs={"alarm_id"};
+		String[] whereArgs={alarm_id+""};
 		int delete = db.delete("alarm", whereClause, whereArgs);
-		db.close();
 		if(!(delete>0))
 			return false;
 		

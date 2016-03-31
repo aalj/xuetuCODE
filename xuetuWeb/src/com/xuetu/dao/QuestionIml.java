@@ -8,10 +8,13 @@ import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import com.xuetu.dao.inter.QuesTionDao;
 import com.xuetu.entity.Answer;
+import com.xuetu.entity.CollectionQuestion;
 import com.xuetu.entity.Question;
 import com.xuetu.entity.School;
 import com.xuetu.entity.Student;
@@ -27,7 +30,7 @@ public class QuestionIml implements QuesTionDao {
 	}
 
 	@Override
-	public List<Answer> getAnswerByQuesId(int ques_id,int page,int num) {
+	public  List<Answer> getAnswerByQuesId(int ques_id,int page,int num) {
 		// TODO Auto-generated method stub
 		Connection conn = null;
 		String sql = null;
@@ -40,6 +43,7 @@ public class QuestionIml implements QuesTionDao {
 			prep.setInt(1, ques_id);
 			ResultSet rs = prep.executeQuery();
 			List<Answer> answers = new ArrayList<Answer>();
+			 Map<List<Integer>,List<Answer>> m = new  HashMap<List<Integer>,List<Answer>>();
 			// 指针从第一行属性字段开始
 			while (rs.next()) {
 				Answer a = new Answer();
@@ -73,13 +77,15 @@ public class QuestionIml implements QuesTionDao {
 	}
 	//分页查询所有问题
 	@Override
-	public List<Question> queryLimitQuestion(int page, int num) {
+	public Map<List<Integer>,List<Question>> queryLimitQuestion(int page, int num) {
 		// TODO Auto-generated method stub
 		Connection conn = null;
 		PreparedStatement prep= null;
 		String sql = null;
 		List<Question> questions = new ArrayList<Question>();
 		ResultSet rs = null;
+		List<Integer> saveNum = null;
+		Map<List<Integer>,List<Question>> qreturn = null;
 		// 指针从第一行属性字段开始
 		try {
 			conn = DBconnection.getConnection();
@@ -101,7 +107,9 @@ public class QuestionIml implements QuesTionDao {
 				q.setAns_num(getAnsNum(rs.getInt("ques_id")));
 				questions.add(q);
 			}
-			return questions;
+			saveNum = isSave();
+			qreturn.put(saveNum, questions);
+			return qreturn;
 		} catch (Exception e) {
 			throw new RuntimeException(e);
 		} finally {
@@ -627,6 +635,84 @@ public class QuestionIml implements QuesTionDao {
 					prep.close();
 				if (conn != null)
 					conn.close();
+			} catch (Exception e) {
+				throw new RuntimeException(e);
+			}
+		}
+	}
+	@Override
+	public List<Integer> isSave() {
+		Connection conn = null;
+		PreparedStatement prep= null;
+		String sql = null;
+		ResultSet rs = null;
+		List<Integer> l = new ArrayList<Integer>();
+		// 指针从第一行属性字段开始
+			conn = DBconnection.getConnection();
+//			sql = "select * from collectionquestion where stu_id=?";
+			sql = " select * from collectionquestion";
+			List<CollectionQuestion> cqs = new ArrayList<CollectionQuestion>();
+			try {
+				prep = conn.prepareStatement(sql);
+				rs = prep.executeQuery();
+				CollectionQuestion cq = null;
+				while (rs.next()) {
+					cq = new CollectionQuestion();
+					cq.setCoqoID(rs.getInt("coqu_id"));
+					cq.setQues_time(rs.getTimestamp("ques_time_collect"));
+					cq.setQuestion(getQuestionByQuesId(rs.getInt("ques_id")));
+					cq.setStudent(getStudentByStuId(rs.getInt("stu_id"), getSchIdByStuId(rs.getInt("stu_id"))));
+					cqs.add(cq);
+				}
+				for(CollectionQuestion x:cqs){
+					l.add(x.getCoqoID());
+				}
+				return l;
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			return null;
+		
+		
+	}
+
+	@Override
+	public List<Question> getQuesBySubId(int sub_id) {
+		// TODO Auto-generated method stub
+		Connection conn = null;
+		String sql = null;
+		
+		PreparedStatement prep = null;
+		try {
+			conn = DBconnection.getConnection();
+			sql = "select * from question where sub_id=? order by ques_time desc ";
+			prep = conn.prepareStatement(sql);
+			prep.setInt(1, sub_id);
+			ResultSet rs = prep.executeQuery();
+			List<Question> questions = new ArrayList<Question>();
+			// 指针从第一行属性字段开始
+			while (rs.next()) {
+				Question q = new Question();
+				q.setQuesID(rs.getInt("ques_id"));
+				q.setStudent(getStudentByStuId(rs.getInt("stu_id"), getSchIdByStuId(rs.getInt("stu_id"))));
+				q.setQuesText(rs.getString("ques_text"));
+				q.setQuesIma(rs.getString("ques_img"));
+				q.setQuesDate(rs.getTimestamp("ques_time"));
+				q.setAcpo_num(rs.getInt("acpo_num"));
+				q.setSubject(getSubjectBySubId(rs.getInt("sub_id")));
+				q.setAns_num(getAnsNum(rs.getInt("ques_id")));
+				questions.add(q);
+			}
+			return questions;
+		} catch (Exception e) {
+			throw new RuntimeException(e);
+		} finally {
+			try {
+				if (conn != null)
+					conn.close();
+				if (prep != null)
+					prep.close();
 			} catch (Exception e) {
 				throw new RuntimeException(e);
 			}

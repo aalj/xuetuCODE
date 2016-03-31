@@ -5,6 +5,7 @@ package com.xuetu.service;
 
 import java.sql.Date;
 import java.util.List;
+import java.util.Map;
 
 import com.xuetu.dao.inter.QuesTionDao;
 import com.xuetu.entity.Answer;
@@ -37,7 +38,7 @@ public class QuestionService implements QuestionServiceInter {
 	 * @see com.xuetu.service.inter.QuestionServiceInter#getAnswerByQuesId(com.xuetu.entity.Question)
 	 */
 	@Override
-	public List<Answer> getAnswerByQuesId(int ques_id,int page,int num) {
+	public  List<Answer> getAnswerByQuesId(int ques_id,int page,int num) {
 		// TODO Auto-generated method stub
 		return q.getAnswerByQuesId(ques_id,page,num);
 	}
@@ -55,7 +56,7 @@ public class QuestionService implements QuestionServiceInter {
 	 * @see com.xuetu.service.inter.QuestionServiceInter#queryLimitQuestion(int, int)
 	 */
 	@Override
-	public List<Question> queryLimitQuestion(int page, int num) {
+	public Map<List<Integer>, List<Question>> queryLimitQuestion(int page, int num) {
 		// TODO Auto-generated method stub
 		return q.queryLimitQuestion(page, num);
 	}

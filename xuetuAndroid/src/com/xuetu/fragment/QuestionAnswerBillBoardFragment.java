@@ -8,12 +8,14 @@ import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
 import com.lidroid.xutils.HttpUtils;
 import com.lidroid.xutils.exception.HttpException;
+import com.lidroid.xutils.http.RequestParams;
 import com.lidroid.xutils.http.ResponseInfo;
 import com.lidroid.xutils.http.callback.RequestCallBack;
 import com.lidroid.xutils.http.client.HttpRequest.HttpMethod;
 import com.xuetu.R;
 import com.xuetu.adapter.MyBasesadapter;
 import com.xuetu.adapter.ViewHodle;
+import com.xuetu.entity.PersonAnswerAll;
 import com.xuetu.entity.PersonalStudyTimeAll;
 import com.xuetu.utils.GetHttp;
 
@@ -25,10 +27,14 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
 
-public class StudyTimeBillBoardFragment extends Fragment {
+/**
+ * 
+ * @author BCL 问题排行榜碎片界面
+ */
+public class QuestionAnswerBillBoardFragment extends Fragment {
 	ListView listview_billboard;
-	List<PersonalStudyTimeAll> datas;
-	MyBasesadapter<PersonalStudyTimeAll> myadapter;
+	List<PersonAnswerAll> datas;
+	MyBasesadapter<PersonAnswerAll> myadapter;
 	Context context;
 
 	@Override
@@ -38,18 +44,15 @@ public class StudyTimeBillBoardFragment extends Fragment {
 		listview_billboard = (ListView) view.findViewById(R.id.listview_billboard);
 		getDate();
 		return view;
-		
-		
 	}
 
 	/**
 	 * 数据的获取
-	 * 
 	 */
-
 	public void getDate() {
 		HttpUtils httpUtils = new HttpUtils();
-		String url = GetHttp.getHttpBCL() + "PaiHangbangServlet";
+		String url = GetHttp.getHttpBCL() + "PersonAnswerAllServlet";
+
 		httpUtils.send(HttpMethod.POST, url, new RequestCallBack<String>() {
 
 			@Override
@@ -61,37 +64,30 @@ public class StudyTimeBillBoardFragment extends Fragment {
 			@Override
 			public void onSuccess(ResponseInfo<String> arg0) {
 				Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create();
-				Type type = new TypeToken<List<PersonalStudyTimeAll>>() {
+				Type type = new TypeToken<List<PersonAnswerAll>>() {
 				}.getType();
 				datas = gson.fromJson(arg0.result, type);
-				loadView();
+				load();
 
 			}
 		});
+
 	}
 
-	/**
-	 * 加载listv
-	 * 
-	 */
-	int i = 1;
-
-	public void loadView() {
-		boolean temp = true;
+	public void load() {
 		listview_billboard.setAdapter(
-				myadapter = new MyBasesadapter<PersonalStudyTimeAll>(context, datas, R.layout.listitem_of_paihangbang) {
+				myadapter = new MyBasesadapter<PersonAnswerAll>(context, datas, R.layout.listitem_of_paihangbang) {
 
 					@Override
-					public void convert(ViewHodle viewHolder, PersonalStudyTimeAll item) {
-						viewHolder.setText(R.id.paihangbangxuhao, item.getTimePosition() + "");
-						i++;
+					public void convert(ViewHodle viewHolder, PersonAnswerAll item) {
+						viewHolder.setText(R.id.paihangbangxuhao, item.getAnswerPosition() + "");
 						viewHolder.SetUrlImage(R.id.head_paihangbang,
 								GetHttp.getHttpBCL() + item.getStudent().getStuIma());
 						viewHolder.setText(R.id.nicheng_paihangbang, item.getStudent().getStuName());
-						viewHolder.setText(R.id.number_paihangbang, item.getTimeAll());
+						viewHolder.setText(R.id.number_paihangbang, item.getAnswerAll());
 
 					}
 				});
-
 	}
+
 }
