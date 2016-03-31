@@ -11,6 +11,7 @@ import com.xuetu.adapter.MyBasesadapter;
 import com.xuetu.adapter.ViewHodle;
 import com.xuetu.db.DBFindManager;
 import com.xuetu.entity.Alarm;
+import com.xuetu.services.MyServices;
 import com.xuetu.view.TitleBar;
 
 import android.app.Activity;
@@ -53,31 +54,35 @@ public class AlarmZaoqi extends Activity implements OnClickListener, OnItemLongC
 
 	}
 
-	public void setAlarm(List<Alarm> queryAlarm) {
-		for (Alarm alarm : queryAlarm) {
-			if (alarm.getTemp() == 0) {// 表示提醒
-				sendAlarmEveryday1(AlarmZaoqi.this, alarm);
-			}
-		}
-
-	}
+	// public void setAlarm(List<Alarm> queryAlarm) {
+	// for (Alarm alarm : queryAlarm) {
+	// if (alarm.getTemp() == 0) {// 表示提醒
+	//// sendAlarmEveryday1(AlarmZaoqi.this, alarm);
+	// }
+	// }
+	//
+	// }
 
 	private void sendAlarmEveryday1(Context context, Alarm alarm) {
-		Log.i("TAG", "启动闹钟----------------->>>>>>>>" + alarm.getAlarm_id() + "");
-		AlarmManager alarmManager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
-		Calendar calendar = Calendar.getInstance(Locale.getDefault());
-		calendar.setTimeInMillis(System.currentTimeMillis());
-		String[] tt = alarm.getStartTime().split(":");
-		calendar.set(Calendar.HOUR_OF_DAY, Integer.parseInt(tt[0]) - 1);
-		calendar.set(Calendar.MINUTE, Integer.parseInt(tt[1]));
-		calendar.set(Calendar.SECOND, 0);
-		calendar.set(Calendar.MILLISECOND, 0);
+		if (alarm.getTemp_index() == 0) {
+			Log.i("TAG", "启动闹钟----------------->>>>>>>>" + alarm.getAlarm_id() + "");
+			AlarmManager alarmManager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
+			Calendar calendar = Calendar.getInstance(Locale.getDefault());
+			calendar.setTimeInMillis(System.currentTimeMillis());
+			String[] tt = alarm.getStartTime().split(":");
+			calendar.set(Calendar.HOUR_OF_DAY, Integer.parseInt(tt[0]));
+			calendar.set(Calendar.MINUTE, Integer.parseInt(tt[1]));
+			calendar.set(Calendar.SECOND, 0);
+			calendar.set(Calendar.MILLISECOND, 0);
 
-		Intent intent = new Intent(AlarmZaoqi.this, AlarmBroadcastReceiver.class);
-		intent.setAction("alarm1");
-		PendingIntent pendingIntent = PendingIntent.getBroadcast(context, 0, intent, PendingIntent.FLAG_CANCEL_CURRENT);
-		alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), AlarmManager.INTERVAL_DAY,
-				pendingIntent);
+			Intent intent = new Intent(AlarmZaoqi.this, MyServices.class);
+			startService(intent);
+			intent.setAction("alarm1");
+			PendingIntent pendingIntent = PendingIntent.getBroadcast(context, alarm.getAlarm_id(), intent,
+					PendingIntent.FLAG_CANCEL_CURRENT);
+			alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), AlarmManager.INTERVAL_DAY,
+					pendingIntent);
+		}
 	}
 
 	public void setAdapter() {
@@ -130,6 +135,7 @@ public class AlarmZaoqi extends Activity implements OnClickListener, OnItemLongC
 		if (requestCode == 111 && resultCode == 1111) {
 			Alarm extra = (Alarm) data.getSerializableExtra("alarm");
 			queryAlarm.add(extra);
+			// sendAlarmEveryday1();
 			sendAlarmEveryday1(AlarmZaoqi.this, extra);
 			mybaseAdapter.notifyDataSetChanged();
 
@@ -138,6 +144,7 @@ public class AlarmZaoqi extends Activity implements OnClickListener, OnItemLongC
 		if (resultCode == 1113) {
 			Alarm extra = (Alarm) data.getSerializableExtra("alarm");
 			queryAlarm.add(extra);
+			// sendAlarmEveryday1();
 			sendAlarmEveryday1(AlarmZaoqi.this, extra);
 			mybaseAdapter.notifyDataSetChanged();
 		}

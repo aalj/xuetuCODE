@@ -1,4 +1,4 @@
-package com.xuetu.ui;
+package com.xuetu.Receive;
 import android.app.AlertDialog;
 import android.content.BroadcastReceiver;
 import android.content.Context;
