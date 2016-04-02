@@ -159,6 +159,7 @@ public class ExchangeCouponActivity extends Baseactivity implements OnClickListe
 						mycoupon.setMycouExchangeTime(new Date(System.currentTimeMillis()));
 						mycoupon.setStudent(student);
 						saveMycoupon(mycoupon);
+						
 						Intent intent = new Intent();
 						intent.setClass(ExchangeCouponActivity.this, TheCollectionOfYouHuiJuanActivity.class);
 						startActivity(intent);

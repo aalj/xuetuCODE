@@ -35,20 +35,17 @@ public class ShoppingDao implements ShoppintDaoInter {
 			Coupon coupon = null;;
 			while(query.next()){
 				coupon = new Coupon();
-				coupon.setCouID(query.getInt("cou_id"));
+				int int1 = query.getInt("cou_id");
+				coupon.setCouID(int1);
+				coupon.setShiyongNum(queryMyCouponNum(int1));
 				StoreName storeName = dao2.getStoreNameById(query.getInt("sto_id"));
 				coupon.setStoreName(storeName);
 				coupon.setCouInfo(query.getString("cou_info"));
 				coupon.setConNum(query.getInt("cou_num"));
-
 				coupon.setConValidity(query.getDate("cou_Validity"));
 				coupon.setCoouRedeemPoints(query.getInt("cou_redeem_points"));
 				coupon.setCouName(query.getString("cou_name"));
 				coupon.setCouPrice(query.getInt("cou_price"));
-				
-				
-				
-				
 				list.add(coupon);
 			}
 			return list;
@@ -62,6 +59,38 @@ public class ShoppingDao implements ShoppintDaoInter {
 		
 	}
 
+	public int queryMyCouponNum(int couponID){
+		Connection conn = DBconnection.getConnection();
+		String sql = "select count(*) as 'num' from mycoupon where  cou_id = ?";
+		ResultSet query=null;
+		PreparedStatement statement=null;
+		try {
+			statement = conn.prepareStatement(sql);
+			statement.setInt(1, couponID);
+			query = statement.executeQuery();
+			if(query.next()){
+				int num =query.getInt("num");
+				return num;
+			}
+			
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			CloseDb.close(conn, query, statement);
+		}
+		
+		
+		
+		return 0;
+	}
+	
+	
+	
+	
+	
+	
 	@Override
 	public List<Coupon> queryCouponall(int stoID) {
 		Connection conn = DBconnection.getConnection();

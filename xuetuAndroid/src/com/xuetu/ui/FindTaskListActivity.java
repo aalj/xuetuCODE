@@ -185,7 +185,7 @@ public class FindTaskListActivity extends Baseactivity
 
 					@Override
 					public void convert(ViewHodle viewHolder, SelfStudyPlan item, int position) {
-						viewHolder.setReLayoutBgColor(R.id.layoutback, R.drawable.back_find_list_self2);
+//						viewHolder.setReLayoutBgColor(R.id.layoutback, R.drawable.back_find_list_self2);
 						long time = System.currentTimeMillis();
 						long timete = (item.getEndTime().getTime() - item.getStartTime().getTime());
 
@@ -200,19 +200,19 @@ public class FindTaskListActivity extends Baseactivity
 //							viewHolder.setReLayoutBgColor(R.id.layoutback, R.drawable.back_find_list_self);
 //						}
 //						re.setTag(position);
-						if (item.getStartTime().getTime() > time) {
-
-						} else {
-//							viewHolder.setText(R.id.lishi, "历史");
-//							listTag.add((Integer) re.getTag());
-							viewHolder.setReLayoutBgColor(R.id.layoutback, R.drawable.back_find_list_self);
-
-						}
+						
 						// 设置选择选项
-						if (item.getPlanReming() == 1) {
-							viewHolder.setClick(R.id.myswitch, true);
+						if (item.getIsZhiXing() == 2) {
+							viewHolder.setText(R.id.myswitch, "计划完成");
 						} else {
-							viewHolder.setClick(R.id.myswitch, false);
+							if (item.getStartTime().getTime() > time) {
+								viewHolder.setText(R.id.myswitch, "未开始计划");
+							} else {
+								viewHolder.setText(R.id.myswitch, "计划已过时");
+
+							}
+							
+							
 						}
 
 						
@@ -276,9 +276,8 @@ public class FindTaskListActivity extends Baseactivity
 		}
 
 		if (resultCode == 1011 && requestCode == ADD_SELF) {
-			Toast.makeText(getApplicationContext(), "qingjian sekf", 0).show();
-			SelfStudyPlan selfStudyPlan = (SelfStudyPlan) data.getSerializableExtra("selfa");
-			users.add(selfStudyPlan);
+			SelfStudyPlan selfStudyPlan = (SelfStudyPlan) data.getSerializableExtra("self");
+			users.add(0,selfStudyPlan);
 			// addChangSelf(selfStudyPlan);
 			adapter.notifyDataSetChanged();
 
@@ -331,13 +330,11 @@ public class FindTaskListActivity extends Baseactivity
 			intent.setClass(FindTaskListActivity.this, AddSelfPlanActivity.class);
 			intent.putExtra("tempself", 1);
 			startActivityForResult(intent, ADD_SELF);
-			Toast.makeText(getApplicationContext(), "添加", 0).show();
 
 			break;
 		case R.id.left_layout:
 
 			finish();
-			Toast.makeText(getApplicationContext(), "返回", 0).show();
 
 			break;
 

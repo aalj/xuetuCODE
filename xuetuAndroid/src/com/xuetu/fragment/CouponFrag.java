@@ -63,13 +63,13 @@ public class CouponFrag extends Fragment implements OnRefreshListener{
 		getDate(1, REFRESH_TEMP);
 		
 		myBaseAdapter = new MyBasesadapter<Coupon>(getActivity(), users, R.layout.coupon_item) {
-			
 
 			@Override
 			public void convert(ViewHodle viewHolder, final Coupon item) {
-				viewHolder.setText(R.id.tv_coupon_name, item.getCouName());
+				viewHolder.setText(R.id.mornum, item.getCoouRedeemPoints()+"");
+				viewHolder.setText(R.id.coupon_info, item.getCouName());
 				viewHolder.setText(R.id.tv_shoppingname, item.getStoreName().getStoName());
-				viewHolder.setText(R.id.tv_coupon_all, item.getConNum() + "");
+				viewHolder.setText(R.id.tv_coupon_all, item.getShiyongNum() + "");
 				viewHolder.SetUrlImage(R.id.tv_coupon_ima, GetHttp.getHttpLJ()+item.getStoreName().getStoImg());
 				viewHolder.getView(R.id.relativeL).setOnClickListener(new OnClickListener() {
 					
@@ -94,7 +94,13 @@ public class CouponFrag extends Fragment implements OnRefreshListener{
 	}
 
 	
-	
+	@Override
+	public void onHiddenChanged(boolean hidden) {
+		if(!hidden){
+			getDate(1, REFRESH_TEMP);
+		}
+		super.onHiddenChanged(hidden);
+	}
 	
 	
 	private void getDate(final int tempnum, int temp) {
