@@ -1,8 +1,9 @@
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:title="http://schemas.android.com/apk/res/com.xuetu"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     tools:context="com.xuetu.ui.DaoJiShiActivity" >
      <com.xuetu.view.TitleBar
         android:id="@+id/title_my"
@@ -16,9 +17,12 @@
     </com.xuetu.view.TitleBar>
 
   <ListView
-            android:id="@+id/activity_find_task_list"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" >
-        </ListView>
+      android:id="@+id/activity_find_task_list"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      
+      android:layout_alignParentLeft="true"
+      android:layout_alignParentTop="true" >
+  </ListView>
 
-</RelativeLayout>
+</LinearLayout>

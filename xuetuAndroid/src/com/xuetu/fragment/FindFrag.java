@@ -18,6 +18,7 @@ import com.xuetu.entity.Student;
 import com.xuetu.ui.AddSelfPlanActivity;
 import com.xuetu.ui.AlarmZaoShang;
 import com.xuetu.ui.AlarmZaoqi;
+import com.xuetu.ui.DaoJiShiActivity;
 import com.xuetu.ui.FindTaskListActivity;
 import com.xuetu.ui.XueTuApplication;
 import com.xuetu.utils.DataToTime;
@@ -205,7 +206,8 @@ public class FindFrag extends Fragment {
 //
 //				break;
 			case R.id.linear_supervise:// 全天监督
-				Toast.makeText(getContext(), "开发中", 0).show();
+				intent.setClass(getActivity(), DaoJiShiActivity.class);
+				getActivity().startActivity(intent);
 
 				break;
 

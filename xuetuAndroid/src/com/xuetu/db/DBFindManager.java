@@ -160,7 +160,7 @@ public class DBFindManager {
 		// `code_time` integer default 0,
 		// `codo_text`
 		ContentValues values = new ContentValues();
-		values.put("code_time", countdown.getCodoTime() + "");
+		values.put("code_time", countdown.getCodoTime().getTime() + "");
 		values.put("codo_text", countdown.getCodoText());
 
 		long insert = db.insert("countdown", null, values);
@@ -183,7 +183,8 @@ public class DBFindManager {
 			alarm.setCodoID(query.getInt(query.getColumnIndex("codo_id")));
 			Log.i("TAG", query.getInt(query.getColumnIndex("code_time")) + "------->>>>>>取出来的内容id");
 			// String columnIndex = query.getColumnIndex("start_time");
-			alarm.setCodoTime(new Date(query.getInt(query.getColumnIndex("code_time"))));
+			Log.i("TAG", Long.parseLong(query.getString(query.getColumnIndex("code_time")))+"本地数据库数据是啊今年");
+			alarm.setCodoTime(new Date(Long.parseLong(query.getString(query.getColumnIndex("code_time")))));
 			alarm.setCodoText(query.getString(query.getColumnIndex("codo_text")));
 
 			list.add(alarm);

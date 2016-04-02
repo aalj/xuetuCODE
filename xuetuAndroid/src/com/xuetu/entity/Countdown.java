@@ -13,6 +13,7 @@
 
 package com.xuetu.entity;
 
+import java.io.Serializable;
 import java.util.Date;
 
 /**
@@ -27,7 +28,7 @@ import java.util.Date;
  * @see
  * 
  */
-public class Countdown {
+public class Countdown implements Serializable{
 	private int codoID = 0;
 	private Date codoTime = null;
 	private String codoText = null;
@@ -36,6 +37,11 @@ public class Countdown {
 
 		//
 
+	}
+
+	@Override
+	public String toString() {
+		return "Countdown [codoID=" + codoID + ", codoTime=" + codoTime + ", codoText=" + codoText + "]";
 	}
 
 	public Countdown(int codoID, Date codoTime, String codoText) {

@@ -291,8 +291,16 @@
         </service>
 
         <activity
-            android:name="com.xuetu.ui.DaoJiShiActivity"
+            android:name=".ui.DaoJiShiActivity"
             android:label="@string/title_activity_dao_ji_shi" >
+        </activity>
+        <activity
+            android:name=".ui.AddCountDownActivity"
+            android:label="@string/title_activity_edit_count_down" >
+        </activity>
+        <activity
+            android:name=".EditCountdownActivity"
+            android:label="@string/title_activity_edit_countdown" >
         </activity>
     </application>
 

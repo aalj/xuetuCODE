@@ -29,7 +29,7 @@ public class DBFindOpenHelper extends SQLiteOpenHelper {
 
 		String sql2 = "CREATE TABLE `countdown` (  "
 				+ "`codo_id` integer NOT NULL PRIMARY KEY AUTOINCREMENT,"
-				+ " `code_time` integer default 0,  "
+				+ " `code_time` varchar(100) default 0,  "
 				+ "`codo_text` varchar(100) default NULL );";
 		db.execSQL(sql2);
 
