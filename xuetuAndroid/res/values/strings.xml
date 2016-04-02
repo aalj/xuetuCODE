@@ -68,5 +68,8 @@
     <string name="title_activity_person_question_information">PersonQuestionInformationActivity</string>
     <string name="title_activity_ji_fen_xiang_qing">JiFenXiangQingActivity</string>
     <string name="title_activity_edit_alarm">EditAlarmActivity</string>
+    <string name="title_activity_dao_ji_shi">DaoJiShiActivity</string>
+    <string name="title_activity_edit_count_down">EditCountDownActivity</string>
+    <string name="title_activity_edit_countdown">EditCountdownActivity</string>
 
 </resources>

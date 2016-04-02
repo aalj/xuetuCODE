@@ -22,12 +22,14 @@ import com.xuetu.dao.FindIml;
 import com.xuetu.dao.JifenDao;
 import com.xuetu.dao.LoginDao;
 import com.xuetu.dao.ShoppingDao;
+import com.xuetu.entity.Countdown;
 import com.xuetu.entity.Coupon;
 import com.xuetu.entity.MyCoupon;
 import com.xuetu.entity.FavoritesCoupons;
 import com.xuetu.entity.Pattern;
 import com.xuetu.entity.SelfStudyPlan;
 import com.xuetu.entity.Student;
+import com.xuetu.utils.ChuliShijian;
 
 /**
  * ClassName:JunText<br/>
@@ -79,11 +81,28 @@ public class JunText {
 
 	@Test
 	public void getCoupon1() {
-		System.out.println(new LoginDao().getAnswerAll());
-//		List<SelfStudyPlan> daySelfPlan = new FindIml().getDaySelfPlan(3);
-//		System.out.println(daySelfPlan.toString());
+		List<SelfStudyPlan> selfPlan = new FindIml().getSelfPlan(3);
+		List<SelfStudyPlan> zhiXing = new ChuliShijian().isZhiXing(selfPlan);
+		for (SelfStudyPlan selfStudyPlan : zhiXing) {
+			System.out.print(selfStudyPlan.getStartTime());
+			System.out.print("\t");
+			System.out.print(selfStudyPlan.getIsZhiXing());
+			System.out.println();
+		}
 
-
+	}
+	@Test
+	public void getCoupon2() {
+		 List<Countdown> countdown = new FindIml().getCountdown();
+		for (Countdown selfStudyPlan : countdown) {
+			System.out.print(selfStudyPlan.getCodoID());
+			System.out.print("\t");
+			System.out.print(selfStudyPlan.getCodoTime());
+			System.out.print("\t");
+			System.out.print(selfStudyPlan.getCodoText());
+			System.out.println();
+		}
+		
 	}
 
 

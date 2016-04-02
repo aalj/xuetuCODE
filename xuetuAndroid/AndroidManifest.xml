@@ -214,7 +214,9 @@
             android:name=".ui.StoneNameActivity"
             android:label="@string/title_activity_stone_name" >
         </activity>
-        <activity android:name=".ui.CouponInfoActivity" />
+        <activity
+            android:name=".ui.CouponInfoActivity"
+            android:theme="@android:style/Theme.Translucent.NoTitleBar" />
         <activity
             android:name=".ui.ExchangeCouponActivity"
             android:label="@string/title_activity_exchange_coupon" />
@@ -259,9 +261,7 @@
             android:label="@string/title_activity_pointli_shi" >
         </activity>
         <activity
-
             android:name=".PersonalQuestionCollectionActivity"
-
             android:label="@string/title_activity_personal_question_collection" >
         </activity>
         <activity
@@ -274,7 +274,7 @@
         </activity>
 
         <receiver
-            android:name="com.xuetu.Receive.AlarmBroadcastReceiver"
+            android:name=".Receive.AlarmBroadcastReceiver"
             android:process=":remote" />
         <receiver android:name=".BootBroadcastReceiver" >
             <intent-filter>
@@ -282,16 +282,26 @@
             </intent-filter>
         </receiver>
 
-
-       
-
         <activity
-            android:name="com.xuetu.ui.EditAlarmActivity"
+            android:name=".ui.EditAlarmActivity"
             android:label="@string/title_activity_edit_alarm" >
         </activity>
 
-        <service android:name="com.xuetu.services.MyServices" >
+        <service android:name=".services.MyServices" >
         </service>
+
+        <activity
+            android:name=".ui.DaoJiShiActivity"
+            android:label="@string/title_activity_dao_ji_shi" >
+        </activity>
+        <activity
+            android:name=".ui.AddCountDownActivity"
+            android:label="@string/title_activity_edit_count_down" >
+        </activity>
+        <activity
+            android:name=".EditCountdownActivity"
+            android:label="@string/title_activity_edit_countdown" >
+        </activity>
     </application>
 
 </manifest>

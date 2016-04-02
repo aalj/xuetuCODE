@@ -138,5 +138,19 @@ public class DataToTime {
 		return h + ":" + f + ":00";
 
 	}
+	
+	
+	public static String getWeekOfDate(Date dt) {
+        String[] weekDays = {"星日", "星一", "星二", "星三", "星四", "星五", "星六"};
+        Calendar cal = Calendar.getInstance();
+        cal.setTime(dt);
+        int w = cal.get(Calendar.DAY_OF_WEEK) - 1;
+        if (w < 0)
+            w = 0;
+        return weekDays[w];
+    }
+	
+	
+	
 
 }

@@ -1,14 +1,11 @@
 package com.xuetu.db;
 
 import java.sql.Date;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.loc.al;
 import com.xuetu.entity.Alarm;
-import com.xuetu.entity.MyClass;
+import com.xuetu.entity.Countdown;
 import com.xuetu.entity.Pattern;
 import com.xuetu.entity.SelfStudyPlan;
 
@@ -44,7 +41,7 @@ public class DBFindManager {
 			values.put("plan_id", selfS.getPlanID());
 			values.put("start_time", selfS.getStartTime().getTime());
 			values.put("end_time", selfS.getEndTime().getTime());
-			Log.i("TAG", "保存的结束时间"+selfS.getEndTime().getTime()+"");
+			Log.i("TAG", "保存的结束时间" + selfS.getEndTime().getTime() + "");
 			values.put("plan_text", selfS.getPlanText());
 			values.put("plan_remind", selfS.getPlanReming());
 			values.put("pattern_id", selfS.getPattern().getPatternID());
@@ -58,24 +55,25 @@ public class DBFindManager {
 
 		db.endTransaction();// 结束事务
 	}
+
 	public void addSelfOne(SelfStudyPlan selfS) {
 		Log.i("TAG", "添加zihua dao ");
 		db.beginTransaction();// 开始事务
-			ContentValues values = new ContentValues();
-			values.put("plan_id", selfS.getPlanID());
-			values.put("start_time", selfS.getStartTime().getTime());
-			values.put("end_time", selfS.getEndTime().getTime());
-			values.put("plan_text", selfS.getPlanText());
-			values.put("plan_remind", selfS.getPlanReming());
-			values.put("pattern_id", selfS.getPattern().getPatternID());
-			// TODO 现在无法获取学生对象
-			values.put("stu_id", 1);
-			values.put("plan_date", selfS.getPlanDate().getTime());
-			
-			db.insert("selfstudyplan", null, values);
-		
+		ContentValues values = new ContentValues();
+		values.put("plan_id", selfS.getPlanID());
+		values.put("start_time", selfS.getStartTime().getTime());
+		values.put("end_time", selfS.getEndTime().getTime());
+		values.put("plan_text", selfS.getPlanText());
+		values.put("plan_remind", selfS.getPlanReming());
+		values.put("pattern_id", selfS.getPattern().getPatternID());
+		// TODO 现在无法获取学生对象
+		values.put("stu_id", 1);
+		values.put("plan_date", selfS.getPlanDate().getTime());
+
+		db.insert("selfstudyplan", null, values);
+
 		db.setTransactionSuccessful();// 设置事务成功完成
-		
+
 		db.endTransaction();// 结束事务
 	}
 
@@ -110,7 +108,7 @@ public class DBFindManager {
 			plan.setStartTime(startDate);
 
 			String endTime = query.getString(query.getColumnIndex("start_time"));
-			Log.i("TAG", "去出的结束时间"+endTime);
+			Log.i("TAG", "去出的结束时间" + endTime);
 			Date endData = new Date(Long.parseLong(endTime));
 			plan.setEndTime(endData);
 
@@ -126,7 +124,6 @@ public class DBFindManager {
 			Date parse = new Date(Long.parseLong(PlanDate));
 			plan.setPlanDate(parse);
 			list.add(plan);
-			
 
 		}
 		return list;
@@ -158,94 +155,157 @@ public class DBFindManager {
 		return list;
 	}
 
+	public boolean insertCountdown(Countdown countdown) {
+		// codo_id` integer NOT NULL PRIMARY KEY AUTOINCREMENT,
+		// `code_time` integer default 0,
+		// `codo_text`
+		ContentValues values = new ContentValues();
+		values.put("code_time", countdown.getCodoTime().getTime() + "");
+		values.put("codo_text", countdown.getCodoText());
 
-	
-	/**
-	 * 存时间
-	 * @param alarm
-	 * @return
-	 */
-	public boolean insertAlarm(Alarm alarm){
-		
-		ContentValues values= new ContentValues();
-		values.put("start_time", alarm.getStartTime());
-		values.put("temp_index", alarm.getTemp_index());
-		values.put("week", alarm.getWeek());
-		values.put("temp", alarm.getTemp());
-		
-		
-		long insert = db.insert("alarm", null, values);
-		if(!(insert>0)){
+		long insert = db.insert("countdown", null, values);
+		if (!(insert > 0)) {
 			return false;
 		}
 		return true;
-		
+
 	}
-	
-	/**
-	 * 去时间
-	 */
-	public List<Alarm> queryAlarm(int temp){
+
+	public List<Countdown> queryCountdown() {
 		Cursor query;
-		if(temp<0){
-		
-		query = db.query("alarm", null,  null, null, null, null, "start_time" + " DESC");
-		}else{
-			String selection ="temp=?";
-			String[] selectionArgs={temp+""};
-			query = db.query("alarm", null,  selection, selectionArgs, null, null, "start_time");
-			
-		}
-		
-		List<Alarm> list = new ArrayList<Alarm>();
-		Alarm alarm = null;
-		while(query.moveToNext()){
-			alarm = new Alarm();
-			alarm.setAlarm_id(query.getInt(query.getColumnIndex("alarm_id")));
-Log.i("TAG", query.getInt(query.getColumnIndex("alarm_id"))+"------->>>>>>取出来的内容id");
-//			String columnIndex = query.getColumnIndex("start_time");
-			alarm.setStartTime(query.getString(query.getColumnIndex("start_time")));
-			
-			alarm.setTemp_index(query.getInt(query.getColumnIndex("temp_index")));
-			alarm.setWeek(query.getString(query.getColumnIndex("week")));
-			alarm.setTemp(query.getInt(query.getColumnIndex("temp")));
+
+		query = db.query("countdown", null, null, null, null, null, "code_time" + " DESC");
+
+		List<Countdown> list = new ArrayList<Countdown>();
+		Countdown alarm = null;
+		while (query.moveToNext()) {
+			alarm = new Countdown();
+			alarm.setCodoID(query.getInt(query.getColumnIndex("codo_id")));
+			Log.i("TAG", query.getInt(query.getColumnIndex("code_time")) + "------->>>>>>取出来的内容id");
+			// String columnIndex = query.getColumnIndex("start_time");
+			Log.i("TAG", Long.parseLong(query.getString(query.getColumnIndex("code_time")))+"本地数据库数据是啊今年");
+			alarm.setCodoTime(new Date(Long.parseLong(query.getString(query.getColumnIndex("code_time")))));
+			alarm.setCodoText(query.getString(query.getColumnIndex("codo_text")));
+
 			list.add(alarm);
-			
+
 		}
 		query.close();
 		return list;
-		
+
+	}
+
+	public boolean updateCountdown(int alarm_id, Countdown countdown) {
+		ContentValues values = new ContentValues();
+//		values.put("codo_id", countdown.getStartTime());
+		values.put("code_time", countdown.getCodoTime().getTime());
+		values.put("codo_text", countdown.getCodoText());
+		String whereClause = "codo_id=?";
+		String[] whereArgs = { alarm_id+"" };
+		int update = db.update("countdown", values, whereClause, whereArgs);
+		if (!(update > 0))
+			return false;
+
+		return true;
+
+	}
+
+	public boolean deleteCountdown(int alarm_id) {
+		String whereClause = "codo_id=?";
+		String[] whereArgs = { alarm_id + "" };
+		int delete = db.delete("countdown", whereClause, whereArgs);
+		if (!(delete > 0))
+			return false;
+
+		return true;
+
 	}
 	
-	public boolean updateAlarm(int alarm_id,Alarm alarm){
+	
+	
+
+	/**
+	 * 存时间
+	 * 
+	 * @param alarm
+	 * @return
+	 */
+	public boolean insertAlarm(Alarm alarm) {
+
 		ContentValues values = new ContentValues();
 		values.put("start_time", alarm.getStartTime());
 		values.put("temp_index", alarm.getTemp_index());
 		values.put("week", alarm.getWeek());
 		values.put("temp", alarm.getTemp());
-		String whereClause="alarm_id=?";
-		String[] whereArgs={"alarm_id"};
-		int update = db.update("alarm", values, whereClause, whereArgs);
-		if(!(update>0))
-		return false;
-		
-		return true;
-		
-	}
-	public boolean deleteAlarm(int alarm_id,Alarm alarm){
-		String whereClause="alarm_id=?";
-		String[] whereArgs={alarm_id+""};
-		int delete = db.delete("alarm", whereClause, whereArgs);
-		if(!(delete>0))
+
+		long insert = db.insert("alarm", null, values);
+		if (!(insert > 0)) {
 			return false;
-		
-		
+		}
 		return true;
-		
+
 	}
-	
-	
-	
-	
-	
+
+	/**
+	 * 去时间
+	 */
+	public List<Alarm> queryAlarm(int temp) {
+		Cursor query;
+		if (temp < 0) {
+
+			query = db.query("alarm", null, null, null, null, null, "start_time" + " DESC");
+		} else {
+			String selection = "temp=?";
+			String[] selectionArgs = { temp + "" };
+			query = db.query("alarm", null, selection, selectionArgs, null, null, "start_time");
+
+		}
+
+		List<Alarm> list = new ArrayList<Alarm>();
+		Alarm alarm = null;
+		while (query.moveToNext()) {
+			alarm = new Alarm();
+			alarm.setAlarm_id(query.getInt(query.getColumnIndex("alarm_id")));
+			Log.i("TAG", query.getInt(query.getColumnIndex("alarm_id")) + "------->>>>>>取出来的内容id");
+			// String columnIndex = query.getColumnIndex("start_time");
+			alarm.setStartTime(query.getString(query.getColumnIndex("start_time")));
+
+			alarm.setTemp_index(query.getInt(query.getColumnIndex("temp_index")));
+			alarm.setWeek(query.getString(query.getColumnIndex("week")));
+			alarm.setTemp(query.getInt(query.getColumnIndex("temp")));
+			list.add(alarm);
+
+		}
+		query.close();
+		return list;
+
+	}
+
+	public boolean updateAlarm(int alarm_id, Alarm alarm) {
+		ContentValues values = new ContentValues();
+		values.put("start_time", alarm.getStartTime());
+		values.put("temp_index", alarm.getTemp_index());
+		values.put("week", alarm.getWeek());
+		values.put("temp", alarm.getTemp());
+		String whereClause = "alarm_id=?";
+		String[] whereArgs = { "alarm_id" };
+		int update = db.update("alarm", values, whereClause, whereArgs);
+		if (!(update > 0))
+			return false;
+
+		return true;
+
+	}
+
+	public boolean deleteAlarm(int alarm_id, Alarm alarm) {
+		String whereClause = "alarm_id=?";
+		String[] whereArgs = { alarm_id + "" };
+		int delete = db.delete("alarm", whereClause, whereArgs);
+		if (!(delete > 0))
+			return false;
+
+		return true;
+
+	}
+
 }

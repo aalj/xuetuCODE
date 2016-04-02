@@ -14,7 +14,7 @@
         android:layout_marginLeft="20dp"
         android:layout_marginTop="10dp"
         android:text="TextView"
-        android:textSize="25sp" />
+        android:textSize="20sp" />
 
     <TextView
         android:id="@+id/info"
@@ -47,6 +47,7 @@
         android:layout_below="@+id/info"
         android:layout_marginTop="5dp"
         android:textSize="10sp"
+        android:layout_marginLeft="20dp"
         android:textColor="#9e9e9e"
         android:text="时长：" />
 
@@ -60,15 +61,6 @@
         android:layout_toRightOf="@+id/tv_time_title"
         android:text="TextView" />
 
-    <com.gc.materialdesign.views.Switch
-        android:id="@+id/myswitch"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignBottom="@+id/tv_time_title"
-        android:layout_alignParentRight="true"
-        android:background="#1E88E5" >
-    </com.gc.materialdesign.views.Switch>
-
     <TextView
         android:id="@+id/lishi"
         android:layout_width="wrap_content"
@@ -77,5 +69,15 @@
         android:textColor="#ff0000"
         android:layout_alignParentRight="true"
         android:text="" />
+
+    <TextView
+        android:id="@+id/myswitch"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/info"
+        android:layout_alignParentRight="true"
+        android:layout_marginRight="18dp"
+        android:text="zhixing"
+         />
 
 </RelativeLayout>

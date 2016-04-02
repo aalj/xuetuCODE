@@ -9,30 +9,6 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-import android.app.Activity;
-import android.app.AlertDialog;
-import android.content.Context;
-import android.content.DialogInterface;
-import android.content.Intent;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.graphics.drawable.Drawable;
-import android.net.Uri;
-import android.os.Bundle;
-import android.os.Environment;
-import android.os.Handler;
-import android.os.Message;
-import android.provider.MediaStore;
-import android.util.Log;
-import android.view.View;
-import android.view.View.OnClickListener;
-import android.widget.Button;
-import android.widget.EditText;
-import android.widget.ImageView;
-import android.widget.ListView;
-import android.widget.TextView;
-import android.widget.Toast;
-
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
@@ -54,6 +30,31 @@ import com.xuetu.view.PullToRefreshView;
 import com.xuetu.view.PullToRefreshView.OnFooterRefreshListener;
 import com.xuetu.view.PullToRefreshView.OnHeaderRefreshListener;
 import com.xuetu.view.TitleBar;
+
+import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.Context;
+import android.content.DialogInterface;
+import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.drawable.Drawable;
+import android.net.Uri;
+import android.os.Bundle;
+import android.os.Environment;
+import android.os.Handler;
+import android.os.Message;
+import android.provider.MediaStore;
+import android.util.Log;
+import android.view.View;
+import android.view.View.OnClickListener;
+import android.view.inputmethod.InputMethodManager;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.ImageView;
+import android.widget.ListView;
+import android.widget.TextView;
+import android.widget.Toast;
 
 public class Answer_list extends Activity implements OnClickListener, OnHeaderRefreshListener, OnFooterRefreshListener{
 
@@ -174,6 +175,9 @@ public class Answer_list extends Activity implements OnClickListener, OnHeaderRe
 		// TODO Auto-generated method stub
 		switch(v.getId()){
 		case R.id.btn_ans:
+			InputMethodManager imm = (InputMethodManager)  
+	         getSystemService(Context.INPUT_METHOD_SERVICE);  
+	         imm.hideSoftInputFromWindow(v.getWindowToken(), 0);  
 			if(stu_id<=0){
 				Log.i("hehe", "mei denglu");
 				Toast.makeText(Answer_list.this, "请先登陆哟！", 0).show();
