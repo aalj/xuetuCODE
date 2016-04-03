@@ -2,8 +2,8 @@ package com.xuetu.web.android;
 
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -15,19 +15,17 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.xuetu.dao.QuestionIml;
 import com.xuetu.dao.inter.QuesTionDao;
-import com.xuetu.entity.Question;
 
 /**
- * Servlet implementation class GetSubQues
+ * Servlet implementation class GetAgreeAnswer
  */
-@WebServlet("/GetSubQues")
-public class GetSubQues extends HttpServlet {
+@WebServlet("/GetAgreeAnswer")
+public class GetAgreeAnswer extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	private int sub_id;
+	private int stu_id;
 	QuesTionDao q = new QuestionIml();
-	private int page;
-	private int num;
-	List<Question> qs = new ArrayList<Question>();
+	Set<Integer> s = new HashSet<Integer>();
+	private String jsonStr;
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
@@ -47,23 +45,19 @@ public class GetSubQues extends HttpServlet {
 		response.setCharacterEncoding("utf-8");
 		response.setContentType("text/html;charset=UTF-8");
 		
-		sub_id = Integer.parseInt(request.getParameter("sub_id"));
-		System.out.println(sub_id+"----->>>jjjjkasjdfkasjdfkasjdfkjsadkfjaskdj");
-		qs = q.getQuesBySubId(sub_id);
-		System.out.println(qs.get(2).getQuesText()+"-----<<<>>>><<<><><><><");
-//		System.out.println(qs.get(2).getQuesText());
-		String jsonStr = null;
+		stu_id = Integer.parseInt(request.getParameter("stu_id"));
+		s = q.getAgreeAnswerByStuId(stu_id);
+//		for(Integer i:s){
+//			System.out.println(i);
+//		}
 		Gson gson = new GsonBuilder()
 				.enableComplexMapKeySerialization()
 				.setPrettyPrinting()
 				.disableHtmlEscaping()
 				.setDateFormat("yyyy-MM-dd HH:mm:ss").create();
-		jsonStr = gson.toJson(qs);
+		jsonStr = gson.toJson(s);
 		PrintWriter pw = response.getWriter();
 		pw.write(jsonStr);
-
-//		System.out.println("end"+sdf.format(new Date(System.currentTimeMillis())));
-		pw.close();
 	}
 
 }

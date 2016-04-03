@@ -38,12 +38,12 @@ public class Answer implements Serializable{
 	private String ansText = null;
 	private String ansImg = null;
 	private Date ansTime = null;
-	private int ans_num = 0;
-	public int getAns_num() {
-		return ans_num;
+	private int agrNum = 0;
+	public int getAgrNum() {
+		return agrNum;
 	}
-	public void setAns_num(int ans_num) {
-		this.ans_num = ans_num;
+	public void setAgrNum(int agrNum) {
+		this.agrNum = agrNum;
 	}
 	public int getAnsID() {
 		return ansID;
