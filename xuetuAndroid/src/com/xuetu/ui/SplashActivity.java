@@ -36,6 +36,7 @@ import com.xuetu.entity.Alarm;
 import com.xuetu.entity.Coupon;
 import com.xuetu.entity.LongTime;
 import com.xuetu.entity.Student;
+import com.xuetu.services.MyServices;
 import com.xuetu.utils.DataToTime;
 import com.xuetu.utils.GetHttp;
 import com.xuetu.utils.StreamUtils;
@@ -184,12 +185,13 @@ public class SplashActivity extends Activity {
 	 *             CodingExample Ver 1.1
 	 */
 	private void initView() {
-		if (preferences.getBoolean("alarm", false)) {
-			// 设置闹钟，
+//		if (preferences.getBoolean("alarm", false)) {
+//			// 设置闹钟，
 			DBFindManager dbFindManager = new DBFindManager(this);
 			List<Alarm> queryAlarm = dbFindManager.queryAlarm(-1);
 			setAlarm(queryAlarm);
-		}
+//		}
+//		startService(new Intent(SplashActivity.this,MyServices.class));
 
 		getDate();
 		String telephone = preferences.getString("uasename", "0");
@@ -644,7 +646,7 @@ public class SplashActivity extends Activity {
 	/** 设置闹钟 */
 	public void setAlarm(List<Alarm> queryAlarm) {
 		for (Alarm alarm : queryAlarm) {
-			if (alarm.getTemp() == 0) {// 表示提醒
+			if (alarm.getTemp_index() == 0) {// 表示提醒
 				sendAlarmEveryday1(SplashActivity.this, alarm);
 			}
 		}
@@ -658,14 +660,14 @@ public class SplashActivity extends Activity {
 		Calendar calendar = Calendar.getInstance(Locale.getDefault());
 		calendar.setTimeInMillis(System.currentTimeMillis());
 		String[] tt = alarm.getStartTime().split(":");
-		calendar.set(Calendar.HOUR_OF_DAY, Integer.parseInt(tt[0])-1);
+		calendar.set(Calendar.HOUR_OF_DAY, Integer.parseInt(tt[0]));
 		calendar.set(Calendar.MINUTE, Integer.parseInt(tt[1]));
 		calendar.set(Calendar.SECOND, 0);
 		calendar.set(Calendar.MILLISECOND, 0);
 
-		Intent intent = new Intent(SplashActivity.this, AlarmBroadcastReceiver.class);
-		intent.setAction("alarm");
-		PendingIntent pendingIntent = PendingIntent.getBroadcast(context, 0, intent, PendingIntent.FLAG_CANCEL_CURRENT);
+		Intent intent = new Intent(SplashActivity.this, MyServices.class);
+		
+		PendingIntent pendingIntent = PendingIntent.getBroadcast(context, alarm.getAlarm_id(), intent, PendingIntent.FLAG_CANCEL_CURRENT);
 		alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), AlarmManager.INTERVAL_DAY,
 				pendingIntent);
 	}

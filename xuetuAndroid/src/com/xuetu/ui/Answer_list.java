@@ -7,8 +7,11 @@ import java.lang.reflect.Type;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
+import android.R.integer;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
@@ -59,6 +62,7 @@ public class Answer_list extends Activity implements OnClickListener, OnHeaderRe
 
 	//声明变量
 //	MyBasesadapter<Answer> adapter = null;
+	XueTuApplication xuetu; 
 	MyQuestionBaseAdapter<Answer> adapter = null;
 	Question curQues = null;
 	List<Answer> list = null;
@@ -85,7 +89,10 @@ public class Answer_list extends Activity implements OnClickListener, OnHeaderRe
 	ImageView iv_ans1_ques_img;
 	ImageView btn_photo;
 	ImageView iv_ans1_userImg;
+	ImageView iv_collect;
 //	TextView tv_ans_title;
+	Boolean flagCollect = false;	//收藏标识
+	Boolean flagAgree = false;	//点赞标识
 	Button btn_ans;
 	View view_title;
 	TitleBar titlebar;
@@ -93,21 +100,20 @@ public class Answer_list extends Activity implements OnClickListener, OnHeaderRe
 	private String urlAgree;
 	int stu_id = 0;
 	Context context = null;
-	TextView tv = null;
 	HttpUtils hutilsAgree = new HttpUtils();
 	RequestParams paramsAgree ;
 	//存放点赞按钮tag的集合
-	List<Integer> listTag = new ArrayList<Integer>();
+	Set<Integer> setTag = new HashSet<Integer>();
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.question_answer);
 		
-		stu_id = ((XueTuApplication)getApplication()).getStudent().getStuId();
-
+		xuetu = (XueTuApplication) getApplication();
+		stu_id = xuetu.getStudent().getStuId();
+		getAgreeAnswer();
 		initia();
-		
 		getPageAnswerByQues();
 	}
 	public void initia(){
@@ -126,8 +132,10 @@ public class Answer_list extends Activity implements OnClickListener, OnHeaderRe
 		et_ans_text = (EditText) findViewById(R.id.et_ans_text);
 		lv_answer = (ListView) findViewById(R.id.lv_answer);
 		tv_ans1_sub = (TextView) findViewById(R.id.tv_ans1_sub);
+		iv_collect = (ImageView) findViewById(R.id.iv_collect);
 		//设置监听事件
 		btn_ans.setOnClickListener(this);
+		iv_collect.setOnClickListener(this);
 //		titlebar.setLeftLayoutClickListener(this);
 		btn_photo.setOnClickListener(this);
 		tv_ans1_num = (TextView) findViewById(R.id.tv_ans1_num);
@@ -137,17 +145,48 @@ public class Answer_list extends Activity implements OnClickListener, OnHeaderRe
 		tv_ans1_ques_text = (TextView) findViewById(R.id.tv_ans1_ques_text);
 		tv_ans1_ques_text.setText(curQues.getQuesText());
 		tv_ans1_num.setText(curQues.getAns_num()+"");
+		Drawable drawable= getResources().getDrawable(R.drawable.ic_ans);
+		/// 这一步必须要做,否则不会显示.
+		drawable.setBounds(0, 0, 50, 50);
+		tv_ans1_num.setCompoundDrawables(drawable,null,null,null);
 		tv_ans1_sub.setText(curQues.getSubject().getName());
 		tv_ans1_time.setText(sdf2.format(new Date(curQues.getQuesDate().getTime())));
+		isSave();
 		bitmapUtils.display(iv_ans1_ques_img, GetHttp.getHttpLC()+curQues.getQuesIma());
 		tv_ans1_stuName.setText(curQues.getStudent().getStuName());
 		titlebar.setLeftLayoutClickListener(this);
 		titlebar.setRightLayoutVisibility(View.INVISIBLE);
 	}
+	public void isSave(){
+		url = GetHttp.getHttpLC()+"IsSaveQuestion";
+		paramsAgree = new RequestParams();
+		paramsAgree.addBodyParameter("ques_id",curQues.getQuesID()+"");
+		paramsAgree.addBodyParameter("stu_id",stu_id+"");
+		hutils.send(HttpMethod.POST, url, paramsAgree, new RequestCallBack<String>() {
+
+			@Override
+			public void onFailure(HttpException arg0, String arg1) {
+				// TODO Auto-generated method stub
+				
+			}
+
+			@Override
+			public void onSuccess(ResponseInfo<String> arg0) {
+				// TODO Auto-generated method stub
+				if(arg0.result.equals("1")){
+					flagCollect = true;
+					iv_collect.setImageResource(R.drawable.ic_saved);
+				}else{
+					flagCollect = false;
+					iv_collect.setImageResource(R.drawable.ic_save);
+				}
+			}
+		});
+	}
 	@Override
 	public void onResume() {
 		stu_id = ((XueTuApplication)getApplication()).getStudent().getStuId();
-		
+		getAgreeAnswer();
 		super.onResume();
 	}
 	Handler handler = new Handler(){
@@ -172,6 +211,7 @@ public class Answer_list extends Activity implements OnClickListener, OnHeaderRe
 	@Override
 	public void onClick(View v) {
 		// TODO Auto-generated method stub
+		RequestParams params;
 		switch(v.getId()){
 		case R.id.btn_ans:
 			if(stu_id<=0){
@@ -186,13 +226,10 @@ public class Answer_list extends Activity implements OnClickListener, OnHeaderRe
 					et_ans_text.setText("");
 				}
 			}
-				
-		
 			break;
 		case R.id.btn_photo:
 			AlertDialog.Builder builder = new AlertDialog.Builder(Answer_list.this);
 			builder.setItems(new String[]{"拍照","从相册中选择"},new DialogInterface.OnClickListener() {
-				
 				@Override
 				public void onClick(DialogInterface dialog, int which) {
 					// which==0,拍照	which==1,从相册中选择
@@ -203,8 +240,47 @@ public class Answer_list extends Activity implements OnClickListener, OnHeaderRe
 		case R.id.left_layout:
 			finish();
 			break;
+		case R.id.iv_collect:
+			params = new RequestParams();
+			//收藏记录写入数据库，判断有没被收藏
+			if(flagCollect==true)
+			url=GetHttp.getHttpLC()+"CollectCancelQuestion" ;
+			else{
+				url=GetHttp.getHttpLC()+"CollectQuestion" ;
+				params.addBodyParameter("ques_time_collect",System.currentTimeMillis()+"");
+			}
+//			Log.i("hehe", questions.get((Integer)v1.getTag()).getQuesID()+"");
+			params.addBodyParameter("stu_id",stu_id+"");
+			params.addBodyParameter("ques_id",curQues.getQuesID()+"");
+			hutils.send(HttpMethod.POST, url, params, new RequestCallBack<String>() {
+
+				@Override
+				public void onFailure(HttpException arg0, String arg1) {
+					// TODO Auto-generated method stub
+					if(url.equals(GetHttp.getHttpLC()+"CollectQuestion"))
+						Toast.makeText(Answer_list.this, "收藏失败", 0).show();
+					else
+						Toast.makeText(Answer_list.this, "取消收藏失败", 0).show();
+
+				}
+
+				@Override
+				public void onSuccess(ResponseInfo<String> arg0) {
+					// TODO Auto-generated method stub
+					if(url.equals(GetHttp.getHttpLC()+"CollectQuestion")){
+						Toast.makeText(Answer_list.this, "收藏成功", 0).show();
+						iv_collect.setImageResource(R.drawable.ic_saved);
+						flagCollect = true;
+					}else{
+						Toast.makeText(Answer_list.this, "取消收藏成功", 0).show();
+						iv_collect.setImageResource(R.drawable.ic_save);
+						flagCollect = false;
+					}
+				}
+			});
 		}
-	}
+		}
+	
 	
 	
 	//拍照回答
@@ -308,7 +384,7 @@ public class Answer_list extends Activity implements OnClickListener, OnHeaderRe
 					 Message msg = Message.obtain();
 					 msg.what=1;
 					 msg.obj=list;
-					handler.sendMessage(msg );
+					handler.sendMessage(msg);
 					;
 				}
 			});
@@ -321,12 +397,9 @@ public class Answer_list extends Activity implements OnClickListener, OnHeaderRe
 			if(file.exists()){
 				url = GetHttp.getHttpLC()+"SubmitAnswer";
 				paramsSub.addBodyParameter(file.getAbsolutePath().replace("/", ""),file);
-				Log.i("hehe","yes file");
 				}
 				else{
-					Log.i("hehe","no file");
 					url = GetHttp.getHttpLC()+"SubmitAnswerWithoutImg";
-					Log.i("hehe",url);
 				}
 			paramsSub.addBodyParameter("quesId",curQues.getQuesID()+"");
 			paramsSub.addBodyParameter("stu_id",stu_id+"");
@@ -363,48 +436,39 @@ public class Answer_list extends Activity implements OnClickListener, OnHeaderRe
 		//标记适配器是否初始化
 		boolean temp = false;
 		public void setMyAapter(List<Answer> list){
-			
+			setTag = xuetu.getSet();
 			adapter = new MyQuestionBaseAdapter<Answer>(this,list,R.layout.question_answeritem) {
 				
 				@Override
-				public void convert(ViewHodle viewHolder, final Answer item,int position) {
+				public void convert(final ViewHodle viewHolder, final Answer item,int position) {
 					
-					TextView tv = viewHolder.getView(R.id.tv_like);
+					ImageView iv = (ImageView)viewHolder.getView(R.id.iv_like);
+					final TextView tv = (TextView)viewHolder.getView(R.id.tv_like);
 					viewHolder.setText(R.id.tv_ans_stuName, item.getStudent().getStuName());
 					viewHolder.setText(R.id.tv_ans_text, item.getAnsText());
 					viewHolder.setText(R.id.tv_ans_time, sdf2.format(new Date(item.getAnsTime().getTime())));
 					viewHolder.SetUrlImage(R.id.iv_ans_img, GetHttp.getHttpLC()+item.getAnsImg());
-					
-					viewHolder.setTextDrawbleLeft(R.id.tv_like, R.drawable.ic_like);
-					
-					//判断复用
-					if(listTag.contains(position)){
-						viewHolder.setTextDrawbleLeft(R.id.tv_like, R.drawable.ic_liked);
-//						viewHolder.setTextColor(R.id.tv_like, Answer_list.this.getResources().getColor(R.color.likedText));
+					viewHolder.SetUrlImage(R.id.iv_ans_userImg, GetHttp.getHttpLC()+item.getStudent().getStuIma());
+					viewHolder.setText(R.id.tv_like, item.getAgrNum()+"");
+					if(setTag.contains(item.getAnsID())){
+						viewHolder.setIma(R.id.iv_like, R.drawable.ic_liked);
+						tv.setTextColor(0xffF48700);
 					}else{
-						viewHolder.setTextDrawbleLeft(R.id.tv_like, R.drawable.ic_like);
-//						viewHolder.setTextColor(R.id.tv_like, Answer_list.this.getResources().getColor(R.color.likeText));
+						viewHolder.setIma(R.id.iv_like, R.drawable.ic_like);
+						tv.setTextColor(0xffABABAB);
 					}
-					tv.setTag(position);
-					tv.setOnClickListener(new OnClickListener() {
+					iv.setTag(item.getAnsID());
+					iv.setOnClickListener(new OnClickListener() {
 						@Override
 						public void onClick(View v1) {
 							// TODO Auto-generated method stub
 							paramsAgree = new RequestParams();
-							TextView v = (TextView) v1;
-							if(listTag.contains(v.getTag())){
-								listTag.remove((Integer)v1.getTag());
-								Drawable drawable= Answer_list.this.getResources().getDrawable(R.drawable.ic_like);
-								/// 这一步必须要做,否则不会显示.
-								drawable.setBounds(0, 0,40, 40);
-								v.setCompoundDrawables(drawable,null,null,null);
-//								v.setTextColor(Answer_list.this.getResources().getColor(R.color.likedText));
-								v.setText((Integer.parseInt(v.getText()+"")-1)+"");
+							ImageView v = (ImageView) v1;
+							if(setTag.contains(v.getTag())){
+								setTag.remove((Integer)v1.getTag());
 								//将取消赞的操作保存到数据库
 								urlAgree = GetHttp.getHttpLC() + "DisAgreeAnswer";
 								paramsAgree.addBodyParameter("ans_id",item.getAnsID()+"");
-//								Log.i("hehe", stu_id+"---quxiao");
-//								Log.i("hehe", item.getAnsID()+"---quxiao");
 								paramsAgree.addBodyParameter("stu_id",stu_id+"");
 								hutilsAgree.send(HttpMethod.POST, urlAgree,paramsAgree, new RequestCallBack<String>() {
 
@@ -420,19 +484,22 @@ public class Answer_list extends Activity implements OnClickListener, OnHeaderRe
 											ResponseInfo<String> arg0) {
 										// TODO Auto-generated method stub
 										Toast.makeText(Answer_list.this, "取消点赞成功", 0).show();
+										viewHolder.setIma(R.id.iv_like, R.drawable.ic_like);
+										viewHolder.setText(R.id.tv_like, (Integer.parseInt(tv.getText()+"")-1)+"");
+										tv.setTextColor(0xffABABAB);
+//										viewHolder.setTextColor(R.id.tv_like, R.string.likeText);
 									}
 								});
 							}else{
-								listTag.add((Integer)v1.getTag());
-								Drawable drawable= Answer_list.this.getResources().getDrawable(R.drawable.ic_liked);
-								drawable.setBounds(0, 0,40, 40);
-								v.setCompoundDrawables(drawable,null,null,null);
-								v.setText((Integer.parseInt(v.getText()+"")+1)+"");
+								setTag.add((Integer)v1.getTag());
+//								Drawable drawable= Answer_list.this.getResources().getDrawable(R.drawable.ic_liked);
+//								drawable.setBounds(0, 0,40, 40);
+//								v.setCompoundDrawables(drawable,null,null,null);
+//								v.setText((Integer.parseInt(v.getText()+"")+1)+"");
 //								v.setTextColor(Answer_list.this.getResources().getColor(R.color.likeText));
 								//将点赞的操作保存到数据库
 								urlAgree = GetHttp.getHttpLC() + "AngreeAnswer";
 //								Log.i("hehe", stu_id+"---zan");
-								Log.i("hehe", item.getAnsID()+"---zan");
 								
 								paramsAgree.addBodyParameter("ans_id",item.getAnsID()+"");
 								paramsAgree.addBodyParameter("stu_id",stu_id+"");
@@ -451,6 +518,10 @@ public class Answer_list extends Activity implements OnClickListener, OnHeaderRe
 											ResponseInfo<String> arg0) {
 										// TODO Auto-generated method stub
 										Toast.makeText(Answer_list.this, "点赞成功", 0).show();
+										viewHolder.setIma(R.id.iv_like, R.drawable.ic_liked);
+										viewHolder.setText(R.id.tv_like, (Integer.parseInt(tv.getText()+"")+1)+"");
+										tv.setTextColor(0xffF48700);
+//										viewHolder.setTextColor(R.id.tv_like, R.string.likedText);
 									}
 								});
 							}
@@ -459,6 +530,32 @@ public class Answer_list extends Activity implements OnClickListener, OnHeaderRe
 				}
 			};
 			temp = true;
+		}
+		public void getAgreeAnswer(){
+			urlAgree = GetHttp.getHttpLC()+"GetAgreeAnswer";
+			paramsAgree = new RequestParams();
+			paramsAgree.addBodyParameter("stu_id",stu_id+"");
+			hutilsAgree.send(HttpMethod.POST, urlAgree, paramsAgree, new RequestCallBack<String>() {
+
+				@Override
+				public void onFailure(HttpException arg0, String arg1) {
+					// TODO Auto-generated method stub
+					
+				}
+
+				@Override
+				public void onSuccess(ResponseInfo<String> arg0) {
+					// 得到该用户的对答案的点赞集合
+					Gson gson = new GsonBuilder()
+					.enableComplexMapKeySerialization()
+					.setPrettyPrinting()
+					.disableHtmlEscaping()
+					.setDateFormat("yyyy-MM-dd HH:mm:ss").create();
+					Type type = new TypeToken<Set<Integer>>(){}.getType();
+					Set<Integer> sAgree = gson.fromJson(arg0.result, type);
+					xuetu.setSet(sAgree);
+				}
+			});
 		}
 		@Override
 		public void onHeaderRefresh(PullToRefreshView view) {

@@ -57,6 +57,7 @@ public class Question_ask extends Activity implements OnClickListener{
 	Long quesTime;
 	TitleBar title;
 	Context mContext;
+	PopupWindow popupWindow;
 	Bitmap bm = null;
 	SimpleDateFormat sdf = new SimpleDateFormat("yyyy_MM_dd_HH_mm_ss");
 	SimpleDateFormat sdf2 = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
@@ -74,6 +75,7 @@ public class Question_ask extends Activity implements OnClickListener{
 	private TextView tv_sub2;
 	private TextView tv_sub3;
 	private TextView tv_sub4;
+	private TextView tv_sub;
 	private Uri imageUri;
 	
 	@Override
@@ -85,11 +87,11 @@ public class Question_ask extends Activity implements OnClickListener{
 		title = (TitleBar) findViewById(R.id.title_questionAsk);
 		iv_prop = (ImageView) findViewById(R.id.iv_prop);
 		rl_prop = (RelativeLayout) findViewById(R.id.rl_prop);
-		
+		tv_sub = (TextView) findViewById(R.id.tv_sub);
 		
 		file = new File(Environment.getExternalStorageDirectory(),sdf.format(new Date(System.currentTimeMillis()))+".jpg");
 		imageUri = Uri.fromFile(file);
-		
+		stu_id = ((XueTuApplication)getApplication()).getStudent().getStuId();
 		rl_prop.setOnClickListener(this);
 		title.setLeftLayoutClickListener(this);
 		findViewById(R.id.btn_ask).setOnClickListener(this);
@@ -98,12 +100,12 @@ public class Question_ask extends Activity implements OnClickListener{
 		init();
 		
 	}
-	@Override
-	public void onResume() {
-		stu_id = ((XueTuApplication)getApplication()).getStudent().getStuId();
-		
-		super.onResume();
-	}
+//	@Override
+//	public void onResume() {
+//		
+//		
+//		super.onResume();
+//	}
 	@Override
 	public void onClick(View v) {
 		// TODO Auto-generated method stub
@@ -133,16 +135,23 @@ public class Question_ask extends Activity implements OnClickListener{
 				case R.id.tv_sub1:
 					subId = 1;
 					//((TextView) v).setTextColor(this.getResources().getColor(R.color.blue1));
-					Toast.makeText(Question_ask.this, subId+"", 0).show();
+					tv_sub.setText("英语");
+					popupWindow.dismiss();
 					break;
 				case R.id.tv_sub2:
 					subId = 2;
+					tv_sub.setText("高数");
+					popupWindow.dismiss();
 					break;
 				case R.id.tv_sub3:
 					subId = 3;
+					tv_sub.setText("地理");
+					popupWindow.dismiss();
 					break;
 				case R.id.tv_sub4:
 					subId = 4;
+					tv_sub.setText("化学");
+					popupWindow.dismiss();
 					break;
 				case R.id.left_layout:
 					finish();
@@ -216,14 +225,13 @@ public class Question_ask extends Activity implements OnClickListener{
         contentView.findViewById(R.id.tv_sub4).setOnClickListener(Question_ask.this);
         
        
-        final PopupWindow popupWindow = new PopupWindow(contentView,
+        popupWindow = new PopupWindow(contentView,
                 LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT, true);
         popupWindow.setTouchable(true);
         popupWindow.setTouchInterceptor(new OnTouchListener() {
 			@Override
 			public boolean onTouch(View v, MotionEvent event) {
 				// TODO Auto-generated method stub
-				popupWindow.dismiss();
 				return false;
 				// 这里如果返回true的话，touch事件将被拦截
                 // 拦截后 PopupWindow的onTouchEvent不被调用，这样点击外部区域无法dismiss
@@ -233,19 +241,10 @@ public class Question_ask extends Activity implements OnClickListener{
         });
 
         // 设置按钮的点击事件
-        
-        Button btn_sure = (Button) contentView.findViewById(R.id.btn_sure);
-        btn_sure.setOnClickListener(new OnClickListener() {
-
-            @Override
-            public void onClick(View v) {
-              popupWindow.dismiss();
-            }
-        });
         // 如果不设置PopupWindow的背景，无论是点击外部区域还是Back键都无法dismiss弹框
         // 我觉得这里是API的一个bug
-//        popupWindow.setBackgroundDrawable(getResources().getDrawable(
-//                R.drawable.ic_launcher));
+        popupWindow.setBackgroundDrawable(getResources().getDrawable(
+                R.drawable.toumingbackground));
         // 设置好参数之后再show
         popupWindow.showAsDropDown(v);
      // popupWindow.showAtLocation(view.getParent(),ce, x, y)

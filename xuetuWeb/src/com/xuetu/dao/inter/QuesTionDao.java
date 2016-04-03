@@ -16,6 +16,7 @@ package com.xuetu.dao.inter;
 import java.sql.Date;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import com.xuetu.entity.Answer;
 import com.xuetu.entity.CollectionQuestion;
@@ -85,7 +86,7 @@ public interface QuesTionDao {
 	 * @throws 
 	 * @since  CodingExample　Ver 1.1
 	 */
-	public Map<List<Integer>,List<Question>> queryLimitQuestion(int page,int num);
+	public List<Question> queryLimitQuestion(int page,int num);
 	
 	/**
 	 * 
@@ -226,7 +227,9 @@ public interface QuesTionDao {
 	public void collectCancelQuestion(int stu_id,int ques_id);
 	public void agreeAnswer(int ans_id,int stu_id,Date agr_date);
 	public void disAgreeAnswer(int ans_id,int stu_id);
-	public List<Integer> isSave();
+	public Boolean isSave(int ques_id,int stu_id);
 	public List<Question> getQuesBySubId(int sub_id);
+	public Set<Integer> getAgreeAnswerByStuId(int stu_id);
+	public Integer getAgrNumByAnsId(int ans_id);
 }
 

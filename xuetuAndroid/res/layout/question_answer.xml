@@ -2,8 +2,8 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:title="http://schemas.android.com/apk/res/com.xuetu"
     android:layout_width="match_parent"
-    android:orientation="vertical"
-    android:layout_height="match_parent" >
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
 
     <com.xuetu.view.TitleBar
         android:id="@+id/title_my"
@@ -15,8 +15,7 @@
         title:titleBarRightImage="@drawable/ic_menu_add"
         title:titleBarTitle="回答" >
     </com.xuetu.view.TitleBar>
-
-    <com.xuetu.view.PullToRefreshView
+	<com.xuetu.view.PullToRefreshView
         android:id="@+id/main_pull_refresh_view"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
@@ -28,24 +27,142 @@
         <ScrollView
             android:layout_width="match_parent"
             android:layout_height="fill_parent" >
-
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:orientation="vertical" >
-                
-                <include layout="@layout/question_answer_firstitem"/>
+    	<LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="150dp"
+        android:orientation="horizontal" >
 
-                <com.xuetu.view.MyListView
-                    android:id="@+id/lv_answer"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent" >
-                </com.xuetu.view.MyListView>
-            </LinearLayout>
+        <RelativeLayout
+            android:layout_width="70dp"
+            android:layout_height="match_parent"
+            android:layout_weight="0" >
+
+            <com.xuetu.view.CircleImageView
+                android:id="@+id/iv_ans1_userImg"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_marginTop="5dp"
+                android:src="@drawable/head" />
+
+            <TextView
+                android:id="@+id/tv_ans1_sub"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:layout_alignParentLeft="true"
+                android:layout_marginLeft="10dp"
+                android:layout_marginBottom="5dp"
+                android:layout_alignLeft="@id/iv_ans1_userImg"
+                android:text="eng"
+                android:textColor="@color/subject" />
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="150dp"
+            android:layout_weight="1" >
+
+            <TextView
+                android:id="@+id/textView2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignBaseline="@+id/tv_ans1_stuName"
+                android:layout_alignBottom="@+id/tv_ans1_stuName"
+                android:layout_toRightOf="@+id/tv_ans1_stuName"
+                android:background="@color/blue"
+                android:text="提问者"
+                android:textColor="@color/white" />
+
+            <TextView
+                android:id="@+id/tv_ans1_stuName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentTop="true"
+                android:paddingBottom="5dp"
+                android:paddingLeft="5dp"
+                android:paddingRight="2dp"
+                android:paddingTop="5dp"
+                android:text="用户名" />
+
+            <TextView
+                android:id="@+id/tv_ans1_ques_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignLeft="@id/tv_ans1_stuName"
+                android:layout_below="@+id/tv_ans1_stuName"
+                android:ellipsize="end"
+                android:layout_marginRight="10dp"
+                android:layout_marginBottom="5dp"
+                android:paddingLeft="5dp"
+                android:text="问题描述" />
+            <TextView
+                android:id="@+id/tv_ans1_time"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignBaseline="@+id/tv_ans1_stuName"
+                android:layout_alignBottom="@+id/tv_ans1_stuName"
+                android:layout_alignParentRight="true"
+                android:layout_marginRight="10dp"
+                android:text="2小时前" />
+
+            <TextView
+                android:id="@+id/tv_ans1_num"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:layout_alignRight="@+id/tv_ans1_time"
+                android:layout_marginRight="25dp"
+                android:layout_marginBottom="5dp"
+                android:gravity="center"
+                android:textColor="@color/gray"
+                android:textSize="20dp"
+                android:text="12" />
+            <ImageView
+                android:id="@+id/iv_collect"
+                android:layout_width="22dp"
+                android:layout_height="22dp"
+                android:layout_alignBottom="@+id/tv_ans1_num"
+                android:layout_alignTop="@id/tv_ans1_num"
+                android:layout_alignRight="@+id/tv_ans1_time"
+                android:src="@drawable/ic_save" />
+
+            <ImageView
+                android:id="@+id/iv_ans1_ques_img"
+                android:layout_width="150dp"
+                android:layout_height="70dp"
+                android:layout_above="@id/iv_collect"
+                android:layout_alignRight="@+id/iv_collect"
+                android:layout_toRightOf="@+id/tv_ans1_ques_text"
+                android:scaleType="fitXY"
+                android:layout_marginTop="5dp"
+                android:src="@drawable/annie" />
+
+
+        </RelativeLayout>
+    </LinearLayout>
+     <View
+        android:layout_width="match_parent"
+        android:layout_height="3dip"
+        android:background="@color/black2" />
+	<com.xuetu.view.MyListView
+        android:id="@+id/lv_answer"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="0" >
+    </com.xuetu.view.MyListView>
+    </LinearLayout>
         </ScrollView>
     </com.xuetu.view.PullToRefreshView>
+   
 
-    <RelativeLayout
+    
+     <RelativeLayout
 	    android:layout_width="match_parent"
 	    android:layout_height="wrap_content"
 	    android:layout_alignParentBottom="true"
@@ -70,7 +187,7 @@
 		    
 		    android:layout_marginRight="5dp"
 		    android:id="@+id/btn_photo"
-		    android:src="@drawable/ask"
+		    android:src="@drawable/crop"
 		    />
 		<EditText
 		    android:id="@+id/et_ans_text"

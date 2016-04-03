@@ -1,8 +1,13 @@
 package com.xuetu.ui;
 
+import java.lang.reflect.Type;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.google.gson.reflect.TypeToken;
 import com.lidroid.xutils.HttpUtils;
 import com.lidroid.xutils.exception.HttpException;
 import com.lidroid.xutils.http.RequestParams;
@@ -13,9 +18,12 @@ import com.xuetu.R;
 import com.xuetu.R.id;
 import com.xuetu.R.layout;
 import com.xuetu.R.menu;
+import com.xuetu.entity.SelfStudyPlan;
+import com.xuetu.entity.Student;
 import com.xuetu.fragment.HomePageFrag;
 import com.xuetu.utils.GetHttp;
 
+import android.R.integer;
 import android.app.Activity;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
@@ -46,10 +54,21 @@ public class LearingRecordActivity extends Activity {
 	private int add_day_;
 	private TextView []Rili ;
 	private Button btn_qiandao;
+	Student student ;
+	TextView tv_today_study;
+	TextView tv_today_paiming;
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_learing_record);
+		
+		XueTuApplication xuetu = (XueTuApplication)getApplication();
+		student = xuetu.getStudent();
+		System.out.println(">>>>>>>>>  stu_id  >>>>"+student.getStuId());
+		getqiandao_message();
+		tv_today_study = (TextView) findViewById(R.id.TextView02);
+		tv_today_paiming = (TextView) findViewById(R.id.tv_jibaixueba);
 		
 		Rili = new TextView[] {
 	        	
@@ -114,8 +133,10 @@ public class LearingRecordActivity extends Activity {
         
 		   System.out.println("这个月的最大天数"+today_num+"今天是这个月的第几个礼拜"+week_of_month+"今天是这个礼拜的第几天"+day_of_week+"几号"+today_day);
         
-		getRili(Rili);
+		   getqiandao_message();
 		
+		   
+		   
 		if(qiandao_ed()==true)
 		{
 			Rili[today_day+add_day_-1].setBackgroundResource(R.drawable.background);
@@ -125,41 +146,10 @@ public class LearingRecordActivity extends Activity {
 			
 		}
 		
+		get_today_study_time();//获得今日学习的时间
+		get_paiming(); //获得排名
 		
-		
-		
-	}
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
+	}//end```````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````
 	
 	
 	/**
@@ -167,13 +157,13 @@ public class LearingRecordActivity extends Activity {
 	 * @param Rili
 	 */
 	
-	public void getRili( TextView [] Rili)
+	public void getRili( TextView [] Rili,int qiandaori[])
 	{
 
         start_day = ((week_of_month-1)*7+day_of_week)-today_day;          //就从XXXX[start_day] 开始settext
 //		start_day=7-((today_day - day_of_week)%7);
         add_day_ = start_day;
-        int qiandaori [] ={1,2,3,4,5,6,9,12,10,11,13,14,15,16,26};
+      
         
         for(int i=1;i<=today_num;i++)  // 这个月所有天数的数值         31天   循环这么多天
         {
@@ -236,42 +226,175 @@ public class LearingRecordActivity extends Activity {
 		return b;
 	}
 	
-	
-	
-	
 	public void onclick(View v)
 	{
 		if(qiandao_ed()!=true)
 		{
 			needqiandao(Rili);//执行签到动画,加背景
-			
 			//往数据库发送签到日期信息
-			
 			String url = GetHttp.getHttpKY()+"SendQiandaoDate";
 			HttpUtils httpUtils = new HttpUtils();
-//			RequestParams requestParams = new RequestParams();
-//			requestParams = null;
-			httpUtils.send(HttpMethod.POST, url, new RequestCallBack<String>() {
-				
-				
-				@Override
-				public void onFailure(HttpException arg0, String arg1) {
-					// TODO Auto-generated method stub
-					
-				}
-				
-				@Override
-				public void onSuccess(ResponseInfo<String> arg0) {
-					// TODO Auto-generated method stub
-					
-				}
-			});
-			
-			
-			
-			
+			RequestParams requestParams = new RequestParams();
+			requestParams.addBodyParameter("stu_id", String.valueOf(student.getStuId()));
+			httpUtils.send(HttpMethod.POST, url, requestParams,null);
 		}
 	}
 	
+	
+	/**
+	 * 初始化签到功能
+	 */
+	public void getqiandao_message()
+	{
+		String url = GetHttp.getHttpKY()+"GetQianDaoMessage";
+		HttpUtils httpUtils = new HttpUtils();
+		RequestParams requestParams = new RequestParams();
+		requestParams.addBodyParameter("stu_id", String.valueOf(student.getStuId()));
+		httpUtils.send(HttpMethod.POST, url, requestParams,new RequestCallBack<String>() {
+
+			@Override
+			public void onFailure(HttpException arg0, String arg1) {
+				// TODO Auto-generated method stub
+				System.out.println("连接失败");
+			}
+
+			@Override
+			public void onSuccess(ResponseInfo<String> arg0) {
+				// TODO Auto-generated method stub
+				System.out.println("连接成功过");
+				
+				String date = arg0.result;
+				Type type = new TypeToken<List<String>>(){}.getType();
+				Gson gson = new GsonBuilder().setDateFormat("yy-mm-dd").create();
+				List<String> date1 = new ArrayList<>();
+				date1=gson.fromJson(date, type);
+				System.out.println(date1);
+				if(!date1.equals("[]"))
+				{
+					int [] dd = new int [date1.size()];
+					for(int i=0;i<date1.size();i++)
+					{
+						dd[i] = Integer.parseInt(date1.get(i));
+						if(dd[i]==c.get(Calendar.DAY_OF_MONTH))
+						{
+							editor.remove("签到");
+							editor.commit();
+							editor.putInt("签到", c.get(Calendar.DAY_OF_YEAR));
+							editor.commit();
+							btn_qiandao.setText("已签到");
+							btn_qiandao.setTextColor(0xffffffff);
+						}
+					}
+					getRili( Rili , dd );
+				}
+			}
+		});
+	}
+	
+	/**
+	 * 进入学习记录
+	 */
+	public void get_today_study_time()
+	{
+		String url = GetHttp.getHttpKY()+"GetTodayStudyTime";
+		HttpUtils httpUtils = new HttpUtils();
+		RequestParams requestParams = new RequestParams();
+		requestParams.addBodyParameter("stu_id", String.valueOf(student.getStuId()));
+		httpUtils.send(HttpMethod.POST, url, requestParams,new RequestCallBack<String>() {
+			
+			@Override
+			public void onFailure(HttpException arg0, String arg1) {
+				// TODO Auto-generated method stub
+				System.out.println("连接失败");
+			}
+
+			@Override
+			public void onSuccess(ResponseInfo<String> arg0) {
+				// TODO Auto-generated method stub
+				System.out.println("连接成功");
+				String date = arg0.result;
+				Type type = new TypeToken<Long>(){}.getType();
+				Gson gson = new GsonBuilder().create();
+				long  dodayss = 0;
+				dodayss=gson.fromJson(date, type);
+				long mm =0;
+				if(dodayss<60)
+				{
+					tv_today_study.setText("不给力啊");
+				}else{
+					if(dodayss>60&&dodayss<3600)
+					{
+						tv_today_study.setText(dodayss/60+"分钟");
+					}else{
+						tv_today_study.setText(secondFormat(dodayss));
+					}
+				}
+			}
+		});
+	}
+	
+	/**
+	 * 获得排名
+	 * 
+	 *
+	 */
+	public void get_paiming()
+	{
+		String url = GetHttp.getHttpKY()+"GetPaiMing";
+		HttpUtils httpUtils = new HttpUtils();
+		RequestParams requestParams = new RequestParams();
+		requestParams.addBodyParameter("stu_id", String.valueOf(student.getStuId()));
+		httpUtils.send(HttpMethod.POST, url, requestParams,new RequestCallBack<String>() {
+			
+			@Override
+			public void onFailure(HttpException arg0, String arg1) {
+				// TODO Auto-generated method stub
+				System.out.println("连接失败");
+			}
+
+			@Override
+			public void onSuccess(ResponseInfo<String> arg0) {
+				// TODO Auto-generated method stub
+				System.out.println("连接成功");
+				String date = arg0.result;
+				Type type = new TypeToken<String>(){}.getType();
+				Gson gson = new GsonBuilder().create();
+				String  s = null;
+				s=gson.fromJson(date, type);
+				tv_today_paiming.setText(s);
+				
+			}
+		});
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	 public  String secondFormat(long  second)
+	    {
+		 	String hh=null;
+		 	String mm=null;
+	    	  hh=second/3600>9?second/3600+"":"0"+second/3600;
+	          mm=(second % 3600)/60>9?(second % 3600)/60+"":"0"+(second % 3600)/60;
+	         return hh+"小时"+mm+"分钟";
+	    }
 	
 }

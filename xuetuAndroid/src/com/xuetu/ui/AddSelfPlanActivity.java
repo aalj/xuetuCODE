@@ -37,6 +37,7 @@ import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -197,7 +198,8 @@ public class AddSelfPlanActivity extends FragmentActivity implements OnClickList
 			break;
 		case R.id.right_layout:
 
-			if (panDuanTimeSize(endTime, startTime)) {
+			if (panDuanTimeSize(endTime, startTime)
+					&&!TextUtils.isEmpty(xuexi_info.getText().toString())) {
 				if (!pateernMode) {// 如果没有选择学习模式的话设置默认的值
 					selfStudyPlan.setPattern(list.get(0));
 				}
@@ -217,6 +219,7 @@ public class AddSelfPlanActivity extends FragmentActivity implements OnClickList
 				// dbFindManager.addSelfOne(selfStudyPlan);
 				addChangSelf(selfStudyPlan);
 				finish();
+				
 				// setResult(1011, intent);
 
 			} else {

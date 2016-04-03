@@ -28,6 +28,8 @@
     <string name="sub3">地理</string>
     <string name="sub4">化学</string>
     <string name="question_hint">请详细描述问题</string>
+    <string name="likeText">#ABABAB</string>
+    <string name="likedText">#F48700</string>
 
     <drawable name="re_normal">#fffffe</drawable>
     <drawable name="re_pressed">#A3DBF5</drawable>

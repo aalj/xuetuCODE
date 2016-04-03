@@ -15,6 +15,7 @@ package com.xuetu.fragment;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
@@ -47,6 +48,7 @@ import com.xuetu.utils.KeyboardUtils;
 import com.xuetu.view.OnRefreshListener;
 import com.xuetu.view.RefreshListView;
 
+import android.app.Application;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -67,6 +69,8 @@ import android.view.View.OnClickListener;
 import android.view.View.OnTouchListener;
 import android.view.ViewGroup.LayoutParams;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ImageView;
 import android.widget.PopupWindow;
 import android.widget.RelativeLayout;
@@ -101,9 +105,10 @@ public class QuestionFrag extends Fragment implements OnRefreshListener, OnKeyLi
 	
 
 
-	
+
+	Message msg5 = null;
 	RefreshListView lv = null;
-	HttpUtils hutils = new HttpUtils(30000);
+	HttpUtils hutils = new HttpUtils();
 	List<Question> list = new ArrayList<Question>();
 	List<Question> oldlist=new ArrayList<Question>();
 	View view = null;
@@ -128,15 +133,13 @@ public class QuestionFrag extends Fragment implements OnRefreshListener, OnKeyLi
 	PopupWindow popupWindow = null;
 	HttpUtils hutilsGetSubQues = new HttpUtils();
 	String urlSub = null;
-	RequestParams paramsSub = new RequestParams();
-	private List<Integer> listtag = new ArrayList<Integer>();
+	RequestParams paramsSub = null;
+//	private Set<Integer> listtag = new HashSet<Integer>();
 //	MyBasesadapter<Question> adapter = null;
 //	MyQuestionListBaseAdapter adapter = null;
 	@Override
 	public View onCreateView(final LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-/*		Log.i("hehe", "sbxyh");
-		listtag = getSaveQuestion();
-		Log.i("hehe", listtag.size()+"-----listtagSize");*/
+		InitData(1, REFRESH_TEMP);
 		view = inflater.inflate(R.layout.question_frag, null);
 //		dr_save = getActivity().getResources().getDrawable(R.drawable.ic_save);
 //		dr_saved = getActivity().getResources().getDrawable(R.drawable.ic_saved);
@@ -145,31 +148,60 @@ public class QuestionFrag extends Fragment implements OnRefreshListener, OnKeyLi
 		tv_title = (TextView) view.findViewById(R.id.tv_title);
 		lv = (RefreshListView) view.findViewById(R.id.lv_question);
 		setOnclickListener();
-		InitData(1, REFRESH_TEMP);
-		stu_id = ((XueTuApplication)getActivity().getApplication()).getStudent().getStuId();
 		
-		adapter = new QuestionFragAdapter(list, getContext(),stu_id,listtag);
 		
+		adapter = new QuestionFragAdapter(list, getContext());
+		lv.setOnItemClickListener(new OnItemClickListener() {
+
+			@Override
+			public void onItemClick(AdapterView<?> parent, View view,
+					int position, long id) {
+				// TODO Auto-generated method stub
+				Intent intent = new Intent(getContext(),Answer_list.class);
+				Bundle bundle = new Bundle();
+				bundle.putSerializable("curQues", list.get(position-1));
+				intent.putExtras(bundle);
+				getContext().startActivity(intent);
+			}
+			
+		});
 		lv.setAdapter(adapter);
 		lv.setOnRefreshListener(this);
 		return view;
 	}
+	
 	Handler handler = new Handler(){
 		@Override
 		public void handleMessage(Message msg) {
 			switch(msg.what){
 			case 4:
 				list =(List<Question>) msg.obj;break;	
+			case 5:
+				list =(List<Question>) msg.obj;break;	
 			}
+			
 			if(adapter !=null){
+				Log.i("hehe", "切换时notifychange");
 				adapter.notifyDataSetChanged();
 			}else{
-			adapter = new QuestionFragAdapter(list, getContext(),stu_id,listtag);
+				Log.i("hehe", "切换时setadapter");
+			adapter = new QuestionFragAdapter(list, getContext());
 			lv.setAdapter(adapter);
 			}
 			super.handleMessage(msg);
 		}
 	};
+	//fragment 从被隐藏回到显示状态时自动刷新
+	@Override
+	public void onHiddenChanged(boolean hidden) {
+		// TODO Auto-generated method stub
+		if(!hidden){
+			Log.i("hehe", "查看数据-------->>>>>");
+			InitData(1, REFRESH_TEMP);
+//			handler.sendMessage(msg5);
+		}
+		super.onHiddenChanged(hidden);
+	}
 /*	public List<Integer> getSaveQuestion(){
 		String urlIsSave = GetHttp.getHttpLC()+"IsSaveQuestion";
 		RequestParams rp = new RequestParams();
@@ -196,10 +228,15 @@ public class QuestionFrag extends Fragment implements OnRefreshListener, OnKeyLi
 		});
 		return listtag;
 	}*/
+	
+	
+	
+	
 	public class MyOnclickListener implements OnClickListener{
 		@Override
 		public void onClick(View v) {
 			// TODO Auto-generated method stub
+			sub_id=0;
 			switch(v.getId()){
 			case R.id.tv_title:
 				Log.i("hehe","popup");
@@ -244,6 +281,7 @@ public class QuestionFrag extends Fragment implements OnRefreshListener, OnKeyLi
 			if(sub_id!=0){
 				showDengdai();
 				urlSub = GetHttp.getHttpLC()+"GetSubQues";
+				paramsSub = new RequestParams();
 				paramsSub.addBodyParameter("sub_id",sub_id+"");
 				hutilsGetSubQues.send(HttpMethod.POST, urlSub, paramsSub,new RequestCallBack<String>() {
 
@@ -318,15 +356,16 @@ public class QuestionFrag extends Fragment implements OnRefreshListener, OnKeyLi
 			params.addBodyParameter("page", countpage + "");// 查询第1页
 
 		}
-		params.addBodyParameter("num", "5");// 每页显示5条
+		params.addBodyParameter("num", "10");// 每页显示5条
 //		hutils.configCurrentHttpCacheExpiry(1000);
 		/*SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 		System.out.println(sdf.format(new java.sql.Timestamp(System.currentTimeMillis())));*/
 		hutils.send(HttpMethod.POST, url,params, new RequestCallBack<String>() {
+
 			@Override
 			public void onFailure(HttpException arg0, String arg1) {
 				// TODO Auto-generated method stub
-				Log.i("hehe", "failGetQuestion");
+				Log.i("hehe", "failegetQuestion");
 			}
 
 			@Override
@@ -340,13 +379,19 @@ public class QuestionFrag extends Fragment implements OnRefreshListener, OnKeyLi
 				.disableHtmlEscaping()
 				.setDateFormat("yyyy-MM-dd HH:mm:ss").create();
 				List<Question> lists = new ArrayList<Question>();
-				Type map = new TypeToken<Map<List<Integer>, List<Question>>>(){}.getType();
-				Map<List<Integer>, List<Question>> maps = gson.fromJson(arg0.result, map);
-					Set<Entry<List<Integer>, List<Question>>> set = maps.entrySet();
-				for(Entry<List<Integer>, List<Question>> m: set){
-						listtag = m.getKey();
-						lists = m.getValue();
-					}
+//				Type map = new TypeToken<Map<List<Integer>, List<Question>>>(){}.getType();
+				Type listtype = new TypeToken<List<Question>>(){}.getType();
+				lists = gson.fromJson(arg0.result, listtype);
+//				Map<Set<Integer>, List<Question>> maps = gson.fromJson(arg0.result, map);
+//					Set<Entry<Set<Integer>, List<Question>>> set = maps.entrySet();
+//				for(Entry<Set<Integer>, List<Question>> m: set){
+					
+//					((XueTuApplication)getActivity().getApplication()).setSet(m.getKey());
+//					listtag.addAll(((XueTuApplication)getActivity().getApplication()).getSet());
+//					listtag = ((XueTuApplication)getActivity().getApplication()).getSet();
+//						Log.i("hehe", listtag.size()+"listtagSize");
+//						lists = m.getValue();
+//					}
 					
 					if(tempnum==1){
 					list.removeAll(oldlist);
@@ -361,6 +406,13 @@ public class QuestionFrag extends Fragment implements OnRefreshListener, OnKeyLi
 					// 控制脚布局隐藏
 					lv.hideFooterView();
 				}
+					if(adapter!=null){
+						adapter.notifyDataSetChanged();
+					}
+//					msg5= Message.obtain();
+//					 msg5.what=5;
+//					 msg5.obj=list;
+//					 handler.sendMessage(msg5);
 			}
 		});
 	}
@@ -403,7 +455,7 @@ public class QuestionFrag extends Fragment implements OnRefreshListener, OnKeyLi
 //       });
        
        popupWindow = new PopupWindow(contentView,
-               LayoutParams.MATCH_PARENT, 180, true);
+               LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT, true);
        popupWindow.setTouchable(true);
        popupWindow.setTouchInterceptor(new OnTouchListener() {
 			@Override
@@ -417,7 +469,7 @@ public class QuestionFrag extends Fragment implements OnRefreshListener, OnKeyLi
        // 如果不设置PopupWindow的背景，无论是点击外部区域还是Back键都无法dismiss弹框
        // 我觉得这里是API的一个bug
        popupWindow.setBackgroundDrawable(getResources().getDrawable(
-               R.drawable.ic_launcher));
+               R.drawable.toumingbackground));
        // 设置好参数之后再show
        popupWindow.showAsDropDown(v);
     // popupWindow.showAtLocation(view.getParent(),ce, x, y)
