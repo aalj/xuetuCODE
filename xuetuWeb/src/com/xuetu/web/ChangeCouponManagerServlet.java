@@ -57,7 +57,7 @@ public class ChangeCouponManagerServlet extends HttpServlet {
 				System.out.println("kankan\t" + request.getParameter("cou_name"));
 				String couName = request.getParameter("cou_name");
 				Part p = request.getPart("sto_img");
-				String imgname = "xuetuImg/" + System.currentTimeMillis() + "-coupon "  + ".jpg";
+				String imgname = "xuetuImg/" + System.currentTimeMillis() + "-coupon"  + ".jpg";
 				
 				if (p != null) {
 

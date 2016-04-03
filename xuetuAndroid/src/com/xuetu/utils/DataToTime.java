@@ -32,7 +32,6 @@ public class DataToTime {
 	}
 
 	public static List<float[]> getshijainshuju(List<LongTime> list) {
-		Log.i("TAG", "学习时长" + list.toString());
 		List<float[]> mylist = new ArrayList<float[]>();
 
 		for (int i = 0; i < 7; i++) {
@@ -42,13 +41,10 @@ public class DataToTime {
 		int week = dayForWeek(new Date(System.currentTimeMillis()));
 		for (int i = 0; i < list.size(); i++) {
 			int dayForWeek = dayForWeek(list.get(i).getMyDate());
-			Log.i(TAG, "dayForWeek " + dayForWeek);
 			
 			for (int j = 0; j < list.size(); j++) {
-				Log.i(TAG, "week " + week);
 				if (dayForWeek == week) {
 					if (!in.contains(week)) {
-						Log.i(TAG, "list.get(i).getMyTime() " + list.get(i).getMyDate());
 						
 						mylist.remove(week);
 						mylist.add(week, new float[] { list.get(i).getMyTime() });
@@ -58,9 +54,6 @@ public class DataToTime {
 				week -= 1;
 				if (week < 0)
 					week = 6;
-			}
-			for (int j = 0; j < mylist.size(); j++) {
-				Log.i(TAG,"mulist float    "+mylist.get(j)[0]);
 			}
 
 		}

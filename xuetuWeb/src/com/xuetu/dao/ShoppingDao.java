@@ -46,6 +46,8 @@ public class ShoppingDao implements ShoppintDaoInter {
 				coupon.setCoouRedeemPoints(query.getInt("cou_redeem_points"));
 				coupon.setCouName(query.getString("cou_name"));
 				coupon.setCouPrice(query.getInt("cou_price"));
+				coupon.setCouIma(query.getString("cou_img"));
+				
 				list.add(coupon);
 			}
 			return list;

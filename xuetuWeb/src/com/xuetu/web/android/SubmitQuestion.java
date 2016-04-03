@@ -69,11 +69,9 @@ public class SubmitQuestion extends HttpServlet {
 			smartUpload.upload();
 			String realPath = this.getServletContext().getRealPath("xuetuImg");
 			File dir = new File(realPath);
-			System.out.println("realPath:"+realPath);
 			if(!dir.exists()){
 				//创建文件夹
 				dir.mkdir();
-				System.out.println("创建新文件夹");
 			}
 			
 //			System.out.println(smartUpload.getFiles().getCount()+"count");
@@ -82,10 +80,7 @@ public class SubmitQuestion extends HttpServlet {
 				String path = request.getServletContext().getRealPath("/");
 				//poster.getFileName()    原文件名
 				File file = new File(getServletContext().getRealPath("xuetuImg"),poster.getFileName());
-				System.out.println("posterfilename"+poster.getFileName());
-				System.out.println("getrealpathxurtuImg"+getServletContext().getRealPath("xuetuImg"));
 				String saveFileName = file.getAbsolutePath();
-				System.out.println("file getabsolutepath"+saveFileName);
 				//文件保存路径
 				poster.saveAs(saveFileName);
 				poster.saveAs(path+poster.getFileName());

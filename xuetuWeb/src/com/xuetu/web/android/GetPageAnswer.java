@@ -58,7 +58,6 @@ public class GetPageAnswer extends HttpServlet {
 				.setDateFormat("yyyy-MM-dd HH:mm:ss").create();
 		jsonStr = gson.toJson(list);
 		PrintWriter pw = response.getWriter();
-		System.out.println(jsonStr);
 		pw.write(jsonStr);
 		pw.flush();
 		pw.close();

@@ -13,6 +13,7 @@ import com.lidroid.xutils.http.RequestParams;
 import com.lidroid.xutils.http.ResponseInfo;
 import com.lidroid.xutils.http.callback.RequestCallBack;
 import com.lidroid.xutils.http.client.HttpRequest.HttpMethod;
+import com.umeng.socialize.utils.Log;
 import com.xuetu.R;
 import com.xuetu.adapter.MyBasesadapter;
 import com.xuetu.adapter.ViewHodle;
@@ -71,6 +72,7 @@ public class CouponFrag extends Fragment implements OnRefreshListener{
 				viewHolder.setText(R.id.tv_shoppingname, item.getStoreName().getStoName());
 				viewHolder.setText(R.id.tv_coupon_all, item.getShiyongNum() + "");
 				viewHolder.SetUrlImage(R.id.tv_coupon_ima, GetHttp.getHttpLJ()+item.getCouIma());
+				Log.i("TAG", GetHttp.getHttpLJ()+item.getCouIma());
 				viewHolder.getView(R.id.relativeL).setOnClickListener(new OnClickListener() {
 					
 					@Override
