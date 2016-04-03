@@ -101,11 +101,11 @@ public class TimerActivity extends Activity {
 	int round = 0;
 	Student student ;
 	String stu_from_home;
-	boolean plan = true;
+	boolean plan = false;
 	int  plan_yes   = 2;
 	int  plan_no    = 1;
 	int  plan_state =0;
-	
+	int plan_id = 0;
 	
 	
 	@Override
@@ -113,9 +113,12 @@ public class TimerActivity extends Activity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.home_timer);
 		
+		
 		Intent intent = getIntent();
 		alltime = intent.getLongExtra("ss", 0);
 		stu_id = intent.getIntExtra("stu_id", 0);
+		plan_id=intent.getIntExtra("plan_id", 0);
+		plan = intent.getBooleanExtra("计划", false);
 		stu_from_home = intent.getStringExtra("student");
 		Type type = new TypeToken<Student>() {}.getType();
 		Gson gson = new GsonBuilder().setDateFormat(
@@ -248,6 +251,7 @@ public class TimerActivity extends Activity {
     		requestParams.addBodyParameter("stu_id", stu_id+"");//学生id
     		requestParams.addBodyParameter("student", stu_from_home);//学生id
     		requestParams.addBodyParameter("plan_state", plan_state+"");
+    		requestParams.addBodyParameter("plan_id", plan_id+"");
 //    		System.out.println(stu_from_home);
     		httpUtils.send(HttpMethod.POST, url,requestParams,new RequestCallBack<String>() {
     			
@@ -299,11 +303,27 @@ public class TimerActivity extends Activity {
             // TODO Auto-generated method stub
            	showTime.setText("00:00");//计时器结束,把时分秒的值归零
            	showss.setText("00");
-           	if(alltime!=0)
+           	if(alltime!=0)    //没执行完
            	{ 
                	new SaveTimeAndIntegral().saveStudyTime(st_time, integral_double,stu_from_home);
-                Toast.makeText(TimerActivity.this, "下课啦"+getIntegral(integral_double)+"积分到手咯!!", Toast.LENGTH_LONG).show();//提示倒计时完成
+//                Toast.makeText(TimerActivity.this, "下课啦"+getIntegral(integral_double)+"积分到手咯!!", Toast.LENGTH_LONG).show();//提示倒计时完成
 
+           	}
+           	else{
+           		if(alltime==0)    //执行完了
+           		{
+	           		 if(plan)
+	         	    {
+	         	    	plan_state=2;
+	         	    	new SaveTimeAndIntegral().saveStudyTime(st_time, integral_double,stu_from_home);
+	         	    }else
+	         	    {
+	         	    	new SaveTimeAndIntegral().saveStudyTime(st_time, integral_double,stu_from_home);
+	         	    }
+           		}
+           		
+           	   
+           		
            	}
             alltime = 0;//修改倒计时剩余时间变量为0秒
             integral_double=0;

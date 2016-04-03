@@ -437,7 +437,6 @@ public class HomePageFrag extends Fragment implements OnTouchListener {
 							System.out.println("进行的是下滑动");
 								flag     = false;
 								planflag = false;
-//								getStudyPlan();
 								search_today_studyplan();
 							}
 			}
@@ -883,6 +882,10 @@ new AlertDialog.Builder(getActivity()).setTitle("注意").setMessage("当天没�
 									//确定后执行赋值,然后跳转页面
 									flag     = false;
 									planflag = false;
+									System.out.println(todayplan);
+									System.out.println("`````````````123````````````1````````23``````12```````3123``````````");
+									studyplan=todayplan.get(w);
+									System.out.println(studyplan);
 									Intent intent = new Intent(getActivity(),
 											TimerActivity.class);
 									intent.putExtra("ss",isstudy.gotoss(new SimpleDateFormat("HH:mm:ss").format(todayplan.get(w).getEndTime()))
@@ -896,6 +899,8 @@ new AlertDialog.Builder(getActivity()).setTitle("注意").setMessage("当天没�
 											);
 									intent.putExtra("text", todayplan.get(w).getPlanText())	;	
 									intent.putExtra("计划", true);    // 标记,传过去的是自定义计划的计时
+									intent.putExtra("plan_id", studyplan.getPlanID());
+									System.out.println(studyplan.getPlanID());
 									flag = true;
 									planflag=true;
 									startActivity(intent);
