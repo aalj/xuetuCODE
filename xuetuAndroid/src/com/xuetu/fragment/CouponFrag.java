@@ -70,7 +70,7 @@ public class CouponFrag extends Fragment implements OnRefreshListener{
 				viewHolder.setText(R.id.coupon_info, item.getCouName());
 				viewHolder.setText(R.id.tv_shoppingname, item.getStoreName().getStoName());
 				viewHolder.setText(R.id.tv_coupon_all, item.getShiyongNum() + "");
-				viewHolder.SetUrlImage(R.id.tv_coupon_ima, GetHttp.getHttpLJ()+item.getStoreName().getStoImg());
+				viewHolder.SetUrlImage(R.id.tv_coupon_ima, GetHttp.getHttpLJ()+item.getCouIma());
 				viewHolder.getView(R.id.relativeL).setOnClickListener(new OnClickListener() {
 					
 					@Override

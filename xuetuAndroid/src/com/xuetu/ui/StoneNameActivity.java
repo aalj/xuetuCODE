@@ -143,7 +143,7 @@ public class StoneNameActivity extends Activity implements OnRefreshListener, On
 				holder.tv_coupon_all.setText(users.get(position).getConNum() + "");
 
 				bitmapUtils.display(holder.tv_coupon_ima,
-						GetHttp.getHttpLJ() + users.get(position).getStoreName().getStoImg());
+						GetHttp.getHttpLJ() + users.get(position).getCouIma());
 			} else if (getItemViewType(position) == 1)// 如果是顶部viewpager
 			{
 				ViewPagerHolder holder = null;
