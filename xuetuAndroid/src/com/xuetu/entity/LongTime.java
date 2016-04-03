@@ -6,6 +6,10 @@ public class LongTime {
 	Date myDate;
 	long myTime;
 	Student student;
+	@Override
+	public String toString() {
+		return "LongTime [myDate=" + myDate + ", myTime=" + myTime + ", student=" + student + "]";
+	}
 	public Date getMyDate() {
 		return myDate;
 	}

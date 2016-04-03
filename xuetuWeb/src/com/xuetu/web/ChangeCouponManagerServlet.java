@@ -7,11 +7,13 @@ import java.util.Date;
 
 import javax.servlet.ServletException;
 import javax.servlet.ServletRequest;
+import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import javax.servlet.http.Part;
 
 import com.xuetu.dao.CouponDao2;
 import com.xuetu.dao.StoreNameDao2;
@@ -35,6 +37,7 @@ import com.xuetu.service.CouService2;
  * @see
  */
 @WebServlet("/ChangeCouponManagerServlet")
+@MultipartConfig
 public class ChangeCouponManagerServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
@@ -47,12 +50,29 @@ public class ChangeCouponManagerServlet extends HttpServlet {
 		if (stoId != 0) {
 
 			try {
+				String path = request.getServletContext().getRealPath("/");
 				Coupon coupon = null;
 				int storeNmae = Integer.parseInt(request.getParameter("storeId"));
 				StoreName storeName = new StoreNameDao2().getStoreNameById(storeNmae);
 				System.out.println("kankan\t" + request.getParameter("cou_name"));
 				String couName = request.getParameter("cou_name");
+				Part p = request.getPart("sto_img");
+				String imgname = "xuetuImg/" + System.currentTimeMillis() + "-coupon "  + ".jpg";
+				
+				if (p != null) {
 
+					// 把图片文件写到服务器对应的地址下
+					p.write(path + imgname);
+					System.out.println(path + imgname);
+				} else {
+					System.out.println("meiyou tupian ");
+				}
+				
+				
+				
+				
+				
+				
 				System.out.println(couName);
 				int couPrice = Integer.parseInt(request.getParameter("cou_price"));
 				int couRedeemPoints = Integer.parseInt(request.getParameter("cou_redeem_points"));
@@ -64,7 +84,7 @@ public class ChangeCouponManagerServlet extends HttpServlet {
 				int couPonID = Integer.parseInt(request.getParameter("couponID"));
 				Date newtime = new Date(System.currentTimeMillis());
 				coupon = new Coupon(couPonID, storeName, couInfo, couNum, date, couName, couPrice, couRedeemPoints,newtime);
-
+				coupon.setCouIma(imgname);
 				new CouService2().saveCoupon(coupon);
 
 				request.getRequestDispatcher("/CouponListServlet").forward(request, response);

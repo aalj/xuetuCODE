@@ -24,7 +24,6 @@ import com.xuetu.adapter.ViewHodle;
 import com.xuetu.db.DBFindManager;
 import com.xuetu.entity.Pattern;
 import com.xuetu.entity.SelfStudyPlan;
-import com.xuetu.ui.AddAlarm.TimeListener;
 import com.xuetu.utils.DataToTime;
 import com.xuetu.utils.GetHttp;
 import com.xuetu.view.TitleBar;

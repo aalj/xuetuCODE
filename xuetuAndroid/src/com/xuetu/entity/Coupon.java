@@ -37,8 +37,14 @@ public class Coupon implements Serializable{
 	private Date conValidity = null;
 	
 	private int shiyongNum=0;
+	private String couIma = null;
 	
-	
+	public String getCouIma() {
+		return couIma;
+	}
+	public void setCouIma(String couIma) {
+		this.couIma = couIma;
+	}
 	public int getShiyongNum() {
 		return shiyongNum;
 	}

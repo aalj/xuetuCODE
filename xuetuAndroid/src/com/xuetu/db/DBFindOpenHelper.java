@@ -22,15 +22,17 @@ public class DBFindOpenHelper extends SQLiteOpenHelper {
 				+ " `pattern_text` varchar(300) NOT NULL )";
 		db.execSQL(pattern);
 		String sql = "CREATE TABLE `alarm` ( " + "`alarm_id` integer NOT NULL PRIMARY KEY AUTOINCREMENT, "
-				+ "`start_time` varchar(10) NOT NULL,  " + "`temp_index`  NOT NULL default 0, "
-				+ "`week` varchar(30) NOT NULL," + "'tishiyu' 	varchar(100) not null default '？？？？',"
-				+ "`temp` integer NOT NULL default 0)";
+				+ "`time_hour` integer NOT NULL,  " 
+				+ "`time_min` integer NOT NULL,  " 
+				+ "`temp_index`  NOT NULL default 0, " 
+				+ "`week` varchar(30) default '1',"
+				+ "'tishiyu' 	varchar(100) not null default '？？？？'," 
+				+ "`temp` integer NOT NULL default 0,"
+				+ "'pickedUri'  varchar(100) default '2')";
 		db.execSQL(sql);
 
-		String sql2 = "CREATE TABLE `countdown` (  "
-				+ "`codo_id` integer NOT NULL PRIMARY KEY AUTOINCREMENT,"
-				+ " `code_time` varchar(100) default 0,  "
-				+ "`codo_text` varchar(100) default NULL );";
+		String sql2 = "CREATE TABLE `countdown` (  " + "`codo_id` integer NOT NULL PRIMARY KEY AUTOINCREMENT,"
+				+ " `code_time` varchar(100) default 0,  " + "`codo_text` varchar(100) default NULL unique );";
 		db.execSQL(sql2);
 
 	}

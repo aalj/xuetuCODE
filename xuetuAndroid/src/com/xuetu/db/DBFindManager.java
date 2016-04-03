@@ -233,10 +233,15 @@ public class DBFindManager {
 	public boolean insertAlarm(Alarm alarm) {
 
 		ContentValues values = new ContentValues();
-		values.put("start_time", alarm.getStartTime());
+		
+				
+		values.put("time_hour", alarm.getTemp_index());
+		values.put("time_min", alarm.getTemp_index());
+		
 		values.put("temp_index", alarm.getTemp_index());
 		values.put("week", alarm.getWeek());
 		values.put("temp", alarm.getTemp());
+		values.put("pickedUri", alarm.getPickedUri());
 
 		long insert = db.insert("alarm", null, values);
 		if (!(insert > 0)) {
@@ -253,11 +258,11 @@ public class DBFindManager {
 		Cursor query;
 		if (temp < 0) {
 
-			query = db.query("alarm", null, null, null, null, null, "start_time" + " DESC");
+			query = db.query("alarm", null, null, null, null, null,null);
 		} else {
 			String selection = "temp=?";
 			String[] selectionArgs = { temp + "" };
-			query = db.query("alarm", null, selection, selectionArgs, null, null, "start_time");
+			query = db.query("alarm", null, selection, selectionArgs, null, null, null);
 
 		}
 
@@ -268,7 +273,9 @@ public class DBFindManager {
 			alarm.setAlarm_id(query.getInt(query.getColumnIndex("alarm_id")));
 			Log.i("TAG", query.getInt(query.getColumnIndex("alarm_id")) + "------->>>>>>取出来的内容id");
 			// String columnIndex = query.getColumnIndex("start_time");
-			alarm.setStartTime(query.getString(query.getColumnIndex("start_time")));
+			alarm.setTimeHour(query.getInt(query.getColumnIndex("time_hour")));
+			alarm.setTimeMin(query.getInt(query.getColumnIndex("time_min")));
+			alarm.setPickedUri(query.getString(query.getColumnIndex("pickedUri")));
 
 			alarm.setTemp_index(query.getInt(query.getColumnIndex("temp_index")));
 			alarm.setWeek(query.getString(query.getColumnIndex("week")));
@@ -281,12 +288,16 @@ public class DBFindManager {
 
 	}
 
+	
+	
 	public boolean updateAlarm(int alarm_id, Alarm alarm) {
 		ContentValues values = new ContentValues();
-		values.put("start_time", alarm.getStartTime());
+		values.put("time_hour", alarm.getTemp_index());
+		values.put("time_min", alarm.getTemp_index());
 		values.put("temp_index", alarm.getTemp_index());
 		values.put("week", alarm.getWeek());
 		values.put("temp", alarm.getTemp());
+		values.put("pickedUri", alarm.getPickedUri());
 		String whereClause = "alarm_id=?";
 		String[] whereArgs = { "alarm_id" };
 		int update = db.update("alarm", values, whereClause, whereArgs);

@@ -17,7 +17,6 @@ import com.lidroid.xutils.http.ResponseInfo;
 import com.lidroid.xutils.http.callback.RequestCallBack;
 import com.lidroid.xutils.http.client.HttpRequest.HttpMethod;
 import com.lidroid.xutils.view.annotation.ViewInject;
-import com.xuetu.EditCountdownActivity;
 import com.xuetu.R;
 import com.xuetu.db.DBFindManager;
 import com.xuetu.entity.Countdown;
