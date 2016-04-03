@@ -55,11 +55,8 @@ public class SubmitQuestionWithoutImg extends HttpServlet {
 			response.setContentType("text/html;charset=UTF-8");
 				//获得question对象,发表问题
 				stuId = Integer.parseInt(request.getParameter("stuId"));
-				System.out.println(stuId);
 				quesText = request.getParameter("quesText");
-				System.out.println(quesText);
 				quesTimeStr = request.getParameter("quesTime");
-				System.out.println(quesTimeStr);
 				long parseLong = Long.parseLong(quesTimeStr);
 				quesTime = new Date(new Timestamp(parseLong).getTime());
 				quesImg = "no";

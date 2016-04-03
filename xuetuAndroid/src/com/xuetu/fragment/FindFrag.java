@@ -88,7 +88,6 @@ public class FindFrag extends Fragment {
 				int dayForWeek = DataToTime.dayForWeek(new Date(System.currentTimeMillis()));
 				 String[] weekDays = { "星期一", "星期二", "星期三", "星期四", "星期五", "星期六","星期日"};
 				for (int i = time.size()-1; i >=0 ; i--) {
-					Log.i(TAG, "当前星期几"+dayForWeek);
 					string[i]=weekDays[i];
 					dayForWeek-=1;
 					if(dayForWeek<1){
@@ -164,7 +163,6 @@ public class FindFrag extends Fragment {
 //		// TODO
 //		DBFindManager db = new DBFindManager(getActivity());
 //		List<Countdown> queryCountdown = db.queryCountdown();
-//		Log.i(TAG, queryCountdown.toString());
 //		if (queryCountdown.size()> 0) {
 //			Countdown countdown = queryCountdown.get(0);
 //
@@ -224,7 +222,6 @@ public class FindFrag extends Fragment {
 //	public void getSelfPlan(int stuid) {
 //		HttpUtils httpUtils = new HttpUtils();
 //		String url = GetHttp.getHttpLJ() + "GetSelfStudyPlan";
-//		Log.i("TAG", url);
 //		RequestParams pram = new RequestParams();
 //		// TODO 无法获得学生对象的数据
 //
@@ -233,8 +230,6 @@ public class FindFrag extends Fragment {
 //
 //			@Override
 //			public void onFailure(HttpException arg0, String arg1) {
-//				Log.i("TAG", arg1);
-//
 //			}
 //
 //			@Override

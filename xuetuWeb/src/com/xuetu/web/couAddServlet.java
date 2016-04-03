@@ -72,7 +72,7 @@ public class couAddServlet extends HttpServlet {
 				// 创建Coupon对象
 				Coupon coupon = new Coupon();
 				Part p = request.getPart("sto_img");
-				String imgname = "xuetuImg/" + System.currentTimeMillis() + "-coupon "  + ".jpg";
+				String imgname = "xuetuImg/" + System.currentTimeMillis() + "-coupon"  + ".jpg";
 				
 				if (p != null) {
 
