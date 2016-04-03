@@ -101,14 +101,24 @@ public class TimerActivity extends Activity {
 	int round = 0;
 	Student student ;
 	String stu_from_home;
+	boolean plan = false;
+	int  plan_yes   = 2;
+	int  plan_no    = 1;
+	int  plan_state =0;
+	int plan_id = 0;
+	
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.home_timer);
 		
+		
 		Intent intent = getIntent();
 		alltime = intent.getLongExtra("ss", 0);
 		stu_id = intent.getIntExtra("stu_id", 0);
+		plan_id=intent.getIntExtra("plan_id", 0);
+		plan = intent.getBooleanExtra("计划", false);
 		stu_from_home = intent.getStringExtra("student");
 		Type type = new TypeToken<Student>() {}.getType();
 		Gson gson = new GsonBuilder().setDateFormat(
@@ -135,12 +145,6 @@ public class TimerActivity extends Activity {
 			tv_selectedPlan.setText("原计划"+start_and_end_time);
 			tv_textPlan.setText(intentGet.getStringExtra("text"));
 		}	
-		
-		//tv_text
-		
-//		Drawable drawable = getResources().getDrawable(R.drawable.spinner_checked);
-//		drawable.setBounds(0, 0, drawable.getMinimumWidth(), drawable.getMinimumHeight()); //设置边界
-//		tv_text.setCompoundDrawables(null, null, drawable, null);
 		student= ((XueTuApplication) getApplication()).getStudent();
 
 		//功能还没有完善,需要添加判断条件,从数据库获得课程表时间,与当前时间\课程进行判断,并且判断经纬度是否相同
@@ -155,13 +159,12 @@ public class TimerActivity extends Activity {
             // TODO Auto-generated method stub
 	        	while(alltime>0)//当循环达到10分钟的时候,执行该语句
 	            {
+	        		System.out.println("alltime---------"+alltime);
 	            	alltime--;//学习总时间 逐渐减少
 	        		round++;//10分钟循环变量
 	        		st_time++;//记录学生学习时间
-	        		System.out.println("round="+round);
 	                if(round==10){
 	                	integral_double++;//每到600秒,积分倍数+1(初始值0)
-	                	Log.i("hehe",getIntegral(integral_double)+"");
 	                	//  显示已获得积分，10秒刷新一次
 	                	
 	                	mHandler.post(new Runnable() {//通过它在UI主线程中修改显示的剩余时间
@@ -205,10 +208,7 @@ public class TimerActivity extends Activity {
   	                        }
   	                    });
   	                }
-	                
             }
-           
-           
         }
     }
     
@@ -250,8 +250,9 @@ public class TimerActivity extends Activity {
     		requestParams.addBodyParameter("st_id", "1");
     		requestParams.addBodyParameter("stu_id", stu_id+"");//学生id
     		requestParams.addBodyParameter("student", stu_from_home);//学生id
+    		requestParams.addBodyParameter("plan_state", plan_state+"");
+    		requestParams.addBodyParameter("plan_id", plan_id+"");
 //    		System.out.println(stu_from_home);
-    		System.out.println("------------1----------"+stu_id);
     		httpUtils.send(HttpMethod.POST, url,requestParams,new RequestCallBack<String>() {
     			
     			@Override
@@ -298,19 +299,38 @@ public class TimerActivity extends Activity {
      */
     public  void endTime()
     {
+    	
             // TODO Auto-generated method stub
            	showTime.setText("00:00");//计时器结束,把时分秒的值归零
            	showss.setText("00");
-           	if(alltime!=0)
-           	{
+           	if(alltime!=0)    //没执行完
+           	{ 
                	new SaveTimeAndIntegral().saveStudyTime(st_time, integral_double,stu_from_home);
-                Toast.makeText(TimerActivity.this, "下课啦"+getIntegral(integral_double)+"积分到手咯!!", Toast.LENGTH_LONG).show();//提示倒计时完成
+//                Toast.makeText(TimerActivity.this, "下课啦"+getIntegral(integral_double)+"积分到手咯!!", Toast.LENGTH_LONG).show();//提示倒计时完成
 
+           	}
+           	else{
+           		if(alltime==0)    //执行完了
+           		{
+	           		 if(plan)
+	         	    {
+	         	    	plan_state=2;
+	         	    	new SaveTimeAndIntegral().saveStudyTime(st_time, integral_double,stu_from_home);
+	         	    }else
+	         	    {
+	         	    	new SaveTimeAndIntegral().saveStudyTime(st_time, integral_double,stu_from_home);
+	         	    }
+           		}
+           		
+           	   
+           		
            	}
             alltime = 0;//修改倒计时剩余时间变量为0秒
             integral_double=0;
             st_time=0;
+            plan_state=0;
 			finish();
+			
     }
     
     @Override

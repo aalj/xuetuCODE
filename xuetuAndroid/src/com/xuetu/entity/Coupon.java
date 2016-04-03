@@ -35,6 +35,22 @@ public class Coupon implements Serializable{
 	private int conNum = 0;
 	//表示优惠券到期时间
 	private Date conValidity = null;
+	
+	private int shiyongNum=0;
+	private String couIma = null;
+	
+	public String getCouIma() {
+		return couIma;
+	}
+	public void setCouIma(String couIma) {
+		this.couIma = couIma;
+	}
+	public int getShiyongNum() {
+		return shiyongNum;
+	}
+	public void setShiyongNum(int shiyongNum) {
+		this.shiyongNum = shiyongNum;
+	}
 	@Override
 	public String toString() {
 		return "Coupon [couID=" + couID + ", storeName=" + storeName + ", couInfo=" + couInfo + ", conNum=" + conNum

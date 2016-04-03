@@ -27,10 +27,12 @@ import com.xuetu.entity.Pattern;
 import com.xuetu.entity.SelfStudyPlan;
 import com.xuetu.entity.Student;
 import com.xuetu.utils.GetHttp;
+import com.xuetu.utils.ShowDialog;
 import com.xuetu.view.TitleBar;
 
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -85,6 +87,8 @@ public class AddSelfPlanActivity extends FragmentActivity implements OnClickList
 
 	private SimpleDateFormat mFormatter = new SimpleDateFormat("MM-dd HH:mm");
 	SharedPreferences sp = null;
+	/**用于标记数据是否有更改*/
+	boolean temp = false;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -182,55 +186,57 @@ public class AddSelfPlanActivity extends FragmentActivity implements OnClickList
 	public void onClick(View v) {
 		switch (v.getId()) {
 		case R.id.tiem_start:// 设置开始时间
-
+			temp=true;
 			new SlideDateTimePicker.Builder(getSupportFragmentManager()).setListener(listener)
 					.setInitialDate(new Date()).setIs24HourTime(true).build().show();
 			break;
 		case R.id.tiem_end:// 设置结束时间
-
+			temp=true;
 			new SlideDateTimePicker.Builder(getSupportFragmentManager()).setListener(listener2)
 					.setInitialDate(startTime).setIs24HourTime(true).build().show();
 			break;
 		case R.id.moshi:// 设置模式
-
+			temp=true;
 			showChangeItemDialog();
 
 			break;
 		case R.id.right_layout:
+			if (!TextUtils.isEmpty(xuexi_info.getText().toString())) {
+				if (panDuanTimeSize(endTime, startTime)) {
+					if (!pateernMode) {// 如果没有选择学习模式的话设置默认的值
+						selfStudyPlan.setPattern(list.get(0));
+					}
 
-			if (panDuanTimeSize(endTime, startTime)
-					&&!TextUtils.isEmpty(xuexi_info.getText().toString())) {
-				if (!pateernMode) {// 如果没有选择学习模式的话设置默认的值
-					selfStudyPlan.setPattern(list.get(0));
-				}
+					intent = new Intent();
+					selfStudyPlan.setStudent(student);
+					Log.i("TAG", "xuesheng duiiang   --- - -- - - -" + selfStudyPlan.getStudent().getStuName());
+					selfStudyPlan.setStartTime(startTime);
+					selfStudyPlan.setPlanDate(new Date(System.currentTimeMillis()));
+					selfStudyPlan.setEndTime(endTime);
+					selfStudyPlan.setPlanText(xuexi_info.getText().toString());
+					if (study_parrt_info.isCheck()) {
+						selfStudyPlan.setPlanReming(1);
+					} else {
+						selfStudyPlan.setPlanReming(0);
+					}
+					// dbFindManager.addSelfOne(selfStudyPlan);
+					intent.putExtra("self", selfStudyPlan);
+					addChangSelf(selfStudyPlan);
+					setResult(1011, intent);
+					finish();
 
-				intent = new Intent();
-				selfStudyPlan.setStudent(student);
-				Log.i("TAG", "xuesheng duiiang   --- - -- - - -" + selfStudyPlan.getStudent().getStuName());
-				selfStudyPlan.setStartTime(startTime);
-				selfStudyPlan.setPlanDate(new Date(System.currentTimeMillis()));
-				selfStudyPlan.setEndTime(endTime);
-				selfStudyPlan.setPlanText(xuexi_info.getText().toString());
-				if (study_parrt_info.isCheck()) {
-					selfStudyPlan.setPlanReming(1);
 				} else {
-					selfStudyPlan.setPlanReming(0);
+
+					Toast.makeText(getApplicationContext(), "结束时间应该大于开始时间2分钟", 0).show();
 				}
-				// dbFindManager.addSelfOne(selfStudyPlan);
-				addChangSelf(selfStudyPlan);
-				finish();
-				
-				// setResult(1011, intent);
-
 			} else {
+				Toast.makeText(getApplicationContext(), "计划描述还没有填写", 0).show();
 
-				Toast.makeText(getApplicationContext(), "时间不能小于开始时间时间", 0).show();
 			}
 
 			break;
 		case R.id.left_layout:
-
-			finish();
+			ShowDialog.showDialog(AddSelfPlanActivity.this, temp);
 			break;
 
 		default:
@@ -286,7 +292,7 @@ public class AddSelfPlanActivity extends FragmentActivity implements OnClickList
 	 */
 	public boolean panDuanTimeSize(Date endTime, Date startTime) {
 		Log.i("TAG", endTime.getTime() - startTime.getTime() + "------------------<<<<<<<<<<");
-		return (endTime.getTime() - startTime.getTime()) > 60 * 1000;
+		return (endTime.getTime() - startTime.getTime()) >= 60 * 1000;
 	}
 
 	private void showChangeItemDialog() {
@@ -337,7 +343,6 @@ public class AddSelfPlanActivity extends FragmentActivity implements OnClickList
 		public void onDateTimeSet(Date date) {
 			endTime = date;
 
-			Log.i("TAG", endTime.getTime() + "<<<<<endTime><<<<<<<<<<<<<<<<");
 			tv_endTime_info.setText(mFormatter.format(date));
 
 		}
@@ -348,5 +353,7 @@ public class AddSelfPlanActivity extends FragmentActivity implements OnClickList
 			Toast.makeText(AddSelfPlanActivity.this, "放弃修改", Toast.LENGTH_SHORT).show();
 		}
 	};
+
+
 
 }

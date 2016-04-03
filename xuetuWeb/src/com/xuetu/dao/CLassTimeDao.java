@@ -230,5 +230,65 @@ public class CLassTimeDao implements ClassTimeServiceInter{
 //	}
 	
 	
+	/**
+	 * 
+	 * 
+	 */
+	public List<MyClass>  get_my_class(int day_of_week,int which_class)
+	{
+		MyClass myclass = new MyClass();
+		List<MyClass>  list=  new ArrayList<>() ;
+		Connection conn = null ;
+		PreparedStatement prep =null;
+		String sql = " ";
+		
+		try {
+			sql="select * from class where cls_week="+day_of_week+" and cls_few="+which_class+";";
+			conn=DBconnection.getConnection();
+//			sql = "select * from class where cls_id = (select cls_id from courselist where stu_id = stu_id)  ;                             ";
+			
+			prep= conn.prepareStatement(sql);
+			
+			ResultSet rs = prep.executeQuery();
+			while(rs.next())
+			{
+				myclass.setClasName(rs.getString("cls_name"));
+				myclass.setClsWeek(rs.getInt("cls_week"));
+				myclass.setClsFew(rs.getInt("cls_few"));
+				myclass.setClsId(rs.getInt("cls_id"));
+				myclass.setClsRoom(rs.getString("cls_room"));
+				list.add(myclass);
+			}
+//			listmyclass.get(0).getClasName();
+//			return myclass;
+		} catch (Exception e) {
+		}finally {
+			try {
+				prep.close();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			try {
+				conn.close();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		
+		
+		return list;
+		
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	
 }	

@@ -52,6 +52,7 @@
                 android:layout_alignBottom="@+id/head"
                 android:layout_alignLeft="@+id/youhuijuanxingxi"
                 android:text="有效期限:"
+                android:textSize="12sp"
                 android:textColor="@color/white" />
 
             <TextView
@@ -62,7 +63,8 @@
                 android:layout_alignBottom="@+id/tv"
                 android:layout_toRightOf="@+id/tv"
                 android:layout_marginLeft="10dp"
-                android:textColor="#9e9e9e"
+                android:textSize="12sp"
+                android:textColor="@color/white"
                 android:text="TextView" />
 
         </RelativeLayout>
@@ -254,7 +256,9 @@
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
         android:layout_alignParentTop="true"
+        android:layout_marginTop="3dp"
         android:onClick="onclick"
+        android:layout_marginLeft="10dp"
         android:src="@drawable/ic_menu_back" />
 
     <com.xuetu.view.CircleImageView
@@ -268,5 +272,16 @@
         android:src="@drawable/annie"
         app:border_color="@color/black"
         app:border_width="2dp" />
+
+    <TextView
+        android:id="@+id/textView1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical"
+        android:textColor="#FFFFFF"
+        android:layout_alignTop="@+id/imageView_backToDecember"
+        android:layout_alignBottom="@+id/imageView_backToDecember"
+        android:layout_toRightOf="@+id/imageView_backToDecember"
+        android:text="优惠券" />
 
 </RelativeLayout>

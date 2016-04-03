@@ -26,6 +26,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -53,10 +54,10 @@ public class CouponInfoActivity extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
+		getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
 		setContentView(R.layout.coupon_info);
 		// 初始化控件
 		coupon = (Coupon) getIntent().getSerializableExtra("coupon");
-		Toast.makeText(getApplicationContext(), coupon.getCouName(), 0).show();
 		initView();
 
 	}
@@ -111,9 +112,16 @@ public class CouponInfoActivity extends Activity {
 			break;
 		case R.id.button_lijishiyong:// 兑换走兑换流程
 			if (isLogin) {
-				intent.setClass(this, ExchangeCouponActivity.class);
-				intent.putExtra("exchange", coupon);
-				startActivity(intent);
+				Log.i("TAG", "coupon.getShiyongNum()------->>>" + coupon.getShiyongNum());
+				Log.i("TAG", "coupon.getConNum()------->>>" + coupon.getConNum());
+				if (!(coupon.getShiyongNum() >= coupon.getConNum())) {
+					intent.setClass(this, ExchangeCouponActivity.class);
+					intent.putExtra("exchange", coupon);
+					startActivity(intent);
+				} else {
+
+					Toast.makeText(getApplicationContext(), "优惠券已经兑换结束赶快收藏", 1).show();
+				}
 			} else {
 				Toast.makeText(getApplicationContext(), "请先登录", 1).show();
 			}

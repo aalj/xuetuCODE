@@ -115,7 +115,47 @@ public class TimeDao implements HomeInter {
 		return null;
 	}
 
-	
+	public void change_plan_state(int plan_id)
+	{
+		Connection conn = null ;
+		PreparedStatement prep = null;
+		String sql  =  "";
+		
+		
+		try {
+			
+			conn=DBconnection.getConnection();
+			sql = "update selfstudyplan set is_zhixing=2 where plan_id="+plan_id+";";
+			prep=conn.prepareStatement(sql);
+			prep.executeUpdate();
+			
+			
+			
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
+		
+		finally {
+			try {
+				if(conn!=null){
+				conn.close();}
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			try {
+				if(prep!=null){
+				prep.close();}
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		
+		
+		
+		
+	}
 	
 	
 }

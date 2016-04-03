@@ -75,11 +75,15 @@ public class AddStudyTime extends HttpServlet {
 		String st_time = request.getParameter("st_time");
 		System.out.println(st_time);
 		
-		//把值放入对象
-//		studytime.setSttID(Integer.parseInt(st_id));  //学习时间id
-//		studytime.setTime(Long.parseLong(st_time));  //学习时长
-//		studytime.setStudent(null);					//学生对象id
-//		studytime.setAcpo_num(Integer.parseInt(integral));
+		int plan_state = Integer.parseInt(request.getParameter("plan_state"));
+		 System.out.println(plan_state+"plan_state<<<<<<<<<<<<<<<<");
+		if (plan_state==2)
+		{
+			int plan_id = Integer.parseInt(request.getParameter("plan_id"));
+			System.out.println(plan_id+"plan_id");
+			new TimeDao().change_plan_state(plan_id);
+		}
+		
 		
 		studytime.setSttID(15);  //学习时间id
 		studytime.setTime(Long.parseLong(st_time));  //学习时长

@@ -20,6 +20,7 @@ import com.xuetu.entity.Pattern;
 import com.xuetu.entity.SelfStudyPlan;
 import com.xuetu.utils.DataToTime;
 import com.xuetu.utils.GetHttp;
+import com.xuetu.utils.ShowDialog;
 import com.xuetu.view.TitleBar;
 
 import android.app.AlertDialog;
@@ -27,6 +28,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -178,30 +180,54 @@ public class FindTaskItemActivity extends Baseactivity implements OnClickListene
 
 			break;
 		case R.id.right_layout:
-			Intent intent = new Intent();
-			// 设置开始时间
-			selfStudyPlan.setStartTime(startTime);
-			// 这是结束时间
-			selfStudyPlan.setEndTime(endTime);
-			// 设置计划信息
-			selfStudyPlan.setPlanText(xuexi_info.getText().toString());
-			// 设置是否需要提醒
-			if (study_parrt_info.isCheck()) {
-				selfStudyPlan.setPlanReming(1);
-			} else {
-				selfStudyPlan.setPlanReming(0);
-			}
-			intent.putExtra("name1", selfStudyPlan);
-			// 设置执行模式在选择的时候已经确定
+			
+			//TODO 需要修改
+			
+			if (!TextUtils.isEmpty(xuexi_info.getText().toString())) {
+				if (panDuanTimeSize(endTime, startTime)) {
+					
 
-			setResult(1010, intent);
-			finish();
+					Intent intent = new Intent();
+					// 设置开始时间
+					selfStudyPlan.setStartTime(startTime);
+					// 这是结束时间
+					selfStudyPlan.setEndTime(endTime);
+					// 设置计划信息
+					selfStudyPlan.setPlanText(xuexi_info.getText().toString());
+					// 设置是否需要提醒
+					if (study_parrt_info.isCheck()) {
+						selfStudyPlan.setPlanReming(1);
+					} else {
+						selfStudyPlan.setPlanReming(0);
+					}
+					intent.putExtra("name1", selfStudyPlan);
+					// 设置执行模式在选择的时候已经确定
+
+					setResult(1010, intent);
+					finish();
+
+					// setResult(1011, intent);
+
+				} else {
+
+					Toast.makeText(getApplicationContext(), "结束时间应该大于开始时间2分钟", 0).show();
+				}
+			} else {
+				Toast.makeText(getApplicationContext(), "计划描述还没有填写", 0).show();
+
+			}
+			
+			
+			
+			
 
 			break;
 		case R.id.left_layout:
+			
 			Intent intent2 = new Intent();
 			setResult(1001, intent2);
-			finish();
+			ShowDialog.showDialog(FindTaskItemActivity.this, true);
+			
 			break;
 		case R.id.button1:// 删除按钮
 			Intent intent3 = new Intent();
@@ -219,6 +245,14 @@ public class FindTaskItemActivity extends Baseactivity implements OnClickListene
 			break;
 		}
 
+	}
+	
+	
+	
+	
+	public boolean panDuanTimeSize(Date endTime, Date startTime) {
+		Log.i("TAG", endTime.getTime() - startTime.getTime() + "------------------<<<<<<<<<<");
+		return (endTime.getTime() - startTime.getTime()) >= 60 * 1000;
 	}
 
 	private void deleSelf(int planID) {

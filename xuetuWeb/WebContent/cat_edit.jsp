@@ -122,7 +122,7 @@
 							<table width="100%">
 								<tr>
 									<td colspan="2">
-										<form action="/xuetuWeb/ChangeCouponManagerServlet"
+										<form action="/xuetuWeb/ChangeCouponManagerServlet" enctype="multipart/form-data"
 											name="form1" method="post" onSubmit="return mycheck()">
 											<table width="100%" class="cont">
 												<tr>
@@ -131,11 +131,15 @@
 														value="2" /> <input hidden="hidden" name="couponID"
 														value="${editCoupon.couID }" /> <input hidden="hidden"
 														name="storeId" value="${editCoupon.storeName.stoID }" /></td>
-													<td>优惠券名称：</td>
-													<td><input class="text" type="text" name="cou_name"
+													<td width="20%">优惠券名称：</td>
+													<td width="20%"><input class="text" type="text" name="cou_name"
 														value="${editCoupon.couName }" /></td>
 													<td></td>
-													<td>&nbsp;</td>
+													<td width="2%">&nbsp;</td>
+													
+													<td rowspan="5" width="10%" align="center"><img
+														src="Images/shuxian.jpg" /></td>
+													<td width="10%">店铺图片</td>
 												</tr>
 												<tr>
 													<td>&nbsp;</td>
@@ -147,6 +151,15 @@
 														value="${editCoupon.couPrice }" /></td>
 													<td></td>
 													<td>&nbsp;</td>
+													
+													<td rowspan="4" width="60%"><img
+														src="<%=request.getContextPath() %>/${editCoupon.couIma}"
+														width="200" height="300" />
+													<td>
+														<input type="file" name="sto_img" onchange="showImage()" /><br />
+														<input type="button" name="imgSub" value="上传"
+														onclick="imgsub()" />
+													</td>
 												</tr>
 												<tr>
 													<td>&nbsp;</td>
@@ -158,6 +171,7 @@
 														value="${editCoupon.coouRedeemPoints }" /></td>
 													<td></td>
 													<td>&nbsp;</td>
+													
 												</tr>
 												<tr>
 													<td width="2%">&nbsp;</td>
@@ -174,7 +188,7 @@
 														name="cou_Validity"
 														onblur="if(!this.value.match(/^([1-2]{1})([0-9]{3})-(0?[1-9]|10|11|12)-(0?[1-9]|[1-2][0-9]|30|31)$/g)) alert('日期输入不正确')"
 														value="${editCoupon.conValidity }" /></td>
-													<td>格式:2000-2-15</td>
+													<td width="20%">格式:2000-2-15</td>
 													<td width="2%">&nbsp;</td>
 												</tr>
 												<tr>

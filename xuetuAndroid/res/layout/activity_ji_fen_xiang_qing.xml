@@ -5,7 +5,7 @@
     android:layout_height="match_parent"
     android:background="@color/background"
     android:orientation="vertical"
-    tools:context="com.xuetu.JiFenXiangQingActivity" >
+    tools:context="com.xuetu.ui.JiFenXiangQingActivity" >
 
     <com.xuetu.view.TitleBar
         android:id="@+id/titleBar1"

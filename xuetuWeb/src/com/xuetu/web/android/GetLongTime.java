@@ -45,6 +45,7 @@ public class GetLongTime extends HttpServlet {
 		String json = gson.toJson(weekTime);
 		
 		PrintWriter writer = response.getWriter();
+		System.out.println(json);
 		writer.print(json);
 		writer.close();
 	}

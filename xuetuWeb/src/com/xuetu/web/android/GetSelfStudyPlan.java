@@ -59,14 +59,14 @@ public class GetSelfStudyPlan extends HttpServlet {
 			allSelfStudyPlantemp = findService.getAllSelfStudyPlan(Integer .parseInt(parameter));
 //			System.out.println(allSelfStudyPlantemp.size());
 			//去除时间
-//			allSelfStudyPlan = ChuliShijian.shijianpanduan(allSelfStudyPlantemp);
+			allSelfStudyPlan = ChuliShijian.isZhiXing(allSelfStudyPlantemp);
 			
 		}
 		PrintWriter writer = response.getWriter();
 		Gson gson = new GsonBuilder()  
 				  .setDateFormat("yyyy-MM-dd HH:mm:ss")  
 				  .create();
-		String temp = gson.toJson(allSelfStudyPlantemp);
+		String temp = gson.toJson(allSelfStudyPlan);
 		System.out.println(temp);
 		writer.print(temp);
 		

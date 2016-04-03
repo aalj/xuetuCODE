@@ -33,10 +33,10 @@ import org.json.JSONObject;
 import com.xuetu.R;
 import com.xuetu.db.DBFindManager;
 import com.xuetu.entity.Alarm;
+import com.xuetu.entity.Countdown;
 import com.xuetu.entity.Coupon;
 import com.xuetu.entity.LongTime;
 import com.xuetu.entity.Student;
-import com.xuetu.services.MyServices;
 import com.xuetu.utils.DataToTime;
 import com.xuetu.utils.GetHttp;
 import com.xuetu.utils.StreamUtils;
@@ -127,6 +127,8 @@ public class SplashActivity extends Activity {
 	 * 在服务器里面得到的应用最新的版本号
 	 */
 	private String code = null;
+	DBFindManager dbFindManager;
+
 	// 初始化Handle对象，并且实现相应的方法
 	private Handler handle = new Handler() {
 		@Override
@@ -185,15 +187,15 @@ public class SplashActivity extends Activity {
 	 *             CodingExample Ver 1.1
 	 */
 	private void initView() {
-//		if (preferences.getBoolean("alarm", false)) {
-//			// 设置闹钟，
-			DBFindManager dbFindManager = new DBFindManager(this);
-			List<Alarm> queryAlarm = dbFindManager.queryAlarm(-1);
-			setAlarm(queryAlarm);
-//		}
-//		startService(new Intent(SplashActivity.this,MyServices.class));
+		dbFindManager = new DBFindManager(this);
+		long countdownTime = preferences.getLong("countdownTime", System.currentTimeMillis());
+		preferences.getBoolean("", false);
+		if(DataToTime.getDay(countdownTime)>7){
+			//获取倒计时并存到本地
+			getData();
+		}
+//		getDate();
 
-		getDate();
 		String telephone = preferences.getString("uasename", "0");
 		String pwd = preferences.getString("pwd", "0");
 		Log.i("TAG", telephone + "<<<------------->>>" + pwd);
@@ -643,33 +645,44 @@ public class SplashActivity extends Activity {
 		}
 	}
 
-	/** 设置闹钟 */
-	public void setAlarm(List<Alarm> queryAlarm) {
-		for (Alarm alarm : queryAlarm) {
-			if (alarm.getTemp_index() == 0) {// 表示提醒
-				sendAlarmEveryday1(SplashActivity.this, alarm);
+	private void getData() {
+		HttpUtils httpUtils = new HttpUtils();
+		String url = GetHttp.getHttpLJ() + "CountdownServlet";
+		httpUtils.send(HttpMethod.POST, url, new RequestCallBack<String>() {
+
+			@Override
+			public void onFailure(HttpException arg0, String arg1) {
+				// TODO Auto-generated method stub
+
 			}
-		}
-		preferences.edit().putBoolean("alarm", true).commit();
 
-	}
+			@Override
+			public void onSuccess(ResponseInfo<String> arg0) {
+				Gson gson = new GsonBuilder().enableComplexMapKeySerialization().setPrettyPrinting()
+						.disableHtmlEscaping().setDateFormat("yyyy-MM-dd HH:mm:ss").create();
+				Type type = new TypeToken<List<Countdown>>() {
+				}.getType();
+				List<Countdown> list = gson.fromJson(arg0.result, type);
+				Message message = Message.obtain();
+				message.what = 123;
 
-	private void sendAlarmEveryday1(Context context, Alarm alarm) {
-		Log.i("TAG", "启动闹钟----------------->>>>>>>>" + alarm.getAlarm_id() + "");
-		AlarmManager alarmManager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
-		Calendar calendar = Calendar.getInstance(Locale.getDefault());
-		calendar.setTimeInMillis(System.currentTimeMillis());
-		String[] tt = alarm.getStartTime().split(":");
-		calendar.set(Calendar.HOUR_OF_DAY, Integer.parseInt(tt[0]));
-		calendar.set(Calendar.MINUTE, Integer.parseInt(tt[1]));
-		calendar.set(Calendar.SECOND, 0);
-		calendar.set(Calendar.MILLISECOND, 0);
+				Log.i("TAG", list.toString());
+				// 把第一次方文的数据访问到本地数据库
+				
+				Editor edit = preferences.edit();
+				edit.putLong("countdownTime", System.currentTimeMillis());
+				//用于标记是否需要访问网络加载倒计时
+				edit.putBoolean("countdown", false);
+				edit.commit();
+				for (Countdown i : list) {
+					Log.i("TAG", "shijian shiao " + i.getCodoTime().getTime());
+					dbFindManager.insertCountdown(i);
 
-		Intent intent = new Intent(SplashActivity.this, MyServices.class);
-		
-		PendingIntent pendingIntent = PendingIntent.getBroadcast(context, alarm.getAlarm_id(), intent, PendingIntent.FLAG_CANCEL_CURRENT);
-		alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), AlarmManager.INTERVAL_DAY,
-				pendingIntent);
+				}
+
+			}
+		});
+
 	}
 
 }
