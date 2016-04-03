@@ -47,9 +47,6 @@ public class GetAgreeAnswer extends HttpServlet {
 		
 		stu_id = Integer.parseInt(request.getParameter("stu_id"));
 		s = q.getAgreeAnswerByStuId(stu_id);
-//		for(Integer i:s){
-//			System.out.println(i);
-//		}
 		Gson gson = new GsonBuilder()
 				.enableComplexMapKeySerialization()
 				.setPrettyPrinting()
