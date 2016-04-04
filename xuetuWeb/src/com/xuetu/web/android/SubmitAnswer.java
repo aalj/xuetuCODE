@@ -80,7 +80,7 @@ public class SubmitAnswer extends HttpServlet {
 				String saveFileName = file.getAbsolutePath();
 				//文件保存路径
 				poster.saveAs(saveFileName);
-				poster.saveAs(path+poster.getFileName());	
+				poster.saveAs(path+"xuetuImg/"+poster.getFileName());	
 //				poster.saveAs("F:\\xuetuGIT\\xuetuCODE\\xuetuWeb\\WebContent\\xuetuImg\\"+poster.getFileName());	
 			}
 			ques_id = Integer.parseInt(smartUpload.getRequest().getParameter("quesId"));

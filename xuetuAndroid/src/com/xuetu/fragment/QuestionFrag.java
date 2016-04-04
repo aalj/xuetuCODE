@@ -183,10 +183,12 @@ public class QuestionFrag extends Fragment implements OnRefreshListener, OnKeyLi
 			if(adapter !=null){
 				Log.i("hehe", "切换时notifychange");
 				adapter.notifyDataSetChanged();
+				lv.setSelection(0);
 			}else{
 				Log.i("hehe", "切换时setadapter");
 			adapter = new QuestionFragAdapter(list, getContext());
 			lv.setAdapter(adapter);
+			lv.setSelection(0);
 			}
 			super.handleMessage(msg);
 		}
