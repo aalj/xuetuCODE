@@ -270,12 +270,12 @@
             android:label="@string/title_activity_person_question_information" >
         </activity>
         <activity
-            android:name="com.xuetu.ui.JiFenXiangQingActivity"
+            android:name=".ui.JiFenXiangQingActivity"
             android:label="@string/title_activity_ji_fen_xiang_qing" >
         </activity>
 
         <receiver
-            android:name="com.xuetu.receive.AlarmBroadcastReceiver"
+            android:name=".receive.AlarmBroadcastReceiver"
             android:process=":remote" />
 
         <activity
@@ -295,10 +295,14 @@
             android:label="@string/title_activity_edit_count_down" >
         </activity>
         <activity
-            android:name="com.xuetu.ui.EditCountdownActivity"
+            android:name=".ui.EditCountdownActivity"
             android:label="@string/title_activity_edit_countdown" >
         </activity>
-        <activity android:name="com.xuetu.ui.AddAlarmZaoqi" >
+        <activity android:name=".ui.AddAlarmZaoqi" >
+        </activity>
+        <activity
+            android:name="com.xuetu.ui.YinDaoyeActivity"
+            android:label="@string/title_activity_yin_daoye" >
         </activity>
     </application>
 

@@ -176,6 +176,26 @@ public class ShoppingDao implements ShoppintDaoInter {
 		
 		return false;
 	}
+	public boolean delIssavefavorites(int coupID, int studentid) {
+		Connection conn = DBconnection.getConnection();
+		String sql= "delete from favoritescoupons where stu_id=? and cou_id=?";
+		try {
+			PreparedStatement statement = conn.prepareStatement(sql);
+			statement.setInt(1, studentid);
+			statement.setInt(2, coupID);
+			int querly = statement.executeUpdate();
+			if(querly>0){
+				return true;
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		
+		
+		return false;
+	}
 
 	@Override
 	public boolean insertMycoupon(MyCoupon mycoupon) {

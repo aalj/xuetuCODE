@@ -72,7 +72,6 @@ public class CouponFrag extends Fragment implements OnRefreshListener{
 				viewHolder.setText(R.id.tv_shoppingname, item.getStoreName().getStoName());
 				viewHolder.setText(R.id.tv_coupon_all, item.getShiyongNum() + "");
 				viewHolder.SetUrlImage(R.id.tv_coupon_ima, GetHttp.getHttpLJ()+item.getCouIma());
-				Log.i("TAG", GetHttp.getHttpLJ()+item.getCouIma());
 				viewHolder.getView(R.id.relativeL).setOnClickListener(new OnClickListener() {
 					
 					@Override
@@ -170,14 +169,5 @@ public class CouponFrag extends Fragment implements OnRefreshListener{
 		getDate(2, REFRESH_LIMIT);
 	}
 
-//	@Override
-//	public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-//		Intent intent = new Intent();
-//		users.get(position-1);
-//		intent.setClass(getActivity(), CouponInfoActivity.class);
-//		intent.putExtra("coupon", users.get(position-1));
-//		startActivity(intent);
-//		
-//	}
 
 }

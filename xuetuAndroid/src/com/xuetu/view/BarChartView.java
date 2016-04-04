@@ -138,14 +138,15 @@ public class BarChartView extends View{
         if(maxCeil <= 1){
             float tmp = maxData;
             int c = 0;
-            while(tmp < 1){
+            	
+           
+            while(tmp < 0){
                 tmp = tmp * 10;
                 if(c == 0)
                     c = 10;
                 else
                     c *= 10;
             }
-            
             gridGap = maxData / 10;
             if(gridGap * c < 0.5){
                 gridGap = 0.5f / c;

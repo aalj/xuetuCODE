@@ -32,33 +32,51 @@ public class DataToTime {
 	}
 
 	public static List<float[]> getshijainshuju(List<LongTime> list) {
+		
+		
 		List<float[]> mylist = new ArrayList<float[]>();
 
 		for (int i = 0; i < 7; i++) {
-			mylist.add(new float[] { 2 });
+			mylist.add(new float[] { 0 });
 		}
-		List<Integer> in = new ArrayList<>();
 		int week = dayForWeek(new Date(System.currentTimeMillis()));
+		List<Integer> in = new ArrayList<>();
+		//标记是否加载到星期集合里面
 		for (int i = 0; i < list.size(); i++) {
+			boolean temp = false;
+			//的到第一条数据是星期几
 			int dayForWeek = dayForWeek(list.get(i).getMyDate());
 			
-			for (int j = 0; j < list.size(); j++) {
-				if (dayForWeek == week) {
+			for (int j = 0; j < 7; j++) {
+				if (dayForWeek == week) {//4-1
 					if (!in.contains(week)) {
 						
-						mylist.remove(week);
-						mylist.add(week, new float[] { list.get(i).getMyTime() });
+						mylist.remove(dayForWeek);
+						mylist.add(dayForWeek, new float[] { list.get(i).getMyTime()/60 });
 						in.add(week);
+						temp=true;
 					}
 				}
 				week -= 1;
 				if (week < 0)
 					week = 6;
 			}
+			
+			
+			
+			
 
 		}
+		List<float[]> lis= new ArrayList<>();
+		for (int i = 0;i<mylist.size();i++) {
+			lis.add(0,mylist.get(week));
+			week -= 1;
+			if (week < 0)
+				week = 6;
+		}
+		
 
-		return mylist;
+		return lis;
 
 	}
 
@@ -125,7 +143,7 @@ public class DataToTime {
 	}
 
 	public static String getWeekOfDate(Date dt) {
-		String[] weekDays = { "星日", "星一", "星二", "星三", "星四", "星五", "星六" };
+		String[] weekDays = { "周日", "周一", "周二", "周三", "周四", "周五", "周六" };
 		Calendar cal = Calendar.getInstance();
 		cal.setTime(dt);
 		int w = cal.get(Calendar.DAY_OF_WEEK) - 1;

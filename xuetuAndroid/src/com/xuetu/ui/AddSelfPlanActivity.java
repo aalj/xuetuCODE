@@ -87,7 +87,7 @@ public class AddSelfPlanActivity extends FragmentActivity implements OnClickList
 
 	private SimpleDateFormat mFormatter = new SimpleDateFormat("MM-dd HH:mm");
 	SharedPreferences sp = null;
-	/**用于标记数据是否有更改*/
+	/** 用于标记数据是否有更改 */
 	boolean temp = false;
 
 	@Override
@@ -186,48 +186,54 @@ public class AddSelfPlanActivity extends FragmentActivity implements OnClickList
 	public void onClick(View v) {
 		switch (v.getId()) {
 		case R.id.tiem_start:// 设置开始时间
-			temp=true;
+			temp = true;
 			new SlideDateTimePicker.Builder(getSupportFragmentManager()).setListener(listener)
 					.setInitialDate(new Date()).setIs24HourTime(true).build().show();
 			break;
 		case R.id.tiem_end:// 设置结束时间
-			temp=true;
+			temp = true;
 			new SlideDateTimePicker.Builder(getSupportFragmentManager()).setListener(listener2)
 					.setInitialDate(startTime).setIs24HourTime(true).build().show();
 			break;
 		case R.id.moshi:// 设置模式
-			temp=true;
+			temp = true;
 			showChangeItemDialog();
 
 			break;
 		case R.id.right_layout:
 			if (!TextUtils.isEmpty(xuexi_info.getText().toString())) {
-				if (panDuanTimeSize(endTime, startTime)) {
-					if (!pateernMode) {// 如果没有选择学习模式的话设置默认的值
-						selfStudyPlan.setPattern(list.get(0));
-					}
+				if ((endTime.getTime() - startTime.getTime()) < 2 * 60 * 60 * 1000) {
+					if (panDuanTimeSize(endTime, startTime)) {
 
-					intent = new Intent();
-					selfStudyPlan.setStudent(student);
-					Log.i("TAG", "xuesheng duiiang   --- - -- - - -" + selfStudyPlan.getStudent().getStuName());
-					selfStudyPlan.setStartTime(startTime);
-					selfStudyPlan.setPlanDate(new Date(System.currentTimeMillis()));
-					selfStudyPlan.setEndTime(endTime);
-					selfStudyPlan.setPlanText(xuexi_info.getText().toString());
-					if (study_parrt_info.isCheck()) {
-						selfStudyPlan.setPlanReming(1);
+						if (!pateernMode) {// 如果没有选择学习模式的话设置默认的值
+							selfStudyPlan.setPattern(list.get(0));
+						}
+
+						intent = new Intent();
+						selfStudyPlan.setStudent(student);
+						Log.i("TAG", "xuesheng duiiang   --- - -- - - -" + selfStudyPlan.getStudent().getStuName());
+						selfStudyPlan.setStartTime(startTime);
+						selfStudyPlan.setPlanDate(new Date(System.currentTimeMillis()));
+						selfStudyPlan.setEndTime(endTime);
+						selfStudyPlan.setPlanText(xuexi_info.getText().toString());
+						if (study_parrt_info.isCheck()) {
+							selfStudyPlan.setPlanReming(1);
+						} else {
+							selfStudyPlan.setPlanReming(0);
+						}
+						// dbFindManager.addSelfOne(selfStudyPlan);
+						intent.putExtra("self", selfStudyPlan);
+						addChangSelf(selfStudyPlan);
+						setResult(1011, intent);
+						finish();
+
 					} else {
-						selfStudyPlan.setPlanReming(0);
-					}
-					// dbFindManager.addSelfOne(selfStudyPlan);
-					intent.putExtra("self", selfStudyPlan);
-					addChangSelf(selfStudyPlan);
-					setResult(1011, intent);
-					finish();
 
+						Toast.makeText(getApplicationContext(), "结束时间应该大于开始时间1分钟", 0).show();
+					}
 				} else {
 
-					Toast.makeText(getApplicationContext(), "结束时间应该大于开始时间2分钟", 0).show();
+					Toast.makeText(getApplicationContext(), "计划不能超过超过两小小时", 0).show();
 				}
 			} else {
 				Toast.makeText(getApplicationContext(), "计划描述还没有填写", 0).show();
@@ -247,7 +253,6 @@ public class AddSelfPlanActivity extends FragmentActivity implements OnClickList
 	}
 
 	private void addChangSelf(final SelfStudyPlan selfStudyPlan) {
-		Log.i("TAG", "添加计划----------------------->>>>>>>>>>>");
 		HttpUtils httpUtils = new HttpUtils();
 		if (httpUtils != null) {
 			String url = GetHttp.getHttpLJ() + "InsertSelfServlrt";
@@ -291,7 +296,6 @@ public class AddSelfPlanActivity extends FragmentActivity implements OnClickList
 	 * @return
 	 */
 	public boolean panDuanTimeSize(Date endTime, Date startTime) {
-		Log.i("TAG", endTime.getTime() - startTime.getTime() + "------------------<<<<<<<<<<");
 		return (endTime.getTime() - startTime.getTime()) >= 60 * 1000;
 	}
 
@@ -324,7 +328,6 @@ public class AddSelfPlanActivity extends FragmentActivity implements OnClickList
 		public void onDateTimeSet(Date date) {
 
 			startTime = date;
-			Log.i("TAG", startTime.getTime() + "<<<<<startTime><<<<<<<<<<<<<<<<");
 			Log.i("TAG", mFormatter.format(date));
 			tv_startTime_info.setText(mFormatter.format(date));
 			Toast.makeText(AddSelfPlanActivity.this, mFormatter.format(date), Toast.LENGTH_SHORT).show();
@@ -353,7 +356,5 @@ public class AddSelfPlanActivity extends FragmentActivity implements OnClickList
 			Toast.makeText(AddSelfPlanActivity.this, "放弃修改", Toast.LENGTH_SHORT).show();
 		}
 	};
-
-
 
 }
