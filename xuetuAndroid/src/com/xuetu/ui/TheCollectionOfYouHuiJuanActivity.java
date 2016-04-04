@@ -64,7 +64,6 @@ public class TheCollectionOfYouHuiJuanActivity extends Baseactivity implements O
 	}
 	@Override
 	public void onClick(View v) {
-		Toast.makeText(getApplicationContext(), "点击了", 1).show();
 		finish();
 
 	}
@@ -81,10 +80,10 @@ public class TheCollectionOfYouHuiJuanActivity extends Baseactivity implements O
 				viewHolder.setText(R.id.youhuijuanxingxi, mycoupon.getCoupon().getCouInfo());
 				viewHolder.setText(R.id.number, mycoupon.getCoupon().getCouPrice() + "折");
 				viewHolder.SetUrlImage(R.id.head,
-						GetHttp.getHttpBCL() + mycoupon.getCoupon().getStoreName().getStoImg());
+						GetHttp.getHttpBCL() + mycoupon.getCoupon().getCouIma());
 				viewHolder.setText(R.id.youhuijuanshiyongqingkuang, mycoupon.getUserState().getUstaName());
 				if (mycoupon.getUserState().getUstaID() == 2) {
-					viewHolder.setIayoutBgColor(R.id.layout, R.drawable.cornor_layout_green);
+					viewHolder.setIayoutBgColor(R.id.layout, R.drawable.cornro_myshoucang);
 				}
 
 			}

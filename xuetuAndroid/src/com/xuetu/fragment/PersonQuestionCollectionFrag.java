@@ -52,10 +52,19 @@ public class PersonQuestionCollectionFrag extends Fragment implements OnItemClic
 		listview = (ListView) view.findViewById(R.id.listview_personquestion);
 		listview.setOnItemClickListener(this);
 		student = ((XueTuApplication) getActivity().getApplication()).getStudent();
-		getDatas();
+//		getDatas();
 		return view;
 
 	}
+	
+	
+	@Override
+	public void onResume() {
+		// TODO Auto-generated method stub
+		super.onResume();
+		getDatas();
+	}
+	
 
 	/**
 	 * 通过学生id得到自己收藏的问题
@@ -70,7 +79,6 @@ public class PersonQuestionCollectionFrag extends Fragment implements OnItemClic
 		String url = GetHttp.getHttpBCL() + "GetPersonalCollectionQuestionByStuIDServlet";
 		RequestParams params = new RequestParams();
 		params.addBodyParameter("stuID", student.getStuId() + "");
-		Log.i("TAG", "~~~~~~~student.getStuId()~~~~~~~~~~~");
 		httpUtils.send(HttpMethod.POST, url, params, new RequestCallBack<String>() {
 
 			@Override
@@ -96,7 +104,8 @@ public class PersonQuestionCollectionFrag extends Fragment implements OnItemClic
 	 */
 	private void addView() {
 		listview.setAdapter(
-				myadapter = new MyBasesadapter<CollectionQuestion>(context, datas, R.layout.personalquestion) {
+				myadapter = new MyBasesadapter<CollectionQuestion>(context, datas, 
+						R.layout.personalquestion) {
 
 					@Override
 					public void convert(ViewHodle viewHolder, CollectionQuestion item) {

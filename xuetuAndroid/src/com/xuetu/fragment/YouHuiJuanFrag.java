@@ -37,7 +37,7 @@ import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ListView;
 
-public class YouHuiJuanFrag extends Fragment implements OnItemClickListener{
+public class YouHuiJuanFrag extends Fragment implements OnItemClickListener {
 	List<FavoritesCoupons> datas = new ArrayList<FavoritesCoupons>();
 	View view = null;
 	ListView listview;
@@ -47,27 +47,28 @@ public class YouHuiJuanFrag extends Fragment implements OnItemClickListener{
 
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-	context=getContext();
-	student = (((XueTuApplication)getActivity().getApplication())).getStudent();
-		
+		context = getContext();
+		student = (((XueTuApplication) getActivity().getApplication())).getStudent();
+
 		view = inflater.inflate(R.layout.listview, null);
 		listview = (ListView) view.findViewById(R.id.listview);
 		listview.setOnItemClickListener(this);
-		getCoupon();
+		// getCoupon();
 		return view;
 	}
-/**
- * 通过学生id获得个人收藏优惠劵
- * 
- * 
- */
+
+	/**
+	 * 通过学生id获得个人收藏优惠劵
+	 * 
+	 * 
+	 */
 	private void getCoupon() {
 		HttpUtils httpUtils = new HttpUtils();
 		String url = GetHttp.getHttpBCL() + "GetPersonFavoriteCouponsByStuIDServlet";
 		RequestParams params = new RequestParams();
 		try {
 			params.addBodyParameter("stuid", URLEncoder.encode(String.valueOf(student.getStuId()), "utf-8"));
-//			Log.i("TAG", student.getStuId() + "**********");
+			// Log.i("TAG", student.getStuId() + "**********");
 
 			httpUtils.send(HttpMethod.POST, url, params, new RequestCallBack<String>() {
 
@@ -79,7 +80,7 @@ public class YouHuiJuanFrag extends Fragment implements OnItemClickListener{
 
 				@Override
 				public void onSuccess(ResponseInfo<String> arg0) {
-//					Log.i(TAG, "onSuccess");
+					// Log.i(TAG, "onSuccess");
 					String result = arg0.result;
 					Log.i("TAG", result);
 					Type type = new TypeToken<List<FavoritesCoupons>>() {
@@ -95,8 +96,15 @@ public class YouHuiJuanFrag extends Fragment implements OnItemClickListener{
 		}
 
 	}
-	
-	
+
+	@Override
+	public void onResume() {
+		// TODO Auto-generated method stub
+		super.onResume();
+		getCoupon();
+		Log.i("TAG", "是否刷新");
+	}
+
 	/**
 	 * listview的加载
 	 */
@@ -108,8 +116,7 @@ public class YouHuiJuanFrag extends Fragment implements OnItemClickListener{
 
 					@Override
 					public void convert(ViewHodle viewHolder, FavoritesCoupons item) {
-						viewHolder.SetUrlImage(R.id.head,
-								GetHttp.getHttpBCL() + item.getCoupon().getStoreName().getStoImg());
+						viewHolder.SetUrlImage(R.id.head, GetHttp.getHttpBCL() + item.getCoupon().getCouIma());
 						viewHolder.setText(R.id.number, item.getCoupon().getCoouRedeemPoints() + "分可以兑换");
 						viewHolder.setText(R.id.youhuijuanxingxi, item.getCoupon().getCouInfo());
 
@@ -117,7 +124,7 @@ public class YouHuiJuanFrag extends Fragment implements OnItemClickListener{
 				});
 
 	}
-	
+
 	@Override
 	public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 		Intent intent = new Intent();
@@ -127,6 +134,5 @@ public class YouHuiJuanFrag extends Fragment implements OnItemClickListener{
 		getActivity().startActivity(intent);
 
 	}
-
 
 }

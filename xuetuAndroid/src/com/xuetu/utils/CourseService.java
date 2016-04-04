@@ -59,7 +59,7 @@ public class CourseService implements OnClickListener {
 
 	public void getCourse(Student student) {
 		// 初始化DBManager
-		mgr = new DBManager(context);
+//		mgr = new DBManager(context);
 		// http://localhost:8080/xuetuWeb/CourseAndroid
 		HttpUtils httpUtils = new HttpUtils();
 		String url = GetHttp.getHttpBCL() + "CourseAndroid";

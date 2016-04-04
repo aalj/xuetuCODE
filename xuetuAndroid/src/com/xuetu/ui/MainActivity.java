@@ -227,24 +227,7 @@ public class MainActivity extends FragmentActivity implements OnPageChangeListen
 
 	}
 
-	@Override
-	public boolean onCreateOptionsMenu(Menu menu) {
-		// Inflate the menu; this adds items to the action bar if it is present.
-		getMenuInflater().inflate(R.menu.main, menu);
-		return true;
-	}
-
-	@Override
-	public boolean onOptionsItemSelected(MenuItem item) {
-		// Handle action bar item clicks here. The action bar will
-		// automatically handle clicks on the Home/Up button, so long
-		// as you specify a parent activity in AndroidManifest.xml.
-		int id = item.getItemId();
-		if (id == R.id.action_settings) {
-			return true;
-		}
-		return super.onOptionsItemSelected(item);
-	}
+	
 
 	@Override
 	public void onPageScrollStateChanged(int arg0) {
@@ -263,16 +246,6 @@ public class MainActivity extends FragmentActivity implements OnPageChangeListen
 			} else {
 				title.shoerightLayout(View.INVISIBLE);
 			}
-//			if(arg0==3){
-//				title.shoelayout(View.GONE);
-//			}else{
-//				title.shoelayout(View.VISIBLE);
-//			}
-//			if (arg0 == 3) {
-//				title.shoelayout(View.GONE);
-//			} else {
-//				title.shoelayout(View.VISIBLE);
-//			}
 			for (int i = 0; i < fragmeLayout.length; i++) {
 				if (i != arg0) {
 					fragmeLayout[i].setSelected(false);
@@ -302,6 +275,7 @@ public class MainActivity extends FragmentActivity implements OnPageChangeListen
 		Intent intent = new Intent();
 		intent.setClass(MainActivity.this, SettingActivity.class);
 		startActivity(intent);
+		finish();
 		Toast.makeText(getApplicationContext(), "sesdfsdf", 0).show();
 
 	}

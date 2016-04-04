@@ -139,11 +139,12 @@
             android:textColor="#353535"
             android:textSize="15sp" />
 
-        <Button
+        <com.xuetu.view.CircleImageView
             android:id="@+id/button_QQ"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerHorizontal="true"
+            android:background="@drawable/qq_iner_icon"
             android:layout_centerVertical="true"
             android:text="三方" />
 

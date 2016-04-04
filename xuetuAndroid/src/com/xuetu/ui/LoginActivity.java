@@ -1,14 +1,11 @@
 package com.xuetu.ui;
 
 import java.io.UnsupportedEncodingException;
-import java.lang.reflect.Type;
 import java.net.URLEncoder;
 import java.util.Map;
-import java.util.Set;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import com.google.gson.reflect.TypeToken;
 import com.lidroid.xutils.HttpUtils;
 import com.lidroid.xutils.exception.HttpException;
 import com.lidroid.xutils.http.RequestParams;
@@ -32,6 +29,7 @@ import com.umeng.socialize.sso.UMSsoHandler;
 import com.xuetu.R;
 import com.xuetu.entity.Student;
 import com.xuetu.utils.GetHttp;
+import com.xuetu.view.CircleImageView;
 import com.xuetu.view.TitleBar;
 
 import android.app.Activity;
@@ -43,7 +41,6 @@ import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
@@ -54,12 +51,11 @@ public class LoginActivity extends Baseactivity implements OnClickListener {
 	EditText et_usertel;
 	EditText et_password;
 	SharedPreferences sp = null;
-	Button button;
+	CircleImageView button;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		Log.i("TAG", "LoginActivity");
 		int stuId = ((XueTuApplication) getApplication()).getStudent().getStuId();
 		if (stuId > 0) {
 			Intent intent = new Intent(this, MainActivity.class);
@@ -73,7 +69,7 @@ public class LoginActivity extends Baseactivity implements OnClickListener {
 		titlebar.setLeftLayoutClickListener(this);
 		et_usertel = (EditText) findViewById(R.id.et_tel);
 		et_password = (EditText) findViewById(R.id.et_password);
-		button = (Button) findViewById(R.id.button_QQ);
+		button = (CircleImageView) findViewById(R.id.button_QQ);
 		button.setOnClickListener(this);
 
 		configPlatforms();
