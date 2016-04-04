@@ -128,19 +128,24 @@ public class LearingRecordActivity extends Activity {
         day_of_week = c.get(Calendar.DAY_OF_WEEK); // 今天是这个礼拜的
         today_day=c.get(Calendar.DAY_OF_MONTH); // 今天几号
 		
+        start_day = ((week_of_month-1)*7+day_of_week)-today_day;          //就从XXXX[start_day] 开始settext
+//		start_day=7-((today_day - day_of_week)%7);
+        add_day_ = start_day;
+        
+        
 		tv_rili  = (TextView) findViewById(R.id.tv_qiandaorili);
 		tv_rili.setText(getdate());
         
 		   System.out.println("这个月的最大天数"+today_num+"今天是这个月的第几个礼拜"+week_of_month+"今天是这个礼拜的第几天"+day_of_week+"几号"+today_day);
         
-		   getqiandao_message();
+//		   getqiandao_message();
 		
 		   
 		   
 		if(qiandao_ed()==true)
 		{
 			Rili[today_day+add_day_-1].setBackgroundResource(R.drawable.background);
-			
+			System.out.println("today_day"+today_day+"````add_day_"+add_day_+""   );
 			btn_qiandao.setText("已签到");
 			btn_qiandao.setTextColor(0xffffffff);
 			
@@ -160,18 +165,16 @@ public class LearingRecordActivity extends Activity {
 	public void getRili( TextView [] Rili,int qiandaori[])
 	{
 
-        start_day = ((week_of_month-1)*7+day_of_week)-today_day;          //就从XXXX[start_day] 开始settext
-//		start_day=7-((today_day - day_of_week)%7);
-        add_day_ = start_day;
+     
       
         
         for(int i=1;i<=today_num;i++)  // 这个月所有天数的数值         31天   循环这么多天
         {
-        	System.out.println(start_day);
         	Rili[start_day].setBackgroundResource(R.drawable.background_nothing);  //先给每个textview增加背景,保证尺寸
         	Rili[start_day].setText(i+"");																		//向textview  添加日期  
         	 for(int j=0;j<qiandaori.length;j++)   														//遍历所有从服务器上 获取的签到日期
         	 {
+        		 
 		        	if(i==qiandaori[j])      //签到日期加背景
 		        	{
 		        		Rili[start_day].setBackgroundResource(R.drawable.background);
@@ -218,7 +221,6 @@ public class LearingRecordActivity extends Activity {
 	{
 		boolean b  = false;
 		int i = pref.getInt("签到", 0);  //获取储存在文件里的   DAY_OF_YEAR  int 类型
-		System.out.println("i>>>>>>>>>>>>>>>"+i);
 		if(i ==  c.get(Calendar.DAY_OF_YEAR ))
 		{
 			b =true;
@@ -268,7 +270,6 @@ public class LearingRecordActivity extends Activity {
 				Gson gson = new GsonBuilder().setDateFormat("yy-mm-dd").create();
 				List<String> date1 = new ArrayList<>();
 				date1=gson.fromJson(date, type);
-				System.out.println(date1);
 				if(!date1.equals("[]"))
 				{
 					int [] dd = new int [date1.size()];
@@ -366,27 +367,6 @@ public class LearingRecordActivity extends Activity {
 			}
 		});
 	}
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
 	
 	 public  String secondFormat(long  second)
 	    {
