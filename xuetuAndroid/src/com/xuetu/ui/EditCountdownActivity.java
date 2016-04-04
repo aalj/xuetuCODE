@@ -1,4 +1,4 @@
-package com.xuetu;
+package com.xuetu.ui;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -6,9 +6,12 @@ import java.util.Calendar;
 import com.gc.materialdesign.views.Switch;
 import com.lidroid.xutils.ViewUtils;
 import com.lidroid.xutils.view.annotation.ViewInject;
+import com.xuetu.R;
+import com.xuetu.R.drawable;
+import com.xuetu.R.id;
+import com.xuetu.R.layout;
 import com.xuetu.db.DBFindManager;
 import com.xuetu.entity.Countdown;
-import com.xuetu.ui.AddCountDownActivity;
 import com.xuetu.view.TitleBar;
 
 import android.app.Activity;

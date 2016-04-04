@@ -69,6 +69,8 @@ import android.view.View.OnClickListener;
 import android.view.View.OnTouchListener;
 import android.view.ViewGroup.LayoutParams;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ImageView;
 import android.widget.PopupWindow;
 import android.widget.RelativeLayout;
@@ -103,7 +105,8 @@ public class QuestionFrag extends Fragment implements OnRefreshListener, OnKeyLi
 	
 
 
-	
+
+	Message msg5 = null;
 	RefreshListView lv = null;
 	HttpUtils hutils = new HttpUtils();
 	List<Question> list = new ArrayList<Question>();
@@ -131,14 +134,11 @@ public class QuestionFrag extends Fragment implements OnRefreshListener, OnKeyLi
 	HttpUtils hutilsGetSubQues = new HttpUtils();
 	String urlSub = null;
 	RequestParams paramsSub = null;
-	private Set<Integer> listtag = new HashSet<Integer>();
+//	private Set<Integer> listtag = new HashSet<Integer>();
 //	MyBasesadapter<Question> adapter = null;
 //	MyQuestionListBaseAdapter adapter = null;
 	@Override
 	public View onCreateView(final LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-/*		Log.i("hehe", "sbxyh");
-		listtag = getSaveQuestion();
-		Log.i("hehe", listtag.size()+"-----listtagSize");*/
 		InitData(1, REFRESH_TEMP);
 		view = inflater.inflate(R.layout.question_frag, null);
 //		dr_save = getActivity().getResources().getDrawable(R.drawable.ic_save);
@@ -149,29 +149,59 @@ public class QuestionFrag extends Fragment implements OnRefreshListener, OnKeyLi
 		lv = (RefreshListView) view.findViewById(R.id.lv_question);
 		setOnclickListener();
 		
-		stu_id = ((XueTuApplication)getActivity().getApplication()).getStudent().getStuId();
-		adapter = new QuestionFragAdapter(list, getContext(),stu_id);
 		
+		adapter = new QuestionFragAdapter(list, getContext());
+		lv.setOnItemClickListener(new OnItemClickListener() {
+
+			@Override
+			public void onItemClick(AdapterView<?> parent, View view,
+					int position, long id) {
+				// TODO Auto-generated method stub
+				Intent intent = new Intent(getContext(),Answer_list.class);
+				Bundle bundle = new Bundle();
+				bundle.putSerializable("curQues", list.get(position-1));
+				intent.putExtras(bundle);
+				getContext().startActivity(intent);
+			}
+			
+		});
 		lv.setAdapter(adapter);
 		lv.setOnRefreshListener(this);
 		return view;
 	}
+	
 	Handler handler = new Handler(){
 		@Override
 		public void handleMessage(Message msg) {
 			switch(msg.what){
 			case 4:
 				list =(List<Question>) msg.obj;break;	
+			case 5:
+				list =(List<Question>) msg.obj;break;	
 			}
+			
 			if(adapter !=null){
+				Log.i("hehe", "切换时notifychange");
 				adapter.notifyDataSetChanged();
 			}else{
-			adapter = new QuestionFragAdapter(list, getContext(),stu_id);
+				Log.i("hehe", "切换时setadapter");
+			adapter = new QuestionFragAdapter(list, getContext());
 			lv.setAdapter(adapter);
 			}
 			super.handleMessage(msg);
 		}
 	};
+	//fragment 从被隐藏回到显示状态时自动刷新
+	@Override
+	public void onHiddenChanged(boolean hidden) {
+		// TODO Auto-generated method stub
+		if(!hidden){
+			Log.i("hehe", "查看数据-------->>>>>");
+			InitData(1, REFRESH_TEMP);
+//			handler.sendMessage(msg5);
+		}
+		super.onHiddenChanged(hidden);
+	}
 /*	public List<Integer> getSaveQuestion(){
 		String urlIsSave = GetHttp.getHttpLC()+"IsSaveQuestion";
 		RequestParams rp = new RequestParams();
@@ -198,6 +228,10 @@ public class QuestionFrag extends Fragment implements OnRefreshListener, OnKeyLi
 		});
 		return listtag;
 	}*/
+	
+	
+	
+	
 	public class MyOnclickListener implements OnClickListener{
 		@Override
 		public void onClick(View v) {
@@ -239,6 +273,10 @@ public class QuestionFrag extends Fragment implements OnRefreshListener, OnKeyLi
 				popupWindow.dismiss();
 				break;
 			}
+			getXueke();
+		}
+
+		private void getXueke() {
 			//按学科显示问题
 			if(sub_id!=0){
 				showDengdai();
@@ -318,15 +356,15 @@ public class QuestionFrag extends Fragment implements OnRefreshListener, OnKeyLi
 			params.addBodyParameter("page", countpage + "");// 查询第1页
 
 		}
-		params.addBodyParameter("num", "5");// 每页显示5条
+		params.addBodyParameter("num", "10");// 每页显示5条
 //		hutils.configCurrentHttpCacheExpiry(1000);
 		/*SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 		System.out.println(sdf.format(new java.sql.Timestamp(System.currentTimeMillis())));*/
 		hutils.send(HttpMethod.POST, url,params, new RequestCallBack<String>() {
+
 			@Override
 			public void onFailure(HttpException arg0, String arg1) {
 				// TODO Auto-generated method stub
-
 				Log.i("hehe", "failegetQuestion");
 			}
 
@@ -368,6 +406,13 @@ public class QuestionFrag extends Fragment implements OnRefreshListener, OnKeyLi
 					// 控制脚布局隐藏
 					lv.hideFooterView();
 				}
+					if(adapter!=null){
+						adapter.notifyDataSetChanged();
+					}
+//					msg5= Message.obtain();
+//					 msg5.what=5;
+//					 msg5.obj=list;
+//					 handler.sendMessage(msg5);
 			}
 		});
 	}
@@ -410,7 +455,7 @@ public class QuestionFrag extends Fragment implements OnRefreshListener, OnKeyLi
 //       });
        
        popupWindow = new PopupWindow(contentView,
-               LayoutParams.MATCH_PARENT, 150, true);
+               LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT, true);
        popupWindow.setTouchable(true);
        popupWindow.setTouchInterceptor(new OnTouchListener() {
 			@Override
@@ -423,8 +468,8 @@ public class QuestionFrag extends Fragment implements OnRefreshListener, OnKeyLi
        });
        // 如果不设置PopupWindow的背景，无论是点击外部区域还是Back键都无法dismiss弹框
        // 我觉得这里是API的一个bug
-//       popupWindow.setBackgroundDrawable(getResources().getDrawable(
-//               R.drawable.ic_launcher));
+       popupWindow.setBackgroundDrawable(getResources().getDrawable(
+               R.drawable.toumingbackground));
        // 设置好参数之后再show
        popupWindow.showAsDropDown(v);
     // popupWindow.showAtLocation(view.getParent(),ce, x, y)

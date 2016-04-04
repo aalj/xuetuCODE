@@ -55,6 +55,7 @@ public class QuestionIml implements QuesTionDao {
 				a.setAnsText(rs.getString("ans_text"));
 				a.setAnsImg(rs.getString("ans_ima"));
 				a.setAnsTime(rs.getTimestamp("ans_time"));
+				a.setAgrNum(getAgrNumByAnsId(rs.getInt("ans_id")));
 				answers.add(a);
 			}
 			return answers;
@@ -71,7 +72,30 @@ public class QuestionIml implements QuesTionDao {
 			}
 		}
 	}
-
+	public Integer getAgrNumByAnsId(int ans_id){
+		int count = 0;
+		Connection conn = null;
+		PreparedStatement prep = null;
+		String sql = null;
+		conn = DBconnection.getConnection();
+		try {
+			sql = "select count(*) from agreement where ans_id=?";
+			prep = conn.prepareStatement(sql);
+			prep.setInt(1,ans_id);
+			ResultSet rs = prep.executeQuery();
+			rs.next();
+			// 指针从第一行属性字段开始
+//			while (rs.next()) {
+//				count++;
+//			}
+			return rs.getInt(1);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		return null;
+	}
 	@Override
 	public List<Question> queryQuestionByStuJectId(Subject sub) {
 		// TODO Auto-generated method stub
@@ -86,6 +110,8 @@ public class QuestionIml implements QuesTionDao {
 		String sql = null;
 		List<Question> questions = new ArrayList<Question>();
 		ResultSet rs = null;
+		List<Integer> saveNum = null;
+		Map<List<Integer>,List<Question>> qreturn = new HashMap<List<Integer>,List<Question>>();
 //		Set<Integer> saveNum = null;
 //		Map<Set<Integer>,List<Question>> qreturn = new HashMap<Set<Integer>,List<Question>>();
 		// 指针从第一行属性字段开始
@@ -439,6 +465,7 @@ public class QuestionIml implements QuesTionDao {
 				q.setQuesIma(rs.getString("ques_img"));
 				q.setQuesDate(rs.getTimestamp("ques_time"));
 				q.setAcpo_num(rs.getInt("acpo_num"));
+				q.setAns_num(getAnsNum(rs.getInt("ques_id")));
 				q.setSubject(getSubjectBySubId(rs.getInt("sub_id")));
 			}
 			return q;
@@ -642,7 +669,7 @@ public class QuestionIml implements QuesTionDao {
 		}
 	}
 	@Override
-	public Set<Integer> isSave() {
+	public Boolean isSave(int ques_id,int stu_id) {
 		Connection conn = null;
 		PreparedStatement prep= null;
 		String sql = null;
@@ -651,31 +678,22 @@ public class QuestionIml implements QuesTionDao {
 		// 指针从第一行属性字段开始
 			conn = DBconnection.getConnection();
 //			sql = "select * from collectionquestion where stu_id=?";
-			sql = " select * from collectionquestion";
+			sql = " select * from collectionquestion where ques_id=? and stu_id=?";
 			List<CollectionQuestion> cqs = new ArrayList<CollectionQuestion>();
 			try {
 				prep = conn.prepareStatement(sql);
+				prep.setInt(1, ques_id);
+				prep.setInt(2, stu_id);
 				rs = prep.executeQuery();
-				CollectionQuestion cq = null;
-				while (rs.next()) {
-					cq = new CollectionQuestion();
-					cq.setCoqoID(rs.getInt("coqu_id"));
-					cq.setQues_time(rs.getTimestamp("ques_time_collect"));
-					cq.setQuestion(getQuestionByQuesId(rs.getInt("ques_id")));
-					cq.setStudent(getStudentByStuId(rs.getInt("stu_id"), getSchIdByStuId(rs.getInt("stu_id"))));
-					cqs.add(cq);
+				if (rs.next()) {
+					return true;
 				}
-				for(CollectionQuestion x:cqs){
-					l.add(x.getCoqoID());
-				}
-				return l;
+				
 			} catch (SQLException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-			return null;
-		
-		
+			return false;
 	}
 
 	@Override
@@ -706,6 +724,37 @@ public class QuestionIml implements QuesTionDao {
 				questions.add(q);
 			}
 			return questions;
+		} catch (Exception e) {
+			throw new RuntimeException(e);
+		} finally {
+			try {
+				if (conn != null)
+					conn.close();
+				if (prep != null)
+					prep.close();
+			} catch (Exception e) {
+				throw new RuntimeException(e);
+			}
+		}
+	}
+
+	@Override
+	public Set<Integer> getAgreeAnswerByStuId(int stu_id) {
+		Connection conn = null;
+		String sql = null;
+		PreparedStatement prep = null;
+		Set<Integer> s = new HashSet<Integer>();
+		try {
+			conn = DBconnection.getConnection();
+			sql = "select ans_id from agreement where stu_id=?";
+			prep = conn.prepareStatement(sql);
+			prep.setInt(1, stu_id);
+			ResultSet rs = prep.executeQuery();
+			// 指针从第一行属性字段开始
+			while (rs.next()) {
+				s.add(rs.getInt("ans_id"));
+			}
+			return s;
 		} catch (Exception e) {
 			throw new RuntimeException(e);
 		} finally {

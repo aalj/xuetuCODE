@@ -27,6 +27,7 @@ public class IsSaveQuestion extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private int stu_id;
 	private int ques_id;
+	private String jsonStr;
 	ArrayList<Integer> ids = new ArrayList<Integer>();
 	QuesTionDao q = new QuestionIml();
 	List<CollectionQuestion> cqs = new ArrayList<CollectionQuestion>();
@@ -49,15 +50,18 @@ public class IsSaveQuestion extends HttpServlet {
 		response.setCharacterEncoding("utf-8");
 		response.setContentType("text/html;charset=UTF-8");
 		PrintWriter pw = response.getWriter();
-		ids = (ArrayList<Integer>) q.isSave();
+		ques_id = Integer.parseInt(request.getParameter("ques_id"));
+		stu_id = Integer.parseInt(request.getParameter("stu_id"));
+		if(q.isSave(ques_id, stu_id))
+			jsonStr = "1";
+		else
+			jsonStr = "0";
 //		Set<Map.Entry<Integer,CollectionQuestion>> cqSet = 
 //		Gson gson = new GsonBuilder()
 //				.enableComplexMapKeySerialization()
 //				.setPrettyPrinting()
 //				.disableHtmlEscaping()
 //				.setDateFormat("yyyy-MM-dd HH:mm:ss").create();
-		Gson gson = new Gson();
-		String jsonStr = gson.toJson(ids);
 		pw.write(jsonStr);
 	}
 

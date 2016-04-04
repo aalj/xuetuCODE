@@ -227,7 +227,9 @@ public interface QuesTionDao {
 	public void collectCancelQuestion(int stu_id,int ques_id);
 	public void agreeAnswer(int ans_id,int stu_id,Date agr_date);
 	public void disAgreeAnswer(int ans_id,int stu_id);
-	public Set<Integer> isSave();
+	public Boolean isSave(int ques_id,int stu_id);
 	public List<Question> getQuesBySubId(int sub_id);
+	public Set<Integer> getAgreeAnswerByStuId(int stu_id);
+	public Integer getAgrNumByAnsId(int ans_id);
 }
 

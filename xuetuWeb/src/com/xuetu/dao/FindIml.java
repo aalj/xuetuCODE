@@ -283,10 +283,11 @@ public class FindIml implements FindInter {
 		PreparedStatement statement = null;
 		ResultSet query = null;
 		try {
-			String sql = "select sum(sto_time) as mytime," + "date_format(st_date,'%Y-%m-%d') as myDate,"
+			String sql = "select sum(sto_time) as mytime," + 
+						"date_format(st_date,'%Y-%m-%d') as myDate,"
 					+ "stu_id from studytime "
 					+ "where stu_id=? and date_sub(curdate(), INTERVAL 7 DAY) <= date(`st_date`) "
-					+ "group by date_format(st_date,'%Y-%m-%d');";
+					+ "group by date_format(st_date,'%Y-%m-%d')  order by myDate desc;";
 			statement = conn.prepareStatement(sql);
 			statement.setInt(1, stu_id);
 			query = statement.executeQuery();

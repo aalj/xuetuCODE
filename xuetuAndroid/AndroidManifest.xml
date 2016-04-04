@@ -8,7 +8,8 @@
         android:minSdkVersion="14"
         android:targetSdkVersion="22" />
     <!-- 监听开机自启 -->
-
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.WRITE_SETTINGS" />
     <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
     <uses-permission android:name="android.permission.VIBRATE" />
     <uses-permission android:name="android.permission.GET_TASKS" />
@@ -269,18 +270,13 @@
             android:label="@string/title_activity_person_question_information" >
         </activity>
         <activity
-            android:name=".JiFenXiangQingActivity"
+            android:name="com.xuetu.ui.JiFenXiangQingActivity"
             android:label="@string/title_activity_ji_fen_xiang_qing" >
         </activity>
 
         <receiver
-            android:name=".Receive.AlarmBroadcastReceiver"
+            android:name="com.xuetu.receive.AlarmBroadcastReceiver"
             android:process=":remote" />
-        <receiver android:name=".BootBroadcastReceiver" >
-            <intent-filter>
-                <action android:name="android.intent.action.BOOT_COMPLETED" />
-            </intent-filter>
-        </receiver>
 
         <activity
             android:name=".ui.EditAlarmActivity"
@@ -299,8 +295,10 @@
             android:label="@string/title_activity_edit_count_down" >
         </activity>
         <activity
-            android:name=".EditCountdownActivity"
+            android:name="com.xuetu.ui.EditCountdownActivity"
             android:label="@string/title_activity_edit_countdown" >
+        </activity>
+        <activity android:name="com.xuetu.ui.AddAlarmZaoqi" >
         </activity>
     </application>
 

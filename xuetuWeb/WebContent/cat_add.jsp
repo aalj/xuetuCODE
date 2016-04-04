@@ -1,19 +1,16 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Frameset//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-frameset.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml" lang="zh-CN">
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN"
+"http://www.w3.org/TR/html4/strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <link rel="stylesheet" type="text/css" href="./Style/skin.css" />
 </head>
-<script src="jquery-1.11.1.js"></script>
+<script src="jquery-1.11.1.js" type="text/javascript"></script>
 <script>
-	function Submit() {
-		var insertForm = document.getElementsByName("insertForm")[0];
-		insertForm.action = "/xuetuWeb/couAddServlet";
-		insertForm.submit();
-	}
+	
 	//	执行一些方法，然后判断整个页面执行的是否完整
 	function mycheck() {
 
@@ -63,42 +60,6 @@
 		var re = new RegExp(regu);
 		return re.test(str);
 	}
-// 	$(document)
-// 			.ready(
-// 					function(e) {
-// 						$(":button[name=sub]")
-// 								.click(
-// 										function(e) {
-// 											var points = $(
-// 													":input[name=cou_redeem_points]")
-// 													.val();
-// 											var num = $(":input[name=cou_num]")
-// 													.val();
-// 											var validity = $(
-// 													":input[name=cou_Validity]")
-// 													.val();
-// 											var info = $(
-// 													":input[name=cou_info]")
-// 													.val();
-// 											var num = $(":input[name=cou_num]")
-// 													.val();
-// 											var price = $(
-// 													":input[name=cou_price]")
-// 													.val();
-// 											if (points == "" || num == ""
-// 													|| validity == ""
-// 													|| info == "" || num == ""
-// 													|| price == "") {
-// 												alert("请填写必填项！");
-// 											}
-// 											/* Submit(); */
-// 											else {
-// 												Submit();
-// 												alert("添加成功");
-// 											}
-
-// 										})
-// 					});
 </script>
 <body>
 	<table width="100%" border="0" cellpadding="0" cellspacing="0">
@@ -161,16 +122,21 @@
 							<table width="100%">
 								<tr>
 									<td colspan="2">
-										<form action="/xuetuWeb/couAddServlet" name="form1"
+										<form action="/xuetuWeb/couAddServlet"  enctype="multipart/form-data"
 											method="post" onSubmit="return mycheck()">
 											<table width="100%" class="cont">
 												<tr>
 													<td width="2%">&nbsp;</td>
-													<td>优惠券名</td>
+													<td width="20%">优惠券名</td>
 													<td width="20%"><input class="text" type="text"
 														name="cou_name" value="" /></td>
 													<td></td>
 													<td width="2%">&nbsp;</td>
+													<td rowspan="5" width="10%" align="center"><img
+														src="Images/shuxian.jpg" /></td>
+													<td width="10%">店铺图片</td>
+													
+													
 												</tr>
 												<tr>
 													<td>&nbsp;</td>
@@ -181,6 +147,18 @@
 														class="text" type="text" name="cou_price" value="" /></td>
 													<td></td>
 													<td>&nbsp;</td>
+													
+													<td rowspan="4" width="60%"><img
+														src="./Images/wutu.png"
+														width="200" height="300" />
+													<td>
+														<input type="file" name="sto_img" onchange="showImage()" /><br />
+														<input type="button" name="imgSub" value="上传"
+														onclick="imgsub()" />
+													</td>
+													
+													
+													
 												</tr>
 												<tr>
 													<td>&nbsp;</td>
@@ -209,7 +187,7 @@
 														onblur="if(!this.value.match(/^([1-2]{1})([0-9]{3})-(0?[1-9]|10|11|12)-(0?[1-9]|[1-2][0-9]|30|31)$/g)) alert('日期输入不正确');
 														"
 														/></td>
-													<td>格式:2000-2-15</td>
+													<td  width="20%">格式:2000-2-15</td>
 													<td width="2%">&nbsp;</td>
 												</tr>
 												<tr>
@@ -222,7 +200,7 @@
 												<tr>
 													<td>&nbsp;</td>
 													<td colspan="3"><input class="btn" type="submit"
-														value="提交" name="sub" /></td>
+														value="提交" name="sub"  /></td>
 													<td>&nbsp;</td>
 												</tr>
 											</table>

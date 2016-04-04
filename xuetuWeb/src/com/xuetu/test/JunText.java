@@ -26,6 +26,7 @@ import com.xuetu.entity.Countdown;
 import com.xuetu.entity.Coupon;
 import com.xuetu.entity.MyCoupon;
 import com.xuetu.entity.FavoritesCoupons;
+import com.xuetu.entity.LongTime;
 import com.xuetu.entity.Pattern;
 import com.xuetu.entity.SelfStudyPlan;
 import com.xuetu.entity.Student;
@@ -81,14 +82,11 @@ public class JunText {
 
 	@Test
 	public void getCoupon1() {
-		List<SelfStudyPlan> selfPlan = new FindIml().getSelfPlan(3);
-		List<SelfStudyPlan> zhiXing = new ChuliShijian().isZhiXing(selfPlan);
-		for (SelfStudyPlan selfStudyPlan : zhiXing) {
-			System.out.print(selfStudyPlan.getStartTime());
-			System.out.print("\t");
-			System.out.print(selfStudyPlan.getIsZhiXing());
-			System.out.println();
+		 List<LongTime> weekTime = new FindIml().getWeekTime(3);
+		 for (LongTime longTime : weekTime) {
+			System.out.println(longTime.getMyDate());
 		}
+		
 
 	}
 	@Test

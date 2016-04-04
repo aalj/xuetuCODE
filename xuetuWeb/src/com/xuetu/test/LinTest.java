@@ -96,10 +96,28 @@ public class LinTest {
 	}
 	@Test
 	public void isSave(){
-		System.out.println(q.isSave().size()+"");
+		System.out.println(q.isSave(29, 3)+"");
 	}
 	@Test 
 	public void getQuesBySubId(){
 		System.out.println(q.getQuesBySubId(1).size());
+	}
+	@Test 
+	public void haha(){
+		Boolean s = true;
+		if(s==true)
+		System.out.println("p");
+		else
+			System.out.println("a");
+	}
+	@Test 
+	public void getAgreeAnswerByStuId(){
+		for(Integer i:q.getAgreeAnswerByStuId(3)){
+			System.out.println(i);
+		}	
+	}
+	@Test
+	public void getAgrNumByAnsId(){
+		System.out.println(q.getAgrNumByAnsId(2));
 	}
 }

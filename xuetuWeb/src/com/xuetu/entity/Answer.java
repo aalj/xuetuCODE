@@ -35,6 +35,13 @@ public class Answer implements Serializable{
 	private Student student = null;
 	private String ansText = null;
 	private String ansImg = null;
+	private int agrNum = 0;
+	public int getAgrNum() {
+		return agrNum;
+	}
+	public void setAgrNum(int agrNum) {
+		this.agrNum = agrNum;
+	}
 	@Override
 	public String toString() {
 		return "Answer [ansID=" + ansID + ", question=" + question + ", student=" + student + ", ansText=" + ansText

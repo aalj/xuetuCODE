@@ -87,7 +87,7 @@ public class CouponInfoActivity extends Activity {
 
 		String url = coupon.getStoreName().getStoImg();
 		url = GetHttp.getHttpLJ() + url;
-		bitmapUtils.display(head, url);
+		bitmapUtils.display(head, GetHttp.getHttpLJ()+coupon.getCouIma());
 		bitmapUtils.display(head_CircleImageView, url);
 		youhuijuanxingxi.setText(coupon.getCouName());
 		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
