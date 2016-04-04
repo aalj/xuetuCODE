@@ -83,7 +83,7 @@ public class SubmitQuestion extends HttpServlet {
 				String saveFileName = file.getAbsolutePath();
 				//文件保存路径
 				poster.saveAs(saveFileName);
-				poster.saveAs(path+poster.getFileName());
+				poster.saveAs(path+"xuetuImg/"+poster.getFileName());
 //				System.out.println(getServletContext().getRealPath("xuetuImg")+"-----servletContextrealPath");
 			}
 			//获得question对象,发表问题
