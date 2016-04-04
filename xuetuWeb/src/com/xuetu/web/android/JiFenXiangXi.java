@@ -38,12 +38,10 @@ public class JiFenXiangXi extends HttpServlet {
 			stuidnum = Integer.parseInt(URLDecoder.decode(stuid, "utf-8"));
 			weeknumnum = Integer.parseInt(URLDecoder.decode(weeknum, "utf-8"));
 		}
-		System.out.println("---->>>"+stuidnum+"----->>>>>>>"+weeknumnum);
 		List<JiFenMingXi> paixuJifenMingxi = new JifenDao().paixuJifenMingxi(stuidnum, weeknumnum);
 		Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create();
 		PrintWriter writer = response.getWriter();
 		String json = gson.toJson(paixuJifenMingxi);
-		System.out.println("积分详情"+json);
 		writer.print(json);
 		
 		}

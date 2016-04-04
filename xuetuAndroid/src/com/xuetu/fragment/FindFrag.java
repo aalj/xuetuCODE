@@ -56,8 +56,8 @@ public class FindFrag extends Fragment {
 	TextView tv_time;
 	TextView myswitch;
 
-//	TextView tilte_daojishi;
-//	TextView textView_daojishi;
+	// TextView tilte_daojishi;
+	// TextView textView_daojishi;
 	TextView textView3;
 
 	@Override
@@ -74,23 +74,23 @@ public class FindFrag extends Fragment {
 			if (msg.what == 12) {
 				List<LongTime> time = (List<LongTime>) msg.obj;
 				List<float[]> getshijainshuju = DataToTime.getshijainshuju(time);
-				br.setGroupCount(time.size());
+				br.setGroupCount(getshijainshuju.size());
 				br.setDataCount(1);
-				
-				for (int i = 1; i < getshijainshuju.size(); i++) {
-					br.setGroupData(i-1, getshijainshuju.get(i));
+
+				for (int i = 0; i < getshijainshuju.size(); i++) {
+					br.setGroupData(i , getshijainshuju.get(i));
 				}
-				br.setGroupData(getshijainshuju.size()-1, getshijainshuju.get(0));
 				br.setBarColor(new int[] { 0xff9575cd });
-				br.setDataTitle(new String[] { "日期" });
+				br.setDataTitle(new String[] { "学习时长(分钟)" });
 				SimpleDateFormat sim = new SimpleDateFormat("dd");
 				String[] string = new String[7];
 				int dayForWeek = DataToTime.dayForWeek(new Date(System.currentTimeMillis()));
-				 String[] weekDays = { "星期一", "星期二", "星期三", "星期四", "星期五", "星期六","星期日"};
-				for (int i = time.size()-1; i >=0 ; i--) {
-					string[i]=weekDays[i];
+				
+				 String[] weekDays = { "星期日","星期一", "星期二", "星期三", "星期四", "星期五", "星期六"};
+				for (int i =0; i<getshijainshuju.size() ; i++) {
+					string[6-i]=weekDays[dayForWeek];
 					dayForWeek-=1;
-					if(dayForWeek<1){
+					if(dayForWeek<0){
 						dayForWeek=6;
 					}
 				}
@@ -122,8 +122,10 @@ public class FindFrag extends Fragment {
 
 	@Override
 	public void onHiddenChanged(boolean hidden) {
+		if (!hidden) {
+			gettime(student.getStuId());
 
-		gettime(student.getStuId());
+		}
 
 	};
 
@@ -142,45 +144,16 @@ public class FindFrag extends Fragment {
 
 		br = (BarChartView) inflate.findViewById(R.id.bar);
 		gettime(student.getStuId());
-//		getSelfPlan(student.getStuId());
-
-		
 
 		linearTask = (LinearLayout) inflate.findViewById(R.id.linear_task);
 		linear_supervise = (LinearLayout) inflate.findViewById(R.id.linear_supervise);
 
-
-
 		MyOnClickLisener clickLisener = new MyOnClickLisener();
 		linearTask.setOnClickListener(clickLisener);
 		linear_supervise.setOnClickListener(clickLisener);
-//		getCountDown();
 	}
 
 	SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy年MM月dd日");
-
-//	private void getCountDown() {
-//		// TODO
-//		DBFindManager db = new DBFindManager(getActivity());
-//		List<Countdown> queryCountdown = db.queryCountdown();
-//		if (queryCountdown.size()> 0) {
-//			Countdown countdown = queryCountdown.get(0);
-//
-//			if (countdown != null) {
-//				tilte_daojishi.setText(countdown.getCodoText());
-//				textView_daojishi.setText(dateFormat.format(countdown.getCodoTime()) + " "
-//						+ DataToTime.getWeekOfDate(countdown.getCodoTime()));
-//				textView3.setText(DataToTime.getDay(countdown.getCodoTime().getTime()) + "");
-//			} else {
-//				tilte_daojishi.setText("当前没有倒计时");
-//			}
-//		
-//		
-//		}else{
-//			tilte_daojishi.setText("当前没有倒计时");
-//		}
-//
-//	}
 
 	/**
 	 * 加载学习时间
@@ -205,10 +178,7 @@ public class FindFrag extends Fragment {
 				}.getType();
 				Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create();
 				List<LongTime> time = gson.fromJson(arg0.result, type);
-				
-				
-				
-				
+
 				List<float[]> getshijainshuju = DataToTime.getshijainshuju(time);
 				Message msg = Message.obtain();
 				msg.what = 12;
@@ -218,7 +188,6 @@ public class FindFrag extends Fragment {
 			}
 		});
 	}
-
 
 	private class MyOnClickLisener implements OnClickListener {
 

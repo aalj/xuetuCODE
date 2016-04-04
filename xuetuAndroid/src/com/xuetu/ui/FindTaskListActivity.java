@@ -194,12 +194,6 @@ public class FindTaskListActivity extends Baseactivity
 						viewHolder.setText(R.id.info, DataToTime.dataToT(item.getStartTime()));
 						viewHolder.setText(R.id.tv_time, dataToHS);
 						
-						// 在集合中标记是否有同时用途判断是否复用
-//						if (listTag.contains(position)) {
-//							viewHolder.setReLayoutBgColor(R.id.layoutback, R.drawable.back_find_list_self);
-//						}
-//						re.setTag(position);
-						
 						// 设置选择选项
 						if (item.getIsZhiXing() == 2) {
 							viewHolder.setText(R.id.myswitch, "计划完成");
@@ -208,19 +202,8 @@ public class FindTaskListActivity extends Baseactivity
 								viewHolder.setText(R.id.myswitch, "未开始计划");
 							} else {
 								viewHolder.setText(R.id.myswitch, "计划已过时");
-
 							}
-							
-							
 						}
-
-						
-						Log.i("TAG", dataToHS);
-
-						
-
-						
-
 					}
 
 				};
@@ -269,9 +252,7 @@ public class FindTaskListActivity extends Baseactivity
 			users.remove(index);
 			users.add(index, selfStudyPlan);
 			adapter.notifyDataSetChanged();
-			Log.i("TAG", "selfStudyPlan.toString()------->>>>" + selfStudyPlan.toString());
 			saveChangSelf(selfStudyPlan);
-			Toast.makeText(getApplicationContext(), selfStudyPlan.getPlanText(), 0).show();
 		}
 
 		if (resultCode == 1011 && requestCode == ADD_SELF) {

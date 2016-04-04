@@ -73,5 +73,6 @@
     <string name="title_activity_dao_ji_shi">DaoJiShiActivity</string>
     <string name="title_activity_edit_count_down">EditCountDownActivity</string>
     <string name="title_activity_edit_countdown">EditCountdownActivity</string>
+    <string name="title_activity_yin_daoye">YinDaoyeActivity</string>
 
 </resources>

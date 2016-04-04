@@ -50,6 +50,8 @@ public class CouponInfoActivity extends Activity {
 	Student student;
 	boolean isLogin = false;
 
+	boolean isShouCang = true;//默认表示可以收藏
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
@@ -87,7 +89,7 @@ public class CouponInfoActivity extends Activity {
 
 		String url = coupon.getStoreName().getStoImg();
 		url = GetHttp.getHttpLJ() + url;
-		bitmapUtils.display(head, GetHttp.getHttpLJ()+coupon.getCouIma());
+		bitmapUtils.display(head, GetHttp.getHttpLJ() + coupon.getCouIma());
 		bitmapUtils.display(head_CircleImageView, url);
 		youhuijuanxingxi.setText(coupon.getCouName());
 		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
@@ -112,8 +114,6 @@ public class CouponInfoActivity extends Activity {
 			break;
 		case R.id.button_lijishiyong:// 兑换走兑换流程
 			if (isLogin) {
-				Log.i("TAG", "coupon.getShiyongNum()------->>>" + coupon.getShiyongNum());
-				Log.i("TAG", "coupon.getConNum()------->>>" + coupon.getConNum());
 				if (!(coupon.getShiyongNum() >= coupon.getConNum())) {
 					intent.setClass(this, ExchangeCouponActivity.class);
 					intent.putExtra("exchange", coupon);
@@ -127,19 +127,25 @@ public class CouponInfoActivity extends Activity {
 			}
 			break;
 		case R.id.tv_collect_coupon:// 收藏 添加优惠券
-			Toast.makeText(getApplicationContext(), "shoucang", 0).show();
-			favoritesCoupon = new FavoritesCoupons();
-			favoritesCoupon.setCoupon(coupon);
+			if (isShouCang) {//进行收藏优惠券操作
+				favoritesCoupon = new FavoritesCoupons();
+				favoritesCoupon.setCoupon(coupon);
 
-			int stuId = student.getStuId();
-			if (stuId > 0) {
-				favoritesCoupon.setStudent(student);
-				favoritesCoupon.setCreateDate(new Date(System.currentTimeMillis()));
+				int stuId = student.getStuId();
+				if (stuId > 0) {
+					favoritesCoupon.setStudent(student);
+					favoritesCoupon.setCreateDate(new Date(System.currentTimeMillis()));
 
-				saveCollectionCoupon();
+					saveCollectionCoupon(favoritesCoupon);
+				} else {
+					Toast.makeText(getApplicationContext(), "请先登录", 1).show();
+				}
+
 			} else {
-				Toast.makeText(getApplicationContext(), "清先登录", 1).show();
+				// TODO
+				delFavoCouponcheck();
 			}
+
 			break;
 		case R.id.imageView_backToDecember:
 			finish();
@@ -150,35 +156,41 @@ public class CouponInfoActivity extends Activity {
 		}
 
 	}
-
+	//查询优惠券是否收藏
 	public void infavoCouponcheck() {
 		String url = GetHttp.getHttpLJ() + "IssavefavoritesServlet";
 		RequestParams pra = new RequestParams();
 		pra.addBodyParameter("couponID", coupon.getCouID() + "");
 		pra.addBodyParameter("studentid", student.getStuId() + "");
-		Log.i("TAG", "yanshenf --------------->" + coupon.getCouID() + "\t" + student.getStuId());
 		httpUtils.send(HttpMethod.POST, url, pra, new RequestCallBack<String>() {
 
 			@Override
 			public void onFailure(HttpException arg0, String arg1) {
-				// TODO Auto-generated method stub
 
 			}
 
 			@Override
 			public void onSuccess(ResponseInfo<String> arg0) {
 				if ("ok".equals(arg0.result)) {
+
+					// 用于标记已经收藏
 					tv_collect_coupon.setText("已收藏");
-					tv_collect_coupon.setClickable(false);
-					tv_collect_coupon.setFocusable(false);
+					//表示不能进行优惠券收藏
+					isShouCang = false;
+					// tv_collect_coupon.setClickable(false);
+					// tv_collect_coupon.setFocusable(false);
+				} else {
+					//可以收藏
+					isShouCang = true;
 				}
 			}
 		});
 	}
-
-	public void saveCollectionCoupon() throws UnsupportedEncodingException {
+	//收藏优惠券
+	public void saveCollectionCoupon(FavoritesCoupons favoritesCoupon) throws UnsupportedEncodingException {
 
 		String url = GetHttp.getHttpLJ() + "SaveFavorites";
+
 		Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create();
 		String json = gson.toJson(favoritesCoupon);
 		RequestParams para = new RequestParams();
@@ -195,10 +207,39 @@ public class CouponInfoActivity extends Activity {
 			public void onSuccess(ResponseInfo<String> arg0) {
 				if ("ok".equals(arg0.result)) {
 					tv_collect_coupon.setText("已收藏");
-					tv_collect_coupon.setClickable(false);
-					tv_collect_coupon.setFocusable(false);
+					isShouCang=false;
+//					tv_collect_coupon.setClickable(false);
+//					tv_collect_coupon.setFocusable(false);
 				}
 
+			}
+		});
+	}
+//取消优惠券收藏
+	public void delFavoCouponcheck() {
+		String url = GetHttp.getHttpLJ() + "DelSavefavoritesServlet";
+		RequestParams pra = new RequestParams();
+		pra.addBodyParameter("couponID", coupon.getCouID() + "");
+		pra.addBodyParameter("studentid", student.getStuId() + "");
+		httpUtils.send(HttpMethod.POST, url, pra, new RequestCallBack<String>() {
+
+			@Override
+			public void onFailure(HttpException arg0, String arg1) {
+
+			}
+
+			@Override
+			public void onSuccess(ResponseInfo<String> arg0) {
+				//TODO 执行取消收藏功能
+				if ("ok".equals(arg0.result)) {
+					isShouCang=true;
+					Toast.makeText(getApplicationContext(), "收藏取消", 0).show();
+					tv_collect_coupon.setText("收藏");
+				}else{
+					isShouCang=false;
+					
+				}
+			
 			}
 		});
 	}

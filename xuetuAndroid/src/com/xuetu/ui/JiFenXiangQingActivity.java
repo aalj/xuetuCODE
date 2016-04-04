@@ -31,9 +31,8 @@ public class JiFenXiangQingActivity extends Activity implements OnClickListener 
 	TextView leixing;
 	@ViewInject(R.id.time)
 	TextView time;
-	
-	TitleBar titleBar1 = null;
 
+	TitleBar titleBar1 = null;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -43,7 +42,7 @@ public class JiFenXiangQingActivity extends Activity implements OnClickListener 
 		ViewUtils.inject(this);
 		jifen.setText(jiFenMingxi.getUnmpuint() + "");
 		titleBar1 = (TitleBar) findViewById(R.id.titleBar1);
-titleBar1.setLeftLayoutClickListener(this);
+		titleBar1.setLeftLayoutClickListener(this);
 		Log.i("TAG", "jiFenMingxi.getText()------->>>>" + jiFenMingxi.getText());
 		switch (jiFenMingxi.getImgUrl()) {
 		case "1":// 加载问题图片
@@ -72,11 +71,9 @@ titleBar1.setLeftLayoutClickListener(this);
 
 	}
 
-
 	@Override
 	public void onClick(View v) {
-	finish();
+		finish();
 	}
 
-	
 }

@@ -54,16 +54,6 @@
             android:layout_height="wrap_content"
             android:text="分数（加减号）" 
             android:textSize="17sp"/>
-
-        <TextView
-            android:id="@+id/info"
-            android:ellipsize = "end"
-            android:singleLine="true"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/jifen"
-            android:textSize="10sp"
-            android:text="消费的简略信息" />
     </RelativeLayout>
 
 </LinearLayout>

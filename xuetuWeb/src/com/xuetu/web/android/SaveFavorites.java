@@ -43,6 +43,7 @@ public class SaveFavorites extends HttpServlet {
 			Type type = new TypeToken<FavoritesCoupons>() {
 			}.getType();
 			FavoritesCoupons fa = gson.fromJson(parameter, type);
+			System.out.println("我要收藏优惠券");
 			boolean saveFavorites = shoppingInter.saveFavorites(fa);
 			PrintWriter writer = response.getWriter();
 			if(saveFavorites){
