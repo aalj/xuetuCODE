@@ -103,7 +103,7 @@ public class LinTest {
 		System.out.println(q.getQuesBySubId(1).size());
 	}
 	@Test 
-	public void haha(){
+	public void haha(){ 
 		Boolean s = true;
 		if(s==true)
 		System.out.println("p");

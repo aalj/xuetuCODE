@@ -36,6 +36,7 @@ import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -47,6 +48,7 @@ public class QuestionFragAdapter extends BaseAdapter{
 		LayoutInflater inflater;
 //		List<Integer> listtag = new ArrayList<Integer>();
 		BitmapUtils bitmapUtils = null;
+		Boolean flag = false;
 		int stu_id;
 		String url = null;
 		HttpUtils hutils = new HttpUtils();
@@ -93,6 +95,7 @@ public class QuestionFragAdapter extends BaseAdapter{
 			if(convertView==null){
 				v=new ViewHolder();
 				convertView=inflater.inflate(R.layout.question_listitem, null);
+				v.ll_question_item = (LinearLayout) convertView.findViewById(R.id.ll_question_item);
 				v.tv_answerNum=(TextView) convertView.findViewById(R.id.tv_ans_num);
 				v.tv_ques_text=(TextView) convertView.findViewById(R.id.tv_ques_text);
 				v.tv_subject=(TextView) convertView.findViewById(R.id.tv_subject);
@@ -101,15 +104,37 @@ public class QuestionFragAdapter extends BaseAdapter{
 				
 				convertView.setTag(v);
 			}else{
-				System.out.println("convertView不为空"+position);
 				 v=(ViewHolder) convertView.getTag();
 			}
 			v.tv_answerNum.setText(questions.get(position).getAns_num()+"评论");
 			v.tv_ques_text.setText(questions.get(position).getQuesText());
 			v.tv_subject.setText(questions.get(position).getSubject().getName());
 			v.tv_time.setText(sdf.format(new Date(questions.get(position).getQuesDate().getTime())));
-			bitmapUtils.display(v.iv_ques_img,GetHttp.getHttpLC()+questions.get(position).getQuesIma());
-			
+			if(questions.get(position).getQuesIma()!=null){
+				Log.i("hehe", questions.get(position).getQuesText()+"-------------youyouyouyouyouyou");
+				bitmapUtils.display(v.iv_ques_img,GetHttp.getHttpLC()+questions.get(position).getQuesIma());
+				}
+			else{
+				Log.i("hehe", questions.get(position).getQuesText()+"-------------没图啊");
+				v.iv_ques_img.setVisibility(View.GONE);
+				}
+			v.ll_question_item.setOnClickListener(new OnClickListener() {
+				
+				@Override
+				public void onClick(View v) {
+					// TODO Auto-generated method stub
+					Intent intent = new Intent(context,Answer_list.class);
+					Bundle bundle = new Bundle();
+					bundle.putSerializable("curQues", questions.get(position));
+					intent.putExtras(bundle);
+					context.startActivity(intent);
+				}
+			});
+			//			if(initImg(questions.get(position))==true){
+//			bitmapUtils.display(v.iv_ques_img,GetHttp.getHttpLC()+questions.get(position).getQuesIma());
+//			Log.i("hehe", questions.get(position).getQuesText()+"----------"+GetHttp.getHttpLC()+questions.get(position).getQuesIma());}
+//			else
+//				v.iv_ques_img.setImageResource(R.drawable.annie);
 //			url = GetHttp.getHttpLC()+questions.get(position).getQuesIma();
 //			hutils.send(HttpMethod.GET, url, new RequestCallBack<String>() {
 //
@@ -208,7 +233,24 @@ public class QuestionFragAdapter extends BaseAdapter{
 				}});*/
 			return convertView;
 		}
-		
+//		public Boolean initImg(Question q){
+//			url = GetHttp.getHttpLC()+q.getQuesIma();
+//			hutils.send(HttpMethod.GET, url, new RequestCallBack<String>() {
+//
+//				@Override
+//				public void onFailure(HttpException arg0, String arg1) {
+//					// TODO Auto-generated method stub
+//					flag = false;
+//				}
+//
+//				@Override
+//				public void onSuccess(ResponseInfo<String> arg0) {
+//					// TODO Auto-generated method stub
+//					flag = true;
+//				}
+//			});
+//			return flag;
+//		}
 		//封装view的所有控件
 				static class ViewHolder{
 					TextView tv_answerNum;
@@ -216,7 +258,7 @@ public class QuestionFragAdapter extends BaseAdapter{
 					TextView tv_subject;
 					TextView tv_time;
 					ImageView iv_ques_img;
-					
+					LinearLayout ll_question_item;
 					
 				}
 

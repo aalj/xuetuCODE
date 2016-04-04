@@ -77,28 +77,24 @@ public class PersonalQuestionCollectionActivity extends Activity implements OnCl
 	 */
 	private void addView() {
 		listView_personquestion
-				.setAdapter(myadapter = new MyBasesadapter<Question>(this, datas, R.layout.personalquestion) {
+				.setAdapter(myadapter = new MyBasesadapter<Question>(this, datas, R.layout.question_listitem) {
 
 					@Override
 					public void convert(ViewHodle viewHolder, final Question item) {
-						viewHolder.setText(R.id.tv_subject_personquestion, item.getSubject().getName() + "");
-						viewHolder.setText(R.id.tv_time_personquestion,
+						
+						viewHolder.setText(R.id.tv_ans_num, item.getAns_num() + "评论");
+						viewHolder.setText(R.id.tv_time,
 								sdf.format(new Date(item.getQuesDate().getTime())));
-						viewHolder.setText(R.id.tv_ques_text_personquestion, item.getQuesText());
-						viewHolder.setText(R.id.tv_answerNum_personquestion, item.getAns_num() + "");
+						viewHolder.setText(R.id.tv_ques_text, item.getQuesText());
+						viewHolder.setText(R.id.tv_subject, item.getSubject().getName() + "");
 						if (item.getQuesIma() != null) {
-							viewHolder.SetUrlImage(R.id.iv_ques_img_personquestion,
+							viewHolder.SetUrlImage(R.id.iv_ques_img,
 									GetHttp.getHttpLC() + item.getQuesIma());
 						} else {
-							viewHolder.getView(R.id.iv_ques_img_personquestion).setVisibility(View.GONE);
+							viewHolder.getView(R.id.iv_ques_img).setVisibility(View.GONE);
 						}
-						viewHolder.getView(R.id.rl_right_personquestion)
+						viewHolder.getView(R.id.ll_question_item)
 								.setOnClickListener(new MyOnclickListener(item));
-						viewHolder.getView(R.id.rl_left_personquestion)
-						.setOnClickListener(new MyOnclickListener(item));
-						viewHolder.getView(R.id.rl_top_personquestion)
-						.setOnClickListener(new MyOnclickListener(item));
-
 					}
 				});
 	}
@@ -113,32 +109,13 @@ public class PersonalQuestionCollectionActivity extends Activity implements OnCl
 		@Override
 		public void onClick(View v) {
 			switch (v.getId()) {
-			case R.id.rl_left_personquestion:
+			case R.id.ll_question_item:
 				Intent intentAnswer = new Intent(getApplicationContext(), Answer_list.class);
 				Bundle bundle = new Bundle();
 				bundle.putSerializable("curQues", curQues);
 				intentAnswer.putExtras(bundle);
 				startActivity(intentAnswer);
 				break;
-			case R.id.rl_top_personquestion:
-				// TODO Auto-generated method stub
-				Toast.makeText(getApplicationContext(), "click", 0).show();
-				Intent intentAnswer1 = new Intent(getApplicationContext(), Answer_list.class);
-				Bundle bundle1 = new Bundle();
-				bundle1.putSerializable("curQues", curQues);
-				intentAnswer1.putExtras(bundle1);
-				startActivity(intentAnswer1);
-				break;
-			case R.id.rl_right_personquestion:
-				Toast.makeText(getApplicationContext(), "zan", 0).show();
-				Intent intentAnswer2 = new Intent(getApplicationContext(), Answer_list.class);
-				Bundle bundle2 = new Bundle();
-				bundle2.putSerializable("curQues", curQues);
-				intentAnswer2.putExtras(bundle2);
-				startActivity(intentAnswer2);
-				// iv_like.setVisibility(view.INVISIBLE);
-				// iv_like.setImageDrawable(getActivity().getResources().getDrawable(R.drawable.ic_saved));
-
 			}
 
 		}

@@ -72,6 +72,7 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.PopupWindow;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -127,6 +128,7 @@ public class QuestionFrag extends Fragment implements OnRefreshListener, OnKeyLi
 	Drawable dr_saved;
 	int sub_id = 0;
 	int stu_id = 0;
+	LinearLayout ll_question_item;
 	ProgressDialog progressDialog = null;
 	SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 	QuestionFragAdapter adapter = null;
@@ -141,30 +143,14 @@ public class QuestionFrag extends Fragment implements OnRefreshListener, OnKeyLi
 	public View onCreateView(final LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 		InitData(1, REFRESH_TEMP);
 		view = inflater.inflate(R.layout.question_frag, null);
-//		dr_save = getActivity().getResources().getDrawable(R.drawable.ic_save);
-//		dr_saved = getActivity().getResources().getDrawable(R.drawable.ic_saved);
 		right_layout = (RelativeLayout) view.findViewById(R.id.right_layout);
 		viewPop = inflater.inflate(R.layout.title, null);
 		tv_title = (TextView) view.findViewById(R.id.tv_title);
 		lv = (RefreshListView) view.findViewById(R.id.lv_question);
 		setOnclickListener();
 		
-		
+		InitDengdaiDialog();
 		adapter = new QuestionFragAdapter(list, getContext());
-		lv.setOnItemClickListener(new OnItemClickListener() {
-
-			@Override
-			public void onItemClick(AdapterView<?> parent, View view,
-					int position, long id) {
-				// TODO Auto-generated method stub
-				Intent intent = new Intent(getContext(),Answer_list.class);
-				Bundle bundle = new Bundle();
-				bundle.putSerializable("curQues", list.get(position-1));
-				intent.putExtras(bundle);
-				getContext().startActivity(intent);
-			}
-			
-		});
 		lv.setAdapter(adapter);
 		lv.setOnRefreshListener(this);
 		return view;
@@ -174,31 +160,28 @@ public class QuestionFrag extends Fragment implements OnRefreshListener, OnKeyLi
 		@Override
 		public void handleMessage(Message msg) {
 			switch(msg.what){
-			case 4:
-				list =(List<Question>) msg.obj;break;	
-			case 5:
-				list =(List<Question>) msg.obj;break;	
-			}
-			
-			if(adapter !=null){
-				Log.i("hehe", "切换时notifychange");
-				adapter.notifyDataSetChanged();
-				lv.setSelection(0);
-			}else{
-				Log.i("hehe", "切换时setadapter");
-			adapter = new QuestionFragAdapter(list, getContext());
-			lv.setAdapter(adapter);
-			lv.setSelection(0);
+//			case 4:
+//				list =(List<Question>) msg.obj;
+//				adapter.notifyDataSetChanged();
+//				lv.setSelection(0);
+//				showDengdai();break;	
+			case 5:						//切换fragment时刷新listview
+				list =(List<Question>) msg.obj;
+//				Log.i("hehe", "切换时notifychange");
+//				adapter.notifyDataSetChanged();
+				lv.setAdapter(adapter);
+				break;	
 			}
 			super.handleMessage(msg);
 		}
 	};
+	
 	//fragment 从被隐藏回到显示状态时自动刷新
 	@Override
 	public void onHiddenChanged(boolean hidden) {
 		// TODO Auto-generated method stub
 		if(!hidden){
-			Log.i("hehe", "查看数据-------->>>>>");
+		
 			InitData(1, REFRESH_TEMP);
 //			handler.sendMessage(msg5);
 		}
@@ -241,7 +224,6 @@ public class QuestionFrag extends Fragment implements OnRefreshListener, OnKeyLi
 			sub_id=0;
 			switch(v.getId()){
 			case R.id.tv_title:
-				Log.i("hehe","popup");
 				showPopupWinow(v);
 				lv.setFocusableInTouchMode(true);
 				break;
@@ -275,13 +257,14 @@ public class QuestionFrag extends Fragment implements OnRefreshListener, OnKeyLi
 				popupWindow.dismiss();
 				break;
 			}
+			if(sub_id!=0){
 			getXueke();
+			}
 		}
 
 		private void getXueke() {
 			//按学科显示问题
-			if(sub_id!=0){
-				showDengdai();
+				progressDialog.show();
 				urlSub = GetHttp.getHttpLC()+"GetSubQues";
 				paramsSub = new RequestParams();
 				paramsSub.addBodyParameter("sub_id",sub_id+"");
@@ -296,8 +279,6 @@ public class QuestionFrag extends Fragment implements OnRefreshListener, OnKeyLi
 					@Override
 					public void onSuccess(ResponseInfo<String> arg0) {
 						// TODO Auto-generated method stub
-						if (progressDialog != null)
-							progressDialog.dismiss();
 						Gson gson = new GsonBuilder()
 						.enableComplexMapKeySerialization()
 						.setPrettyPrinting()
@@ -309,34 +290,28 @@ public class QuestionFrag extends Fragment implements OnRefreshListener, OnKeyLi
 						list.addAll(0,questionSub);
 						adapter.notifyDataSetChanged();
 						oldlist = questionSub;
-						Message msg = Message.obtain();
-						 msg.what=4;
-						 msg.obj=list;
-						handler.sendMessage(msg);
+						progressDialog.dismiss();
+						lv.setSelection(0);
+//						Message msg = Message.obtain();
+//						 msg.what=4;
+//						 msg.obj=list;
+//						handler.sendMessage(msg);
 					}
 				});
 			}
 		}
-		
-	}
 	//正在加载dialog
-	private void showDengdai() {
-		if (progressDialog == null) {
-			progressDialog = ProgressDialog.show(getContext(), "", "正在加载...");
+	private void InitDengdaiDialog() {
+			progressDialog = new ProgressDialog(getContext());
+			progressDialog.setMessage("正在加载...");
 			progressDialog.setCancelable(true);
-			progressDialog.show();
 			progressDialog.setOnKeyListener(this);
-		} else {
-
-		}
 	}
-	
-	
 	
 	@Override
 	public void onResume() {
 		stu_id = ((XueTuApplication)getActivity().getApplication()).getStudent().getStuId();
-		
+		InitData(1, REFRESH_TEMP);
 		super.onResume();
 	}
 	
@@ -356,7 +331,6 @@ public class QuestionFrag extends Fragment implements OnRefreshListener, OnKeyLi
 		} else {
 			countpage++;
 			params.addBodyParameter("page", countpage + "");// 查询第1页
-
 		}
 		params.addBodyParameter("num", "10");// 每页显示5条
 //		hutils.configCurrentHttpCacheExpiry(1000);
@@ -367,14 +341,14 @@ public class QuestionFrag extends Fragment implements OnRefreshListener, OnKeyLi
 			@Override
 			public void onFailure(HttpException arg0, String arg1) {
 				// TODO Auto-generated method stub
-				Log.i("hehe", "failegetQuestion");
+				Toast.makeText(getContext(), "网络不太好哦！", 0).show();
 			}
 
 			@Override
 			public void onSuccess(ResponseInfo<String> arg0) {
 				// TODO Auto-generated method stub
 				//指定date格式的gson对象
-				Log.i("hehe", "successGetQuestion");
+				Toast.makeText(getContext(), "加载成功", 0).show();
 				Gson gson = new GsonBuilder()
 				.enableComplexMapKeySerialization()
 				.setPrettyPrinting()
@@ -398,7 +372,9 @@ public class QuestionFrag extends Fragment implements OnRefreshListener, OnKeyLi
 					if(tempnum==1){
 					list.removeAll(oldlist);
 					list.addAll(0,lists);
-					adapter.notifyDataSetChanged();
+					if(adapter!=null){
+						adapter.notifyDataSetChanged();
+					}
 					lv.hideHeaderView();
 					oldlist = lists;
 				}
@@ -408,13 +384,13 @@ public class QuestionFrag extends Fragment implements OnRefreshListener, OnKeyLi
 					// 控制脚布局隐藏
 					lv.hideFooterView();
 				}
-					if(adapter!=null){
-						adapter.notifyDataSetChanged();
-					}
-//					msg5= Message.obtain();
-//					 msg5.what=5;
-//					 msg5.obj=list;
-//					 handler.sendMessage(msg5);
+//					if(adapter!=null){
+//						adapter.notifyDataSetChanged();
+//					}
+					msg5= Message.obtain();
+					 msg5.what=5;
+					 msg5.obj=list;
+					 handler.sendMessage(msg5);
 			}
 		});
 	}

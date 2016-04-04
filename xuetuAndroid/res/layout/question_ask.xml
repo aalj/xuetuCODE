@@ -10,7 +10,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         title:titleBarLeftImage="@drawable/ic_menu_back"
-        title:titleBarTitle="学徒" >
+        title:titleBarTitle="提问" >
     </com.xuetu.view.TitleBar>
 
 
@@ -20,6 +20,7 @@
 	    android:layout_height="50dp"
 	    android:gravity="center"
 	    android:background="@drawable/setting_item_selector"
+	    android:textSize="20sp"
 	    android:text="@string/subject"/>
 	
 	<View
@@ -39,6 +40,7 @@
 	        android:layout_width="match_parent"
 	        android:layout_height="wrap_content"
 	        android:text="拍照提问"
+	        android:textSize="15sp"
 	        android:background="@drawable/setting_item_selector"/>
 	<LinearLayout 
 	    android:layout_below="@id/tv_prop"
@@ -52,6 +54,8 @@
 	    android:layout_height="150dp"
 	    android:src="@drawable/crop"
 	    android:layout_gravity="center"
+	    android:scaleType="fitXY"
+	    android:padding="10dp"
 	    />
 
 
