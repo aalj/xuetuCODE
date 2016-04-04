@@ -132,6 +132,7 @@ public class Question_ask extends Activity implements OnClickListener{
 							prop(which);
 						}
 					}).create().show();
+					break;
 				case R.id.tv_sub1:
 					subId = 1;
 					//((TextView) v).setTextColor(this.getResources().getColor(R.color.blue1));
@@ -154,7 +155,7 @@ public class Question_ask extends Activity implements OnClickListener{
 					popupWindow.dismiss();
 					break;
 				case R.id.left_layout:
-					finish();
+					finish();break;
 					default:;
 				}
 	}

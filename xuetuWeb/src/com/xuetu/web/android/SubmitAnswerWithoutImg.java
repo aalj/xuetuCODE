@@ -58,7 +58,7 @@ public class SubmitAnswerWithoutImg extends HttpServlet {
 			ans_timeStr = request.getParameter("ans_time");
 			long parseLong = Long.parseLong(ans_timeStr);
 			ans_time = new Date(new Timestamp(parseLong).getTime());
-			ans_ima = "no";
+			ans_ima = "";
 			a = Qservice.createAnswer(ques_id, stu_id, ans_text, ans_ima, ans_time);
 			Qservice.submitAnswer(a);
 			Gson gson = new GsonBuilder()

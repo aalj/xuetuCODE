@@ -13,6 +13,8 @@ import javax.servlet.http.HttpServletResponse;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.xuetu.dao.LoginDao;
+import com.xuetu.dao.QuestionIml;
+import com.xuetu.dao.inter.QuesTionDao;
 import com.xuetu.entity.Question;
 import com.xuetu.service.LoginService;
 import com.xuetu.service.inter.PersonalServiceInter;
@@ -39,7 +41,6 @@ public class GetPersonQuestionByStuid extends HttpServlet {
 		response.setContentType("text/html;charset=utf-8");
 		String parameter = request.getParameter("stuID");
 		String stuid = URLDecoder.decode(parameter, "utf-8");
-
 		List<Question> quesByStuID = personalServiceInter.getPoinQuesByStuID(Integer.parseInt(stuid));
 		Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create();
 		String quesbyStuides = gson.toJson(quesByStuID);

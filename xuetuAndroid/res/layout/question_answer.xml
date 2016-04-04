@@ -164,8 +164,8 @@
      <RelativeLayout
 	    android:layout_width="match_parent"
 	    android:layout_height="wrap_content"
-	    android:layout_alignParentBottom="true"
 	    android:background="@color/touming"
+	    android:padding="5dp"
 	    android:gravity="center"
 	    android:orientation="horizontal" >
 
@@ -178,15 +178,15 @@
 		    android:contentDescription="@string/app_name"
 		     /> -->
 		<com.xuetu.view.CircleImageView 
-		     android:layout_width="40dp"
-		    android:layout_height="40dp"
+		     android:layout_width="50dp"
+		    android:layout_height="50dp"
 		    android:layout_marginLeft="5dp"
 		    android:layout_alignTop="@+id/et_ans_text"
 		    android:layout_alignBottom="@+id/et_ans_text"
-		    
 		    android:layout_marginRight="5dp"
+		    title:border_color="#ffffffff"
 		    android:id="@+id/btn_photo"
-		    android:src="@drawable/crop"
+		    android:src="@drawable/crop_small"
 		    />
 		<EditText
 		    android:id="@+id/et_ans_text"
@@ -211,7 +211,7 @@
 		    android:layout_marginRight="5dp"
 		    android:layout_toRightOf="@id/et_ans_text"
 		    android:background="@color/blue1"
-		    android:text="@string/answer"
+		    android:text="发送"
 		    android:textSize="15sp"
 		    android:textColor="@color/white" />
         </RelativeLayout>

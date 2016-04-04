@@ -238,6 +238,7 @@ public class LoginDao implements PersonalDaoInterface {
 			resultSet = prepareStatement.executeQuery();
 			while (resultSet.next()) {
 				question = new Question();
+				question.setAns_num(getAnsNum(resultSet.getInt("ques_id")));
 				question.setStudent(getStuByID(resultSet.getInt("stu_id")));
 				question.setAcpo_num(resultSet.getInt("acpo_num"));
 				question.setQuesID(resultSet.getInt("ques_id"));
@@ -256,7 +257,28 @@ public class LoginDao implements PersonalDaoInterface {
 
 		return null;
 	}
-
+	public int getAnsNum(int ques_id){
+		int count = 0;
+		Connection conn = null;
+		PreparedStatement prep = null;
+		String sql = null;
+		conn = DBconnection.getConnection();
+		try {
+			sql = "select * from answer where ques_id = ?";
+			prep = conn.prepareStatement(sql);
+			prep.setInt(1,ques_id);
+			ResultSet rs = prep.executeQuery();
+			// 指针从第一行属性字段开始
+			while (rs.next()) {
+				count++;
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		return count;
+	}
 	@Override
 	public StoreName getStoreNameByCouID(int stoID) {
 		// TODO Auto-generated method stub

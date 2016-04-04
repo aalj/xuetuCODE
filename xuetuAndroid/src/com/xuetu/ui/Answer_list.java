@@ -135,6 +135,7 @@ public class Answer_list extends Activity implements OnClickListener, OnHeaderRe
 		lv_answer = (ListView) findViewById(R.id.lv_answer);
 		tv_ans1_sub = (TextView) findViewById(R.id.tv_ans1_sub);
 		iv_collect = (ImageView) findViewById(R.id.iv_collect);
+		iv_ans1_userImg = (ImageView) findViewById(R.id.iv_ans1_userImg);
 		//设置监听事件
 		btn_ans.setOnClickListener(this);
 		iv_collect.setOnClickListener(this);
@@ -146,6 +147,7 @@ public class Answer_list extends Activity implements OnClickListener, OnHeaderRe
 		tv_ans1_time = (TextView) findViewById(R.id.tv_ans1_time);
 		tv_ans1_ques_text = (TextView) findViewById(R.id.tv_ans1_ques_text);
 		tv_ans1_ques_text.setText(curQues.getQuesText());
+
 		tv_ans1_num.setText(curQues.getAns_num()+"");
 		Drawable drawable= getResources().getDrawable(R.drawable.ic_ans);
 		/// 这一步必须要做,否则不会显示.
@@ -155,6 +157,7 @@ public class Answer_list extends Activity implements OnClickListener, OnHeaderRe
 		tv_ans1_time.setText(sdf2.format(new Date(curQues.getQuesDate().getTime())));
 		isSave();
 		bitmapUtils.display(iv_ans1_ques_img, GetHttp.getHttpLC()+curQues.getQuesIma());
+		bitmapUtils.display(iv_ans1_userImg, GetHttp.getHttpLC()+curQues.getStudent().getStuIma());
 		tv_ans1_stuName.setText(curQues.getStudent().getStuName());
 		titlebar.setLeftLayoutClickListener(this);
 		titlebar.setRightLayoutVisibility(View.INVISIBLE);
@@ -416,13 +419,13 @@ public class Answer_list extends Activity implements OnClickListener, OnHeaderRe
 
 				@Override
 				public void onFailure(HttpException arg0, String arg1) {
-					Toast.makeText(getApplicationContext(), "连接失败", 1).show();
+					Toast.makeText(getApplicationContext(), "提交失败", 1).show();
 					
 				}
 
 				@Override
 				public void onSuccess(ResponseInfo<String> arg0) {
-					Toast.makeText(getApplicationContext(), "充公", 1).show();
+					Toast.makeText(getApplicationContext(), "提交陈公公", 1).show();
 					Gson gson = new GsonBuilder()
 					.enableComplexMapKeySerialization()
 					.setPrettyPrinting()
@@ -466,7 +469,10 @@ public class Answer_list extends Activity implements OnClickListener, OnHeaderRe
 					iv.setOnClickListener(new OnClickListener() {
 						@Override
 						public void onClick(View v1) {
-							// TODO Auto-generated method stub
+							// TODO Auto-generated method stub	answer stu_id   answer_id
+							if(item.getStudent().getStuId()==stu_id)
+								Toast.makeText(getApplicationContext(), "停止赞自己的愚蠢行为吧人类！", 0).show();
+							else{
 							paramsAgree = new RequestParams();
 							ImageView v = (ImageView) v1;
 							if(setTag.contains(v.getTag())){
@@ -531,9 +537,10 @@ public class Answer_list extends Activity implements OnClickListener, OnHeaderRe
 								});
 							}
 						}
-					});
+						}});
 				}
 			};
+			
 			temp = true;
 		}
 		public void getAgreeAnswer(){

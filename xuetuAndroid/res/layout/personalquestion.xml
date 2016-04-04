@@ -45,7 +45,7 @@
 
         <ImageView
             android:id="@+id/iv_ques_img_personquestion"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_alignLeft="@+id/tv_ques_text_personquestion"
             android:layout_below="@+id/tv_ques_text_personquestion"
