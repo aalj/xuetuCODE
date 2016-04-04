@@ -219,34 +219,6 @@ public class FindFrag extends Fragment {
 		});
 	}
 
-//	public void getSelfPlan(int stuid) {
-//		HttpUtils httpUtils = new HttpUtils();
-//		String url = GetHttp.getHttpLJ() + "GetSelfStudyPlan";
-//		RequestParams pram = new RequestParams();
-//		// TODO 无法获得学生对象的数据
-//
-//		pram.addBodyParameter("StuID", stuid + "");
-//		httpUtils.send(HttpMethod.POST, url, pram, new RequestCallBack<String>() {
-//
-//			@Override
-//			public void onFailure(HttpException arg0, String arg1) {
-//			}
-//
-//			@Override
-//			public void onSuccess(ResponseInfo<String> arg0) {
-//				Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create();
-//
-//				Type type = new TypeToken<List<SelfStudyPlan>>() {
-//				}.getType();
-//				List<SelfStudyPlan> users = gson.fromJson(arg0.result, type);
-//				Message msg = Message.obtain();
-//				msg.what = 123;
-//				msg.obj = users.get(0);
-//				handler.sendMessage(msg);
-//
-//			}
-//		});
-//	}
 
 	private class MyOnClickLisener implements OnClickListener {
 

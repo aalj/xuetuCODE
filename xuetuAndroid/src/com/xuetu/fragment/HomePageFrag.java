@@ -435,8 +435,6 @@ public class HomePageFrag extends Fragment implements OnTouchListener {
 						if((y4-y3>200) && planflag==true)
 							{
 							System.out.println("进行的是下滑动");
-								flag     = false;
-								planflag = false;
 								search_today_studyplan();
 							}
 			}
@@ -823,106 +821,122 @@ new AlertDialog.Builder(getActivity()).setTitle("注意").setMessage("当天没�
 	
 	public void search_today_studyplan()
 	{
-		
-		String url =GetHttp.getHttpKY()+"GetDayTime";    //
-		HttpUtils httpUtils = new HttpUtils();
-		RequestParams requestParams = new RequestParams();
-		requestParams.addBodyParameter("StuID", student.getStuId()+"");
-		httpUtils.send(HttpMethod.POST, url, requestParams,
-				new RequestCallBack<String>() {
-
-					@Override
-					public void onFailure(HttpException arg0, String arg1) {
-						// TODO Auto-generated method stub
-								System.out.println("网络异常");
-								new AlertDialog.Builder(getActivity()).setTitle("提示").setMessage("抱歉,网络异常").setNegativeButton("返回", null).show();
-								flag     = true;
-								planflag = true;
-					}
-
-					@Override
-					public void onSuccess(ResponseInfo<String> arg0) {
-						// TODO Auto-generated method stub
-						
-						String arg = arg0.result;
-						Type type = new TypeToken<List<SelfStudyPlan>>() {
-						}.getType();
-						Gson gson = new GsonBuilder().setDateFormat(
-								"yyyy-MM-dd HH:mm:ss").create();
-						todayplan =gson.fromJson(arg, type); //如果这个时候,所有的值已经传完
-						System.out.println(todayplan);
-						//用for循环,把他们的备注显示在另一个集合里
-						todayplan_note=new ArrayList<String>();
-						String [] dsss = new String  [todayplan.size()];
-						if(!arg.equals("[]")){
-							
-							
-							for(int i=0;i<todayplan.size();i++)
-							{
-								todayplan_note.add(todayplan.get(i).getPlanText()+"  开始时间"+new SimpleDateFormat("HH:mm").format(todayplan.get(i).getStartTime()));
-							}
-							for(int i=0;i<todayplan_note.size();i++)
-							{
-								dsss[i]=todayplan_note.get(i);
-							}
-							
-							new AlertDialog.Builder(getActivity())
-							.setTitle("选择计划")
-							.setSingleChoiceItems(dsss, 0, new DialogInterface.OnClickListener() {
-								
-								@Override
-								public void onClick(DialogInterface dialog, int which) {
-									w= which;
-								}
-							}).setPositiveButton("进入计划", new DialogInterface.OnClickListener() {
-								
-								@Override
-								public void onClick(DialogInterface dialog, int which) {
-									// TODO Auto-generated method stub
-									//确定后执行赋值,然后跳转页面
-									flag     = false;
-									planflag = false;
-									System.out.println(todayplan);
-									System.out.println("`````````````123````````````1````````23``````12```````3123``````````");
-									studyplan=todayplan.get(w);
-									System.out.println(studyplan);
-									Intent intent = new Intent(getActivity(),
-											TimerActivity.class);
-									intent.putExtra("ss",isstudy.gotoss(new SimpleDateFormat("HH:mm:ss").format(todayplan.get(w).getEndTime()))
-											- isstudy.gotoss(new SimpleDateFormat("HH:mm:ss").format(todayplan.get(w).getStartTime())));
-									intent.putExtra("stu_id", student.getStuId());
-									intent.putExtra("student",isstudy.stu_to_json(student));
-									
-									intent.putExtra("tag", 2);
-									intent.putExtra("start_and_end_time", new SimpleDateFormat("HH:mm").format(todayplan.get(w).getStartTime())+"~"+
-											 new SimpleDateFormat("HH:mm").format(todayplan.get(w).getEndTime())
-											);
-									intent.putExtra("text", todayplan.get(w).getPlanText())	;	
-									intent.putExtra("计划", true);    // 标记,传过去的是自定义计划的计时
-									intent.putExtra("plan_id", studyplan.getPlanID());
-									System.out.println(studyplan.getPlanID());
-									flag = true;
-									planflag=true;
-									startActivity(intent);
-								}
-							}).setNegativeButton("取消", null).show();
-							
-						}else{
-							new AlertDialog.Builder(getActivity()).setTitle("注意").setMessage("当天没有可执行的学习计划,是否添加").setNegativeButton("返回", null).setPositiveButton("添加", new DialogInterface.OnClickListener() {
-								
-								@Override
-								public void onClick(DialogInterface dialog, int which) {
-									// TODO Auto-generated method stub
-												gotoInsertplan();
-								}
-							}).show();
-							flag     = true;
-							planflag = true;
-//							gotoInsertplan();
+		if(planflag)
+		{
+			flag     = false;
+			planflag = false;
+			
+			String url =GetHttp.getHttpKY()+"GetDayTime";    //
+			HttpUtils httpUtils = new HttpUtils();
+			RequestParams requestParams = new RequestParams();
+			requestParams.addBodyParameter("StuID", student.getStuId()+"");
+			httpUtils.send(HttpMethod.POST, url, requestParams,
+					new RequestCallBack<String>() {
+	
+						@Override
+						public void onFailure(HttpException arg0, String arg1) {
+							// TODO Auto-generated method stub
+									System.out.println("网络异常");
+									new AlertDialog.Builder(getActivity()).setTitle("提示").setMessage("抱歉,网络异常").setNegativeButton("返回", null).show();
+									flag     = true;
+									planflag = true;
 						}
-						
-					}
-				});
+	
+						@Override
+						public void onSuccess(ResponseInfo<String> arg0) {
+							// TODO Auto-generated method stub
+							
+							String arg = arg0.result;
+							Type type = new TypeToken<List<SelfStudyPlan>>() {
+							}.getType();
+							Gson gson = new GsonBuilder().setDateFormat(
+									"yyyy-MM-dd HH:mm:ss").create();
+							todayplan =gson.fromJson(arg, type); //如果这个时候,所有的值已经传完
+							System.out.println(todayplan);
+							//用for循环,把他们的备注显示在另一个集合里
+							todayplan_note=new ArrayList<String>();
+							String [] dsss = new String  [todayplan.size()];
+							if(!arg.equals("[]")){
+								
+								
+								for(int i=0;i<todayplan.size();i++)
+								{
+									todayplan_note.add(todayplan.get(i).getPlanText()+"  开始时间"+new SimpleDateFormat("HH:mm").format(todayplan.get(i).getStartTime()));
+								}
+								for(int i=0;i<todayplan_note.size();i++)
+								{
+									dsss[i]=todayplan_note.get(i);
+								}
+								
+								new AlertDialog.Builder(getActivity())
+								.setTitle("选择计划")
+								.setSingleChoiceItems(dsss, 0, new DialogInterface.OnClickListener() {
+									
+									@Override
+									public void onClick(DialogInterface dialog, int which) {
+										w= which;
+									}
+								}).setPositiveButton("进入计划", new DialogInterface.OnClickListener() {
+									
+									@Override
+									public void onClick(DialogInterface dialog, int which) {
+										// TODO Auto-generated method stub
+										//确定后执行赋值,然后跳转页面
+										flag     = false;
+										planflag = false;
+										studyplan=todayplan.get(w);
+										Intent intent = new Intent(getActivity(),
+												TimerActivity.class);
+										intent.putExtra("ss",isstudy.gotoss(new SimpleDateFormat("HH:mm:ss").format(todayplan.get(w).getEndTime()))
+												- isstudy.gotoss(new SimpleDateFormat("HH:mm:ss").format(todayplan.get(w).getStartTime())));
+										intent.putExtra("stu_id", student.getStuId());
+										intent.putExtra("student",isstudy.stu_to_json(student));
+										
+										intent.putExtra("tag", 2);
+										intent.putExtra("start_and_end_time", new SimpleDateFormat("HH:mm").format(todayplan.get(w).getStartTime())+"~"+
+												 new SimpleDateFormat("HH:mm").format(todayplan.get(w).getEndTime())
+												);
+										intent.putExtra("text", todayplan.get(w).getPlanText())	;	
+										intent.putExtra("计划", true);    // 标记,传过去的是自定义计划的计时
+										intent.putExtra("plan_id", studyplan.getPlanID());
+										System.out.println(studyplan.getPlanID());
+										flag = true;
+										planflag=true;
+										startActivity(intent);
+									}
+								}).setNegativeButton("取消", null).show();
+								
+							}else{
+								flag     = false;
+								planflag = false;
+								
+								new AlertDialog.Builder(getActivity()).setTitle("注意").setMessage("当天没有可执行的学习计划,是否添加").setNegativeButton("返回", new DialogInterface.OnClickListener() {
+									
+									@Override
+									public void onClick(DialogInterface dialog, int which) {
+										flag     = true;
+										planflag = true;
+										
+									}
+								}).setPositiveButton("添加", new DialogInterface.OnClickListener() {
+									
+									@Override
+									public void onClick(DialogInterface dialog, int which) {
+										// TODO Auto-generated method stub
+										flag     = true;
+										planflag = true;
+													gotoInsertplan();
+											
+													
+									}
+								}).show();
+							
+	//							gotoInsertplan();
+							}
+							
+						}
+					});
+		}
 	}
 	
 
