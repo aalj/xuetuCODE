@@ -1,6 +1,5 @@
 package com.xuetu.ui;
 
-import java.io.Serializable;
 import java.lang.reflect.Type;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -23,7 +22,6 @@ import com.xuetu.entity.Countdown;
 import com.xuetu.utils.DataToTime;
 import com.xuetu.utils.GetHttp;
 import com.xuetu.utils.MyBaseAdapter;
-import com.xuetu.utils.ShowDialog;
 import com.xuetu.utils.ViewHolder;
 import com.xuetu.view.TitleBar;
 
@@ -33,14 +31,12 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
-import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ListView;
-import android.widget.Toast;
 
 public class DaoJiShiActivity extends Activity implements OnItemClickListener, OnClickListener {
 	protected static final String TAG = null;

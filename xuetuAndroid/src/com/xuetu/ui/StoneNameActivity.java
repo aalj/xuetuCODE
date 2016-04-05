@@ -7,6 +7,7 @@ import java.util.List;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
+import com.lidroid.xutils.BitmapUtils;
 import com.lidroid.xutils.HttpUtils;
 import com.lidroid.xutils.exception.HttpException;
 import com.lidroid.xutils.http.RequestParams;
@@ -18,22 +19,27 @@ import com.xuetu.adapter.MyBasesadapter;
 import com.xuetu.adapter.ViewHodle;
 import com.xuetu.entity.Coupon;
 import com.xuetu.utils.GetHttp;
+import com.xuetu.view.TitleBar;
 
 import android.app.Activity;
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v4.widget.SwipeRefreshLayout.OnRefreshListener;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
+import android.widget.ImageView;
 import android.widget.ListView;
-import android.widget.Toast;
 
-public class StoneNameActivity extends Activity implements OnRefreshListener, OnItemClickListener {
+public class StoneNameActivity extends Activity implements OnRefreshListener, OnItemClickListener, OnClickListener {
 	private static final int REFRESH_COMPLETE = 0X110;
 	private SwipeRefreshLayout mSwipeLayout;
 	private ListView mListView;
+	private ImageView stoneima;
+	private TitleBar title_my;
 	HttpUtils httpUtlis = new HttpUtils();
 
 	// 用于保存上一次获取的数据
@@ -48,9 +54,7 @@ public class StoneNameActivity extends Activity implements OnRefreshListener, On
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_stone_name);
-
 		coupon = (Coupon) getIntent().getSerializableExtra("coupon");
-		Toast.makeText(getApplicationContext(), coupon.getCouName(), 1).show();
 
 		mSwipeLayout = (SwipeRefreshLayout) findViewById(R.id.id_swipe_ly);
 		mSwipeLayout.setOnRefreshListener(this);
@@ -61,68 +65,16 @@ public class StoneNameActivity extends Activity implements OnRefreshListener, On
 				android.R.color.holo_orange_light, android.R.color.holo_red_light);
 
 		mListView = (ListView) findViewById(R.id.id_listview);
+		title_my = (TitleBar) findViewById(R.id.title_my);
+		stoneima = (ImageView) findViewById(R.id.stoneima);
+		BitmapUtils bit = new BitmapUtils(this);
+		bit.display(stoneima, GetHttp.getHttpLJ() + coupon.getStoreName().getStoImg());
 		getDate(coupon.getStoreName().getStoID());
-		
+		showDengdai();
 		mListView.setOnItemClickListener(this);
+		title_my.setLeftLayoutClickListener(this);
 
 	}
-	
-	
-
-//	// TODO Auto-generated method stub
-//	View view = null;
-//	if (getItemViewType(position) == 0)//
-//	{
-//		ViewHolder holder = null;
-//
-//		if (convertView == null) {
-//
-//			view = m_inflater.inflate(R.layout.coupon_item, null);
-//			holder = new ViewHolder();
-//			holder.tv_coupon_name = (TextView) view.findViewById(R.id.tv_coupon_name);
-//			holder.tv_shoppingname = (TextView) view.findViewById(R.id.tv_shoppingname);
-//			holder.tv_coupon_all = (TextView) view.findViewById(R.id.tv_coupon_all);
-//			holder.tv_coupon_ima = (ImageView) view.findViewById(R.id.tv_coupon_ima);
-//			view.setTag(holder);
-//		} else {
-//			view = convertView;
-//			holder = (ViewHolder) view.getTag();
-//		}
-//
-//		holder.tv_coupon_name.setText(users.get(position).getCouName());
-//
-//		holder.tv_shoppingname.setText(users.get(position).getStoreName().getStoName());
-//
-//		holder.tv_coupon_all.setText(users.get(position).getConNum() + "");
-//
-//		bitmapUtils.display(holder.tv_coupon_ima,
-//				GetHttp.getHttpLJ() + users.get(position).getCouIma());
-//	} else if (getItemViewType(position) == 1)// 如果是顶部viewpager
-//	{
-//		ViewPagerHolder holder = null;
-//		if (convertView == null) {
-//			view = m_inflater.inflate(R.layout.ima, null);
-//			holder = new ViewPagerHolder();
-//			holder.imaview = (ImageView) view.findViewById(R.id.imageView1);
-//
-//			view.setTag(holder);
-//		} else {
-//			view = convertView;
-//			holder = (ViewPagerHolder) view.getTag();
-//
-//		}
-//		bitmapUtils.display(holder.imaview,
-//				GetHttp.getHttpLJ() + users.get(position).getStoreName().getStoImg());
-//	}
-//
-//	return view;
-
-	
-	
-	
-	
-	
-
 
 	private void getDate(int stoneid) {
 		String url = GetHttp.getHttpLJ() + "GetCouponServlet";
@@ -144,7 +96,8 @@ public class StoneNameActivity extends Activity implements OnRefreshListener, On
 				}.getType();
 				List<Coupon> user = gson.fromJson(arg0.result, type);
 				users = gson.fromJson(arg0.result, type);
-
+				if (progressDialog != null)
+					progressDialog.dismiss();
 				// users.clear();
 				users.addAll(user);
 				addAdapter();
@@ -159,31 +112,42 @@ public class StoneNameActivity extends Activity implements OnRefreshListener, On
 		});
 
 	}
-	public  void addAdapter(){
-		
-		adapter = new MyBasesadapter<Coupon>(StoneNameActivity.this,users,R.layout.coupon_item) {
-			
+
+	
+	ProgressDialog progressDialog = null;
+	private void showDengdai() {
+		if (progressDialog == null) {
+			progressDialog = ProgressDialog.show(StoneNameActivity.this, "", "正在加载...");
+			progressDialog.setCancelable(true);
+			progressDialog.show();
+		} else {
+
+		}
+	}
+	
+	
+	
+	
+	public void addAdapter() {
+
+		adapter = new MyBasesadapter<Coupon>(StoneNameActivity.this, users, R.layout.coupon_item) {
 
 			@Override
 			public void convert(ViewHodle viewHolder, Coupon item) {
-//				(TextView) view.findViewById(R.id.tv_coupon_name);
-//				holder.tv_shoppingname = (TextView) view.findViewById(R.id.tv_shoppingname);
-//				holder.tv_coupon_all = (TextView) view.findViewById(R.id.tv_coupon_all);
-//				holder.tv_coupon_ima = (ImageView) view.findViewById(R.id.tv_coupon_ima);
-				
-				viewHolder.setText(R.id.mornum, item.getCoouRedeemPoints()+"");
+				// 兑换优惠券需要的积分
+				viewHolder.setText(R.id.mornum, item.getCoouRedeemPoints() + "");
+				// 优惠券价绍
 				viewHolder.setText(R.id.coupon_info, item.getCouName());
+				// 店家的积分
 				viewHolder.setText(R.id.tv_shoppingname, item.getStoreName().getStoName());
+				// 优惠券已经兑换多少
 				viewHolder.setText(R.id.tv_coupon_all, item.getShiyongNum() + "");
-				viewHolder.SetUrlImage(R.id.tv_coupon_ima, GetHttp.getHttpLJ()+item.getCouIma());
-				
+				// 优惠券的图片
+				viewHolder.SetUrlImage(R.id.tv_coupon_ima, GetHttp.getHttpLJ() + item.getCouIma());
+
 			}
 		};
 	}
-
-	
-	
-	
 
 	@Override
 	public void onRefresh() {
@@ -198,6 +162,12 @@ public class StoneNameActivity extends Activity implements OnRefreshListener, On
 		intent.putExtra("coupon", users.get(position));
 		startActivity(intent);
 		finish();
-		
+
+	}
+
+	@Override
+	public void onClick(View v) {
+		finish();
+
 	}
 }
