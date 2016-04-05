@@ -42,6 +42,7 @@ public class CouponInfoActivity extends Activity {
 	TextView button_lijishiyong;
 	TextView tv_collect_coupon;
 	TextView xuyaodejifen;
+	TextView shiyongjieshao;
 	ImageView backToDecember;
 
 	Coupon coupon;
@@ -85,6 +86,7 @@ public class CouponInfoActivity extends Activity {
 		head_CircleImageView = (CircleImageView) findViewById(R.id.head_CircleImageView);
 		tv_collect_coupon = (TextView) findViewById(R.id.tv_collect_coupon);
 		xuyaodejifen = (TextView) findViewById(R.id.xuyaodejifen);
+		shiyongjieshao = (TextView) findViewById(R.id.shiyongjieshao);
 		backToDecember = (ImageView) findViewById(R.id.imageView_backToDecember);
 
 		String url = coupon.getStoreName().getStoImg();
@@ -98,6 +100,7 @@ public class CouponInfoActivity extends Activity {
 		dianjiadejutixingxi.setText(coupon.getStoreName().getStoName());
 		zhekoudejutixingxi.setText(coupon.getCouPrice() + "");
 		xuyaodejifen.setText(coupon.getCoouRedeemPoints() + "");
+		shiyongjieshao.setText(coupon.getCouInfo() +"");
 		shiyongdidianshuoming.setText(coupon.getStoreName().getStoAddress());
 
 	}
