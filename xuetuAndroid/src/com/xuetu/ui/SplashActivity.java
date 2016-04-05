@@ -188,9 +188,18 @@ public class SplashActivity extends Activity {
 	 */
 	private void initView() {
 		dbFindManager = new DBFindManager(this);
+		
+		//的到上一次加载网络的懂啊即使的时间
 		long countdownTime = preferences.getLong("countdownTime", System.currentTimeMillis());
-		preferences.getBoolean("", false);
+		
+		boolean jiazai = preferences.getBoolean("countdown", true);
 		if(DataToTime.getDay(countdownTime)>7){
+			jiazai = true;
+		}
+		
+		
+		if(jiazai){
+			
 			//获取倒计时并存到本地
 			getData();
 		}

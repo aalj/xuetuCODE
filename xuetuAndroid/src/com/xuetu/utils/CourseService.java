@@ -41,7 +41,7 @@ public class CourseService implements OnClickListener {
 		edit = preferences.edit();
 	}
 
-	DBManager mgr;
+//	DBManager mgr;
 	int[][] lessons = {
 			{ R.id.lesson11, R.id.lesson12, R.id.lesson13, R.id.lesson14, R.id.lesson15, R.id.lesson16, R.id.lesson17 },
 			{ R.id.lesson21, R.id.lesson22, R.id.lesson23, R.id.lesson24, R.id.lesson25, R.id.lesson26, R.id.lesson27 },
@@ -82,11 +82,11 @@ public class CourseService implements OnClickListener {
 				// sharedpreference的键值对立flag
 				boolean falgs = preferences.getBoolean("saveDB", false);
 
-				if (!falgs) {
-					edit.putBoolean("saveDB", true);
-					mgr.add(myclasses);
-					edit.commit();
-				}
+//				if (!falgs) {
+//					edit.putBoolean("saveDB", true);
+////					mgr.add(myclasses);
+//					edit.commit();
+//				}
 
 				fillCourse(myclasses);
 				Log.i("TAG", "填课程表");
