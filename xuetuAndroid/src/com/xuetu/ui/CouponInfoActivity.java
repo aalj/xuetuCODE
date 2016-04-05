@@ -50,7 +50,7 @@ public class CouponInfoActivity extends Activity {
 	Student student;
 	boolean isLogin = false;
 
-	boolean isShouCang = true;//默认表示可以收藏
+	boolean isShouCang = true;// 默认表示可以收藏
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -104,6 +104,7 @@ public class CouponInfoActivity extends Activity {
 
 	public void onclick(View v) throws UnsupportedEncodingException {
 		Intent intent = new Intent();
+
 		switch (v.getId()) {
 		case R.id.head_CircleImageView:
 		case R.id.head:
@@ -115,9 +116,15 @@ public class CouponInfoActivity extends Activity {
 		case R.id.button_lijishiyong:// 兑换走兑换流程
 			if (isLogin) {
 				if (!(coupon.getShiyongNum() >= coupon.getConNum())) {
-					intent.setClass(this, ExchangeCouponActivity.class);
-					intent.putExtra("exchange", coupon);
-					startActivity(intent);
+					Log.i("TAG", coupon.getConValidity()+"");
+					if (coupon.getConValidity().getTime() > System.currentTimeMillis()) {
+						intent.setClass(this, ExchangeCouponActivity.class);
+						intent.putExtra("exchange", coupon);
+						startActivity(intent);
+					} else {
+						Toast.makeText(getApplicationContext(), "此优惠券已经过期", 1).show();
+
+					}
 				} else {
 
 					Toast.makeText(getApplicationContext(), "优惠券已经兑换结束赶快收藏", 1).show();
@@ -127,7 +134,7 @@ public class CouponInfoActivity extends Activity {
 			}
 			break;
 		case R.id.tv_collect_coupon:// 收藏 添加优惠券
-			if (isShouCang) {//进行收藏优惠券操作
+			if (isShouCang) {// 进行收藏优惠券操作
 				favoritesCoupon = new FavoritesCoupons();
 				favoritesCoupon.setCoupon(coupon);
 
@@ -156,7 +163,8 @@ public class CouponInfoActivity extends Activity {
 		}
 
 	}
-	//查询优惠券是否收藏
+
+	// 查询优惠券是否收藏
 	public void infavoCouponcheck() {
 		String url = GetHttp.getHttpLJ() + "IssavefavoritesServlet";
 		RequestParams pra = new RequestParams();
@@ -175,18 +183,19 @@ public class CouponInfoActivity extends Activity {
 
 					// 用于标记已经收藏
 					tv_collect_coupon.setText("已收藏");
-					//表示不能进行优惠券收藏
+					// 表示不能进行优惠券收藏
 					isShouCang = false;
 					// tv_collect_coupon.setClickable(false);
 					// tv_collect_coupon.setFocusable(false);
 				} else {
-					//可以收藏
+					// 可以收藏
 					isShouCang = true;
 				}
 			}
 		});
 	}
-	//收藏优惠券
+
+	// 收藏优惠券
 	public void saveCollectionCoupon(FavoritesCoupons favoritesCoupon) throws UnsupportedEncodingException {
 
 		String url = GetHttp.getHttpLJ() + "SaveFavorites";
@@ -207,15 +216,16 @@ public class CouponInfoActivity extends Activity {
 			public void onSuccess(ResponseInfo<String> arg0) {
 				if ("ok".equals(arg0.result)) {
 					tv_collect_coupon.setText("已收藏");
-					isShouCang=false;
-//					tv_collect_coupon.setClickable(false);
-//					tv_collect_coupon.setFocusable(false);
+					isShouCang = false;
+					// tv_collect_coupon.setClickable(false);
+					// tv_collect_coupon.setFocusable(false);
 				}
 
 			}
 		});
 	}
-//取消优惠券收藏
+
+	// 取消优惠券收藏
 	public void delFavoCouponcheck() {
 		String url = GetHttp.getHttpLJ() + "DelSavefavoritesServlet";
 		RequestParams pra = new RequestParams();
@@ -230,16 +240,16 @@ public class CouponInfoActivity extends Activity {
 
 			@Override
 			public void onSuccess(ResponseInfo<String> arg0) {
-				//TODO 执行取消收藏功能
+				// TODO 执行取消收藏功能
 				if ("ok".equals(arg0.result)) {
-					isShouCang=true;
+					isShouCang = true;
 					Toast.makeText(getApplicationContext(), "收藏取消", 0).show();
 					tv_collect_coupon.setText("收藏");
-				}else{
-					isShouCang=false;
-					
+				} else {
+					isShouCang = false;
+
 				}
-			
+
 			}
 		});
 	}

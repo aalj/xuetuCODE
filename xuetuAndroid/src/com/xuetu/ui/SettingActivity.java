@@ -13,6 +13,7 @@ import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.content.pm.PackageManager.NameNotFoundException;
 import android.os.Bundle;
+import android.view.KeyEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
@@ -46,15 +47,12 @@ public class SettingActivity extends Baseactivity implements OnClickListener {
 			edit.putString("pwd", null);
 			((XueTuApplication) getApplication()).setStudent(new Student());
 			edit.commit();
-			
-			
-			
-			
+
 			Intent intent = new Intent();
 			intent.setClass(SettingActivity.this, LoginActivity.class);
 			startActivity(intent);
 			intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-			
+
 			finish();
 
 			break;
@@ -92,8 +90,21 @@ public class SettingActivity extends Baseactivity implements OnClickListener {
 
 	@Override
 	public void onClick(View v) {
-		Toast.makeText(this, "点击", 1).show();
+		Intent intent = new Intent(this, MainActivity.class);
+		startActivity(intent);
 		finish();
 
 	}
+
+	@Override
+	public boolean onKeyDown(int keyCode, KeyEvent event) {
+		if (keyCode == KeyEvent.KEYCODE_BACK && event.getRepeatCount() == 0) {
+			Intent intent = new Intent(this, MainActivity.class);
+			startActivity(intent);
+			finish();
+			return false;
+		}
+		return false;
+	}
+
 }

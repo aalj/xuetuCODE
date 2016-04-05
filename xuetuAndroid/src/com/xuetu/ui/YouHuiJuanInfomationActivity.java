@@ -57,7 +57,7 @@ public class YouHuiJuanInfomationActivity extends Baseactivity {
 		mycoupon = (MyCoupon) extras.getSerializable("MyCoupon");
 		coupon = mycoupon.getCoupon();
 		BitmapUtils bitmapUtils = new BitmapUtils(this);
-		bitmapUtils.display(head, GetHttp.getHttpBCL() + coupon.getStoreName().getStoImg());
+		bitmapUtils.display(head, GetHttp.getHttpBCL() + coupon.getCouIma());
 		BitmapUtils bitmapUtils1 = new BitmapUtils(this);
 		bitmapUtils1.display(head_CircleImageView, GetHttp.getHttpBCL() + coupon.getStoreName().getStoImg());
 
