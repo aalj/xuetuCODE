@@ -218,8 +218,8 @@ public class Answer_list extends Activity implements OnClickListener,
 				list = (List<Answer>) msg.obj;
 				break;
 			case 12:
-				Question answer = (Question) msg.obj;
-				tv_ans1_num.setText(answer.getAns_num() + "");
+Question answer = (Question) msg.obj;
+				tv_ans1_num.setText(answer.getAns_num()+"");
 				break;
 			}
 			if (adapter != null) {
