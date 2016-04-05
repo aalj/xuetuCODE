@@ -176,7 +176,6 @@
 		    android:layout_alignBottom="@+id/et_ans_text"
 		    android:layout_marginRight="5dp"
 		    title:border_color="#ffffffff"
-		    android:scaleType="center"
 		    android:id="@+id/btn_photo"
 		    android:src="@drawable/crop"
 		    />
