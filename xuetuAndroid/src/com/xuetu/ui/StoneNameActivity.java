@@ -171,10 +171,10 @@ public class StoneNameActivity extends Activity implements OnRefreshListener, On
 //				holder.tv_coupon_all = (TextView) view.findViewById(R.id.tv_coupon_all);
 //				holder.tv_coupon_ima = (ImageView) view.findViewById(R.id.tv_coupon_ima);
 				
-				viewHolder.setText(R.id.coupon_info, item.getCouInfo());
-				viewHolder.setText(R.id.tv_shoppingname, item.getStoreName().getStoName());
 				viewHolder.setText(R.id.mornum, item.getCoouRedeemPoints()+"");
-				viewHolder.setText(R.id.tv_coupon_all, item.getShiyongNum()+"");
+				viewHolder.setText(R.id.coupon_info, item.getCouName());
+				viewHolder.setText(R.id.tv_shoppingname, item.getStoreName().getStoName());
+				viewHolder.setText(R.id.tv_coupon_all, item.getShiyongNum() + "");
 				viewHolder.SetUrlImage(R.id.tv_coupon_ima, GetHttp.getHttpLJ()+item.getCouIma());
 				
 			}

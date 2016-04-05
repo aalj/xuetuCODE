@@ -26,6 +26,7 @@ public class YouHuiJuanInfomationActivity extends Baseactivity {
 	TextView zhekoudejutixingxi;
 	TextView shiyongdidianshuoming;
 	TextView button_lijishiyong;
+	TextView xuyaodejifen;
 	ImageView backToDecember;
 	MyCoupon mycoupon;
 	Coupon coupon;
@@ -46,6 +47,8 @@ public class YouHuiJuanInfomationActivity extends Baseactivity {
 		zhekoudejutixingxi = (TextView) findViewById(R.id.zhekoudejutixingxi);
 		shiyongdidianshuoming = (TextView) findViewById(R.id.shiyongdidianshuoming);
 		head_CircleImageView = (CircleImageView) findViewById(R.id.head_CircleImageView);
+		button_lijishiyong = (TextView) findViewById(R.id.button_lijishiyong);
+		xuyaodejifen = (TextView) findViewById(R.id.xuyaodejifen);
 		backToDecember = (ImageView) findViewById(R.id.imageView_backToDecember);
 		getDatasAndsetDates();
 	}
@@ -60,12 +63,16 @@ public class YouHuiJuanInfomationActivity extends Baseactivity {
 		bitmapUtils.display(head, GetHttp.getHttpBCL() + coupon.getCouIma());
 		BitmapUtils bitmapUtils1 = new BitmapUtils(this);
 		bitmapUtils1.display(head_CircleImageView, GetHttp.getHttpBCL() + coupon.getStoreName().getStoImg());
-
+		xuyaodejifen.setText(mycoupon.getCoupon().getCoouRedeemPoints()+"");
 		youhuijuanxingxi.setText(coupon.getCouInfo());
-		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy年MM月dd日HH时mm分ss秒");
+		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy年MM月dd日");
 		String time_format = dateFormat.format(coupon.getConValidity());
 		youxiaoqixian.setText(time_format);
 		dianjiadejutixingxi.setText(coupon.getStoreName().getStoName());
+		if(!(mycoupon.getUserState().getUstaID() == 2)){
+			button_lijishiyong.setClickable(false);
+			button_lijishiyong.setFocusable(false);
+		}
 		zhekoudejutixingxi.setText(coupon.getCouPrice() + "");
 		shiyongdidianshuoming.setText("要在" + coupon.getStoreName().getStoAddress()
 				+ "吃，如果有来生，要做一棵树， 站成永恒， 没有悲欢的姿势。一半在土里安详， 一半在风里飞扬， 一半洒落阴凉， 一半沐浴阳光。 非常沉默，非常骄傲， 从不依靠，从不寻找。");

@@ -107,7 +107,9 @@ public class ShoppingDao implements ShoppintDaoInter {
 			Coupon coupon = null;;
 			while(query.next()){
 				coupon = new Coupon();
-				coupon.setCouID(query.getInt("cou_id"));
+				int int1 = query.getInt("cou_id");
+				coupon.setCouID(int1);
+				coupon.setShiyongNum(queryMyCouponNum(int1));
 				StoreName storeName = dao2.getStoreNameById(query.getInt("sto_id"));
 				coupon.setStoreName(storeName);
 				coupon.setCouInfo(query.getString("cou_info"));

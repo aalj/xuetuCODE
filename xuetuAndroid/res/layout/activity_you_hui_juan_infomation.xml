@@ -45,13 +45,24 @@
                 android:textSize="17dp" />
 
             <TextView
-                android:id="@+id/youxiaoqixian"
+                android:id="@+id/youxiaoqixianname"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignBottom="@+id/head"
                 android:layout_alignLeft="@+id/youhuijuanxingxi"
-                android:text="有效期限"
+                android:text="有效期限:"
                 android:textColor="@color/white" />
+
+            <TextView
+                android:id="@+id/youxiaoqixian"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignBaseline="@+id/youxiaoqixianname"
+                android:layout_alignBottom="@+id/youxiaoqixianname"
+                android:layout_toRightOf="@+id/youxiaoqixianname"
+                android:text="shijina "
+                android:textColor="@color/white" />
+            
         </RelativeLayout>
 
         <RelativeLayout
@@ -121,15 +132,79 @@
                         android:layout_marginLeft="10dp"
                         android:background="@color/gray_blue" />
 
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="37dp"
+                       >
+
+                        <TextView
+                            android:id="@+id/zhekoudejutixingxi"
+                            android:layout_width="wrap_content"
+                            android:layout_height="37dp"
+                            android:layout_weight="1"
+                            android:gravity="center_vertical"
+                            android:paddingLeft="20dp"
+                            android:text="折扣的具体信息"
+                            android:textColor="@color/white"
+                            android:textSize="14dp" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="37dp"
+                            android:layout_alignParentTop="true"
+                            android:layout_marginLeft="5dp"
+                            android:layout_toRightOf="@+id/zhekoudejutixingxi"
+                            android:layout_weight="0"
+                            android:gravity="center_vertical"
+                            android:paddingLeft="15dp"
+                            android:text="折"
+                            android:textColor="@color/white"
+                            android:textSize="14dp" />
+
+                    </RelativeLayout>
                     <TextView
-                        android:id="@+id/zhekoudejutixingxi"
                         android:layout_width="fill_parent"
                         android:layout_height="37dp"
-                        android:paddingLeft="20dp"
                         android:gravity="center_vertical"
-                        android:text="折扣的具体信息"
-                        android:textColor="@color/white"
-                        android:textSize="14dp" />
+                        android:paddingLeft="10dp"
+                        android:text="丨✿ 需要的积分"
+                        android:textColor="@color/gray1"
+                        android:textSize="12dp" />
+
+                    <TextView
+                        android:layout_width="fill_parent"
+                        android:layout_height="0.1dp"
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginRight="10dp"
+                        android:background="@color/gray_blue" />
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="37dp" >
+
+                        <TextView
+                            android:id="@+id/xuyaodejifen"
+                            android:layout_width="wrap_content"
+                            android:layout_height="37dp"
+                            android:gravity="center_vertical"
+                            android:paddingLeft="20dp"
+                            android:text="折扣的具体信息"
+                            android:textColor="@color/white"
+                            android:textSize="14dp" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="37dp"
+                            android:layout_alignParentTop="true"
+                            android:layout_marginLeft="5dp"
+                            android:layout_toRightOf="@+id/xuyaodejifen"
+                            android:layout_weight="0"
+                            android:gravity="center_vertical"
+                            android:text="积分"
+                            android:textColor="@color/white"
+                            android:textSize="14dp" />
+
+                    </RelativeLayout>
 
                     <TextView
                          android:layout_marginRight="10dp"
@@ -163,6 +238,31 @@
                         android:text="使用地点的说明"
                         android:textColor="@color/white"
                         android:textSize="14dp" />
+                     <TextView
+                        android:layout_width="fill_parent"
+                        android:layout_height="37dp"
+                        android:paddingLeft="10dp"
+                        android:gravity="center_vertical"
+                        android:text="丨✿ 优惠券介绍"
+                        android:textColor="@color/gray1"
+                        android:textSize="12dp" />
+
+                    <TextView
+                         android:layout_marginRight="10dp"
+                        android:layout_width="fill_parent"
+                        android:layout_height="0.1dp"
+                        android:layout_marginLeft="10dp"
+                        android:background="@color/gray_blue" />
+
+                    <TextView
+                        android:id="@+id/shiyongjieshao"
+                        android:layout_width="fill_parent"
+                        android:layout_height="50dp"
+                        android:paddingLeft="20dp"
+                        android:gravity="center_vertical"
+                        android:text="使用地点的说明"
+                        android:textColor="@color/white"
+                        android:textSize="14dp" />
                 </LinearLayout>
             </ScrollView>
         </RelativeLayout>
@@ -183,6 +283,8 @@
                 android:layout_height="match_parent"
                 android:background="@drawable/buttonstyle"
                 android:gravity="center"
+                android:clickable="true"
+                android:focusable="true"
                 android:onClick="onclick"
                 android:text="立即使用"
                 android:textColor="@color/white" />

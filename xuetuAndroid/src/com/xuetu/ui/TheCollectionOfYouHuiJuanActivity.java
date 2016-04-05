@@ -82,9 +82,14 @@ public class TheCollectionOfYouHuiJuanActivity extends Baseactivity implements O
 				viewHolder.SetUrlImage(R.id.head,
 						GetHttp.getHttpBCL() + mycoupon.getCoupon().getCouIma());
 				viewHolder.setText(R.id.youhuijuanshiyongqingkuang, mycoupon.getUserState().getUstaName());
-				if (mycoupon.getUserState().getUstaID() == 2) {
+				if ((mycoupon.getUserState().getUstaID() == 2)) {
 					viewHolder.setIayoutBgColor(R.id.layout, R.drawable.cornro_myshoucang);
+					
 				}
+//				else if((mycoupon.getUserState().getUstaID() == 2)){
+//					viewHolder.setIayoutBgColor(R.id.layout, R.drawable.cornro_myshoucang);
+//					
+//				}
 
 			}
 		});
