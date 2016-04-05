@@ -34,6 +34,9 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.TextView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ListView;
 
@@ -105,25 +108,25 @@ public class PersonQuestionCollectionFrag extends Fragment implements OnItemClic
 	private void addView() {
 		listview.setAdapter(
 				myadapter = new MyBasesadapter<CollectionQuestion>(context, datas, 
-						R.layout.personalquestion) {
+						R.layout.question_listitem) {
 
 					@Override
 					public void convert(ViewHodle viewHolder, CollectionQuestion item) {
-						viewHolder.setText(R.id.tv_subject_personquestion,
-								item.getQuestion().getSubject().getName() + "");
-						viewHolder.setText(R.id.tv_time_personquestion,
+						
+						viewHolder.setText(R.id.tv_ans_num,
+								item.getQuestion().getAns_num() + "评论");
+						viewHolder.setText(R.id.tv_time,
 								sdf.format(new Date(item.getQues_time().getTime())));
-						viewHolder.setText(R.id.tv_ques_text_personquestion, item.getQuestion().getQuesText());
-						viewHolder.setText(R.id.tv_answerNum_personquestion, item.getQuestion().getAns_num() + "");
+						viewHolder.setText(R.id.tv_ques_text, item.getQuestion().getQuesText());
+						viewHolder.setText(R.id.tv_subject, item.getQuestion().getSubject().getName() + "");
 						if (item.getQuestion().getQuesIma() != null) {
-							viewHolder.SetUrlImage(R.id.iv_ques_img_personquestion,
+							viewHolder.SetUrlImage(R.id.iv_ques_img,
 									GetHttp.getHttpLC() + item.getQuestion().getQuesIma());
 						} else {
-							viewHolder.getView(R.id.iv_ques_img_personquestion).setVisibility(View.GONE);
+							viewHolder.getView(R.id.iv_ques_img).setVisibility(View.GONE);
 						}
-						viewHolder.getView(R.id.rl_left_personquestion).setOnClickListener(new Myonclicklister(item));
-						viewHolder.getView(R.id.rl_right_personquestion).setOnClickListener(new Myonclicklister(item));
-						viewHolder.getView(R.id.rl_top_personquestion).setOnClickListener(new Myonclicklister(item));
+						
+						viewHolder.getView(R.id.ll_question_item).setOnClickListener(new Myonclicklister(item));
 
 					}
 				});
@@ -140,30 +143,14 @@ public class PersonQuestionCollectionFrag extends Fragment implements OnItemClic
 		@Override
 		public void onClick(View v) {
 			switch (v.getId()) {
-			case R.id.rl_left_personquestion:
+			case R.id.ll_question_item:
 				Intent intentAnswer = new Intent(getContext(), Answer_list.class);
 				Bundle bundle = new Bundle();
 				bundle.putSerializable("curQues", collectionQuestion.getQuestion());
 				intentAnswer.putExtras(bundle);
 				startActivity(intentAnswer);
 				break;
-			case R.id.rl_top_personquestion:
-				Intent intentAnswer1 = new Intent(getContext(), Answer_list.class);
-				Bundle bundle1 = new Bundle();
-				bundle1.putSerializable("curQues", collectionQuestion.getQuestion());
-				intentAnswer1.putExtras(bundle1);
-				startActivity(intentAnswer1);
-				break;
-			case R.id.rl_right_personquestion:
-				Intent intentAnswer2 = new Intent(getContext(), Answer_list.class);
-				Bundle bundle2 = new Bundle();
-				bundle2.putSerializable("curQues", collectionQuestion.getQuestion());
-				intentAnswer2.putExtras(bundle2);
-				startActivity(intentAnswer2);
-				break;
-
 			default:
-				break;
 			}
 
 		}

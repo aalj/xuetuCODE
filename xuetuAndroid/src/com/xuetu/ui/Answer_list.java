@@ -30,6 +30,7 @@ import com.xuetu.entity.Answer;
 import com.xuetu.entity.Question;
 import com.xuetu.utils.GetHttp;
 import com.xuetu.utils.KeyboardUtils;
+import com.xuetu.view.CircleImageView;
 import com.xuetu.view.PullToRefreshView;
 import com.xuetu.view.PullToRefreshView.OnFooterRefreshListener;
 import com.xuetu.view.PullToRefreshView.OnHeaderRefreshListener;
@@ -56,6 +57,7 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.ImageView.ScaleType;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -89,7 +91,8 @@ public class Answer_list extends Activity implements OnClickListener, OnHeaderRe
 	TextView tv_ans1_sub;
 	TextView tv_ans1_num;
 	ImageView iv_ans1_ques_img;
-	ImageView btn_photo;
+	
+	CircleImageView btn_photo;
 	ImageView iv_ans1_userImg;
 	ImageView iv_collect;
 //	TextView tv_ans_title;
@@ -123,13 +126,13 @@ public class Answer_list extends Activity implements OnClickListener, OnHeaderRe
 				BitmapUtils(Answer_list.this);
 		Intent intent = getIntent();
 		curQues= (Question) intent.getSerializableExtra("curQues");
-		Log.i("hehe", curQues.getQuesID()+"id");
 		file = new File(Environment.getExternalStorageDirectory(),sdf.format(new Date(System.currentTimeMillis()))+".jpg");
 		imageUri = Uri.fromFile(file);
 		//初始化控件
 		
 		titlebar = (TitleBar) findViewById(R.id.title_my);
-		btn_photo = (ImageView) findViewById(R.id.btn_photo);
+		btn_photo = (CircleImageView) findViewById(R.id.btn_photo);
+		btn_photo.setScaleType(ScaleType.CENTER_INSIDE);
 		btn_ans = (Button) findViewById(R.id.btn_ans);
 		et_ans_text = (EditText) findViewById(R.id.et_ans_text);
 		lv_answer = (ListView) findViewById(R.id.lv_answer);
@@ -188,6 +191,7 @@ public class Answer_list extends Activity implements OnClickListener, OnHeaderRe
 			}
 		});
 	}
+	//获得用户对象
 	@Override
 	public void onResume() {
 		stu_id = ((XueTuApplication)getApplication()).getStudent().getStuId();
@@ -425,7 +429,7 @@ public class Answer_list extends Activity implements OnClickListener, OnHeaderRe
 
 				@Override
 				public void onSuccess(ResponseInfo<String> arg0) {
-					Toast.makeText(getApplicationContext(), "提交陈公公", 1).show();
+					Toast.makeText(getApplicationContext(), "提交成功", 1).show();
 					Gson gson = new GsonBuilder()
 					.enableComplexMapKeySerialization()
 					.setPrettyPrinting()
@@ -445,6 +449,7 @@ public class Answer_list extends Activity implements OnClickListener, OnHeaderRe
 		boolean temp = false;
 		public void setMyAapter(List<Answer> list){
 			setTag = xuetu.getSet();
+			Log.i("hehe", setTag.size()+"---------activityApplication");
 			adapter = new MyQuestionBaseAdapter<Answer>(this,list,R.layout.question_answeritem) {
 				
 				@Override
@@ -572,12 +577,10 @@ public class Answer_list extends Activity implements OnClickListener, OnHeaderRe
 		@Override
 		public void onHeaderRefresh(PullToRefreshView view) {
 			
-
 		}
 
 		@Override
 		public void onFooterRefresh(PullToRefreshView view) {
 			
-
 		}
 }

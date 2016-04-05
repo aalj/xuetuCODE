@@ -15,14 +15,6 @@
         title:titleBarRightImage="@drawable/ic_menu_add"
         title:titleBarTitle="回答" >
     </com.xuetu.view.TitleBar>
-	<com.xuetu.view.PullToRefreshView
-        android:id="@+id/main_pull_refresh_view"
-        android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
-        android:layout_marginTop="4dip"
-        android:layout_weight="1"
-        android:background="#00000000"
-        android:weightSum="1" >
 
         <ScrollView
             android:layout_width="match_parent"
@@ -157,7 +149,6 @@
     </com.xuetu.view.MyListView>
     </LinearLayout>
         </ScrollView>
-    </com.xuetu.view.PullToRefreshView>
    
 
     
@@ -185,8 +176,9 @@
 		    android:layout_alignBottom="@+id/et_ans_text"
 		    android:layout_marginRight="5dp"
 		    title:border_color="#ffffffff"
+		    android:scaleType="center"
 		    android:id="@+id/btn_photo"
-		    android:src="@drawable/crop_small"
+		    android:src="@drawable/crop"
 		    />
 		<EditText
 		    android:id="@+id/et_ans_text"
@@ -203,14 +195,14 @@
 		
 		<Button
 		    android:id="@+id/btn_ans"
-		    android:layout_width="wrap_content"
-		    android:layout_height="wrap_content"
+		    android:layout_width="30dp"
+		    android:layout_height="25dp"
 		    android:layout_alignTop="@+id/et_ans_text"
 		    android:layout_alignBottom="@+id/et_ans_text"
 		    android:layout_alignParentRight="true"
 		    android:layout_marginRight="5dp"
 		    android:layout_toRightOf="@id/et_ans_text"
-		    android:background="@color/blue1"
+		    android:background="@drawable/shape"
 		    android:text="发送"
 		    android:textSize="15sp"
 		    android:textColor="@color/white" />
