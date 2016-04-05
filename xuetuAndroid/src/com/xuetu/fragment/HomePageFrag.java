@@ -198,7 +198,7 @@ public class HomePageFrag extends Fragment implements OnTouchListener {
 			public void run() {
 				synchronized (this) {
 					try {
-						wait(1000); // 1秒
+						wait(1800); // 1秒
 					} catch (InterruptedException e) {
 						// TODO Auto-generated catch block
 						e.printStackTrace();
@@ -230,7 +230,13 @@ public class HomePageFrag extends Fragment implements OnTouchListener {
 			@Override
 			public void onClick(View v) {
 //				get_stu_studyTime();
+				
+				if(flag==true){
+					flag=false;
+					planflag=false;
 				get_stu_studyTime();
+				}
+				
 			}
 		});
         
@@ -238,7 +244,12 @@ public class HomePageFrag extends Fragment implements OnTouchListener {
 		view.findViewById(R.id.imageButton3).setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
+				
+				if(planflag==true)
+				{
+					
 				search_today_studyplan();
+				}
 			}
 		});
 		
@@ -286,7 +297,7 @@ public class HomePageFrag extends Fragment implements OnTouchListener {
 					PropertyValuesHolder visible = PropertyValuesHolder
 							.ofFloat("alpha", 0F, 1F);
 					ObjectAnimator.ofPropertyValuesHolder(btn_center, visible)
-							.setDuration(1500).start();
+							.setDuration(500).start();
 
 				}
 				break;
@@ -427,7 +438,6 @@ public class HomePageFrag extends Fragment implements OnTouchListener {
 							System.out.println("进行的是上滑动");
 								flag     = false;
 								planflag = false;
-								System.out.println("进行的是上滑动");
 								get_stu_studyTime();
 								
 							} 
@@ -466,7 +476,6 @@ public class HomePageFrag extends Fragment implements OnTouchListener {
 //		String url = "http://10.201.1.8:8080/xuetuWeb/GetClassTime";
 		HttpUtils httpUtils = new HttpUtils();
 		RequestParams requestParams = new RequestParams();
-//		requestParams.addBodyParameter("stu_id", stu_id + "");
 		requestParams.addBodyParameter("day_of_week", getClass.getDay_in_week() + "");
 		requestParams.addBodyParameter("which_class", getClass.getWhich_class() + "");
 		//json 解析Student对象,并传给服务器
@@ -514,18 +523,19 @@ public class HomePageFrag extends Fragment implements OnTouchListener {
 									// TODO Auto-generated method stub
 									search_today_studyplan();
 								}
-							}).show();
+							}).setCancelable(false).show();
 						}else//这里执行 有课程时需要进行的判断
 						{
 							if(classend.what_time()!=2 )  
 //							if(true)
 							{
-new AlertDialog.Builder(getActivity()).setTitle("提示").setMessage("即将进入课程"+ myclass.getClasName()).setNegativeButton("返回", new DialogInterface.OnClickListener() {
+								new AlertDialog.Builder(getActivity()).setTitle("提示").setMessage("即将进入课程"+ myclass.getClasName()).setNegativeButton("返回", new DialogInterface.OnClickListener() {
 									
 									@Override
 									public void onClick(DialogInterface dialog, int which) {
 										// TODO Auto-generated method stub
-										
+										flag = true;
+										planflag=true;
 									}
 								}).setPositiveButton("立即进入", new DialogInterface.OnClickListener() {
 									
@@ -546,7 +556,7 @@ new AlertDialog.Builder(getActivity()).setTitle("提示").setMessage("即将进�
 										planflag=true;
 										startActivity(intent);
 									}
-								}).show();
+								}).setCancelable(false).show();
 								
 								
 								
@@ -557,6 +567,7 @@ new AlertDialog.Builder(getActivity()).setTitle("提示").setMessage("即将进�
 								new AlertDialog.Builder(getActivity())
 								.setTitle("提示")                                              
 								.setMessage("课程:"+myclass.getClasName()+"   你迟到了"+classend.getmin()+"分钟,不能进入计时积分页面")
+								.setCancelable(false)
 								.setNegativeButton("返回", new DialogInterface.OnClickListener() {
 									
 									@Override
@@ -823,9 +834,8 @@ new AlertDialog.Builder(getActivity()).setTitle("注意").setMessage("当天没�
 	{
 		if(planflag)
 		{
-			flag     = false;
-			planflag = false;
-			
+			flag=false;
+			planflag=false;
 			String url =GetHttp.getHttpKY()+"GetDayTime";    //
 			HttpUtils httpUtils = new HttpUtils();
 			RequestParams requestParams = new RequestParams();
@@ -876,7 +886,7 @@ new AlertDialog.Builder(getActivity()).setTitle("注意").setMessage("当天没�
 									public void onClick(DialogInterface dialog, int which) {
 										w= which;
 									}
-								}).setPositiveButton("进入计划", new DialogInterface.OnClickListener() {
+								}).setCancelable(false).setPositiveButton("进入计划", new DialogInterface.OnClickListener() {
 									
 									@Override
 									public void onClick(DialogInterface dialog, int which) {
@@ -896,7 +906,7 @@ new AlertDialog.Builder(getActivity()).setTitle("注意").setMessage("当天没�
 										intent.putExtra("start_and_end_time", new SimpleDateFormat("HH:mm").format(todayplan.get(w).getStartTime())+"~"+
 												 new SimpleDateFormat("HH:mm").format(todayplan.get(w).getEndTime())
 												);
-										intent.putExtra("text", todayplan.get(w).getPlanText())	;	
+										intent.putExtra("text", todayplan.get(w).getPlanText())	;	                                                                 
 										intent.putExtra("计划", true);    // 标记,传过去的是自定义计划的计时
 										intent.putExtra("plan_id", studyplan.getPlanID());
 										System.out.println(studyplan.getPlanID());
@@ -904,13 +914,23 @@ new AlertDialog.Builder(getActivity()).setTitle("注意").setMessage("当天没�
 										planflag=true;
 										startActivity(intent);
 									}
-								}).setNegativeButton("取消", null).show();
+								}).setNegativeButton("取消", new DialogInterface.OnClickListener() {
+									
+									@Override
+									public void onClick(DialogInterface dialog, int which) {
+										// TODO Auto-generated method stub
+										flag = true;
+										planflag=true;
+										center_click_flag=true;
+										
+									}
+								}).show();
 								
 							}else{
 								flag     = false;
 								planflag = false;
 								
-								new AlertDialog.Builder(getActivity()).setTitle("注意").setMessage("当天没有可执行的学习计划,是否添加").setNegativeButton("返回", new DialogInterface.OnClickListener() {
+								new AlertDialog.Builder(getActivity()).setCancelable(false).setTitle("注意").setMessage("当天没有可执行的学习计划,是否添加").setNegativeButton("返回", new DialogInterface.OnClickListener() {
 									
 									@Override
 									public void onClick(DialogInterface dialog, int which) {

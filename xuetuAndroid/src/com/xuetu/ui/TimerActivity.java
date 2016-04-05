@@ -106,6 +106,9 @@ public class TimerActivity extends Activity {
 	int  plan_no    = 1;
 	int  plan_state =0;
 	int plan_id = 0;
+	boolean  is_finish = true;
+	
+	
 	
 	
 	@Override
@@ -198,7 +201,7 @@ public class TimerActivity extends Activity {
 		                        e.printStackTrace();
 		                    }
 	                }
-	                if(alltime==0){
+	                if(alltime==0 && is_finish){
   	                	 //下面是计时结束逻辑
   	                    mHandler.post(new Runnable() {
   	                    	
@@ -247,7 +250,7 @@ public class TimerActivity extends Activity {
     		requestParams.addBodyParameter("st_time", String.valueOf(st_time));
     		requestParams.addBodyParameter("integral",String.valueOf(getIntegral(integral_double)));
     		requestParams.addBodyParameter("st_date", getTime());
-    		requestParams.addBodyParameter("st_id", "1");
+//    		requestParams.addBodyParameter("st_id", "1");
     		requestParams.addBodyParameter("stu_id", stu_id+"");//学生id
     		requestParams.addBodyParameter("student", stu_from_home);//学生id
     		requestParams.addBodyParameter("plan_state", plan_state+"");
@@ -300,13 +303,14 @@ public class TimerActivity extends Activity {
     public  void endTime()
     {
     	
-            // TODO Auto-generated method stub
            	showTime.setText("00:00");//计时器结束,把时分秒的值归零
            	showss.setText("00");
+           	
+           	
+           	System.out.println("alltime----------------"+alltime);
            	if(alltime!=0)    //没执行完
            	{ 
                	new SaveTimeAndIntegral().saveStudyTime(st_time, integral_double,stu_from_home);
-//                Toast.makeText(TimerActivity.this, "下课啦"+getIntegral(integral_double)+"积分到手咯!!", Toast.LENGTH_LONG).show();//提示倒计时完成
 
            	}
            	else{
@@ -325,12 +329,14 @@ public class TimerActivity extends Activity {
            	   
            		
            	}
-            alltime = 0;//修改倒计时剩余时间变量为0秒
-            integral_double=0;
-            st_time=0;
-            plan_state=0;
+           
 			finish();
 			
+			 alltime = 0;//修改倒计时剩余时间变量为0秒
+	         integral_double=0;
+	         st_time=0;
+	         plan_state=0;
+	         is_finish=false;
     }
     
     @Override
@@ -338,6 +344,6 @@ public class TimerActivity extends Activity {
     	// TODO Auto-generated method stub
     	endTime();
     	
-    	super.onBackPressed();
+    	finish();
     }
 }

@@ -80,13 +80,7 @@ public class CourseService implements OnClickListener {
 				}.getType();
 				List<MyClass> myclasses = gson.fromJson(arg0.result, type);
 				// sharedpreference的键值对立flag
-				boolean falgs = preferences.getBoolean("saveDB", false);
-
-//				if (!falgs) {
-//					edit.putBoolean("saveDB", true);
-////					mgr.add(myclasses);
-//					edit.commit();
-//				}
+				boolean falgs = preferences.getBoolean("saveDB", false);		
 
 				fillCourse(myclasses);
 				Log.i("TAG", "填课程表");
