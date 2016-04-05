@@ -120,4 +120,8 @@ public class LinTest {
 	public void getAgrNumByAnsId(){
 		System.out.println(q.getAgrNumByAnsId(2));
 	}
+	@Test
+	public void getQuesWithImg(){
+		System.out.println(q.getQuesIdsWithImg().size());
+	}
 }

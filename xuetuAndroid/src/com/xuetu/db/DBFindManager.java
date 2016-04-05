@@ -174,7 +174,7 @@ public class DBFindManager {
 	public List<Countdown> queryCountdown() {
 		Cursor query;
 
-		query = db.query("countdown", null, null, null, null, null, "code_time" + " DESC");
+		query = db.query("countdown", null, null, null, null, null, "code_time" );
 
 		List<Countdown> list = new ArrayList<Countdown>();
 		Countdown alarm = null;

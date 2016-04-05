@@ -73,23 +73,26 @@ public class TheCollectionOfYouHuiJuanActivity extends Baseactivity implements O
 	private void addView() {
 		Log.i("TAG", datas + "");
 		// 设置适配器
-		listview.setAdapter(myadapter = new MyBasesadapter<MyCoupon>(this, datas, R.layout.youhuijuan) {
+		listview.setAdapter(myadapter = new MyBasesadapter<MyCoupon>(this, 
+				datas, R.layout.youhuijuan) {
 
 			@Override
 			public void convert(ViewHodle viewHolder, MyCoupon mycoupon) {
+				viewHolder.setIayoutBgColor(R.id.layout, R.drawable.cornro_myshoucang);
+				
 				viewHolder.setText(R.id.youhuijuanxingxi, mycoupon.getCoupon().getCouInfo());
 				viewHolder.setText(R.id.number, mycoupon.getCoupon().getCouPrice() + "折");
 				viewHolder.SetUrlImage(R.id.head,
 						GetHttp.getHttpBCL() + mycoupon.getCoupon().getCouIma());
 				viewHolder.setText(R.id.youhuijuanshiyongqingkuang, mycoupon.getUserState().getUstaName());
-				if ((mycoupon.getUserState().getUstaID() == 2)) {
+				if ((mycoupon.getUserState().getUstaID() == 1)) {
 					viewHolder.setIayoutBgColor(R.id.layout, R.drawable.cornro_myshoucang);
 					
 				}
-//				else if((mycoupon.getUserState().getUstaID() == 2)){
-//					viewHolder.setIayoutBgColor(R.id.layout, R.drawable.cornro_myshoucang);
-//					
-//				}
+				else if((mycoupon.getUserState().getUstaID() == 2)){
+					viewHolder.setIayoutBgColor(R.id.layout, R.drawable.cornor_layout);
+					
+				}
 
 			}
 		});
