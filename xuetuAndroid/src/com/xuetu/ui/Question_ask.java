@@ -120,7 +120,7 @@ public class Question_ask extends Activity implements OnClickListener{
 						Toast.makeText(Question_ask.this, "请选择学科！", 0).show();
 						}else{
 							ask();
-							finish();
+//							finish();
 						}
 					break;
 				case R.id.tv_sub:

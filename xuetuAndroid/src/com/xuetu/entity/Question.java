@@ -30,6 +30,13 @@ import java.util.Date;
  */
 public class Question implements Serializable{
 	private int quesID = 0;
+	@Override
+	public String toString() {
+		return "Question [quesID=" + quesID + ", student=" + student
+				+ ", quesText=" + quesText + ", quesIma=" + quesIma
+				+ ", quesDate=" + quesDate + ", subject=" + subject
+				+ ", acpo_num=" + acpo_num + ", ans_num=" + ans_num + "]";
+	}
 	private Student student = null;
 	private String quesText = null;
 	private String quesIma = null;

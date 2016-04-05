@@ -22,6 +22,7 @@ import com.xuetu.entity.Question;
 import com.xuetu.entity.School;
 import com.xuetu.entity.Student;
 import com.xuetu.entity.Subject;
+import com.xuetu.utils.CloseDb;
 import com.xuetu.utils.DBconnection;
 
 public class QuestionIml implements QuesTionDao {
@@ -151,6 +152,50 @@ public class QuestionIml implements QuesTionDao {
 			}
 		}
 	}
+	
+	
+	
+	
+	public Question queryQuestionById(int page) {
+		// TODO Auto-generated method stub
+		Connection conn = null;
+		PreparedStatement prep= null;
+		String sql = null;
+		ResultSet rs = null;
+		// 指针从第一行属性字段开始
+		try {
+			conn = DBconnection.getConnection();
+			sql = "select * from question where ques_id =?";
+			prep = conn.prepareStatement(sql);
+			prep.setInt(1, page);
+			rs = prep.executeQuery();
+			if (rs.next()) {
+				Question q = new Question();
+				q.setQuesID(rs.getInt("ques_id"));
+				q.setStudent(getStudentByStuId(rs.getInt("stu_id"), getSchIdByStuId(rs.getInt("stu_id"))));
+				q.setQuesText(rs.getString("ques_text"));
+				q.setQuesIma(rs.getString("ques_img"));
+				q.setQuesDate(rs.getTimestamp("ques_time"));
+				q.setAcpo_num(rs.getInt("acpo_num"));
+				q.setSubject(getSubjectBySubId(rs.getInt("sub_id")));
+				q.setAns_num(getAnsNum(rs.getInt("ques_id")));
+				return q;
+			}
+			
+		} catch (Exception e) {
+			throw new RuntimeException(e);
+		} finally {
+			CloseDb.close(conn, rs, prep);
+		}
+		return null;
+	}
+	
+	
+	
+	
+	
+	
+	
 	public int getAnsNum(int ques_id){
 		int count = 0;
 		Connection conn = null;

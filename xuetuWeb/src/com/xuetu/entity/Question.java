@@ -40,6 +40,12 @@ public class Question implements Serializable{
 	public int getAns_num() {
 		return ans_num;
 	}
+	@Override
+	public String toString() {
+		return "Question [quesID=" + quesID + ", student=" + student + ", quesText=" + quesText + ", quesIma=" + quesIma
+				+ ", quesDate=" + quesDate + ", subject=" + subject + ", acpo_num=" + acpo_num + ", ans_num=" + ans_num
+				+ "]";
+	}
 	public void setAns_num(int ans_num) {
 		this.ans_num = ans_num;
 	}
