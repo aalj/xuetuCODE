@@ -6,8 +6,8 @@ public class Class_end {
 	Calendar c = Calendar.getInstance();
 	
 		private String [][] class_time={
-				{"8:10","9:15","10:20", "13:50","15:05","16:20"},
-				{"9:05","10:10","11:15","14:55","16:10","17:30"}};
+				{"8:10","10:10","14:10", "16:10","19:05","20:00"},
+				{"9:45","12:00","15:55","18:00","19:50","20:45"}};
 		
 //	private String [] class_class =
 //		{"中国绘画","中国音乐史与名著欣赏","和声学基础","中国历史地理","CAD制图与与绘画","模拟电子技术"};
@@ -43,23 +43,27 @@ public class Class_end {
 		
 		int ss= c.get(Calendar.HOUR_OF_DAY)*60+c.get(Calendar.MINUTE);
 		System.out.println(ss+"```````````");
-		if ((ss>(480-5)+10)  && (ss<(540+5)) )
+		if ((ss>(480-5)+10)  && (ss<(540+45)) )
 		{
 			cls=1;
 		}else{
-			if((ss>(540-5)+15)  && (ss<(600+10)) ){
+			if((ss>(600-5)+10)  && (ss<(720)) ){
 				cls=2;
 			}else{
-				if((ss>(540-5)+20)  && (ss<(660+15)) ){
+				if((ss>(14*60-5)+10)  && (ss<(15*60+55)) ){
 					cls=3;
 				}else{
-					if((ss>(13*60-5)+50)  && (ss<(14*60+55)) ){
+					
+//			{"8:10","10:10","14:10", "16:10","19:05","20:00"},
+//					{"9:45","12:00","15:55","18:00","19:50","20:45"}};
+					
+					if((ss>(16*60-5)+10)  && (ss<(18*60)) ){
 						cls=4;
 					}else{
-						if((ss>(15*60-5)+5)  && (ss<(16*60+10)) ){
+						if((ss>(19*60-5)+5)  && (ss<(19*60+50)) ){
 						cls=5;
 						}else{
-							if((ss>(16*60-5)+20)  && (ss<(17*60+30)) ){
+							if((ss>(20*60-5))  && (ss<(20*60+45)) ){
 								cls=6;
 							}
 						}
@@ -93,33 +97,23 @@ public class Class_end {
 	//显示提前还是迟到    都不符合,则表示可以上课
 	public int what_time()
 	{
-		System.out.println("``````````````````1``````````````````");
 		int i=0;
-		System.out.println("````````````````2````````````````````");
 		String ss = null;
-		System.out.println("````````````````3````````````````````");
 		String start =class_time[0][ get_which_chass() -1]; 
-		System.out.println("`````````````````4```````````````````");
 		int mm= c.get(Calendar.HOUR_OF_DAY)*60+c.get(Calendar.MINUTE);// 当前0点到现在所用的m
-		System.out.println("``````````````````5``````````````````");
 		String s []= start.split(":".toString()) ;
 		int first  = Integer.parseInt(s[0]) ;
 		int second = Integer.parseInt(s[1]) ;
-		System.out.println("````````````````6````````````````````");
 		 int start_minutes = (first*60+second);
-		 System.out.println("````````````````7````````````````````");
 		 if( start_minutes- mm >=5  )    //上课时间, 减去 当前时间
 		 {
-			 System.out.println("````````````8````````````````````````");
 			 i=1 ;   //太早
 		 }else{
-			 if( start_minutes -mm <= (-10)  )
+			 if(mm- start_minutes > 10  )
 			 {
 				 i=2 ;   //迟到
-				 System.out.println("```````````````9`````````````````````");
 			 }
 		 }
-		 System.out.println("`````````````````10```````````````````");
 		return i;   //i=0是,没有课
 	}
 //	 ss = "提前上课不得超过5分钟";ss="迟到10分钟以上不能进入计时积分页面,下次记得早点哦";

@@ -82,11 +82,11 @@ public class CourseService implements OnClickListener {
 				// sharedpreference的键值对立flag
 				boolean falgs = preferences.getBoolean("saveDB", false);
 
-				if (!falgs) {
-					edit.putBoolean("saveDB", true);
-					mgr.add(myclasses);
-					edit.commit();
-				}
+//				if (!falgs) {
+//					edit.putBoolean("saveDB", true);
+//					mgr.add(myclasses);
+//					edit.commit();
+//				}
 
 				fillCourse(myclasses);
 				Log.i("TAG", "填课程表");
