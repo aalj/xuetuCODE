@@ -21,6 +21,7 @@ import org.junit.Test;
 import com.xuetu.dao.FindIml;
 import com.xuetu.dao.JifenDao;
 import com.xuetu.dao.LoginDao;
+import com.xuetu.dao.QuestionIml;
 import com.xuetu.dao.ShoppingDao;
 import com.xuetu.entity.Countdown;
 import com.xuetu.entity.Coupon;
@@ -28,6 +29,7 @@ import com.xuetu.entity.MyCoupon;
 import com.xuetu.entity.FavoritesCoupons;
 import com.xuetu.entity.LongTime;
 import com.xuetu.entity.Pattern;
+import com.xuetu.entity.Question;
 import com.xuetu.entity.SelfStudyPlan;
 import com.xuetu.entity.Student;
 import com.xuetu.utils.ChuliShijian;
@@ -91,15 +93,8 @@ public class JunText {
 	}
 	@Test
 	public void getCoupon2() {
-		 List<Countdown> countdown = new FindIml().getCountdown();
-		for (Countdown selfStudyPlan : countdown) {
-			System.out.print(selfStudyPlan.getCodoID());
-			System.out.print("\t");
-			System.out.print(selfStudyPlan.getCodoTime());
-			System.out.print("\t");
-			System.out.print(selfStudyPlan.getCodoText());
-			System.out.println();
-		}
+		 Question queryQuestionById = new QuestionIml().queryQuestionById(3);
+		 System.out.println(queryQuestionById.toString());
 		
 	}
 

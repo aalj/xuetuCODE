@@ -33,6 +33,7 @@ import com.lidroid.xutils.http.ResponseInfo;
 import com.lidroid.xutils.http.callback.RequestCallBack;
 import com.lidroid.xutils.http.client.HttpRequest.HttpMethod;
 import com.xuetu.R;
+import com.xuetu.adapter.MyBasesadapter;
 import com.xuetu.adapter.QuestionFragAdapter;
 import com.xuetu.adapter.ViewHodle;
 import com.xuetu.entity.Answer;
@@ -92,6 +93,7 @@ public class QuestionFrag extends Fragment implements OnRefreshListener,
 
 	// 显示所有问题的列表
 
+	protected static final String TAG = "TAG";
 	private final int REFRESH_TEMP = 1;
 	private final int REFRESH_LIMIT = 2;
 	int countpage = 1;
@@ -137,8 +139,11 @@ public class QuestionFrag extends Fragment implements OnRefreshListener,
 	public View onCreateView(final LayoutInflater inflater,
 			ViewGroup container, Bundle savedInstanceState) {
 		xt = (XueTuApplication) getContext().getApplicationContext();
-		getQuesIdWithImg();
-		InitData(1, REFRESH_TEMP);
+		//得到所有没有图片的集合
+		
+		//第一次加载数据
+//		InitData(1, REFRESH_TEMP);
+		
 		view = inflater.inflate(R.layout.question_frag, null);
 		right_layout = (RelativeLayout) view.findViewById(R.id.right_layout);
 		viewPop = inflater.inflate(R.layout.title, null);
@@ -163,13 +168,17 @@ public class QuestionFrag extends Fragment implements OnRefreshListener,
 			// lv.setSelection(0);
 			// showDengdai();break;
 			case 5: // 切换fragment时刷新listview
-				list = (List<Question>) msg.obj;
+				Log.i(TAG, "回到页面");
+//				list = (List<Question>) msg.obj;
 				// Log.i("hehe", "切换时notifychange");
 				// adapter.notifyDataSetChanged();
-				if(adapter!=null)
+				if(adapter!=null){
 					adapter.notifyDataSetChanged();
+				}
+//					adapter = new QuestionFragAdapter(list, getActivity());
+//				lv.setAdapter(adapter);}
 				else{
-					adapter = new QuestionFragAdapter(list, getContext());
+					adapter = new QuestionFragAdapter(list, getActivity());
 					lv.setAdapter(adapter);
 				}
 				break;
@@ -179,16 +188,16 @@ public class QuestionFrag extends Fragment implements OnRefreshListener,
 	};
 
 	// fragment 从被隐藏回到显示状态时自动刷新
-	@Override
-	public void onHiddenChanged(boolean hidden) {
-		// TODO Auto-generated method stub
-		if (!hidden) {
-
-			InitData(1, REFRESH_TEMP);
-			// handler.sendMessage(msg5);
-		}
-		super.onHiddenChanged(hidden);
-	}
+//	@Override
+//	public void onHiddenChanged(boolean hidden) {
+//		// TODO Auto-generated method stub
+//		if (!hidden) {
+//
+//			InitData(1, REFRESH_TEMP);
+//			// handler.sendMessage(msg5);
+//		}
+//		super.onHiddenChanged(hidden);
+//	}
 	
 	public class MyOnclickListener implements OnClickListener {
 		@Override
@@ -233,6 +242,11 @@ public class QuestionFrag extends Fragment implements OnRefreshListener,
 				getXueke();
 			}
 		}
+		
+		
+		
+		
+		
 		private void getXueke() {
 			// 按学科显示问题
 			progressDialog.show();
@@ -310,8 +324,10 @@ public class QuestionFrag extends Fragment implements OnRefreshListener,
 
 	@Override
 	public void onResume() {
+		lv.setSelection(0);
 		stu_id = ((XueTuApplication) getActivity().getApplication())
 				.getStudent().getStuId();
+		getQuesIdWithImg();
 		InitData(1, REFRESH_TEMP);
 		super.onResume();
 	}

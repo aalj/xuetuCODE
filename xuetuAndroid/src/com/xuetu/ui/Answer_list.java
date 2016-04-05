@@ -295,6 +295,40 @@ public class Answer_list extends Activity implements OnClickListener, OnHeaderRe
 	
 	
 	
+	private void getQueationByID(int uesId){
+		url = GetHttp.getHttpLC()+"GetquestionBuyId";
+		RequestParams paramsQuesId = new RequestParams();
+		paramsQuesId.addBodyParameter("Ques_id",curQues.getQuesID()+"");
+		hutils.send(HttpMethod.POST, url, paramsQuesId, new RequestCallBack<String>() {
+
+			@Override
+			public void onFailure(HttpException arg0, String arg1) {
+				// TODO Auto-generated method stub
+				
+			}
+
+			@Override
+			public void onSuccess(ResponseInfo<String> arg0) {
+				// TODO Auto-generated method stub
+				Gson gson = new GsonBuilder()
+				.enableComplexMapKeySerialization()
+				.setPrettyPrinting()
+				.disableHtmlEscaping()
+				.setDateFormat("yyyy-MM-dd HH:mm:ss").create();
+				Type type = new TypeToken<List<Answer>>(){}.getType();
+				list = gson.fromJson(arg0.result, type);
+				 Message msg = Message.obtain();
+				 msg.what=1;
+				 msg.obj=list;
+				handler.sendMessage(msg);
+				;
+			}
+		});
+	}
+	
+	
+	
+	
 	//拍照回答
 	//拍照
 		public void prop(int location){
