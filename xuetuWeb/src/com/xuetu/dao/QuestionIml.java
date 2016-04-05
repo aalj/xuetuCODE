@@ -5,6 +5,7 @@ import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -755,6 +756,38 @@ public class QuestionIml implements QuesTionDao {
 				s.add(rs.getInt("ans_id"));
 			}
 			return s;
+		} catch (Exception e) {
+			throw new RuntimeException(e);
+		} finally {
+			try {
+				if (conn != null)
+					conn.close();
+				if (prep != null)
+					prep.close();
+			} catch (Exception e) {
+				throw new RuntimeException(e);
+			}
+		}
+	}
+
+	@Override
+	public Set<Integer> getQuesIdsWithImg() {
+		Connection conn = null;
+		String sql = null;
+		PreparedStatement prep = null;
+		Set<Integer> s = new HashSet<Integer>();
+		try {
+			conn = DBconnection.getConnection();
+			sql = "select ques_id  from question where ques_img=' '";
+			Statement stat = null;
+			stat = conn.createStatement();
+			ResultSet rs = stat.executeQuery(sql);
+			Set<Integer> set = new HashSet<Integer>();
+			// 指针从第一行属性字段开始
+			while (rs.next()) {
+				set.add(rs.getInt("ques_id"));
+			}
+			return set;
 		} catch (Exception e) {
 			throw new RuntimeException(e);
 		} finally {

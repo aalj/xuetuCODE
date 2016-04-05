@@ -19,7 +19,7 @@ import android.util.AttributeSet;
 import android.widget.ImageView;
 
 public class CircleImageView extends ImageView {
-
+	ScaleType st ;
 	private static final ScaleType SCALE_TYPE = ScaleType.CENTER_CROP;
 
 	private static final Bitmap.Config BITMAP_CONFIG = Bitmap.Config.ARGB_8888;
@@ -83,9 +83,10 @@ public class CircleImageView extends ImageView {
 
 	@Override
 	public void setScaleType(ScaleType scaleType) {
-		if (scaleType != SCALE_TYPE) {
-			throw new IllegalArgumentException(String.format("ScaleType %s not supported.", scaleType));
-		}
+//		if (scaleType != SCALE_TYPE) {
+//			throw new IllegalArgumentException(String.format("ScaleType %s not supported.", scaleType));
+//		}
+		this.st = scaleType;
 	}
 
 	@Override

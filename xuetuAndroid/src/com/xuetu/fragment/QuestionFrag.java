@@ -9,7 +9,7 @@
  *   		 2015年11月8日 		view
  *
  * Copyright (c) 2015, TNT All Rights Reserved.
-*/
+ */
 
 package com.xuetu.fragment;
 
@@ -20,7 +20,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Set;
-
 
 import java.lang.reflect.Type;
 import com.google.gson.reflect.TypeToken;
@@ -79,21 +78,18 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 /**
- * ClassName:RecomFrag
- * Function: TODO ADD FUNCTION
- * Reason:	 TODO ADD REASON
- *
- * @author   view
- * @version  
- * @since    Ver 1.1
- * @Date	 2015年11月8日		下午3:46:46
- *
- * @see 	 
-
+ * ClassName:RecomFrag Function: TODO ADD FUNCTION Reason: TODO ADD REASON
+ * 
+ * @author view
+ * @version
+ * @since Ver 1.1
+ * @Date 2015年11月8日 下午3:46:46
+ * 
+ * @see
  */
-public class QuestionFrag extends Fragment implements OnRefreshListener, OnKeyListener{
-	
-	
+public class QuestionFrag extends Fragment implements OnRefreshListener,
+		OnKeyListener {
+
 	// 显示所有问题的列表
 
 	private final int REFRESH_TEMP = 1;
@@ -101,20 +97,17 @@ public class QuestionFrag extends Fragment implements OnRefreshListener, OnKeyLi
 	int countpage = 1;
 	/** 请求数据的页数 */
 	private int pageIndex = 0;
-	//表示是否是第一次进入改也页面
+	// 表示是否是第一次进入改也页面
 	boolean firstInto = true;
-	
-
-
-
+	XueTuApplication xt ;
 	Message msg5 = null;
 	RefreshListView lv = null;
 	HttpUtils hutils = new HttpUtils();
 	List<Question> list = new ArrayList<Question>();
-	List<Question> oldlist=new ArrayList<Question>();
+	List<Question> oldlist = new ArrayList<Question>();
 	View view = null;
 	View viewPop = null;
-//	ListView lv = null;
+	// ListView lv = null;
 	RelativeLayout rl_top;
 	RelativeLayout rl_left;
 	RelativeLayout rl_right;
@@ -136,11 +129,15 @@ public class QuestionFrag extends Fragment implements OnRefreshListener, OnKeyLi
 	HttpUtils hutilsGetSubQues = new HttpUtils();
 	String urlSub = null;
 	RequestParams paramsSub = null;
-//	private Set<Integer> listtag = new HashSet<Integer>();
-//	MyBasesadapter<Question> adapter = null;
-//	MyQuestionListBaseAdapter adapter = null;
+
+	// private Set<Integer> listtag = new HashSet<Integer>();
+	// MyBasesadapter<Question> adapter = null;
+	// MyQuestionListBaseAdapter adapter = null;
 	@Override
-	public View onCreateView(final LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+	public View onCreateView(final LayoutInflater inflater,
+			ViewGroup container, Bundle savedInstanceState) {
+		xt = (XueTuApplication) getContext().getApplicationContext();
+		getQuesIdWithImg();
 		InitData(1, REFRESH_TEMP);
 		view = inflater.inflate(R.layout.question_frag, null);
 		right_layout = (RelativeLayout) view.findViewById(R.id.right_layout);
@@ -150,89 +147,64 @@ public class QuestionFrag extends Fragment implements OnRefreshListener, OnKeyLi
 		setOnclickListener();
 		
 		InitDengdaiDialog();
-		adapter = new QuestionFragAdapter(list, getContext());
-		lv.setAdapter(adapter);
+//		adapter = new QuestionFragAdapter(list, getContext());
+//		lv.setAdapter(adapter);
 		lv.setOnRefreshListener(this);
 		return view;
 	}
-	
-	Handler handler = new Handler(){
+
+	Handler handler = new Handler() {
 		@Override
 		public void handleMessage(Message msg) {
-			switch(msg.what){
-//			case 4:
-//				list =(List<Question>) msg.obj;
-//				adapter.notifyDataSetChanged();
-//				lv.setSelection(0);
-//				showDengdai();break;	
-			case 5:						//切换fragment时刷新listview
-				list =(List<Question>) msg.obj;
-//				Log.i("hehe", "切换时notifychange");
-//				adapter.notifyDataSetChanged();
-				lv.setAdapter(adapter);
-				break;	
+			switch (msg.what) {
+			// case 4:
+			// list =(List<Question>) msg.obj;
+			// adapter.notifyDataSetChanged();
+			// lv.setSelection(0);
+			// showDengdai();break;
+			case 5: // 切换fragment时刷新listview
+				list = (List<Question>) msg.obj;
+				// Log.i("hehe", "切换时notifychange");
+				// adapter.notifyDataSetChanged();
+				if(adapter!=null)
+					adapter.notifyDataSetChanged();
+				else{
+					adapter = new QuestionFragAdapter(list, getContext());
+					lv.setAdapter(adapter);
+				}
+				break;
 			}
 			super.handleMessage(msg);
 		}
 	};
-	
-	//fragment 从被隐藏回到显示状态时自动刷新
+
+	// fragment 从被隐藏回到显示状态时自动刷新
 	@Override
 	public void onHiddenChanged(boolean hidden) {
 		// TODO Auto-generated method stub
-		if(!hidden){
-		
+		if (!hidden) {
+
 			InitData(1, REFRESH_TEMP);
-//			handler.sendMessage(msg5);
+			// handler.sendMessage(msg5);
 		}
 		super.onHiddenChanged(hidden);
 	}
-/*	public List<Integer> getSaveQuestion(){
-		String urlIsSave = GetHttp.getHttpLC()+"IsSaveQuestion";
-		RequestParams rp = new RequestParams();
-		hutils.send(HttpMethod.POST, urlIsSave,rp, new RequestCallBack<String>() {
-			@Override
-			public void onFailure(HttpException arg0, String arg1) {
-				// TODO Auto-generated method stub
-				Log.i("hehe", "failure getSaveQuestion");
-			}
-
-			@Override
-			public void onSuccess(ResponseInfo<String> arg0) {
-				// TODO Auto-generated method stub
-				Log.i("hehe", "success getSaveQuestion");
-				Gson gson = new GsonBuilder()
-				.enableComplexMapKeySerialization()
-				.setPrettyPrinting()
-				.disableHtmlEscaping()
-				.setDateFormat("yyyy-MM-dd HH:mm:ss").create();
-				//得到所有点赞问题的id集合
-				Type typeSave = new TypeToken<List<Integer>>(){}.getType();
-				listtag = gson.fromJson(arg0.result, typeSave);
-			}
-		});
-		return listtag;
-	}*/
 	
-	
-	
-	
-	public class MyOnclickListener implements OnClickListener{
+	public class MyOnclickListener implements OnClickListener {
 		@Override
 		public void onClick(View v) {
 			// TODO Auto-generated method stub
-			sub_id=0;
-			switch(v.getId()){
+			sub_id = 0;
+			switch (v.getId()) {
 			case R.id.tv_title:
 				showPopupWinow(v);
 				lv.setFocusableInTouchMode(true);
 				break;
 			case R.id.right_layout:
-				Toast.makeText(getContext(), stu_id+"", 0).show();
-				if(stu_id>0){
-				Intent intent = new Intent(getContext(),Question_ask.class);
-				getContext().startActivity(intent);
-				}else{
+				if (stu_id > 0) {
+					Intent intent = new Intent(getContext(), Question_ask.class);
+					getContext().startActivity(intent);
+				} else {
 					Toast.makeText(getContext(), "请先登录哟！", 0).show();
 				}
 				break;
@@ -257,74 +229,107 @@ public class QuestionFrag extends Fragment implements OnRefreshListener, OnKeyLi
 				popupWindow.dismiss();
 				break;
 			}
-			if(sub_id!=0){
-			getXueke();
+			if (sub_id != 0) {
+				getXueke();
 			}
 		}
-
 		private void getXueke() {
-			//按学科显示问题
-				progressDialog.show();
-				urlSub = GetHttp.getHttpLC()+"GetSubQues";
-				paramsSub = new RequestParams();
-				paramsSub.addBodyParameter("sub_id",sub_id+"");
-				hutilsGetSubQues.send(HttpMethod.POST, urlSub, paramsSub,new RequestCallBack<String>() {
+			// 按学科显示问题
+			progressDialog.show();
+			urlSub = GetHttp.getHttpLC() + "GetSubQues";
+			paramsSub = new RequestParams();
+			paramsSub.addBodyParameter("sub_id", sub_id + "");
+			hutilsGetSubQues.send(HttpMethod.POST, urlSub, paramsSub,
+					new RequestCallBack<String>() {
 
-					@Override
-					public void onFailure(HttpException arg0, String arg1) {
-						// TODO Auto-generated method stub 
-						Toast.makeText(getContext(), "请求数据失败", 0).show();
-					}
+						@Override
+						public void onFailure(HttpException arg0, String arg1) {
+							// TODO Auto-generated method stub
+							Toast.makeText(getContext(), "请求数据失败", 0).show();
+						}
 
-					@Override
-					public void onSuccess(ResponseInfo<String> arg0) {
-						// TODO Auto-generated method stub
-						Gson gson = new GsonBuilder()
-						.enableComplexMapKeySerialization()
-						.setPrettyPrinting()
-						.disableHtmlEscaping()
-						.setDateFormat("yyyy-MM-dd HH:mm:ss").create();
-						Type typeSub = new TypeToken<List<Question>>(){}.getType();
-						List<Question> questionSub = gson.fromJson(arg0.result,typeSub);
-						list.removeAll(oldlist);
-						list.addAll(0,questionSub);
-						adapter.notifyDataSetChanged();
-						oldlist = questionSub;
-						progressDialog.dismiss();
-						lv.setSelection(0);
-//						Message msg = Message.obtain();
-//						 msg.what=4;
-//						 msg.obj=list;
-//						handler.sendMessage(msg);
-					}
-				});
-			}
+						@Override
+						public void onSuccess(ResponseInfo<String> arg0) {
+							// TODO Auto-generated method stub
+							Gson gson = new GsonBuilder()
+									.enableComplexMapKeySerialization()
+									.setPrettyPrinting().disableHtmlEscaping()
+									.setDateFormat("yyyy-MM-dd HH:mm:ss")
+									.create();
+							Type typeSub = new TypeToken<List<Question>>() {
+							}.getType();
+							List<Question> questionSub = gson.fromJson(
+									arg0.result, typeSub);
+							list.removeAll(oldlist);
+							list.addAll(0, questionSub);
+							adapter.notifyDataSetChanged();
+							oldlist = questionSub;
+							progressDialog.dismiss();
+							lv.setSelection(0);
+							// Message msg = Message.obtain();
+							// msg.what=4;
+							// msg.obj=list;
+							// handler.sendMessage(msg);
+						}
+					});
 		}
-	//正在加载dialog
-	private void InitDengdaiDialog() {
-			progressDialog = new ProgressDialog(getContext());
-			progressDialog.setMessage("正在加载...");
-			progressDialog.setCancelable(true);
-			progressDialog.setOnKeyListener(this);
 	}
-	
+	//得到所有有问题图片的问题id，存到application对象中
+	public void getQuesIdWithImg(){
+		url = GetHttp.getHttpLC()+"GetQuesWithImg";
+		paramsSub = new RequestParams();
+		hutils.send(HttpMethod.GET, url, new RequestCallBack<String>() {
+
+			@Override
+			public void onFailure(HttpException arg0, String arg1) {
+				// TODO Auto-generated method stub
+				
+			}
+
+			@Override
+			public void onSuccess(ResponseInfo<String> arg0) {
+				// TODO Auto-generated method stub
+				Gson gson = new GsonBuilder()
+				.enableComplexMapKeySerialization()
+				.setPrettyPrinting()
+				.disableHtmlEscaping()
+				.setDateFormat("yyyy-MM-dd HH:mm:ss").create();
+				Type type = new TypeToken<Set<Integer>>(){}.getType();
+				Set<Integer> sQuesId = gson.fromJson(arg0.result, type);
+				xt.setSetQuesWithImg(sQuesId);
+			}
+		});
+	}
+	// 正在加载dialog
+	private void InitDengdaiDialog() {
+		progressDialog = new ProgressDialog(getContext());
+		progressDialog.setMessage("正在加载...");
+		progressDialog.setCancelable(true);
+		progressDialog.setOnKeyListener(this);
+	}
+
 	@Override
 	public void onResume() {
-		stu_id = ((XueTuApplication)getActivity().getApplication()).getStudent().getStuId();
+		stu_id = ((XueTuApplication) getActivity().getApplication())
+				.getStudent().getStuId();
 		InitData(1, REFRESH_TEMP);
 		super.onResume();
 	}
-	
-	public void setOnclickListener(){
-//		rl_right.setOnClickListener(this);
+
+	public void setOnclickListener() {
+		// rl_right.setOnClickListener(this);
 		tv_title.setOnClickListener(new MyOnclickListener());
 		right_layout.setOnClickListener(new MyOnclickListener());
 	}
-	/**发送网络请求，下载所有问题信息
+
+	/**
+	 * 发送网络请求，下载所有问题信息
 	 * 
-	 */int count=0;
-	public void InitData(final int tempnum,int temp){
-		url = GetHttp.getHttpLC()+"GetPageQuestion";
+	 */
+	int count = 0;
+
+	public void InitData(final int tempnum, int temp) {
+		url = GetHttp.getHttpLC() + "GetPageQuestion";
 		RequestParams params = new RequestParams();
 		if (temp == REFRESH_TEMP) {
 			params.addBodyParameter("page", "1");// 查询第1页
@@ -333,73 +338,56 @@ public class QuestionFrag extends Fragment implements OnRefreshListener, OnKeyLi
 			params.addBodyParameter("page", countpage + "");// 查询第1页
 		}
 		params.addBodyParameter("num", "10");// 每页显示5条
-//		hutils.configCurrentHttpCacheExpiry(1000);
-		/*SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-		System.out.println(sdf.format(new java.sql.Timestamp(System.currentTimeMillis())));*/
-		hutils.send(HttpMethod.POST, url,params, new RequestCallBack<String>() {
+		 hutils.configCurrentHttpCacheExpiry(0);
+		hutils.send(HttpMethod.POST, url, params,
+				new RequestCallBack<String>() {
 
-			@Override
-			public void onFailure(HttpException arg0, String arg1) {
-				// TODO Auto-generated method stub
-				Toast.makeText(getContext(), "网络不太好哦！", 0).show();
-			}
-
-			@Override
-			public void onSuccess(ResponseInfo<String> arg0) {
-				// TODO Auto-generated method stub
-				//指定date格式的gson对象
-				Toast.makeText(getContext(), "加载成功", 0).show();
-				Gson gson = new GsonBuilder()
-				.enableComplexMapKeySerialization()
-				.setPrettyPrinting()
-				.disableHtmlEscaping()
-				.setDateFormat("yyyy-MM-dd HH:mm:ss").create();
-				List<Question> lists = new ArrayList<Question>();
-//				Type map = new TypeToken<Map<List<Integer>, List<Question>>>(){}.getType();
-				Type listtype = new TypeToken<List<Question>>(){}.getType();
-				lists = gson.fromJson(arg0.result, listtype);
-//				Map<Set<Integer>, List<Question>> maps = gson.fromJson(arg0.result, map);
-//					Set<Entry<Set<Integer>, List<Question>>> set = maps.entrySet();
-//				for(Entry<Set<Integer>, List<Question>> m: set){
-					
-//					((XueTuApplication)getActivity().getApplication()).setSet(m.getKey());
-//					listtag.addAll(((XueTuApplication)getActivity().getApplication()).getSet());
-//					listtag = ((XueTuApplication)getActivity().getApplication()).getSet();
-//						Log.i("hehe", listtag.size()+"listtagSize");
-//						lists = m.getValue();
-//					}
-					
-					if(tempnum==1){
-					list.removeAll(oldlist);
-					list.addAll(0,lists);
-					if(adapter!=null){
-						adapter.notifyDataSetChanged();
+					@Override
+					public void onFailure(HttpException arg0, String arg1) {
+						// TODO Auto-generated method stub
+						Toast.makeText(getContext(), "网络不太好哦！", 0).show();
 					}
-					lv.hideHeaderView();
-					oldlist = lists;
-				}
-				else{
-					list.addAll(lists);
-					adapter.notifyDataSetChanged();
-					// 控制脚布局隐藏
-					lv.hideFooterView();
-				}
-//					if(adapter!=null){
-//						adapter.notifyDataSetChanged();
-//					}
-					msg5= Message.obtain();
-					 msg5.what=5;
-					 msg5.obj=list;
-					 handler.sendMessage(msg5);
-			}
-		});
+
+					@Override
+					public void onSuccess(ResponseInfo<String> arg0) {
+						// TODO Auto-generated method stub
+						// 指定date格式的gson对象
+						Gson gson = new GsonBuilder()
+								.enableComplexMapKeySerialization()
+								.setPrettyPrinting().disableHtmlEscaping()
+								.setDateFormat("yyyy-MM-dd HH:mm:ss").create();
+						List<Question> lists = new ArrayList<Question>();
+						Type listtype = new TypeToken<List<Question>>() {
+						}.getType();
+						lists = gson.fromJson(arg0.result, listtype);
+
+						if (tempnum == 1) {
+							list.removeAll(oldlist);
+							list.addAll(0, lists);
+							if (adapter != null) {
+								adapter.notifyDataSetChanged();
+							}
+							lv.hideHeaderView();
+							oldlist = lists;
+						} else {
+							list.addAll(lists);
+							adapter.notifyDataSetChanged();
+							// 控制脚布局隐藏
+							lv.hideFooterView();
+						}
+						msg5 = Message.obtain();
+						msg5.what = 5;
+						msg5.obj = list;
+						handler.sendMessage(msg5);
+					}
+				});
 	}
 
 	//
 	@Override
 	public void onDownPullRefresh() {
 		// 这是下拉刷新出来的数据
-		
+
 		InitData(1, REFRESH_TEMP);
 
 	}
@@ -410,60 +398,61 @@ public class QuestionFrag extends Fragment implements OnRefreshListener, OnKeyLi
 		InitData(2, REFRESH_LIMIT);
 	}
 
-	//弹出学科列表
-	public void showPopupWinow(View v){
-		 // 一个自定义的布局，作为显示的内容
-       View contentView = LayoutInflater.from(getContext()).inflate(
-               R.layout.subject_pop, null);
-       //设置4个学科选项的监听实践
-       contentView.findViewById(R.id.tv_sub1).setOnClickListener(new MyOnclickListener());
-       contentView.findViewById(R.id.tv_sub2).setOnClickListener(new MyOnclickListener());
-       contentView.findViewById(R.id.tv_sub3).setOnClickListener(new MyOnclickListener());
-       contentView.findViewById(R.id.tv_sub4).setOnClickListener(new MyOnclickListener());
-       // 设置按钮的点击事件
-//     
-//       Button button = (Button) contentView.findViewById(R.id.button1);
-//       button.setOnClickListener(new OnClickListener() {
-//
-//           @Override
-//           public void onClick(View v) {
-//               Toast.makeText(mContext, "button is pressed",
-//                       Toast.LENGTH_SHORT).show();
-//           }
-//       });
-       
-       popupWindow = new PopupWindow(contentView,
-               LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT, true);
-       popupWindow.setTouchable(true);
-       popupWindow.setTouchInterceptor(new OnTouchListener() {
+	// 弹出学科列表
+	public void showPopupWinow(View v) {
+		// 一个自定义的布局，作为显示的内容
+		View contentView = LayoutInflater.from(getContext()).inflate(
+				R.layout.subject_pop, null);
+		// 设置4个学科选项的监听实践
+		contentView.findViewById(R.id.tv_sub1).setOnClickListener(
+				new MyOnclickListener());
+		contentView.findViewById(R.id.tv_sub2).setOnClickListener(
+				new MyOnclickListener());
+		contentView.findViewById(R.id.tv_sub3).setOnClickListener(
+				new MyOnclickListener());
+		contentView.findViewById(R.id.tv_sub4).setOnClickListener(
+				new MyOnclickListener());
+		// 设置按钮的点击事件
+		//
+		// Button button = (Button) contentView.findViewById(R.id.button1);
+		// button.setOnClickListener(new OnClickListener() {
+		//
+		// @Override
+		// public void onClick(View v) {
+		// Toast.makeText(mContext, "button is pressed",
+		// Toast.LENGTH_SHORT).show();
+		// }
+		// });
+
+		popupWindow = new PopupWindow(contentView, LayoutParams.MATCH_PARENT,
+				LayoutParams.WRAP_CONTENT, true);
+		popupWindow.setTouchable(true);
+		popupWindow.setTouchInterceptor(new OnTouchListener() {
 			@Override
 			public boolean onTouch(View v, MotionEvent event) {
 				// TODO Auto-generated method stub
 				return false;
 				// 这里如果返回true的话，touch事件将被拦截
-               // 拦截后 PopupWindow的onTouchEvent不被调用，这样点击外部区域无法dismiss
+				// 拦截后 PopupWindow的onTouchEvent不被调用，这样点击外部区域无法dismiss
 			}
-       });
-       // 如果不设置PopupWindow的背景，无论是点击外部区域还是Back键都无法dismiss弹框
-       // 我觉得这里是API的一个bug
-       popupWindow.setBackgroundDrawable(getResources().getDrawable(
-               R.drawable.toumingbackground));
-       // 设置好参数之后再show
-       popupWindow.showAsDropDown(v);
-    // popupWindow.showAtLocation(view.getParent(),ce, x, y)
+		});
+		// 如果不设置PopupWindow的背景，无论是点击外部区域还是Back键都无法dismiss弹框
+		// 我觉得这里是API的一个bug
+		popupWindow.setBackgroundDrawable(getResources().getDrawable(
+				R.drawable.toumingbackground));
+		// 设置好参数之后再show
+		popupWindow.showAsDropDown(v);
+		// popupWindow.showAtLocation(view.getParent(),ce, x, y)
 	}
-
-
 
 	@Override
 	public boolean onKey(DialogInterface dialog, int keyCode, KeyEvent event) {
-		if (keyCode == KeyEvent.KEYCODE_BACK && event.getAction() == KeyEvent.ACTION_DOWN) {
+		if (keyCode == KeyEvent.KEYCODE_BACK
+				&& event.getAction() == KeyEvent.ACTION_DOWN) {
 			if (progressDialog != null)
 				progressDialog.dismiss();
 		}
 		return false;
 	}
-	
-	
-}
 
+}

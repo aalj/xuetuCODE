@@ -15,6 +15,17 @@ public class XueTuApplication extends Application {
 	 private Student student = null;
 	private  List<float[]> list = new ArrayList<float[]>();
 	private Set<Integer> set = new HashSet<Integer>();
+	private Set<Integer> setQuesWithImg= new HashSet<Integer>();
+	
+
+	public Set<Integer> getSetQuesWithImg() {
+		return setQuesWithImg;
+	}
+
+	public void setSetQuesWithImg(Set<Integer> setQuesWithImg) {
+		this.setQuesWithImg = setQuesWithImg;
+	}
+
 	public Set<Integer> getSet() {
 		return set;
 	}
