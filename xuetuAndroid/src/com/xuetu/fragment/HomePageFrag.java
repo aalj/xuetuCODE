@@ -231,9 +231,7 @@ public class HomePageFrag extends Fragment implements OnTouchListener {
 			public void onClick(View v) {
 //				get_stu_studyTime();
 				
-				if(flag==true){
-					flag=false;
-					planflag=false;
+				if(flag){
 				get_stu_studyTime();
 				}
 				
@@ -245,9 +243,8 @@ public class HomePageFrag extends Fragment implements OnTouchListener {
 			@Override
 			public void onClick(View v) {
 				
-				if(planflag==true)
+				if(planflag)
 				{
-					
 				search_today_studyplan();
 				}
 			}
@@ -471,7 +468,8 @@ public class HomePageFrag extends Fragment implements OnTouchListener {
 	 * 上滑执行方法
 	 */
 	public void get_stu_studyTime() {
-		
+		flag     = false;
+		planflag = false;
 		String url =GetHttp.getHttpKY()+"GetClassTime";
 //		String url = "http://10.201.1.8:8080/xuetuWeb/GetClassTime";
 		HttpUtils httpUtils = new HttpUtils();
@@ -521,6 +519,7 @@ public class HomePageFrag extends Fragment implements OnTouchListener {
 								@Override
 								public void onClick(DialogInterface dialog, int which) {
 									// TODO Auto-generated method stub
+									
 									search_today_studyplan();
 								}
 							}).setCancelable(false).show();
@@ -832,8 +831,7 @@ new AlertDialog.Builder(getActivity()).setTitle("注意").setMessage("当天没�
 	
 	public void search_today_studyplan()
 	{
-		if(planflag)
-		{
+		
 			flag=false;
 			planflag=false;
 			String url =GetHttp.getHttpKY()+"GetDayTime";    //
@@ -957,7 +955,7 @@ new AlertDialog.Builder(getActivity()).setTitle("注意").setMessage("当天没�
 						}
 					});
 		}
-	}
+	
 	
 
 }
