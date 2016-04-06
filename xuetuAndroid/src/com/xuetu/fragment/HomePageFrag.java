@@ -845,9 +845,16 @@ new AlertDialog.Builder(getActivity()).setTitle("注意").setMessage("当天没�
 						public void onFailure(HttpException arg0, String arg1) {
 							// TODO Auto-generated method stub
 									System.out.println("网络异常");
-									new AlertDialog.Builder(getActivity()).setTitle("提示").setMessage("抱歉,网络异常").setNegativeButton("返回", null).show();
-									flag     = true;
-									planflag = true;
+									new AlertDialog.Builder(getActivity()).setTitle("提示").setMessage("抱歉,网络异常").setNegativeButton("返回", new DialogInterface.OnClickListener() {
+										
+										@Override
+										public void onClick(DialogInterface dialog, int which) {
+											// TODO Auto-generated method stub
+											flag     = true;
+											planflag = true;
+										}
+									}).setCancelable(false).show();
+									
 						}
 	
 						@Override
