@@ -12,7 +12,7 @@
         android:layout_height="wrap_content"
         title:titleBarLeftImage="@drawable/ic_menu_cancel"
         title:titleBarRightImage="@drawable/ic_menu_set"
-        title:titleBarTitle="添加计划" >
+        title:titleBarTitle="修改计划" >
     </com.xuetu.view.TitleBar>
 
     <RelativeLayout
@@ -99,16 +99,16 @@
             android:layout_alignParentLeft="true"
             android:layout_marginLeft="10dp"
             android:gravity="center"
-            android:text="常驻通知栏" />
+            android:text="通知栏提醒" />
 
-        <com.gc.materialdesign.views.Switch
+        <Switch
             android:id="@+id/study_parrt_info"
             
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
             android:layout_marginRight="10dp"
-            android:text="TextView" />
+             />
     </RelativeLayout>
 
     <View
