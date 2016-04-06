@@ -23,10 +23,10 @@ import cn.sharesdk.framework.ShareSDK;
 import cn.sharesdk.onekeyshare.OnekeyShare;
 
 public class PaiHangBangActivity extends Baseactivity implements OnClickListener, OnPageChangeListener {
-//	ListView listView_paihangbang;
+	// ListView listView_paihangbang;
 	TitleBar titlebar;
-//	MyBasesadapter<PersonalStudyTimeAll> myadapter;
-//	List<PersonalStudyTimeAll> datas;
+	// MyBasesadapter<PersonalStudyTimeAll> myadapter;
+	// List<PersonalStudyTimeAll> datas;
 	TextView studytimefragment;
 	TextView answerfragment;
 	/**
@@ -81,6 +81,13 @@ public class PaiHangBangActivity extends Baseactivity implements OnClickListener
 			break;
 		case R.id.right_layout:
 			showShare();
+			break;
+		case R.id.studytimefragment:
+			changeView(0);
+			break;
+		case R.id.answerfragment:
+			changeView(1);
+			break;
 		default:
 			break;
 		}
@@ -121,6 +128,11 @@ public class PaiHangBangActivity extends Baseactivity implements OnClickListener
 			currenttab = mViewPager.getCurrentItem();
 		}
 
+	}
+
+	// 手动设置ViewPager要显示的视图
+	private void changeView(int desTab) {
+		mViewPager.setCurrentItem(desTab, true);
 	}
 
 	@Override
