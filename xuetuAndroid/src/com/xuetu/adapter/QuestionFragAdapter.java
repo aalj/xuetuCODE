@@ -42,7 +42,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 public class QuestionFragAdapter extends BaseAdapter {
-	SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+	SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm");
 	private List<Question> questions;
 	private Context context;
 	XueTuApplication xt;
