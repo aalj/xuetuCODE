@@ -39,7 +39,7 @@ import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ListView;
 
 public class DaoJiShiActivity extends Activity implements OnItemClickListener, OnClickListener {
-	protected static final String TAG = null;
+	protected static final String TAG = "TAG";
 	@ViewInject(R.id.activity_find_task_list)
 	ListView activity_find_task_list;
 	@ViewInject(R.id.title_my)
@@ -65,7 +65,7 @@ public class DaoJiShiActivity extends Activity implements OnItemClickListener, O
 		ViewUtils.inject(this);
 		db = new DBFindManager(this);
 		sp = getSharedPreferences("config", Activity.MODE_PRIVATE);
-		inintView();
+//		inintView();
 		title_my.setLeftLayoutClickListener(this);
 		title_my.setRightLayoutClickListener(this);
 		activity_find_task_list.setOnItemClickListener(this);
@@ -79,16 +79,7 @@ public class DaoJiShiActivity extends Activity implements OnItemClickListener, O
 			getData();
 		} else {
 			list = db.queryCountdown();
-			Log.i("TAG", "本地-----》》》" + list.toString());
 		}
-		// List<Countdown> liatold = new ArrayList<>();
-		// for (Countdown i : list) {
-		// if(i.getCodoTime().getTime()>System.currentTimeMillis()){
-		// liatold.add(i);
-		// }
-		// }
-		// list.clear();
-		// list.addAll(liatold);
 
 		baseAdapter = new MyBaseAdapter<Countdown>(list, DaoJiShiActivity.this, R.layout.dao_jishi_item) {
 
@@ -98,7 +89,6 @@ public class DaoJiShiActivity extends Activity implements OnItemClickListener, O
 
 				viewHolder.setText(R.id.tilte, item.getCodoText());
 				Date date = item.getCodoTime();
-				Log.i(TAG, "shaijian semgksdflkg " + date.getTime() + "");
 				viewHolder.setText(R.id.textView1, dateFormat.format(date) + " " + DataToTime.getWeekOfDate(date));
 				viewHolder.setText(R.id.textView3, getDay(item.getCodoTime().getTime()) + "");
 
@@ -109,6 +99,20 @@ public class DaoJiShiActivity extends Activity implements OnItemClickListener, O
 		activity_find_task_list.setAdapter(baseAdapter);
 
 	}
+	
+	@Override
+	protected void onResume() {
+		Log.i("TAG", "好事吗");
+		inintView();
+		for (Countdown i : list) {
+			Log.i("TAG", i.getCodoText());
+			
+		}
+//		baseAdapter.notifyDataSetChanged();
+		super.onResume();
+	}
+	
+	
 
 	private void getData() {
 		HttpUtils httpUtils = new HttpUtils();
@@ -185,18 +189,20 @@ public class DaoJiShiActivity extends Activity implements OnItemClickListener, O
 		// TODO Auto-generated method stub
 		super.onActivityResult(requestCode, resultCode, data);
 		if(resultCode==1011){
-			Log.i("TAG", "传回地搜集和电话imrojdfg  ");
 			Countdown countdown = (Countdown) data.getSerializableExtra("countdown");
-			list.add(0,countdown);
+			Log.i("TAG", "countdown.getCodo_index()"+countdown.getCodo_index());
+//			list.add(0,countdown);
 			db.insertCountdown(countdown);
-			baseAdapter.notifyDataSetChanged();
+//			baseAdapter.notifyDataSetChanged();
 		}
 		if(resultCode==1012){
-			Log.i("TAG", "传回地搜集和电话imrojdfg  ");
 			Countdown countdown = (Countdown) data.getSerializableExtra("countdown");
-			list.remove(countdown);
-			baseAdapter.notifyDataSetChanged();
+			Log.i("TAG", "countdown.getCodo_index()"+countdown.getCodo_index());
+//			list.add(0,countdown);
+			db.updateCountdown(countdown.getCodoID(), countdown);
+//			baseAdapter.notifyDataSetChanged();
 		}
+		
 		
 		
 		

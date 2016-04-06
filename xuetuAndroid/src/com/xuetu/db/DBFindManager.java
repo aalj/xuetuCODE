@@ -11,6 +11,7 @@ import com.xuetu.entity.SelfStudyPlan;
 
 import android.content.ContentValues;
 import android.content.Context;
+import android.content.SyncStatusObserver;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.util.Log;
@@ -41,7 +42,6 @@ public class DBFindManager {
 			values.put("plan_id", selfS.getPlanID());
 			values.put("start_time", selfS.getStartTime().getTime());
 			values.put("end_time", selfS.getEndTime().getTime());
-			Log.i("TAG", "保存的结束时间" + selfS.getEndTime().getTime() + "");
 			values.put("plan_text", selfS.getPlanText());
 			values.put("plan_remind", selfS.getPlanReming());
 			values.put("pattern_id", selfS.getPattern().getPatternID());
@@ -57,7 +57,6 @@ public class DBFindManager {
 	}
 
 	public void addSelfOne(SelfStudyPlan selfS) {
-		Log.i("TAG", "添加zihua dao ");
 		db.beginTransaction();// 开始事务
 		ContentValues values = new ContentValues();
 		values.put("plan_id", selfS.getPlanID());
@@ -108,7 +107,6 @@ public class DBFindManager {
 			plan.setStartTime(startDate);
 
 			String endTime = query.getString(query.getColumnIndex("start_time"));
-			Log.i("TAG", "去出的结束时间" + endTime);
 			Date endData = new Date(Long.parseLong(endTime));
 			plan.setEndTime(endData);
 
@@ -162,6 +160,8 @@ public class DBFindManager {
 		ContentValues values = new ContentValues();
 		values.put("code_time", countdown.getCodoTime().getTime() + "");
 		values.put("codo_text", countdown.getCodoText());
+		values.put("codo_index", countdown.getCodo_index());
+		values.put("temp_time", (int)System.currentTimeMillis()+"");
 
 		long insert = db.insert("countdown", null, values);
 		if (!(insert > 0)) {
@@ -181,12 +181,11 @@ public class DBFindManager {
 		while (query.moveToNext()) {
 			alarm = new Countdown();
 			alarm.setCodoID(query.getInt(query.getColumnIndex("codo_id")));
-			Log.i("TAG", query.getInt(query.getColumnIndex("code_time")) + "------->>>>>>取出来的内容id");
 			// String columnIndex = query.getColumnIndex("start_time");
-			Log.i("TAG", Long.parseLong(query.getString(query.getColumnIndex("code_time")))+"本地数据库数据是啊今年");
 			alarm.setCodoTime(new Date(Long.parseLong(query.getString(query.getColumnIndex("code_time")))));
 			alarm.setCodoText(query.getString(query.getColumnIndex("codo_text")));
-
+			alarm.setCodo_index(query.getInt(query.getColumnIndex("codo_index")));
+			alarm.setTemp_time(query.getInt(query.getColumnIndex("temp_time")));
 			list.add(alarm);
 
 		}
@@ -200,6 +199,8 @@ public class DBFindManager {
 //		values.put("codo_id", countdown.getStartTime());
 		values.put("code_time", countdown.getCodoTime().getTime());
 		values.put("codo_text", countdown.getCodoText());
+		values.put("codo_index", countdown.getCodo_index());
+		values.put("temp_time", countdown.getTemp_time());
 		String whereClause = "codo_id=?";
 		String[] whereArgs = { alarm_id+"" };
 		int update = db.update("countdown", values, whereClause, whereArgs);
@@ -211,9 +212,9 @@ public class DBFindManager {
 	}
 
 	public boolean deleteCountdown(int alarm_id) {
-		String whereClause = "codo_id=?";
+		Log.i("TAG", "是否删除倒计时");
 		String[] whereArgs = { alarm_id + "" };
-		int delete = db.delete("countdown", whereClause, whereArgs);
+		int delete = db.delete("countdown", "codo_id=?", whereArgs);
 		if (!(delete > 0))
 			return false;
 
@@ -271,7 +272,6 @@ public class DBFindManager {
 		while (query.moveToNext()) {
 			alarm = new Alarm();
 			alarm.setAlarm_id(query.getInt(query.getColumnIndex("alarm_id")));
-			Log.i("TAG", query.getInt(query.getColumnIndex("alarm_id")) + "------->>>>>>取出来的内容id");
 			// String columnIndex = query.getColumnIndex("start_time");
 			alarm.setTimeHour(query.getInt(query.getColumnIndex("time_hour")));
 			alarm.setTimeMin(query.getInt(query.getColumnIndex("time_min")));
