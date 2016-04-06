@@ -61,8 +61,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-public class Answer_list extends Activity implements OnClickListener,
-		OnHeaderRefreshListener, OnFooterRefreshListener {
+public class Answer_list extends Activity implements OnClickListener{
 
 	// 声明变量
 	// MyBasesadapter<Answer> adapter = null;
@@ -75,7 +74,7 @@ public class Answer_list extends Activity implements OnClickListener,
 	String ans_img = null;
 	HttpUtils hutils = new HttpUtils();
 	SimpleDateFormat sdf = new SimpleDateFormat("yyyy_MM_dd_HH_mm_ss");
-	SimpleDateFormat sdf2 = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+	SimpleDateFormat sdf2 = new SimpleDateFormat("yyyy-MM-dd HH:mm");
 	public static final int SELECT_PIC = 11;
 	public static final int TAKE_PHOTO = 12;
 	public static final int CROP_PHOTO = 13;
@@ -218,7 +217,7 @@ public class Answer_list extends Activity implements OnClickListener,
 				list = (List<Answer>) msg.obj;
 				break;
 			case 12:
-Question answer = (Question) msg.obj;
+				Question answer = (Question) msg.obj;
 				tv_ans1_num.setText(answer.getAns_num()+"");
 				break;
 			}
@@ -251,8 +250,11 @@ Question answer = (Question) msg.obj;
 					Toast.makeText(this, "混水也要打几个字吧！！", 0).show();
 				} else {
 					submitAnswer();
-					
-					et_ans_text.setText("");
+					file = new File(Environment.getExternalStorageDirectory(),
+							sdf.format(new Date(System.currentTimeMillis())) + ".jpg");
+					imageUri = Uri.fromFile(file);	
+					btn_photo.setImageResource(R.drawable.crop);	//提交完成后清空图片
+					et_ans_text.setText("");	//清空输入框
 				}
 			}
 			break;
@@ -516,7 +518,6 @@ Question answer = (Question) msg.obj;
 
 	public void setMyAapter(List<Answer> list) {
 		setTag = xuetu.getSet();
-		Log.i("hehe", setTag.size() + "---------activityApplication");
 		adapter = new MyQuestionBaseAdapter<Answer>(this, list,
 				R.layout.question_answeritem) {
 
@@ -690,13 +691,4 @@ Question answer = (Question) msg.obj;
 				});
 	}
 
-	@Override
-	public void onHeaderRefresh(PullToRefreshView view) {
-
-	}
-
-	@Override
-	public void onFooterRefresh(PullToRefreshView view) {
-
-	}
 }

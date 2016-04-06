@@ -52,7 +52,7 @@
 	    android:id="@+id/iv_prop"
 	    android:layout_width="200dp"
 	    android:layout_height="150dp"
-	    android:src="@drawable/crop"
+	    android:src="@drawable/question_askblue"
 	    android:layout_gravity="center"
 	    android:scaleType="fitXY"
 	    android:padding="10dp"

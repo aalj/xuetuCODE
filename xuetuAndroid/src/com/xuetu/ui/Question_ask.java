@@ -112,16 +112,20 @@ public class Question_ask extends Activity implements OnClickListener{
 				switch (v.getId()) {
 				case R.id.btn_ask:
 				
-					if(stu_id<=0)
-					{
-						Toast.makeText(Question_ask.this, "请先登录哟！", 0).show();
-					}else 
-						if(subId==0){
-						Toast.makeText(Question_ask.this, "请选择学科！", 0).show();
-						}else{
-							ask();
-//							finish();
-						}
+			if (stu_id <= 0) {
+				Toast.makeText(Question_ask.this, "请先登录哟！", 0).show();break;
+			} else {
+				if (subId == 0) {
+					Toast.makeText(Question_ask.this, "请选择学科！", 0).show();break;
+				} else {
+					if ("".equals(et_question.getText().toString())||et_question.getText()==null) {
+						Toast.makeText(Question_ask.this, "请输入问题！", 0).show();break;
+					} else {
+						ask();
+					}
+				}
+			}
+		//							finish();
 					break;
 				case R.id.tv_sub:
 //					this.getWindow().getDecorView().setBackgroundColor(Color.TRANSPARENT);

@@ -193,7 +193,7 @@ public class PointliShiActivity extends Activity implements OnItemClickListener,
 
 			@Override
 			public void onSuccess(ResponseInfo<String> arg0) {
-				Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create();
+				Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm").create();
 				Type type = new TypeToken<List<JiFenMingXi>>() {
 				}.getType();
 				// 获得积分详情数据
@@ -209,29 +209,29 @@ public class PointliShiActivity extends Activity implements OnItemClickListener,
 						// viewHolder.setText(R.id.info, item.getText());
 						viewHolder.setText(R.id.textView1, DataToTime.getWeekOfDate(item.getTime()));
 
-						if ("3".equals(item.getImgUrl()) || "2".equals(item.getImgUrl())) {
-							viewHolder.setText(R.id.jifen, "+ " + item.getUnmpuint());
-						} else {
-							viewHolder.setText(R.id.jifen, "- " + item.getUnmpuint() + "");
-
-						}
+//						if ("3".equals(item.getImgUrl()) || "2".equals(item.getImgUrl())) {
+//							viewHolder.setText(R.id.jifen, "+ " + item.getUnmpuint());
+//						} else {
+//							viewHolder.setText(R.id.jifen, "- " + item.getUnmpuint() + "");
+//
+//						}
 						switch (item.getImgUrl()) {
 						case "1":// 加载问题图片
-							viewHolder.setText(R.id.jifen, "提问题花费+ " + item.getUnmpuint() + "积分");
+							viewHolder.setText(R.id.jifen, "提问题- "  +item.getUnmpuint() + "积分");
 							viewHolder.setIma(R.id.imabiaozhi, R.drawable.ic_home_widget_qa);
 							break;
 						case "2":// 加载答案图片
-							viewHolder.setText(R.id.jifen, "回答问题得到+ " + item.getUnmpuint() + "积分");
+							viewHolder.setText(R.id.jifen, "回答问题+ " + item.getUnmpuint() + "积分");
 							viewHolder.setIma(R.id.imabiaozhi, R.drawable.ic_item_tishiyu);
 
 							break;
 						case "3":// 加载学习时间图片
-							viewHolder.setText(R.id.jifen, "学习得到+ " + item.getUnmpuint() + "积分");
+							viewHolder.setText(R.id.jifen, "学习+ " + item.getUnmpuint() + "积分");
 							viewHolder.setIma(R.id.imabiaozhi, R.drawable.ic_home_widget_study);
 
 							break;
 						default:// 加载网络图片
-							viewHolder.setText(R.id.jifen, "兑换优惠券花费+ " + item.getUnmpuint() + "积分");
+							viewHolder.setText(R.id.jifen, "兑换优惠券- " + item.getUnmpuint() + "积分");
 							viewHolder.SetUrlImage(R.id.imabiaozhi, GetHttp.getHttpLJ() + item.getImgUrl());
 
 							break;
@@ -266,7 +266,7 @@ public class PointliShiActivity extends Activity implements OnItemClickListener,
 			@Override
 			public void onSuccess(ResponseInfo<String> arg0) {
 				Log.i("TAG", "访问网络是否执行加载是否执行");
-				Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create();
+				Gson gson = new GsonBuilder().setDateFormat("MM-dd HH:mm").create();
 				Type type = new TypeToken<List<JiFenMingXi>>() {
 				}.getType();
 //				jiFenMingXiList.clear();
