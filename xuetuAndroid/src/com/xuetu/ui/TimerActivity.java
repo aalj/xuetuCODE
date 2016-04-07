@@ -26,7 +26,10 @@ import com.xuetu.fragment.HomePageFrag;
 import com.xuetu.utils.GetHttp;
 
 import android.app.Activity;
+import android.app.ActivityManager;
 import android.app.backup.FullBackupDataOutput;
+import android.content.ComponentName;
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
@@ -78,6 +81,8 @@ public class TimerActivity extends Activity {
 	private TextView tv_pointSum;
 	private TextView tv_textPlan;
 	String class_name;
+	boolean is_result = true;
+	ActivityManager am;
 //	boolean flag = true;
 //	boolean planflag=true;
 //	//这两个判断 实在改页面结束时返回给home_page_fragment 的值,以确保首页可以进行滑动判定
@@ -107,8 +112,8 @@ public class TimerActivity extends Activity {
 	int  plan_state =0;
 	int plan_id = 0;
 	boolean  is_finish = true;
-	
-	
+	Context   context  ;
+	ComponentName cn;
 	
 	
 	@Override
@@ -127,6 +132,9 @@ public class TimerActivity extends Activity {
 		Gson gson = new GsonBuilder().setDateFormat(
 				"yyyy-MM-dd HH:mm:ss").create();
 		student = gson.fromJson(stu_from_home, type);
+		
+//		am =(ActivityManager)context.getSystemService(Context.ACTIVITY_SERVICE);
+//		cn = am.getRunningTasks(2).get(0).topActivity;  
 		
 		showTime=(TextView) findViewById(R.id.tv_showtime);
 //		runTime= (Button) findViewById(R.id.home_btn_up);
@@ -169,6 +177,11 @@ public class TimerActivity extends Activity {
 	                if(round==10){
 	                	integral_double++;//每到600秒,积分倍数+1(初始值0)
 	                	//  显示已获得积分，10秒刷新一次
+//	                	
+//	                	if(!onpage()){
+//	                		endTime();
+//	                	}
+	                	
 	                	
 	                	mHandler.post(new Runnable() {//通过它在UI主线程中修改显示的剩余时间
 	                    @Override
@@ -346,4 +359,20 @@ public class TimerActivity extends Activity {
     	
     	finish();
     }
+    
+    
+//    public boolean onpage()
+//    {
+//    	if (cn != null) {  
+//    	    if ("com.android.phone.InCallScreen".equals(cn.getClassName())) {  
+//    	        is_result = true;  
+//    	    }  else
+//    	    {
+//    	    	is_result = false;
+//    	    }
+//    	}  
+//    	return is_result;
+//    }
+    
+    
 }

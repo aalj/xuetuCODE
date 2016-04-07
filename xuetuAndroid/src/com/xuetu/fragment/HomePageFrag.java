@@ -404,7 +404,7 @@ public class HomePageFrag extends Fragment implements OnTouchListener {
 			x2 = (int) event.getX(); 
 			y2 = (int) event.getY(); 
 			
-			if(((Math.abs(x2-x1)<6&&Math.abs(x2-x1)>-6)&&(Math.abs(y2-y1)<6&&Math.abs(y2-y1)>-6))&&center_click_flag==true)
+			if(((Math.abs(x2-x1)<6&&Math.abs(x2-x1)>-6)&&(Math.abs(y2-y1)<6&&Math.abs(y2-y1)>-6))&&    center_click_flag==true)
 			{
 				startActivity(intent_learning);
 			}
@@ -470,6 +470,7 @@ public class HomePageFrag extends Fragment implements OnTouchListener {
 	public void get_stu_studyTime() {
 		flag     = false;
 		planflag = false;
+		center_click_flag=false;
 		String url =GetHttp.getHttpKY()+"GetClassTime";
 //		String url = "http://10.201.1.8:8080/xuetuWeb/GetClassTime";
 		HttpUtils httpUtils = new HttpUtils();
@@ -490,6 +491,7 @@ public class HomePageFrag extends Fragment implements OnTouchListener {
 						System.out.println("链接失败");
 						flag     = true;
 						planflag = true;
+						center_click_flag=false;
 					}
 
 					@Override
@@ -513,6 +515,7 @@ public class HomePageFrag extends Fragment implements OnTouchListener {
 									// TODO Auto-generated method stub
 									flag = true;
 									planflag=true;
+									center_click_flag=true;
 								}
 							}).setPositiveButton("查询", new DialogInterface.OnClickListener() {
 								
@@ -525,7 +528,7 @@ public class HomePageFrag extends Fragment implements OnTouchListener {
 							}).setCancelable(false).show();
 						}else//这里执行 有课程时需要进行的判断
 						{
-							if(classend.what_time()!=2 )  
+							if(classend.what_time()==0 )  
 //							if(true)
 							{
 								new AlertDialog.Builder(getActivity()).setTitle("提示").setMessage("即将进入课程"+ myclass.getClasName()).setNegativeButton("返回", new DialogInterface.OnClickListener() {
@@ -535,6 +538,7 @@ public class HomePageFrag extends Fragment implements OnTouchListener {
 										// TODO Auto-generated method stub
 										flag = true;
 										planflag=true;
+										center_click_flag=true;
 									}
 								}).setPositiveButton("立即进入", new DialogInterface.OnClickListener() {
 									
@@ -553,6 +557,7 @@ public class HomePageFrag extends Fragment implements OnTouchListener {
 										intent.putExtra("text", "目前是第"+which_class+"节课");
 										flag = true;
 										planflag=true;
+										center_click_flag=true;
 										startActivity(intent);
 									}
 								}).setCancelable(false).show();
@@ -563,6 +568,7 @@ public class HomePageFrag extends Fragment implements OnTouchListener {
 							}else{
 								flag = false;
 								planflag=false;
+								center_click_flag=false;
 								new AlertDialog.Builder(getActivity())
 								.setTitle("提示")                                              
 								.setMessage("课程:"+myclass.getClasName()+"   你迟到了"+classend.getmin()+"分钟,不能进入计时积分页面")
@@ -574,6 +580,7 @@ public class HomePageFrag extends Fragment implements OnTouchListener {
 										// TODO Auto-generated method stub
 										flag = true;
 										planflag=true;
+										center_click_flag=true;
 									}
 								}).show();
 								
@@ -719,6 +726,7 @@ public class HomePageFrag extends Fragment implements OnTouchListener {
 							}else{					
 								flag     = false;
 								planflag = false;
+								center_click_flag=false;
 								new AlertDialog.Builder(getActivity()).setTitle("注意").setMessage("当天没有可执行的学习计划,是否添加").setNegativeButton("返回", null).setPositiveButton("添加", new DialogInterface.OnClickListener() {
 									
 									@Override
@@ -729,11 +737,13 @@ public class HomePageFrag extends Fragment implements OnTouchListener {
 								}).show();
 								flag     = true;
 								planflag = true;
+								center_click_flag=true;
 							}
 						}
 						else{
 							flag     = false;
 							planflag = false;
+							center_click_flag=false;
 							Toast.makeText(getActivity(), "今天没有计划", Toast.LENGTH_SHORT).show();
 							//跳转到学习计划添加页
 new AlertDialog.Builder(getActivity()).setTitle("注意").setMessage("当天没有可执行的学习计划,是否添加").setNegativeButton("返回", null).setPositiveButton("添加", new DialogInterface.OnClickListener() {
@@ -746,6 +756,7 @@ new AlertDialog.Builder(getActivity()).setTitle("注意").setMessage("当天没�
 							}).show();
 							flag     = true;
 							planflag = true;
+							center_click_flag=true;
 //							gotoInsertplan();
 						}
 					}
@@ -834,6 +845,7 @@ new AlertDialog.Builder(getActivity()).setTitle("注意").setMessage("当天没�
 		
 			flag=false;
 			planflag=false;
+			center_click_flag=false;
 			String url =GetHttp.getHttpKY()+"GetDayTime";    //
 			HttpUtils httpUtils = new HttpUtils();
 			RequestParams requestParams = new RequestParams();
@@ -852,6 +864,7 @@ new AlertDialog.Builder(getActivity()).setTitle("注意").setMessage("当天没�
 											// TODO Auto-generated method stub
 											flag     = true;
 											planflag = true;
+											center_click_flag=true;
 										}
 									}).setCancelable(false).show();
 									
@@ -899,6 +912,7 @@ new AlertDialog.Builder(getActivity()).setTitle("注意").setMessage("当天没�
 										//确定后执行赋值,然后跳转页面
 										flag     = false;
 										planflag = false;
+										center_click_flag=false;
 										studyplan=todayplan.get(w);
 										Intent intent = new Intent(getActivity(),
 												TimerActivity.class);
@@ -917,6 +931,7 @@ new AlertDialog.Builder(getActivity()).setTitle("注意").setMessage("当天没�
 										System.out.println(studyplan.getPlanID());
 										flag = true;
 										planflag=true;
+										center_click_flag=true;
 										startActivity(intent);
 									}
 								}).setNegativeButton("取消", new DialogInterface.OnClickListener() {
@@ -934,13 +949,14 @@ new AlertDialog.Builder(getActivity()).setTitle("注意").setMessage("当天没�
 							}else{
 								flag     = false;
 								planflag = false;
-								
+								center_click_flag=false;
 								new AlertDialog.Builder(getActivity()).setCancelable(false).setTitle("注意").setMessage("当天没有可执行的学习计划,是否添加").setNegativeButton("返回", new DialogInterface.OnClickListener() {
 									
 									@Override
 									public void onClick(DialogInterface dialog, int which) {
 										flag     = true;
 										planflag = true;
+										center_click_flag=true;
 										
 									}
 								}).setPositiveButton("添加", new DialogInterface.OnClickListener() {
@@ -950,6 +966,7 @@ new AlertDialog.Builder(getActivity()).setTitle("注意").setMessage("当天没�
 										// TODO Auto-generated method stub
 										flag     = true;
 										planflag = true;
+										center_click_flag=true;
 													gotoInsertplan();
 											
 													
