@@ -27,6 +27,7 @@ import android.R.integer;
 import android.app.Activity;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
 import android.os.Bundle;
@@ -153,6 +154,17 @@ public class LearingRecordActivity extends Activity {
 		
 		get_today_study_time();//获得今日学习的时间
 		get_paiming(); //获得排名
+		
+		findViewById(R.id.btn_back).setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				// TODO Auto-generated method stub
+				finish();
+			}
+		});
+		
+		
 		
 	}//end```````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````
 	
@@ -376,5 +388,14 @@ public class LearingRecordActivity extends Activity {
 	          mm=(second % 3600)/60>9?(second % 3600)/60+"":"0"+(second % 3600)/60;
 	         return hh+"小时"+mm+"分钟";
 	    }
-	
+	 
+	 @Override
+	public void onBackPressed() {
+		// TODO Auto-generated method stub
+		super.onBackPressed();
+	}
+	 
+	 
 }
+
+

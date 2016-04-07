@@ -37,8 +37,10 @@ import com.xuetu.view.TitleBar;
 
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.DialogInterface.OnKeyListener;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -50,6 +52,7 @@ import android.os.Handler;
 import android.os.Message;
 import android.provider.MediaStore;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.inputmethod.InputMethodManager;
@@ -90,7 +93,7 @@ public class Answer_list extends Activity implements OnClickListener{
 	TextView tv_ans1_sub;
 	TextView tv_ans1_num;
 	ImageView iv_ans1_ques_img;
-
+	TextView tv_delete;
 	CircleImageView btn_photo;
 	ImageView iv_ans1_userImg;
 	ImageView iv_collect;
@@ -151,7 +154,14 @@ public class Answer_list extends Activity implements OnClickListener{
 		tv_ans1_time = (TextView) findViewById(R.id.tv_ans1_time);
 		tv_ans1_ques_text = (TextView) findViewById(R.id.tv_ans1_ques_text);
 		tv_ans1_ques_text.setText(curQues.getQuesText());
-
+		Log.i("hehe", curQues.getQuesIma()+"--------Quesima");
+		if(curQues.getQuesIma().equals("no")){
+			Log.i("hehe", "no just come in");
+			iv_ans1_ques_img.setVisibility(View.GONE);
+		}else{
+			bitmapUtils.display(iv_ans1_ques_img,
+					GetHttp.getHttpLC() + curQues.getQuesIma());
+		}
 		tv_ans1_num.setText(curQues.getAns_num() + "");
 		Drawable drawable = getResources().getDrawable(R.drawable.ic_ans);
 		// / 这一步必须要做,否则不会显示.
@@ -161,11 +171,13 @@ public class Answer_list extends Activity implements OnClickListener{
 		tv_ans1_time.setText(sdf2.format(new Date(curQues.getQuesDate()
 				.getTime())));
 		isSave();
-		bitmapUtils.display(iv_ans1_ques_img,
-				GetHttp.getHttpLC() + curQues.getQuesIma());
 		bitmapUtils.display(iv_ans1_userImg, GetHttp.getHttpLC()
 				+ curQues.getStudent().getStuIma());
 		tv_ans1_stuName.setText(curQues.getStudent().getStuName());
+		if(curQues.getStudent().getStuId()==stu_id){
+			tv_delete.setVisibility(View.VISIBLE);
+			tv_delete.setOnClickListener(this);
+		}
 		titlebar.setLeftLayoutClickListener(this);
 		titlebar.setRightLayoutVisibility(View.INVISIBLE);
 	}
@@ -197,10 +209,14 @@ public class Answer_list extends Activity implements OnClickListener{
 					}
 				});
 	}
-
+	
+	
+	
+	
 	// 获得用户对象
 	@Override
 	public void onResume() {
+		
 		stu_id = ((XueTuApplication) getApplication()).getStudent().getStuId();
 		getAgreeAnswer();
 		super.onResume();
@@ -255,6 +271,7 @@ public class Answer_list extends Activity implements OnClickListener{
 					imageUri = Uri.fromFile(file);	
 					btn_photo.setImageResource(R.drawable.crop);	//提交完成后清空图片
 					et_ans_text.setText("");	//清空输入框
+					Toast.makeText(context, "5积分到手！！", 0).show();
 				}
 			}
 			break;
@@ -270,6 +287,7 @@ public class Answer_list extends Activity implements OnClickListener{
 						}
 					}).create().show();
 			break;
+			
 		case R.id.left_layout:
 			finish();
 			break;
@@ -323,7 +341,7 @@ public class Answer_list extends Activity implements OnClickListener{
 					});
 		}
 	}
-
+	
 	private void getQueationByID(int uesId) {
 		url = GetHttp.getHttpLC() + "GetquestionBuyId";
 		RequestParams paramsQuesId = new RequestParams();
@@ -509,6 +527,7 @@ public class Answer_list extends Activity implements OnClickListener{
 						msg.what = 2;
 						msg.obj = list;
 						handler.sendMessage(msg);
+						
 					}
 				});
 	}
@@ -524,7 +543,7 @@ public class Answer_list extends Activity implements OnClickListener{
 			@Override
 			public void convert(final ViewHodle viewHolder, final Answer item,
 					int position) {
-
+				ImageView ivAns = viewHolder.getView(R.id.iv_ans_img);
 				ImageView iv = (ImageView) viewHolder.getView(R.id.iv_like);
 				final TextView tv = (TextView) viewHolder.getView(R.id.tv_like);
 				viewHolder.setText(R.id.tv_ans_stuName, item.getStudent()
@@ -532,8 +551,15 @@ public class Answer_list extends Activity implements OnClickListener{
 				viewHolder.setText(R.id.tv_ans_text, item.getAnsText());
 				viewHolder.setText(R.id.tv_ans_time,
 						sdf2.format(new Date(item.getAnsTime().getTime())));
-				viewHolder.SetUrlImage(R.id.iv_ans_img, GetHttp.getHttpLC()
-						+ item.getAnsImg());
+				ivAns.setVisibility(View.VISIBLE);
+
+				Log.i("hehe", item.getAnsText()+"-------------anstext"+item.getAnsImg()+"--------ansImg");
+				if ("no".equals(item.getAnsImg())) {
+					ivAns.setVisibility(View.GONE);
+				} else {
+					viewHolder.SetUrlImage(R.id.iv_ans_img, GetHttp.getHttpLC()
+							+ item.getAnsImg());
+				}
 				viewHolder.SetUrlImage(R.id.iv_ans_userImg, GetHttp.getHttpLC()
 						+ item.getStudent().getStuIma());
 				viewHolder.setText(R.id.tv_like, item.getAgrNum() + "");
