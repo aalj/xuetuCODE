@@ -50,7 +50,7 @@
                     android:textSize="16sp" />
 
                 <ImageView
-                    android:id="@+id/imageView1"
+                    android:id="@+id/back_to_be"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentLeft="true"

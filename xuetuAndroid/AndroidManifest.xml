@@ -316,6 +316,10 @@
             android:name=".UserQuestionInfomationActivity"
             android:label="@string/title_activity_user_question_infomation" >
         </activity>
+        <activity
+            android:name=".UserAnswerInformationActivity"
+            android:label="@string/title_activity_user_answer_information" >
+        </activity>
     </application>
 
 </manifest>
