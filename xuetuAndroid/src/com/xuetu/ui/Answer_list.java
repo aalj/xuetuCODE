@@ -248,10 +248,16 @@ public class Answer_list extends Baseactivity implements OnClickListener {
 					submitAnswer();
 					file = new File(Environment.getExternalStorageDirectory(),
 							sdf.format(new Date(System.currentTimeMillis())) + ".jpg");
+ 
 					imageUri = Uri.fromFile(file);
 					btn_photo.setImageResource(R.drawable.crop); // 提交完成后清空图片
 					et_ans_text.setText(""); // 清空输入框
 					Toast.makeText(Answer_list.this, "5积分到手！！", 0).show();
+ 
+					imageUri = Uri.fromFile(file);	
+					btn_photo.setImageResource(R.drawable.crop);	//提交完成后清空图片
+					et_ans_text.setText("");	//清空输入框
+ 
 				}
 			}
 			break;
@@ -476,6 +482,7 @@ public class Answer_list extends Baseactivity implements OnClickListener {
 
 			}
 
+ 
 			@Override
 			public void onSuccess(ResponseInfo<String> arg0) {
 				Toast.makeText(getApplicationContext(), "提交成功", 1).show();
@@ -493,6 +500,28 @@ public class Answer_list extends Baseactivity implements OnClickListener {
 
 			}
 		});
+ 
+					@Override
+					public void onSuccess(ResponseInfo<String> arg0) {
+						Toast.makeText(getApplicationContext(), "5积分到手", 1)
+								.show();
+						Gson gson = new GsonBuilder()
+								.enableComplexMapKeySerialization()
+								.setPrettyPrinting().disableHtmlEscaping()
+								.setDateFormat("yyyy-MM-dd HH:mm:ss").create();
+						Type type = new TypeToken<Answer>() {
+						}.getType();
+						newAnswer = gson.fromJson(arg0.result, type);
+						list.add(newAnswer);
+						getQueationByID(stu_id);
+						Message msg = Message.obtain();
+						msg.what = 2;
+						msg.obj = list;
+						handler.sendMessage(msg);
+						
+					}
+				});
+ 
 	}
 
 	// 标记适配器是否初始化
@@ -513,7 +542,10 @@ public class Answer_list extends Baseactivity implements OnClickListener {
 				viewHolder.setText(R.id.tv_ans_time, sdf2.format(new Date(item.getAnsTime().getTime())));
 				ivAns.setVisibility(View.VISIBLE);
 
+ 
 				Log.i("hehe", item.getAnsText() + "-------------anstext" + item.getAnsImg() + "--------ansImg");
+ 
+ 
 				if ("no".equals(item.getAnsImg())) {
 					ivAns.setVisibility(View.GONE);
 				} else {

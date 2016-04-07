@@ -112,8 +112,8 @@ public class AddSelfPlanActivity extends FragmentActivity implements OnClickList
 
 		startTime = date;
 		endTime = date;
-		tv_startTime_info.setText(mFormatter.format(date));
-		tv_endTime_info.setText(mFormatter.format(date));
+		tv_startTime_info.setText(mFormatter.format(new Date(date.getTime()+1000*60*2)));
+		tv_endTime_info.setText(mFormatter.format(new Date(date.getTime()+1000*60*2)));
 		// 数据为空
 		// study_info.setText(list.get(0).getPattrenText());
 
@@ -138,8 +138,8 @@ public class AddSelfPlanActivity extends FragmentActivity implements OnClickList
 				}.getType();
 				list = gson.fromJson(arg0.result, type);
 				study_info.setText(list.get(0).getPattrenText());
-				item = new String[list.size()];
-				for (int i = 0; i < list.size(); i++) {
+				item = new String[list.size()-1];
+				for (int i = 0; i < list.size()-1; i++) {
 					item[i] = list.get(i).getPattrenText();
 				}
 				Editor edit = sp.edit();
@@ -168,6 +168,7 @@ public class AddSelfPlanActivity extends FragmentActivity implements OnClickList
 		for (int i = 0; i < list.size(); i++) {
 			item[i] = list.get(i).getPattrenText();
 		}
+		
 	}
 
 	/*
@@ -188,7 +189,7 @@ public class AddSelfPlanActivity extends FragmentActivity implements OnClickList
 		case R.id.tiem_start:// 设置开始时间
 			temp = true;
 			new SlideDateTimePicker.Builder(getSupportFragmentManager()).setListener(listener)
-					.setInitialDate(new Date()).setIs24HourTime(true).build().show();
+					.setInitialDate(new Date(date.getTime()+1000*60*2)).setIs24HourTime(true).build().show();
 			break;
 		case R.id.tiem_end:// 设置结束时间
 			temp = true;
@@ -327,7 +328,7 @@ public class AddSelfPlanActivity extends FragmentActivity implements OnClickList
 		builder.show();
 
 	}
-
+	//添加开始时间
 	private SlideDateTimeListener listener = new SlideDateTimeListener() {
 
 		@Override
@@ -346,6 +347,7 @@ public class AddSelfPlanActivity extends FragmentActivity implements OnClickList
 			Toast.makeText(AddSelfPlanActivity.this, "放弃修改", Toast.LENGTH_SHORT).show();
 		}
 	};
+	//提娜佳结束时间
 	private SlideDateTimeListener listener2 = new SlideDateTimeListener() {
 
 		@Override

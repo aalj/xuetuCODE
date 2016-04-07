@@ -17,9 +17,9 @@
         android:layout_height="45dp"
         android:background="@color/white"
         android:orientation="horizontal"
-        android:paddingTop="10dp" ><!-- 
+        android:paddingTop="10dp" >
 		<TextView
-            android:id="@+id/tv_subAll"
+            android:id="@+id/tv_AllSub"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
@@ -27,7 +27,7 @@
             android:clickable="true"
             android:gravity="center"
             android:text="全部问题"
-            android:textSize="20sp" /> -->
+            android:textSize="20sp" />
         
         <TextView
             android:id="@+id/tv_sub1"
@@ -78,6 +78,5 @@
         android:layout_height="30dp"
         android:background="@color/black2"
         android:gravity="center_vertical"
-        android:paddingLeft="15dp"
-        android:text="学科:" />
+        android:paddingLeft="15dp"/>
 </LinearLayout>

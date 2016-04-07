@@ -21,6 +21,7 @@ import com.xuetu.R;
 import com.xuetu.entity.Coupon;
 import com.xuetu.entity.MyCoupon;
 import com.xuetu.entity.Student;
+import com.xuetu.utils.ActivityColector;
 import com.xuetu.utils.GetHttp;
 import com.xuetu.view.TitleBar;
 
@@ -163,6 +164,7 @@ public class ExchangeCouponActivity extends Baseactivity implements OnClickListe
 						Intent intent = new Intent();
 						intent.setClass(ExchangeCouponActivity.this, TheCollectionOfYouHuiJuanActivity.class);
 						startActivity(intent);
+						ActivityColector.finaishAll();
 					} else {
 						Toast.makeText(getApplicationContext(), "兑换失败，积分不足", 1).show();
 					}

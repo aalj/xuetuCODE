@@ -2,6 +2,7 @@ package com.xuetu.ui;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Date;
 
 import com.lidroid.xutils.ViewUtils;
 import com.lidroid.xutils.view.annotation.ViewInject;
@@ -93,7 +94,7 @@ public class EditCountdownActivity extends Activity implements OnClickListener {
 			intent.setClass(EditCountdownActivity.this, DaoJiShiActivity.class);
 			intent.putExtra("countdown", countdown);
 			Log.i("TAG", "countdown.getCodoID()---------->>>>" + countdown.getCodoID());
-			setResult(1012, intent);
+			setResult(10, intent);
 			finish();
 			break;
 
@@ -120,7 +121,7 @@ public class EditCountdownActivity extends Activity implements OnClickListener {
 
 		return dialog;
 	}
-
+SimpleDateFormat sim = new SimpleDateFormat("dd");
 	@Override
 	public void onClick(View v) {
 		switch (v.getId()) {
@@ -137,22 +138,18 @@ public class EditCountdownActivity extends Activity implements OnClickListener {
 			if (!TextUtils.isEmpty(string)) {
 				Log.i("TAG", "countdown.getCodoTime().getTime()" + countdown.getCodoTime().getTime());
 				Log.i("TAG", "System.currentTimeMillis()" + System.currentTimeMillis());
-				if (countdown.getCodoTime().getTime() > System.currentTimeMillis()) {
+				if (Integer.parseInt(sim.format(countdown.getCodoTime())) >= Integer.parseInt(sim.format(new Date(System.currentTimeMillis())))) {
 
 					countdown.setCodoText(string);
 					Intent intent = new Intent();
 
-					// TODO 需要判断当前是否需要在通知栏常驻提醒
-//					if (study_parrt_info.isChecked()) {
-//						notifa();
-//					}
 
 					intent.putExtra("countdown", countdown);
 					setResult(1012, intent);
 					finish();
 				} else {
 
-					Toast.makeText(getApplicationContext(), "即时时间应该大于现在的时间", 0).show();
+					Toast.makeText(getApplicationContext(), "计时时间应该大于现在的时间", 0).show();
 				}
 
 			} else {
@@ -169,33 +166,5 @@ public class EditCountdownActivity extends Activity implements OnClickListener {
 
 	}
 
-//	public void notifa() {
-//		PendingIntent pendingIntent2 = PendingIntent.getActivity(this, 0, new Intent(this, AddCountDownActivity.class),
-//				0);
-//		// 通过Notification.Builder来创建通知，注意API Level
-//		// API11之后才支持
-//		Notification notify2 = new Notification.Builder(this).setSmallIcon(R.drawable.ic_launcher) // 设置状态栏中的小图片，尺寸一般建议在24×24，这个图片同样也是在下拉状态栏中所显示，如果在那里需要更换更大的图片，可以使用setLargeIcon(Bitmap
-//																									// icon)
-//				.setTicker("您有一个倒计时")// 设置在status
-//										// bar上显示的提示文字
-//				.setContentTitle(titleEdit.getText().toString())// 设置在下拉status
-//				// bar后Activity，本例子中的NotififyMessage的TextView中显示的标题
-//				.setContentText(timeEdit.getText().toString())// TextView中显示的详细内容
-//				.setContentIntent(pendingIntent2) // 关联PendingIntent
-//				.setNumber(1) // 在TextView的右方显示的数字，可放大图片看，在最右侧。这个number同时也起到一个序列号的左右，如果多个触发多个通知（同一ID），可以指定显示哪一个。
-//				.getNotification(); // 需要注意build()是在API level
-//		// 16及之后增加的，在API11中可以使用getNotificatin()来代替
-//		notify2.flags |= Notification.FLAG_AUTO_CANCEL;
-//		manager.notify(countdown.getTemp_time(), notify2);
-//	}
-
-//	@Override
-//	public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-//		if (!isChecked) {
-//			Log.i("TAG", countdown.getTemp_time()+"表示时间    ----- - -- - - - --");
-//			manager.cancel(countdown.getTemp_time());
-//		}
-//
-//	}
 
 }

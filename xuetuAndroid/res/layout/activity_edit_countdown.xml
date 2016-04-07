@@ -12,7 +12,7 @@
         android:layout_height="wrap_content"
         title:titleBarLeftImage="@drawable/ic_menu_cancel"
         title:titleBarRightImage="@drawable/ic_menu_set"
-        title:titleBarTitle="修改计划" >
+        title:titleBarTitle="编辑倒计时" >
     </com.xuetu.view.TitleBar>
 
     <RelativeLayout

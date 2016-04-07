@@ -237,6 +237,12 @@ public class QuestionFrag extends Fragment implements OnRefreshListener,
 				tv_title.setText("化学");
 				popupWindow.dismiss();
 				break;
+			case R.id.tv_AllSub:
+				Toast.makeText(getActivity(), "tv_AllSub", 0).show();
+				InitDengdaiDialog();
+				InitData(1, REFRESH_TEMP);
+				tv_title.setText("全部问题");
+				popupWindow.dismiss();
 			}
 			if (sub_id != 0) {
 				getXueke();
@@ -353,7 +359,7 @@ public class QuestionFrag extends Fragment implements OnRefreshListener,
 			countpage++;
 			params.addBodyParameter("page", countpage + "");// 查询第1页
 		}
-		params.addBodyParameter("num", "10");// 每页显示5条
+		params.addBodyParameter("num", "10");// 每页显示10条
 		 hutils.configCurrentHttpCacheExpiry(0);
 		hutils.send(HttpMethod.POST, url, params,
 				new RequestCallBack<String>() {
@@ -378,6 +384,7 @@ public class QuestionFrag extends Fragment implements OnRefreshListener,
 						lists = gson.fromJson(arg0.result, listtype);
 
 						if (tempnum == 1) {
+							lv.setSelection(0);
 							list.removeAll(oldlist);
 							list.addAll(0, lists);
 							if (adapter != null) {
@@ -420,6 +427,9 @@ public class QuestionFrag extends Fragment implements OnRefreshListener,
 		View contentView = LayoutInflater.from(getContext()).inflate(
 				R.layout.subject_pop, null);
 		// 设置4个学科选项的监听实践
+		
+		contentView.findViewById(R.id.tv_AllSub).setOnClickListener(
+				new MyOnclickListener());
 		contentView.findViewById(R.id.tv_sub1).setOnClickListener(
 				new MyOnclickListener());
 		contentView.findViewById(R.id.tv_sub2).setOnClickListener(

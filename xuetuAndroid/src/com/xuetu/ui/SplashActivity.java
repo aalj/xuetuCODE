@@ -143,15 +143,15 @@ public class SplashActivity extends Activity {
 				enterHome();
 				break;
 			case SPLASH_IO_ERROR:
-				Toast.makeText(getApplicationContext(), "错误码：" + SPLASH_IO_ERROR, 0).show();
+//				Toast.makeText(getApplicationContext(), "错误码：" + SPLASH_IO_ERROR, 0).show();
 				enterHome();
 				break;
 			case SPLASH_JSONE_ERROR:
-				Toast.makeText(getApplicationContext(), "错误码：" + SPLASH_JSONE_ERROR, 0).show();
+//				Toast.makeText(getApplicationContext(), "错误码：" + SPLASH_JSONE_ERROR, 0).show();
 				enterHome();
 				break;
 			case SPLASH_URL_ERROR:
-				Toast.makeText(getApplicationContext(), "错误码：" + SPLASH_URL_ERROR, 0).show();
+//				Toast.makeText(getApplicationContext(), "错误码：" + SPLASH_URL_ERROR, 0).show();
 				enterHome();
 				break;
 
