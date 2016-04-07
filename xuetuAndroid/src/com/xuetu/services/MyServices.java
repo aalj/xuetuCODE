@@ -44,16 +44,17 @@ public class MyServices extends Service {
 		Toast.makeText(MyServices.this, "有计划", 0).show();
 		// Toast.makeText(MyServices.this, new SimpleDateFormat("yyyy-MM-dd
 		// hh:mm:ss").format(new Date(System.currentTimeMillis())), 0).show();
-		Log.i("TAG", sim.format(new Date(System.currentTimeMillis())));
 		vibrator = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
 		int intExtra = intent.getIntExtra("flag", -1);
 		self = (SelfStudyPlan) intent.getSerializableExtra("self");
+		Log.i("TAG", "self计划的时间哈哈哈----------》》》》》》》"+self.getPlanText());
 		manager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
-
+		Log.i("TAG", "查看是否有对象数据"+self.getPlanText() + "\n" + "开始时间" + sim.format(self.getStartTime()) + "\n" + "结束时间："
+				+ sim.format(self.getEndTime()));
 		switch (intExtra) {
 		case 1:// 标准模式
 			notifa();
-			setLinSheng();
+//			setLinSheng();
 			setVibrate();
 			cancalVibrate();
 			break;
@@ -61,7 +62,7 @@ public class MyServices extends Service {
 
 			break;
 		case 3:// 温柔模式
-
+			notifa();
 			break;
 
 		default:
@@ -92,8 +93,11 @@ public class MyServices extends Service {
 	 * 设置弹出dialog关闭闹钟
 	 */
 	public void showDialog() {
-		Builder builder = new AlertDialog.Builder(this);
+		AlertDialog.Builder builder = new AlertDialog.Builder(this);
 		builder.setTitle(self.getPlanText());
+		Log.i("TAG", "弹窗内容"+self.getPlanText() + "\n" + "开始时间" + sim.format(self.getStartTime()) + "\n" + "结束时间："
+				+ sim.format(self.getEndTime()));
+		
 		builder.setMessage(self.getPlanText() + "\n" + "开始时间" + sim.format(self.getStartTime()) + "\n" + "结束时间："
 				+ sim.format(self.getEndTime()));
 		builder.setCancelable(false);
@@ -133,18 +137,19 @@ public class MyServices extends Service {
 	
 	SimpleDateFormat format = new SimpleDateFormat("yyyy年MM月dd日");
 	public void notifa() {
-		Intent intent = new Intent(this, AddCountDownActivity.class);
+		Intent intent = new Intent(this, com.xuetu.ui.FindTaskListActivity.class);
 		PendingIntent pendingIntent2 = PendingIntent.getActivity(this, 0, intent,
 				0);
 		// 通过Notification.Builder来创建通知，注意API Level
 		// API11之后才支持
 		Notification notify2 = new Notification.Builder(this).setSmallIcon(R.drawable.ic_launcher) // 设置状态栏中的小图片，尺寸一般建议在24×24，这个图片同样也是在下拉状态栏中所显示，如果在那里需要更换更大的图片，可以使用setLargeIcon(Bitmap
 																									// icon)
-				.setTicker("")// 设置在status
+				.setTicker("您有一个计划到时了")// 设置在status
 				// bar上显示的提示文字
-				.setContentTitle("试着标题")// 设置在下拉status
+				.setContentTitle(self.getPlanText())// 设置在下拉status
 				// bar后Activity，本例子中的NotififyMessage的TextView中显示的标题
-				.setContentText("内容")// TextView中显示的详细内容
+				.setContentText(self.getPlanText() + "\n" + "开始时间" + sim.format(self.getStartTime()) + "\n" + "结束时间："
+						+ sim.format(self.getEndTime()))// TextView中显示的详细内容
 				.setContentIntent(pendingIntent2) // 关联PendingIntent
 				.setNumber(1) // 在TextView的右方显示的数字，可放大图片看，在最右侧。这个number同时也起到一个序列号的左右，如果多个触发多个通知（同一ID），可以指定显示哪一个。
 				.getNotification(); // 需要注意build()是在API level
