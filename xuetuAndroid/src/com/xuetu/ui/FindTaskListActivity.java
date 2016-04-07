@@ -4,9 +4,9 @@ import java.io.UnsupportedEncodingException;
 import java.lang.reflect.Type;
 import java.net.URLEncoder;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
-import com.gc.materialdesign.views.Switch;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
@@ -24,11 +24,14 @@ import com.xuetu.adapter.ViewHodle;
 import com.xuetu.db.DBFindManager;
 import com.xuetu.entity.Pattern;
 import com.xuetu.entity.SelfStudyPlan;
+import com.xuetu.services.MyServices;
 import com.xuetu.utils.DataToTime;
 import com.xuetu.utils.GetHttp;
 import com.xuetu.view.TitleBar;
 
 import android.app.Activity;
+import android.app.AlarmManager;
+import android.app.PendingIntent;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -41,16 +44,12 @@ import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v4.widget.SwipeRefreshLayout.OnRefreshListener;
 import android.util.Log;
 import android.view.KeyEvent;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
-import android.widget.BaseAdapter;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
-import android.widget.TextView;
 import android.widget.Toast;
 
 /**
@@ -93,6 +92,7 @@ public class FindTaskListActivity extends Baseactivity
 	SwipeRefreshLayout mSwipeLayout;
 	boolean tempre = true;
 	ProgressDialog progressDialog = null;
+	AlarmManager alarmManager;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -102,6 +102,7 @@ public class FindTaskListActivity extends Baseactivity
 		sp = getSharedPreferences("config", Activity.MODE_PRIVATE);
 		mSwipeLayout = (SwipeRefreshLayout) findViewById(R.id.id_swipe_ly);
 		mSwipeLayout.setOnRefreshListener(this);
+		alarmManager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
 		/**
 		 * 设置刷新时候的颜色
 		 */
@@ -246,27 +247,52 @@ public class FindTaskListActivity extends Baseactivity
 	// 又返回值得页面跳转
 	@Override
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-		if (resultCode == 1010 && requestCode == SELF_CODE) {
+		if (resultCode == 1010 && requestCode == SELF_CODE) {//修改
 			SelfStudyPlan selfStudyPlan = (SelfStudyPlan) data.getSerializableExtra("name1");
 			// 得到修改过后的对象-----获取是那个对象的修改
 			users.remove(index);
 			users.add(index, selfStudyPlan);
 			adapter.notifyDataSetChanged();
 			saveChangSelf(selfStudyPlan);
+			//设置提醒
+			if(selfStudyPlan.getPlanReming()==1){
+				setTixing((int)selfStudyPlan.getPlanDate().getTime() 
+						,selfStudyPlan.getStartTime()
+						,selfStudyPlan.getPattern().getPatternID(),
+						selfStudyPlan);
+					
+				
+			}else{
+				cancalTixing((int)selfStudyPlan.getPlanDate().getTime());
+			}
+			
+			
 		}
 
-		if (resultCode == 1011 && requestCode == ADD_SELF) {
+		if (resultCode == 1011 && requestCode == ADD_SELF) {//增加
 			SelfStudyPlan selfStudyPlan = (SelfStudyPlan) data.getSerializableExtra("self");
 			users.add(0,selfStudyPlan);
 			// addChangSelf(selfStudyPlan);
 			adapter.notifyDataSetChanged();
+			if(selfStudyPlan.getPlanReming()==1){
+				setTixing((int)selfStudyPlan.getPlanDate().getTime() ,
+						selfStudyPlan.getStartTime(),
+						selfStudyPlan.getPattern().getPatternID(),
+						selfStudyPlan);
+					
+				
+			}else{
+				cancalTixing((int)selfStudyPlan.getPlanDate().getTime());
+			}
 
 		}
-		if (resultCode == 1012 && requestCode == SELF_CODE) {
-			// SelfStudyPlan selfStudyPlan = (SelfStudyPlan)
+		if (resultCode == 1012 && requestCode == SELF_CODE) {//删除
+			 SelfStudyPlan selfStudyPlan = users.get(index);
 			// data.getSerializableExtra("name1");
 			users.remove(index);
 			adapter.notifyDataSetChanged();
+			cancalTixing((int)selfStudyPlan.getPlanDate().getTime());
+			
 
 		}
 
@@ -361,5 +387,44 @@ public class FindTaskListActivity extends Baseactivity
 		getData();
 
 	}
+	
+	
+	
+	
+	/**
+	 * 用于设置提醒闹钟
+	 * @param temp  表示不同的注册PendingIntent
+	 * @param d   表示提醒时间
+	 * @param flag  表示提醒模式
+	 */
+	private  void setTixing(int temp ,Date d,int flag,SelfStudyPlan self){
+		Intent intent1= new Intent(this,MyServices.class);
+		intent1.putExtra("data", temp);
+		intent1.putExtra("flag", flag);
+		intent1.putExtra("self", self);
+		PendingIntent operation = PendingIntent.getService(getApplicationContext(),temp, intent1, PendingIntent.FLAG_UPDATE_CURRENT);
+		alarmManager.set(AlarmManager.RTC_WAKEUP, d.getTime(), operation );
+
+	}
+	
+	/**
+	 * 用于取消闹钟
+	 * @param temp  闹钟设置的标志唯一性的内容
+	 */
+	private void cancalTixing(int temp ){
+		Intent intent = new Intent(FindTaskListActivity.this,
+                MyServices.class);
+        PendingIntent sender = PendingIntent.getService(
+                FindTaskListActivity.this, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
+
+        // And cancel the alarm.
+        
+        alarmManager.cancel(sender);
+		
+	}
+	
+	
+	
+	
 
 }

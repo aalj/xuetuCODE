@@ -116,7 +116,7 @@ public class CouponFrag extends Fragment implements OnRefreshListener{
 			parterm.addBodyParameter("page", countpage + "");// 查询第1页
 
 		}
-		parterm.addBodyParameter("num", "10");// 每页显示10条
+		parterm.addBodyParameter("num", "30");// 每页显示10条
 		parterm.addBodyParameter("reqtemp", "0");// 每页显示10条
 		httpUtlis.send(HttpMethod.POST, url, parterm, new RequestCallBack<String>() {
 
