@@ -107,7 +107,7 @@ public class FindTaskItemActivity extends Baseactivity implements OnClickListene
 		if (selfStudyPlan.getPlanReming() == 1) {
 			temp = true;
 		}
-		
+
 		study_parrt_info.setChecked(temp);
 		xuexi_info.setText(selfStudyPlan.getPlanText());
 
@@ -155,8 +155,7 @@ public class FindTaskItemActivity extends Baseactivity implements OnClickListene
 		switch (v.getId()) {
 		case R.id.tiem_start:// 设置开始时间
 
-			new SlideDateTimePicker.Builder(getSupportFragmentManager()).setListener(listener)
-					.setInitialDate(startTime)
+			new SlideDateTimePicker.Builder(getSupportFragmentManager()).setListener(listener).setInitialDate(startTime)
 					// .setMinDate(minDate)
 					// .setMaxDate(maxDate)
 					.setIs24HourTime(true)
@@ -166,8 +165,7 @@ public class FindTaskItemActivity extends Baseactivity implements OnClickListene
 			break;
 		case R.id.tiem_end:// 设置结束时间
 
-			new SlideDateTimePicker.Builder(getSupportFragmentManager()).setListener(listener2)
-					.setInitialDate(endTime)
+			new SlideDateTimePicker.Builder(getSupportFragmentManager()).setListener(listener2).setInitialDate(endTime)
 					// .setMinDate(minDate)
 					// .setMaxDate(maxDate)
 					.setIs24HourTime(true)
@@ -181,54 +179,53 @@ public class FindTaskItemActivity extends Baseactivity implements OnClickListene
 
 			break;
 		case R.id.right_layout:
-			
-			//TODO 需要修改
-			
-			if (!TextUtils.isEmpty(xuexi_info.getText().toString())) {
-				if (panDuanTimeSize(endTime, startTime)) {
-					
 
-					Intent intent = new Intent();
-					// 设置开始时间
-					selfStudyPlan.setStartTime(startTime);
-					// 这是结束时间
-					selfStudyPlan.setEndTime(endTime);
-					// 设置计划信息
-					selfStudyPlan.setPlanText(xuexi_info.getText().toString());
-					// 设置是否需要提醒
-					if (study_parrt_info.isChecked()) {//TODO
-						selfStudyPlan.setPlanReming(1);
+			// TODO 需要修改
+			if (startTime.getTime() >= System.currentTimeMillis()) {
+				if (!TextUtils.isEmpty(xuexi_info.getText().toString())) {
+					if (panDuanTimeSize(endTime, startTime)) {
+
+						Intent intent = new Intent();
+						// 设置开始时间
+						selfStudyPlan.setStartTime(startTime);
+						// 这是结束时间
+						selfStudyPlan.setEndTime(endTime);
+						// 设置计划信息
+						selfStudyPlan.setPlanText(xuexi_info.getText().toString());
+						// 设置是否需要提醒
+						if (study_parrt_info.isChecked()) {// TODO
+							selfStudyPlan.setPlanReming(1);
+						} else {
+							selfStudyPlan.setPlanReming(0);
+						}
+						intent.putExtra("name1", selfStudyPlan);
+						// 设置执行模式在选择的时候已经确定
+
+						setResult(1010, intent);
+						finish();
+
+						// setResult(1011, intent);
+
 					} else {
-						selfStudyPlan.setPlanReming(0);
+
+						Toast.makeText(getApplicationContext(), "结束时间应该大于开始时间2分钟", 0).show();
 					}
-					intent.putExtra("name1", selfStudyPlan);
-					// 设置执行模式在选择的时候已经确定
-
-					setResult(1010, intent);
-					finish();
-
-					// setResult(1011, intent);
-
 				} else {
+					Toast.makeText(getApplicationContext(), "计划描述还没有填写", 0).show();
 
-					Toast.makeText(getApplicationContext(), "结束时间应该大于开始时间2分钟", 0).show();
 				}
 			} else {
-				Toast.makeText(getApplicationContext(), "计划描述还没有填写", 0).show();
-
+				Toast.makeText(getApplicationContext(), "您的计划不能在过去开始", 0).show();
+				
 			}
-			
-			
-			
-			
 
 			break;
 		case R.id.left_layout:
-			
+
 			Intent intent2 = new Intent();
 			setResult(1001, intent2);
 			ShowDialog.showDialog(FindTaskItemActivity.this, true);
-			
+
 			break;
 		case R.id.button1:// 删除按钮
 			Intent intent3 = new Intent();
@@ -247,10 +244,7 @@ public class FindTaskItemActivity extends Baseactivity implements OnClickListene
 		}
 
 	}
-	
-	
-	
-	
+
 	public boolean panDuanTimeSize(Date endTime, Date startTime) {
 		Log.i("TAG", endTime.getTime() - startTime.getTime() + "------------------<<<<<<<<<<");
 		return (endTime.getTime() - startTime.getTime()) >= 60 * 1000;
@@ -304,7 +298,5 @@ public class FindTaskItemActivity extends Baseactivity implements OnClickListene
 		builder.show();
 
 	}
-
-	
 
 }

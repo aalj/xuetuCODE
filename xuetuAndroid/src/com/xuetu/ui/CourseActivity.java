@@ -47,7 +47,6 @@ public class CourseActivity extends Baseactivity {
 			service.fillCourse(querys);
 			Log.i("TAG", "离线缓存");
 		}
-		Toast.makeText(getApplicationContext(), "xixiixii", 1).show();
 	}
 
 	@Override
