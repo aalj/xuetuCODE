@@ -87,5 +87,7 @@
     <string name="loading">正在加载...</string>
     <string name="load_succeed">加载成功</string>
     <string name="load_fail">加载失败</string>
+    <string name="title_activity_user_infomation">UserInfomationActivity</string>
+    <string name="title_activity_user_question_infomation">UserQuestionInfomationActivity</string>
 
 </resources>

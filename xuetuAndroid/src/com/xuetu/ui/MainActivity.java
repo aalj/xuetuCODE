@@ -282,7 +282,6 @@ public class MainActivity extends FragmentActivity implements OnPageChangeListen
 		intent.setClass(MainActivity.this, SettingActivity.class);
 		startActivity(intent);
 		finish();
-		Toast.makeText(getApplicationContext(), "sesdfsdf", 0).show();
 
 	}
 }

@@ -5,13 +5,11 @@ import java.io.FileNotFoundException;
 import java.io.InputStream;
 import java.lang.reflect.Type;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-import android.R.integer;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
@@ -23,6 +21,7 @@ import com.lidroid.xutils.http.ResponseInfo;
 import com.lidroid.xutils.http.callback.RequestCallBack;
 import com.lidroid.xutils.http.client.HttpRequest.HttpMethod;
 import com.xuetu.R;
+import com.xuetu.UserInfomationActivity;
 import com.xuetu.adapter.MyQuestionBaseAdapter;
 import com.xuetu.adapter.ViewHodle;
 import com.xuetu.entity.Answer;
@@ -30,17 +29,12 @@ import com.xuetu.entity.Question;
 import com.xuetu.utils.GetHttp;
 import com.xuetu.utils.KeyboardUtils;
 import com.xuetu.view.CircleImageView;
-import com.xuetu.view.PullToRefreshView;
-import com.xuetu.view.PullToRefreshView.OnFooterRefreshListener;
-import com.xuetu.view.PullToRefreshView.OnHeaderRefreshListener;
 import com.xuetu.view.TitleBar;
 
 import android.app.Activity;
 import android.app.AlertDialog;
-import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
-import android.content.DialogInterface.OnKeyListener;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -52,7 +46,6 @@ import android.os.Handler;
 import android.os.Message;
 import android.provider.MediaStore;
 import android.util.Log;
-import android.view.KeyEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.inputmethod.InputMethodManager;
@@ -93,7 +86,7 @@ public class Answer_list extends Activity implements OnClickListener{
 	TextView tv_ans1_sub;
 	TextView tv_ans1_num;
 	ImageView iv_ans1_ques_img;
-	TextView tv_delete;
+
 	CircleImageView btn_photo;
 	ImageView iv_ans1_userImg;
 	ImageView iv_collect;
@@ -144,6 +137,7 @@ public class Answer_list extends Activity implements OnClickListener{
 		iv_collect = (ImageView) findViewById(R.id.iv_collect);
 		iv_ans1_userImg = (ImageView) findViewById(R.id.iv_ans1_userImg);
 		// 设置监听事件
+		iv_ans1_userImg.setOnClickListener(this);
 		btn_ans.setOnClickListener(this);
 		iv_collect.setOnClickListener(this);
 		// titlebar.setLeftLayoutClickListener(this);
@@ -280,9 +274,16 @@ public class Answer_list extends Activity implements OnClickListener{
 						}
 					}).create().show();
 			break;
-			
 		case R.id.left_layout:
 			finish();
+			break;
+		case R.id.iv_ans1_userImg:
+			
+			Intent intent = new Intent(Answer_list.this, UserInfomationActivity.class);
+						Bundle bundle = new Bundle();
+						bundle.putSerializable("curStu", curQues.getStudent());
+						intent.putExtras(bundle);
+						startActivity(intent);
 			break;
 		case R.id.iv_collect:
 			params = new RequestParams();
@@ -334,7 +335,7 @@ public class Answer_list extends Activity implements OnClickListener{
 					});
 		}
 	}
-	
+
 	private void getQueationByID(int uesId) {
 		url = GetHttp.getHttpLC() + "GetquestionBuyId";
 		RequestParams paramsQuesId = new RequestParams();
@@ -528,14 +529,15 @@ public class Answer_list extends Activity implements OnClickListener{
 	// 标记适配器是否初始化
 	boolean temp = false;
 
-	public void setMyAapter(List<Answer> list) {
+	public void setMyAapter(final List<Answer> list) {
 		setTag = xuetu.getSet();
 		adapter = new MyQuestionBaseAdapter<Answer>(this, list,
 				R.layout.question_answeritem) {
 
 			@Override
 			public void convert(final ViewHodle viewHolder, final Answer item,
-					int position) {
+					final int position) {
+				CircleImageView iv_ans_userImg = viewHolder.getView(R.id.iv_ans_userImg);
 				ImageView ivAns = viewHolder.getView(R.id.iv_ans_img);
 				ImageView iv = (ImageView) viewHolder.getView(R.id.iv_like);
 				final TextView tv = (TextView) viewHolder.getView(R.id.tv_like);
@@ -563,6 +565,18 @@ public class Answer_list extends Activity implements OnClickListener{
 					tv.setTextColor(0xffABABAB);
 				}
 				iv.setTag(item.getAnsID());
+				iv_ans_userImg.setOnClickListener(new OnClickListener() {
+					
+					@Override
+					public void onClick(View v) {
+						// TODO Auto-generated method stub
+						Intent intent = new Intent(Answer_list.this, UserInfomationActivity.class);
+						Bundle bundle = new Bundle();
+						bundle.putSerializable("curStu", list.get(position).getStudent());
+						intent.putExtras(bundle);
+						startActivity(intent);
+					}
+				});
 				iv.setOnClickListener(new OnClickListener() {
 					@Override
 					public void onClick(View v1) {

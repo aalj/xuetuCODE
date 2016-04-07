@@ -92,9 +92,7 @@ public class ShoppingDao implements ShoppintDaoInter {
 	
 	
 	
-	/**
-	 * 通过店家id查询全部的优惠
-	 */
+	
 	@Override
 	public List<Coupon> queryCouponall(int stoID) {
 		Connection conn = DBconnection.getConnection();
@@ -105,7 +103,7 @@ public class ShoppingDao implements ShoppintDaoInter {
 			statement = conn.prepareStatement(sql);
 			statement.setInt(1, stoID);
 			query = statement.executeQuery();
-			List<Coupon> list = new ArrayList<Coupon>();
+			List<Coupon> list = new ArrayList<>();
 			Coupon coupon = null;;
 			while(query.next()){
 				coupon = new Coupon();
@@ -116,12 +114,10 @@ public class ShoppingDao implements ShoppintDaoInter {
 				coupon.setStoreName(storeName);
 				coupon.setCouInfo(query.getString("cou_info"));
 				coupon.setConNum(query.getInt("cou_num"));
+				coupon.setCouIma(query.getString("cou_img"));
 				coupon.setConValidity(query.getDate("cou_Validity"));
 				coupon.setCoouRedeemPoints(query.getInt("cou_redeem_points"));
-				coupon.setCouName(query.getString("cou_name"));
 				coupon.setCouPrice(query.getInt("cou_price"));
-				coupon.setCouIma(query.getString("cou_img"));
-				
 				
 				
 				

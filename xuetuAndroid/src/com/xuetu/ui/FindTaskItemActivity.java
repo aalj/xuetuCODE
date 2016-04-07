@@ -67,6 +67,7 @@ public class FindTaskItemActivity extends Baseactivity implements OnClickListene
 
 	List<Pattern> list;
 	String[] item = null;
+	boolean temp=false;
 
 	// DBFindManager dbFindManager = null;
 	@Override
@@ -154,7 +155,7 @@ public class FindTaskItemActivity extends Baseactivity implements OnClickListene
 	public void onClick(View v) {
 		switch (v.getId()) {
 		case R.id.tiem_start:// 设置开始时间
-
+			temp=true;
 			new SlideDateTimePicker.Builder(getSupportFragmentManager()).setListener(listener).setInitialDate(startTime)
 					// .setMinDate(minDate)
 					// .setMaxDate(maxDate)
@@ -164,7 +165,7 @@ public class FindTaskItemActivity extends Baseactivity implements OnClickListene
 					.build().show();
 			break;
 		case R.id.tiem_end:// 设置结束时间
-
+			temp=true;
 			new SlideDateTimePicker.Builder(getSupportFragmentManager()).setListener(listener2).setInitialDate(endTime)
 					// .setMinDate(minDate)
 					// .setMaxDate(maxDate)
@@ -174,7 +175,7 @@ public class FindTaskItemActivity extends Baseactivity implements OnClickListene
 					.build().show();
 			break;
 		case R.id.moshi:// 设置模式
-
+			temp=true;
 			showChangeItemDialog();
 
 			break;
@@ -224,7 +225,8 @@ public class FindTaskItemActivity extends Baseactivity implements OnClickListene
 
 			Intent intent2 = new Intent();
 			setResult(1001, intent2);
-			ShowDialog.showDialog(FindTaskItemActivity.this, true);
+			
+			ShowDialog.showDialog(FindTaskItemActivity.this, temp);
 
 			break;
 		case R.id.button1:// 删除按钮
