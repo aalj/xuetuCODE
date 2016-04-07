@@ -157,10 +157,10 @@ public class Answer_list extends Activity implements OnClickListener{
 					GetHttp.getHttpLC() + curQues.getQuesIma());
 		}
 		tv_ans1_num.setText(curQues.getAns_num() + "");
-		Drawable drawable = getResources().getDrawable(R.drawable.ic_ans);
-		// / 这一步必须要做,否则不会显示.
-		drawable.setBounds(0, 0, 50, 50);
-		tv_ans1_num.setCompoundDrawables(drawable, null, null, null);
+//		Drawable drawable = getResources().getDrawable(R.drawable.ic_ans);
+//		// / 这一步必须要做,否则不会显示.
+//		drawable.setBounds(50, 50, 0, 0);
+//		tv_ans1_num.setCompoundDrawables(drawable, null, null, null);
 		tv_ans1_sub.setText(curQues.getSubject().getName());
 		tv_ans1_time.setText(sdf2.format(new Date(curQues.getQuesDate()
 				.getTime())));
@@ -247,12 +247,10 @@ public class Answer_list extends Activity implements OnClickListener{
 			InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
 			imm.hideSoftInputFromWindow(v.getWindowToken(), 0);
 			if (stu_id <= 0) {
-				Log.i("hehe", "mei denglu");
 				Toast.makeText(Answer_list.this, "请先登陆哟！", 0).show();
 			} else {
 				if (et_ans_text.getText().toString().equals(null)
 						|| et_ans_text.getText().toString().equals("")) {
-					Log.i("hehe", "no text");
 					Toast.makeText(this, "混水也要打几个字吧！！", 0).show();
 				} else {
 					submitAnswer();
@@ -261,7 +259,7 @@ public class Answer_list extends Activity implements OnClickListener{
 					imageUri = Uri.fromFile(file);	
 					btn_photo.setImageResource(R.drawable.crop);	//提交完成后清空图片
 					et_ans_text.setText("");	//清空输入框
-					Toast.makeText(context, "5积分到手！！", 0).show();
+					Toast.makeText(Answer_list.this, "5积分到手！！", 0).show();
 				}
 			}
 			break;
@@ -586,10 +584,6 @@ public class Answer_list extends Activity implements OnClickListener{
 					public void onClick(View v1) {
 						// TODO Auto-generated method stub answer stu_id
 						// answer_id
-						if (item.getStudent().getStuId() == stu_id)
-							Toast.makeText(getApplicationContext(),
-									"停止赞自己的愚蠢行为吧人类！", 0).show();
-						else {
 							paramsAgree = new RequestParams();
 							ImageView v = (ImageView) v1;
 							if (setTag.contains(v.getTag())) {
@@ -690,7 +684,7 @@ public class Answer_list extends Activity implements OnClickListener{
 											}
 										});
 							}
-						}
+						
 					}
 				});
 			}

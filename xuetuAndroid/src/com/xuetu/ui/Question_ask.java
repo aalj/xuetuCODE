@@ -198,7 +198,7 @@ public class Question_ask extends Activity implements OnClickListener,
 			break;
 		case R.id.tv_sub2:
 			subId = 2;
-			tv_sub.setText("高数");
+			tv_sub.setText("物理");
 			popupWindow.dismiss();
 			break;
 		case R.id.tv_sub3:
