@@ -482,24 +482,26 @@ public class Answer_list extends Baseactivity implements OnClickListener {
 
 			}
 
- 
-			@Override
-			public void onSuccess(ResponseInfo<String> arg0) {
-				Toast.makeText(getApplicationContext(), "提交成功", 1).show();
-				Gson gson = new GsonBuilder().enableComplexMapKeySerialization().setPrettyPrinting()
-						.disableHtmlEscaping().setDateFormat("yyyy-MM-dd HH:mm:ss").create();
-				Type type = new TypeToken<Answer>() {
-				}.getType();
-				newAnswer = gson.fromJson(arg0.result, type);
-				list.add(newAnswer);
-				getQueationByID(stu_id);
-				Message msg = Message.obtain();
-				msg.what = 2;
-				msg.obj = list;
-				handler.sendMessage(msg);
-
-			}
-		});
+			//
+			// @Override
+			// public void onSuccess(ResponseInfo<String> arg0) {
+			// Toast.makeText(getApplicationContext(), "提交成功", 1).show();
+			// Gson gson = new
+			// GsonBuilder().enableComplexMapKeySerialization().setPrettyPrinting()
+			// .disableHtmlEscaping().setDateFormat("yyyy-MM-dd
+			// HH:mm:ss").create();
+			// Type type = new TypeToken<Answer>() {
+			// }.getType();
+			// newAnswer = gson.fromJson(arg0.result, type);
+			// list.add(newAnswer);
+			// getQueationByID(stu_id);
+			// Message msg = Message.obtain();
+			// msg.what = 2;
+			// msg.obj = list;
+			// handler.sendMessage(msg);
+			//
+			// }
+			// });
  
 					@Override
 					public void onSuccess(ResponseInfo<String> arg0) {
