@@ -224,7 +224,7 @@ public class QuestionFrag extends Fragment implements OnRefreshListener,
 				break;
 			case R.id.tv_sub2:
 				sub_id = 2;
-				tv_title.setText("高数");
+				tv_title.setText("物理");
 				popupWindow.dismiss();
 				break;
 			case R.id.tv_sub3:

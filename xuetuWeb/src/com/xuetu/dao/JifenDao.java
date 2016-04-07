@@ -152,9 +152,9 @@ public class JifenDao {
 	}
 
 	public int countjifen(int stuId) {
-		int count = 0;
+		int count = 100;
 		count += queryAllAnswerByid(stuId).size() * 5;
-		count -= queryAllQuestionByid(stuId).size() * 3;
+		count -= queryAllAnswerByid(stuId).size() * 3;
 		List<StudyTime> queryAllStudyTimeById = queryAllStudyTimeById(stuId);
 
 		for (int i = 0; i < queryAllStudyTimeById.size(); i++) {
@@ -237,7 +237,7 @@ public class JifenDao {
 			query = statement.executeQuery();
 			while (query.next()) {
 				jiFenMingXi = new JiFenMingXi();
-				jiFenMingXi.setImgUrl(1 + "");
+				jiFenMingXi.setImgUrl(2 + "");
 				jiFenMingXi.setText("回答问题得到到积分");
 				jiFenMingXi.setTime(query.getTimestamp("ques_time"));
 				jiFenMingXi.setUnmpuint(5);// st_id

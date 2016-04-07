@@ -256,6 +256,7 @@ public interface PersonalDaoInterface {
 	 * 通过学生ID查个人收藏的问题
 	 */
 	public List<CollectionQuestion> getPersonalCollectionQuestionByStuID(int stuID);
+
 	/**
 	 * 
 	 * 查询所有答案 按照id分组
@@ -264,4 +265,10 @@ public interface PersonalDaoInterface {
 	 * 
 	 */
 	public List<PersonAnswerAll> getAnswerAll();
+
+	/**
+	 * 通过学生id查询回答的答案
+	 */
+	public List<Answer> getAnswerByStuID(int stuID);
+
 }

@@ -59,16 +59,16 @@ public class GetClassTime extends HttpServlet {
 		
 		
 		int day_of_week = Integer.parseInt(request.getParameter("day_of_week"));  //今天星期几
-		System.out.println("day_of_week"+day_of_week);
 		int which_class = Integer.parseInt(request.getParameter("which_class"));//现在是第几节课
-		System.out.println("which_class"+which_class);
 		MyClass myclass = new MyClass();
+		System.out.println(   day_of_week+"+```````````"+  which_class     );
 		list = classtimedao.get_my_class( day_of_week, which_class);    //今天的所有课程
 		System.out.println(  list );
 		List<Integer>cls_id =classtimedao.get_student_clsID(stu_id);   //这个学生的所有选课id
 		System.out.println(  cls_id );
 		myclass=  classtimedao.isStudy(cls_id, list);     //  取得当前的课程对象,如果为空,则是没课
 		
+		System.out.println( myclass+"`````````````````");
 		
 		//如果课程对象不为空
 		PrintWriter pw = response.getWriter();
