@@ -12,6 +12,7 @@
     <color name="subject">#a76f60</color>
     <color name="date">#8d8d8d</color>
     <color name="blue1">#3099F8</color>
+    <color name="blueSelect">#2e66d8</color>
     <color name="background">#f7f7f7</color>
     <color name="srccolor">#fffffe</color>
 </resources>

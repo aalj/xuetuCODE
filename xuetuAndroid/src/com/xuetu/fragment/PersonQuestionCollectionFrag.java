@@ -119,11 +119,12 @@ public class PersonQuestionCollectionFrag extends Fragment implements OnItemClic
 								sdf.format(new Date(item.getQues_time().getTime())));
 						viewHolder.setText(R.id.tv_ques_text, item.getQuestion().getQuesText());
 						viewHolder.setText(R.id.tv_subject, item.getQuestion().getSubject().getName() + "");
-						if (item.getQuestion().getQuesIma() != null) {
+						viewHolder.getView(R.id.iv_ques_img).setVisibility(View.VISIBLE);
+						if (item.getQuestion().getQuesIma().equals("no")) {
+							viewHolder.getView(R.id.iv_ques_img).setVisibility(View.GONE);
+						} else {
 							viewHolder.SetUrlImage(R.id.iv_ques_img,
 									GetHttp.getHttpLC() + item.getQuestion().getQuesIma());
-						} else {
-							viewHolder.getView(R.id.iv_ques_img).setVisibility(View.GONE);
 						}
 						
 						viewHolder.getView(R.id.ll_question_item).setOnClickListener(new Myonclicklister(item));

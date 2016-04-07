@@ -36,6 +36,7 @@
             android:layout_centerInParent="true"
             android:text="全部问题"
             android:textColor="#ffffff"
+            android:drawableRight="@drawable/subdownquestionfrag"
             android:textSize="20sp" />
 
         <RelativeLayout
