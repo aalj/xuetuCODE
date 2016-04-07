@@ -59,7 +59,7 @@ public class SubmitQuestionWithoutImg extends HttpServlet {
 				quesTimeStr = request.getParameter("quesTime");
 				long parseLong = Long.parseLong(quesTimeStr);
 				quesTime = new Date(new Timestamp(parseLong).getTime());
-				quesImg = "no";
+				quesImg = "";
 				acpoNum = Integer.parseInt(request.getParameter("acpoNum"));
 				subId = Integer.parseInt(request.getParameter("subId"));
 				q = Qservice.createQuestion(stuId, quesText,quesImg,quesTime, acpoNum, subId,Qservice.getSchIdByStuId(stuId));

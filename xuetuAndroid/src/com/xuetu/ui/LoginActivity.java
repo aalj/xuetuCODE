@@ -73,13 +73,22 @@ public class LoginActivity extends Baseactivity implements OnClickListener {
 		button.setOnClickListener(this);
 
 		configPlatforms();
+		loadData();
+	}
+
+	public void loadData() {
+		Intent intent = getIntent();
+		String telephone = intent.getStringExtra("telephone");
+		String pwd = intent.getStringExtra("pwd");
+		et_password.setText(pwd);
+		et_usertel.setText(telephone);
 	}
 
 	@Override
 	public void onClick(View v) {
 		switch (v.getId()) {
 		case R.id.left_layout:
-			Toast.makeText(getApplicationContext(), "点击了", 1).show();
+//			Toast.makeText(getApplicationContext(), "点击了", 0).show();
 			finish();
 			break;
 		case R.id.button_QQ:
@@ -102,12 +111,6 @@ public class LoginActivity extends Baseactivity implements OnClickListener {
 			break;
 		case R.id.btn_login:
 			login();
-			// Intent intent = new Intent();
-			// intent.setClass(getApplicationContext(), PerCerter.class);
-			// Bundle bundle = new Bundle();
-			// bundle.putSerializable("KEY", student);
-			// startActivity(intent);
-
 			break;
 
 		case R.id.text_forgetpwd:
@@ -123,17 +126,11 @@ public class LoginActivity extends Baseactivity implements OnClickListener {
 
 	}
 
-	public void register() {
-
-	}
-
 	Student student;
 
 	public void login() {
-
 		String telephone = et_usertel.getText().toString().trim();
 		String password = et_password.getText().toString().trim();
-
 		getLogin(telephone, password);
 	}
 

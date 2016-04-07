@@ -14,12 +14,10 @@ import com.lidroid.xutils.http.callback.RequestCallBack;
 import com.lidroid.xutils.http.client.HttpRequest.HttpMethod;
 import com.xuetu.R;
 import com.xuetu.entity.Student;
-import com.xuetu.ui.PersonInfomationActivity;
 import com.xuetu.ui.XueTuApplication;
 import com.xuetu.utils.GetHttp;
 import com.xuetu.view.TitleBar;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -42,6 +40,13 @@ public class EditSignerActivity extends Baseactivity implements OnClickListener 
 		titlebar.setLeftLayoutClickListener(this);
 		titlebar.setRightLayoutClickListener(this);
 		stuId = ((XueTuApplication) getApplication()).getStudent().getStuId();
+		loadData();
+	}
+
+	public void loadData() {
+		Intent intent = getIntent();
+		String qianming = intent.getStringExtra("gexingqianming");
+		edit_qianming.setText(qianming);
 	}
 
 	@Override

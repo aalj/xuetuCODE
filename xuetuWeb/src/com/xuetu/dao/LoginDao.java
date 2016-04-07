@@ -257,7 +257,8 @@ public class LoginDao implements PersonalDaoInterface {
 
 		return null;
 	}
-	public int getAnsNum(int ques_id){
+
+	public int getAnsNum(int ques_id) {
 		int count = 0;
 		Connection conn = null;
 		PreparedStatement prep = null;
@@ -266,7 +267,7 @@ public class LoginDao implements PersonalDaoInterface {
 		try {
 			sql = "select * from answer where ques_id = ?";
 			prep = conn.prepareStatement(sql);
-			prep.setInt(1,ques_id);
+			prep.setInt(1, ques_id);
 			ResultSet rs = prep.executeQuery();
 			// 指针从第一行属性字段开始
 			while (rs.next()) {
@@ -276,9 +277,10 @@ public class LoginDao implements PersonalDaoInterface {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
+
 		return count;
 	}
+
 	@Override
 	public StoreName getStoreNameByCouID(int stoID) {
 		// TODO Auto-generated method stub
@@ -776,8 +778,9 @@ public class LoginDao implements PersonalDaoInterface {
 	public List<PersonAnswerAll> getAnswerAll() {
 		Connection connection = DBconnection.getConnection();
 		// SELECT COUNT(*), finddate FROM yourtable GROUP BY finddate;
-		String sql="select count(ans_id),stu_id from answer group by stu_id order by count(ans_id) desc;";
-//		String sql = "select sum(sto_time),stu_id  from studytime group by stu_id order by sum(sto_time) desc;";
+		String sql = "select count(ans_id),stu_id from answer group by stu_id order by count(ans_id) desc;";
+		// String sql = "select sum(sto_time),stu_id from studytime group by
+		// stu_id order by sum(sto_time) desc;";
 		PreparedStatement prepareStatement = null;
 		ResultSet resultSet = null;
 		try {
@@ -802,6 +805,41 @@ public class LoginDao implements PersonalDaoInterface {
 			CloseDb.close(connection, resultSet, prepareStatement);
 		}
 
+		return null;
+	}
+
+	@Override
+	public List<Answer> getAnswerByStuID(int stuID) {
+		System.out.println("这是LOGdAO"+stuID);
+		Connection connection = DBconnection.getConnection();
+		String sql = "select * from answer where stu_id=?";
+		QuestionIml questionIml = new QuestionIml();
+		PreparedStatement prepareStatement = null;
+		ResultSet resultSet = null;
+		try {
+			prepareStatement = connection.prepareStatement(sql);
+			prepareStatement.setInt(1, stuID);
+			resultSet = prepareStatement.executeQuery();
+			List<Answer> listanswer = new ArrayList<>();
+			Answer answer;
+			while (resultSet.next()) {
+				answer = new Answer();
+				answer.setAnsID(resultSet.getInt("ans_id"));
+				answer.setAnsImg(resultSet.getString("ans_ima"));
+				answer.setAnsText(resultSet.getString("ans_text"));
+				answer.setQuestion(questionIml.getQuestionByQuesId(resultSet.getInt("ques_id")));
+				answer.setStudent(getStuByID(resultSet.getInt("stu_id")));
+				answer.setAgrNum(questionIml.getAgrNumByAnsId(resultSet.getInt("ans_id")));
+				answer.setAnsTime(resultSet.getTimestamp("ans_time"));
+				listanswer.add(answer);
+			}
+			return listanswer;
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally{
+			CloseDb.close(connection, resultSet, prepareStatement);
+		}
 		return null;
 	}
 
