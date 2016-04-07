@@ -7,7 +7,6 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
-import com.gc.materialdesign.views.Switch;
 import com.github.jjobes.slidedatetimepicker.SlideDateTimeListener;
 import com.github.jjobes.slidedatetimepicker.SlideDateTimePicker;
 import com.google.gson.Gson;
@@ -45,6 +44,7 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.EditText;
 import android.widget.RelativeLayout;
+import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -85,7 +85,7 @@ public class AddSelfPlanActivity extends FragmentActivity implements OnClickList
 	// 用于返回传值回去
 	Intent intent = null;
 
-	private SimpleDateFormat mFormatter = new SimpleDateFormat("MM-dd HH:mm");
+	private SimpleDateFormat mFormatter = new SimpleDateFormat("MM-dd HH:mm:ss");
 	SharedPreferences sp = null;
 	/** 用于标记数据是否有更改 */
 	boolean temp = false;
@@ -202,38 +202,44 @@ public class AddSelfPlanActivity extends FragmentActivity implements OnClickList
 			break;
 		case R.id.right_layout:
 			if (!TextUtils.isEmpty(xuexi_info.getText().toString())) {
-				if ((endTime.getTime() - startTime.getTime()) < 2 * 60 * 60 * 1000) {
-					if (panDuanTimeSize(endTime, startTime)) {
+				if (startTime.getTime() > System.currentTimeMillis()) {
+					if ((endTime.getTime() - startTime.getTime()) < 2 * 60 * 60 * 1000) {
+						if (panDuanTimeSize(endTime, startTime)) {
 
-						if (!pateernMode) {// 如果没有选择学习模式的话设置默认的值
-							selfStudyPlan.setPattern(list.get(0));
-						}
+							if (!pateernMode) {// 如果没有选择学习模式的话设置默认的值
+								selfStudyPlan.setPattern(list.get(0));
+							}
 
-						intent = new Intent();
-						selfStudyPlan.setStudent(student);
-						Log.i("TAG", "xuesheng duiiang   --- - -- - - -" + selfStudyPlan.getStudent().getStuName());
-						selfStudyPlan.setStartTime(startTime);
-						selfStudyPlan.setPlanDate(new Date(System.currentTimeMillis()));
-						selfStudyPlan.setEndTime(endTime);
-						selfStudyPlan.setPlanText(xuexi_info.getText().toString());
-						if (study_parrt_info.isCheck()) {
-							selfStudyPlan.setPlanReming(1);
+							intent = new Intent();
+							selfStudyPlan.setStudent(student);
+							Log.i("TAG", "xuesheng duiiang   --- - -- - - -" + selfStudyPlan.getStudent().getStuName());
+							selfStudyPlan.setStartTime(startTime);
+							selfStudyPlan.setPlanDate(new Date(System.currentTimeMillis()));
+							selfStudyPlan.setEndTime(endTime);
+							selfStudyPlan.setPlanText(xuexi_info.getText().toString());
+							//TODO
+							if (study_parrt_info.isChecked()) {
+								selfStudyPlan.setPlanReming(1);
+							} else {
+								selfStudyPlan.setPlanReming(0);
+							}
+							// dbFindManager.addSelfOne(selfStudyPlan);
+							intent.putExtra("self", selfStudyPlan);
+							addChangSelf(selfStudyPlan);
+							setResult(1011, intent);
+							finish();
+
 						} else {
-							selfStudyPlan.setPlanReming(0);
-						}
-						// dbFindManager.addSelfOne(selfStudyPlan);
-						intent.putExtra("self", selfStudyPlan);
-						addChangSelf(selfStudyPlan);
-						setResult(1011, intent);
-						finish();
 
+							Toast.makeText(getApplicationContext(), "结束时间应该大于开始时间1分钟", 0).show();
+						}
 					} else {
 
-						Toast.makeText(getApplicationContext(), "结束时间应该大于开始时间1分钟", 0).show();
+						Toast.makeText(getApplicationContext(), "计划不能超过超过两小小时", 0).show();
 					}
 				} else {
+					Toast.makeText(getApplicationContext(), "计划开始时间应该大于现在时间", 0).show();
 
-					Toast.makeText(getApplicationContext(), "计划不能超过超过两小小时", 0).show();
 				}
 			} else {
 				Toast.makeText(getApplicationContext(), "计划描述还没有填写", 0).show();

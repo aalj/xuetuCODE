@@ -14,15 +14,15 @@ public class ShowDialog {
 			builder.setTitle("取消添加");
 			builder.setCancelable(true);
 			// 设置Content来显示一个信息
-			builder.setMessage("保存数据？");
+			builder.setMessage("现在退出将导致数据丢失？");
 			// 设置一个PositiveButton
-			builder.setPositiveButton("确定", new DialogInterface.OnClickListener() {
+			builder.setPositiveButton("取消", new DialogInterface.OnClickListener() {
 				@Override
 				public void onClick(DialogInterface dialog, int which) {
 				}
 			});
 			// 设置一个NegativeButton
-			builder.setNegativeButton("取消", new DialogInterface.OnClickListener() {
+			builder.setNegativeButton("确定退出", new DialogInterface.OnClickListener() {
 				@Override
 				public void onClick(DialogInterface dialog, int which) {
 					dialog.dismiss();

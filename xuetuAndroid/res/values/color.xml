@@ -15,4 +15,5 @@
     <color name="blueSelect">#2e66d8</color>
     <color name="background">#f7f7f7</color>
     <color name="srccolor">#fffffe</color>
+      <color name="light_blue">#6593cb</color>
 </resources>
