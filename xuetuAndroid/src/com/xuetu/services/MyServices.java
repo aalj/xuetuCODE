@@ -139,7 +139,7 @@ public class MyServices extends Service {
 	public void notifa() {
 		Intent intent = new Intent(this, com.xuetu.ui.FindTaskListActivity.class);
 		PendingIntent pendingIntent2 = PendingIntent.getActivity(this, 0, intent,
-				0);
+				PendingIntent.FLAG_UPDATE_CURRENT);
 		// 通过Notification.Builder来创建通知，注意API Level
 		// API11之后才支持
 		Notification notify2 = new Notification.Builder(this).setSmallIcon(R.drawable.ic_launcher) // 设置状态栏中的小图片，尺寸一般建议在24×24，这个图片同样也是在下拉状态栏中所显示，如果在那里需要更换更大的图片，可以使用setLargeIcon(Bitmap

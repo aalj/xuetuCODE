@@ -27,6 +27,7 @@ public class YouHuiJuanInfomationActivity extends Baseactivity {
 	TextView shiyongdidianshuoming;
 	TextView button_lijishiyong;
 	TextView xuyaodejifen;
+	TextView shiyongjieshao;
 	ImageView backToDecember;
 	MyCoupon mycoupon;
 	Coupon coupon;
@@ -49,6 +50,7 @@ public class YouHuiJuanInfomationActivity extends Baseactivity {
 		head_CircleImageView = (CircleImageView) findViewById(R.id.head_CircleImageView);
 		button_lijishiyong = (TextView) findViewById(R.id.button_lijishiyong);
 		xuyaodejifen = (TextView) findViewById(R.id.xuyaodejifen);
+		shiyongjieshao = (TextView) findViewById(R.id.shiyongjieshao);
 		backToDecember = (ImageView) findViewById(R.id.imageView_backToDecember);
 		getDatasAndsetDates();
 	}
@@ -64,11 +66,12 @@ public class YouHuiJuanInfomationActivity extends Baseactivity {
 		BitmapUtils bitmapUtils1 = new BitmapUtils(this);
 		bitmapUtils1.display(head_CircleImageView, GetHttp.getHttpBCL() + coupon.getStoreName().getStoImg());
 		xuyaodejifen.setText(mycoupon.getCoupon().getCoouRedeemPoints()+"");
-		youhuijuanxingxi.setText(coupon.getCouInfo());
+		youhuijuanxingxi.setText(coupon.getCouName());
 		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy年MM月dd日");
 		String time_format = dateFormat.format(coupon.getConValidity());
 		youxiaoqixian.setText(time_format);
 		dianjiadejutixingxi.setText(coupon.getStoreName().getStoName());
+		shiyongjieshao.setText(coupon.getCouInfo());
 		if(!(mycoupon.getUserState().getUstaID() == 2)){
 			button_lijishiyong.setClickable(false);
 			button_lijishiyong.setFocusable(false);
@@ -82,9 +85,7 @@ public class YouHuiJuanInfomationActivity extends Baseactivity {
 	public void onclick(View v) {
 		switch (v.getId()) {
 		case R.id.imageView_backToDecember:
-			Intent intent = new Intent();
-			intent.setClass(this, TheCollectionOfYouHuiJuanActivity.class);
-			startActivity(intent);
+			
 			finish();
 			break;
 		/** 跳转到店家 **/
@@ -93,6 +94,7 @@ public class YouHuiJuanInfomationActivity extends Baseactivity {
 			intent1.setClass(this, StoneNameActivity.class);
 			intent1.putExtra("coupon", coupon);
 			startActivity(intent1);
+			finish();
 			break;
 		default:
 			break;
