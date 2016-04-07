@@ -73,6 +73,7 @@ public class Question_ask extends Activity implements OnClickListener,
 	File file = null;
 	private String url = null;
 	int curJifen = -1;
+	View v ;
 	Boolean btnFlag = true;
 	// 声明页面控件
 	private EditText et_question = null;
@@ -105,7 +106,8 @@ public class Question_ask extends Activity implements OnClickListener,
 		iv_prop = (ImageView) findViewById(R.id.iv_prop);
 		rl_prop = (RelativeLayout) findViewById(R.id.rl_prop);
 		tv_sub = (TextView) findViewById(R.id.tv_sub);
-
+		v = LayoutInflater.from(this).inflate(R.layout.subject_pop, null);
+		
 		file = new File(Environment.getExternalStorageDirectory(),
 				sdf.format(new Date(System.currentTimeMillis())) + ".jpg");
 		imageUri = Uri.fromFile(file);
@@ -283,6 +285,7 @@ public class Question_ask extends Activity implements OnClickListener,
 		View contentView = LayoutInflater.from(mContext).inflate(
 				R.layout.subject_pop, null);
 		// 设置4个学科选项的监听实践
+		contentView.findViewById(R.id.tv_AllSub).setVisibility(View.GONE);
 		contentView.findViewById(R.id.tv_sub1).setOnClickListener(
 				Question_ask.this);
 		contentView.findViewById(R.id.tv_sub2).setOnClickListener(

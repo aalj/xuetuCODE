@@ -265,7 +265,6 @@ public class Answer_list extends Activity implements OnClickListener{
 					imageUri = Uri.fromFile(file);	
 					btn_photo.setImageResource(R.drawable.crop);	//提交完成后清空图片
 					et_ans_text.setText("");	//清空输入框
-					Toast.makeText(Answer_list.this, "5积分到手！！", 0).show();
 				}
 			}
 			break;
@@ -506,7 +505,7 @@ public class Answer_list extends Activity implements OnClickListener{
 
 					@Override
 					public void onSuccess(ResponseInfo<String> arg0) {
-						Toast.makeText(getApplicationContext(), "提交成功", 1)
+						Toast.makeText(getApplicationContext(), "5积分到手", 1)
 								.show();
 						Gson gson = new GsonBuilder()
 								.enableComplexMapKeySerialization()
@@ -547,7 +546,6 @@ public class Answer_list extends Activity implements OnClickListener{
 						sdf2.format(new Date(item.getAnsTime().getTime())));
 				ivAns.setVisibility(View.VISIBLE);
 
-				Log.i("hehe", item.getAnsText()+"-------------anstext"+item.getAnsImg()+"--------ansImg");
 				if ("no".equals(item.getAnsImg())) {
 					ivAns.setVisibility(View.GONE);
 				} else {
