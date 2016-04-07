@@ -1,4 +1,4 @@
-﻿package com.xuetu.utils;
+package com.xuetu.utils;
 
 
 
@@ -54,11 +54,9 @@ public class ViewHolder {
 	public static ViewHolder get(Context context,ViewGroup parent,int resoureId,View convertView){
 		if(convertView==null){
 			//解析布局文件，赋值给convertview；并将convertview和viewholder绑定；
-			Log.i(Constant.TAG, "convertview为null");
 			return new ViewHolder(context,parent,resoureId);
 		}
 
-			Log.i(Constant.TAG, "convertview不为null");
 			return (ViewHolder) convertView.getTag();
 		
 	}

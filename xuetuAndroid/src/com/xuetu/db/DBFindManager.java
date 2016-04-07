@@ -161,7 +161,7 @@ public class DBFindManager {
 		values.put("code_time", countdown.getCodoTime().getTime() + "");
 		values.put("codo_text", countdown.getCodoText());
 		values.put("codo_index", countdown.getCodo_index());
-		values.put("temp_time", (int)System.currentTimeMillis()+"");
+		values.put("temp_time", countdown.getTemp_time());
 
 		long insert = db.insert("countdown", null, values);
 		if (!(insert > 0)) {

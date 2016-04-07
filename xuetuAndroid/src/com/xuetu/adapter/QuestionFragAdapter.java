@@ -62,7 +62,6 @@ public class QuestionFragAdapter extends BaseAdapter {
 		// Log.i("hehe", "listtag-----"+listtag.size());
 		xt = (XueTuApplication) context.getApplicationContext();
 		s = xt.getSetQuesWithImg();
-		Log.i("hehe", "----------------------<><><><><><><<" + s.size());
 		bitmapUtils = new BitmapUtils(context);
 		this.questions = questions;
 		this.context = context;

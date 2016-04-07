@@ -87,7 +87,8 @@ public class PersonalQuestionCollectionActivity extends Activity implements OnCl
 								sdf.format(new Date(item.getQuesDate().getTime())));
 						viewHolder.setText(R.id.tv_ques_text, item.getQuesText());
 						viewHolder.setText(R.id.tv_subject, item.getSubject().getName() + "");
-						if (item.getQuesIma() != null) {
+						viewHolder.getView(R.id.iv_ques_img).setVisibility(View.VISIBLE);
+						if (!item.getQuesIma().equals("no")) {
 							viewHolder.SetUrlImage(R.id.iv_ques_img,
 									GetHttp.getHttpLC() + item.getQuesIma());
 						} else {

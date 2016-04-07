@@ -101,6 +101,12 @@ public class MainActivity extends FragmentActivity implements OnPageChangeListen
 		// 登录成功传值出来
 		Intent intent = this.getIntent();
 		Student student = (Student) intent.getSerializableExtra("KEY");
+		int flag = getIntent().getIntExtra("flag", 0);
+		if(flag==-1){
+			Log.i("TAG", "mainactivity页面就哈哈哈哈   ");
+			viewPage.setCurrentItem(0);
+		}
+		
 
 	}
 

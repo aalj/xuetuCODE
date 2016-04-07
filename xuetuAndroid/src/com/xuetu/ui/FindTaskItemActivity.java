@@ -4,7 +4,6 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
-import com.gc.materialdesign.views.Switch;
 import com.github.jjobes.slidedatetimepicker.SlideDateTimeListener;
 import com.github.jjobes.slidedatetimepicker.SlideDateTimePicker;
 import com.lidroid.xutils.HttpUtils;
@@ -35,6 +34,7 @@ import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RelativeLayout;
+import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -107,6 +107,7 @@ public class FindTaskItemActivity extends Baseactivity implements OnClickListene
 		if (selfStudyPlan.getPlanReming() == 1) {
 			temp = true;
 		}
+		
 		study_parrt_info.setChecked(temp);
 		xuexi_info.setText(selfStudyPlan.getPlanText());
 
@@ -195,7 +196,7 @@ public class FindTaskItemActivity extends Baseactivity implements OnClickListene
 					// 设置计划信息
 					selfStudyPlan.setPlanText(xuexi_info.getText().toString());
 					// 设置是否需要提醒
-					if (study_parrt_info.isCheck()) {
+					if (study_parrt_info.isChecked()) {//TODO
 						selfStudyPlan.setPlanReming(1);
 					} else {
 						selfStudyPlan.setPlanReming(0);
