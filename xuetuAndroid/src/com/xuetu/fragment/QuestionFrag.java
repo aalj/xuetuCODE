@@ -238,9 +238,13 @@ public class QuestionFrag extends Fragment implements OnRefreshListener,
 				popupWindow.dismiss();
 				break;
 			case R.id.tv_AllSub:
+
 //				Toast.makeText(getActivity(), "tv_AllSub", 0).show();
 				InitDengdaiDialog();
+
+				progressDialog.show();
 				InitData(1, REFRESH_TEMP);
+				progressDialog.dismiss();
 				tv_title.setText("全部问题");
 				popupWindow.dismiss();
 			}
