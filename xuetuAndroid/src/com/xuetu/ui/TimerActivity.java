@@ -18,34 +18,21 @@ import com.lidroid.xutils.http.callback.RequestCallBack;
 import com.lidroid.xutils.http.client.HttpRequest.HttpMethod;
 import com.lidroid.xutils.view.annotation.ViewInject;
 import com.xuetu.R;
-import com.xuetu.R.id;
-import com.xuetu.R.layout;
-import com.xuetu.R.menu;
-import com.xuetu.entity.SelfStudyPlan;
 import com.xuetu.entity.Student;
-import com.xuetu.fragment.HomePageFrag;
 import com.xuetu.utils.GetHttp;
 
 import android.app.Activity;
 import android.app.ActivityManager;
 import android.app.ActivityManager.RunningTaskInfo;
-import android.app.backup.FullBackupDataOutput;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.os.Handler;
 import android.text.TextUtils;
-import android.util.Log;
-import android.view.Menu;
-import android.view.MenuItem;
-import android.view.View;
-import android.view.View.OnClickListener;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.TextView;
-import android.widget.Toast;
 
 
 

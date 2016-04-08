@@ -881,6 +881,8 @@ new AlertDialog.Builder(getActivity()).setTitle("注意").setMessage("当天没�
 									"yyyy-MM-dd HH:mm:ss").create();
 							todayplan =gson.fromJson(arg, type); //如果这个时候,所有的值已经传完
 							System.out.println(todayplan);
+							
+							
 							//用for循环,把他们的备注显示在另一个集合里
 							todayplan_note=new ArrayList<String>();
 							String [] dsss = new String  [todayplan.size()];
