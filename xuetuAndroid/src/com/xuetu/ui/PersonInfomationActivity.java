@@ -359,7 +359,7 @@ public class PersonInfomationActivity extends Baseactivity implements OnClickLis
 			@Override
 			public void onClick(DialogInterface dialog, int which) {
 				gradedata = GradeData[which];
-				text_grade.setText(gradedata);
+//				text_grade.setText(gradedata);
 				Toast.makeText(getApplication(), "您选择了：" + gradedata, 2).show();
 			}
 		});
@@ -367,6 +367,7 @@ public class PersonInfomationActivity extends Baseactivity implements OnClickLis
 
 			@Override
 			public void onClick(DialogInterface dialog, int which) {
+				text_grade.setText(gradedata);
 				if (!gradedata.equals(((XueTuApplication) getApplication()).getStudent().getStuUgrade())) {
 					((XueTuApplication) getApplication()).getStudent().setStuUgrade(gradedata);
 					/**
