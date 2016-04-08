@@ -130,7 +130,7 @@ public class Answer_list extends Activity implements OnClickListener{
 
 		titlebar = (TitleBar) findViewById(R.id.title_my);
 		btn_photo = (CircleImageView) findViewById(R.id.btn_photo);
-		btn_photo.setScaleType(ScaleType.CENTER_INSIDE);
+		btn_photo.setScaleType(ScaleType.MATRIX);
 		btn_ans = (Button) findViewById(R.id.btn_ans);
 		et_ans_text = (EditText) findViewById(R.id.et_ans_text);
 		lv_answer = (ListView) findViewById(R.id.lv_answer);
