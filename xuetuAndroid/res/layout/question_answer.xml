@@ -39,7 +39,7 @@
                     <com.xuetu.view.CircleImageView
                         android:id="@+id/iv_ans1_userImg"
                         android:layout_width="match_parent"
-                        android:layout_height="50dp"
+                        android:layout_height="25dp"
                         android:layout_marginBottom="10dp"
                         android:layout_marginTop="5dp"
                         android:src="@drawable/head" />
@@ -118,7 +118,7 @@
 					    <ImageView
                         android:id="@+id/iv_ans1_ques_img"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
+                        android:layout_height="120dp"
                         android:layout_margin="5dp"
                         android:scaleType="fitXY"
                         android:src="@drawable/annie" />
@@ -132,8 +132,9 @@
 
 					<ImageView
 					    android:id="@+id/iv_collect"
-					    android:layout_width="wrap_content"
-					    android:layout_height="match_parent"
+					    android:layout_width="20dp"
+					    android:layout_height="20dp"
+					    android:layout_centerVertical="true"
 					    android:layout_alignParentRight="true"
 					    android:layout_marginRight="5dp"
 					    android:src="@drawable/ic_save" />
@@ -141,17 +142,17 @@
                     <TextView
                         android:id="@+id/tv_ans1_num"
                         android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
+                        android:layout_height="40dp"
                         android:layout_alignTop="@id/iv_collect"
                         android:layout_marginRight="5dp"
                         android:layout_toLeftOf="@id/iv_collect"
                         android:gravity="center"
                         android:text="12"
                         android:textColor="@color/gray"
-                        android:textSize="12dp" />
+                        android:textSize="15dp" />
 					<ImageView 
-					    android:layout_width="wrap_content"
-					    android:layout_height="match_parent"
+					    android:layout_width="30dp"
+					    android:layout_height="30dp"
 					    
 					    android:scaleType="fitXY"
 					    android:src="@drawable/ic_ans"
@@ -190,15 +191,14 @@
 
         <com.xuetu.view.CircleImageView
             android:id="@+id/btn_photo"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
             android:layout_alignBottom="@+id/et_ans_text"
             android:layout_alignTop="@+id/et_ans_text"
             android:layout_marginLeft="5dp"
             android:layout_marginRight="5dp"
-            android:scaleType="center"
-            android:src="@drawable/crop"
-            title:border_color="#ffffffff" />
+            android:background="@drawable/crop"
+            android:scaleType="center"/>
 
         <EditText
             android:id="@+id/et_ans_text"
