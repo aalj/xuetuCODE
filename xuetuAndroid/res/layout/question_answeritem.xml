@@ -33,6 +33,7 @@
             android:layout_height="wrap_content"
             android:layout_alignBottom="@+id/iv_ans_userImg"
             android:layout_toRightOf="@+id/iv_ans_userImg"
+            android:textColor="@color/subject"
             android:text="回答者用户名:" />
         <com.xuetu.view.CircleImageView
             android:id="@+id/iv_ans_userImg"
@@ -52,6 +53,7 @@
             android:layout_alignBaseline="@+id/tv_ans_stuName"
             android:layout_alignBottom="@+id/tv_ans_stuName"
             android:layout_alignParentRight="true"
+            android:textColor="@color/gray"
             android:layout_marginRight="5dp"
             android:text="2小时前" />
 

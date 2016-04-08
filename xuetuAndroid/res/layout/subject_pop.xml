@@ -18,7 +18,17 @@
         android:background="@color/white"
         android:orientation="horizontal"
         android:paddingTop="10dp" >
-
+		<TextView
+            android:id="@+id/tv_AllSub"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@drawable/setting_sub_selector"
+            android:clickable="true"
+            android:gravity="center"
+            android:text="全部问题"
+            android:textSize="20sp" />
+        
         <TextView
             android:id="@+id/tv_sub1"
             android:layout_width="wrap_content"
@@ -27,7 +37,6 @@
             android:background="@drawable/setting_sub_selector"
             android:clickable="true"
             android:gravity="center"
-            android:onClick="setSub"
             android:text="@string/sub1"
             android:textSize="20sp" />
 
@@ -39,7 +48,6 @@
             android:background="@drawable/setting_sub_selector"
             android:clickable="true"
             android:gravity="center"
-            android:onClick="setSub"
             android:text="@string/sub2"
             android:textSize="20sp" />
 
@@ -51,7 +59,6 @@
             android:background="@drawable/setting_sub_selector"
             android:clickable="true"
             android:gravity="center"
-            android:onClick="setSub"
             android:text="@string/sub3"
             android:textSize="20sp" />
 
@@ -63,7 +70,6 @@
             android:background="@drawable/setting_sub_selector"
             android:clickable="true"
             android:gravity="center"
-            android:onClick="setSub"
             android:text="@string/sub4"
             android:textSize="20sp" />
     </LinearLayout>
@@ -72,6 +78,5 @@
         android:layout_height="30dp"
         android:background="@color/black2"
         android:gravity="center_vertical"
-        android:paddingLeft="15dp"
-        android:text="学科:" />
+        android:paddingLeft="15dp"/>
 </LinearLayout>

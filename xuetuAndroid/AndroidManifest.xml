@@ -8,8 +8,7 @@
         android:minSdkVersion="14"
         android:targetSdkVersion="22" />
     <!-- 监听开机自启 -->
-    
-    
+
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.WRITE_SETTINGS" />
     <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
@@ -55,8 +54,9 @@
     <uses-permission android:name="android.permission.USE_CREDENTIALS" />
     <uses-permission android:name="android.permission.MANAGE_ACCOUNTS" />
 
-    <!--监听当前页面 -->
+    <!-- 监听当前页面 -->
     <uses-permission android:name="android.permission.GET_TASKS" />
+
     <application
         android:name=".ui.XueTuApplication"
         android:allowBackup="true"
@@ -287,7 +287,8 @@
             android:label="@string/title_activity_edit_alarm" >
         </activity>
 
-      <service android:name="com.xuetu.services.MyServices"></service>
+        <service android:name=".services.MyServices" >
+        </service>
 
         <activity
             android:name=".ui.DaoJiShiActivity"
@@ -304,8 +305,27 @@
         <activity android:name=".ui.AddAlarmZaoqi" >
         </activity>
         <activity
-            android:name="com.xuetu.ui.YinDaoyeActivity"
+            android:name=".ui.YinDaoyeActivity"
             android:label="@string/title_activity_yin_daoye" >
+        </activity>
+        <activity
+            android:name=".UserInfomationActivity"
+            android:label="@string/title_activity_user_infomation" >
+        </activity>
+        <activity
+            android:name=".UserQuestionInfomationActivity"
+            android:label="@string/title_activity_user_question_infomation" >
+        </activity>
+        <activity
+
+            android:name=".ShowerweiActivity"
+            android:label="@string/title_activity_showerwei" 
+            android:theme="@android:style/Theme.Holo.DialogWhenLarge"> 
+			</activity>
+			<activity
+            android:name=".UserAnswerInformationActivity"
+            android:label="@string/title_activity_user_answer_information" >
+
         </activity>
     </application>
 

@@ -41,7 +41,13 @@ public class EditNameActivity extends Baseactivity implements OnClickListener {
 		titlebar.setRightLayoutClickListener(this);
 		stuId = ((XueTuApplication) getApplication()).getStudent().getStuId();
 		Log.i("TAG", "-----到达编辑框“”");
+		loadData();
+	}
 
+	public void loadData() {
+		Intent intent = getIntent();
+		String name = intent.getStringExtra("name");
+		edit_name.setText(name);
 	}
 
 	@Override

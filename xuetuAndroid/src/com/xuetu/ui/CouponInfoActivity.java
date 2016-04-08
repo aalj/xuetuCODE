@@ -31,7 +31,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-public class CouponInfoActivity extends Activity {
+public class CouponInfoActivity extends Baseactivity {
 	CircleImageView head;
 	CircleImageView head_CircleImageView;
 	TextView youhuijuanxingxi;

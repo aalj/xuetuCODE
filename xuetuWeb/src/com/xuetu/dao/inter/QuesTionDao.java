@@ -231,6 +231,5 @@ public interface QuesTionDao {
 	public List<Question> getQuesBySubId(int sub_id);
 	public Set<Integer> getAgreeAnswerByStuId(int stu_id);
 	public Integer getAgrNumByAnsId(int ans_id);
-	public Set<Integer> getQuesIdsWithImg();
 }
 

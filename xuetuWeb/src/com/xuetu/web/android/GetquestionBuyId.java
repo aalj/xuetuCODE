@@ -31,7 +31,7 @@ public class GetquestionBuyId extends HttpServlet {
 		if(parameter!=null){
 			i = Integer.parseInt(parameter);
 		}
-		Question queryQuestionById = new QuestionIml().queryQuestionById(i);
+		Question queryQuestionById = new QuestionIml().getQuestionByQuesId(i);
 		Gson gson = new GsonBuilder()
 				.enableComplexMapKeySerialization()
 				.setPrettyPrinting()

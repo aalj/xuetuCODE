@@ -19,6 +19,7 @@ import com.xuetu.view.TitleBar;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -39,6 +40,7 @@ public class ChangeAgeActivity extends Activity implements OnClickListener {
 		titlebar.setLeftLayoutClickListener(this);
 		titlebar.setRightLayoutClickListener(this);
 		stuId = ((XueTuApplication) getApplication()).getStudent().getStuId();
+		loadData();
 	}
 
 	@Override
@@ -53,7 +55,9 @@ public class ChangeAgeActivity extends Activity implements OnClickListener {
 			Intent intent = new Intent();
 			String ed_name = edit_age.getText().toString();
 			Student student = ((XueTuApplication) getApplication()).getStudent();
-			student.setStuAge(Integer.parseInt(ed_name));
+			if (!TextUtils.isEmpty(ed_name)) {
+				student.setStuAge(Integer.parseInt(ed_name));
+			}
 			intent.putExtra("edit_age", ed_name);
 			setResult(3, intent);
 			finish();
@@ -62,6 +66,12 @@ public class ChangeAgeActivity extends Activity implements OnClickListener {
 			break;
 		}
 
+	}
+
+	public void loadData() {
+		Intent intent = getIntent();
+		String userage = intent.getStringExtra("age");
+		edit_age.setText(userage);
 	}
 
 	public void update() {

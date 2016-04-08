@@ -48,7 +48,7 @@ public class DataToTime {
 			int dayForWeek = dayForWeek(list.get(i).getMyDate());
 			
 			for (int j = 0; j < 7; j++) {
-				if (dayForWeek == week) {//4-1
+				if (dayForWeek == week) {//4-0
 					if (!in.contains(week)) {
 						
 						mylist.remove(dayForWeek);
@@ -67,6 +67,8 @@ public class DataToTime {
 			
 
 		}
+		
+		
 		List<float[]> lis= new ArrayList<>();
 		for (int i = 0;i<mylist.size();i++) {
 			lis.add(0,mylist.get(week));
