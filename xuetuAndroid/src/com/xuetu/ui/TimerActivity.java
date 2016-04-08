@@ -4,6 +4,7 @@ import java.lang.reflect.Type;
 import java.sql.Date;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.List;
 import java.util.Locale;
 
 import com.google.gson.Gson;
@@ -27,6 +28,7 @@ import com.xuetu.utils.GetHttp;
 
 import android.app.Activity;
 import android.app.ActivityManager;
+import android.app.ActivityManager.RunningTaskInfo;
 import android.app.backup.FullBackupDataOutput;
 import android.content.ComponentName;
 import android.content.Context;
@@ -34,11 +36,13 @@ import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.os.Handler;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -81,8 +85,8 @@ public class TimerActivity extends Activity {
 	private TextView tv_pointSum;
 	private TextView tv_textPlan;
 	String class_name;
-	boolean is_result = true;
-	ActivityManager am;
+
+
 //	boolean flag = true;
 //	boolean planflag=true;
 //	//这两个判断 实在改页面结束时返回给home_page_fragment 的值,以确保首页可以进行滑动判定
@@ -112,8 +116,13 @@ public class TimerActivity extends Activity {
 	int  plan_state =0;
 	int plan_id = 0;
 	boolean  is_finish = true;
-	Context   context  ;
-	ComponentName cn;
+	
+	/*****		判断当前页面是否是该Activity所需要的变量与常量				****/
+	    ActivityManager am;
+	    List<RunningTaskInfo> list;
+	    final String  class_bao_Name = "com.xuetu.ui.TimerActivity" ;
+	    Context context;
+	    boolean is_background = true;
 	
 	
 	@Override
@@ -121,6 +130,10 @@ public class TimerActivity extends Activity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.home_timer);
 		
+		
+		System.out.println("Oncreate 运行了一次");
+		getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON); 
+		context = TimerActivity.this;
 		
 		Intent intent = getIntent();
 		alltime = intent.getLongExtra("ss", 0);
@@ -178,9 +191,19 @@ public class TimerActivity extends Activity {
 	                	integral_double++;//每到600秒,积分倍数+1(初始值0)
 	                	//  显示已获得积分，10秒刷新一次
 //	                	
-//	                	if(!onpage()){
-//	                		endTime();
-//	                	}
+	                	
+	                	
+	                	
+	                	isForeground();
+	                	if(!is_background)
+	                	{
+	                		new SaveTimeAndIntegral().saveStudyTime(st_time, integral_double,stu_from_home);
+	                		alltime = 0;//修改倒计时剩余时间变量为0秒
+		           	         integral_double=0;
+		           	         st_time=0;
+		           	         plan_state=0;
+		           	         is_finish=false;
+	                	}
 	                	
 	                	
 	                	mHandler.post(new Runnable() {//通过它在UI主线程中修改显示的剩余时间
@@ -251,7 +274,6 @@ public class TimerActivity extends Activity {
          return ss;
     }
     
-    
     class SaveTimeAndIntegral {
     	
     	public void saveStudyTime(int st_time,int integral_double,String stu_from_home)
@@ -268,7 +290,6 @@ public class TimerActivity extends Activity {
     		requestParams.addBodyParameter("student", stu_from_home);//学生id
     		requestParams.addBodyParameter("plan_state", plan_state+"");
     		requestParams.addBodyParameter("plan_id", plan_id+"");
-//    		System.out.println(stu_from_home);
     		httpUtils.send(HttpMethod.POST, url,requestParams,new RequestCallBack<String>() {
     			
     			@Override
@@ -294,7 +315,6 @@ public class TimerActivity extends Activity {
     public static String getTime()
     {
     	String time = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.CHINESE) .format(Calendar.getInstance().getTime());
-//    	System.out.println(time+"");
     	return time;
     }
     
@@ -308,7 +328,6 @@ public class TimerActivity extends Activity {
     	int itg=5 * integral_double;
     	return itg ;
     }
-    
     
     /**
      * 计时页面结束时执行的语句
@@ -361,18 +380,32 @@ public class TimerActivity extends Activity {
     }
     
     
-//    public boolean onpage()
-//    {
-//    	if (cn != null) {  
-//    	    if ("com.android.phone.InCallScreen".equals(cn.getClassName())) {  
-//    	        is_result = true;  
-//    	    }  else
-//    	    {
-//    	    	is_result = false;
-//    	    }
-//    	}  
-//    	return is_result;
-//    }
+   
+    
+    private boolean isForeground() {
+    	System.out.println("判断了一次");
+        if (context == null || TextUtils.isEmpty(class_bao_Name)) {
+        	is_background =  false;
+        }
+        am = (ActivityManager) context.getSystemService(Context.ACTIVITY_SERVICE);  
+        list = am.getRunningTasks(1);  
+        if (list != null && list.size() > 0) {  
+            ComponentName cpn = list.get(0).topActivity;  
+        	System.out.println(  "包名"+cpn.getClassName());
+        	System.out.println("包名````"+class_bao_Name);
+            if (class_bao_Name.equals(cpn.getClassName())) {
+            
+            	is_background =  true;  
+            }  else
+            {
+            	is_background =  false;  
+            }
+        }  
+        return false;  
+    }  
+    
+    
+    
     
     
 }
