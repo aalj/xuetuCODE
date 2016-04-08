@@ -41,6 +41,7 @@ import android.view.View.OnClickListener;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ListView;
+import android.widget.TextView;
 
 public class DaoJiShiActivity extends Activity implements OnItemClickListener, OnClickListener {
 	protected static final String TAG = "TAG";
@@ -93,13 +94,16 @@ public class DaoJiShiActivity extends Activity implements OnItemClickListener, O
 			@Override
 			public void convert(ViewHolder viewHolder, Countdown item) {
 				long time = System.currentTimeMillis();
-
+				TextView  view = viewHolder.getView(R.id.textView2);
+				view.setVisibility(View.VISIBLE);
 				viewHolder.setText(R.id.tilte, item.getCodoText());
 				Date date = item.getCodoTime();
 				viewHolder.setText(R.id.textView1, dateFormat.format(date) + " " + DataToTime.getWeekOfDate(date));
 				if (sim.format(item.getCodoTime()).equals(sim.format(new Date(System.currentTimeMillis())))) {
 
 					viewHolder.setText(R.id.textView3, "今天");
+					viewHolder.getView(R.id.textView2).setVisibility(View.INVISIBLE);;
+					
 				} else {
 					viewHolder.setText(R.id.textView3, getDay(item.getCodoTime().getTime()) + "");
 				}

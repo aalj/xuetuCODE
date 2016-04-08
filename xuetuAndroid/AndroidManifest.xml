@@ -316,6 +316,11 @@
             android:name=".UserQuestionInfomationActivity"
             android:label="@string/title_activity_user_question_infomation" >
         </activity>
+        <activity
+            android:name=".ShowerweiActivity"
+            android:label="@string/title_activity_showerwei" 
+            android:theme="@android:style/Theme.Holo.DialogWhenLarge">
+        </activity>
     </application>
 
 </manifest>

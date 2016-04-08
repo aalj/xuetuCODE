@@ -42,7 +42,7 @@
                 android:layout_height="37dp"
                 android:background="#fffffe"
                 android:gravity="center_vertical"
-                android:paddingLeft="10dp"
+                android:paddingLeft="10dp" android:textColor="@color/gray1"
                 android:text="丨✿ 优惠劵"
                 android:textSize="12dp" />
 
@@ -76,7 +76,7 @@
                 android:layout_marginTop="10dp"
                 android:background="#fffffe"
                 android:gravity="center_vertical"
-                android:paddingLeft="10dp"
+                android:paddingLeft="10dp" android:textColor="@color/gray1"
                 android:text="丨✿ 所需积分"
                 android:textSize="12dp" />
 
@@ -103,7 +103,7 @@
                 android:layout_marginTop="10dp"
                 android:background="#fffffe"
                 android:gravity="center_vertical"
-                android:paddingLeft="10dp"
+                android:paddingLeft="10dp" android:textColor="@color/gray1"
                 android:text="丨✿ 折扣"
                 android:textSize="12dp" />
 
@@ -138,7 +138,7 @@
                 android:background="#fffffe"
                 android:gravity="center_vertical"
                 android:paddingLeft="10dp"
-                android:text="丨✿ 使用地点"
+                android:text="丨✿ 使用地点" android:textColor="@color/gray1"
                 android:textSize="12dp" />
 
             <View
@@ -172,7 +172,7 @@
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:layout_weight="0"
-        android:background="#fffffe"
+        android:background="@drawable/buttonchangecolor"
         android:clickable="true"
         android:focusable="true"
         android:gravity="center"
