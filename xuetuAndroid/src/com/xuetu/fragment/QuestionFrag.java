@@ -102,6 +102,7 @@ public class QuestionFrag extends Fragment implements OnRefreshListener,
 	// 表示是否是第一次进入改也页面
 	boolean firstInto = true;
 	XueTuApplication xt ;
+	
 	Message msg5 = null;
 	RefreshListView lv = null;
 	HttpUtils hutils = new HttpUtils();
