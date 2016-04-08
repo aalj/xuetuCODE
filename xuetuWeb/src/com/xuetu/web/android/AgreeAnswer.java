@@ -45,6 +45,8 @@ public class AgreeAnswer extends HttpServlet {
 		
 		stu_id = Integer.parseInt(request.getParameter("stu_id"));
 		ans_id = Integer.parseInt(request.getParameter("ans_id"));
+		System.out.println("stuid----------"+stu_id);
+		System.out.println("ansid----------"+ans_id);
 		timeStr  = request.getParameter("agr_date");
 		long parseLong = Long.parseLong(timeStr);
 		agr_date = new Date(new Timestamp(parseLong).getTime());

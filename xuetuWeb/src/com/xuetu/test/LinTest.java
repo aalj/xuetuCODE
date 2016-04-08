@@ -26,7 +26,7 @@ import com.xuetu.service.inter.QuestionServiceInter;
  */
 public class LinTest {
 	QuestionServiceInter Qservice = new QuestionService(new QuestionIml());
-	QuesTionDao q = new QuestionIml();
+	QuestionIml q = new QuestionIml();
 	@Test 
 	public void getSchoolBySchId(){
 		System.out.println(Qservice.getSchoolBySch_id(1).getSchLatitude());
@@ -119,5 +119,9 @@ public class LinTest {
 	@Test
 	public void getAgrNumByAnsId(){
 		System.out.println(q.getAgrNumByAnsId(2));
+	}
+	@Test
+	public void getAns(){
+		System.out.println(q.getAns(34,3,"胡好就饿就饿"));
 	}
 }

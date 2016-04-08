@@ -60,7 +60,6 @@ public class SubmitAnswerWithoutImg extends HttpServlet {
 			ans_time = new Date(new Timestamp(parseLong).getTime());
 			ans_ima = "";
 			a = Qservice.createAnswer(ques_id, stu_id, ans_text, ans_ima, ans_time);
-			Qservice.submitAnswer(a);
 			Gson gson = new GsonBuilder()
 					.enableComplexMapKeySerialization()
 					.setPrettyPrinting()

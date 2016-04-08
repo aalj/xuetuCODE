@@ -102,6 +102,7 @@ public class Answer_list extends Activity implements OnClickListener{
 	Context context = null;
 	HttpUtils hutilsAgree = new HttpUtils();
 	RequestParams paramsAgree;
+	String ansCache;
 	// 存放点赞按钮tag的集合
 	Set<Integer> setTag = new HashSet<Integer>();
 
@@ -253,12 +254,13 @@ public class Answer_list extends Activity implements OnClickListener{
 						|| et_ans_text.getText().toString().equals("")) {
 					Toast.makeText(this, "混水也要打几个字吧！！", 0).show();
 				} else {
+					Log.i("hehe", "else+ansCache"+ansCache);
+					if(et_ans_text.getText().toString().equals(ansCache)){
+						Toast.makeText(this, "请不要重复提交！！", 0).show();
+					}else{
+						btn_ans.setClickable(false);
 					submitAnswer();
-					file = new File(Environment.getExternalStorageDirectory(),
-							sdf.format(new Date(System.currentTimeMillis())) + ".jpg");
-					imageUri = Uri.fromFile(file);	
-					btn_photo.setImageResource(R.drawable.crop);	//提交完成后清空图片
-					et_ans_text.setText("");	//清空输入框
+					}
 				}
 			}
 			break;
@@ -480,6 +482,7 @@ public class Answer_list extends Activity implements OnClickListener{
 	}
 
 	public void submitAnswer() {
+		
 		RequestParams paramsSub = new RequestParams();
 		ans_time = System.currentTimeMillis();
 		if (file.exists()) {
@@ -491,8 +494,8 @@ public class Answer_list extends Activity implements OnClickListener{
 		}
 		paramsSub.addBodyParameter("quesId", curQues.getQuesID() + "");
 		paramsSub.addBodyParameter("stu_id", stu_id + "");
-		paramsSub
-				.addBodyParameter("ans_text", et_ans_text.getText().toString());
+		paramsSub.addBodyParameter("ans_text", et_ans_text.getText().toString());
+		ansCache = et_ans_text.getText().toString();
 		paramsSub.addBodyParameter("ans_time", String.valueOf(ans_time));
 		hutils.send(HttpMethod.POST, url, paramsSub,
 				new RequestCallBack<String>() {
@@ -508,6 +511,15 @@ public class Answer_list extends Activity implements OnClickListener{
 					public void onSuccess(ResponseInfo<String> arg0) {
 						Toast.makeText(getApplicationContext(), "5积分到手", 1)
 								.show();
+						ansCache = et_ans_text.getText().toString();
+						Log.i("hehe", "success+ansCache"+ansCache);
+						file = new File(Environment.getExternalStorageDirectory(),
+								sdf.format(new Date(System.currentTimeMillis())) + ".jpg");
+						imageUri = Uri.fromFile(file);	//清空图片uri
+						btn_photo.setImageResource(R.drawable.crop);	//提交完成后清空图片
+						et_ans_text.setText("");	//清空输入框
+						
+						btn_ans.setClickable(true);
 						Gson gson = new GsonBuilder()
 								.enableComplexMapKeySerialization()
 								.setPrettyPrinting().disableHtmlEscaping()
@@ -644,6 +656,8 @@ public class Answer_list extends Activity implements OnClickListener{
 										item.getAnsID() + "");
 								paramsAgree.addBodyParameter("stu_id", stu_id
 										+ "");
+								Log.i("hehe", "ans_id------"+item.getAnsID());
+								Log.i("hehe", "stu_id------"+stu_id);
 								paramsAgree.addBodyParameter("agr_date",
 										System.currentTimeMillis() + "");
 								hutilsAgree.send(HttpMethod.POST, urlAgree,
