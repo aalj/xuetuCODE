@@ -1,11 +1,14 @@
 package com.xuetu.ui;
 
+import java.lang.reflect.Type;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
 import com.github.jjobes.slidedatetimepicker.SlideDateTimeListener;
 import com.github.jjobes.slidedatetimepicker.SlideDateTimePicker;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 import com.lidroid.xutils.HttpUtils;
 import com.lidroid.xutils.ViewUtils;
 import com.lidroid.xutils.exception.HttpException;
@@ -15,6 +18,7 @@ import com.lidroid.xutils.http.callback.RequestCallBack;
 import com.lidroid.xutils.http.client.HttpRequest.HttpMethod;
 import com.lidroid.xutils.view.annotation.ViewInject;
 import com.xuetu.R;
+import com.xuetu.db.DBFindManager;
 import com.xuetu.entity.Pattern;
 import com.xuetu.entity.SelfStudyPlan;
 import com.xuetu.utils.DataToTime;
@@ -22,9 +26,12 @@ import com.xuetu.utils.GetHttp;
 import com.xuetu.utils.ShowDialog;
 import com.xuetu.view.TitleBar;
 
+import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.content.SharedPreferences.Editor;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.text.TextUtils;
@@ -61,9 +68,14 @@ public class FindTaskItemActivity extends Baseactivity implements OnClickListene
 	Button button1;
 	// 用于存储该页面的全部信息
 	SelfStudyPlan selfStudyPlan;
+	SharedPreferences sp = null;
+	DBFindManager dbFindManager = null;
 
 	Date startTime = null;
 	Date endTime = null;
+	boolean getPateern = false;
+	// 标记是点击过学习模式
+	boolean pateernMode = false;
 
 	List<Pattern> list;
 	String[] item = null;
@@ -75,6 +87,7 @@ public class FindTaskItemActivity extends Baseactivity implements OnClickListene
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.find_task_item_edit);
 		ViewUtils.inject(this);
+		sp = getSharedPreferences("config", Activity.MODE_PRIVATE);
 		// dbFindManager = new DBFindManager(this);
 		initView();
 		// mySengHttp();
@@ -98,6 +111,7 @@ public class FindTaskItemActivity extends Baseactivity implements OnClickListene
 	 * 初始化页面
 	 */
 	private void initView() {
+		dbFindManager = new DBFindManager(this);
 		selfStudyPlan = (SelfStudyPlan) getIntent().getSerializableExtra("plans");
 		endTime = selfStudyPlan.getEndTime();
 		startTime = selfStudyPlan.getStartTime();
@@ -108,6 +122,17 @@ public class FindTaskItemActivity extends Baseactivity implements OnClickListene
 		if (selfStudyPlan.getPlanReming() == 1) {
 			temp = true;
 		}
+		
+		
+		getPateern = sp.getBoolean("savePatternBoolean", true);
+		if (getPateern) {// 表示当前本地数据库没有数据
+			// 访问网络的到数据
+			mySengHttp();
+		} else {
+			getpattern();
+
+		}
+		
 
 		study_parrt_info.setChecked(temp);
 		xuexi_info.setText(selfStudyPlan.getPlanText());
@@ -300,5 +325,61 @@ public class FindTaskItemActivity extends Baseactivity implements OnClickListene
 		builder.show();
 
 	}
+	
+	
+	// 获取学习类型的模式
+		private void mySengHttp() {
+			Log.i("TAG", "获取学习类型");
+			HttpUtils httpUtils = new HttpUtils();
+			String url = GetHttp.getHttpLJ() + "GetPatterServlet";
+			httpUtils.send(HttpMethod.GET, url, new RequestCallBack<String>() {
+
+				@Override
+				public void onFailure(HttpException arg0, String arg1) {
+
+				}
+
+				@Override
+				public void onSuccess(ResponseInfo<String> arg0) {
+					Gson gson = new Gson();
+					Type type = new TypeToken<List<Pattern>>() {
+					}.getType();
+					list = gson.fromJson(arg0.result, type);
+					study_info.setText(list.get(0).getPattrenText());
+					item = new String[list.size()-1];
+					for (int i = 0; i < list.size()-1; i++) {
+						item[i] = list.get(i).getPattrenText();
+					}
+					Editor edit = sp.edit();
+
+					dbFindManager.addPatter(list);
+					edit.putBoolean("savePatternBoolean", false);
+					edit.commit();
+					// TODO 需要把数据存到本地数据库
+
+				}
+			});
+
+		}
+
+		/**
+		 * 获得学系
+		 */
+		private void getpattern() {
+			list = dbFindManager.getPattern();
+			study_info.setText(list.get(0).getPattrenText());
+			// dbFindManager.addPatter(list);
+			// TODO 需要把数据存到本地数据库
+
+			Log.i("TAG", list.toString());
+			item = new String[list.size()];
+			for (int i = 0; i < list.size(); i++) {
+				item[i] = list.get(i).getPattrenText();
+			}
+			
+		}
+	
+	
+	
 
 }

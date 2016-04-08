@@ -22,6 +22,8 @@ import com.lidroid.xutils.http.client.HttpRequest.HttpMethod;
 import com.xuetu.entity.Answer;
 import com.xuetu.entity.Question;
 import com.xuetu.entity.Student;
+import com.xuetu.ui.Answer_list;
+import com.xuetu.ui.Baseactivity;
 import com.xuetu.utils.GetHttp;
 import com.xuetu.view.CircleImageView;
 
@@ -39,7 +41,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-public class UserInfomationActivity extends Activity implements OnClickListener {
+public class UserInfomationActivity extends Baseactivity implements OnClickListener {
 	SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 	List<Question> datas = new ArrayList<>();
 	List<Answer> answers = new ArrayList<>();
@@ -69,6 +71,7 @@ public class UserInfomationActivity extends Activity implements OnClickListener 
 	LinearLayout linear_question;
 	LinearLayout linear_answer;
 	Student student;
+	ImageView back_to_be;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -101,13 +104,18 @@ public class UserInfomationActivity extends Activity implements OnClickListener 
 		wenti2 = (RelativeLayout) findViewById(R.id.wenti2);
 		daan1 = (RelativeLayout) findViewById(R.id.daan1);
 		daan2 = (RelativeLayout) findViewById(R.id.daan2);
+		wenti1.setOnClickListener(this);
+		wenti2.setOnClickListener(this);
+		daan1.setOnClickListener(this);
+		daan2.setOnClickListener(this);
 		linear_question = (LinearLayout) findViewById(R.id.linear_question);
 		linear_answer = (LinearLayout) findViewById(R.id.linear_answer);
 		questionall = (RelativeLayout) findViewById(R.id.questionall);
 		answerall = (RelativeLayout) findViewById(R.id.answerall);
 		questionall.setOnClickListener(this);
 		answerall.setOnClickListener(this);
-
+		back_to_be = (ImageView) findViewById(R.id.back_to_be);
+		back_to_be.setOnClickListener(this);
 	}
 
 	public void loadData() {
@@ -124,12 +132,11 @@ public class UserInfomationActivity extends Activity implements OnClickListener 
 		int days = (int) ((System.currentTimeMillis() - student.getStu_create_date().getTime()) / 1000 / 60 / 60 / 24)
 				+ 1;
 		day.setText(days + "天");
-		Question question = datas.get(0);
-		if (question != null) {
-			question_name1.setText(question.getQuesText());
-			kind_of_questions1.setText(question.getSubject().getName());
-			time_of_question1.setText(sdf.format(new Date(question.getQuesDate().getTime())));
-			if (datas.get(1) != null) {
+		if (datas.size() > 0) {
+			question_name1.setText(datas.get(0).getQuesText());
+			kind_of_questions1.setText(datas.get(0).getSubject().getName());
+			time_of_question1.setText(sdf.format(new Date(datas.get(0).getQuesDate().getTime())));
+			if (datas.size() > 1) {
 				questioninformation.setText(datas.get(1).getQuesText());
 				kind_of_question2.setText(datas.get(1).getSubject().getName());
 				question_time2.setText(sdf.format(new Date(datas.get(1).getQuesDate().getTime())));
@@ -139,16 +146,16 @@ public class UserInfomationActivity extends Activity implements OnClickListener 
 		} else {
 			linear_question.setVisibility(View.GONE);
 		}
-
 	}
 
 	private void setAnswer() {
 		/**************/
-		if (answers.get(0) != null) {
+
+		if (answers.size() > 0) {
 			name_of_answer1.setText(answers.get(0).getQuestion().getQuesText());
 			kind_of_answer1.setText(answers.get(0).getQuestion().getSubject().getName());
 			time_of_answer1.setText(sdf.format(new Date(answers.get(0).getAnsTime().getTime())));
-			if (answers.get(1) != null) {
+			if (answers.size() > 1) {
 				answer_questioninformation2.setText(answers.get(1).getQuestion().getQuesText());
 				kind_of_answer2.setText(answers.get(1).getQuestion().getSubject().getName());
 				time_of_question2.setText(sdf.format(new Date(answers.get(1).getAnsTime().getTime())));
@@ -254,12 +261,42 @@ public class UserInfomationActivity extends Activity implements OnClickListener 
 			startActivity(intentAnswer);
 			break;
 		case R.id.answerall:
-			Intent intentAnswer1 = new Intent(this, UserQuestionInfomationActivity.class);
+			Intent intentAnswer1 = new Intent(this, UserAnswerInformationActivity.class);
 			Bundle bundle1 = new Bundle();
 			bundle1.putSerializable("curQues", (Serializable) answers);
 			intentAnswer1.putExtras(bundle1);
 			startActivity(intentAnswer1);
-
+			break;
+		case R.id.back_to_be:
+			finish();
+			break;
+		case R.id.wenti1:
+			Intent intentwenti1 = new Intent(getApplicationContext(), Answer_list.class);
+			Bundle bundlewenti1 = new Bundle();
+			bundlewenti1.putSerializable("curQues", datas.get(0));
+			intentwenti1.putExtras(bundlewenti1);
+			startActivity(intentwenti1);
+			break;
+		case R.id.wenti2:
+			Intent intentwenti2 = new Intent(getApplicationContext(), Answer_list.class);
+			Bundle bundllewenti2 = new Bundle();
+			bundllewenti2.putSerializable("curQues", datas.get(1));
+			intentwenti2.putExtras(bundllewenti2);
+			startActivity(intentwenti2);
+			break;
+		case R.id.daan1:
+			Intent intentdaan1 = new Intent(getApplicationContext(), Answer_list.class);
+			Bundle bundlledaan1 = new Bundle();
+			bundlledaan1.putSerializable("curQues", answers.get(0).getQuestion());
+			intentdaan1.putExtras(bundlledaan1);
+			startActivity(intentdaan1);
+			break;
+		case R.id.daan2:
+			Intent intentdaan2 = new Intent(getApplicationContext(), Answer_list.class);
+			Bundle bundlledaan2 = new Bundle();
+			bundlledaan2.putSerializable("curQues", answers.get(1).getQuestion());
+			intentdaan2.putExtras(bundlledaan2);
+			startActivity(intentdaan2);
 			break;
 
 		default:
