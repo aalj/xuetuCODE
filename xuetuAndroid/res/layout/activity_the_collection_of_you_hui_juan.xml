@@ -11,14 +11,14 @@
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         app:titleBarLeftImage="@drawable/ic_menu_back"
-        app:titleBarTitle="优惠劵信息" >
+        app:titleBarTitle="我的优惠劵" >
     </com.xuetu.view.TitleBar>
 
     <TextView
         android:id="@+id/textView3"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:text="   优惠劵详情" 
+        android:text="   优惠劵列表" 
         android:textSize="15dp"/>
 
     <ListView
