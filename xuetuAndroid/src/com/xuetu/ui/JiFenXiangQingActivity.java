@@ -31,6 +31,8 @@ public class JiFenXiangQingActivity extends Activity implements OnClickListener 
 	TextView leixing;
 	@ViewInject(R.id.time)
 	TextView time;
+	@ViewInject(R.id.textView1)
+	TextView textView1;
 
 	TitleBar titleBar1 = null;
 
@@ -40,24 +42,31 @@ public class JiFenXiangQingActivity extends Activity implements OnClickListener 
 		setContentView(R.layout.activity_ji_fen_xiang_qing);
 		JiFenMingXi jiFenMingxi = (JiFenMingXi) getIntent().getSerializableExtra("jifenIten");
 		ViewUtils.inject(this);
-		jifen.setText(jiFenMingxi.getUnmpuint() + "");
+//		jifen.setText(jiFenMingxi.getUnmpuint() + "");
 		titleBar1 = (TitleBar) findViewById(R.id.titleBar1);
 		titleBar1.setLeftLayoutClickListener(this);
-		Log.i("TAG", "jiFenMingxi.getText()------->>>>" + jiFenMingxi.getText());
+//		Log.i("TAG", "jiFenMingxi.getText()------->>>>" + jiFenMingxi.getText());
 		switch (jiFenMingxi.getImgUrl()) {
 		case "1":// 加载问题图片
+			textView1.setText("提问题");
+			jifen.setText("- "+jiFenMingxi.getUnmpuint() + "");
 			circleImageView1.setImageResource(R.drawable.ic_home_widget_qa);
 
 			break;
 		case "2":// 加载答案图片
-
+			textView1.setText("回答问题");
+			jifen.setText("+ "+jiFenMingxi.getUnmpuint() + "");
 			circleImageView1.setImageResource(R.drawable.ic_item_tishiyu);
 			break;
 		case "3":// 加载学习时间图片
+			textView1.setText("学习");
+			jifen.setText("+ "+jiFenMingxi.getUnmpuint() + "");
 			circleImageView1.setImageResource(R.drawable.ic_home_widget_study);
 
 			break;
 		default:// 加载网络图片
+			textView1.setText("兑换优惠券");
+			jifen.setText("- "+jiFenMingxi.getUnmpuint() + "");
 			BitmapUtils item = new BitmapUtils(this);
 			item.display(circleImageView1, GetHttp.getHttpLJ() + jiFenMingxi.getImgUrl());
 

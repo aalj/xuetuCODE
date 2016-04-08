@@ -46,16 +46,18 @@ public class EditCountdownActivity extends Activity implements OnClickListener {
 	@ViewInject(R.id.titleBar1)
 	TitleBar title_my;
 	Countdown countdown;
-//	NotificationManager manager;
+	// NotificationManager manager;
 
 	int temp_time;
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_edit_countdown);
 		ViewUtils.inject(this);
-//		manager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
-		
+		// manager = (NotificationManager)
+		// getSystemService(Context.NOTIFICATION_SERVICE);
+
 		countdown = (Countdown) getIntent().getSerializableExtra("countdown");
 		temp_time = countdown.getTemp_time();
 		countdown.setTemp_time(temp_time);
@@ -65,7 +67,7 @@ public class EditCountdownActivity extends Activity implements OnClickListener {
 		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy年MM月dd日");
 		study_parrt_info = (Switch) findViewById(R.id.study_parrt_info);
 		timeEdit.setText(dateFormat.format(countdown.getCodoTime()));
-//		manager.cancel(countdown.getTemp_time());
+		// manager.cancel(countdown.getTemp_time());
 		if (countdown.getCodo_index() == 0) {
 
 			study_parrt_info.setChecked(false);
@@ -73,7 +75,7 @@ public class EditCountdownActivity extends Activity implements OnClickListener {
 		} else if (countdown.getCodo_index() == 1) {
 			study_parrt_info.setChecked(true);
 		}
-//		study_parrt_info.setOnCheckedChangeListener(this);
+		// study_parrt_info.setOnCheckedChangeListener(this);
 
 	}
 
@@ -121,7 +123,11 @@ public class EditCountdownActivity extends Activity implements OnClickListener {
 
 		return dialog;
 	}
-SimpleDateFormat sim = new SimpleDateFormat("dd");
+
+	SimpleDateFormat sim = new SimpleDateFormat("dd");
+	SimpleDateFormat sim2 = new SimpleDateFormat("yyyy-MM-dd");
+	SimpleDateFormat sim3 = new SimpleDateFormat("MM");
+
 	@Override
 	public void onClick(View v) {
 		switch (v.getId()) {
@@ -136,13 +142,17 @@ SimpleDateFormat sim = new SimpleDateFormat("dd");
 
 			}
 			if (!TextUtils.isEmpty(string)) {
-				Log.i("TAG", "countdown.getCodoTime().getTime()" + countdown.getCodoTime().getTime());
-				Log.i("TAG", "System.currentTimeMillis()" + System.currentTimeMillis());
-				if (Integer.parseInt(sim.format(countdown.getCodoTime())) >= Integer.parseInt(sim.format(new Date(System.currentTimeMillis())))) {
+				// if (Integer.parseInt(sim.format(countdown.getCodoTime())) >=
+				// Integer
+				// .parseInt(sim.format(new Date(System.currentTimeMillis()))))
+				// {
+				Log.i("TAG",
+						"System.currentTimeMillis()/24*60*60*1000" + System.currentTimeMillis() / 24 * 60 * 60 * 1000);
+				if (countdown.getCodoTime().getTime() >= System.currentTimeMillis() || sim2
+						.format(countdown.getCodoTime()).equals(sim2.format(new Date(System.currentTimeMillis())))) {
 
 					countdown.setCodoText(string);
 					Intent intent = new Intent();
-
 
 					intent.putExtra("countdown", countdown);
 					setResult(1012, intent);
@@ -165,6 +175,5 @@ SimpleDateFormat sim = new SimpleDateFormat("dd");
 		}
 
 	}
-
 
 }

@@ -316,38 +316,42 @@ public class PersonInfomationActivity extends Baseactivity implements OnClickLis
 		// "一年级", "二年级", "三年级", "四年级", "五年级", "六年级", "初一", "初二", "初三", "高一",
 		// "高二", "高三", "大一",
 		// "大二", "大三", "大四"
-		if (grade.equals("一年级")) {
-			i = 0;
-		} else if (grade.equals("二年级")) {
-			i = 1;
-		} else if (grade.equals("三年级")) {
-			i = 2;
-		} else if (grade.equals("四年级")) {
-			i = 3;
-		} else if (grade.equals("五年级")) {
-			i = 4;
-		} else if (grade.equals("六年级")) {
-			i = 5;
-		} else if (grade.equals("初一")) {
-			i = 6;
-		} else if (grade.equals("初二")) {
-			i = 7;
-		} else if (grade.equals("初三")) {
-			i = 8;
-		} else if (grade.equals("高一")) {
-			i = 9;
-		} else if (grade.equals("高二")) {
-			i = 10;
-		} else if (grade.equals("高三")) {
-			i = 11;
-		} else if (grade.equals("大一")) {
-			i = 12;
-		} else if (grade.equals("大二")) {
-			i = 13;
-		} else if (grade.equals("大三")) {
-			i = 14;
-		} else if (grade.equals("大四")) {
-			i = 15;
+		if (grade == null) {
+			i=0;
+		} else {
+			if (grade.equals("一年级")) {
+				i = 0;
+			} else if (grade.equals("二年级")) {
+				i = 1;
+			} else if (grade.equals("三年级")) {
+				i = 2;
+			} else if (grade.equals("四年级")) {
+				i = 3;
+			} else if (grade.equals("五年级")) {
+				i = 4;
+			} else if (grade.equals("六年级")) {
+				i = 5;
+			} else if (grade.equals("初一")) {
+				i = 6;
+			} else if (grade.equals("初二")) {
+				i = 7;
+			} else if (grade.equals("初三")) {
+				i = 8;
+			} else if (grade.equals("高一")) {
+				i = 9;
+			} else if (grade.equals("高二")) {
+				i = 10;
+			} else if (grade.equals("高三")) {
+				i = 11;
+			} else if (grade.equals("大一")) {
+				i = 12;
+			} else if (grade.equals("大二")) {
+				i = 13;
+			} else if (grade.equals("大三")) {
+				i = 14;
+			} else if (grade.equals("大四")) {
+				i = 15;
+			}
 		}
 		gradedata = GradeData[i];
 		builder.setSingleChoiceItems(GradeData, i, new DialogInterface.OnClickListener() {
@@ -416,12 +420,15 @@ public class PersonInfomationActivity extends Baseactivity implements OnClickLis
 		AlertDialog.Builder builder = new AlertDialog.Builder(this, AlertDialog.THEME_HOLO_LIGHT);
 		builder.setTitle("请选择您的性别");
 		int i = 0;
-		if (student.getStuSex().equals("男")) {
+		if (student.getStuSex() == null) {
 			i = 0;
 		} else {
-			i = 1;
+			if (student.getStuSex().equals("男")) {
+				i = 0;
+			} else {
+				i = 1;
+			}
 		}
-
 		sexdata = SexData[i];
 		builder.setSingleChoiceItems(SexData, i, new DialogInterface.OnClickListener() {
 			@Override

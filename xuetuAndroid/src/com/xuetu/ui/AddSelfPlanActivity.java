@@ -107,13 +107,12 @@ public class AddSelfPlanActivity extends FragmentActivity implements OnClickList
 			mySengHttp();
 		} else {
 			getpattern();
-
 		}
-
+		date=new Date(date.getTime()+1000*60*2);
 		startTime = date;
 		endTime = date;
-		tv_startTime_info.setText(mFormatter.format(new Date(date.getTime()+1000*60*2)));
-		tv_endTime_info.setText(mFormatter.format(new Date(date.getTime()+1000*60*2)));
+		tv_startTime_info.setText(mFormatter.format(new Date(date.getTime())));
+		tv_endTime_info.setText(mFormatter.format(new Date(date.getTime())));
 		// 数据为空
 		// study_info.setText(list.get(0).getPattrenText());
 
@@ -189,7 +188,7 @@ public class AddSelfPlanActivity extends FragmentActivity implements OnClickList
 		case R.id.tiem_start:// 设置开始时间
 			temp = true;
 			new SlideDateTimePicker.Builder(getSupportFragmentManager()).setListener(listener)
-					.setInitialDate(new Date(date.getTime()+1000*60*2)).setIs24HourTime(true).build().show();
+					.setInitialDate(startTime).setIs24HourTime(true).build().show();
 			break;
 		case R.id.tiem_end:// 设置结束时间
 			temp = true;
@@ -203,7 +202,7 @@ public class AddSelfPlanActivity extends FragmentActivity implements OnClickList
 			break;
 		case R.id.right_layout:
 			if (!TextUtils.isEmpty(xuexi_info.getText().toString())) {
-				if (startTime.getTime() > System.currentTimeMillis()) {
+				if (startTime.getTime()+1000*2*60 > System.currentTimeMillis()) {
 					if ((endTime.getTime() - startTime.getTime()) < 2 * 60 * 60 * 1000) {
 						if (panDuanTimeSize(endTime, startTime)) {
 

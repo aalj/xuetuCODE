@@ -31,10 +31,10 @@
             android:orientation="vertical" >
 
             <ImageView
-                android:scaleType="fitXY"
                 android:id="@+id/ima_stone"
                 android:layout_width="match_parent"
                 android:layout_height="100dp"
+                android:scaleType="fitXY"
                 android:src="@drawable/ic_launcher" />
 
             <TextView
@@ -42,8 +42,9 @@
                 android:layout_height="37dp"
                 android:background="#fffffe"
                 android:gravity="center_vertical"
-                android:paddingLeft="10dp" android:textColor="@color/gray1"
+                android:paddingLeft="10dp"
                 android:text="丨✿ 优惠劵"
+                android:textColor="@color/gray3"
                 android:textSize="12dp" />
 
             <TextView
@@ -58,7 +59,7 @@
                 android:layout_height="1dp"
                 android:layout_marginLeft="10dp"
                 android:layout_marginRight="10dp"
-                android:background="#757575" />
+                android:background="#C0C0C0" />
 
             <TextView
                 android:id="@+id/dianjiadejutixingxi"
@@ -76,8 +77,9 @@
                 android:layout_marginTop="10dp"
                 android:background="#fffffe"
                 android:gravity="center_vertical"
-                android:paddingLeft="10dp" android:textColor="@color/gray1"
+                android:paddingLeft="10dp"
                 android:text="丨✿ 所需积分"
+                android:textColor="@color/gray3"
                 android:textSize="12dp" />
 
             <View
@@ -85,7 +87,7 @@
                 android:layout_height="1dp"
                 android:layout_marginLeft="10dp"
                 android:layout_marginRight="10dp"
-                android:background="#757575" />
+                android:background="#C0C0C0" />
 
             <TextView
                 android:id="@+id/xuyaojifen"
@@ -94,6 +96,7 @@
                 android:background="#fffffe"
                 android:gravity="center_vertical"
                 android:paddingLeft="20dp"
+                android:textColor="#F5D90C"
                 android:text="折扣的具体信息"
                 android:textSize="14dp" />
 
@@ -103,8 +106,9 @@
                 android:layout_marginTop="10dp"
                 android:background="#fffffe"
                 android:gravity="center_vertical"
-                android:paddingLeft="10dp" android:textColor="@color/gray1"
+                android:paddingLeft="10dp"
                 android:text="丨✿ 折扣"
+                android:textColor="@color/gray3"
                 android:textSize="12dp" />
 
             <View
@@ -112,7 +116,7 @@
                 android:layout_height="1dp"
                 android:layout_marginLeft="10dp"
                 android:layout_marginRight="10dp"
-                android:background="#757575" />
+                android:background="#C0C0C0" />
 
             <TextView
                 android:id="@+id/zhekoudejutixingxi"
@@ -122,6 +126,7 @@
                 android:gravity="center_vertical"
                 android:paddingLeft="20dp"
                 android:text="折扣的具体信息"
+                android:textColor="#F5D90C"
                 android:textSize="14dp" />
 
             <TextView
@@ -138,7 +143,8 @@
                 android:background="#fffffe"
                 android:gravity="center_vertical"
                 android:paddingLeft="10dp"
-                android:text="丨✿ 使用地点" android:textColor="@color/gray1"
+                android:text="丨✿ 使用地点"
+                android:textColor="@color/gray3"
                 android:textSize="12dp" />
 
             <View
@@ -146,7 +152,7 @@
                 android:layout_height="1dp"
                 android:layout_marginLeft="10dp"
                 android:layout_marginRight="10dp"
-                android:background="#757575" />
+                android:background="#C0C0C0" />
 
             <TextView
                 android:layout_width="fill_parent"
@@ -177,6 +183,7 @@
         android:focusable="true"
         android:gravity="center"
         android:onClick="onclick"
+        android:textColor="#ffffff"
         android:text="立即兑换" />
 
 </LinearLayout>

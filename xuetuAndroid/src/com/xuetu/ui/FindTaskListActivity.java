@@ -31,6 +31,7 @@ import com.xuetu.view.TitleBar;
 
 import android.app.Activity;
 import android.app.AlarmManager;
+import android.app.AlertDialog;
 import android.app.PendingIntent;
 import android.app.ProgressDialog;
 import android.content.Context;
@@ -91,6 +92,8 @@ public class FindTaskListActivity extends Baseactivity
 	Gson gson = null;
 	SwipeRefreshLayout mSwipeLayout;
 	boolean tempre = true;
+	//标记是否需要弹出没有计划弹窗
+	boolean showDialog = true;
 	ProgressDialog progressDialog = null;
 	AlarmManager alarmManager;
 
@@ -214,7 +217,25 @@ public class FindTaskListActivity extends Baseactivity
 					if (progressDialog != null)
 						progressDialog.dismiss();
 					activityFindTaskList.setAdapter(adapter);
-					if (users.size() <= 0) {
+					if (users.size() < 0) {
+//						long time = System.currentTimeMillis();
+//						for (SelfStudyPlan i : users) {
+//							if(i.getStartTime().getTime()>time){
+//								showDialog = true;
+//								break ;
+//							}
+//						}
+//						
+//						new AlertDialog.Builder(FindTaskListActivity.this).setTitle("注意").setMessage("当天没有可执行的学习计划,是否添加").setNegativeButton("返回", null).setPositiveButton("添加", new DialogInterface.OnClickListener() {
+//							
+//							@Override
+//							public void onClick(DialogInterface dialog, int which) {
+//								// TODO Auto-generated method stub
+//											gotoInsertplan();
+//							}
+//						}).show();
+						
+						
 						Toast.makeText(getApplicationContext(), "今天还没有计划,赶快去添加吧！", 0).show();
 					}
 
@@ -233,6 +254,17 @@ public class FindTaskListActivity extends Baseactivity
 
 	}
 
+	
+	public void gotoInsertplan()
+	{
+				Intent intent = new Intent(FindTaskListActivity.this,
+						AddSelfPlanActivity.class);
+				
+				startActivity(intent);
+				finish();
+	}
+	
+	
 	@Override
 	public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 		// 使用万能适配器写ListView 数据
