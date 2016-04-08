@@ -41,8 +41,6 @@ import android.widget.TextView;
 
 public class LearingRecordActivity extends Activity {
 
-	private CalendarView calendarView;
-	private List<TextView> tv_list ;
 	private Calendar c ;
 	private int today_num;
 	private int week_of_month;
@@ -215,8 +213,10 @@ public class LearingRecordActivity extends Activity {
 	public void needqiandao( TextView[]   Rili)
 	{
 		editor.remove("签到");
+		editor.remove("学号");
 		editor.commit();
 		editor.putInt("签到", c.get(Calendar.DAY_OF_YEAR));
+		editor.putInt("学号", student.getStuId());
 		editor.commit();
 		Rili[today_day+add_day_-1].setBackgroundResource(R.drawable.background);
 		btn_qiandao.setText("已签到");
@@ -232,8 +232,9 @@ public class LearingRecordActivity extends Activity {
 	public boolean qiandao_ed()
 	{
 		boolean b  = false;
-		int i = pref.getInt("签到", 0);  //获取储存在文件里的   DAY_OF_YEAR  int 类型
-		if(i ==  c.get(Calendar.DAY_OF_YEAR ))
+		int i = pref.getInt("签到", 0); 
+		int stu_id =pref.getInt("学号", 0) ;                     //获取储存在文件里的   DAY_OF_YEAR  int 类型
+		if(i ==  c.get(Calendar.DAY_OF_YEAR ) && stu_id ==student.getStuId())
 		{
 			b =true;
 		}
