@@ -359,7 +359,7 @@ public class QuestionFrag extends Fragment implements OnRefreshListener,
 			countpage++;
 			params.addBodyParameter("page", countpage + "");// 查询第1页
 		}
-		params.addBodyParameter("num", "10");// 每页显示10条
+		params.addBodyParameter("num", "30");// 每页显示10条
 		 hutils.configCurrentHttpCacheExpiry(0);
 		hutils.send(HttpMethod.POST, url, params,
 				new RequestCallBack<String>() {
