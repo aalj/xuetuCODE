@@ -92,6 +92,10 @@
     <string name="load_fail">加载失败</string>
     <string name="title_activity_user_infomation">UserInfomationActivity</string>
     <string name="title_activity_user_question_infomation">UserQuestionInfomationActivity</string>
+
     <string name="title_activity_showerwei">ShowerweiActivity</string>
+
+    <string name="title_activity_user_answer_information">UserAnswerInformationActivity</string>
+
 
 </resources>
