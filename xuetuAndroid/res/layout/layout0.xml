@@ -7,7 +7,7 @@
     <ImageView
         android:id="@+id/imageView1"
         android:layout_width="fill_parent"
-        android:background="#ff3ec2"
+        android:background="@drawable/page1"
         android:layout_height="fill_parent"
        />
 

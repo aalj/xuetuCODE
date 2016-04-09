@@ -4,17 +4,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.xuetu.R;
-import com.xuetu.R.id;
-import com.xuetu.R.layout;
-import com.xuetu.R.menu;
 import com.xuetu.adapter.MyAdapter;
 
 import android.app.Activity;
 import android.os.Bundle;
 import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -44,11 +39,13 @@ public class YinDaoyeActivity extends Activity {
 
 
 		// 控件初始化
+		@SuppressWarnings("deprecation")
 		public void viewInit() {
 			mylist = new ArrayList<View>();
 			pager = (ViewPager) findViewById(R.id.viewpager);
 			LayoutInflater inflater = getLayoutInflater();
 			mylist.add(inflater.inflate(R.layout.layout0, null));
+			mylist.add(inflater.inflate(R.layout.layout1, null));
 			mylist.add(inflater.inflate(R.layout.layout2, null));
 			mylist.add(inflater.inflate(R.layout.layout3, null));
 			// 初始化适配器

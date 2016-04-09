@@ -35,9 +35,10 @@
     <drawable name="re_pressed">#A3DBF5</drawable>
     <drawable name="clr_normal">#44a6c0</drawable>
     <drawable name="clr_pressed">#65b8e0</drawable>
+    <drawable name="find_pressed">#9e9e9e</drawable>
     <drawable name="clr_change">#33cc99</drawable>
     <drawable name="clr_presseds">#a4c2f4</drawable>
-<!--     计划删除背景 -->
+    <!-- 计划删除背景 -->
     <drawable name="delself_nor">#FC2828</drawable>
     <drawable name="delself_presseds">#F00828</drawable>
 
@@ -92,10 +93,8 @@
     <string name="load_fail">加载失败</string>
     <string name="title_activity_user_infomation">UserInfomationActivity</string>
     <string name="title_activity_user_question_infomation">UserQuestionInfomationActivity</string>
-
     <string name="title_activity_showerwei">ShowerweiActivity</string>
-
     <string name="title_activity_user_answer_information">UserAnswerInformationActivity</string>
-
+    <string name="title_activity_show_time">ShowTimeActivity</string>
 
 </resources>

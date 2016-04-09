@@ -133,9 +133,7 @@ public class CouponFrag extends Fragment implements OnRefreshListener{
 				}.getType();
 				List<Coupon> user = gson.fromJson(arg0.result, type);
 				
-				System.out.println(user.toString());
 				if(tempnum==1){
-					
 					users.removeAll(olduser);
 					users.addAll(0,user);
 					myBaseAdapter.notifyDataSetChanged();

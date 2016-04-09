@@ -10,7 +10,6 @@ import com.google.zxing.common.BitMatrix;
 import com.google.zxing.qrcode.QRCodeWriter;
 import com.lidroid.xutils.BitmapUtils;
 import com.xuetu.R;
-import com.xuetu.ShowerweiActivity;
 import com.xuetu.entity.Coupon;
 import com.xuetu.entity.MyCoupon;
 import com.xuetu.utils.GetHttp;

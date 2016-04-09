@@ -68,6 +68,9 @@ public class ViewHodle {
 	public ViewHodle setText(int resID, String info) {
 		TextView view = (TextView) getView(resID);
 		// Log.i("TAG", "setText: \t" +view);
+		if(info==null){
+			info="";
+		}
 		view.setText(info);
 		return this;
 	}

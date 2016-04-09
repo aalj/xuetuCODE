@@ -21,7 +21,6 @@ import com.lidroid.xutils.http.ResponseInfo;
 import com.lidroid.xutils.http.callback.RequestCallBack;
 import com.lidroid.xutils.http.client.HttpRequest.HttpMethod;
 import com.xuetu.R;
-import com.xuetu.UserInfomationActivity;
 import com.xuetu.adapter.MyQuestionBaseAdapter;
 import com.xuetu.adapter.ViewHodle;
 import com.xuetu.entity.Answer;

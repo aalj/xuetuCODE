@@ -143,15 +143,18 @@ public class SplashActivity extends Activity {
 				enterHome();
 				break;
 			case SPLASH_IO_ERROR:
-//				Toast.makeText(getApplicationContext(), "错误码：" + SPLASH_IO_ERROR, 0).show();
+				// Toast.makeText(getApplicationContext(), "错误码：" +
+				// SPLASH_IO_ERROR, 0).show();
 				enterHome();
 				break;
 			case SPLASH_JSONE_ERROR:
-//				Toast.makeText(getApplicationContext(), "错误码：" + SPLASH_JSONE_ERROR, 0).show();
+				// Toast.makeText(getApplicationContext(), "错误码：" +
+				// SPLASH_JSONE_ERROR, 0).show();
 				enterHome();
 				break;
 			case SPLASH_URL_ERROR:
-//				Toast.makeText(getApplicationContext(), "错误码：" + SPLASH_URL_ERROR, 0).show();
+				// Toast.makeText(getApplicationContext(), "错误码：" +
+				// SPLASH_URL_ERROR, 0).show();
 				enterHome();
 				break;
 
@@ -187,58 +190,64 @@ public class SplashActivity extends Activity {
 	 *             CodingExample Ver 1.1
 	 */
 	private void initView() {
-		dbFindManager = new DBFindManager(this);
-		
-		//的到上一次加载网络的懂啊即使的时间
-		long countdownTime = preferences.getLong("countdownTime", System.currentTimeMillis());
-		
-		boolean jiazai = preferences.getBoolean("countdown", true);
-		if(DataToTime.getDay(countdownTime)>7){
-			jiazai = true;
-		}
-		
-		
-		if(jiazai){
-			
-			//获取倒计时并存到本地
-			getData();
-		}
-//		getDate();
-
-		String telephone = preferences.getString("uasename", "0");
-		String pwd = preferences.getString("pwd", "0");
-		Log.i("TAG", telephone + "<<<------------->>>" + pwd);
-		getLogin(telephone, pwd);
-		Toast.makeText(getApplicationContext(), "正在登陆", 0).show();
-		tv_version = (TextView) findViewById(R.id.tv_splash_version);
-		tv_version.setText("版本号： " + getVersionNum());
-		tv_splash_progress = (TextView) findViewById(R.id.tv_splash_progress);
-
-		// 联网获取优惠券的信息
-
-		// 根据配置文件判断是否需要执行检查是否有可升级应用
-		if (preferences.getBoolean("updata", true)) {
-			update();
-
+		if (preferences.getBoolean("isFirst", true)) {
+			Intent intent = new Intent(this, YinDaoyeActivity.class);
+			startActivity(intent);
+			finish();
 		} else {
-			new Thread() {
-				public void run() {// 这为了让splash页面一定显示2秒
-					SystemClock.sleep(2000);
 
-					runOnUiThread(new Runnable() {// 该方法是在在子线程里面操作主线程
+			dbFindManager = new DBFindManager(this);
 
-						@Override
-						public void run() {
+			// 的到上一次加载网络的懂啊即使的时间
+			long countdownTime = preferences.getLong("countdownTime", System.currentTimeMillis());
 
-							enterHome();
+			boolean jiazai = preferences.getBoolean("countdown", true);
+			if (DataToTime.getDay(countdownTime) > 7) {
+				jiazai = true;
+			}
 
-						}
-					});
-				};
-			}.start();
+			if (jiazai) {
+
+				// 获取倒计时并存到本地
+				getData();
+			}
+			// getDate();
+
+			String telephone = preferences.getString("uasename", "0");
+			String pwd = preferences.getString("pwd", "0");
+			Log.i("TAG", telephone + "<<<------------->>>" + pwd);
+			getLogin(telephone, pwd);
+			Toast.makeText(getApplicationContext(), "正在登陆", 0).show();
+			tv_version = (TextView) findViewById(R.id.tv_splash_version);
+			tv_version.setText("版本号： " + getVersionNum());
+			tv_splash_progress = (TextView) findViewById(R.id.tv_splash_progress);
+
+			// 联网获取优惠券的信息
+
+			// 根据配置文件判断是否需要执行检查是否有可升级应用
+			if (preferences.getBoolean("updata", true)) {
+				update();
+
+			} else {
+				new Thread() {
+					public void run() {// 这为了让splash页面一定显示2秒
+						SystemClock.sleep(2000);
+
+						runOnUiThread(new Runnable() {// 该方法是在在子线程里面操作主线程
+
+							@Override
+							public void run() {
+
+								enterHome();
+
+							}
+						});
+					};
+				}.start();
+			}
+			// 把归属地数据库写入应用文件
+			copyDb();
 		}
-		// 把归属地数据库写入应用文件
-		copyDb();
 
 	}
 
@@ -677,10 +686,10 @@ public class SplashActivity extends Activity {
 
 				Log.i("TAG", list.toString());
 				// 把第一次方文的数据访问到本地数据库
-				
+
 				Editor edit = preferences.edit();
 				edit.putLong("countdownTime", System.currentTimeMillis());
-				//用于标记是否需要访问网络加载倒计时
+				// 用于标记是否需要访问网络加载倒计时
 				edit.putBoolean("countdown", false);
 				edit.commit();
 				for (Countdown i : list) {

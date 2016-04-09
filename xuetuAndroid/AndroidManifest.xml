@@ -309,23 +309,25 @@
             android:label="@string/title_activity_yin_daoye" >
         </activity>
         <activity
-            android:name=".UserInfomationActivity"
+            android:name=".ui.UserInfomationActivity"
             android:label="@string/title_activity_user_infomation" >
         </activity>
         <activity
-            android:name=".UserQuestionInfomationActivity"
+            android:name=".ui.UserQuestionInfomationActivity"
             android:label="@string/title_activity_user_question_infomation" >
         </activity>
         <activity
-
-            android:name=".ShowerweiActivity"
-            android:label="@string/title_activity_showerwei" 
-            android:theme="@android:style/Theme.Holo.DialogWhenLarge"> 
-			</activity>
-			<activity
-            android:name=".UserAnswerInformationActivity"
+            android:name=".ui.ShowerweiActivity"
+            android:label="@string/title_activity_showerwei"
+            android:theme="@android:style/Theme.Holo.DialogWhenLarge" >
+        </activity>
+        <activity
+            android:name=".ui.UserAnswerInformationActivity"
             android:label="@string/title_activity_user_answer_information" >
-
+        </activity>
+        <activity
+            android:name="com.xuetu.ui.ShowTimeActivity"
+            android:label="@string/title_activity_show_time" >
         </activity>
     </application>
 
