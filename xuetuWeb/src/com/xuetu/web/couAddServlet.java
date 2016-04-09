@@ -6,11 +6,13 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import javax.servlet.ServletException;
+import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import javax.servlet.http.Part;
 
 import com.xuetu.entity.Coupon;
 import com.xuetu.service.CouService;
@@ -31,31 +33,21 @@ import com.xuetu.service.CouService;
  * @see
  */
 @WebServlet("/couAddServlet")
+@MultipartConfig
 public class couAddServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	CouService couService = new CouService();
 
-	/**
-	 * Default constructor.
-	 */
-	public couAddServlet() {
-		// TODO Auto-generated constructor stub
-	}
+	
 
-	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
-	 *      response)
-	 */
+	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		doPost(request, response);
 	}
 
-	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
-	 *      response)
-	 */
+	
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		// TODO Auto-generated method stub
@@ -69,14 +61,29 @@ public class couAddServlet extends HttpServlet {
 		if (stoId != 0) {
 
 			String cou_num = request.getParameter("cou_num");
+			System.out.println(cou_num);
 			String cou_info = request.getParameter("cou_info");
 			String cou_name = request.getParameter("cou_name");
 			String cou_price = request.getParameter("cou_price");
 			String cou_Validity = request.getParameter("cou_Validity");
 			String cou_redeem_points = request.getParameter("cou_redeem_points");
+			String path = request.getServletContext().getRealPath("/");
 			try {
 				// 创建Coupon对象
 				Coupon coupon = new Coupon();
+				Part p = request.getPart("sto_img");
+				String imgname = "xuetuImg/" + System.currentTimeMillis() + "-coupon"  + ".jpg";
+				
+				if (p != null) {
+
+					// 把图片文件写到服务器对应的地址下
+					p.write(path + imgname);
+					coupon.setCouIma(imgname);
+					System.out.println(coupon.getCouIma()+"----------->");
+					System.out.println(path + imgname);
+				} else {
+					System.out.println("meiyou tupian ");
+				}
 				coupon.setConNum(Integer.parseInt(cou_num));
 				coupon.setCoouRedeemPoints(Integer.parseInt(cou_redeem_points));
 				SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");

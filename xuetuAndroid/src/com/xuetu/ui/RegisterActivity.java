@@ -17,6 +17,7 @@ import com.xuetu.utils.GetHttp;
 import com.xuetu.view.TitleBar;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextUtils;
@@ -29,6 +30,8 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 import cn.smssdk.EventHandler;
+//import cn.smssdk.EventHandler;
+//import cn.smssdk.SMSSDK;
 import cn.smssdk.SMSSDK;
 
 //┏┓　　　┏┓  
@@ -55,7 +58,7 @@ import cn.smssdk.SMSSDK;
  *
  */
 
-public class RegisterActivity extends Activity implements OnClickListener {
+public class RegisterActivity extends Baseactivity implements OnClickListener {
 	EditText et_usertelephone;
 	EditText et_checkedNumber;
 	EditText et_password;
@@ -152,13 +155,13 @@ public class RegisterActivity extends Activity implements OnClickListener {
 					phonenum = et_usertelephone.getText().toString().trim();
 					SMSSDK.getVerificationCode("86", phonenum);
 					et_checkedNumber.requestFocus();
-//					huoqvyanzhengma.setVisibility(View.GONE);
+					// huoqvyanzhengma.setVisibility(View.GONE);
 				} else {
-					Toast.makeText(this, "请输入完整电话号码", Toast.LENGTH_LONG).show();
+					Toast.makeText(this, "请输入完整电话号码", 0).show();
 					et_usertelephone.requestFocus();
 				}
 			} else {
-				Toast.makeText(this, "请输入您的电话号码", Toast.LENGTH_LONG).show();
+				Toast.makeText(this, "请输入您的电话号码", 0).show();
 				et_usertelephone.requestFocus();
 
 			}
@@ -189,11 +192,11 @@ public class RegisterActivity extends Activity implements OnClickListener {
 				SMSSDK.submitVerificationCode("86", phonenum, SMS);
 
 			} else {
-				Toast.makeText(this, "请输入完整验证码", Toast.LENGTH_LONG).show();
+				Toast.makeText(this, "请输入完整验证码", 0).show();
 				et_checkedNumber.requestFocus();
 			}
 		} else {
-			Toast.makeText(this, "请输入验证码", Toast.LENGTH_LONG).show();
+			Toast.makeText(this, "请输入验证码", 0).show();
 			et_checkedNumber.requestFocus();
 		}
 	}
@@ -232,14 +235,15 @@ public class RegisterActivity extends Activity implements OnClickListener {
 	// }
 
 	public void register() {
+
 		String password = et_password.getText().toString();
 		String checkedNumber = et_checkedNumber.getText().toString();
-		String usertelephone = et_usertelephone.getText().toString();
+		// String usertelephone = et_usertelephone.getText().toString();
 		HttpUtils httpUtils = new HttpUtils();
 		String url = GetHttp.getHttpBCL() + "RegisterAndroid";
 		RequestParams params = new RequestParams();
 		try {
-			params.addBodyParameter("usertelephone", URLEncoder.encode(usertelephone, "utf-8"));
+			params.addBodyParameter("usertelephone", URLEncoder.encode(phonenum, "utf-8"));
 			params.addBodyParameter("password", URLEncoder.encode(password, "utf-8"));
 			params.addBodyParameter("checkedNumber", URLEncoder.encode(checkedNumber, "utf-8"));
 		} catch (UnsupportedEncodingException e) {
@@ -262,10 +266,16 @@ public class RegisterActivity extends Activity implements OnClickListener {
 				}.getType();
 				fromJson_boolean = gson.fromJson(arg0.result, type);
 				if (fromJson_boolean == true) {
-					toast("注册成功返回登录");
+					Toast.makeText(getApplicationContext(), "注册成功返回登录", 0).show();
+					// toast("注册成功返回登录");
+					Intent intent = new Intent();
+					intent.putExtra("telephone", et_usertelephone.getText().toString());
+					intent.putExtra("pwd", et_password.getText().toString());
+					intent.setClass(getApplicationContext(), LoginActivity.class);
+					startActivity(intent);
 					finish();
 				} else {
-					toast("该手机号已经注册，重新输入");
+					Toast.makeText(getApplicationContext(), "该手机号已经注册，重新输入", 0).show();
 				}
 			}
 		});

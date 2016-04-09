@@ -99,10 +99,14 @@
 														value="2" /> <input hidden="hidden" name="couponID"
 														value="${editCoupon.couID }" /> <input hidden="hidden"
 														name="storeId" value="${editCoupon.storeName.stoID }" /></td>
-													<td>优惠券名称：</td>
+													<td width="20%">优惠券名称：</td>
 													<td>${editCoupon.couName }</td>
 													<td></td>
 													<td>&nbsp;</td>
+													<td rowspan="5" width="10%" align="center"><img
+														src="Images/shuxian.jpg" /></td>
+													<td width="10%">店铺图片</td>
+												
 												</tr>
 												<tr>
 													<td>&nbsp;</td>
@@ -110,6 +114,10 @@
 													<td>${editCoupon.couPrice }</td>
 													<td></td>
 													<td>&nbsp;</td>
+													<td rowspan="4" width="60%"><img
+														src="<%=request.getContextPath() %>/${editCoupon.couIma}"
+														width="200" height="300" />
+													
 												</tr>
 												<tr>
 													<td>&nbsp;</td>
@@ -129,7 +137,7 @@
 													<td width="2%">&nbsp;</td>
 													<td>优惠券到期时间：</td>
 													<td width="20%">${editCoupon.conValidity }</td>
-													<td>格式:2000-2-15</td>
+													<td width="20%">格式:2000-2-15</td>
 													<td width="2%">&nbsp;</td>
 												</tr>
 												<tr>

@@ -9,6 +9,7 @@ import android.graphics.Paint;
 import android.graphics.Rect;
 import android.graphics.Paint.FontMetrics;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.View;
 
 /* *
@@ -136,16 +137,17 @@ public class BarChartView extends View{
     
     private void calGrid(){
         if(maxCeil <= 1){
-            float tmp = maxData;
+            int tmp = (int)maxData;
             int c = 0;
-            while(tmp < 1){
+            
+           
+            while(tmp < 0){
                 tmp = tmp * 10;
                 if(c == 0)
                     c = 10;
                 else
                     c *= 10;
             }
-            
             gridGap = maxData / 10;
             if(gridGap * c < 0.5){
                 gridGap = 0.5f / c;
@@ -153,11 +155,12 @@ public class BarChartView extends View{
                 gridGap = 1f / c;
             }
             currentGrid = 1;
-            tmp = gridGap;
+            tmp = (int)gridGap;
             while(tmp + (1f / (c * 10))< maxData){
                 currentGrid++;
                 tmp += gridGap;
                 if(tmp + (1f / (c * 10)) < maxData)
+                	Log.i("TAG", "tmp-------------"+tmp);
                     calDatawidth(roundFloat(tmp));
             }
         }else if(maxCeil <= 10){
@@ -259,7 +262,7 @@ public class BarChartView extends View{
             float c = i * gridGap;
             if(maxCeil <= 1){
                 if(String.valueOf(c).length() > maxDataWidth){
-                    c = roundFloat(c);
+                    c = roundFloat((int)c);
                 }
             }
             String dtxt = String.valueOf(c);
@@ -333,9 +336,13 @@ public class BarChartView extends View{
     }
     
     private float roundFloat(float f){
+    	Log.i("TAG", "ffffffffffffffffffffffffffffff---------------"+f);
         String tmp = String.valueOf(gridGap);
         int ind = tmp.indexOf(".");
         int m = tmp.length() - ind;
+        if(f==0){
+        	f=2;
+        }
         BigDecimal   bd = new BigDecimal(f);
         bd = bd.setScale(m, BigDecimal.ROUND_HALF_UP);
         return bd.floatValue();

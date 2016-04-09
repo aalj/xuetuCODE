@@ -20,11 +20,14 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.ViewPager;
 import android.support.v4.view.ViewPager.OnPageChangeListener;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.widget.FrameLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 /**
  * 
@@ -37,28 +40,28 @@ import android.widget.TextView;
  *
  * @see
  */
-public class MainActivity extends FragmentActivity implements OnPageChangeListener{
+public class MainActivity extends FragmentActivity implements OnPageChangeListener, OnClickListener {
 	private FragmentManager manager = null;
 	private FragmentTransaction beginTransaction = null;
-	private TitleBar title;
+//	private TitleBar title;
 	@ViewInject(R.id.coupon_fra)
 	FrameLayout coupon_fra;
 	@ViewInject(R.id.find_fra)
 	FrameLayout find_fra;
-	@ViewInject(R.id.home_fra)
-	FrameLayout home_fra;
+//	@ViewInject(R.id.home_fra)
+//	FrameLayout home_fra;
 	@ViewInject(R.id.question_page)
 	FrameLayout question_page;
 	@ViewInject(R.id.personal_page)
 	FrameLayout personal_page;
-	
+
 	FrameLayout[] fragmeLayout = null;
 
 	@ViewInject(R.id.coupon_tv)
 	TextView coupon_tv;
+//	@ViewInject(R.id.find_tv)
+//	TextView find_tv;
 	@ViewInject(R.id.find_tv)
-	TextView find_tv;
-	@ViewInject(R.id.home_tv)
 	TextView home_tv;
 	@ViewInject(R.id.ques_tv)
 	TextView ques_tv;
@@ -67,7 +70,7 @@ public class MainActivity extends FragmentActivity implements OnPageChangeListen
 
 	TextView[] textView = null;
 
-	HomePageFrag homePageFrag;
+	// HomePageFrag homePageFrag;
 	FindFrag findFrag;
 	CouponFrag couponFrag;
 	QuestionFrag questionFrag;
@@ -78,7 +81,7 @@ public class MainActivity extends FragmentActivity implements OnPageChangeListen
 	@ViewInject(R.id.frag_page)
 	ViewPager viewPage;
 
-	private String[] titlename = { "券", "发现", "首页", "问题", "我" };
+	private String[] titlename = { "首页","券",   "问题", "我" };
 
 	int showFragment = 2;
 
@@ -87,6 +90,7 @@ public class MainActivity extends FragmentActivity implements OnPageChangeListen
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
 		ViewUtils.inject(this);
+		Log.i("TAG", "MainActivity");
 		initView();
 	}
 
@@ -97,7 +101,12 @@ public class MainActivity extends FragmentActivity implements OnPageChangeListen
 		// 登录成功传值出来
 		Intent intent = this.getIntent();
 		Student student = (Student) intent.getSerializableExtra("KEY");
-		
+		int flag = getIntent().getIntExtra("flag", 0);
+		if (flag == -1) {
+			Log.i("TAG", "mainactivity页面就哈哈哈哈   ");
+			viewPage.setCurrentItem(0);
+		}
+
 	}
 
 	/**
@@ -110,54 +119,59 @@ public class MainActivity extends FragmentActivity implements OnPageChangeListen
 	 *             CodingExample Ver 1.1
 	 */
 	private void initView() {
-		fragments = new Fragment[5];
-		fragmeLayout = new FrameLayout[5];
-		textView = new TextView[5];
-		title = (TitleBar) findViewById(R.id.main_title);
+		int intExtra = getIntent().getIntExtra("page", -1);
 
+		fragments = new Fragment[4];
+		fragmeLayout = new FrameLayout[4];
+		textView = new TextView[4];
+//		title = (TitleBar) findViewById(R.id.main_title);
+		//
+//		title.setRightLayoutClickListener(this);
 		manager = getSupportFragmentManager();
 		beginTransaction = manager.beginTransaction();
 
-		fragmeLayout[0] = coupon_fra;
-		fragmeLayout[1] = find_fra;
-		fragmeLayout[2] = home_fra;
-		fragmeLayout[3] = question_page;
-		fragmeLayout[4] = personal_page;
+		fragmeLayout[0] = find_fra;
+		fragmeLayout[1] = coupon_fra;
+//		fragmeLayout[2] = home_fra;
+		fragmeLayout[2] = question_page;
+		fragmeLayout[3] = personal_page;
 
-		textView[0] = coupon_tv;
-		textView[1] = find_tv;
-		textView[2] = home_tv;
-		textView[3] = ques_tv;
-		textView[4] = person_tv;
+		textView[0] = home_tv;
+		textView[1] = coupon_tv;
+		textView[2] = ques_tv;
+		textView[3] = person_tv;
 
-		homePageFrag = new HomePageFrag();
+		// homePageFrag = new HomePageFrag();
 		findFrag = new FindFrag();
 		couponFrag = new CouponFrag();
 		questionFrag = new QuestionFrag();
 		personalFrag = new PersonalFrag();
-		fragments[0] = couponFrag;
-		fragments[1] = findFrag;
-		fragments[2] = homePageFrag;
-		fragments[3] = questionFrag;
-		fragments[4] = personalFrag;
+		fragments[0] = findFrag;
+		fragments[1] = couponFrag;
+		fragments[2] = questionFrag;
+		fragments[3] = personalFrag;
 
-		// beginTransaction.add(R.id.frag_page,
-		// homePageFrag).add(R.id.frag_page, findFrag).add(R.id.frag_page,
-		// couponFrag)
-		// .add(R.id.frag_page, questionFrag).add(R.id.frag_page, personalFrag);
-		//
-		// beginTransaction.hide(couponFrag).hide(findFrag).hide(personalFrag).hide(questionFrag).show(homePageFrag)
-		// .commit();
-		fragmeLayout[2].setSelected(true);
-		textView[2].setTextColor(0xff44A6D5);
+		fragmeLayout[0].setSelected(true);
+		textView[0].setTextColor(0xff44A6D5);
 		beginTransaction = null;
 
-		title.setTitle("首页");
+//		title.setTitle("首页");
 
 		viewPage.setAdapter(new FragmentViewPageAdapter(getSupportFragmentManager(), fragments));
 		viewPage.addOnPageChangeListener(this);
-		viewPage.setCurrentItem(2);
+		if (intExtra == 0) {
+			// 当跳转到当前页面的时候显示优惠券页面
+			viewPage.setCurrentItem(1);
+		} else {
+			// 显示主页
+			viewPage.setCurrentItem(0);
+		}
+		// 显示缓存内容
+		viewPage.setOffscreenPageLimit(4);
+	}
 
+	public void setViepage(int i) {
+		viewPage.setCurrentItem(i);
 	}
 
 	/**
@@ -172,26 +186,34 @@ public class MainActivity extends FragmentActivity implements OnPageChangeListen
 	 */
 	public void onclick(View v) {
 		switch (v.getId()) {
-		case R.id.coupon_fra:// 搜索页面点击
-			viewPage.setCurrentItem(0);
-			title.shoelayout(View.VISIBLE);
+		case R.id.coupon_fra:// 券页面
+//			title.shoerightLayout(View.INVISIBLE);
+			viewPage.setCurrentItem(1);
+			// title.shoelayout(View.VISIBLE);
 			break;
 		case R.id.find_fra:// 发现页面
-			viewPage.setCurrentItem(1);
-			title.shoelayout(View.VISIBLE);
+//			title.shoerightLayout(View.INVISIBLE);
+			viewPage.setCurrentItem(0);
+			// title.shoelayout(View.VISIBLE);
 			break;
-		case R.id.home_fra:// 首页面
-			viewPage.setCurrentItem(2);
-			title.shoelayout(View.VISIBLE);
-			break;
+		// case R.id.home_fra:// 首页面
+		// title.shoerightLayout(View.INVISIBLE);
+		// viewPage.setCurrentItem(2);
+		//// title.shoelayout(View.VISIBLE);
+		// break;
 		case R.id.question_page:// 问题页面
-			viewPage.setCurrentItem(3);
-			title.shoelayout(View.GONE);
-//			title.shoelayout(View.INVISIBLE);
+//			title.shoerightLayout(View.INVISIBLE);
+			viewPage.setCurrentItem(2);
+			// title.shoelayout(View.GONE);
+			// title.shoelayout(View.INVISIBLE);
+			// title.shoelayout(View.GONE);
+			// title.shoelayout(View.INVISIBLE);
 			break;
 		case R.id.personal_page:// 个人中心页面
-			viewPage.setCurrentItem(4);
-			title.shoelayout(View.VISIBLE);
+//			title.shoerightLayout(View.VISIBLE);
+//			title.setRightImageResource(R.drawable.more_setting);
+			viewPage.setCurrentItem(3);
+			// title.shoelayout(View.VISIBLE);
 			break;
 
 		default:
@@ -199,25 +221,6 @@ public class MainActivity extends FragmentActivity implements OnPageChangeListen
 
 		}
 
-	}
-
-	@Override
-	public boolean onCreateOptionsMenu(Menu menu) {
-		// Inflate the menu; this adds items to the action bar if it is present.
-		getMenuInflater().inflate(R.menu.main, menu);
-		return true;
-	}
-
-	@Override
-	public boolean onOptionsItemSelected(MenuItem item) {
-		// Handle action bar item clicks here. The action bar will
-		// automatically handle clicks on the Home/Up button, so long
-		// as you specify a parent activity in AndroidManifest.xml.
-		int id = item.getItemId();
-		if (id == R.id.action_settings) {
-			return true;
-		}
-		return super.onOptionsItemSelected(item);
 	}
 
 	@Override
@@ -231,11 +234,12 @@ public class MainActivity extends FragmentActivity implements OnPageChangeListen
 	@Override
 	public void onPageSelected(int arg0) {
 		if (showFragment != arg0) {
-			if(arg0==3){
-				title.shoelayout(View.GONE);
-			}else{
-				title.shoelayout(View.VISIBLE);
-			}
+//			if (arg0 == 3) {
+//				title.shoerightLayout(View.VISIBLE);
+//				title.setRightImageResource(R.drawable.more_setting);
+//			} else {
+//				title.shoerightLayout(View.INVISIBLE);
+//			}
 			for (int i = 0; i < fragmeLayout.length; i++) {
 				if (i != arg0) {
 					fragmeLayout[i].setSelected(false);
@@ -248,7 +252,7 @@ public class MainActivity extends FragmentActivity implements OnPageChangeListen
 			trx.hide(fragments[showFragment]);
 			fragmeLayout[arg0].setSelected(true);
 			textView[arg0].setTextColor(0xff44A6D5);
-			title.setTitle(titlename[arg0]);
+//			title.setTitle(titlename[arg0]);
 			if (!fragments[arg0].isAdded()) {
 				trx.add(R.id.frag_page, fragments[arg0]);
 			}
@@ -258,5 +262,14 @@ public class MainActivity extends FragmentActivity implements OnPageChangeListen
 
 		showFragment = arg0;
 		//
+	}
+
+	@Override
+	public void onClick(View v) {
+		Intent intent = new Intent();
+		intent.setClass(MainActivity.this, SettingActivity.class);
+		startActivity(intent);
+		finish();
+
 	}
 }

@@ -32,12 +32,24 @@ import java.util.Date;
  * 
  */
 public class Answer implements Serializable{
+	@Override
+	public String toString() {
+		return "Answer [ansID=" + ansID + ", question=" + question + ", student=" + student + ", ansText=" + ansText
+				+ ", ansImg=" + ansImg + ", ansTime=" + ansTime + ", agrNum=" + agrNum + "]";
+	}
 	private int ansID = 0;
 	private Question question = null;
 	private Student student = null;
 	private String ansText = null;
 	private String ansImg = null;
 	private Date ansTime = null;
+	private int agrNum = 0;
+	public int getAgrNum() {
+		return agrNum;
+	}
+	public void setAgrNum(int agrNum) {
+		this.agrNum = agrNum;
+	}
 	public int getAnsID() {
 		return ansID;
 	}

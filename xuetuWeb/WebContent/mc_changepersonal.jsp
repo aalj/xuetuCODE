@@ -3,16 +3,15 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN"
 "http://www.w3.org/TR/html4/strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en">
-<head>
+
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <link rel="stylesheet" type="text/css" href="./Style/skin.css" />
 </head>
 <script src="jquery-1.11.1.js" type="text/javascript"></script>
 <script>
-
 	function Submit() {
-		alert("Submit");
+		
 		var insertForm = document.getElementsByName("insertForm")[0];
 		insertForm.action = "/xuetuWeb/ChangeStoneInfoServlet";
 		insertForm.submit();
@@ -31,7 +30,6 @@
 			return false;
 		}
 
-		
 		if (isNull(insertForm.sto_tel.value)) {
 
 			alert("店家电话号码不能为空！");
@@ -117,7 +115,8 @@
 							<table width="100%">
 								<tr>
 									<td colspan="2">
-										<form name="insertForm" method="post" enctype="multipart/form-data" onSubmit="return mycheck()">
+										<form name="insertForm" method="post"
+											enctype="multipart/form-data" onSubmit="return mycheck()">
 											<table width="100%" class="cont">
 												<tr>
 													<td width="2%">&nbsp;</td>
@@ -142,12 +141,12 @@
 														src="<%=request.getContextPath() %>/${storename.stoImg}"
 														width="200" height="300" />
 													<td>
-<!-- 														<form name="insertForm1" method="post" id="insertFormId" enctype="multipart/form-data"> -->
-															<input type="file" name="sto_img" onchange="showImage()" /><br />
-															<input type="button" name="imgSub" value="上传" onclick="imgsub()" />
-<!-- 														</form> -->
+														<!-- 														<form name="insertForm1" method="post" id="insertFormId" enctype="multipart/form-data"> -->
+														<input type="file" name="sto_img" onchange="showImage()" /><br />
+														<input type="button" name="imgSub" value="上传"
+														onclick="imgsub()" /> <!-- 														</form> -->
 													</td>
-													
+
 
 
 												</tr>

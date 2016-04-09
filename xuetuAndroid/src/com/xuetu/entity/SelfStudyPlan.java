@@ -37,6 +37,13 @@ public class SelfStudyPlan implements Serializable{
 	private Pattern pattern = null;
 	private Student student = null;
 	private Date planDate = null;
+	private int isZhiXing = 0;
+	public int getIsZhiXing() {
+		return isZhiXing;
+	}
+	public void setIsZhiXing(int isZhiXing) {
+		this.isZhiXing = isZhiXing;
+	}
 	public SelfStudyPlan() {
 
 		// 
@@ -85,7 +92,7 @@ public class SelfStudyPlan implements Serializable{
 	public String toString() {
 		return "SelfStudyPlan [planID=" + planID + ", startTime=" + startTime + ", endTime=" + endTime + ", planText="
 				+ planText + ", planReming=" + planReming + ", pattern=" + pattern + ", student=" + student
-				+ ", planDate=" + planDate + "]";
+				+ ", planDate=" + planDate + ", isZhiXing=" + isZhiXing + "]";
 	}
 	/**
 	 * 

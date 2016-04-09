@@ -41,7 +41,7 @@ public class CourseService implements OnClickListener {
 		edit = preferences.edit();
 	}
 
-	DBManager mgr;
+//	DBManager mgr;
 	int[][] lessons = {
 			{ R.id.lesson11, R.id.lesson12, R.id.lesson13, R.id.lesson14, R.id.lesson15, R.id.lesson16, R.id.lesson17 },
 			{ R.id.lesson21, R.id.lesson22, R.id.lesson23, R.id.lesson24, R.id.lesson25, R.id.lesson26, R.id.lesson27 },
@@ -59,7 +59,7 @@ public class CourseService implements OnClickListener {
 
 	public void getCourse(Student student) {
 		// 初始化DBManager
-		mgr = new DBManager(context);
+//		mgr = new DBManager(context);
 		// http://localhost:8080/xuetuWeb/CourseAndroid
 		HttpUtils httpUtils = new HttpUtils();
 		String url = GetHttp.getHttpBCL() + "CourseAndroid";
@@ -80,13 +80,7 @@ public class CourseService implements OnClickListener {
 				}.getType();
 				List<MyClass> myclasses = gson.fromJson(arg0.result, type);
 				// sharedpreference的键值对立flag
-				boolean falgs = preferences.getBoolean("saveDB", false);
-
-				if (!falgs) {
-					edit.putBoolean("saveDB", true);
-					mgr.add(myclasses);
-					edit.commit();
-				}
+				boolean falgs = preferences.getBoolean("saveDB", false);		
 
 				fillCourse(myclasses);
 				Log.i("TAG", "填课程表");
@@ -98,13 +92,13 @@ public class CourseService implements OnClickListener {
 
 	List<Button> buttons = new ArrayList<Button>();
 
-	// 处理Course对象
+	// 处理Course对象 
 	public void fillCourse(List<MyClass> myclasses) {
 		for (int i = 0; i < myclasses.size(); i++) {
 			myclass = myclasses.get(i);
 			int clsWeek = myclass.getClsWeek();
 			int clsFew = myclass.getClsFew();
-			Button lesson = (Button) context.findViewById(lessons[clsWeek - 1][clsFew - 1]);
+			Button lesson = (Button) context.findViewById(lessons[clsFew - 1][clsWeek - 1]);
 			lesson.setText(myclass.getClasName());
 			int bgRes = bg[CommonUtil.getRandom(bg.length - 1)];// 随机获取背景色
 			lesson.setBackgroundResource(bgRes);// 设置背景

@@ -47,7 +47,7 @@
                     android:src="@drawable/right" />
 
                 <com.xuetu.view.CircleImageView
-                    android:id="@+id/head"
+                    android:id="@+id/img_head"
                     android:layout_width="80.0dip"
                     android:layout_height="80.0dip"
                     android:layout_centerVertical="true"
@@ -336,7 +336,7 @@
                         android:layout_alignBottom="@+id/study_school"
                         android:layout_alignTop="@+id/study_school"
                         android:layout_toLeftOf="@+id/imageView34567"
-                        android:text="密立根加立顿大学" />
+                        android:text="❤以韶华之年宛君心" />
                 </RelativeLayout>
             </LinearLayout>
         </LinearLayout>

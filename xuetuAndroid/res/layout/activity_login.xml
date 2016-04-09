@@ -82,12 +82,12 @@
         </RelativeLayout>
 
         <Button
-            android:onClick="onclick"
             android:id="@+id/btn_login"
             android:layout_width="match_parent"
             android:layout_height="45dp"
             android:layout_marginTop="40dp"
             android:background="@drawable/buttonchangecolor"
+            android:onClick="onclick"
             android:paddingBottom="7dp"
             android:paddingTop="7dp"
             android:text="登录"
@@ -112,7 +112,6 @@
         <!-- android:textSize="15sp" /> -->
 
         <Button
-            android:onClick="onclick"
             android:id="@+id/text_forgetpwd"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -121,12 +120,12 @@
             android:layout_marginLeft="19dp"
             android:layout_marginTop="19dp"
             android:background="@drawable/textchangebackground"
+            android:onClick="onclick"
             android:text="忘记密码"
             android:textColor="#353535"
             android:textSize="15sp" />
 
         <Button
-            android:onClick="onclick"
             android:id="@+id/text_register"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -135,9 +134,30 @@
             android:layout_marginRight="19dp"
             android:layout_marginTop="19dp"
             android:background="@drawable/textchangebackground"
+            android:onClick="onclick"
             android:text="注册"
             android:textColor="#353535"
             android:textSize="15sp" />
+
+        <com.xuetu.view.CircleImageView
+            android:id="@+id/button_QQ"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginBottom="45dp"
+            android:background="@drawable/qq_iner_icon"
+            android:text="三方" />
+
+        <TextView
+            android:id="@+id/textView1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:text="使用第三方登录"
+            android:textColor="#353535"
+            android:textSize="16sp" />
     </RelativeLayout>
 
 </LinearLayout>

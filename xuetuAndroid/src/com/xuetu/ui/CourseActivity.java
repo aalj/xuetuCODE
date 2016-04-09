@@ -21,7 +21,7 @@ import android.widget.Toast;
  * 
  * 
  */
-public class CourseActivity extends Activity {
+public class CourseActivity extends Baseactivity {
 	SharedPreferences preferences = null;
 
 	CourseService service;
@@ -47,7 +47,6 @@ public class CourseActivity extends Activity {
 			service.fillCourse(querys);
 			Log.i("TAG", "离线缓存");
 		}
-		Toast.makeText(getApplicationContext(), "xixiixii", 1).show();
 	}
 
 	@Override

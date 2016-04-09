@@ -23,14 +23,21 @@ import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLEncoder;
+import java.util.Calendar;
 import java.util.List;
+import java.util.Locale;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import com.xuetu.R;
+import com.xuetu.db.DBFindManager;
+import com.xuetu.entity.Alarm;
+import com.xuetu.entity.Countdown;
 import com.xuetu.entity.Coupon;
+import com.xuetu.entity.LongTime;
 import com.xuetu.entity.Student;
+import com.xuetu.utils.DataToTime;
 import com.xuetu.utils.GetHttp;
 import com.xuetu.utils.StreamUtils;
 import com.google.gson.Gson;
@@ -45,7 +52,10 @@ import com.lidroid.xutils.http.client.HttpRequest.HttpMethod;
 import com.lidroid.xutils.util.IOUtils;
 
 import android.app.Activity;
+import android.app.AlarmManager;
 import android.app.AlertDialog;
+import android.app.PendingIntent;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -96,6 +106,7 @@ public class SplashActivity extends Activity {
 	 * 解析jsone异常
 	 */
 	protected static final int SPLASH_JSONE_ERROR = 4;
+	private static final String TAG = "TAG";
 	/**
 	 * 显示下载信息
 	 */
@@ -116,6 +127,8 @@ public class SplashActivity extends Activity {
 	 * 在服务器里面得到的应用最新的版本号
 	 */
 	private String code = null;
+	DBFindManager dbFindManager;
+
 	// 初始化Handle对象，并且实现相应的方法
 	private Handler handle = new Handler() {
 		@Override
@@ -130,18 +143,15 @@ public class SplashActivity extends Activity {
 				enterHome();
 				break;
 			case SPLASH_IO_ERROR:
-				Toast.makeText(getApplicationContext(),
-						"错误码：" + SPLASH_IO_ERROR, 0).show();
+//				Toast.makeText(getApplicationContext(), "错误码：" + SPLASH_IO_ERROR, 0).show();
 				enterHome();
 				break;
 			case SPLASH_JSONE_ERROR:
-				Toast.makeText(getApplicationContext(),
-						"错误码：" + SPLASH_JSONE_ERROR, 0).show();
+//				Toast.makeText(getApplicationContext(), "错误码：" + SPLASH_JSONE_ERROR, 0).show();
 				enterHome();
 				break;
 			case SPLASH_URL_ERROR:
-				Toast.makeText(getApplicationContext(),
-						"错误码：" + SPLASH_URL_ERROR, 0).show();
+//				Toast.makeText(getApplicationContext(), "错误码：" + SPLASH_URL_ERROR, 0).show();
 				enterHome();
 				break;
 
@@ -159,6 +169,9 @@ public class SplashActivity extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.splash_activity);
+		Log.i(TAG, "SplashActivity");
+		// 读取配置文件(设置功能生成的),判断设置里面是否,需要提醒升级
+		preferences = getSharedPreferences("config", MODE_PRIVATE);
 		initView();
 
 	}
@@ -170,23 +183,39 @@ public class SplashActivity extends Activity {
 	 * 
 	 * @param 设定文件
 	 * @return void DOM对象
-	 * @throws @since CodingExample Ver 1.1
+	 * @throws @since
+	 *             CodingExample Ver 1.1
 	 */
 	private void initView() {
-		// 读取配置文件(设置功能生成的),判断设置里面是否,需要提醒升级
-		preferences = getSharedPreferences("config", MODE_PRIVATE);
-		getDate();
-		String telephone = preferences.getString("uasename", null);
-		String pwd = preferences.getString("pwd", null);
-		Log.i("TAG", telephone+"<<<------------->>>"+pwd);
-		getLogin(telephone,pwd);
+		dbFindManager = new DBFindManager(this);
+		
+		//的到上一次加载网络的懂啊即使的时间
+		long countdownTime = preferences.getLong("countdownTime", System.currentTimeMillis());
+		
+		boolean jiazai = preferences.getBoolean("countdown", true);
+		if(DataToTime.getDay(countdownTime)>7){
+			jiazai = true;
+		}
+		
+		
+		if(jiazai){
+			
+			//获取倒计时并存到本地
+			getData();
+		}
+//		getDate();
+
+		String telephone = preferences.getString("uasename", "0");
+		String pwd = preferences.getString("pwd", "0");
+		Log.i("TAG", telephone + "<<<------------->>>" + pwd);
+		getLogin(telephone, pwd);
+		Toast.makeText(getApplicationContext(), "正在登陆", 0).show();
 		tv_version = (TextView) findViewById(R.id.tv_splash_version);
 		tv_version.setText("版本号： " + getVersionNum());
 		tv_splash_progress = (TextView) findViewById(R.id.tv_splash_progress);
 
-		//联网获取优惠券的信息
-		
-		
+		// 联网获取优惠券的信息
+
 		// 根据配置文件判断是否需要执行检查是否有可升级应用
 		if (preferences.getBoolean("updata", true)) {
 			update();
@@ -212,24 +241,57 @@ public class SplashActivity extends Activity {
 		copyDb();
 
 	}
-	
-	
-	
+
+	// /**
+	// * 加载学习时间
+	// */
+	// public void gettime(int stuid) {
+	// HttpUtils httpUtils = new HttpUtils();
+	// String url = GetHttp.getHttpLJ() + "GetLongTime";
+	//
+	// RequestParams pra = new RequestParams();
+	// pra.addBodyParameter("stuID", stuid + "");
+	// httpUtils.send(HttpMethod.POST, url, pra, new RequestCallBack<String>() {
+	//
+	// @Override
+	// public void onFailure(HttpException arg0, String arg1) {
+	// // TODO Auto-generated method stub
+	//
+	// }
+	//
+	// @Override
+	// public void onSuccess(ResponseInfo<String> arg0) {
+	// Type type = new TypeToken<List<LongTime>>() {
+	// }.getType();
+	// Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd
+	// HH:mm:ss").create();
+	// List<LongTime> time = gson.fromJson(arg0.result, type);
+	// Log.i("TAG", time.size()+"time-------------->");
+	// List<float[]> getshijainshuju = DataToTime.getshijainshuju(time);
+	// // TODO
+	// Log.i("TAG", getshijainshuju.size()+"getshijainshuju-------------->");
+	// ((XueTuApplication) getApplication()).setList(getshijainshuju);
+	//
+	// }
+	// });
+	// }
+
 	HttpUtils httpUtils = new HttpUtils();
+
 	/**
 	 * 用于加载优惠券的信息
 	 */
 	private void getDate() {
-		String url=GetHttp.getHttpLJ()+"GetCouponServlet";
-		
+		String url = GetHttp.getHttpLJ() + "GetCouponServlet";
+
 		RequestParams parterm = new RequestParams();
-		parterm.addBodyParameter("page","0");//查询第几页
-		parterm.addBodyParameter("num","10");//每页显示几行
-		httpUtils.send(HttpMethod.POST, url,parterm  ,new RequestCallBack<String>() {
+		parterm.addBodyParameter("page", "0");// 查询第几页
+		parterm.addBodyParameter("num", "10");// 每页显示几行
+		httpUtils.send(HttpMethod.POST, url, parterm, new RequestCallBack<String>() {
 
 			@Override
 			public void onFailure(HttpException arg0, String arg1) {
-				
+
 			}
 
 			@Override
@@ -238,13 +300,14 @@ public class SplashActivity extends Activity {
 
 				Type type = new TypeToken<List<Coupon>>() {
 				}.getType();
-				 List<Coupon> listConpun = gson.fromJson(arg0.result, type);
-				 Log.i("TAG", listConpun.toString());
-				((XueTuApplication)getApplication()).setListConpun(listConpun);;
-				
+				List<Coupon> listConpun = gson.fromJson(arg0.result, type);
+				Log.i("TAG", listConpun.toString());
+				((XueTuApplication) getApplication()).setListConpun(listConpun);
+				;
+
 			}
 		});
-		
+
 	}
 
 	/**
@@ -253,7 +316,8 @@ public class SplashActivity extends Activity {
 	 * 
 	 * @param 设定文件
 	 * @return void DOM对象
-	 * @throws @since CodingExample Ver 1.1
+	 * @throws @since
+	 *             CodingExample Ver 1.1
 	 */
 	private void copyDb() {
 		// getFileDira()用于获取data/data/对应的软件包名/file文件的路径
@@ -299,7 +363,8 @@ public class SplashActivity extends Activity {
 	 * 
 	 * @param 设定文件
 	 * @return void DOM对象
-	 * @throws @since CodingExample Ver 1.1
+	 * @throws @since
+	 *             CodingExample Ver 1.1
 	 */
 	protected void showUpdataDialog() {
 
@@ -317,8 +382,7 @@ public class SplashActivity extends Activity {
 			@Override
 			public void onClick(DialogInterface dialog, int which) {
 				// 确定升级，然后调用下载的的方法进行下载
-				Toast.makeText(SplashActivity.this, "需要升级", Toast.LENGTH_SHORT)
-						.show();
+				Toast.makeText(SplashActivity.this, "需要升级", Toast.LENGTH_SHORT).show();
 				dialog.dismiss();
 				// 调用下载的方法下载最新的应用
 				download();
@@ -330,8 +394,7 @@ public class SplashActivity extends Activity {
 
 			@Override
 			public void onClick(DialogInterface dialog, int which) {
-				Toast.makeText(getApplicationContext(), "即可升级，享受更多服务",
-						Toast.LENGTH_SHORT).show();
+				Toast.makeText(getApplicationContext(), "即可升级，享受更多服务", Toast.LENGTH_SHORT).show();
 				enterHome();
 				dialog.dismiss();
 			}
@@ -346,38 +409,35 @@ public class SplashActivity extends Activity {
 	 * 
 	 * @param 设定文件
 	 * @return void DOM对象
-	 * @throws @since CodingExample Ver 1.1
+	 * @throws @since
+	 *             CodingExample Ver 1.1
 	 */
 	protected void download() {
 		// 下载新的版本
 		HttpUtils httpUtils = new HttpUtils();
 		// 参数1 下载的地址 参数二 下载保存的位置
-		httpUtils.download(apkurl, "/mnt/sdcard/safeAPP.apk",
-				new RequestCallBack<File>() {
+		httpUtils.download(apkurl, "/mnt/sdcard/safeAPP.apk", new RequestCallBack<File>() {
 
-					@Override
-					public void onSuccess(ResponseInfo<File> arg0) {
-						// 下载完成，调用安装应用的方法
-						appInstall();
+			@Override
+			public void onSuccess(ResponseInfo<File> arg0) {
+				// 下载完成，调用安装应用的方法
+				appInstall();
 
-					}
+			}
 
-					@Override
-					public void onLoading(long total, long current,
-							boolean isUploading) {
-						// 让控件可见
-						tv_splash_progress.setVisibility(View.VISIBLE);
-						tv_splash_progress.setText(current + ":" + total);
-						super.onLoading(total, current, isUploading);
+			@Override
+			public void onLoading(long total, long current, boolean isUploading) {
+				// 让控件可见
+				tv_splash_progress.setVisibility(View.VISIBLE);
+				tv_splash_progress.setText(current + ":" + total);
+				super.onLoading(total, current, isUploading);
 
-					}
+			}
 
-					@Override
-					public void onFailure(
-							com.lidroid.xutils.exception.HttpException arg0,
-							String arg1) {
-					}
-				});
+			@Override
+			public void onFailure(com.lidroid.xutils.exception.HttpException arg0, String arg1) {
+			}
+		});
 
 	}
 
@@ -387,7 +447,8 @@ public class SplashActivity extends Activity {
 	 * 
 	 * @param 设定文件
 	 * @return void DOM对象
-	 * @throws @since CodingExample Ver 1.1
+	 * @throws @since
+	 *             CodingExample Ver 1.1
 	 */
 	protected void appInstall() {
 
@@ -395,8 +456,7 @@ public class SplashActivity extends Activity {
 		Intent intent = new Intent();
 		intent.setAction("android.intent.action.VIEW");
 		intent.addCategory("android.intent.category.DEFAULT");
-		intent.setDataAndType(
-				Uri.fromFile(new File("/mnt/sdcard/safeAPP.apk")),
+		intent.setDataAndType(Uri.fromFile(new File("/mnt/sdcard/safeAPP.apk")),
 				"application/vnd.android.package-archive");
 		// 采用又返回值得开启Intent的方法，用以避免用户点击取消升级。
 		startActivityForResult(intent, 0);
@@ -419,7 +479,8 @@ public class SplashActivity extends Activity {
 	 * @param 设定文件
 	 * 
 	 * @return void DOM对象
-	 * @throws @since CodingExample Ver 1.1
+	 * @throws @since
+	 *             CodingExample Ver 1.1
 	 */
 	protected void enterHome() {
 		Intent intent = new Intent();
@@ -435,7 +496,8 @@ public class SplashActivity extends Activity {
 	 * 
 	 * @param 设定文件
 	 * @return void DOM对象
-	 * @throws @since CodingExample Ver 1.1
+	 * @throws @since
+	 *             CodingExample Ver 1.1
 	 */
 	private void update() {
 		System.out.println("kaishi lianjie ");
@@ -446,11 +508,9 @@ public class SplashActivity extends Activity {
 				long startTime = System.currentTimeMillis();
 				try {
 					// 设置连接服务器的地址
-					URL url = new URL(
-							"http://192.168.1.104:8180/downversion.html");
+					URL url = new URL("http://192.168.1.104:8180/downversion.html");
 					// 通过服务器地址打开连接
-					HttpURLConnection conn = (HttpURLConnection) url
-							.openConnection();
+					HttpURLConnection conn = (HttpURLConnection) url.openConnection();
 					// 设置连接超时
 					conn.setConnectTimeout(5000);
 					// 设置读取超时
@@ -471,10 +531,8 @@ public class SplashActivity extends Activity {
 						des = jsonObject.getString("des");
 						apkurl = jsonObject.getString("apkurl");
 						// 打印信息用于调试
-						System.out.println("code: " + code + "des: " + des
-								+ "apkurl: " + apkurl);
-						System.out.println("code: " + code + "    "
-								+ (code.equals(getVersionNum())));
+						System.out.println("code: " + code + "des: " + des + "apkurl: " + apkurl);
+						System.out.println("code: " + code + "    " + (code.equals(getVersionNum())));
 						if (code.equals(getVersionNum())) {
 							// 本地版本服务器的版本相同
 							// 不需要升级
@@ -521,9 +579,11 @@ public class SplashActivity extends Activity {
 	 * 
 	 * getVersionNum:(获取版本号)
 	 * 
-	 * @param @return 设定文件
+	 * @param @return
+	 *            设定文件
 	 * @return String DOM对象
-	 * @throws @since CodingExample Ver 1.1
+	 * @throws @since
+	 *             CodingExample Ver 1.1
 	 */
 	public String getVersionNum() {
 		try {
@@ -542,14 +602,13 @@ public class SplashActivity extends Activity {
 		}
 
 	}
-	
-	
+
 	public void getLogin(final String telephone, final String password) {
 		if (!TextUtils.isEmpty(telephone) && !TextUtils.isEmpty(password)) {
 			// 使用框架utils发送数据到服务器，
 			HttpUtils httpUtils = new HttpUtils();
 			// 10.201.1.5
-			String url = GetHttp.getHttpBCL()+"LoginAndroid";
+			String url = GetHttp.getHttpBCL() + "LoginAndroid";
 
 			RequestParams params = new RequestParams();
 			try {
@@ -578,11 +637,14 @@ public class SplashActivity extends Activity {
 						Toast.makeText(getApplicationContext(), "帐号或密码错误", 1).show();
 					} else {
 						Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create();
-						Student	student = gson.fromJson(result, Student.class);
-						
+						Student student = gson.fromJson(result, Student.class);
+
 						((XueTuApplication) getApplication()).setStudent(student);
-						
-						
+						// 获取学生的学习时间
+						// if (student.getStuId() > 0) {
+						// gettime(student.getStuId());
+						// }
+
 					}
 				}
 			});
@@ -591,7 +653,45 @@ public class SplashActivity extends Activity {
 			Toast.makeText(getApplicationContext(), "请填写帐号或密码", 1).show();
 		}
 	}
-	
-	
+
+	private void getData() {
+		HttpUtils httpUtils = new HttpUtils();
+		String url = GetHttp.getHttpLJ() + "CountdownServlet";
+		httpUtils.send(HttpMethod.POST, url, new RequestCallBack<String>() {
+
+			@Override
+			public void onFailure(HttpException arg0, String arg1) {
+				// TODO Auto-generated method stub
+
+			}
+
+			@Override
+			public void onSuccess(ResponseInfo<String> arg0) {
+				Gson gson = new GsonBuilder().enableComplexMapKeySerialization().setPrettyPrinting()
+						.disableHtmlEscaping().setDateFormat("yyyy-MM-dd HH:mm:ss").create();
+				Type type = new TypeToken<List<Countdown>>() {
+				}.getType();
+				List<Countdown> list = gson.fromJson(arg0.result, type);
+				Message message = Message.obtain();
+				message.what = 123;
+
+				Log.i("TAG", list.toString());
+				// 把第一次方文的数据访问到本地数据库
+				
+				Editor edit = preferences.edit();
+				edit.putLong("countdownTime", System.currentTimeMillis());
+				//用于标记是否需要访问网络加载倒计时
+				edit.putBoolean("countdown", false);
+				edit.commit();
+				for (Countdown i : list) {
+					Log.i("TAG", "shijian shiao " + i.getCodoTime().getTime());
+					dbFindManager.insertCountdown(i);
+
+				}
+
+			}
+		});
+
+	}
 
 }

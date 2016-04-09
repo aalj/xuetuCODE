@@ -13,8 +13,7 @@ import com.lidroid.xutils.http.ResponseInfo;
 import com.lidroid.xutils.http.callback.RequestCallBack;
 import com.lidroid.xutils.http.client.HttpRequest.HttpMethod;
 import com.xuetu.R;
-import com.xuetu.R.id;
-import com.xuetu.R.layout;
+import com.xuetu.entity.Student;
 import com.xuetu.utils.GetHttp;
 import com.xuetu.view.TitleBar;
 
@@ -22,8 +21,6 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.EditText;
@@ -48,7 +45,7 @@ public class ChangeGradeActivity extends Activity implements OnClickListener {
 
 	@Override
 	public void onClick(View v) {
-	
+
 		switch (v.getId()) {
 		case R.id.left_layout:
 			finish();
@@ -57,6 +54,8 @@ public class ChangeGradeActivity extends Activity implements OnClickListener {
 			update();
 			Intent intent = new Intent();
 			String ed_grade = edit_grade.getText().toString();
+			Student student = ((XueTuApplication) getApplication()).getStudent();
+			student.setStuUgrade(ed_grade);
 			intent.putExtra("ed_grade", ed_grade);
 			setResult(4, intent);
 			finish();

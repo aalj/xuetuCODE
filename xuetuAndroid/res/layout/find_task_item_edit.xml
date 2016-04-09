@@ -14,7 +14,7 @@
         android:layout_height="wrap_content"
         title:titleBarLeftImage="@drawable/ic_menu_cancel"
         title:titleBarRightImage="@drawable/ic_menu_set"
-        title:titleBarTitle="添加计划" >
+        title:titleBarTitle="修改计划" >
     </com.xuetu.view.TitleBar>
 
     <LinearLayout
@@ -170,7 +170,7 @@
                 android:text="提醒"
                 android:textSize="18dp" />
 
-            <com.gc.materialdesign.views.Switch
+            <Switch
                 android:id="@+id/study_parrt_info"
                 style="@style/find_item_edit_tv"
                 android:layout_width="wrap_content"
@@ -179,7 +179,7 @@
                 android:layout_alignParentRight="true"
                 android:layout_marginRight="5dp"
                 android:layout_alignTop="@+id/study_parrt"
-                android:text="TextView" />
+                 />
         </RelativeLayout>
     </LinearLayout>
 
@@ -213,6 +213,8 @@
         android:id="@+id/button1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:textColor="#ffffff"
+        android:background="@drawable/delself"
         android:text="@string/delete" />
 
 </LinearLayout>

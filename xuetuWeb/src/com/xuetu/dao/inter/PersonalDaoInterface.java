@@ -16,9 +16,12 @@ package com.xuetu.dao.inter;
 import java.util.List;
 
 import com.xuetu.entity.Answer;
+import com.xuetu.entity.CollectionQuestion;
 import com.xuetu.entity.FavoritesCoupons;
 import com.xuetu.entity.MyClass;
 import com.xuetu.entity.MyCoupon;
+import com.xuetu.entity.PersonAnswerAll;
+import com.xuetu.entity.PersonalStudyTimeAll;
 import com.xuetu.entity.PointNum;
 import com.xuetu.entity.Question;
 import com.xuetu.entity.School;
@@ -209,5 +212,63 @@ public interface PersonalDaoInterface {
 	 * 
 	 */
 	public UserState findUserStateByUsta_id(int usta_id);
+
+	/**
+	 * 改变id 为 stu_id的用户的头像
+	 * 
+	 */
+	public void updateStu_img(int stu_id, String stu_img);
+
+	/***
+	 * 查询所有积分 按照id分组
+	 */
+	public List<PersonalStudyTimeAll> findAllTime();
+
+	/**
+	 * 通过stuid和et_name修改昵称
+	 */
+	public boolean ChangeName(int stuID, String change_name);
+
+	public boolean ChangeQianMing(int stuID, String change_qianming);
+
+	public boolean ChangeSex(int stuID, String change_sex);
+
+	public boolean ChangeAge(int stuID, String change_age);
+
+	public boolean ChangeGrade(int stuID, String change_grade);
+
+	/**
+	 * 自动登录通过uid比较手机号
+	 */
+	public boolean UpdataByUid(String telephone);
+
+	/**
+	 * 三方登录注册
+	 */
+	public boolean addNewUser(String telephone, String sex, String name, String img, String telephone_pwd);
+
+	/**
+	 * 通过手机号查人
+	 */
+	public Student getStuByTelephone(String telephone);
+
+	/**
+	 * 通过学生ID查个人收藏的问题
+	 */
+	public List<CollectionQuestion> getPersonalCollectionQuestionByStuID(int stuID);
+
+	/**
+	 * 
+	 * 查询所有答案 按照id分组
+	 * 
+	 * 
+	 * 
+	 */
+	public List<PersonAnswerAll> getAnswerAll();
+
+	/**
+	 * 通过学生id查询回答的答案
+	 */
+	public List<Answer> getAnswerByStuID(int stuID);
 
 }

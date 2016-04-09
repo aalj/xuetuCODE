@@ -6,6 +6,7 @@ import com.xuetu.R;
 import com.xuetu.utils.GetHttp;
 
 import android.content.Context;
+import android.graphics.drawable.Drawable;
 import android.util.SparseArray;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -71,6 +72,19 @@ public class ViewHodle {
 		return this;
 	}
 
+	public ViewHodle setTextDrawbleLeft(int resID,int draID){
+		TextView view = (TextView) getView(resID);
+		Drawable drawable= context.getResources().getDrawable(draID);
+		/// 这一步必须要做,否则不会显示.
+		drawable.setBounds(0, 0,40, 40);
+		view.setCompoundDrawables(drawable,null,null,null);
+		return this;
+	}
+	public ViewHodle setTextColor(int resID,int colID){
+		TextView view = (TextView) getView(resID);
+		view.setTextColor(context.getResources().getColor(colID));
+		return this;
+	}
 	public ViewHodle setIma(int resID, int drawableID) {
 		ImageView ima = (ImageView) getView(resID);
 		ima.setImageResource(drawableID);
@@ -86,6 +100,14 @@ public class ViewHodle {
 
 		return this;
 
+	}
+	public ViewHodle setReLayoutBgColor(int resID, int drawableID) {
+		RelativeLayout ima = (RelativeLayout) getView(resID);
+//		ima.setBackgroundResource(drawableID);
+		ima.setBackgroundResource(drawableID);
+		
+		return this;
+		
 	}
 
 	public ViewHodle SetUrlImage(int resID, String url) {
@@ -104,18 +126,5 @@ public class ViewHodle {
 		return this;
 
 	}
-//	rl_top = viewHolder.getView(R.id.rl_top);
-//	rl_left = viewHolder.getView(R.id.rl_top);
-//	rl_right =
-	
-//	RelativeLayout rl_top;
-//	RelativeLayout rl_left;
-//	RelativeLayout rl_right;
-//	public ViewHodle setOnRlToplis(int resID,OnClickListener onClickListener){
-//		RelativeLayout rl_top=(RelativeLayout)getView(resID);
-//		rl_top.setOnClickListener(onClickListener);
-//		
-//		return this;
-//	}
 	
 }

@@ -34,7 +34,7 @@
                 android:layout_alignBottom="@+id/head"
                 android:layout_alignLeft="@+id/youhuijuanxingxi"
                 android:text="数目"
-                android:textColor="@color/white"
+                android:textColor="@color/huishe"
                 android:textSize="13dp" />
 
             <TextView
@@ -45,7 +45,7 @@
                 android:layout_marginLeft="17dp"
                 android:layout_toRightOf="@+id/head"
                 android:text="优惠劵信息"
-                android:textColor="@color/white"
+                android:textColor="@color/huishe"
                 android:textSize="17dp" />
 
         </RelativeLayout>

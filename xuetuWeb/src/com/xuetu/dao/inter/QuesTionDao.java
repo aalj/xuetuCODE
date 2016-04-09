@@ -15,8 +15,11 @@ package com.xuetu.dao.inter;
 
 import java.sql.Date;
 import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 import com.xuetu.entity.Answer;
+import com.xuetu.entity.CollectionQuestion;
 import com.xuetu.entity.Question;
 import com.xuetu.entity.School;
 import com.xuetu.entity.Student;
@@ -59,7 +62,7 @@ public interface QuesTionDao {
 	 * @since  CodingExample　Ver 1.1
 	 */
 	
-	public List<Answer> getAnswerByQuesId(int ques_id,int page,int num);
+	public  List<Answer> getAnswerByQuesId(int ques_id,int page,int num);
 	/**
 	 * 
 	 * queryQuestionByStuJectId:(根据学科类别获得属于该学科的所有问题)<br/>
@@ -219,6 +222,14 @@ public interface QuesTionDao {
 	 * @throws 
 	 * @since  CodingExample　Ver 1.1
 	 */
-	
+	public List<Question> getAllQuestion();
+	public void collectQuestion(int stu_id,int ques_id,Date ques_time);
+	public void collectCancelQuestion(int stu_id,int ques_id);
+	public void agreeAnswer(int ans_id,int stu_id,Date agr_date);
+	public void disAgreeAnswer(int ans_id,int stu_id);
+	public Boolean isSave(int ques_id,int stu_id);
+	public List<Question> getQuesBySubId(int sub_id);
+	public Set<Integer> getAgreeAnswerByStuId(int stu_id);
+	public Integer getAgrNumByAnsId(int ans_id);
 }
 

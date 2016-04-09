@@ -59,7 +59,7 @@ public class CouponDao2 {
 				coupon.setStoreName(storeName);
 				coupon.setCouInfo(query.getString("cou_info"));
 				coupon.setConNum(query.getInt("cou_num"));
-
+				coupon.setCouIma(query.getString("cou_img"));
 				coupon.setConValidity(query.getTimestamp("cou_Validity"));
 				coupon.setCoouRedeemPoints(query.getInt("cou_redeem_points"));
 				coupon.setCouName(query.getString("cou_name"));
@@ -91,34 +91,38 @@ public class CouponDao2 {
 		}
 
 	}
+
 	/**
 	 * 
 	 * queryLimitCouponList:(分组查询coupon数据表)<br/>
-	
 	 *
-	 * @param  @param page
-	 * @param  @param num
-	 * @param  @param storeNameId
-	 * @param  @return    设定文件
-	 * @return List<Coupon>    DOM对象
-	 * @throws 
-	 * @since  CodingExample　Ver 1.1
+	 * 
+	 * @param @param
+	 *            page
+	 * @param @param
+	 *            num
+	 * @param @param
+	 *            storeNameId
+	 * @param @return
+	 *            设定文件
+	 * @return List<Coupon> DOM对象
+	 * @throws @since
+	 *             CodingExample Ver 1.1
 	 */
-	public List<Coupon> queryLimitCouponList(int page,int num,int storeNameId) {
+	public List<Coupon> queryLimitCouponList(int page, int num, int storeNameId) {
 		Connection conn = null;
 		PreparedStatement statement = null;
 		ResultSet query = null;
 		try {
 			conn = DBconnection.getConnection();
 			String sql = "select * from coupon where sto_id=? limit ?,?;";
-			
-			
+
 			statement = conn.prepareStatement(sql);
 			statement.setInt(1, storeNameId);
-			statement.setInt(2, (page-1)*num);
+			statement.setInt(2, (page - 1) * num);
 			statement.setInt(3, num);
-			
-			query  = statement.executeQuery();
+
+			query = statement.executeQuery();
 			List<Coupon> listCoupon = new ArrayList<>();
 			Coupon coupon = null;
 			while (query.next()) {
@@ -128,21 +132,21 @@ public class CouponDao2 {
 				coupon.setStoreName(storeName);
 				coupon.setCouInfo(query.getString("cou_info"));
 				coupon.setConNum(query.getInt("cou_num"));
-				
+				coupon.setCouIma(query.getString("cou_img"));
 				coupon.setConValidity(query.getDate("cou_Validity"));
 				coupon.setCoouRedeemPoints(query.getInt("cou_redeem_points"));
 				coupon.setCouName(query.getString("cou_name"));
 				coupon.setCouPrice(query.getInt("cou_price"));
 				listCoupon.add(coupon);
-				
+
 			}
 			return listCoupon;
 		} catch (SQLException e) {
-			
+
 			//
 			e.printStackTrace();
 			return null;
-			
+
 		} finally {
 			try {
 				if (conn != null && statement != null && query != null) {
@@ -151,13 +155,13 @@ public class CouponDao2 {
 					query.close();
 				}
 			} catch (SQLException e) {
-				
+
 				//
 				e.printStackTrace();
-				
+
 			}
 		}
-		
+
 	}
 
 	/**
@@ -194,7 +198,7 @@ public class CouponDao2 {
 				coupon.setStoreName(storeName);
 				coupon.setCouInfo(query.getString("cou_info"));
 				coupon.setConNum(query.getInt("cou_num"));
-
+				coupon.setCouIma(query.getString("cou_img"));
 				coupon.setConValidity(query.getDate("cou_Validity"));
 				coupon.setCoouRedeemPoints(query.getInt("cou_redeem_points"));
 				coupon.setCouName(query.getString("cou_name"));
@@ -228,8 +232,14 @@ public class CouponDao2 {
 		try {
 			conn = DBconnection.getConnection();
 			// 2、SQL语句
-			String sql = "update   coupon  set  " + "cou_name =?, " + "cou_info=?, " + "cou_num = ?, "
-					+ "cou_Validity= ?, " + "cou_redeem_points = ?, " + "cou_price = ?  " + " where cou_id = ?;";
+			String sql = "update   coupon  set  " 
+			+ "cou_name =?, " + "cou_info=?, " 
+					+ "cou_num = ?, "
+					+ "cou_Validity= ?, " 
+					+ "cou_redeem_points = ?, " 
+					+ "cou_price = ? , " 
+					+ "cou_img = ?"
+					+ " where cou_id = ?;";
 			// 3、获得preparedStatement对象
 			System.out.println(sql);
 			prep = conn.prepareStatement(sql);
@@ -240,8 +250,9 @@ public class CouponDao2 {
 			prep.setDate(4, new java.sql.Date(coupon.getConValidity().getTime()));
 			prep.setInt(5, coupon.getCoouRedeemPoints());
 			prep.setInt(6, coupon.getCouPrice());
-			prep.setInt(7, coupon.getCouID());
-
+			prep.setString(7, coupon.getCouIma());
+			prep.setInt(8, coupon.getCouID());
+			// coupon.setCouIma(query.getString("cou_img"));
 			// 5、执行sql语句
 			prep.executeUpdate();
 			return true;
@@ -262,37 +273,40 @@ public class CouponDao2 {
 			}
 		}
 	}
-/**
- * 
- * ChangeCoupon:(临时的方法)<br/>
 
- *
- * @param  @param couID
- * @param  @return    设定文件
- * @return boolean    DOM对象
- * @throws 
- * @since  CodingExample　Ver 1.1
- */
+	/**
+	 * 
+	 * ChangeCoupon:(临时的方法)<br/>
+	 *
+	 * 
+	 * @param @param
+	 *            couID
+	 * @param @return
+	 *            设定文件
+	 * @return boolean DOM对象
+	 * @throws @since
+	 *             CodingExample Ver 1.1
+	 */
 	public boolean delCoupon(int couID) {
 		Connection conn = null;
-		Statement statement= null;
+		Statement statement = null;
 		try {
 			conn = DBconnection.getConnection();
 			statement = conn.createStatement();
-			String sql  = "delete from coupon where cou_id="+couID+";";
+			String sql = "delete from coupon where cou_id=" + couID + ";";
 			statement.executeUpdate(sql);
 			return true;
 		} catch (SQLException e) {
-			
+
 			//
 			e.printStackTrace();
 			return false;
-		}finally {
+		} finally {
 			try {
-				if (conn != null && statement != null ) {
+				if (conn != null && statement != null) {
 					conn.close();
 					statement.close();
-					
+
 				}
 			} catch (SQLException e) {
 
@@ -301,13 +315,7 @@ public class CouponDao2 {
 
 			}
 		}
-		
 
 	}
-	
-	
-	
-			
-	
 
 }

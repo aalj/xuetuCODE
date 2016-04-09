@@ -57,9 +57,9 @@ public class GetSelfStudyPlan extends HttpServlet {
 		if(parameter!=null){
 			
 			allSelfStudyPlantemp = findService.getAllSelfStudyPlan(Integer .parseInt(parameter));
-			System.out.println(allSelfStudyPlantemp.size());
+//			System.out.println(allSelfStudyPlantemp.size());
 			//去除时间
-			allSelfStudyPlan = ChuliShijian.shijianpanduan(allSelfStudyPlantemp);
+			allSelfStudyPlan = ChuliShijian.isZhiXing(allSelfStudyPlantemp);
 			
 		}
 		PrintWriter writer = response.getWriter();

@@ -1,9 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+     xmlns:title="http://schemas.android.com/apk/res/com.xuetu"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
     android:gravity="center_horizontal"
     android:orientation="vertical" >
+    
+     <com.xuetu.view.TitleBar
+        android:id="@+id/main_title"	
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_weight="0"
+        title:titleBarRightImage="@drawable/more_setting"
+        android:clickable="false"
+        title:titleBarTitle="个人中心"
+        android:gravity="center" >
+    </com.xuetu.view.TitleBar>
 
     <ScrollView
         android:layout_width="fill_parent"
@@ -14,6 +27,13 @@
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical" >
+            
+         
+            
+            
+            
+            
+            
 
             <View
                 android:layout_width="fill_parent"
@@ -51,7 +71,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="20dp"
                     android:layout_toRightOf="@+id/head"
-                    android:text="饿了别加妈，叫梁军"
+                    android:text="你看见我的小熊了吗"
                     android:textSize="18.0dip" />
 
                 <TextView
@@ -71,14 +91,7 @@
                     android:layout_marginRight="15dp"
                     android:src="@drawable/right" />
 
-<!--                 <ImageView -->
-<!--                     android:id="@+id/iv_sex" -->
-<!--                     android:layout_width="20dp" -->
-<!--                     android:layout_height="20dp" -->
-<!--                     android:layout_marginLeft="5dp" -->
-<!--                     android:layout_marginTop="22dp" -->
-<!--                     android:layout_toRightOf="@+id/tvname" -->
-<!--                     android:src="@drawable/ic_sex_female" /> -->
+                
             </RelativeLayout>
 
             <View

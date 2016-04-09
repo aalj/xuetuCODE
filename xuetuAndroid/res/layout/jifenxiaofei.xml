@@ -7,10 +7,12 @@
     <RelativeLayout
         android:layout_width="0dp"
         android:layout_height="fill_parent"
+        android:gravity="center"
         android:layout_marginLeft="20dp"
         android:layout_weight="3" >
 
         <TextView
+            android:id="@+id/riqi"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@+id/textView1"
@@ -32,33 +34,26 @@
         android:layout_height="fill_parent"
         android:layout_weight="3" >
 
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+        <com.xuetu.view.CircleImageView
+            android:id="@+id/imabiaozhi"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
             android:layout_centerInParent="true"
             android:src="@drawable/icon_me_card" />
     </RelativeLayout>
 
     <RelativeLayout
         android:layout_width="0dp"
+        android:gravity="center_vertical"
         android:layout_height="fill_parent"
         android:layout_weight="7" >
 
         <TextView
-            android:id="@+id/textView2"
+            android:id="@+id/jifen"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="分数（加减号）" 
             android:textSize="17sp"/>
-
-        <TextView
-            android:textSize="15sp"
-            android:ellipsize = "end"
-            android:singleLine="true"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/textView2"
-            android:text="消费的简略信息" />
     </RelativeLayout>
 
 </LinearLayout>

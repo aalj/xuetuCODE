@@ -53,8 +53,8 @@ public class TimeDao implements HomeInter {
 		{
 			conn = DBconnection.getConnection();
 			//sql语句  直接插入新列队
-			String sql = "insert into studytime(st_date,sto_time,acpo_num)"
-					+ " values(?,?,?);";
+			String sql = "insert into studytime(st_date,sto_time,acpo_num,stu_id)"
+					+ " values(?,?,?,?);";
 //			String sql = "insert into studytime(st_id,st_date,sto_time,stu_id,acpo_num)"
 //					+ " values(?,?,?,?,?);";
 			// 获得preparedStatement对象
@@ -65,7 +65,7 @@ public class TimeDao implements HomeInter {
 //			prep.setDate(2, new Date(stu_time.getDate().getTime()));
 			prep.setTimestamp(1, new Timestamp(stu_time.getDate().getTime()));
 			prep.setLong(2, stu_time.getTime());
-//			prep.setInt(4, stu_time.getStudent().getStuId());
+			prep.setInt(4, stu_time.getStudent().getStuId());
 			prep.setInt(3, stu_time.getAcpo_num());
 //			System.out.println("--------"+stu_time.getSttID()+">>>"+(Date) stu_time.getDate()+">>"+stu_time.getTime()+">>>"+stu_time.getAcpo_num()+"");
 			prep.executeUpdate();
@@ -115,7 +115,47 @@ public class TimeDao implements HomeInter {
 		return null;
 	}
 
-	
+	public void change_plan_state(int plan_id)
+	{
+		Connection conn = null ;
+		PreparedStatement prep = null;
+		String sql  =  "";
+		
+		
+		try {
+			
+			conn=DBconnection.getConnection();
+			sql = "update selfstudyplan set is_zhixing=2 where plan_id="+plan_id+";";
+			prep=conn.prepareStatement(sql);
+			prep.executeUpdate();
+			
+			
+			
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
+		
+		finally {
+			try {
+				if(conn!=null){
+				conn.close();}
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			try {
+				if(prep!=null){
+				prep.close();}
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		
+		
+		
+		
+	}
 	
 	
 }

@@ -29,6 +29,10 @@ import java.util.Date;
  */
 public class Countdown {
 	private int codoID = 0;
+	@Override
+	public String toString() {
+		return "Countdown [codoID=" + codoID + ", codoTime=" + codoTime + ", codoText=" + codoText + "]";
+	}
 	private Date codoTime = null;
 	private String codoText = null;
 

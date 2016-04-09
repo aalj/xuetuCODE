@@ -2,6 +2,7 @@ package com.xuetu.web.android;
 
 import java.io.File;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.sql.Date;
 import java.sql.Timestamp;
 import java.util.List;
@@ -12,6 +13,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import com.jspsmart.upload.SmartUpload;
 import com.xuetu.dao.QuestionIml;
 import com.xuetu.dao.inter.QuesTionDao;
@@ -44,7 +47,7 @@ public class SubmitAnswer extends HttpServlet {
 		// TODO Auto-generated method stub
 		request.setCharacterEncoding("utf-8");
 		response.setCharacterEncoding("utf-8");
-		doGet(request, response);
+		doPost(request, response);
 	}
 
 	/**
@@ -69,21 +72,18 @@ public class SubmitAnswer extends HttpServlet {
 				dir.mkdir();
 				System.out.println("创建新文件夹");
 			}
-			
-			System.out.println(smartUpload.getFiles().getCount()+"count");
 			com.jspsmart.upload.File poster = smartUpload.getFiles().getFile(0);
 			if(!poster.isMissing()){	
+				String path = request.getServletContext().getRealPath("/");
 				//poster.getFileName()    原文件名
 				File file = new File(getServletContext().getRealPath("xuetuImg"),poster.getFileName());
-				System.out.println("filename"+poster.getFileName());
 				String saveFileName = file.getAbsolutePath();
-				System.out.println("saveFileName"+saveFileName);
 				//文件保存路径
 				poster.saveAs(saveFileName);
-				poster.saveAs("F:\\xuetuGIT\\xuetuCODE\\xuetuWeb\\WebContent\\xuetuImg\\"+poster.getFileName());	
+				poster.saveAs(path+"xuetuImg/"+poster.getFileName());	
+//				poster.saveAs("F:\\xuetuGIT\\xuetuCODE\\xuetuWeb\\WebContent\\xuetuImg\\"+poster.getFileName());	
 			}
-			
-			ques_id = Integer.parseInt(smartUpload.getRequest().getParameter("ques_id"));
+			ques_id = Integer.parseInt(smartUpload.getRequest().getParameter("quesId"));
 			stu_id =  Integer.parseInt(smartUpload.getRequest().getParameter("stu_id"));
 			ans_text = smartUpload.getRequest().getParameter("ans_text");
 			ans_timeStr = smartUpload.getRequest().getParameter("ans_time");
@@ -91,11 +91,21 @@ public class SubmitAnswer extends HttpServlet {
 			ans_time = new Date(new Timestamp(parseLong).getTime());
 			ans_ima = "xuetuImg/"+poster.getFileName();
 			a = Qservice.createAnswer(ques_id, stu_id, ans_text, ans_ima, ans_time);
-			Qservice.submitAnswer(a);
+//			Qservice.submitAnswer(a);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		Gson gson = new GsonBuilder()
+				.enableComplexMapKeySerialization()
+				.setPrettyPrinting()
+				.disableHtmlEscaping()
+				.setDateFormat("yyyy-MM-dd HH:mm:ss").create();
+		String jsonStr = gson.toJson(a);
+		PrintWriter pw = response.getWriter();
+		pw.write(jsonStr);
+		pw.flush();
+		pw.close();
 	}
 
 }

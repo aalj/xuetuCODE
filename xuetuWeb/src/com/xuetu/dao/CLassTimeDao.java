@@ -34,25 +34,27 @@ public class CLassTimeDao implements ClassTimeServiceInter{
 		conn = DBconnection.getConnection();
 		
 		String sql;
-		try {
-			conn = DBconnection.getConnection();
-			cls_id=new ArrayList();
-			sql="select cls_id from courselist where stu_id=?;";
-			System.out.println("stu_id  prep.setInt(1, stu_id);           "+stu_id);
-			prep = conn.prepareStatement(sql);
-			prep.setInt(1, stu_id);
-			ResultSet rs = prep.executeQuery();
-			
-			while(rs.next())
+		try 
 			{
-				cls_id.add(rs.getInt("cls_id"));
+				conn = DBconnection.getConnection();
+				cls_id=new ArrayList();
+				sql="select cls_id from courselist where stu_id=?;";
+				prep = conn.prepareStatement(sql);
+				prep.setInt(1, stu_id);
+				ResultSet rs = prep.executeQuery();
+				
+				while(rs.next())
+				{
+					cls_id.add(rs.getInt("cls_id"));
+				}
+				return cls_id;
+				
+			} 
+		catch (SQLException e)
+			{
+				// TODO Auto-generated catch block
+				e.printStackTrace();
 			}
-			return cls_id;
-			
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
 		finally {
 			
 			try {
@@ -154,8 +156,9 @@ public class CLassTimeDao implements ClassTimeServiceInter{
 	 * @return
 	 */
 	
-	public boolean isStudy(List<Integer> cls_id,List<MyClass> listmyclass)
+	public MyClass isStudy(List<Integer> cls_id,List<MyClass> listmyclass)
 	{
+		MyClass myclass = null;
 		boolean  bl=false;
 		System.out.println("ccccccccccccccccc"+cls_id.size());
 		for(int i=0;i<cls_id.size();i++)
@@ -164,12 +167,13 @@ public class CLassTimeDao implements ClassTimeServiceInter{
 			{
 				if((cls_id.get(i))==listmyclass.get(j).getClsId())
 				{
+					myclass=listmyclass.get(j);
 					bl=true;
 					break;
 				}
 			}
 		}
-		return bl;
+		return myclass;
 	}
 	
 	
@@ -178,18 +182,13 @@ public class CLassTimeDao implements ClassTimeServiceInter{
 	 * @param boo
 	 * @return
 	 */
-	public long sendTime_SS(boolean boo)
+	public long sendTime_SS()
 	{
 		long l=0;
-		if(boo)
-		{
 			//创建一个对象
 			ClassTime  classtime = new ClassTime();
 			//用对象获取现在应该是第几节课,然后将第几节课传入 getSS()内,获取现在距离课程结束所需要的秒数,SS
 			l = classtime.getSS(classtime.getFwe());
-			
-			
-		}
 		return l;
 	}
 
@@ -199,5 +198,97 @@ public class CLassTimeDao implements ClassTimeServiceInter{
 		// TODO Auto-generated method stub
 		return null;
 	}
+	
+	
+	
+//
+//	/**
+//	 * 通过已经获取  学生选课id,与 MyClass对象中的      选课id匹配
+//	 * @param cls_id                 返回课程名
+//	 * @param listmyclass
+//	 * @return
+//	 */
+//	
+//	public int getcls_id  (List<Integer> cls_id,List<MyClass> listmyclass)
+//	{
+//		int jj=0;
+//		boolean bl = false;
+//		System.out.println("ccccccccccccccccc"+cls_id.size());
+//		for(int i=0;i<cls_id.size();i++)
+//		{
+//			for(int j=0;j<listmyclass.size();j++)
+//			{
+//				if((cls_id.get(i))==listmyclass.get(j).getClsId())
+//				{
+//					bl=true;
+//					jj=
+//					break;
+//				}
+//			}
+//		}
+//		return jj;
+//	}
+	
+	
+	/**
+	 * 
+	 * 
+	 */
+	public List<MyClass>  get_my_class(int day_of_week,int which_class)
+	{
+		MyClass myclass = new MyClass();
+		List<MyClass>  list=  new ArrayList<>() ;
+		Connection conn = null ;
+		PreparedStatement prep =null;
+		String sql = " ";
+		
+		try {
+			sql="select * from class where cls_week="+day_of_week+" and cls_few="+which_class+";";
+			conn=DBconnection.getConnection();
+//			sql = "select * from class where cls_id = (select cls_id from courselist where stu_id = stu_id)  ;                             ";
+			
+			prep= conn.prepareStatement(sql);
+			
+			ResultSet rs = prep.executeQuery();
+			while(rs.next())
+			{
+				myclass.setClasName(rs.getString("cls_name"));
+				myclass.setClsWeek(rs.getInt("cls_week"));
+				myclass.setClsFew(rs.getInt("cls_few"));
+				myclass.setClsId(rs.getInt("cls_id"));
+				myclass.setClsRoom(rs.getString("cls_room"));
+				list.add(myclass);
+			}
+//			listmyclass.get(0).getClasName();
+//			return myclass;
+		} catch (Exception e) {
+		}finally {
+			try {
+				prep.close();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			try {
+				conn.close();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		
+		
+		return list;
+		
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	
 }	

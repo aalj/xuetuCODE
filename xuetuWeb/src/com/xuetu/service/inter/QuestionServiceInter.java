@@ -5,6 +5,8 @@ package com.xuetu.service.inter;
 
 import java.sql.Date;
 import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 import com.xuetu.entity.Answer;
 import com.xuetu.entity.Question;
@@ -59,5 +61,5 @@ public interface QuestionServiceInter {
 	
 	public Question getQuestionByQuesId(int ques_id);
 	
-	
+	public List<Question> getAllQuestion();
 }

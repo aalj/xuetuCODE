@@ -3,6 +3,8 @@ package com.xuetu.ui;
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -19,6 +21,7 @@ import com.xuetu.R;
 import com.xuetu.entity.Coupon;
 import com.xuetu.entity.MyCoupon;
 import com.xuetu.entity.Student;
+import com.xuetu.utils.ActivityColector;
 import com.xuetu.utils.GetHttp;
 import com.xuetu.view.TitleBar;
 
@@ -27,8 +30,11 @@ import android.app.AlertDialog;
 import android.app.AlertDialog.Builder;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
+import android.content.DialogInterface.OnKeyListener;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -36,7 +42,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-public class ExchangeCouponActivity extends Activity implements OnClickListener {
+public class ExchangeCouponActivity extends Baseactivity implements OnClickListener, OnKeyListener {
+	protected static final String TAG = null;
 	@ViewInject(R.id.ima_stone)
 	ImageView ima_stone;
 	@ViewInject(R.id.dianjiadejutixingxi)
@@ -87,6 +94,7 @@ public class ExchangeCouponActivity extends Activity implements OnClickListener 
 
 	}
 
+
 	private void jiaZaiShuJu() {
 		showDengdai();
 		String url = GetHttp.getHttpLJ() + "DedaoJIFen";
@@ -96,24 +104,28 @@ public class ExchangeCouponActivity extends Activity implements OnClickListener 
 
 			@Override
 			public void onFailure(HttpException arg0, String arg1) {
-				// TODO Auto-generated method stub
+				Toast.makeText(getApplicationContext(), arg1, 1).show();
 
 			}
 
 			@Override
 			public void onSuccess(ResponseInfo<String> arg0) {
 				jiFen = Integer.parseInt(arg0.result);
+				Log.i(TAG, "onSuccess----->>" + jiFen);
 				if (progressDialog != null)
 					progressDialog.dismiss();
 			}
 		});
-
 	}
 
 	private void showDengdai() {
 		if (progressDialog == null) {
 			progressDialog = ProgressDialog.show(ExchangeCouponActivity.this, "", "正在加载...");
+			progressDialog.setCancelable(true);
 			progressDialog.show();
+			progressDialog.setOnKeyListener(this);
+		} else {
+
 		}
 	}
 
@@ -148,9 +160,11 @@ public class ExchangeCouponActivity extends Activity implements OnClickListener 
 						mycoupon.setMycouExchangeTime(new Date(System.currentTimeMillis()));
 						mycoupon.setStudent(student);
 						saveMycoupon(mycoupon);
-						Intent intent= new Intent();
+						
+						Intent intent = new Intent();
 						intent.setClass(ExchangeCouponActivity.this, TheCollectionOfYouHuiJuanActivity.class);
 						startActivity(intent);
+						ActivityColector.finaishAll();
 					} else {
 						Toast.makeText(getApplicationContext(), "兑换失败，积分不足", 1).show();
 					}
@@ -177,12 +191,13 @@ public class ExchangeCouponActivity extends Activity implements OnClickListener 
 
 	@Override
 	public void onBackPressed() {
+		Toast.makeText(getApplicationContext(), "fanhuianniu dinaji ", 1).show();
 		if (progressDialog != null)
 			progressDialog.dismiss();
+		finish();
 		super.onBackPressed();
 	}
-	
-	
+
 	private void saveMycoupon(MyCoupon myCoupon) {
 		try {
 			Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create();
@@ -222,7 +237,7 @@ public class ExchangeCouponActivity extends Activity implements OnClickListener 
 
 	// 点击兑换
 	public void onclick(View v) {
-		//再次加载数据
+		// 再次加载数据
 		jiaZaiShuJu();
 		myShowDialog(jiFen, coupon.getCoouRedeemPoints());
 	}
@@ -231,5 +246,14 @@ public class ExchangeCouponActivity extends Activity implements OnClickListener 
 	public void onClick(View v) {
 		finish();
 
+	}
+
+	@Override
+	public boolean onKey(DialogInterface dialog, int keyCode, KeyEvent event) {
+		if (keyCode == KeyEvent.KEYCODE_BACK && event.getAction() == KeyEvent.ACTION_DOWN) {
+			if (progressDialog != null)
+				progressDialog.dismiss();
+		}
+		return false;
 	}
 }

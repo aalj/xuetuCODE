@@ -5,7 +5,6 @@
     android:orientation="vertical" >
     <RelativeLayout
         android:id="@+id/rl_ans1_top"
-        android:layout_below="@id/title_question_answer"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" >
  		<TextView
@@ -18,7 +17,7 @@
             android:layout_marginTop="5dp"
             android:text="问题描述ques_text 111111111111111111111111111111111111" />
         <TextView
-            android:id="@+id/tv_ans1_time"
+            android:id="@+id/tv_ans1_time1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
 			android:layout_alignRight="@id/tv_ans1_ques_text"
@@ -30,7 +29,7 @@
        
 
         <ImageView
-            android:id="@+id/iv_ans1_first_img"
+            android:id="@+id/iv_ans1_ques_img"
             android:layout_width="wrap_content"
             android:layout_height="100dp"
             android:layout_alignLeft="@+id/tv_ans1_ques_text"
@@ -46,7 +45,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignLeft="@+id/tv_ans1_ques_text"
-            android:layout_below="@+id/iv_ans1_first_img"
+            android:layout_below="@+id/iv_ans1_ques_img"
             android:layout_marginBottom="3dp"
             android:textColor="@color/gray"
             android:text="学科" />
@@ -79,16 +78,22 @@
 			android:layout_alignRight="@id/tv_ans1_ques_text"
 			android:layout_alignTop="@id/tv_ans1_sub"
 			android:contentDescription="@string/app_name"
-            android:src="@drawable/collect" />
+            android:src="@drawable/ic_ans" />
 
         <TextView
-            android:id="@+id/tv_ans_num"
+            android:id="@+id/tv_ananan"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_alignTop="@id/tv_ans1_sub"
             android:layout_toLeftOf="@+id/iv_ans1_img"
-			android:layout_alignTop="@id/tv_ans1_sub"
             android:text="评论数目" />
 
+		<View
+		    android:layout_below="@id/tv_ananan"
+        android:layout_width="match_parent"
+        android:layout_height="1.0dip"
+        android:background="@color/black2" 
+        />
     </RelativeLayout>
 
 </LinearLayout>

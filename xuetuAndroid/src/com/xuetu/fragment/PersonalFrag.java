@@ -13,29 +13,38 @@
 
 package com.xuetu.fragment;
 
-import com.xuetu.PaiHangBangActivity;
+import com.lidroid.xutils.BitmapUtils;
 import com.xuetu.R;
 import com.xuetu.entity.Student;
 import com.xuetu.ui.CourseActivity;
 import com.xuetu.ui.LoginActivity;
+import com.xuetu.ui.MainActivity;
+import com.xuetu.ui.PaiHangBangActivity;
 import com.xuetu.ui.PersonInfomationActivity;
+import com.xuetu.ui.PersonalQuestionCollectionActivity;
+
+import com.xuetu.ui.PointliShiActivity;
+import com.xuetu.ui.SettingActivity;
 import com.xuetu.ui.TheCollectionOfYouHuiJuanActivity;
 import com.xuetu.ui.WoDeShouCangActivity;
 import com.xuetu.ui.XueTuApplication;
+import com.xuetu.utils.GetHttp;
+import com.xuetu.view.CircleImageView;
+import com.xuetu.view.TitleBar;
 
-import android.app.Application;
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
-import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 /**
  * ClassName:PersonalFrag Function: TODO ADD FUNCTION Reason: TODO ADD REASON
@@ -55,20 +64,29 @@ public class PersonalFrag extends Fragment implements OnClickListener {
 	TextView txt_mylike;
 	TextView txt_course;
 	TextView txt_paihangbang;
-	Student student;
+	CircleImageView head;
+
 	TextView tvname;
 	TextView tvmsg;
+	View view;
+	SharedPreferences sp = null;
+	TitleBar main_title = null;
 
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-		View view = inflater.inflate(R.layout.personal_frag, null);
+		view = inflater.inflate(R.layout.personal_frag, null);
 		view_user = (RelativeLayout) view.findViewById(R.id.view_user);
+		sp = getActivity().getSharedPreferences("config", getActivity().MODE_PRIVATE);
 		txt_pay = (TextView) view.findViewById(R.id.txt_mypoint);
 		txt_youhuijuan = (TextView) view.findViewById(R.id.txt_youhuijuan);
 		txt_myquestion = (TextView) view.findViewById(R.id.txt_myquestion);
 		txt_mylike = (TextView) view.findViewById(R.id.txt_mylike);
 		txt_course = (TextView) view.findViewById(R.id.txt_course);
+		head = (CircleImageView) view.findViewById(R.id.head);
 		txt_paihangbang = (TextView) view.findViewById(R.id.txt_paihangbang);
+		main_title = (TitleBar) view.findViewById(R.id.main_title);
+		// 添加标题栏的右面的点击事件
+		main_title.setRightLayoutClickListener(this);
 		view_user.setOnClickListener(this);
 		txt_pay.setOnClickListener(this);
 		txt_youhuijuan.setOnClickListener(this);
@@ -78,36 +96,43 @@ public class PersonalFrag extends Fragment implements OnClickListener {
 		txt_paihangbang.setOnClickListener(this);
 		tvname = (TextView) view.findViewById(R.id.tvname);
 		tvmsg = (TextView) view.findViewById(R.id.tvmsg);
-		 
-		student = ((XueTuApplication) (getActivity().getApplication())).getStudent();
-		// Log.i("TAG", "------>" + student.getStuId() + "");
+
 		addView();
 		return view;
 	}
 
 	public void addView() {
-		tvname.setText(student.getStuName());
-		tvmsg.setText(student.getStuSigner());
+		Student student1 = ((XueTuApplication) (getActivity().getApplication())).getStudent();
+		if (student1.getStuId() > 0) {
+			boolean bool = sp.getBoolean("SANFANG", false);
+			if (bool) {
+				setHeadByUrl(view.getContext(), head, student1.getStuIma());
+
+			} else {
+				setHeadByUrl(view.getContext(), head, GetHttp.getHttpLC() + student1.getStuIma());
+
+			}
+		}
+		tvname.setText(student1.getStuName());
+		tvmsg.setText(student1.getStuSigner());
 	}
 
 	@Override
 	public void onResume() {
-		student = ((XueTuApplication) (getActivity().getApplication())).getStudent();
 		addView();
 		super.onResume();
 	}
-	
 
-	@Override
-	public void onPause() {
-		addView();
-		super.onPause();
+	public void setHeadByUrl(Context context, ImageView v, String url) {
+		BitmapUtils bm = new BitmapUtils(context);
+		bm.display(v, url);
 	}
 
 	@Override
 	public void onClick(View v) {
 		switch (v.getId()) {
 		case R.id.view_user:
+			Student student = ((XueTuApplication) (getActivity().getApplication())).getStudent();
 
 			if (student.getStuId() <= 0) {
 				Intent intent = new Intent();
@@ -122,6 +147,9 @@ public class PersonalFrag extends Fragment implements OnClickListener {
 
 			break;
 		case R.id.txt_mypoint:
+			Intent intent10 = new Intent();
+			intent10.setClass(getActivity(), PointliShiActivity.class);
+			getActivity().startActivity(intent10);
 
 			break;
 
@@ -133,6 +161,7 @@ public class PersonalFrag extends Fragment implements OnClickListener {
 			break;
 
 		case R.id.txt_myquestion:
+			getActivity().startActivity(new Intent(getActivity(), PersonalQuestionCollectionActivity.class));
 
 			break;
 
@@ -152,8 +181,14 @@ public class PersonalFrag extends Fragment implements OnClickListener {
 
 		case R.id.txt_paihangbang:
 			getActivity().startActivity(new Intent(getActivity(), PaiHangBangActivity.class));
-
 			break;
+		case R.id.right_layout://设置按钮
+			Intent intent = new Intent();
+			intent.setClass(getActivity(), SettingActivity.class);
+			startActivity(intent);
+			getActivity().finish();
+			break;
+
 		default:
 			break;
 		}
