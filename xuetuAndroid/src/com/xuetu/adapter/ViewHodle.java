@@ -1,6 +1,5 @@
 package com.xuetu.adapter;
 
-import com.gc.materialdesign.views.Switch;
 import com.lidroid.xutils.BitmapUtils;
 import com.xuetu.R;
 import com.xuetu.utils.GetHttp;
@@ -122,12 +121,12 @@ public class ViewHodle {
 
 	}
 
-	public ViewHodle setClick(int resID, boolean arg) {
-		Switch myswitch = (Switch) getView(resID);
-		myswitch.setChecked(arg);
-
-		return this;
-
-	}
+//	public ViewHodle setClick(int resID, boolean arg) {
+//		Switch myswitch = (Switch) getView(resID);
+//		myswitch.setChecked(arg);
+//
+//		return this;
+//
+//	}
 	
 }

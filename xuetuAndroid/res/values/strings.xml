@@ -97,5 +97,6 @@
     <string name="title_activity_user_answer_information">UserAnswerInformationActivity</string>
     <string name="title_activity_select_school">SelectSchoolActivity</string>
     <string name="title_activity_show_time">ShowTimeActivity</string>
+    <string name="title_activity_help">HelpActivity</string>
 
 </resources>

@@ -15,6 +15,7 @@ import com.lidroid.xutils.http.RequestParams;
 import com.lidroid.xutils.http.ResponseInfo;
 import com.lidroid.xutils.http.callback.RequestCallBack;
 import com.lidroid.xutils.http.client.HttpRequest.HttpMethod;
+import com.xuetu.HelpActivity;
 import com.xuetu.R;
 import com.xuetu.entity.Class_end;
 import com.xuetu.entity.GetToddayClass;
@@ -45,6 +46,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -70,6 +72,7 @@ public class FindFrag extends Fragment {
 	TextView tv_time;
 	TextView myswitch;
 	TextView textView3;
+	ImageView meiri_yibu = null;
 
 	// ***************************************
 	// 判断执行什么的需要的一些变量
@@ -135,6 +138,7 @@ public class FindFrag extends Fragment {
 		// br = (BarChartView) inflate.findViewById(R.id.bar);
 		gettime(student.getStuId());
 
+		meiri_yibu = (ImageView) inflate.findViewById(R.id.meiri_yibu);
 		kecheng = (LinearLayout) inflate.findViewById(R.id.kecheng);
 		jihua = (LinearLayout) inflate.findViewById(R.id.jihua);
 		linearTask = (LinearLayout) inflate.findViewById(R.id.linear_task);
@@ -151,6 +155,7 @@ public class FindFrag extends Fragment {
 		qiandao.setOnClickListener(clickLisener);
 		kecheng.setOnClickListener(clickLisener);
 		jihua.setOnClickListener(clickLisener);
+		meiri_yibu.setOnClickListener(clickLisener);
 	}
 
 	SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy年MM月dd日");
@@ -196,6 +201,11 @@ public class FindFrag extends Fragment {
 			Intent intent = intent = new Intent();
 			;
 			switch (v.getId()) {
+			case R.id.meiri_yibu:// 一分钟了解
+				
+				intent.setClass(getActivity(), HelpActivity.class);
+				getActivity().startActivity(intent);
+				break;
 			case R.id.linear_task:// 任务
 
 				intent.setClass(getActivity(), FindTaskListActivity.class);
