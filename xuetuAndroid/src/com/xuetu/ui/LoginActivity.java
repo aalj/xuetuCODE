@@ -237,13 +237,8 @@ public class LoginActivity extends Baseactivity implements OnClickListener {
 				String uid = value.getString("uid");
 				if (!TextUtils.isEmpty(uid)) {
 					// uid不为空，获取用户信息
+
 					getUserInfo(platform);
-					Intent intent = new Intent();
-					intent.setClass(getApplicationContext(), SelectSchoolActivity.class);
-					Bundle bundle = new Bundle();
-					bundle.putSerializable("KEY", student);
-					startActivity(intent);
-					finish();
 
 				} else {
 					Toast.makeText(LoginActivity.this, "授权失败...", Toast.LENGTH_LONG).show();
@@ -273,11 +268,56 @@ public class LoginActivity extends Baseactivity implements OnClickListener {
 
 			@Override
 			public void onComplete(int status, Map<String, Object> info) {
-
-				addToWeb(info);
+				// 调用方法注册，或者登录
+				isCunzai(info);
 
 			}
+
 		});
+	}
+
+	// 判断用户是否存在
+	private void isCunzai(final Map<String, Object> info) {
+		HttpUtils httpUtils = new HttpUtils();
+		String uid = (String) info.get("uid");
+		RequestParams params = new RequestParams();
+		try {
+			params.addBodyParameter("telephone", URLEncoder.encode(uid, "utf-8"));
+		} catch (UnsupportedEncodingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+		String url = GetHttp.getHttpLJ() + "PanduansAVE";
+		httpUtils.send(HttpMethod.POST, url, params, new RequestCallBack<String>() {
+
+			@Override
+			public void onFailure(HttpException arg0, String arg1) {
+
+			}
+
+			@Override
+			public void onSuccess(ResponseInfo<String> arg0) {
+
+				if ("no".equals(arg0.result)) {// 表示没有用户
+
+					addToWeb(info);
+				} else {
+					Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create();
+					student = gson.fromJson(arg0.result, Student.class);
+					((XueTuApplication) getApplication()).setStudent(student);
+					Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+					Editor edit = sp.edit();
+					edit.putBoolean("SANFANG", true);
+					edit.putString("uasename", student.getStuPhone());
+					edit.putString("pwd", student.getStuPwd());
+					edit.commit();
+					startActivity(intent);
+					finish();
+				}
+			}
+		});
+
 	}
 
 	/**
@@ -315,6 +355,7 @@ public class LoginActivity extends Baseactivity implements OnClickListener {
 		}
 	}
 
+	// 通过三方登录注册以及登录（返回的都有id值）
 	public void addToWeb(Map<String, Object> info) {
 		Log.i("TAG", info + "执行。。。。。。。。");
 		String uid = (String) info.get("uid");
@@ -349,12 +390,15 @@ public class LoginActivity extends Baseactivity implements OnClickListener {
 				Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create();
 				student = gson.fromJson(arg0.result, Student.class);
 				((XueTuApplication) getApplication()).setStudent(student);
-
+				Intent intent = new Intent(LoginActivity.this, SelectSchoolActivity.class);
 				Editor edit = sp.edit();
+				startActivity(intent);
 				edit.putBoolean("SANFANG", true);
 				edit.putString("uasename", student.getStuPhone());
 				edit.putString("pwd", student.getStuPwd());
 				edit.commit();
+				startActivity(intent);
+				finish();
 
 			}
 		});

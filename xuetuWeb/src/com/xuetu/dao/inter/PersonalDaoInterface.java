@@ -271,5 +271,5 @@ public interface PersonalDaoInterface {
 	 */
 	public List<Answer> getAnswerByStuID(int stuID);
 
-	public boolean ChangeSchool(String telephone, int change_school_id);
+	public boolean ChangeSchool(String telephone, int change_school_id,String grade);
 }

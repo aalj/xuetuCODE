@@ -844,14 +844,15 @@ public class LoginDao implements PersonalDaoInterface {
 	}
 
 	@Override
-	public boolean ChangeSchool(String telephone, int change_school_id) {
+	public boolean ChangeSchool(String telephone, int change_school_id, String grade) {
 		Connection connection = DBconnection.getConnection();
-		String sql = "update student set sch_id = ? where stu_phone= ?";
+		String sql = "update student set sch_id = ?,stu_ugrade =? where stu_phone= ?";
 		PreparedStatement prepareStatement = null;
 		try {
 			prepareStatement = connection.prepareStatement(sql);
 			prepareStatement.setInt(1, change_school_id);
-			prepareStatement.setString(2, telephone);
+			prepareStatement.setString(2, grade);
+			prepareStatement.setString(3, telephone);
 			int executeUpdate = prepareStatement.executeUpdate();
 			if (executeUpdate > 0) {
 				return true;

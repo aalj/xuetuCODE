@@ -1,6 +1,8 @@
 package com.xuetu.web.android;
 
 import java.io.IOException;
+import java.net.URLDecoder;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -28,8 +30,10 @@ public class ChangeSchoolServlet extends HttpServlet {
 		response.setContentType("text/html;charset=utf-8");
 		String userphone = request.getParameter("phone");
 		String changeschool = request.getParameter("school");
+		System.out.println(changeschool);
+		String usergrade=URLDecoder.decode(request.getParameter("grade"), "utf-8");
 		int parseInt = Integer.parseInt(changeschool);
-		boolean changeSchool2 = personalServiceInter.ChangeSchool(userphone, parseInt);
+		boolean changeSchool2 = personalServiceInter.ChangeSchool(userphone, parseInt,usergrade);
 		System.out.println("修改学校" + changeSchool2);
 		response.getWriter().print(changeSchool2);
 

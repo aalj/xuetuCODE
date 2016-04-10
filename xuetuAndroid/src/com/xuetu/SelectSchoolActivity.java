@@ -1,7 +1,9 @@
 package com.xuetu;
 
+import java.io.UnsupportedEncodingException;
 import java.lang.reflect.Field;
 import java.lang.reflect.Type;
+import java.net.URLEncoder;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
@@ -11,6 +13,7 @@ import com.lidroid.xutils.http.RequestParams;
 import com.lidroid.xutils.http.ResponseInfo;
 import com.lidroid.xutils.http.callback.RequestCallBack;
 import com.lidroid.xutils.http.client.HttpRequest.HttpMethod;
+import com.xuetu.entity.School;
 import com.xuetu.entity.Student;
 import com.xuetu.ui.MainActivity;
 import com.xuetu.ui.XueTuApplication;
@@ -92,6 +95,7 @@ public class SelectSchoolActivity extends Activity implements OnClickListener {
 			break;
 		case R.id.btn_sure:
 			jump();
+			finish();
 			break;
 
 		default:
@@ -255,7 +259,7 @@ public class SelectSchoolActivity extends Activity implements OnClickListener {
 			http();
 			showDengdai();
 			startActivity(new Intent(this, MainActivity.class));
-			finish();
+
 		} else {
 			Toast.makeText(this, "请将信息填写完整", 1).show();
 		}
@@ -288,6 +292,13 @@ public class SelectSchoolActivity extends Activity implements OnClickListener {
 		RequestParams params = new RequestParams();
 		params.addBodyParameter("phone", student.getStuPhone());
 		params.addBodyParameter("school", (i + 1) + "");
+
+		try {
+			params.addBodyParameter("grade", URLEncoder.encode(GradeData[k], "UTF-8"));
+		} catch (UnsupportedEncodingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		httpUtils.send(HttpMethod.POST, url, params, new RequestCallBack<String>() {
 
 			@Override
@@ -305,6 +316,8 @@ public class SelectSchoolActivity extends Activity implements OnClickListener {
 				Log.i("TAG", "-----" + result_back);
 				if (result_back == true) {
 					Toast.makeText(getApplicationContext(), "修改成功", 1).show();
+					student.setSchool(new School(i + 1, SchoolData[i], "36.1", "263.4"));
+					student.setStuUgrade(GradeData[k]);
 				} else {
 					Toast.makeText(getApplicationContext(), "boom", 1).show();
 				}

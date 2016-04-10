@@ -84,7 +84,7 @@ public class JunText {
 		// for (LongTime longTime : weekTime) {
 		// System.out.println(longTime.getMyDate());
 		// }
-		System.out.println(new LoginDao().ChangeSchool("13359746517", 2));
+		System.out.println(new LoginDao().ChangeSchool("18845294363", 2,"大二"));
 
 	}
 

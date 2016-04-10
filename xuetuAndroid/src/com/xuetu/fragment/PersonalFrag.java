@@ -134,7 +134,7 @@ public class PersonalFrag extends Fragment implements OnClickListener {
 		case R.id.view_user:
 			Student student = ((XueTuApplication) (getActivity().getApplication())).getStudent();
 
-			if (student.getStuId() <= 0) {
+			if (student.getStuPhone().equals(null)) {
 				Intent intent = new Intent();
 				intent.setClass(getActivity(), LoginActivity.class);
 				getActivity().startActivity(intent);
@@ -182,7 +182,7 @@ public class PersonalFrag extends Fragment implements OnClickListener {
 		case R.id.txt_paihangbang:
 			getActivity().startActivity(new Intent(getActivity(), PaiHangBangActivity.class));
 			break;
-		case R.id.right_layout://设置按钮
+		case R.id.right_layout:// 设置按钮
 			Intent intent = new Intent();
 			intent.setClass(getActivity(), SettingActivity.class);
 			startActivity(intent);

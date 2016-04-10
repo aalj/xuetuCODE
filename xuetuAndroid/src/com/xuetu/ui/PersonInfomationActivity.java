@@ -20,6 +20,7 @@ import com.lidroid.xutils.http.ResponseInfo;
 import com.lidroid.xutils.http.callback.RequestCallBack;
 import com.lidroid.xutils.http.client.HttpRequest.HttpMethod;
 import com.xuetu.R;
+import com.xuetu.entity.School;
 import com.xuetu.entity.Student;
 import com.xuetu.utils.GetHttp;
 import com.xuetu.view.CircleImageView;
@@ -67,8 +68,7 @@ public class PersonInfomationActivity extends Baseactivity implements OnClickLis
 	CircleImageView img_head;
 	HttpUtils hutils = new HttpUtils();
 	private String SexData[] = { "男", "女" };
-	private String GradeData[] = { "一年级", "二年级", "三年级", "四年级", "五年级", "六年级", "初一", "初二", "初三", "高一", "高二", "高三", "大一",
-			"大二", "大三", "大四" };
+	private String GradeData[] = { "大一", "大二", "大三", "大四" };
 	private String SchoolData[] = { "哈尔滨佛学院", "西交利物浦大学", "南京邮电大学通达学院", "福建师范大学", "江苏大学", "常熟理工学院", "南华大学", "南京林业大学",
 			"苏州百年职业技术学院", "苏州万年职业技术学院", "高博国际学院", "港大思培", "苏州大学", };
 	int stuId;
@@ -167,6 +167,7 @@ public class PersonInfomationActivity extends Baseactivity implements OnClickLis
 	public void onClick(View v) {
 		switch (v.getId()) {
 		case R.id.left_layout:
+			startActivity(new Intent(PersonInfomationActivity.this,MainActivity.class));
 			finish();
 			break;
 		case R.id.backtoperson:
@@ -209,6 +210,7 @@ public class PersonInfomationActivity extends Baseactivity implements OnClickLis
 			break;
 
 		case R.id.xuexiao:
+			showChangeSchoolDialog();
 			// Intent intentschool = new Intent();
 			// intentschool.setClass(this, ChangeAgeActivity.class);
 			// startActivityForResult(intentschool, 5);
@@ -311,12 +313,104 @@ public class PersonInfomationActivity extends Baseactivity implements OnClickLis
 	}
 
 	String schooldata;
+	// { "哈尔滨佛学院", "西交利物浦大学", "南京邮电大学通达学院", "福建师范大学", "江苏大学", "常熟理工学院", "南华大学",
+	// "南京林业大学",
+	// "苏州百年职业技术学院", "苏州万年职业技术学院", "高博国际学院", "港大思培", "苏州大学", };
+
+	int ii = 0;
 
 	private void showChangeSchoolDialog() {
 		AlertDialog.Builder builder = new AlertDialog.Builder(this, AlertDialog.THEME_HOLO_LIGHT).setTitle("请选择您的学校");
-		String school=student.getSchool().getSchName();
-		int i=0;
+		String school = student.getSchool().getSchName();
+		if (school.equals("哈尔滨佛学院")) {
+			ii = 0;
+		} else if (school.equals("西交利物浦大学")) {
+			ii = 1;
+		} else if (school.equals("南京邮电大学通达学院")) {
+			ii = 2;
+		} else if (school.equals("福建师范大学")) {
+			ii = 3;
+		} else if (school.equals("江苏大学")) {
+			ii = 4;
+		} else if (school.equals("常熟理工学院")) {
+			ii = 5;
+		} else if (school.equals("南华大学")) {
+			ii = 6;
+		} else if (school.equals("南京林业大学")) {
+			ii = 7;
+		} else if (school.equals("苏州百年职业技术学院")) {
+			ii = 8;
+		} else if (school.equals("苏州万年职业技术学院")) {
+			ii = 9;
+		} else if (school.equals("高博国际学院")) {
+			ii = 10;
+		} else if (school.equals("港大思培")) {
+			ii = 11;
+		} else if (school.equals("苏州大学")) {
+			ii = 12;
+		}
+		schooldata = SchoolData[ii];
+		builder.setSingleChoiceItems(SchoolData, ii, new DialogInterface.OnClickListener() {
+			@Override
+			public void onClick(DialogInterface dialog, int which) {
+				schooldata = SchoolData[which];
+				text_school.setText(schooldata);
+				ii=which;
+				// dialog.dismiss();
+				Toast.makeText(getApplicationContext(), "您选择了" + schooldata, 0).show();
+			}
+		});
+		builder.setPositiveButton("确定", new DialogInterface.OnClickListener() {
 
+			@Override
+			public void onClick(DialogInterface dialog, int which) {
+				if (!schooldata.equals(((XueTuApplication) getApplication()).getStudent().getSchool().getSchName())) {
+					((XueTuApplication) getApplication()).getStudent()
+							.setSchool(new School(ii + 1, SchoolData[ii], "36.1", "263.4"));
+					http(ii);
+				}
+
+			}
+		});
+		builder.create().show();
+
+	}
+
+	public void http(int aa) {
+		HttpUtils httpUtils = new HttpUtils();
+		String url = GetHttp.getHttpLC() + "ChangeSchoolServlet";
+		RequestParams params = new RequestParams();
+		params.addBodyParameter("phone", student.getStuPhone());
+		params.addBodyParameter("school", (aa + 1) + "");
+		try {
+			params.addBodyParameter("grade", URLEncoder.encode(text_grade.getText().toString().trim(), "UTF-8"));
+		} catch (UnsupportedEncodingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		httpUtils.send(HttpMethod.POST, url, params, new RequestCallBack<String>() {
+
+			@Override
+			public void onFailure(HttpException arg0, String arg1) {
+				// TODO Auto-generated method stub
+
+			}
+
+			@Override
+			public void onSuccess(ResponseInfo<String> arg0) {
+				Gson gson = new Gson();
+				Type type = new TypeToken<Boolean>() {
+				}.getType();
+				Boolean result_back = gson.fromJson(arg0.result, type);
+				Log.i("TAG", "-----" + result_back);
+				if (result_back == true) {
+					Toast.makeText(getApplicationContext(), "修改成功", 1).show();
+				} else {
+					Toast.makeText(getApplicationContext(), "boom", 1).show();
+				}
+
+			}
+		});
 	}
 
 	String gradedata;
@@ -325,41 +419,18 @@ public class PersonInfomationActivity extends Baseactivity implements OnClickLis
 		AlertDialog.Builder builder = new AlertDialog.Builder(this, AlertDialog.THEME_HOLO_LIGHT).setTitle("请选择您的年级");
 		String grade = student.getStuUgrade();
 		int i = 0;
-		// "一年级", "二年级", "三年级", "四年级", "五年级", "六年级", "初一", "初二", "初三", "高一",
-		// "高二", "高三", "大一",
-		// "大二", "大三", "大四"
-		if (grade.equals("一年级")) {
+		if (grade == null) {
 			i = 0;
-		} else if (grade.equals("二年级")) {
-			i = 1;
-		} else if (grade.equals("三年级")) {
-			i = 2;
-		} else if (grade.equals("四年级")) {
-			i = 3;
-		} else if (grade.equals("五年级")) {
-			i = 4;
-		} else if (grade.equals("六年级")) {
-			i = 5;
-		} else if (grade.equals("初一")) {
-			i = 6;
-		} else if (grade.equals("初二")) {
-			i = 7;
-		} else if (grade.equals("初三")) {
-			i = 8;
-		} else if (grade.equals("高一")) {
-			i = 9;
-		} else if (grade.equals("高二")) {
-			i = 10;
-		} else if (grade.equals("高三")) {
-			i = 11;
-		} else if (grade.equals("大一")) {
-			i = 12;
-		} else if (grade.equals("大二")) {
-			i = 13;
-		} else if (grade.equals("大三")) {
-			i = 14;
-		} else if (grade.equals("大四")) {
-			i = 15;
+		} else {
+			if (grade.equals("大一")) {
+				i = 0;
+			} else if (grade.equals("大二")) {
+				i = 1;
+			} else if (grade.equals("大三")) {
+				i = 2;
+			} else if (grade.equals("大四")) {
+				i = 3;
+			}
 		}
 		gradedata = GradeData[i];
 		builder.setSingleChoiceItems(GradeData, i, new DialogInterface.OnClickListener() {

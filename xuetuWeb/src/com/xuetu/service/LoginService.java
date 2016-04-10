@@ -149,9 +149,9 @@ public class LoginService implements PersonalServiceInter {
 	}
 
 	@Override
-	public boolean ChangeSchool(String telephone, int change_school_id) {
+	public boolean ChangeSchool(String telephone, int change_school_id,String grade) {
 		// TODO Auto-generated method stub
-		return personalDaoInterface.ChangeSchool(telephone, change_school_id);
+		return personalDaoInterface.ChangeSchool(telephone, change_school_id,grade);
 	}
 
 }

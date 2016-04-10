@@ -31,8 +31,7 @@ public class ReadSQLByUidServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		response.getWriter().append("Served at: ").append(request.getContextPath());
+		doPost(request, response);
 	}
 
 	/**
@@ -55,8 +54,8 @@ public class ReadSQLByUidServlet extends HttpServlet {
 		Gson gson1 = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create();
 		PrintWriter writer = response.getWriter();
 		// xianpandua
-		Student login = new LoginDao().login(telephone, telephone);
-		if (login == null) {
+//		Student login = new LoginDao().login(telephone, telephone);
+//		if (login == null) {
 
 			boolean bb = personalServiceInter.addNewUser(telephone, stu_sex, stu_name, stu_image, telephone);
 			if (bb = true) {
@@ -67,9 +66,9 @@ public class ReadSQLByUidServlet extends HttpServlet {
 				System.out.println("没存进来啊 傻吊");
 			}
 
-		} else {
-			writer.print(gson1.toJson(login));
-		}
+//		} else {
+//			writer.print(gson1.toJson(login));
+//		}
 		// Gson gson1 = new GsonBuilder().setDateFormat("yyyy-MM-dd
 		// HH:mm:ss").create();
 		// String stusByPhone = gson1.toJson(student);
