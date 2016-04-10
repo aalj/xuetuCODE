@@ -33,13 +33,12 @@ public class GetLongTime extends HttpServlet {
 		request.setCharacterEncoding("utf-8");
 		response.setCharacterEncoding("utf-8");
 		String parameter = request.getParameter("stuID");
-		String week = request.getParameter("week");
 		int stu_id=0;
 		if(parameter!=null){
 			stu_id = Integer.parseInt(URLDecoder.decode(parameter, "utf-8"));
 		}
 		FindIml findIml = new FindIml();
-		List<LongTime> weekTime = findIml.getWeekTime(stu_id,Integer.parseInt(week));
+		List<LongTime> weekTime = findIml.getWeekTime(stu_id);
 		Gson gson = new GsonBuilder()  
 				  .setDateFormat("yyyy-MM-dd HH:mm:ss")  
 				  .create();

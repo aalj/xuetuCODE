@@ -177,7 +177,7 @@ public class LoginDao implements PersonalDaoInterface {
 	}
 
 	/**
-	 * 通过学生id查询个人优惠劵
+	 * 閫氳繃瀛︾敓id鏌ヨ涓汉浼樻儬鍔�
 	 */
 	@Override
 	public List<MyCoupon> getPoinCouByStuId(int stuID) {
@@ -269,7 +269,7 @@ public class LoginDao implements PersonalDaoInterface {
 			prep = conn.prepareStatement(sql);
 			prep.setInt(1, ques_id);
 			ResultSet rs = prep.executeQuery();
-			// 指针从第一行属性字段开始
+			// 鎸囬拡浠庣涓�琛屽睘鎬у瓧娈靛紑濮�
 			while (rs.next()) {
 				count++;
 			}
@@ -322,7 +322,7 @@ public class LoginDao implements PersonalDaoInterface {
 	}
 
 	/**
-	 * 通过学生id查询课程表
+	 * 閫氳繃瀛︾敓id鏌ヨ璇剧▼琛�
 	 */
 
 	@Override
@@ -393,17 +393,17 @@ public class LoginDao implements PersonalDaoInterface {
 	}
 
 	/**
-	 * 通过手机和密码在数据库里加入一个学生对象 返回一个布尔类型 加入成功true 没加入false
+	 * 閫氳繃鎵嬫満鍜屽瘑鐮佸湪鏁版嵁搴撻噷鍔犲叆涓�涓鐢熷璞� 杩斿洖涓�涓竷灏旂被鍨� 鍔犲叆鎴愬姛true 娌″姞鍏alse
 	 */
 	@Override
 	public boolean register(String telephone, String password) {
 		Connection connection = DBconnection.getConnection();
-		// INSERT INTO table_name (列1, 列2,...) VALUES (值1, 值2,....)
+		// INSERT INTO table_name (鍒�1, 鍒�2,...) VALUES (鍊�1, 鍊�2,....)
 		String sql = "insert into student (stu_phone,stu_pwd,stu_create_date) values(?,?,?)";
 		PreparedStatement prepareStatement = null;
-		// SimpleDateFormat formatter = new SimpleDateFormat("yyyy年MM月dd日
+		// SimpleDateFormat formatter = new SimpleDateFormat("yyyy骞碝M鏈坉d鏃�
 		// HH:mm:ss ");
-		// Date curDate = new Date(System.currentTimeMillis());// 获取当前时间
+		// Date curDate = new Date(System.currentTimeMillis());// 鑾峰彇褰撳墠鏃堕棿
 		// String str = formatter.format(curDate);
 		Timestamp d = new Timestamp(System.currentTimeMillis());
 		try {
@@ -424,7 +424,7 @@ public class LoginDao implements PersonalDaoInterface {
 	}
 
 	/**
-	 * 通过使用状态id查询使用状态名称
+	 * 閫氳繃浣跨敤鐘舵�乮d鏌ヨ浣跨敤鐘舵�佸悕绉�
 	 */
 
 	@Override
@@ -481,7 +481,7 @@ public class LoginDao implements PersonalDaoInterface {
 	}
 
 	/**
-	 * 修改密码
+	 * 淇敼瀵嗙爜
 	 */
 	public boolean updateStu_pwd(String phone, String pwd) {
 		// TODO Auto-generated method stub
@@ -810,7 +810,7 @@ public class LoginDao implements PersonalDaoInterface {
 
 	@Override
 	public List<Answer> getAnswerByStuID(int stuID) {
-		System.out.println("这是LOGdAO"+stuID);
+		System.out.println("杩欐槸LOGdAO" + stuID);
 		Connection connection = DBconnection.getConnection();
 		String sql = "select * from answer where stu_id=?";
 		QuestionIml questionIml = new QuestionIml();
@@ -837,10 +837,32 @@ public class LoginDao implements PersonalDaoInterface {
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-		}finally{
+		} finally {
 			CloseDb.close(connection, resultSet, prepareStatement);
 		}
 		return null;
+	}
+
+	@Override
+	public boolean ChangeSchool(String telephone, int change_school_id) {
+		Connection connection = DBconnection.getConnection();
+		String sql = "update student set sch_id = ? where stu_phone= ?";
+		PreparedStatement prepareStatement = null;
+		try {
+			prepareStatement = connection.prepareStatement(sql);
+			prepareStatement.setInt(1, change_school_id);
+			prepareStatement.setString(2, telephone);
+			int executeUpdate = prepareStatement.executeUpdate();
+			if (executeUpdate > 0) {
+				return true;
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			CloseDb.close(connection, prepareStatement);
+		}
+		return false;
 	}
 
 }

@@ -47,7 +47,7 @@ public interface FindInter {
 	public Countdown getCountDown();
 	
 	
-	public List<LongTime> getWeekTime(int stu_id,int i);
+	public List<LongTime> getWeekTime(int stu_id);
 	
 	/**
 	 * 

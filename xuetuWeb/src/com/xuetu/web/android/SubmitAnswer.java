@@ -91,7 +91,7 @@ public class SubmitAnswer extends HttpServlet {
 			ans_time = new Date(new Timestamp(parseLong).getTime());
 			ans_ima = "xuetuImg/"+poster.getFileName();
 			a = Qservice.createAnswer(ques_id, stu_id, ans_text, ans_ima, ans_time);
-//			Qservice.submitAnswer(a);
+			Qservice.submitAnswer(a);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

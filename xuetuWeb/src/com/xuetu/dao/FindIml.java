@@ -277,7 +277,7 @@ public class FindIml implements FindInter {
 	}
 
 	@Override
-	public List<LongTime> getWeekTime(int stu_id,int i) {
+	public List<LongTime> getWeekTime(int stu_id) {
 		Connection conn = DBconnection.getConnection();
 		List<LongTime> list = new ArrayList<>();
 		PreparedStatement statement = null;
@@ -286,11 +286,10 @@ public class FindIml implements FindInter {
 			String sql = "select sum(sto_time) as mytime," + 
 						"date_format(st_date,'%Y-%m-%d') as myDate,"
 					+ "stu_id from studytime "
-					+ "where stu_id=? and date_sub(curdate(), INTERVAL ? DAY) <= date(`st_date`) "
+					+ "where stu_id=? and date_sub(curdate(), INTERVAL 7 DAY) <= date(`st_date`) "
 					+ "group by date_format(st_date,'%Y-%m-%d')  order by myDate desc;";
 			statement = conn.prepareStatement(sql);
 			statement.setInt(1, stu_id);
-			statement.setInt(2, i*7);
 			query = statement.executeQuery();
 			LongTime e = null;
 			while (query.next()) {

@@ -27,6 +27,7 @@ import com.umeng.socialize.sso.TencentWBSsoHandler;
 import com.umeng.socialize.sso.UMQQSsoHandler;
 import com.umeng.socialize.sso.UMSsoHandler;
 import com.xuetu.R;
+import com.xuetu.SelectSchoolActivity;
 import com.xuetu.entity.Student;
 import com.xuetu.utils.GetHttp;
 import com.xuetu.view.CircleImageView;
@@ -88,7 +89,7 @@ public class LoginActivity extends Baseactivity implements OnClickListener {
 	public void onClick(View v) {
 		switch (v.getId()) {
 		case R.id.left_layout:
-//			Toast.makeText(getApplicationContext(), "点击了", 0).show();
+			// Toast.makeText(getApplicationContext(), "点击了", 0).show();
 			finish();
 			break;
 		case R.id.button_QQ:
@@ -108,6 +109,7 @@ public class LoginActivity extends Baseactivity implements OnClickListener {
 			Intent intent1 = new Intent();
 			intent1.setClass(getApplicationContext(), RegisterActivity.class);
 			startActivity(intent1);
+			finish();
 			break;
 		case R.id.btn_login:
 			login();
@@ -237,7 +239,7 @@ public class LoginActivity extends Baseactivity implements OnClickListener {
 					// uid不为空，获取用户信息
 					getUserInfo(platform);
 					Intent intent = new Intent();
-					intent.setClass(getApplicationContext(), MainActivity.class);
+					intent.setClass(getApplicationContext(), SelectSchoolActivity.class);
 					Bundle bundle = new Bundle();
 					bundle.putSerializable("KEY", student);
 					startActivity(intent);

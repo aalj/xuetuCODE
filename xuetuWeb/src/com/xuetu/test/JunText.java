@@ -46,9 +46,9 @@ import com.xuetu.utils.ChuliShijian;
  * 
  */
 public class JunText {
-	@Test
+	// @Test
 	public void myTest() {
-		
+
 		System.out.println(new FindIml().getSelfPlan(3));
 
 	}
@@ -71,27 +71,26 @@ public class JunText {
 
 	}
 
-	 
 	public void getCoupon() {
 
 		List<SelfStudyPlan> daySelfPlan = new FindIml().getDaySelfPlan(3);
 		System.out.println(daySelfPlan.toString());
 
-
 	}
 
 	@Test
 	public void getCoupon1() {
-//		 List<LongTime> weekTime = new FindIml().getWeekTime(3);
-//		 for (LongTime longTime : weekTime) {
-//			System.out.println(longTime.getMyDate());
-//		}
-		System.out.println(new LoginDao().getAnswerByStuID(3));
+		// List<LongTime> weekTime = new FindIml().getWeekTime(3);
+		// for (LongTime longTime : weekTime) {
+		// System.out.println(longTime.getMyDate());
+		// }
+		System.out.println(new LoginDao().ChangeSchool("13359746517", 2));
 
 	}
-	@Test
+
+	// @Test
 	public void getCoupon2() {
-		 List<Countdown> countdown = new FindIml().getCountdown();
+		List<Countdown> countdown = new FindIml().getCountdown();
 		for (Countdown selfStudyPlan : countdown) {
 			System.out.print(selfStudyPlan.getCodoID());
 			System.out.print("\t");
@@ -100,8 +99,7 @@ public class JunText {
 			System.out.print(selfStudyPlan.getCodoText());
 			System.out.println();
 		}
-		
-	}
 
+	}
 
 }

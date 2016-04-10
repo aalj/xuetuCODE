@@ -329,6 +329,10 @@
             android:name="com.xuetu.ui.ShowTimeActivity"
             android:label="@string/title_activity_show_time" >
         </activity>
+		<activity
+            android:name=".SelectSchoolActivity"
+            android:label="@string/title_activity_select_school" >
+        </activity>
     </application>
 
 </manifest>

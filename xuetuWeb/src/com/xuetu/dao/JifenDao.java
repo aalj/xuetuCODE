@@ -152,20 +152,19 @@ public class JifenDao {
 	}
 
 	public int countjifen(int stuId) {
-		int count = 0;
+		int count = 100;
 		count += queryAllAnswerByid(stuId).size() * 5;
-		count -= queryAllQuestionByid(stuId).size() * 3;
+		count -= queryAllAnswerByid(stuId).size() * 3;
 		List<StudyTime> queryAllStudyTimeById = queryAllStudyTimeById(stuId);
-System.out.println(count);
+
 		for (int i = 0; i < queryAllStudyTimeById.size(); i++) {
 			count += queryAllStudyTimeById.get(i).getAcpo_num();
 		}
-		System.out.println(count);
 		List<MyCoupon> queryAllCouponById = queryAllCouponById(stuId);
 		for (int i = 0; i < queryAllCouponById.size(); i++) {
 			count -= queryAllCouponById.get(i).getCoupon().getCoouRedeemPoints();
 		}
-System.out.println(count);
+
 		return count;
 	}
 
@@ -195,7 +194,7 @@ System.out.println(count);
 			while (query.next()) {
 				jiFenMingXi = new JiFenMingXi();
 				jiFenMingXi.setImgUrl(2 + "");
-				jiFenMingXi.setText("回答问题得到的积分");
+				jiFenMingXi.setText("回答问题得到到积分");
 				jiFenMingXi.setTime(query.getTimestamp("ans_time"));
 				jiFenMingXi.setUnmpuint(5);// st_id
 				jiFenMingXi.setId(query.getInt("ans_id"));
@@ -238,8 +237,8 @@ System.out.println(count);
 			query = statement.executeQuery();
 			while (query.next()) {
 				jiFenMingXi = new JiFenMingXi();
-				jiFenMingXi.setImgUrl(1 + "");
-				jiFenMingXi.setText("提问题扣除的积分");
+				jiFenMingXi.setImgUrl(2 + "");
+				jiFenMingXi.setText("回答问题得到到积分");
 				jiFenMingXi.setTime(query.getTimestamp("ques_time"));
 				jiFenMingXi.setUnmpuint(5);// st_id
 				jiFenMingXi.setId(query.getInt("ques_id"));
@@ -281,7 +280,7 @@ System.out.println(count);
 				query.getInt("cou_id");
 				jiFenMingXi.setImgUrl(getStoneNameByMyCouponId(query.getInt("mycou_id")));
 				String stoneNameByMyCouponId = getStoneNameByMyCouponId(query.getInt("mycou_id"));
-				jiFenMingXi.setText("兑换优惠券花费的积分");
+				jiFenMingXi.setText("兑换优惠券花费到积分");
 				jiFenMingXi.setTime(query.getTimestamp("mycou_exchange_time"));
 				
 				Coupon queryCoupon = dao2.queryCoupon(query.getInt("cou_id"));
@@ -296,6 +295,7 @@ System.out.println(count);
 			return list;
 
 		} catch (SQLException e) {
+			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		return list;
@@ -323,7 +323,7 @@ System.out.println(count);
 			while (query.next()) {
 				jiFenMingXi = new JiFenMingXi();
 				jiFenMingXi.setImgUrl(3 + "");
-				jiFenMingXi.setText("通过学习得到的积分");
+				jiFenMingXi.setText("学习时间的到积分");
 				jiFenMingXi.setTime(query.getTimestamp("st_date"));
 				jiFenMingXi.setUnmpuint(query.getInt("acpo_num"));// st_id
 				jiFenMingXi.setId(query.getInt("st_id"));
@@ -335,6 +335,7 @@ System.out.println(count);
 			return list;
 
 		} catch (SQLException e) {
+			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		return list;
@@ -358,6 +359,7 @@ System.out.println(count);
 
 			}
 		} catch (SQLException e) {
+			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 
@@ -365,7 +367,7 @@ System.out.println(count);
 	}
 	
 	
-	//TODO 
+	
 	public List<JiFenMingXi> paixuJifenMingxi(int stuid,int weekpage ){
 		List<JiFenMingXi> list= new ArrayList<JiFenMingXi>();
 		list.addAll(getAnswerLimitByStuId(stuid, weekpage));

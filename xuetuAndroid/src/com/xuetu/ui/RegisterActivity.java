@@ -13,10 +13,11 @@ import com.lidroid.xutils.http.ResponseInfo;
 import com.lidroid.xutils.http.callback.RequestCallBack;
 import com.lidroid.xutils.http.client.HttpRequest.HttpMethod;
 import com.xuetu.R;
+import com.xuetu.SelectSchoolActivity;
+import com.xuetu.entity.Student;
 import com.xuetu.utils.GetHttp;
 import com.xuetu.view.TitleBar;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
@@ -59,6 +60,8 @@ import cn.smssdk.SMSSDK;
  */
 
 public class RegisterActivity extends Baseactivity implements OnClickListener {
+
+	Student student;
 	EditText et_usertelephone;
 	EditText et_checkedNumber;
 	EditText et_password;
@@ -109,6 +112,7 @@ public class RegisterActivity extends Baseactivity implements OnClickListener {
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
+		student = ((XueTuApplication) getApplication()).getStudent();
 		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.register);
@@ -169,13 +173,16 @@ public class RegisterActivity extends Baseactivity implements OnClickListener {
 			break;
 		case R.id.btn_register:
 			register();
+			finish();
 			break;
 		// Toast.makeText(getApplicationContext(), "点击了", 1).show();
 		// finish();
 		case R.id.text_back:
+			startActivity(new Intent(this, LoginActivity.class));
 			finish();
 			break;
 		case R.id.left_layout:
+			startActivity(new Intent(this, LoginActivity.class));
 			finish();
 			break;
 
@@ -238,7 +245,9 @@ public class RegisterActivity extends Baseactivity implements OnClickListener {
 
 		String password = et_password.getText().toString();
 		String checkedNumber = et_checkedNumber.getText().toString();
-		// String usertelephone = et_usertelephone.getText().toString();
+		String usertelephone = et_usertelephone.getText().toString();
+		student.setStuPhone(usertelephone);
+		student.setStuPwd(password);
 		HttpUtils httpUtils = new HttpUtils();
 		String url = GetHttp.getHttpBCL() + "RegisterAndroid";
 		RequestParams params = new RequestParams();
@@ -266,14 +275,17 @@ public class RegisterActivity extends Baseactivity implements OnClickListener {
 				}.getType();
 				fromJson_boolean = gson.fromJson(arg0.result, type);
 				if (fromJson_boolean == true) {
-					Toast.makeText(getApplicationContext(), "注册成功返回登录", 0).show();
+					Toast.makeText(getApplicationContext(), "注册成功", 0).show();
+					startActivity(new Intent(getApplicationContext(), SelectSchoolActivity.class));
 					// toast("注册成功返回登录");
-					Intent intent = new Intent();
-					intent.putExtra("telephone", et_usertelephone.getText().toString());
-					intent.putExtra("pwd", et_password.getText().toString());
-					intent.setClass(getApplicationContext(), LoginActivity.class);
-					startActivity(intent);
-					finish();
+					// Intent intent = new Intent();
+					// intent.putExtra("telephone",
+					// et_usertelephone.getText().toString());
+					// intent.putExtra("pwd", et_password.getText().toString());
+					// intent.setClass(getApplicationContext(),
+					// LoginActivity.class);
+					// startActivity(intent);
+					// finish();
 				} else {
 					Toast.makeText(getApplicationContext(), "该手机号已经注册，重新输入", 0).show();
 				}
