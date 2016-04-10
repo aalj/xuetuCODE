@@ -326,12 +326,16 @@
             android:label="@string/title_activity_user_answer_information" >
         </activity>
         <activity
-            android:name="com.xuetu.ui.ShowTimeActivity"
+            android:name=".ui.ShowTimeActivity"
             android:label="@string/title_activity_show_time" >
         </activity>
-		<activity
+        <activity
             android:name=".SelectSchoolActivity"
             android:label="@string/title_activity_select_school" >
+        </activity>
+        <activity
+            android:name=".HelpActivity"
+            android:label="@string/title_activity_help" >
         </activity>
     </application>
 
