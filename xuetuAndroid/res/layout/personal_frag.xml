@@ -55,7 +55,7 @@
                     android:layout_height="80.0dip"
                     android:layout_marginLeft="10dp"
                     android:layout_marginRight="10dp"
-                    android:src="@drawable/myfavourite" />
+                    android:src="@drawable/iu" />
 
                 <!-- <ImageView -->
                 <!-- android:id="@+id/head" -->
