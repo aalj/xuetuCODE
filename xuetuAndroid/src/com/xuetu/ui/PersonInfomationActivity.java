@@ -404,9 +404,9 @@ public class PersonInfomationActivity extends Baseactivity implements OnClickLis
 				Boolean result_back = gson.fromJson(arg0.result, type);
 				Log.i("TAG", "-----" + result_back);
 				if (result_back == true) {
-					Toast.makeText(getApplicationContext(), "修改成功", 1).show();
+					Toast.makeText(getApplicationContext(), "修改成功", 0).show();
 				} else {
-					Toast.makeText(getApplicationContext(), "boom", 1).show();
+					Toast.makeText(getApplicationContext(), "boom", 0).show();
 				}
 
 			}
@@ -439,7 +439,7 @@ public class PersonInfomationActivity extends Baseactivity implements OnClickLis
 			public void onClick(DialogInterface dialog, int which) {
 				gradedata = GradeData[which];
 				text_grade.setText(gradedata);
-				Toast.makeText(getApplication(), "您选择了：" + gradedata, 2).show();
+				Toast.makeText(getApplication(), "您选择了：" + gradedata, 0).show();
 			}
 		});
 		builder.setPositiveButton("确定", new DialogInterface.OnClickListener() {
@@ -479,9 +479,9 @@ public class PersonInfomationActivity extends Baseactivity implements OnClickLis
 							Boolean result_back = gson.fromJson(arg0.result, type);
 							Log.i("TAG", "-----" + result_back);
 							if (result_back == true) {
-								Toast.makeText(getApplicationContext(), "修改成功", 1).show();
+								Toast.makeText(getApplicationContext(), "修改成功", 0).show();
 							} else {
-								Toast.makeText(getApplicationContext(), "boom", 1).show();
+								Toast.makeText(getApplicationContext(), "boom", 0).show();
 							}
 						}
 					});
