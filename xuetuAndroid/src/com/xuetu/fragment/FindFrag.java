@@ -30,10 +30,12 @@ import com.xuetu.ui.DaoJiShiActivity;
 import com.xuetu.ui.FindTaskListActivity;
 import com.xuetu.ui.LearingRecordActivity;
 import com.xuetu.ui.ShowTimeActivity;
+import com.xuetu.ui.StoneNameActivity;
 import com.xuetu.ui.TimerActivity;
 import com.xuetu.ui.XueTuApplication;
 import com.xuetu.utils.DataToTime;
 import com.xuetu.utils.GetHttp;
+import com.xuetu.view.SlideShowView;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
@@ -91,7 +93,7 @@ public class FindFrag extends Fragment {
 	int w = 0;
 	private Calendar c;
 	private SharedPreferences pref;
-	
+	SlideShowView slideshowView;
 	
 	
 
@@ -143,6 +145,8 @@ public class FindFrag extends Fragment {
 		jihua = (LinearLayout) inflate.findViewById(R.id.jihua);
 		linearTask = (LinearLayout) inflate.findViewById(R.id.linear_task);
 		linear_supervise = (LinearLayout) inflate.findViewById(R.id.linear_supervise);
+		//图片轮播的框架
+		slideshowView = (SlideShowView) inflate.findViewById(R.id.slideshowView);
 		// 学习时长
 		xuexishicahng = (LinearLayout) inflate.findViewById(R.id.xuexishicahng);
 		// 签到
@@ -156,6 +160,7 @@ public class FindFrag extends Fragment {
 		kecheng.setOnClickListener(clickLisener);
 		jihua.setOnClickListener(clickLisener);
 		meiri_yibu.setOnClickListener(clickLisener);
+//		slideshowView.setClickListener(clickLisener);
 	}
 
 	SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy年MM月dd日");
@@ -237,6 +242,13 @@ public class FindFrag extends Fragment {
 				Toast.makeText(getContext(), "计划", 0).show();
 				zhixingjihua();
 
+				break;
+			case R.id.slideshowView:// 计划
+				intent.setClass(getActivity(), StoneNameActivity.class);
+				intent.putExtra("id", 18);
+				getActivity().startActivity(intent);
+				Toast.makeText(getContext(), "跳转到优惠券页面", 0).show();
+				
 				break;
 
 			default:
@@ -470,11 +482,31 @@ public class FindFrag extends Fragment {
 							// center_click_flag = false;
 							studyplan = todayplan.get(w);
 							Intent intent = new Intent(getActivity(), TimerActivity.class);
+							
+							//如果现在的时间  减去 计划开始时间   <0 执行全部时间   >0 执行剩余时间
+							if(isstudy.zero_to_now_ss() - isstudy.gotoss(
+									new SimpleDateFormat("HH:mm:ss").format(todayplan.get(w).getStartTime())) <0){
+								
 							intent.putExtra("ss",
 									isstudy.gotoss(new SimpleDateFormat("HH:mm:ss")
 											.format(todayplan.get(w).getEndTime()))
 									- isstudy.gotoss(
 											new SimpleDateFormat("HH:mm:ss").format(todayplan.get(w).getStartTime())));
+							
+							}else{
+								
+								intent.putExtra("ss",
+										isstudy.gotoss(new SimpleDateFormat("HH:mm:ss")
+												.format(todayplan.get(w).getEndTime()))
+										- isstudy.zero_to_now_ss());
+								
+								
+								
+								
+								
+							}
+							
+							
 							intent.putExtra("stu_id", student.getStuId());
 							intent.putExtra("student", isstudy.stu_to_json(student));
 

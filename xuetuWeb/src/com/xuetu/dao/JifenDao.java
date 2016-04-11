@@ -152,7 +152,7 @@ public class JifenDao {
 	}
 
 	public int countjifen(int stuId) {
-		int count = 100;
+		int count = 100;//初始积分
 		count += queryAllAnswerByid(stuId).size() * 5;
 		count -= queryAllAnswerByid(stuId).size() * 3;
 		List<StudyTime> queryAllStudyTimeById = queryAllStudyTimeById(stuId);

@@ -45,6 +45,7 @@ public class StoneNameActivity extends Activity implements OnRefreshListener, On
 	// 用于保存上一次获取的数据
 	List<Coupon> olduser = new ArrayList<Coupon>();
 
+	BitmapUtils bit;
 	// 用户与存储网络上获取的数据
 	List<Coupon> users = new ArrayList<Coupon>();
 	Coupon coupon = null;
@@ -55,6 +56,7 @@ public class StoneNameActivity extends Activity implements OnRefreshListener, On
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_stone_name);
 		coupon = (Coupon) getIntent().getSerializableExtra("coupon");
+		int intExtra = getIntent().getIntExtra("id", 0);
 
 		mSwipeLayout = (SwipeRefreshLayout) findViewById(R.id.id_swipe_ly);
 		mSwipeLayout.setOnRefreshListener(this);
@@ -67,15 +69,53 @@ public class StoneNameActivity extends Activity implements OnRefreshListener, On
 		mListView = (ListView) findViewById(R.id.id_listview);
 		title_my = (TitleBar) findViewById(R.id.title_my);
 		stoneima = (ImageView) findViewById(R.id.stoneima);
-		BitmapUtils bit = new BitmapUtils(this);
-		bit.display(stoneima, GetHttp.getHttpLJ() + coupon.getStoreName().getStoImg());
-		getDate(coupon.getStoreName().getStoID());
+		bit = new BitmapUtils(this);
+		if(intExtra>0){
+			getCoupon(intExtra);
+		}else{
+			
+			bit.display(stoneima, GetHttp.getHttpLJ() + coupon.getStoreName().getStoImg());
+			getDate(coupon.getStoreName().getStoID());
+		}
 		showDengdai();
 		mListView.setOnItemClickListener(this);
 		title_my.setLeftLayoutClickListener(this);
 
 	}
 
+	
+	
+	private void getCoupon(int id){
+		RequestParams parterm = new RequestParams();
+		String url=GetHttp.getHttpLJ()+"GetACoupon";
+		parterm.addBodyParameter("id",id+"");
+		httpUtlis.send(HttpMethod.POST,url,parterm ,new RequestCallBack<String>() {
+
+			@Override
+			public void onFailure(HttpException arg0, String arg1) {
+				// TODO Auto-generated method stub
+				
+			}
+
+			@Override
+			public void onSuccess(ResponseInfo<String> arg0) {
+				Type type = new TypeToken<Coupon>() {
+				}.getType();
+				Gson gson = new GsonBuilder()  
+						  .setDateFormat("yyyy-MM-dd HH:mm:ss")  
+						  
+						  .create();
+				Coupon fromJson = gson.fromJson(arg0.result, type);
+				bit.display(stoneima, GetHttp.getHttpLJ() + fromJson.getStoreName().getStoImg());
+				getDate(fromJson.getCouID());
+				
+			}
+		});
+	}
+	
+	
+	
+	
 	private void getDate(int stoneid) {
 		String url = GetHttp.getHttpLJ() + "GetCouponServlet";
 

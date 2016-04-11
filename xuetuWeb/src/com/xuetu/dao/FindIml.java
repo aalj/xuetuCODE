@@ -123,7 +123,7 @@ public class FindIml implements FindInter {
 		PreparedStatement statement = null;
 		try {
 
-			String sql = "select * from selfstudyplan where  stu_id =? and del_flag=0 and start_time>= now()   ORDER BY start_time ";
+			String sql = "select * from selfstudyplan where  stu_id =? and del_flag=0 and end_time>= now()   ORDER BY start_time ";
 			statement = connection.prepareStatement(sql);
 
 			statement.setInt(1, stuId);

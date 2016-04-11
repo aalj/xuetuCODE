@@ -26,6 +26,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.FrameLayout;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -45,17 +46,17 @@ public class MainActivity extends FragmentActivity implements OnPageChangeListen
 	private FragmentTransaction beginTransaction = null;
 //	private TitleBar title;
 	@ViewInject(R.id.coupon_fra)
-	FrameLayout coupon_fra;
+	ImageView coupon_fra;
 	@ViewInject(R.id.find_fra)
-	FrameLayout find_fra;
+	ImageView find_fra;
 //	@ViewInject(R.id.home_fra)
 //	FrameLayout home_fra;
 	@ViewInject(R.id.question_page)
-	FrameLayout question_page;
+	ImageView question_page;
 	@ViewInject(R.id.personal_page)
-	FrameLayout personal_page;
-
-	FrameLayout[] fragmeLayout = null;
+	ImageView personal_page;
+	/**底部导航栏的图片的数组*/
+	ImageView[] fragmeLayout = null;
 
 	@ViewInject(R.id.coupon_tv)
 	TextView coupon_tv;
@@ -122,7 +123,7 @@ public class MainActivity extends FragmentActivity implements OnPageChangeListen
 		int intExtra = getIntent().getIntExtra("page", -1);
 
 		fragments = new Fragment[4];
-		fragmeLayout = new FrameLayout[4];
+		fragmeLayout = new ImageView[4];
 		textView = new TextView[4];
 //		title = (TitleBar) findViewById(R.id.main_title);
 		//
@@ -186,12 +187,12 @@ public class MainActivity extends FragmentActivity implements OnPageChangeListen
 	 */
 	public void onclick(View v) {
 		switch (v.getId()) {
-		case R.id.coupon_fra:// 券页面
+		case R.id.coupon_fra_li:// 券页面
 //			title.shoerightLayout(View.INVISIBLE);
 			viewPage.setCurrentItem(1);
 			// title.shoelayout(View.VISIBLE);
 			break;
-		case R.id.find_fra:// 发现页面
+		case R.id.find_fra_li:// 首页页面
 //			title.shoerightLayout(View.INVISIBLE);
 			viewPage.setCurrentItem(0);
 			// title.shoelayout(View.VISIBLE);
@@ -201,7 +202,7 @@ public class MainActivity extends FragmentActivity implements OnPageChangeListen
 		// viewPage.setCurrentItem(2);
 		//// title.shoelayout(View.VISIBLE);
 		// break;
-		case R.id.question_page:// 问题页面
+		case R.id.question_page_li:// 问题页面
 //			title.shoerightLayout(View.INVISIBLE);
 			viewPage.setCurrentItem(2);
 			// title.shoelayout(View.GONE);
@@ -209,7 +210,7 @@ public class MainActivity extends FragmentActivity implements OnPageChangeListen
 			// title.shoelayout(View.GONE);
 			// title.shoelayout(View.INVISIBLE);
 			break;
-		case R.id.personal_page:// 个人中心页面
+		case R.id.personal_page_li:// 个人中心页面
 //			title.shoerightLayout(View.VISIBLE);
 //			title.setRightImageResource(R.drawable.more_setting);
 			viewPage.setCurrentItem(3);
