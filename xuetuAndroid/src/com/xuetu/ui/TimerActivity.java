@@ -23,9 +23,10 @@ import com.xuetu.utils.GetHttp;
 
 import android.app.Activity;
 import android.app.ActivityManager;
+import android.app.AlertDialog;
 import android.app.ActivityManager.RunningTaskInfo;
 import android.content.ComponentName;
-import android.content.Context;
+import android.content.Context;import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
@@ -230,7 +231,23 @@ public class TimerActivity extends Activity {
   	                    	
   	                        @Override
   	                        public void run() {
-  	                        	endTime();
+  	                        	
+  	                        	new AlertDialog.Builder(TimerActivity.this).setTitle("提示").setMessage("计时完成，总共获得积分："+getIntegral(integral_double)).setPositiveButton("确定", new DialogInterface.OnClickListener() {
+									
+									@Override
+									public void onClick(DialogInterface dialog, int which) {
+										// TODO Auto-generated method stub
+										
+										endTime();
+										
+									}
+									
+								}).setCancelable(false).show();
+  	                        	
+  	                        	
+  	                        	
+  	                        	
+  	                        	
   	                        }
   	                    });
   	                }
