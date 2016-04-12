@@ -370,10 +370,15 @@ public class JifenDao {
 	
 	public List<JiFenMingXi> paixuJifenMingxi(int stuid,int weekpage ){
 		List<JiFenMingXi> list= new ArrayList<JiFenMingXi>();
+		
+		
 		list.addAll(getAnswerLimitByStuId(stuid, weekpage));
 		list.addAll(getQuestionLimitByStuId(stuid, weekpage));
 		list.addAll(getStudyTimeLimitByStuId(stuid, weekpage));
 		list.addAll(getCouponLimitByStuId(stuid, weekpage));
+		
+		
+		
 		
 		 Collections.sort(list, new Comparator<JiFenMingXi>(){  
 			  

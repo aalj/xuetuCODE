@@ -457,6 +457,7 @@ public class QuestionFrag extends Fragment implements OnRefreshListener,
 
 		popupWindow = new PopupWindow(contentView, LayoutParams.MATCH_PARENT,
 				LayoutParams.WRAP_CONTENT, true);
+		//设置可点击
 		popupWindow.setTouchable(true);
 		popupWindow.setTouchInterceptor(new OnTouchListener() {
 			@Override

@@ -15,6 +15,7 @@ import com.lidroid.xutils.http.RequestParams;
 import com.lidroid.xutils.http.ResponseInfo;
 import com.lidroid.xutils.http.callback.RequestCallBack;
 import com.lidroid.xutils.http.client.HttpRequest.HttpMethod;
+import com.umeng.socialize.utils.Log;
 import com.xuetu.HelpActivity;
 import com.xuetu.R;
 import com.xuetu.entity.Class_end;
@@ -94,8 +95,6 @@ public class FindFrag extends Fragment {
 	private Calendar c;
 	private SharedPreferences pref;
 	SlideShowView slideshowView;
-	
-	
 
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -131,10 +130,7 @@ public class FindFrag extends Fragment {
 		isstudy = new IsStudy();
 		c = Calendar.getInstance();
 		pref = getActivity().getSharedPreferences("qiandao", 0);
-		
-		
-		
-		
+
 		student = application.getStudent();
 
 		// br = (BarChartView) inflate.findViewById(R.id.bar);
@@ -145,7 +141,7 @@ public class FindFrag extends Fragment {
 		jihua = (LinearLayout) inflate.findViewById(R.id.jihua);
 		linearTask = (LinearLayout) inflate.findViewById(R.id.linear_task);
 		linear_supervise = (LinearLayout) inflate.findViewById(R.id.linear_supervise);
-		//图片轮播的框架
+		// 图片轮播的框架
 		slideshowView = (SlideShowView) inflate.findViewById(R.id.slideshowView);
 		// 学习时长
 		xuexishicahng = (LinearLayout) inflate.findViewById(R.id.xuexishicahng);
@@ -160,7 +156,7 @@ public class FindFrag extends Fragment {
 		kecheng.setOnClickListener(clickLisener);
 		jihua.setOnClickListener(clickLisener);
 		meiri_yibu.setOnClickListener(clickLisener);
-//		slideshowView.setClickListener(clickLisener);
+		// slideshowView.setClickListener(clickLisener);
 	}
 
 	SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy年MM月dd日");
@@ -207,7 +203,7 @@ public class FindFrag extends Fragment {
 			;
 			switch (v.getId()) {
 			case R.id.meiri_yibu:// 一分钟了解
-				
+
 				intent.setClass(getActivity(), HelpActivity.class);
 				getActivity().startActivity(intent);
 				break;
@@ -248,7 +244,7 @@ public class FindFrag extends Fragment {
 				intent.putExtra("id", 18);
 				getActivity().startActivity(intent);
 				Toast.makeText(getContext(), "跳转到优惠券页面", 0).show();
-				
+
 				break;
 
 			default:
@@ -408,7 +404,8 @@ public class FindFrag extends Fragment {
 			}
 		});
 	}
-
+	/**用于保存滤除已经执行过的*/
+	  List<SelfStudyPlan> todayplay_now = new ArrayList<>();
 	/**
 	 * 当前没有课程学习触发的查找 当日学习计划事件
 	 */
@@ -450,19 +447,29 @@ public class FindFrag extends Fragment {
 				}.getType();
 				Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create();
 				todayplan = gson.fromJson(arg, type); // 如果这个时候,所有的值已经传完
-
+				
+				Log.i(TAG, todayplan.toString());
 				// 用for循环,把他们的备注显示在另一个集合里
 				todayplan_note = new ArrayList<String>();
-				String[] dsss = new String[todayplan.size()];
-				if (!arg.equals("[]")) {
-
-					for (int i = 0; i < todayplan.size(); i++) {
+				for (int i = 0; i < todayplan.size(); i++) {
+					if (2 != todayplan.get(i).getIsZhiXing()) {
+						todayplay_now.add(todayplan.get(i));
+						Log.i(TAG,"看看有没有达到计划");
 						todayplan_note.add(todayplan.get(i).getPlanText() + "  开始时间"
 								+ new SimpleDateFormat("HH:mm").format(todayplan.get(i).getStartTime()));
 					}
-					for (int i = 0; i < todayplan_note.size(); i++) {
-						dsss[i] = todayplan_note.get(i);
-					}
+				}
+				String[] dsss = new String[todayplan_note.size()];
+				Log.i(TAG,"看看有没有达到计划计划的长度-------------"+todayplan_note.size());
+				if (todayplan_note.size()>0) {//当有计划的时候
+
+					
+					
+						for (int i = 0; i < todayplan_note.size(); i++) {
+							dsss[i] = todayplan_note.get(i);
+						}
+						Log.i(TAG,"dsss[i]-------------"+todayplan_note.size());
+					
 
 					new AlertDialog.Builder(getActivity()).setTitle("选择计划")
 							.setSingleChoiceItems(dsss, 0, new DialogInterface.OnClickListener() {
@@ -480,33 +487,28 @@ public class FindFrag extends Fragment {
 							flag = false;
 							planflag = false;
 							// center_click_flag = false;
-							studyplan = todayplan.get(w);
+							studyplan = todayplay_now.get(w);
 							Intent intent = new Intent(getActivity(), TimerActivity.class);
-							
-							//如果现在的时间  减去 计划开始时间   <0 执行全部时间   >0 执行剩余时间
-							if(isstudy.zero_to_now_ss() - isstudy.gotoss(
-									new SimpleDateFormat("HH:mm:ss").format(todayplan.get(w).getStartTime())) <0){
-								
-							intent.putExtra("ss",
-									isstudy.gotoss(new SimpleDateFormat("HH:mm:ss")
-											.format(todayplan.get(w).getEndTime()))
-									- isstudy.gotoss(
-											new SimpleDateFormat("HH:mm:ss").format(todayplan.get(w).getStartTime())));
-							
-							}else{
-								
+
+							// 如果现在的时间 减去 计划开始时间 <0 执行全部时间 >0 执行剩余时间
+							if (isstudy.zero_to_now_ss() - isstudy.gotoss(
+									new SimpleDateFormat("HH:mm:ss").format(todayplan.get(w).getStartTime())) < 0) {
+
 								intent.putExtra("ss",
-										isstudy.gotoss(new SimpleDateFormat("HH:mm:ss")
-												.format(todayplan.get(w).getEndTime()))
-										- isstudy.zero_to_now_ss());
-								
-								
-								
-								
-								
+										isstudy.gotoss(
+												new SimpleDateFormat("HH:mm:ss").format(todayplan.get(w).getEndTime()))
+												- isstudy.gotoss(new SimpleDateFormat("HH:mm:ss")
+														.format(todayplan.get(w).getStartTime())));
+
+							} else {
+
+								intent.putExtra("ss",
+										isstudy.gotoss(
+												new SimpleDateFormat("HH:mm:ss").format(todayplan.get(w).getEndTime()))
+												- isstudy.zero_to_now_ss());
+
 							}
-							
-							
+
 							intent.putExtra("stu_id", student.getStuId());
 							intent.putExtra("student", isstudy.stu_to_json(student));
 
@@ -568,9 +570,10 @@ public class FindFrag extends Fragment {
 			}
 		});
 	}
-/**
- * 跳转到添加学习计划页面计划
- */
+
+	/**
+	 * 跳转到添加学习计划页面计划
+	 */
 	public void gotoInsertplan() {
 		Intent intent = new Intent(getActivity(), AddSelfPlanActivity.class);
 		flag = true;
@@ -579,7 +582,6 @@ public class FindFrag extends Fragment {
 		startActivity(intent);
 	}
 
-	
 	/**
 	 * 判断是否已经签到
 	 * 
@@ -595,8 +597,5 @@ public class FindFrag extends Fragment {
 		}
 		return b;
 	}
-	
-	
-	
-	
+
 }
