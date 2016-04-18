@@ -260,8 +260,9 @@ public class SelectSchoolActivity extends Activity implements OnClickListener {
 			showDengdai();
 			startActivity(new Intent(this, MainActivity.class));
 			finish();
+
 		} else {
-			Toast.makeText(this, "请将信息填写完整", 1).show();
+			Toast.makeText(this, "请将信息填写完整",0).show();
 		}
 
 	}

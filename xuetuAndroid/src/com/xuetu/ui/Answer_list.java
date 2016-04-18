@@ -242,10 +242,10 @@ public class Answer_list extends Activity implements OnClickListener {
 			if (stu_id <= 0) {
 				Toast.makeText(Answer_list.this, "请先登陆哟！", 0).show();
 			} else {
-				if (et_ans_text.getText().toString().equals(null) || et_ans_text.getText().toString().equals("")) {
-					Toast.makeText(this, "混水也要打几个字吧！！", 0).show();
+				if (et_ans_text.getText().toString().equals(null) 
+						|| et_ans_text.getText().toString().equals("")) {
+					Toast.makeText(this, "请输入答案", 0).show();
 				} else {
-					Log.i("hehe", "else+ansCache" + ansCache);
 					if (et_ans_text.getText().toString().equals(ansCache)) {
 						Toast.makeText(this, "请不要重复提交！！", 0).show();
 					} else {
@@ -493,7 +493,7 @@ public class Answer_list extends Activity implements OnClickListener {
 				Type type = new TypeToken<Answer>() {
 				}.getType();
 				newAnswer = gson.fromJson(arg0.result, type);
-				list.add(newAnswer);
+				list.add(0,newAnswer);
 				getQueationByID(stu_id);
 				Message msg = Message.obtain();
 				msg.what = 2;
@@ -519,6 +519,7 @@ public class Answer_list extends Activity implements OnClickListener {
 				final TextView tv = (TextView) viewHolder.getView(R.id.tv_like);
 				viewHolder.setText(R.id.tv_ans_stuName, item.getStudent().getStuName());
 				viewHolder.setText(R.id.tv_ans_text, item.getAnsText());
+				tv.setText(item.getAgrNum()+"");
 				viewHolder.setText(R.id.tv_ans_time, sdf2.format(new Date(item.getAnsTime().getTime())));
 				ivAns.setVisibility(View.VISIBLE);
 
@@ -536,7 +537,9 @@ public class Answer_list extends Activity implements OnClickListener {
 					viewHolder.setIma(R.id.iv_like, R.drawable.ic_like);
 					tv.setTextColor(0xffABABAB);
 				}
+				
 				iv.setTag(item.getAnsID());
+				
 				iv_ans_userImg.setOnClickListener(new OnClickListener() {
 
 					@Override

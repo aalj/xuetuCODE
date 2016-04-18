@@ -118,7 +118,7 @@ public class YouHuiJuanFrag extends Fragment implements OnItemClickListener {
 					public void convert(ViewHodle viewHolder, FavoritesCoupons item) {
 						viewHolder.SetUrlImage(R.id.head, GetHttp.getHttpBCL() + item.getCoupon().getCouIma());
 						viewHolder.setText(R.id.number, item.getCoupon().getCoouRedeemPoints() + "分可以兑换");
-						viewHolder.setText(R.id.youhuijuanxingxi, item.getCoupon().getCouInfo());
+						viewHolder.setText(R.id.youhuijuanxingxi, item.getCoupon().getCouName());
 
 					}
 				});

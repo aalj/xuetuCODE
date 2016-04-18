@@ -49,13 +49,16 @@ public class QuestionIml implements QuesTionDao {
 			// 指针从第一行属性字段开始
 			while (rs.next()) {
 				Answer a = new Answer();
-				a.setAnsID(rs.getInt("ans_id"));
+				int int1 = rs.getInt("ans_id");
+				
+				a.setAnsID(int1);
 				a.setQuestion(getQuestionByQuesId(rs.getInt("ques_id")));
 				a.setStudent(getStudentByStuId(rs.getInt("stu_id"), getSchIdByStuId(rs.getInt("stu_id"))));
 				a.setAnsText(rs.getString("ans_text"));
 				a.setAnsImg(rs.getString("ans_ima"));
 				a.setAnsTime(rs.getTimestamp("ans_time"));
 				a.setAgrNum(getAgrNumByAnsId(rs.getInt("ans_id")));
+				
 				answers.add(a);
 			}
 			return answers;
