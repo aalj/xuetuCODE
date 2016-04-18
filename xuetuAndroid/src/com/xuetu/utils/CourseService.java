@@ -33,7 +33,7 @@ import android.widget.Button;
 public class CourseService implements OnClickListener {
 	Activity context = null;
 	SharedPreferences preferences = null;
-	Editor edit = null;
+	Editor edit = null;       
 
 	public CourseService(Activity context, SharedPreferences preferences) {
 		this.context = context;
@@ -64,7 +64,7 @@ public class CourseService implements OnClickListener {
 		HttpUtils httpUtils = new HttpUtils();
 		String url = GetHttp.getHttpBCL() + "CourseAndroid";
 		RequestParams params = new RequestParams();
-		params.addBodyParameter("stuid", String.valueOf(student.getStuId()));
+		params.addBodyParameter("stuid", 3+"");
 		httpUtils.send(HttpMethod.POST, url, params, new RequestCallBack<String>() {
 			@Override
 			public void onFailure(HttpException arg0, String arg1) {
