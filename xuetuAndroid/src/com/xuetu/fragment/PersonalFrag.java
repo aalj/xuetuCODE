@@ -125,6 +125,7 @@ public class PersonalFrag extends Fragment implements OnClickListener {
 
 	public void setHeadByUrl(Context context, ImageView v, String url) {
 		BitmapUtils bm = new BitmapUtils(context);
+		bm.configDefaultBitmapMaxSize(80, 80);
 		bm.display(v, url);
 	}
 

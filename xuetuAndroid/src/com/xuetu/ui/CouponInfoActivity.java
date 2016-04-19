@@ -57,7 +57,8 @@ public class CouponInfoActivity extends Baseactivity {
 	protected void onCreate(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
-//		getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
+		// getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
+		// WindowManager.LayoutParams.FLAG_FULLSCREEN);
 		setContentView(R.layout.coupon_info);
 		// 初始化控件
 		coupon = (Coupon) getIntent().getSerializableExtra("coupon");
@@ -76,7 +77,7 @@ public class CouponInfoActivity extends Baseactivity {
 		}
 
 		BitmapUtils bitmapUtils = new BitmapUtils(this);
-
+		bitmapUtils.configDefaultBitmapMaxSize(50, 50);
 		head = (CircleImageView) findViewById(R.id.head);
 		youhuijuanxingxi = (TextView) findViewById(R.id.youhuijuanxingxi);
 		youxiaoqixian = (TextView) findViewById(R.id.youxiaoqixian);
@@ -100,7 +101,7 @@ public class CouponInfoActivity extends Baseactivity {
 		dianjiadejutixingxi.setText(coupon.getStoreName().getStoName());
 		zhekoudejutixingxi.setText(coupon.getCouPrice() + "");
 		xuyaodejifen.setText(coupon.getCoouRedeemPoints() + "");
-		shiyongjieshao.setText(coupon.getCouInfo() +"");
+		shiyongjieshao.setText(coupon.getCouInfo() + "");
 		shiyongdidianshuoming.setText(coupon.getStoreName().getStoAddress());
 
 	}
@@ -119,7 +120,7 @@ public class CouponInfoActivity extends Baseactivity {
 		case R.id.button_lijishiyong:// 兑换走兑换流程
 			if (isLogin) {
 				if (!(coupon.getShiyongNum() >= coupon.getConNum())) {
-					Log.i("TAG", coupon.getConValidity()+"");
+					Log.i("TAG", coupon.getConValidity() + "");
 					if (coupon.getConValidity().getTime() > System.currentTimeMillis()) {
 						intent.setClass(this, ExchangeCouponActivity.class);
 						intent.putExtra("exchange", coupon);

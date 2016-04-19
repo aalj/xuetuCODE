@@ -127,6 +127,7 @@ public class PersonInfomationActivity extends Baseactivity implements OnClickLis
 	public void loadView() {
 		Student student1 = ((XueTuApplication) (getApplication())).getStudent();
 		BitmapUtils bt = new BitmapUtils(this);
+		bt.configDefaultBitmapMaxSize(80, 80);
 		boolean boolean1 = sp.getBoolean("SANFANG", false);
 		if (boolean1) {
 			bt.display(img_head, student1.getStuIma());
@@ -148,6 +149,7 @@ public class PersonInfomationActivity extends Baseactivity implements OnClickLis
 		public void handleMessage(Message msg) {
 			if (msg.what == 123) {
 				Bitmap bb = (Bitmap) msg.obj;
+				
 				img_head.setImageBitmap(bb);
 			}
 			super.handleMessage(msg);
@@ -223,6 +225,7 @@ public class PersonInfomationActivity extends Baseactivity implements OnClickLis
 
 	public void setHeadByUrl(Context context, ImageView v, String url) {
 		BitmapUtils bm = new BitmapUtils(context);
+		bm.configDefaultBitmapMaxSize(80, 80);
 		bm.display(v, url);
 	}
 

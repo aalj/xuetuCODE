@@ -63,6 +63,7 @@ public class QuestionFragAdapter extends BaseAdapter {
 		xt = (XueTuApplication) context.getApplicationContext();
 		s = xt.getSetQuesWithImg();
 		bitmapUtils = new BitmapUtils(context);
+		bitmapUtils.configDefaultBitmapMaxSize(150, 100);
 		this.questions = questions;
 		this.context = context;
 		inflater = LayoutInflater.from(context);

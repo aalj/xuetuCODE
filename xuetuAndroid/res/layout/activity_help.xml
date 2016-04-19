@@ -50,9 +50,10 @@
                 android:text="在这边个界面，你可以使用从执行课表以及执行计划等处获得的积分，进行优惠劵的兑换。积分的获得是通过执行课表，以及自定义任务的执行和回答问题这三个主要途径。" />
 
             <ImageView
+                android:id="@+id/yohuijuan_help"
                 android:layout_width="match_parent"
-                android:layout_height="500dp"
-                android:src="@drawable/yohuijuan_help" />
+                android:layout_height="wrap_content"
+                 />
             
 
             <TextView
@@ -74,9 +75,10 @@
                 android:text="制定每天的计划 ，然后按照计划来执行  才能获得对应积分。Ps:计划的时间长度只能在两个小时之间哟" />
 
             <ImageView
+                android:id="@+id/shouye_help"
                 android:layout_width="match_parent"
-                android:layout_height="500dp"
-                android:src="@drawable/shouye_help" />
+                android:layout_height="wrap_content"
+                 />
 
             <TextView
                 android:layout_width="match_parent"
@@ -97,9 +99,10 @@
                 android:text="执行课表，获取积分。课表是用户注册时候按照学校，年级，专业生成的课表。目前版本只是个模拟，并没有实际数据。课表执行的与否，与课堂开始时间存在关系，当课堂已经开始20分钟后，被默认为无法执行课表。所以，想要从执行课程表这边获取积分的小伙伴要注意按时执行课表哦。" />
 
             <ImageView
+                android:id="@+id/kechengbiao_help"
                 android:layout_width="match_parent"
-                android:layout_height="500dp"
-                android:src="@drawable/kechengbiao_help" />
+                android:layout_height="wrap_content"
+                 />
 
             <TextView
                 android:layout_width="match_parent"
@@ -120,9 +123,10 @@
                 android:text="每日签到，在日历表上留下记录吧~" />
 
             <ImageView
+                android:id="@+id/qiandao_help"
                 android:layout_width="match_parent"
-                android:layout_height="500dp"
-                android:src="@drawable/qiandao_help" />
+                android:layout_height="wrap_content"
+                 />
 
             
             <TextView
@@ -144,10 +148,9 @@
                 android:text="不会的问题勇敢问出来吧，你可以拍照提问，文字提问。回答问题可以获取对应积分，问题回答的越多，获得的积分越多。还在等什么，赶快来回答。" />
 
             <ImageView
+                android:id="@+id/huidawenti_help"
                 android:layout_width="match_parent"
-                android:layout_height="500dp"
-                android:src="@drawable/huidawenti_help" />
-
+                android:layout_height="wrap_content" />
           
         </LinearLayout>
     </ScrollView>

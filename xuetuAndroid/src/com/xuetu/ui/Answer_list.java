@@ -153,7 +153,9 @@ public class Answer_list extends Activity implements OnClickListener {
 			Log.i("hehe", "no just come in");
 			iv_ans1_ques_img.setVisibility(View.GONE);
 		} else {
+			bitmapUtils.configDefaultBitmapMaxSize(240, 120);
 			bitmapUtils.display(iv_ans1_ques_img, GetHttp.getHttpLC() + curQues.getQuesIma());
+			
 		}
 		tv_ans1_num.setText(curQues.getAns_num() + "");
 		// Drawable drawable = getResources().getDrawable(R.drawable.ic_ans);

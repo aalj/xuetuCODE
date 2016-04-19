@@ -1,6 +1,7 @@
 package com.xuetu.adapter;
 
 import com.lidroid.xutils.BitmapUtils;
+import com.lidroid.xutils.bitmap.core.BitmapSize;
 import com.xuetu.R;
 import com.xuetu.utils.GetHttp;
 
@@ -114,6 +115,8 @@ public class ViewHodle {
 
 	public ViewHodle SetUrlImage(int resID, String url) {
 		BitmapUtils bitmapUtils = new BitmapUtils(context);
+		BitmapSize maxSi=new BitmapSize(240, 120);
+		bitmapUtils.configDefaultBitmapMaxSize(maxSi);
 		ImageView ima = (ImageView) getView(resID);
 		// 加载网络图片
 		bitmapUtils.display(ima, url);
