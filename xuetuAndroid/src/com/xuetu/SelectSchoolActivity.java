@@ -264,6 +264,7 @@ public class SelectSchoolActivity extends Activity implements OnClickListener {
 		} else {
 			Toast.makeText(this, "请将信息填写完整",0).show();
 		}
+
 	}
 
 	private void showDengdai() {

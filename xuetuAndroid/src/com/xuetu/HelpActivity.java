@@ -1,5 +1,6 @@
 package com.xuetu;
 
+
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
@@ -7,13 +8,14 @@ import java.io.InputStream;
 
 import com.lidroid.xutils.ViewUtils;
 import com.lidroid.xutils.view.annotation.ViewInject;
-import com.xuetu.ui.ExchangeCouponActivity;
 import com.xuetu.view.TitleBar;
 
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import com.xuetu.ui.MainActivity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -56,6 +58,7 @@ public class HelpActivity extends Activity implements OnClickListener {
 		titleBar = (TitleBar) findViewById(R.id.main_title);
 		titleBar.setLeftLayoutClickListener(this);
 
+
 	}
 	
 	
@@ -87,7 +90,9 @@ public class HelpActivity extends Activity implements OnClickListener {
 
 	@Override
 	public void onClick(View v) {
+		startActivity(new Intent(this, MainActivity.class));
 		finish();
+
 
 	}
 
@@ -139,6 +144,7 @@ public class HelpActivity extends Activity implements OnClickListener {
 		ByteArrayInputStream isBm = new ByteArrayInputStream(baos.toByteArray());// 把压缩后的数据baos存放到ByteArrayInputStream中
 		Bitmap bitmap = BitmapFactory.decodeStream(isBm, null, null);// 把ByteArrayInputStream数据生成图片
 		return bitmap;
+
 	}
 
 }

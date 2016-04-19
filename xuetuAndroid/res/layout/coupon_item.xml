@@ -20,6 +20,9 @@
             android:padding="5dp"
             android:scaleType="fitXY"
             android:src="@drawable/ic_launcher" />
+<!--             android:layout_toRightOf="@+id/ima_ima" -->
+<!--             android:layout_alignBottom="@+id/ima_ima" -->
+<!--             android:layout_alignTop="@+id/ima_ima" -->
 
         <TextView
             android:id="@+id/tv_shoppingname"
