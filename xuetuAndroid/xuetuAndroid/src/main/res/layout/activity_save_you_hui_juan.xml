@@ -1,0 +1,285 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res/com.xuetu"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:background="@color/bgcolor"
+    android:orientation="vertical" >
+
+    <com.xuetu.view.TitleBar
+        android:id="@+id/backtoperson"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        app:titleBarLeftImage="@drawable/ic_menu_back"
+        app:titleBarTitle="积分详情" >
+    </com.xuetu.view.TitleBar>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#44a6d5"
+        android:padding="4dp" >
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/cornor_bg"
+            android:orientation="vertical" >
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1" >
+
+                <TextView
+                    android:id="@+id/textView1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:gravity="center_vertical"
+                    android:text="当前积分"
+                    android:textColor="#c9cccc"
+                    android:textSize="13dp" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="2" >
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignBaseline="@+id/textView2"
+                    android:layout_alignBottom="@+id/textView2"
+                    android:layout_toRightOf="@+id/textView2"
+                    android:text="分"
+                    android:textColor="@color/greenn"
+                    android:textSize="15dp" />
+
+                <TextView
+                    android:id="@+id/textView2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentTop="true"
+                    android:layout_centerHorizontal="true"
+                    android:text="-1"
+                    android:textColor="@color/greenn"
+                    android:textSize="30dp" />
+            </RelativeLayout>
+
+<!--             <RelativeLayout -->
+<!--                 android:layout_width="match_parent" -->
+<!--                 android:layout_height="match_parent" -->
+<!--                 android:layout_weight="2" -->
+<!--                 android:paddingBottom="5dp" -->
+<!--                 android:paddingTop="5dp" > -->
+
+<!--                 <Button -->
+<!--                 android:id="@+id/btn_login" -->
+<!--                 android:layout_width="match_parent" -->
+<!--                 android:layout_height="45dp" -->
+<!--                 android:layout_marginLeft="10dp" -->
+<!--                 android:layout_marginRight="10dp" -->
+<!--                 android:background="@drawable/corner_button" -->
+<!--                 android:onClick="onclick" -->
+<!--                 android:text="积分兑换商品" -->
+<!--                 android:textColor="@android:color/white" -->
+<!--                 android:textSize="18sp" /> -->
+<!--             </RelativeLayout> -->
+        </LinearLayout>
+    </RelativeLayout>
+
+    <com.xuetu.view.PullToRefreshLayout
+        android:id="@+id/refresh_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" >
+
+        <include layout="@layout/refresh_head" />
+        <!-- 支持所有实现Pullable接口的View -->
+
+        <com.xuetu.view.PullableScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" >
+
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" >
+
+                <LinearLayout
+                    android:id="@+id/imagesLayout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_horizontal"
+                    android:orientation="vertical" >
+
+                    <com.xuetu.view.MyListView
+                        android:id="@+id/list"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content" >
+                    </com.xuetu.view.MyListView>
+                </LinearLayout>
+            </RelativeLayout>
+        </com.xuetu.view.PullableScrollView>
+
+        <include layout="@layout/load_more" />
+    </com.xuetu.view.PullToRefreshLayout>
+
+    <!-- <com.xuetu.view.PullToRefreshLayout -->
+
+
+    <!-- android:id="@+id/refresh_view" -->
+    <!-- android:layout_width="match_parent" -->
+    <!-- android:layout_height="match_parent" > -->
+
+
+    <!-- <include layout="@layout/refresh_head" /> -->
+    <!-- 支持所有实现Pullable接口的View -->
+
+
+    <!-- <com.xuetu.view.PullableScrollView -->
+    <!-- android:layout_width="match_parent" -->
+    <!-- android:layout_height="match_parent" > -->
+
+
+    <!-- <RelativeLayout -->
+    <!-- android:layout_width="wrap_content" -->
+    <!-- android:layout_height="wrap_content" > -->
+
+
+    <!-- <LinearLayout -->
+    <!-- android:id="@+id/imagesLayout" -->
+    <!-- android:layout_width="match_parent" -->
+    <!-- android:layout_height="wrap_content" -->
+    <!-- android:gravity="center_horizontal" -->
+    <!-- android:orientation="vertical" > -->
+
+
+    <!-- <RelativeLayout -->
+    <!-- android:layout_width="match_parent" -->
+    <!-- android:layout_height="wrap_content" -->
+    <!-- android:background="#44a6d5" -->
+    <!-- android:padding="4dp" > -->
+
+
+    <!-- <LinearLayout -->
+    <!-- android:layout_width="fill_parent" -->
+    <!-- android:layout_height="wrap_content" -->
+    <!-- android:background="@drawable/cornor_bg" -->
+    <!-- android:orientation="vertical" > -->
+
+
+    <!-- <RelativeLayout -->
+    <!-- android:layout_width="match_parent" -->
+    <!-- android:layout_height="wrap_content" -->
+    <!-- android:layout_weight="1" > -->
+
+
+    <!-- <TextView -->
+    <!-- android:id="@+id/textView1" -->
+    <!-- android:layout_width="wrap_content" -->
+    <!-- android:layout_height="wrap_content" -->
+    <!-- android:layout_marginLeft="10dp" -->
+    <!-- android:gravity="center_vertical" -->
+    <!-- android:text="当前积分" -->
+    <!-- android:textColor="#c9cccc" -->
+    <!-- android:textSize="13dp" /> -->
+    <!-- </RelativeLayout> -->
+
+
+    <!-- <RelativeLayout -->
+    <!-- android:layout_width="match_parent" -->
+    <!-- android:layout_height="wrap_content" -->
+    <!-- android:layout_weight="2" > -->
+
+
+    <!-- <TextView -->
+    <!-- android:layout_width="wrap_content" -->
+    <!-- android:layout_height="wrap_content" -->
+    <!-- android:layout_alignBaseline="@+id/textView2" -->
+    <!-- android:layout_alignBottom="@+id/textView2" -->
+    <!-- android:layout_toRightOf="@+id/textView2" -->
+    <!-- android:text="分" -->
+    <!-- android:textColor="@color/greenn" -->
+    <!-- android:textSize="15dp" /> -->
+
+
+    <!-- <TextView -->
+    <!-- android:id="@+id/textView2" -->
+    <!-- android:layout_width="wrap_content" -->
+    <!-- android:layout_height="wrap_content" -->
+    <!-- android:layout_alignParentTop="true" -->
+    <!-- android:layout_centerHorizontal="true" -->
+    <!-- android:text="-1" -->
+    <!-- android:textColor="@color/greenn" -->
+    <!-- android:textSize="30dp" /> -->
+    <!-- </RelativeLayout> -->
+
+
+    <!-- <RelativeLayout -->
+    <!-- android:layout_width="match_parent" -->
+    <!-- android:layout_height="match_parent" -->
+    <!-- android:layout_weight="2" -->
+    <!-- android:paddingBottom="5dp" -->
+    <!-- android:paddingTop="5dp" > -->
+
+
+    <!-- <Button -->
+    <!-- android:id="@+id/btn_login" -->
+    <!-- android:layout_width="match_parent" -->
+    <!-- android:layout_height="45dp" -->
+    <!-- android:layout_marginLeft="10dp" -->
+    <!-- android:layout_marginRight="10dp" -->
+    <!-- android:background="@drawable/corner_button" -->
+    <!-- android:onClick="onclick" -->
+    <!-- android:text="积分兑换商品" -->
+    <!-- android:textColor="@android:color/white" -->
+    <!-- android:textSize="18sp" /> -->
+    <!-- </RelativeLayout> -->
+    <!-- </LinearLayout> -->
+    <!-- </RelativeLayout> -->
+
+
+    <!-- <TextView -->
+    <!-- android:id="@+id/textView3" -->
+    <!-- android:layout_width="fill_parent" -->
+    <!-- android:layout_height="wrap_content" -->
+    <!-- android:text="   积分记录" -->
+    <!-- android:textSize="15dp" /> -->
+
+
+    <!-- <com.xuetu.view.MyListView -->
+    <!-- android:id="@+id/listView" -->
+    <!-- android:layout_width="match_parent" -->
+    <!-- android:layout_height="wrap_content" > -->
+    <!-- </com.xuetu.view.MyListView> -->
+    <!-- </LinearLayout> -->
+    <!-- </RelativeLayout> -->
+    <!-- </com.xuetu.view.PullableScrollView> -->
+
+
+    <!-- <include layout="@layout/load_more" /> -->
+    <!-- </com.xuetu.view.PullToRefreshLayout> -->
+
+
+    <!-- <ScrollView -->
+    <!-- android:id="@+id/scrollView" -->
+    <!-- android:layout_width="match_parent" -->
+    <!-- android:layout_height="fill_parent" > -->
+
+
+    <!-- <LinearLayout -->
+    <!-- android:layout_width="match_parent" -->
+    <!-- android:layout_height="match_parent" -->
+    <!-- android:orientation="vertical" > -->
+
+
+    <!-- <com.xuetu.view.MyListView -->
+    <!-- android:id="@+id/listView" -->
+    <!-- android:layout_width="match_parent" -->
+    <!-- android:layout_height="match_parent" > -->
+    <!-- </com.xuetu.view.MyListView> -->
+    <!-- </LinearLayout> -->
+    <!-- </ScrollView> -->
+
+</LinearLayout>

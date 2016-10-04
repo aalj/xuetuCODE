@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+
+    <com.xuetu.view.TitleBar
+        android:id="@+id/main_title"	
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_weight="0"
+        android:clickable="false"
+        android:gravity="center" >
+    </com.xuetu.view.TitleBar>
+
+    <android.support.v4.view.ViewPager
+        android:id="@+id/frag_page"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:orientation="vertical" >
+    </android.support.v4.view.ViewPager>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:layout_weight="0"
+        android:orientation="horizontal" >
+
+        <FrameLayout
+            android:id="@+id/coupon_fra"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:layout_weight="1"
+            android:background="@drawable/coupon_page"
+            android:clickable="true"
+            android:onClick="onclick"
+            android:orientation="vertical" >
+
+            <TextView
+                android:id="@+id/coupon_tv"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="bottom|center_horizontal"
+                android:text="券" />
+        </FrameLayout>
+
+        <FrameLayout
+            android:id="@+id/find_fra"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:layout_weight="1"
+            android:background="@drawable/find_page"
+            android:clickable="true"
+            android:onClick="onclick"
+            android:orientation="vertical" >
+
+            <TextView
+                android:id="@+id/find_tv"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="bottom|center_horizontal"
+                android:text="发现" />
+        </FrameLayout>
+
+        <FrameLayout
+            android:id="@+id/home_fra"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:layout_weight="1"
+            android:background="@drawable/home_page"
+            android:clickable="true"
+            android:onClick="onclick"
+            android:orientation="vertical" >
+
+            <TextView
+                android:id="@+id/home_tv"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="bottom|center_horizontal"
+                android:text="首页" />
+        </FrameLayout>
+
+        <FrameLayout
+            android:id="@+id/question_page"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:layout_weight="1"
+            android:background="@drawable/question_page"
+            android:clickable="true"
+            android:onClick="onclick"
+            android:orientation="vertical" >
+
+            <TextView
+                android:id="@+id/ques_tv"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="bottom|center_horizontal"
+                android:text="问题" />
+        </FrameLayout>
+
+        <FrameLayout
+            android:id="@+id/personal_page"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:layout_weight="1"
+            android:background="@drawable/person_page"
+            android:clickable="true"
+            android:onClick="onclick"
+            android:orientation="vertical" >
+
+            <TextView
+                android:id="@+id/person_tv"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="bottom|center_horizontal"
+                android:text="我" />
+        </FrameLayout>
+    </LinearLayout>
+
+</LinearLayout>

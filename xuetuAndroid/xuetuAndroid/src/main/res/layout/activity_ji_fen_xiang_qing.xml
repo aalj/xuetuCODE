@@ -1,0 +1,114 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:title="http://schemas.android.com/apk/res/com.xuetu"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/background"
+    android:orientation="vertical"
+    tools:context="com.xuetu.ui.JiFenXiangQingActivity" >
+
+    <com.xuetu.view.TitleBar
+        android:id="@+id/titleBar1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        title:titleBarLeftImage="@drawable/ic_menu_back"
+        title:titleBarTitle="积分详情" >
+    </com.xuetu.view.TitleBar>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="160dp"
+        android:background="#fffffe"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:orientation="vertical" >
+
+        <TextView
+            android:id="@+id/textView1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:layout_marginLeft="20dp"
+            android:text="交易成功" />
+
+        <TextView
+            android:id="@+id/jifen"
+            android:layout_marginLeft="20dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:textSize="40dp"
+            android:text="- 50" />
+        <View android:layout_height="1dp"
+            android:layout_width="match_parent"
+           android:layout_marginLeft="20dp"
+           android:layout_marginRight="20dp"
+           android:layout_marginTop="20dp"
+           android:background="@color/background"></View>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+             >
+
+            <com.xuetu.view.CircleImageView
+                android:id="@+id/circleImageView1"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_alignParentLeft="true"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="20dp"
+                android:src="@drawable/ic_ans" />
+
+            <TextView
+                android:id="@+id/leixing"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="14dp"
+                android:layout_alignTop="@+id/circleImageView1"
+                android:layout_alignBottom="@+id/circleImageView1"
+                android:gravity="center_vertical"
+                android:layout_toRightOf="@+id/circleImageView1"
+                android:text="TextView" />
+
+            <ImageView
+                android:id="@+id/imageView1"
+                style="@style/find_item_edit_ima"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="19dp" />
+            
+        </RelativeLayout>
+
+    </LinearLayout>
+     <RelativeLayout
+         android:layout_marginTop="20dp"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:background="#fffffe"
+        android:orientation="vertical" >
+
+         <TextView
+             android:id="@+id/textView3"
+             android:layout_width="wrap_content"
+             android:layout_height="wrap_content"
+             android:layout_alignParentLeft="true"
+             android:layout_centerVertical="true"
+             android:layout_marginLeft="20dp"
+             android:text="创建时间：" />
+
+         <TextView
+             android:id="@+id/time"
+             android:layout_width="wrap_content"
+             android:layout_height="wrap_content"
+             android:layout_alignBottom="@+id/textView3"
+             android:layout_marginLeft="5dp"
+             android:textColor="#7e7e7e"
+             android:layout_toRightOf="@+id/textView3"
+             android:text="时间" />
+         
+    </RelativeLayout>
+
+</LinearLayout>

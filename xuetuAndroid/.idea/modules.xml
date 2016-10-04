@@ -2,7 +2,10 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/.idea/xuetuAndroid.iml" filepath="$PROJECT_DIR$/.idea/xuetuAndroid.iml" />
+      <module fileurl="file://$PROJECT_DIR$/sMSSDK/sMSSDK.iml" filepath="$PROJECT_DIR$/sMSSDK/sMSSDK.iml" />
+      <module fileurl="file://$PROJECT_DIR$/slideDateTimePicker/slideDateTimePicker.iml" filepath="$PROJECT_DIR$/slideDateTimePicker/slideDateTimePicker.iml" />
+      <module fileurl="file://$PROJECT_DIR$/xuetuAndroid.iml" filepath="$PROJECT_DIR$/xuetuAndroid.iml" />
+      <module fileurl="file://$PROJECT_DIR$/xuetuAndroid/xuetuAndroid-xuetuAndroid.iml" filepath="$PROJECT_DIR$/xuetuAndroid/xuetuAndroid-xuetuAndroid.iml" />
     </modules>
   </component>
 </project>

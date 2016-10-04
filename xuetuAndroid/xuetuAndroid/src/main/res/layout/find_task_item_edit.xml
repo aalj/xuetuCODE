@@ -1,0 +1,221 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:title="http://schemas.android.com/apk/res/com.xuetu"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#f7f7f7"
+    android:orientation="vertical" >
+
+    <!-- 这里需要的有 计划开始的时间、计划结束的时间   计划内容  是否提醒  学习模式  学生ID 计划添加时间 -->
+
+    <com.xuetu.view.TitleBar
+        android:id="@+id/titleBar1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        title:titleBarLeftImage="@drawable/ic_menu_cancel"
+        title:titleBarRightImage="@drawable/ic_menu_set"
+        title:titleBarTitle="修改计划" >
+    </com.xuetu.view.TitleBar>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:background="#fffffe"
+        android:orientation="vertical" >
+
+        <RelativeLayout
+            android:id="@+id/tiem_start"
+            style="@style/find_item_edit_Re"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical" >
+
+            <TextView
+                android:id="@+id/tv_startTime"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_marginLeft="10dp"
+                android:drawableLeft="@drawable/ic_user_level_6"
+                android:text="@string/startTime"
+                android:textSize="18dp" />
+
+            <ImageView
+                android:id="@+id/imageView1"
+                style="@style/find_item_edit_ima"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignBottom="@+id/tv_startTime"
+                android:layout_alignTop="@+id/tv_startTime" />
+
+            <TextView
+                android:id="@+id/tv_startTime_info"
+                style="@style/find_item_edit_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignBottom="@+id/tv_startTime"
+                android:layout_alignTop="@+id/tv_startTime"
+                android:text="TextView" />
+        </RelativeLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:background="#f7f7f7" />
+
+        <RelativeLayout
+            android:id="@+id/tiem_end"
+            style="@style/find_item_edit_Re"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical" >
+
+            <TextView
+                android:id="@+id/tv_endTime"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_marginLeft="10dp"
+                android:drawableLeft="@drawable/ic_user_level_6"
+                android:text="@string/endTime"
+                android:textSize="18dp" />
+
+            <ImageView
+                android:id="@+id/imageView2"
+                style="@style/find_item_edit_ima"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignBottom="@+id/tv_endTime"
+                android:layout_alignTop="@+id/tv_endTime" />
+
+            <TextView
+                android:id="@+id/tv_endTime_info"
+                style="@style/find_item_edit_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignBottom="@+id/tv_endTime"
+                android:layout_alignTop="@+id/tv_endTime"
+                android:layout_toLeftOf="@+id/imageView2"
+                android:text="TextView" />
+        </RelativeLayout>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:background="#fffffe"
+        android:orientation="vertical" >
+
+        <RelativeLayout
+            android:id="@+id/moshi"
+            style="@style/find_item_edit_Re"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical" >
+
+            <TextView
+                android:id="@+id/study"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_marginLeft="10dp"
+                android:drawableLeft="@drawable/ic_user_level_6"
+                android:text="@string/zhixingmosi"
+                android:textSize="18dp" />
+
+            <ImageView
+                android:id="@+id/imageView3"
+                style="@style/find_item_edit_ima"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignBottom="@+id/study"
+                android:layout_alignTop="@+id/study" />
+
+            <TextView
+                android:id="@+id/study_info"
+                style="@style/find_item_edit_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignBottom="@+id/study"
+                android:layout_alignTop="@+id/study"
+                android:layout_toLeftOf="@+id/imageView3"
+                android:text="TextView" />
+        </RelativeLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:background="#f7f7f7" />
+
+        <RelativeLayout
+            
+            style="@style/find_item_edit_Re"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical" >
+
+            <TextView
+                android:id="@+id/study_parrt"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_marginLeft="10dp"
+                android:drawableLeft="@drawable/ic_user_level_6"
+                android:text="提醒"
+                android:textSize="18dp" />
+
+            <Switch
+                android:id="@+id/study_parrt_info"
+                style="@style/find_item_edit_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignBottom="@+id/study_parrt"
+                android:layout_alignParentRight="true"
+                android:layout_marginRight="5dp"
+                android:layout_alignTop="@+id/study_parrt"
+                 />
+        </RelativeLayout>
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/xuexi"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:background="#fffffe"
+        android:drawableLeft="@drawable/ic_user_level_6"
+        android:paddingLeft="10dp"
+        android:text="@string/jihua_info"
+        android:textSize="18dp" />
+
+    <EditText
+        android:id="@+id/xuexi_info"
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:background="#fffffe"
+        android:inputType="textMultiLine"
+        android:textSize="15sp"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
+        android:text="" />
+   <LinearLayout 
+       android:layout_width="0dp"
+       android:layout_height="match_parent"
+       android:layout_weight="1"></LinearLayout>
+
+    <Button
+        android:id="@+id/button1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textColor="#ffffff"
+        android:background="@drawable/delself"
+        android:text="@string/delete" />
+
+</LinearLayout>
+<!--         android:background="#D54643" -->
