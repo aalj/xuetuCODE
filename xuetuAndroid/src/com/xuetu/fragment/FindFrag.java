@@ -6,6 +6,11 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
+import com.amap.api.location.AMapLocation;
+import com.amap.api.location.AMapLocationClient;
+import com.amap.api.location.AMapLocationClientOption;
+import com.amap.api.location.AMapLocationClientOption.AMapLocationMode;
+import com.amap.api.location.AMapLocationListener;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
@@ -36,6 +41,7 @@ import com.xuetu.ui.TimerActivity;
 import com.xuetu.ui.XueTuApplication;
 import com.xuetu.utils.DataToTime;
 import com.xuetu.utils.GetHttp;
+import com.xuetu.utils.Utils;
 import com.xuetu.view.SlideShowView;
 
 import android.app.AlertDialog;
@@ -54,7 +60,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-public class FindFrag extends Fragment {
+public class FindFrag extends Fragment implements AMapLocationListener {
 
 	private static final String TAG = "TAG";
 	LinearLayout linearTask;
@@ -95,12 +101,29 @@ public class FindFrag extends Fragment {
 	private Calendar c;
 	private SharedPreferences pref;
 	SlideShowView slideshowView;
+	
+//	定位相关
+	private AMapLocationClient locationClient = null;
+	private AMapLocationClientOption locationOption = null;
+	
+	
 
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 		inflate = inflater.inflate(R.layout.find_frag, null);
 
 		initView();
+		locationClient = new AMapLocationClient(getActivity().getApplicationContext());
+		locationOption = new AMapLocationClientOption();
+		// 设置定位模式为高精度模式
+		locationOption.setLocationMode(AMapLocationMode.Hight_Accuracy);
+		// 设置定位监听
+		locationClient.setLocationListener(this);
+		
+		// 设置定位参数
+		locationClient.setLocationOption(locationOption);
+		// 启动定位
+		locationClient.startLocation();
 		return inflate;
 	}
 
@@ -596,6 +619,44 @@ public class FindFrag extends Fragment {
 			b = true;
 		}
 		return b;
+	}
+
+	@Override
+	public void onLocationChanged(AMapLocation loc) {
+		Toast.makeText(getActivity().getApplicationContext(), Utils.getLocationStr(loc), 0).show();
+		if (null != loc) {
+//			locationInt数组里面包含三个数值，第一个是经度 、第二个是纬度、第三个是定位的精确度就是误差，单位是：m
+			double[] locationInt = Utils.getLocationInt(loc);
+			Toast.makeText(getActivity().getApplicationContext(), "经度："+locationInt[0], 0).show();
+			Toast.makeText(getActivity().getApplicationContext(), "纬度："+locationInt[1], 0).show();
+			Toast.makeText(getActivity().getApplicationContext(), "误差："+locationInt[2], 0).show();
+			
+			
+		}
+		
+		
+		
+		
+		
+		if (null != loc) {
+			//计算与固定经纬度的距离
+			double locationStrJuLi = Utils.getLocationStrJuLi(loc);
+			//的到经纬度的数据
+			double[] locationInt = Utils.getLocationInt(loc);
+			//的到误差
+			double dou = locationInt[2];
+			if(locationStrJuLi<dou+1000.0){
+				Toast.makeText(getActivity().getApplicationContext(), locationStrJuLi+"在范围内", 0).show();
+				
+			}
+			
+			
+//			String result = Utils.getLocationStr(loc);
+			Toast.makeText(getActivity().getApplicationContext(), locationStrJuLi+"跑远了", 0).show();
+//			tvReult.setText(result);
+			locationClient.stopLocation();
+		}
+		
 	}
 
 }

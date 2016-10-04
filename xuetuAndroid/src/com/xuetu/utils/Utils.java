@@ -116,7 +116,7 @@ public class Utils {
 	public synchronized static double getLocationStrJuLi(AMapLocation location){
 		double[] locationInt = getLocationInt(location);
 		DPoint dPoint = new DPoint(locationInt[1], locationInt[0]);
-		DPoint end = new DPoint(31.2718299837,120.7322667206);
+		DPoint end = new DPoint(47.357025,123.929579);
 		double distance = getDistance(dPoint,end);
 		return distance;
 	}
