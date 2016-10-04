@@ -1,3 +1,0 @@
-include ':sMSSDK'
-include ':slideDateTimePicker'
-include ':xuetuAndroid'
