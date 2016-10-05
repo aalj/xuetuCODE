@@ -2,6 +2,7 @@ package com.xuetu.ui;
 
 import com.xuetu.R;
 import com.xuetu.entity.Student;
+import com.xuetu.ui.activity.user.LoginActivity;
 import com.xuetu.view.TitleBar;
 
 import android.app.Activity;
@@ -18,7 +19,6 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.TextView;
-import android.widget.Toast;
 
 public class SettingActivity extends Baseactivity implements OnClickListener {
 	Button button = null;

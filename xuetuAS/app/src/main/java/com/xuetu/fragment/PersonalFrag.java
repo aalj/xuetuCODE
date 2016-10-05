@@ -16,8 +16,7 @@ import com.lidroid.xutils.BitmapUtils;
 import com.xuetu.R;
 import com.xuetu.entity.Student;
 import com.xuetu.ui.CourseActivity;
-import com.xuetu.ui.LoginActivity;
-import com.xuetu.ui.MainActivity;
+import com.xuetu.ui.activity.user.LoginActivity;
 import com.xuetu.ui.PaiHangBangActivity;
 import com.xuetu.ui.PersonInfomationActivity;
 import com.xuetu.ui.PersonalQuestionCollectionActivity;
@@ -43,7 +42,6 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 /**
  *

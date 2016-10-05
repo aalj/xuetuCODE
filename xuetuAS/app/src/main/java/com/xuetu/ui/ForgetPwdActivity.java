@@ -10,6 +10,7 @@ import com.lidroid.xutils.http.ResponseInfo;
 import com.lidroid.xutils.http.callback.RequestCallBack;
 import com.lidroid.xutils.http.client.HttpRequest.HttpMethod;
 import com.xuetu.R;
+import com.xuetu.ui.activity.user.LoginActivity;
 import com.xuetu.utils.GetHttp;
 import com.xuetu.view.TitleBar;
 

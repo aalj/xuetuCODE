@@ -53,6 +53,7 @@ public class LoginDao implements PersonalDaoInterface {
 				student = new Student();
 				student.setStuId(resultSet.getInt("stu_id"));
 				student.setStuName(resultSet.getString("stu_name"));
+				student.setStuName(resultSet.getString("stu_email"));
 				student.setStuPhone(telephone);
 				student.setStuIma(resultSet.getString("stu_img"));
 				student.setStuSex(resultSet.getString("stu_sex"));

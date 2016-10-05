@@ -1,4 +1,4 @@
-package com.xuetu.ui;
+package com.xuetu.ui.activity.user;
 
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
@@ -29,6 +29,11 @@ import com.umeng.socialize.sso.UMSsoHandler;
 import com.xuetu.R;
 import com.xuetu.SelectSchoolActivity;
 import com.xuetu.entity.Student;
+import com.xuetu.ui.Baseactivity;
+import com.xuetu.ui.ForgetPwdActivity;
+import com.xuetu.ui.MainActivity;
+import com.xuetu.ui.RegisterActivity;
+import com.xuetu.ui.XueTuApplication;
 import com.xuetu.utils.GetHttp;
 import com.xuetu.view.CircleImageView;
 import com.xuetu.view.TitleBar;

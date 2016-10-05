@@ -22,20 +22,17 @@ import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLEncoder;
-import java.util.Calendar;
 import java.util.List;
-import java.util.Locale;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import com.xuetu.R;
 import com.xuetu.db.DBFindManager;
-import com.xuetu.entity.Alarm;
 import com.xuetu.entity.Countdown;
 import com.xuetu.entity.Coupon;
-import com.xuetu.entity.LongTime;
 import com.xuetu.entity.Student;
+import com.xuetu.ui.activity.user.LoginActivity;
 import com.xuetu.utils.DataToTime;
 import com.xuetu.utils.GetHttp;
 import com.xuetu.utils.StreamUtils;
@@ -51,10 +48,7 @@ import com.lidroid.xutils.http.client.HttpRequest.HttpMethod;
 import com.lidroid.xutils.util.IOUtils;
 
 import android.app.Activity;
-import android.app.AlarmManager;
 import android.app.AlertDialog;
-import android.app.PendingIntent;
-import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;

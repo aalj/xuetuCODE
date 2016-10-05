@@ -17,7 +17,7 @@ package com.xuetu.adapter;
 import java.util.List;
 
 import com.xuetu.R;
-import com.xuetu.ui.LoginActivity;
+import com.xuetu.ui.activity.user.LoginActivity;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -25,7 +25,6 @@ import android.content.SharedPreferences;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.view.View;
-import android.widget.Button;
 import android.widget.ImageView;
 
 /**

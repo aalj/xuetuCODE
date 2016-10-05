@@ -135,7 +135,7 @@
             android:label="课程表" >
         </activity>
         <activity
-            android:name=".ui.LoginActivity"
+            android:name=".ui.activity.user.LoginActivity"
             android:label="@string/title_activity_login"
             android:launchMode="singleTop" >
         </activity>

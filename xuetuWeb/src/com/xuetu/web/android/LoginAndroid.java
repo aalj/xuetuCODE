@@ -42,8 +42,12 @@ public class LoginAndroid extends HttpServlet {
 		}
 		System.out.println(telephone+"-----"+password);
 		Student stusByPhoneAndPwd = personalServiceInter.getStusByPhoneAndPwd(telephone, password);
-		Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create();
+		Gson gson = new GsonBuilder().enableComplexMapKeySerialization()
+				.setPrettyPrinting()
+				.disableHtmlEscaping()
+				.setDateFormat("yyyy-MM-dd HH:mm:ss").create();
 		String stusByPhoneAndPwds = gson.toJson(stusByPhoneAndPwd);
+		System.out.println(stusByPhoneAndPwds);
 		response.getWriter().print(stusByPhoneAndPwds);
 
 	}

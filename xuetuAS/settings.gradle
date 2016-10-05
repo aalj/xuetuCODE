@@ -1,1 +1,1 @@
-include ':app', ':sMSSDK', ':slideDateTimePicker'
+include ':app', ':sMSSDK', ':slideDateTimePicker', ':createentiry'
