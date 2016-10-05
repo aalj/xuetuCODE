@@ -40,6 +40,7 @@ public class LoginAndroid extends HttpServlet {
 			telephone = URLDecoder.decode(telephone, "utf-8");
 			password = URLDecoder.decode(password, "utf-8");
 		}
+		System.out.println(telephone+"-----"+password);
 		Student stusByPhoneAndPwd = personalServiceInter.getStusByPhoneAndPwd(telephone, password);
 		Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create();
 		String stusByPhoneAndPwds = gson.toJson(stusByPhoneAndPwd);
