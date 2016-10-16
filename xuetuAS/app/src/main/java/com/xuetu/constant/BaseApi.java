@@ -1,10 +1,19 @@
 package com.xuetu.constant;
 
+import com.xuetu.XueTuApplication;
+import com.xuetu.http.HttpManager;
+
 /**
  * Created by liang on 2016/10/4.
  */
 
 public class BaseApi {
+    public HttpManager httpManager;
+
+    public BaseApi() {
+        this.httpManager = HttpManager.getInstance();
+    }
+
     /**
      * 服务器地址
      */

@@ -6,7 +6,7 @@
     android:orientation="vertical"
     tools:context="com.xuetu.HelpActivity" >
 
-    <com.xuetu.view.TitleBar
+    <com.xuetu.widget.TitleBar
         android:id="@+id/main_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

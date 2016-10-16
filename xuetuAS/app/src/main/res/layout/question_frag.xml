@@ -55,12 +55,12 @@
         </RelativeLayout>
     </RelativeLayout>
 
-    <com.xuetu.view.RefreshListView
+    <com.xuetu.widget.RefreshListView
         android:id="@+id/lv_question"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:dividerHeight="2.0dip" >
-    </com.xuetu.view.RefreshListView>
+    </com.xuetu.widget.RefreshListView>
 
     <!-- <include -->
     <!-- layout="@layout/title" -->

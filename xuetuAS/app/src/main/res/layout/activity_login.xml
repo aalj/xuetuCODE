@@ -6,13 +6,13 @@
     android:background="@drawable/loginbackground"
     android:orientation="vertical" >
 
-    <com.xuetu.view.TitleBar
+    <com.xuetu.widget.TitleBar
         android:id="@+id/title_back"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         title:titleBarLeftImage="@drawable/ic_menu_back"
         title:titleBarTitle="学徒" >
-    </com.xuetu.view.TitleBar>
+    </com.xuetu.widget.TitleBar>
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -139,7 +139,7 @@
             android:textColor="#353535"
             android:textSize="15sp" />
 
-        <com.xuetu.view.CircleImageView
+        <com.xuetu.widget.CircleImageView
             android:id="@+id/button_QQ"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

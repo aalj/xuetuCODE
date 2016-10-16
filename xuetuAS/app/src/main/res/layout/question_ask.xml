@@ -5,13 +5,13 @@
     android:layout_height="match_parent"
     android:orientation="vertical" >
 
-    <com.xuetu.view.TitleBar
+    <com.xuetu.widget.TitleBar
         android:id="@+id/title_questionAsk"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         title:titleBarLeftImage="@drawable/ic_menu_back"
         title:titleBarTitle="提问" >
-    </com.xuetu.view.TitleBar>
+    </com.xuetu.widget.TitleBar>
 
 	<RelativeLayout 
 	    android:layout_width="match_parent"

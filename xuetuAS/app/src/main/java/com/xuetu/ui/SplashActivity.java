@@ -28,6 +28,8 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import com.xuetu.R;
+import com.xuetu.SelectSchoolActivity;
+import com.xuetu.XueTuApplication;
 import com.xuetu.db.DBFindManager;
 import com.xuetu.entity.Countdown;
 import com.xuetu.entity.Coupon;

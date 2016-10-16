@@ -14,6 +14,7 @@ package com.xuetu.fragment;
 
 import com.lidroid.xutils.BitmapUtils;
 import com.xuetu.R;
+import com.xuetu.XueTuApplication;
 import com.xuetu.entity.Student;
 import com.xuetu.ui.CourseActivity;
 import com.xuetu.ui.activity.user.LoginActivity;
@@ -25,10 +26,9 @@ import com.xuetu.ui.PointliShiActivity;
 import com.xuetu.ui.SettingActivity;
 import com.xuetu.ui.TheCollectionOfYouHuiJuanActivity;
 import com.xuetu.ui.WoDeShouCangActivity;
-import com.xuetu.ui.XueTuApplication;
 import com.xuetu.utils.GetHttp;
-import com.xuetu.view.CircleImageView;
-import com.xuetu.view.TitleBar;
+import com.xuetu.widget.CircleImageView;
+import com.xuetu.widget.TitleBar;
 
 import android.content.Context;
 import android.content.Intent;

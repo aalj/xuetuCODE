@@ -14,14 +14,14 @@
             android:layout_height="wrap_content"
             android:orientation="vertical" >
 
-            <com.xuetu.view.TitleBar
+            <com.xuetu.widget.TitleBar
                 android:id="@+id/title_my"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 app:titleBarLeftImage="@drawable/ic_menu_back"
                 app:titleBarRightImage="@drawable/ic_menu_add"
                 app:titleBarTitle="早睡" >
-            </com.xuetu.view.TitleBar>
+            </com.xuetu.widget.TitleBar>
 
             <TimePicker
                 android:id="@+id/timePicker1"

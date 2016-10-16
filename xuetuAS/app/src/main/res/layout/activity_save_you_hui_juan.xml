@@ -6,13 +6,13 @@
     android:background="@color/bgcolor"
     android:orientation="vertical" >
 
-    <com.xuetu.view.TitleBar
+    <com.xuetu.widget.TitleBar
         android:id="@+id/backtoperson"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         app:titleBarLeftImage="@drawable/ic_menu_back"
         app:titleBarTitle="积分详情" >
-    </com.xuetu.view.TitleBar>
+    </com.xuetu.widget.TitleBar>
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -90,7 +90,7 @@
         </LinearLayout>
     </RelativeLayout>
 
-    <com.xuetu.view.PullToRefreshLayout
+    <com.xuetu.widget.PullToRefreshLayout
         android:id="@+id/refresh_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent" >
@@ -98,7 +98,7 @@
         <include layout="@layout/refresh_head" />
         <!-- 支持所有实现Pullable接口的View -->
 
-        <com.xuetu.view.PullableScrollView
+        <com.xuetu.widget.PullableScrollView
             android:layout_width="match_parent"
             android:layout_height="match_parent" >
 
@@ -113,17 +113,17 @@
                     android:gravity="center_horizontal"
                     android:orientation="vertical" >
 
-                    <com.xuetu.view.MyListView
+                    <com.xuetu.widget.MyListView
                         android:id="@+id/list"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content" >
-                    </com.xuetu.view.MyListView>
+                    </com.xuetu.widget.MyListView>
                 </LinearLayout>
             </RelativeLayout>
-        </com.xuetu.view.PullableScrollView>
+        </com.xuetu.widget.PullableScrollView>
 
         <include layout="@layout/load_more" />
-    </com.xuetu.view.PullToRefreshLayout>
+    </com.xuetu.widget.PullToRefreshLayout>
 
     <!-- <com.xuetu.view.PullToRefreshLayout -->
 

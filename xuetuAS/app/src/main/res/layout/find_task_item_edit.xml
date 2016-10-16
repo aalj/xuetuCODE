@@ -8,14 +8,14 @@
 
     <!-- 这里需要的有 计划开始的时间、计划结束的时间   计划内容  是否提醒  学习模式  学生ID 计划添加时间 -->
 
-    <com.xuetu.view.TitleBar
+    <com.xuetu.widget.TitleBar
         android:id="@+id/titleBar1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         title:titleBarLeftImage="@drawable/ic_menu_cancel"
         title:titleBarRightImage="@drawable/ic_menu_set"
         title:titleBarTitle="修改计划" >
-    </com.xuetu.view.TitleBar>
+    </com.xuetu.widget.TitleBar>
 
     <LinearLayout
         android:layout_width="match_parent"

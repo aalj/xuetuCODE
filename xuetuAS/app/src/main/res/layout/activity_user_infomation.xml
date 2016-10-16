@@ -23,7 +23,7 @@
                 android:paddingBottom="5dp"
                 android:paddingTop="5dp" >
 
-                <com.xuetu.view.CircleImageView
+                <com.xuetu.widget.CircleImageView
                     android:id="@+id/img_head"
                     android:layout_width="80.0dip"
                     android:layout_height="80.0dip"

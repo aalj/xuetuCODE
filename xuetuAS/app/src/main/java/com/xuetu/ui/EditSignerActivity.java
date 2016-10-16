@@ -13,10 +13,11 @@ import com.lidroid.xutils.http.ResponseInfo;
 import com.lidroid.xutils.http.callback.RequestCallBack;
 import com.lidroid.xutils.http.client.HttpRequest.HttpMethod;
 import com.xuetu.R;
+import com.xuetu.XueTuApplication;
+import com.xuetu.base.Baseactivity;
 import com.xuetu.entity.Student;
-import com.xuetu.ui.XueTuApplication;
 import com.xuetu.utils.GetHttp;
-import com.xuetu.view.TitleBar;
+import com.xuetu.widget.TitleBar;
 
 import android.content.Intent;
 import android.os.Bundle;

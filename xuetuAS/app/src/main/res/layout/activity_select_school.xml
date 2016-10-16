@@ -5,12 +5,12 @@
     android:layout_height="fill_parent"
     android:orientation="vertical" >
 
-    <com.xuetu.view.TitleBar
+    <com.xuetu.widget.TitleBar
         android:id="@+id/backtoperson"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         app:titleBarTitle="选择学校" >
-    </com.xuetu.view.TitleBar>
+    </com.xuetu.widget.TitleBar>
 
     <ScrollView
         android:layout_width="fill_parent"

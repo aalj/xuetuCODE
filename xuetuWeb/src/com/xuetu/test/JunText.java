@@ -13,6 +13,7 @@
 
 package com.xuetu.test;
 
+
 import java.util.Date;
 import java.util.List;
 
@@ -31,6 +32,7 @@ import com.xuetu.entity.Pattern;
 import com.xuetu.entity.SelfStudyPlan;
 import com.xuetu.entity.Student;
 import com.xuetu.utils.ChuliShijian;
+import com.xuetu.utils.JsonUtils;
 
 /**
  * ClassName:JunText<br/>
@@ -101,5 +103,18 @@ public class JunText {
 		}
 
 	}
+	
+	@Test
+	public void toJson(){
+	
+		Student  student = new Student(1, "stuName", "stuEmail", "stuPhone", "stuIma", "stuSex", 2, "stuUgrade", "stuMajor", "stuSigner", 100, null, "stuPwd");
+		String formToJson = JsonUtils.formToJson(404, null, student);
+		System.out.println(formToJson);
+		
+	}
+	
+	
+	
+	
 
 }

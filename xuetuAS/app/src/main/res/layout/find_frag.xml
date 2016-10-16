@@ -7,7 +7,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical" >
 
-    <com.xuetu.view.TitleBar
+    <com.xuetu.widget.TitleBar
         android:id="@+id/main_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -16,7 +16,7 @@
         android:clickable="false"
         android:gravity="center"
         title:titleBarTitle="首页" >
-    </com.xuetu.view.TitleBar>
+    </com.xuetu.widget.TitleBar>
 
     <ScrollView
         android:id="@+id/scrollView1"
@@ -191,7 +191,7 @@
                 </LinearLayout>
             </LinearLayout>
 
-            <com.xuetu.view.SlideShowView
+            <com.xuetu.widget.SlideShowView
                 android:id="@+id/slideshowView"
                 android:layout_width="match_parent"
                 android:layout_height="150dp"

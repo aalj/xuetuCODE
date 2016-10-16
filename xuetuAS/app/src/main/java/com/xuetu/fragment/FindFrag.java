@@ -23,6 +23,7 @@ import com.lidroid.xutils.http.client.HttpRequest.HttpMethod;
 import com.umeng.socialize.utils.Log;
 import com.xuetu.HelpActivity;
 import com.xuetu.R;
+import com.xuetu.XueTuApplication;
 import com.xuetu.entity.Class_end;
 import com.xuetu.entity.GetToddayClass;
 import com.xuetu.entity.IsStudy;
@@ -38,11 +39,10 @@ import com.xuetu.ui.LearingRecordActivity;
 import com.xuetu.ui.ShowTimeActivity;
 import com.xuetu.ui.StoneNameActivity;
 import com.xuetu.ui.TimerActivity;
-import com.xuetu.ui.XueTuApplication;
 import com.xuetu.utils.DataToTime;
 import com.xuetu.utils.GetHttp;
 import com.xuetu.utils.Utils;
-import com.xuetu.view.SlideShowView;
+import com.xuetu.widget.SlideShowView;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
@@ -58,9 +58,6 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
-
-import static java.security.AccessController.getContext;
 
 public class FindFrag extends Fragment implements AMapLocationListener {
 

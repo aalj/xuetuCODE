@@ -29,13 +29,13 @@ import com.lidroid.xutils.http.ResponseInfo;
 import com.lidroid.xutils.http.callback.RequestCallBack;
 import com.lidroid.xutils.http.client.HttpRequest.HttpMethod;
 import com.xuetu.R;
+import com.xuetu.XueTuApplication;
 import com.xuetu.adapter.QuestionFragAdapter;
 import com.xuetu.entity.Question;
 import com.xuetu.ui.Question_ask;
-import com.xuetu.ui.XueTuApplication;
 import com.xuetu.utils.GetHttp;
-import com.xuetu.view.OnRefreshListener;
-import com.xuetu.view.RefreshListView;
+import com.xuetu.widget.OnRefreshListener;
+import com.xuetu.widget.RefreshListView;
 
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
@@ -61,8 +61,6 @@ import android.widget.PopupWindow;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
-
-import static java.security.AccessController.getContext;
 
 /**
  *

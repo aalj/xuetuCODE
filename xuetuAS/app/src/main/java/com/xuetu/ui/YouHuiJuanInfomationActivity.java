@@ -10,25 +10,19 @@ import com.google.zxing.common.BitMatrix;
 import com.google.zxing.qrcode.QRCodeWriter;
 import com.lidroid.xutils.BitmapUtils;
 import com.xuetu.R;
+import com.xuetu.base.Baseactivity;
 import com.xuetu.entity.Coupon;
 import com.xuetu.entity.MyCoupon;
 import com.xuetu.utils.GetHttp;
-import com.xuetu.view.CircleImageView;
+import com.xuetu.widget.CircleImageView;
 
-import android.app.AlertDialog;
-import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.view.WindowManager.LayoutParams;
-import android.widget.Button;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 
 public class YouHuiJuanInfomationActivity extends Baseactivity implements OnClickListener {

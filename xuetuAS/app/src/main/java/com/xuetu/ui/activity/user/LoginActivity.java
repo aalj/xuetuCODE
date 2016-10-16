@@ -28,15 +28,16 @@ import com.umeng.socialize.sso.UMQQSsoHandler;
 import com.umeng.socialize.sso.UMSsoHandler;
 import com.xuetu.R;
 import com.xuetu.SelectSchoolActivity;
+import com.xuetu.XueTuApplication;
+import com.xuetu.base.Baseactivity;
 import com.xuetu.entity.Student;
-import com.xuetu.ui.Baseactivity;
 import com.xuetu.ui.ForgetPwdActivity;
 import com.xuetu.ui.MainActivity;
 import com.xuetu.ui.RegisterActivity;
-import com.xuetu.ui.XueTuApplication;
+import com.xuetu.ui.activity.user.api.UsrModelManager;
 import com.xuetu.utils.GetHttp;
-import com.xuetu.view.CircleImageView;
-import com.xuetu.view.TitleBar;
+import com.xuetu.widget.CircleImageView;
+import com.xuetu.widget.TitleBar;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -49,6 +50,10 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.EditText;
 import android.widget.Toast;
+
+import de.greenrobot.event.EventBus;
+import de.greenrobot.event.Subscribe;
+
 
 public class LoginActivity extends Baseactivity implements OnClickListener {
 	private UMSocialService mController = UMServiceFactory.getUMSocialService("com.umeng.login");
@@ -71,6 +76,10 @@ public class LoginActivity extends Baseactivity implements OnClickListener {
 			finish();
 		}
 		setContentView(R.layout.activity_login);
+//		if(!EventBus.getDefault().isRegistered(this)){
+			EventBus.getDefault().register(this);
+
+//		}
 		Log.e("Stone", "login  onCreate: " );
 
 		sp = getSharedPreferences("config", Activity.MODE_PRIVATE);
@@ -84,6 +93,24 @@ public class LoginActivity extends Baseactivity implements OnClickListener {
 		configPlatforms();
 		loadData();
 	}
+
+
+	@Subscribe
+	public void onEventMainThread(Student res) {
+		Log.e("LoginActivity", "eregr---"+res.getStuName().toString());
+	}
+
+
+	@Override
+	protected void onDestroy() {
+		super.onDestroy();
+		EventBus.getDefault().unregister(this);
+	}
+
+
+
+
+
 
 	public void loadData() {
 		Intent intent = getIntent();
@@ -143,7 +170,8 @@ public class LoginActivity extends Baseactivity implements OnClickListener {
 		Log.e("Stroe", "login: " );
 		String telephone = et_usertel.getText().toString().trim();
 		String password = et_password.getText().toString().trim();
-		getLogin(telephone, password);
+		UsrModelManager.getInstance().userLogin(telephone,password);
+//		getLogin(telephone, password);
 	}
 
 	public void getLogin(final String telephone, final String password) {

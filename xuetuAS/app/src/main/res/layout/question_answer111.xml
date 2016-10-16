@@ -5,7 +5,7 @@
     android:orientation="vertical"
     android:layout_height="match_parent" >
 
-    <com.xuetu.view.TitleBar
+    <com.xuetu.widget.TitleBar
         android:id="@+id/title_my"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -14,9 +14,9 @@
         title:titleBarLeftImage="@drawable/ic_menu_back"
         title:titleBarRightImage="@drawable/ic_menu_add"
         title:titleBarTitle="回答" >
-    </com.xuetu.view.TitleBar>
+    </com.xuetu.widget.TitleBar>
 
-    <com.xuetu.view.PullToRefreshView
+    <com.xuetu.widget.PullToRefreshView
         android:id="@+id/main_pull_refresh_view"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
@@ -36,14 +36,14 @@
                 
                 <include layout="@layout/question_answer_firstitem"/>
 
-                <com.xuetu.view.MyListView
+                <com.xuetu.widget.MyListView
                     android:id="@+id/lv_answer"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent" >
-                </com.xuetu.view.MyListView>
+                </com.xuetu.widget.MyListView>
             </LinearLayout>
         </ScrollView>
-    </com.xuetu.view.PullToRefreshView>
+    </com.xuetu.widget.PullToRefreshView>
 
     <RelativeLayout
 	    android:layout_width="match_parent"
@@ -61,7 +61,7 @@
 		    android:src="@drawable/ask"
 		    android:contentDescription="@string/app_name"
 		     /> -->
-		<com.xuetu.view.CircleImageView 
+		<com.xuetu.widget.CircleImageView
 		     android:layout_width="40dp"
 		    android:layout_height="40dp"
 		    android:layout_marginLeft="5dp"

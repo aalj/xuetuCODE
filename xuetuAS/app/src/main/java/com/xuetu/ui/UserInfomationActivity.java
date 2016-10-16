@@ -20,16 +20,13 @@ import com.lidroid.xutils.http.ResponseInfo;
 import com.lidroid.xutils.http.callback.RequestCallBack;
 import com.lidroid.xutils.http.client.HttpRequest.HttpMethod;
 import com.xuetu.R;
-import com.xuetu.R.color;
-import com.xuetu.R.id;
-import com.xuetu.R.layout;
+import com.xuetu.base.Baseactivity;
 import com.xuetu.entity.Answer;
 import com.xuetu.entity.Question;
 import com.xuetu.entity.Student;
 import com.xuetu.utils.GetHttp;
-import com.xuetu.view.CircleImageView;
+import com.xuetu.widget.CircleImageView;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;

@@ -35,7 +35,7 @@
             android:layout_toRightOf="@+id/iv_ans_userImg"
             android:textColor="@color/subject"
             android:text="回答者用户名:" />
-        <com.xuetu.view.CircleImageView
+        <com.xuetu.widget.CircleImageView
             android:id="@+id/iv_ans_userImg"
             android:layout_width="25dp"
             android:layout_height="25dp"

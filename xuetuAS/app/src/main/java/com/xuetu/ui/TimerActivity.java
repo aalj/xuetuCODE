@@ -1,7 +1,6 @@
 package com.xuetu.ui;
 
 import java.lang.reflect.Type;
-import java.sql.Date;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.List;
@@ -18,6 +17,8 @@ import com.lidroid.xutils.http.callback.RequestCallBack;
 import com.lidroid.xutils.http.client.HttpRequest.HttpMethod;
 import com.lidroid.xutils.view.annotation.ViewInject;
 import com.xuetu.R;
+import com.xuetu.SelectSchoolActivity;
+import com.xuetu.XueTuApplication;
 import com.xuetu.entity.Student;
 import com.xuetu.utils.GetHttp;
 

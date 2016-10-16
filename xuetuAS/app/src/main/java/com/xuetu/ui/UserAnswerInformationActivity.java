@@ -7,10 +7,11 @@ import java.util.List;
 import com.xuetu.R;
 import com.xuetu.adapter.MyBasesadapter;
 import com.xuetu.adapter.ViewHodle;
+import com.xuetu.base.Baseactivity;
 import com.xuetu.entity.Answer;
 import com.xuetu.entity.Question;
 import com.xuetu.utils.GetHttp;
-import com.xuetu.view.TitleBar;
+import com.xuetu.widget.TitleBar;
 
 import android.content.Intent;
 import android.os.Bundle;

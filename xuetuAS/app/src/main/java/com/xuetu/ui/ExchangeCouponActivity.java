@@ -3,8 +3,6 @@ package com.xuetu.ui;
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 import java.util.Date;
-import java.util.HashMap;
-import java.util.Map;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -18,14 +16,15 @@ import com.lidroid.xutils.http.callback.RequestCallBack;
 import com.lidroid.xutils.http.client.HttpRequest.HttpMethod;
 import com.lidroid.xutils.view.annotation.ViewInject;
 import com.xuetu.R;
+import com.xuetu.XueTuApplication;
+import com.xuetu.base.Baseactivity;
 import com.xuetu.entity.Coupon;
 import com.xuetu.entity.MyCoupon;
 import com.xuetu.entity.Student;
 import com.xuetu.utils.ActivityColector;
 import com.xuetu.utils.GetHttp;
-import com.xuetu.view.TitleBar;
+import com.xuetu.widget.TitleBar;
 
-import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.AlertDialog.Builder;
 import android.app.ProgressDialog;

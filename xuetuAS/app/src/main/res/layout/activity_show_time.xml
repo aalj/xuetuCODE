@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     tools:context="com.xuetu.ui.ShowTimeActivity" >
 
-    <com.xuetu.view.TitleBar
+    <com.xuetu.widget.TitleBar
         android:id="@+id/main_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -17,13 +17,13 @@
         title:titleBarLeftImage="@drawable/ic_menu_back"
         title:titleBarTitle="学习时长" />
 
-    <com.xuetu.view.RefreshListView
+    <com.xuetu.widget.RefreshListView
         android:id="@+id/refreshlistview"
         android:layout_width="match_parent"
         
         android:layout_height="match_parent"
         android:layout_alignParentLeft="true"
         android:layout_alignParentTop="true" >
-    </com.xuetu.view.RefreshListView>
+    </com.xuetu.widget.RefreshListView>
 
 </LinearLayout>

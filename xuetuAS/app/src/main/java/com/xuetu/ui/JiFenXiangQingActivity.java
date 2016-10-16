@@ -7,13 +7,10 @@ import com.lidroid.xutils.ViewUtils;
 import com.lidroid.xutils.view.annotation.ViewInject;
 import com.umeng.socialize.utils.Log;
 import com.xuetu.R;
-import com.xuetu.R.drawable;
-import com.xuetu.R.id;
-import com.xuetu.R.layout;
 import com.xuetu.entity.JiFenMingXi;
 import com.xuetu.utils.GetHttp;
-import com.xuetu.view.CircleImageView;
-import com.xuetu.view.TitleBar;
+import com.xuetu.widget.CircleImageView;
+import com.xuetu.widget.TitleBar;
 
 import android.app.Activity;
 import android.os.Bundle;

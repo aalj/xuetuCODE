@@ -48,7 +48,7 @@
                 android:textColor="@color/orange2"
                 android:textSize="17dp" />
 
-            <com.xuetu.view.CircleImageView
+            <com.xuetu.widget.CircleImageView
                 android:id="@+id/head_paihangbang"
                 android:layout_width="40dp"
                 android:layout_height="40dp"

@@ -16,7 +16,7 @@ import com.lidroid.xutils.http.client.HttpRequest.HttpMethod;
 import com.xuetu.entity.School;
 import com.xuetu.entity.Student;
 import com.xuetu.ui.MainActivity;
-import com.xuetu.ui.XueTuApplication;
+
 import com.xuetu.utils.GetHttp;
 
 import android.app.Activity;
@@ -146,7 +146,7 @@ public class SelectSchoolActivity extends Activity implements OnClickListener {
 					} catch (Exception e) {
 						e.printStackTrace();
 					}
-					Toast.makeText(getApplicationContext(), "请选择学校", 0).show();
+					Toast.makeText(getApplicationContext(), "请选择学校", Toast.LENGTH_SHORT).show();
 				}
 			}
 		}).create().show();
@@ -195,7 +195,7 @@ public class SelectSchoolActivity extends Activity implements OnClickListener {
 					} catch (Exception e) {
 						e.printStackTrace();
 					}
-					Toast.makeText(getApplicationContext(), "请选择专业", 0).show();
+					Toast.makeText(getApplicationContext(), "请选择专业", Toast.LENGTH_SHORT).show();
 				}
 			}
 		}).create().show();
@@ -244,7 +244,7 @@ public class SelectSchoolActivity extends Activity implements OnClickListener {
 					} catch (Exception e) {
 						e.printStackTrace();
 					}
-					Toast.makeText(getApplicationContext(), "请选择年级", 0).show();
+					Toast.makeText(getApplicationContext(), "请选择年级", Toast.LENGTH_SHORT).show();
 				}
 			}
 		}).create().show();
@@ -262,7 +262,7 @@ public class SelectSchoolActivity extends Activity implements OnClickListener {
 			finish();
 
 		} else {
-			Toast.makeText(this, "请将信息填写完整",0).show();
+			Toast.makeText(this, "请将信息填写完整",Toast.LENGTH_SHORT).show();
 		}
 
 	}
@@ -317,11 +317,11 @@ public class SelectSchoolActivity extends Activity implements OnClickListener {
 				Boolean result_back = gson.fromJson(arg0.result, type);
 				Log.i("TAG", "-----" + result_back);
 				if (result_back == true) {
-					Toast.makeText(getApplicationContext(), "修改成功", 1).show();
+					Toast.makeText(getApplicationContext(), "修改成功", Toast.LENGTH_SHORT).show();
 					student.setSchool(new School(i + 1, SchoolData[i], "36.1", "263.4"));
 					student.setStuUgrade(GradeData[k]);
 				} else {
-					Toast.makeText(getApplicationContext(), "boom", 1).show();
+					Toast.makeText(getApplicationContext(), "boom", Toast.LENGTH_SHORT).show();
 				}
 
 			}

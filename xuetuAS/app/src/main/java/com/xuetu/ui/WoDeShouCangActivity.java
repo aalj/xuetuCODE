@@ -6,7 +6,7 @@ import java.util.List;
 import com.xuetu.R;
 import com.xuetu.fragment.PersonQuestionCollectionFrag;
 import com.xuetu.fragment.YouHuiJuanFrag;
-import com.xuetu.view.TitleBar;
+import com.xuetu.widget.TitleBar;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -19,7 +19,6 @@ import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.TextView;
 
 public class WoDeShouCangActivity extends FragmentActivity implements OnClickListener, OnPageChangeListener {

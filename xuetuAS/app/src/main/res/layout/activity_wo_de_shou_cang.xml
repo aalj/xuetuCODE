@@ -5,13 +5,13 @@
     android:layout_height="fill_parent"
     android:orientation="vertical" >
 
-    <com.xuetu.view.TitleBar
+    <com.xuetu.widget.TitleBar
         android:id="@+id/backtoperson"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         app:titleBarLeftImage="@drawable/ic_menu_back"
         app:titleBarTitle="我的收藏" >
-    </com.xuetu.view.TitleBar>
+    </com.xuetu.widget.TitleBar>
 
     <LinearLayout
         android:layout_width="fill_parent"

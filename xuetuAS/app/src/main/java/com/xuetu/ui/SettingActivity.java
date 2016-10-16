@@ -1,9 +1,11 @@
 package com.xuetu.ui;
 
 import com.xuetu.R;
+import com.xuetu.XueTuApplication;
+import com.xuetu.base.Baseactivity;
 import com.xuetu.entity.Student;
 import com.xuetu.ui.activity.user.LoginActivity;
-import com.xuetu.view.TitleBar;
+import com.xuetu.widget.TitleBar;
 
 import android.app.Activity;
 import android.app.AlertDialog;

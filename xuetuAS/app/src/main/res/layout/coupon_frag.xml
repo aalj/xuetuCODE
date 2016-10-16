@@ -5,7 +5,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical" >
 
-    <com.xuetu.view.TitleBar
+    <com.xuetu.widget.TitleBar
         android:id="@+id/main_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -14,12 +14,12 @@
         android:clickable="false"
         android:gravity="center"
         title:titleBarTitle="优惠券" >
-    </com.xuetu.view.TitleBar>
+    </com.xuetu.widget.TitleBar>
 
-    <com.xuetu.view.RefreshListView
+    <com.xuetu.widget.RefreshListView
         android:id="@+id/refreshlistview"
         android:layout_width="match_parent"
         android:layout_height="match_parent" >
-    </com.xuetu.view.RefreshListView>
+    </com.xuetu.widget.RefreshListView>
 
 </LinearLayout>

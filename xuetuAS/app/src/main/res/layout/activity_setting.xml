@@ -15,13 +15,13 @@
     <!-- </com.xuetu.view.TitleBar> -->
     <!-- app:titleBarRightImage="@drawable/ic_menu_set" -->
 
-    <com.xuetu.view.TitleBar
+    <com.xuetu.widget.TitleBar
         android:id="@+id/titlebar_setting"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         app:titleBarLeftImage="@drawable/ic_menu_back"
         app:titleBarTitle="设置" >
-    </com.xuetu.view.TitleBar>
+    </com.xuetu.widget.TitleBar>
 
     <ScrollView
         android:layout_width="fill_parent"

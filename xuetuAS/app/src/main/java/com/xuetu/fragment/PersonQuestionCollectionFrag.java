@@ -16,12 +16,13 @@ import com.lidroid.xutils.http.ResponseInfo;
 import com.lidroid.xutils.http.callback.RequestCallBack;
 import com.lidroid.xutils.http.client.HttpRequest.HttpMethod;
 import com.xuetu.R;
+import com.xuetu.SelectSchoolActivity;
+import com.xuetu.XueTuApplication;
 import com.xuetu.adapter.MyBasesadapter;
 import com.xuetu.adapter.ViewHodle;
 import com.xuetu.entity.CollectionQuestion;
 import com.xuetu.entity.Student;
 import com.xuetu.ui.Answer_list;
-import com.xuetu.ui.XueTuApplication;
 import com.xuetu.utils.GetHttp;
 
 import android.content.Context;

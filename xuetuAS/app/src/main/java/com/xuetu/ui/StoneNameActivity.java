@@ -19,7 +19,7 @@ import com.xuetu.adapter.MyBasesadapter;
 import com.xuetu.adapter.ViewHodle;
 import com.xuetu.entity.Coupon;
 import com.xuetu.utils.GetHttp;
-import com.xuetu.view.TitleBar;
+import com.xuetu.widget.TitleBar;
 
 import android.app.Activity;
 import android.app.ProgressDialog;

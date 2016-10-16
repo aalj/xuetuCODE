@@ -16,7 +16,7 @@ public class UsrModelManager {
      * 采用单利的模式获取管理者对象
      * @return
      */
-    public UsrModelManager getInstance(){
+    public static UsrModelManager getInstance(){
         return usrModelManager;
     }
 
@@ -27,7 +27,7 @@ public class UsrModelManager {
         api=new UserLoginApi();
     }
 
-    private void userLogin(String tel,String pwd){
+    public  void userLogin(String tel,String pwd){
         if(StringUtlis.isEmpty(tel)&&StringUtlis.isEmpty(pwd)){
             return;
         }

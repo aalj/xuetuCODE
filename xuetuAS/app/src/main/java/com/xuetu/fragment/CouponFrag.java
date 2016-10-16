@@ -19,8 +19,8 @@ import com.xuetu.adapter.ViewHodle;
 import com.xuetu.entity.Coupon;
 import com.xuetu.ui.CouponInfoActivity;
 import com.xuetu.utils.GetHttp;
-import com.xuetu.view.OnRefreshListener;
-import com.xuetu.view.RefreshListView;
+import com.xuetu.widget.OnRefreshListener;
+import com.xuetu.widget.RefreshListView;
 
 import android.content.Intent;
 import android.os.Bundle;

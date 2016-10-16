@@ -4,9 +4,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.xuetu.R;
+import com.xuetu.base.Baseactivity;
 import com.xuetu.fragment.QuestionAnswerBillBoardFragment;
 import com.xuetu.fragment.StudyTimeBillBoardFragment;
-import com.xuetu.view.TitleBar;
+import com.xuetu.widget.TitleBar;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;

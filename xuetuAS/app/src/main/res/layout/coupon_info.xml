@@ -25,7 +25,7 @@
             android:layout_height="0dp"
             android:layout_weight="1.4" >
 
-            <com.xuetu.view.CircleImageView
+            <com.xuetu.widget.CircleImageView
                 android:id="@+id/head"
                 android:layout_width="40dp"
                 android:layout_height="40dp"
@@ -324,7 +324,7 @@
         android:onClick="onclick"
         android:src="@drawable/ic_menu_back" />
 
-    <com.xuetu.view.CircleImageView
+    <com.xuetu.widget.CircleImageView
         android:id="@+id/head_CircleImageView"
         android:layout_width="40dp"
         android:layout_height="40dp"

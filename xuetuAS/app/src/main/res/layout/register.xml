@@ -6,13 +6,13 @@
     android:background="@drawable/loginbackground"
     android:orientation="vertical" >
 
-    <com.xuetu.view.TitleBar
+    <com.xuetu.widget.TitleBar
         android:id="@+id/backtologin"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         title:titleBarLeftImage="@drawable/ic_menu_back"
         title:titleBarTitle="学徒" >
-    </com.xuetu.view.TitleBar>
+    </com.xuetu.widget.TitleBar>
 
     <LinearLayout
         android:layout_width="match_parent"

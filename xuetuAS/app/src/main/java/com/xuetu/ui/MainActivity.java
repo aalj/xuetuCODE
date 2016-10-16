@@ -4,13 +4,12 @@ import com.lidroid.xutils.ViewUtils;
 import com.lidroid.xutils.view.annotation.ViewInject;
 import com.xuetu.R;
 import com.xuetu.adapter.FragmentViewPageAdapter;
+import com.xuetu.base.Baseactivity;
 import com.xuetu.entity.Student;
 import com.xuetu.fragment.CouponFrag;
 import com.xuetu.fragment.FindFrag;
-import com.xuetu.fragment.HomePageFrag;
 import com.xuetu.fragment.PersonalFrag;
 import com.xuetu.fragment.QuestionFrag;
-import com.xuetu.view.TitleBar;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -21,14 +20,10 @@ import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.ViewPager;
 import android.support.v4.view.ViewPager.OnPageChangeListener;
 import android.util.Log;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 /**
  * 
@@ -41,7 +36,7 @@ import android.widget.Toast;
  *
  * @see
  */
-public class MainActivity extends FragmentActivity implements OnPageChangeListener, OnClickListener {
+public class MainActivity extends Baseactivity implements OnPageChangeListener, OnClickListener {
 	private FragmentManager manager = null;
 	private FragmentTransaction beginTransaction = null;
 	@ViewInject(R.id.coupon_fra)

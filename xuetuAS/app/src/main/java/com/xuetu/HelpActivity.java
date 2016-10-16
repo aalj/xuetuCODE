@@ -8,7 +8,7 @@ import java.io.InputStream;
 
 import com.lidroid.xutils.ViewUtils;
 import com.lidroid.xutils.view.annotation.ViewInject;
-import com.xuetu.view.TitleBar;
+import com.xuetu.widget.TitleBar;
 
 import android.app.Activity;
 import android.app.ProgressDialog;

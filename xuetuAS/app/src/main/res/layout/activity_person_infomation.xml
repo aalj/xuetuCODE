@@ -5,13 +5,13 @@
     android:layout_height="fill_parent"
     android:orientation="vertical" >
 
-    <com.xuetu.view.TitleBar
+    <com.xuetu.widget.TitleBar
         android:id="@+id/backtoperson"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         app:titleBarLeftImage="@drawable/ic_menu_back"
         app:titleBarTitle="个人资料" >
-    </com.xuetu.view.TitleBar>
+    </com.xuetu.widget.TitleBar>
 
     <ScrollView
         android:layout_width="fill_parent"
@@ -46,7 +46,7 @@
                     android:layout_marginRight="15dp"
                     android:src="@drawable/right" />
 
-                <com.xuetu.view.CircleImageView
+                <com.xuetu.widget.CircleImageView
                     android:id="@+id/img_head"
                     android:layout_width="80.0dip"
                     android:layout_height="80.0dip"

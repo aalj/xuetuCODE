@@ -5,7 +5,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical" >
 
-    <com.xuetu.view.TitleBar
+    <com.xuetu.widget.TitleBar
         android:id="@+id/title_my"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -14,7 +14,7 @@
         title:titleBarLeftImage="@drawable/ic_menu_back"
         title:titleBarRightImage="@drawable/ic_menu_add"
         title:titleBarTitle="设置早睡时间" >
-    </com.xuetu.view.TitleBar>
+    </com.xuetu.widget.TitleBar>
 
     <ListView
         android:id="@+id/listview"

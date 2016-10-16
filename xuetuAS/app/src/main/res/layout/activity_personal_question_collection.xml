@@ -6,13 +6,13 @@
     android:orientation="vertical" 
     android:background="@color/bgcolor">
 
-    <com.xuetu.view.TitleBar
+    <com.xuetu.widget.TitleBar
         android:id="@+id/backtoperson_question"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         app:titleBarLeftImage="@drawable/ic_menu_back"
         app:titleBarTitle="我的问题" >
-    </com.xuetu.view.TitleBar>
+    </com.xuetu.widget.TitleBar>
 
     <ListView
         android:id="@+id/listView_personquestion"

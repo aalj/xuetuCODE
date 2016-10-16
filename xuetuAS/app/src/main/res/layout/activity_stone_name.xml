@@ -5,14 +5,14 @@
     android:layout_height="match_parent"
     android:orientation="vertical" >
 
-    <com.xuetu.view.TitleBar
+    <com.xuetu.widget.TitleBar
         android:id="@+id/title_my"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
         title:titleBarLeftImage="@drawable/ic_menu_back"
         title:titleBarTitle="店家" >
-    </com.xuetu.view.TitleBar>
+    </com.xuetu.widget.TitleBar>
 
     <android.support.v4.widget.SwipeRefreshLayout
         android:id="@+id/id_swipe_ly"
@@ -36,11 +36,11 @@
                     android:scaleType="fitXY"
                     android:src="@drawable/ic_launcher" />
 
-                <com.xuetu.view.MyListView
+                <com.xuetu.widget.MyListView
                     android:id="@+id/id_listview"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent" >
-                </com.xuetu.view.MyListView>
+                </com.xuetu.widget.MyListView>
             </LinearLayout>
         </ScrollView>
     </android.support.v4.widget.SwipeRefreshLayout>

@@ -33,6 +33,11 @@ public class School {
 	 * 学校的名字
 	 */
 	private String schName = null;
+	@Override
+	public String toString() {
+		return "School [schId=" + schId + ", schName=" + schName + ", schLongitude=" + schLongitude + ", schLatitude="
+				+ schLatitude + "]";
+	}
 	/**
 	 * 学校的经度
 	 */

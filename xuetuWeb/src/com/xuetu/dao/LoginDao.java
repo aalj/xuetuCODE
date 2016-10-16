@@ -1,5 +1,7 @@
 package com.xuetu.dao;
 
+import java.io.IOException;
+import java.lang.reflect.Type;
 import java.sql.Connection;
 import java.sql.Date;
 import java.sql.PreparedStatement;
@@ -8,7 +10,9 @@ import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
-
+import java.util.Properties;
+import com.google.gson.reflect.TypeToken;
+import com.google.gson.Gson;
 import com.xuetu.dao.inter.PersonalDaoInterface;
 import com.xuetu.entity.Answer;
 import com.xuetu.entity.CollectionQuestion;
@@ -177,6 +181,8 @@ public class LoginDao implements PersonalDaoInterface {
 
 	}
 
+	
+	
 	/**
 	 * 閫氳繃瀛︾敓id鏌ヨ涓汉浼樻儬鍔�
 	 */

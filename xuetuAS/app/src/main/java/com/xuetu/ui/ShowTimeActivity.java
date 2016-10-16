@@ -17,14 +17,15 @@ import com.lidroid.xutils.http.callback.RequestCallBack;
 import com.lidroid.xutils.http.client.HttpRequest.HttpMethod;
 import com.umeng.socialize.utils.Log;
 import com.xuetu.R;
+import com.xuetu.XueTuApplication;
 import com.xuetu.adapter.MyBasesadapter;
 import com.xuetu.adapter.ViewHodle;
 import com.xuetu.entity.LongTime;
 import com.xuetu.utils.DataToTime;
 import com.xuetu.utils.GetHttp;
-import com.xuetu.view.OnRefreshListener;
-import com.xuetu.view.RefreshListView;
-import com.xuetu.view.TitleBar;
+import com.xuetu.widget.OnRefreshListener;
+import com.xuetu.widget.RefreshListView;
+import com.xuetu.widget.TitleBar;
 
 import android.app.Activity;
 import android.os.Bundle;

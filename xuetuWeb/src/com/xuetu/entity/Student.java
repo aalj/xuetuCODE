@@ -53,8 +53,13 @@ public class Student implements Serializable{
 
 	}
 
-	public Student(int stuId, String stuName, String stuEmail, String stuPhone, String stuIma, String stuSex,
-			int stuAge, String stuUgrade, String stuMajor, String stuSigner, int stuPoints, School school,
+	public Student(
+			int stuId, String stuName, 
+			String stuEmail, String stuPhone, 
+			String stuIma, String stuSex,
+			int stuAge, String stuUgrade, 
+			String stuMajor, String stuSigner, 
+			int stuPoints, School school,
 			String stuPwd,Date Stu_create_date) {
 		super();
 		this.stuId = stuId;
@@ -71,6 +76,30 @@ public class Student implements Serializable{
 		this.school = school;
 		this.stuPwd = stuPwd;
 		this.Stu_create_date = getStu_create_date();
+	}
+	public Student(
+			int stuId, String stuName, 
+			String stuEmail, String stuPhone, 
+			String stuIma, String stuSex,
+			int stuAge, String stuUgrade, 
+			String stuMajor, String stuSigner, 
+			int stuPoints, School school,
+			String stuPwd) {
+		super();
+		this.stuId = stuId;
+		this.stuName = stuName;
+		this.stuEmail = stuEmail;
+		this.stuPhone = stuPhone;
+		this.stuIma = stuIma;
+		this.stuSex = stuSex;
+		this.stuAge = stuAge;
+		this.stuUgrade = stuUgrade;
+		this.stuMajor = stuMajor;
+		this.stuSigner = stuSigner;
+		this.stuPoints = stuPoints;
+		this.school = school;
+		this.stuPwd = stuPwd;
+		
 	}
 
 	/**

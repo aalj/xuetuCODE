@@ -23,7 +23,7 @@ import com.xuetu.utils.DataToTime;
 import com.xuetu.utils.GetHttp;
 import com.xuetu.utils.MyBaseAdapter;
 import com.xuetu.utils.ViewHolder;
-import com.xuetu.view.TitleBar;
+import com.xuetu.widget.TitleBar;
 
 import android.app.Activity;
 import android.app.Notification;

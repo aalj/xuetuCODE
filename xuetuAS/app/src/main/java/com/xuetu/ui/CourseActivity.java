@@ -3,6 +3,8 @@ package com.xuetu.ui;
 import java.util.List;
 
 import com.xuetu.R;
+import com.xuetu.XueTuApplication;
+import com.xuetu.base.Baseactivity;
 import com.xuetu.entity.MyClass;
 import com.xuetu.entity.Student;
 import com.xuetu.utils.CourseService;
@@ -13,7 +15,6 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.RelativeLayout;
-import android.widget.Toast;
 
 /**
  * 
