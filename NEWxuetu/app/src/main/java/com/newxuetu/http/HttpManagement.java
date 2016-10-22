@@ -50,11 +50,8 @@ public class HttpManagement {
 
 
 
-    //同步get请求
-
     //异步异步请求
 
-    //同步post请求
     //异步post请求
 
     /**
@@ -67,24 +64,19 @@ public class HttpManagement {
         OkHttpClient okHttpClient = new OkHttpClient();
         //声明传给服务器的是json格式的数据
         RequestBody body = RequestBody.create(JSON,param);
-//        Log.e("Stone", "_postAsyn: ");
 
         final Request request = new Request.Builder()
                 .url(url)
-//                .get(body)
+                .post(body)
                 .build();
         okHttpClient.newCall(request).enqueue(new Callback() {
             @Override
             public void onFailure(Call call, IOException e) {
-//                Log.e("Stone", "onResponse: ---" );
-//                httpListener.onFail(e.getMessage());
+                httpListener.onFail(e.getMessage());
             }
 
             @Override
             public void onResponse(Call call, Response response) throws IOException {
-                Bean event = new Bean();
-                event.name=response.body().string();
-                EventBus.getDefault().post(event);
                 httpListener.onSeccess(response.body().toString());
             }
         });

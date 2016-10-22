@@ -9,6 +9,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.newxuetu.base.BaseActivity;
 import com.newxuetu.http.HttpListener;
 import com.newxuetu.http.HttpManagement;
 
@@ -17,7 +18,7 @@ import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 
 
-public class MainActivity extends AppCompatActivity implements View.OnClickListener {
+public class MainActivity extends BaseActivity implements View.OnClickListener {
 
     private android.widget.Button buttonPanel;
     private android.widget.LinearLayout activitymain;
@@ -31,9 +32,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         this.activitymain = (LinearLayout) findViewById(R.id.activity_main);
         this.te = (TextView) findViewById(R.id.te);
         this.buttonPanel = (Button) findViewById(R.id.buttonPanel);
-        if(!EventBus.getDefault().isRegistered(this)){
-            EventBus.getDefault().register(this);
-        }
+//        if(!EventBus.getDefault().isRegistered(this)){
+//            EventBus.getDefault().register(this);
+//        }
 
 
 
@@ -43,10 +44,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        EventBus.getDefault().unregister(this);
+//        EventBus.getDefault().unregister(this);
     }
 
-    @Subscribe(threadMode = ThreadMode.MAIN, priority = 100)
+//    @Subscribe(threadMode = ThreadMode.MAIN, priority = 100)
     public void onEventMainThread (Bean bean) {
         Log.e(TAG, "onEventMainThread: =-=-=-=-"+bean.name);
         te.setText(bean.name);
