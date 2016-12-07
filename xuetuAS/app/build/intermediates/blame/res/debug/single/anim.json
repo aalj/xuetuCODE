@@ -1,0 +1,90 @@
+[
+    {
+        "merged": "D:\\my_owe_code\\android\\Android_Studio\\xuetuCODE\\xuetuAS\\app\\build\\intermediates\\res\\merged\\debug\\anim\\umeng_socialize_shareboard_animation_out.xml",
+        "source": "D:\\my_owe_code\\android\\Android_Studio\\xuetuCODE\\xuetuAS\\app\\src\\main\\res\\anim\\umeng_socialize_shareboard_animation_out.xml"
+    },
+    {
+        "merged": "D:\\my_owe_code\\android\\Android_Studio\\xuetuCODE\\xuetuAS\\app\\build\\intermediates\\res\\merged\\debug\\anim\\steup_next_enter.xml",
+        "source": "D:\\my_owe_code\\android\\Android_Studio\\xuetuCODE\\xuetuAS\\app\\src\\main\\res\\anim\\steup_next_enter.xml"
+    },
+    {
+        "merged": "D:\\my_owe_code\\android\\Android_Studio\\xuetuCODE\\xuetuAS\\app\\build\\intermediates\\res\\merged\\debug\\anim\\abc_slide_out_top.xml",
+        "source": "D:\\my_owe_code\\android\\Android_Studio\\xuetuCODE\\xuetuAS\\app\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\24.2.1\\res\\anim\\abc_slide_out_top.xml"
+    },
+    {
+        "merged": "D:\\my_owe_code\\android\\Android_Studio\\xuetuCODE\\xuetuAS\\app\\build\\intermediates\\res\\merged\\debug\\anim\\reverse_anim.xml",
+        "source": "D:\\my_owe_code\\android\\Android_Studio\\xuetuCODE\\xuetuAS\\app\\src\\main\\res\\anim\\reverse_anim.xml"
+    },
+    {
+        "merged": "D:\\my_owe_code\\android\\Android_Studio\\xuetuCODE\\xuetuAS\\app\\build\\intermediates\\res\\merged\\debug\\anim\\abc_slide_in_top.xml",
+        "source": "D:\\my_owe_code\\android\\Android_Studio\\xuetuCODE\\xuetuAS\\app\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\24.2.1\\res\\anim\\abc_slide_in_top.xml"
+    },
+    {
+        "merged": "D:\\my_owe_code\\android\\Android_Studio\\xuetuCODE\\xuetuAS\\app\\build\\intermediates\\res\\merged\\debug\\anim\\steup_next_exit.xml",
+        "source": "D:\\my_owe_code\\android\\Android_Studio\\xuetuCODE\\xuetuAS\\app\\src\\main\\res\\anim\\steup_next_exit.xml"
+    },
+    {
+        "merged": "D:\\my_owe_code\\android\\Android_Studio\\xuetuCODE\\xuetuAS\\app\\build\\intermediates\\res\\merged\\debug\\anim\\abc_popup_exit.xml",
+        "source": "D:\\my_owe_code\\android\\Android_Studio\\xuetuCODE\\xuetuAS\\app\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\24.2.1\\res\\anim\\abc_popup_exit.xml"
+    },
+    {
+        "merged": "D:\\my_owe_code\\android\\Android_Studio\\xuetuCODE\\xuetuAS\\app\\build\\intermediates\\res\\merged\\debug\\anim\\steup_pre_exit.xml",
+        "source": "D:\\my_owe_code\\android\\Android_Studio\\xuetuCODE\\xuetuAS\\app\\src\\main\\res\\anim\\steup_pre_exit.xml"
+    },
+    {
+        "merged": "D:\\my_owe_code\\android\\Android_Studio\\xuetuCODE\\xuetuAS\\app\\build\\intermediates\\res\\merged\\debug\\anim\\rotating.xml",
+        "source": "D:\\my_owe_code\\android\\Android_Studio\\xuetuCODE\\xuetuAS\\app\\src\\main\\res\\anim\\rotating.xml"
+    },
+    {
+        "merged": "D:\\my_owe_code\\android\\Android_Studio\\xuetuCODE\\xuetuAS\\app\\build\\intermediates\\res\\merged\\debug\\anim\\umeng_socialize_fade_out.xml",
+        "source": "D:\\my_owe_code\\android\\Android_Studio\\xuetuCODE\\xuetuAS\\app\\src\\main\\res\\anim\\umeng_socialize_fade_out.xml"
+    },
+    {
+        "merged": "D:\\my_owe_code\\android\\Android_Studio\\xuetuCODE\\xuetuAS\\app\\build\\intermediates\\res\\merged\\debug\\anim\\abc_shrink_fade_out_from_bottom.xml",
+        "source": "D:\\my_owe_code\\android\\Android_Studio\\xuetuCODE\\xuetuAS\\app\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\24.2.1\\res\\anim\\abc_shrink_fade_out_from_bottom.xml"
+    },
+    {
+        "merged": "D:\\my_owe_code\\android\\Android_Studio\\xuetuCODE\\xuetuAS\\app\\build\\intermediates\\res\\merged\\debug\\anim\\umeng_socialize_slide_in_from_bottom.xml",
+        "source": "D:\\my_owe_code\\android\\Android_Studio\\xuetuCODE\\xuetuAS\\app\\src\\main\\res\\anim\\umeng_socialize_slide_in_from_bottom.xml"
+    },
+    {
+        "merged": "D:\\my_owe_code\\android\\Android_Studio\\xuetuCODE\\xuetuAS\\app\\build\\intermediates\\res\\merged\\debug\\anim\\umeng_socialize_slide_out_from_bottom.xml",
+        "source": "D:\\my_owe_code\\android\\Android_Studio\\xuetuCODE\\xuetuAS\\app\\src\\main\\res\\anim\\umeng_socialize_slide_out_from_bottom.xml"
+    },
+    {
+        "merged": "D:\\my_owe_code\\android\\Android_Studio\\xuetuCODE\\xuetuAS\\app\\build\\intermediates\\res\\merged\\debug\\anim\\abc_fade_out.xml",
+        "source": "D:\\my_owe_code\\android\\Android_Studio\\xuetuCODE\\xuetuAS\\app\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\24.2.1\\res\\anim\\abc_fade_out.xml"
+    },
+    {
+        "merged": "D:\\my_owe_code\\android\\Android_Studio\\xuetuCODE\\xuetuAS\\app\\build\\intermediates\\res\\merged\\debug\\anim\\umeng_socialize_fade_in.xml",
+        "source": "D:\\my_owe_code\\android\\Android_Studio\\xuetuCODE\\xuetuAS\\app\\src\\main\\res\\anim\\umeng_socialize_fade_in.xml"
+    },
+    {
+        "merged": "D:\\my_owe_code\\android\\Android_Studio\\xuetuCODE\\xuetuAS\\app\\build\\intermediates\\res\\merged\\debug\\anim\\umeng_socialize_shareboard_animation_in.xml",
+        "source": "D:\\my_owe_code\\android\\Android_Studio\\xuetuCODE\\xuetuAS\\app\\src\\main\\res\\anim\\umeng_socialize_shareboard_animation_in.xml"
+    },
+    {
+        "merged": "D:\\my_owe_code\\android\\Android_Studio\\xuetuCODE\\xuetuAS\\app\\build\\intermediates\\res\\merged\\debug\\anim\\abc_fade_in.xml",
+        "source": "D:\\my_owe_code\\android\\Android_Studio\\xuetuCODE\\xuetuAS\\app\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\24.2.1\\res\\anim\\abc_fade_in.xml"
+    },
+    {
+        "merged": "D:\\my_owe_code\\android\\Android_Studio\\xuetuCODE\\xuetuAS\\app\\build\\intermediates\\res\\merged\\debug\\anim\\steup_pre_enter.xml",
+        "source": "D:\\my_owe_code\\android\\Android_Studio\\xuetuCODE\\xuetuAS\\app\\src\\main\\res\\anim\\steup_pre_enter.xml"
+    },
+    {
+        "merged": "D:\\my_owe_code\\android\\Android_Studio\\xuetuCODE\\xuetuAS\\app\\build\\intermediates\\res\\merged\\debug\\anim\\abc_slide_out_bottom.xml",
+        "source": "D:\\my_owe_code\\android\\Android_Studio\\xuetuCODE\\xuetuAS\\app\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\24.2.1\\res\\anim\\abc_slide_out_bottom.xml"
+    },
+    {
+        "merged": "D:\\my_owe_code\\android\\Android_Studio\\xuetuCODE\\xuetuAS\\app\\build\\intermediates\\res\\merged\\debug\\anim\\abc_popup_enter.xml",
+        "source": "D:\\my_owe_code\\android\\Android_Studio\\xuetuCODE\\xuetuAS\\app\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\24.2.1\\res\\anim\\abc_popup_enter.xml"
+    },
+    {
+        "merged": "D:\\my_owe_code\\android\\Android_Studio\\xuetuCODE\\xuetuAS\\app\\build\\intermediates\\res\\merged\\debug\\anim\\abc_grow_fade_in_from_bottom.xml",
+        "source": "D:\\my_owe_code\\android\\Android_Studio\\xuetuCODE\\xuetuAS\\app\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\24.2.1\\res\\anim\\abc_grow_fade_in_from_bottom.xml"
+    },
+    {
+        "merged": "D:\\my_owe_code\\android\\Android_Studio\\xuetuCODE\\xuetuAS\\app\\build\\intermediates\\res\\merged\\debug\\anim\\abc_slide_in_bottom.xml",
+        "source": "D:\\my_owe_code\\android\\Android_Studio\\xuetuCODE\\xuetuAS\\app\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\24.2.1\\res\\anim\\abc_slide_in_bottom.xml"
+    }
+]

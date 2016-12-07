@@ -1,0 +1,7 @@
+#Sun Oct 23 11:48:52 CST 2016
+base.0=D\:\\my_owe_code\\android\\Android_Studio\\xuetuCODE\\NEWxuetu\\app\\build\\intermediates\\transforms\\dex\\debug\\folders\\1000\\10\\instant-run-bootstrap_7a65b5e718f397db18c37ca10640f0500ba04ab8
+renamed.1=classes2.dex
+renamed.0=classes.dex
+file.1=D\:\\my_owe_code\\android\\Android_Studio\\xuetuCODE\\NEWxuetu\\app\\build\\intermediates\\transforms\\dex\\debug\\folders\\1000\\10\\instant-run_e84d124a2762880d0131855769f8cb8f0da8f0b8\\classes.dex
+base.1=D\:\\my_owe_code\\android\\Android_Studio\\xuetuCODE\\NEWxuetu\\app\\build\\intermediates\\transforms\\dex\\debug\\folders\\1000\\10\\instant-run_e84d124a2762880d0131855769f8cb8f0da8f0b8
+file.0=D\:\\my_owe_code\\android\\Android_Studio\\xuetuCODE\\NEWxuetu\\app\\build\\intermediates\\transforms\\dex\\debug\\folders\\1000\\10\\instant-run-bootstrap_7a65b5e718f397db18c37ca10640f0500ba04ab8\\classes.dex

@@ -1,0 +1,30 @@
+[
+    {
+        "merged": "D:\\my_owe_code\\android\\Android_Studio\\xuetuCODE\\NEWxuetu\\app\\build\\intermediates\\res\\merged\\debug\\mipmap-xhdpi\\share.png",
+        "source": "D:\\my_owe_code\\android\\Android_Studio\\xuetuCODE\\NEWxuetu\\app\\src\\main\\res\\mipmap-xhdpi\\share.png"
+    },
+    {
+        "merged": "D:\\my_owe_code\\android\\Android_Studio\\xuetuCODE\\NEWxuetu\\app\\build\\intermediates\\res\\merged\\debug\\mipmap-xhdpi\\setting.png",
+        "source": "D:\\my_owe_code\\android\\Android_Studio\\xuetuCODE\\NEWxuetu\\app\\src\\main\\res\\mipmap-xhdpi\\setting.png"
+    },
+    {
+        "merged": "D:\\my_owe_code\\android\\Android_Studio\\xuetuCODE\\NEWxuetu\\app\\build\\intermediates\\res\\merged\\debug\\mipmap-xhdpi\\ic_launcher.png",
+        "source": "D:\\my_owe_code\\android\\Android_Studio\\xuetuCODE\\NEWxuetu\\app\\src\\main\\res\\mipmap-xhdpi\\ic_launcher.png"
+    },
+    {
+        "merged": "D:\\my_owe_code\\android\\Android_Studio\\xuetuCODE\\NEWxuetu\\app\\build\\intermediates\\res\\merged\\debug\\mipmap-xhdpi\\back_select.png",
+        "source": "D:\\my_owe_code\\android\\Android_Studio\\xuetuCODE\\NEWxuetu\\app\\src\\main\\res\\mipmap-xhdpi\\back_select.png"
+    },
+    {
+        "merged": "D:\\my_owe_code\\android\\Android_Studio\\xuetuCODE\\NEWxuetu\\app\\build\\intermediates\\res\\merged\\debug\\mipmap-xhdpi\\share_select.png",
+        "source": "D:\\my_owe_code\\android\\Android_Studio\\xuetuCODE\\NEWxuetu\\app\\src\\main\\res\\mipmap-xhdpi\\share_select.png"
+    },
+    {
+        "merged": "D:\\my_owe_code\\android\\Android_Studio\\xuetuCODE\\NEWxuetu\\app\\build\\intermediates\\res\\merged\\debug\\mipmap-xhdpi\\setting_select.png",
+        "source": "D:\\my_owe_code\\android\\Android_Studio\\xuetuCODE\\NEWxuetu\\app\\src\\main\\res\\mipmap-xhdpi\\setting_select.png"
+    },
+    {
+        "merged": "D:\\my_owe_code\\android\\Android_Studio\\xuetuCODE\\NEWxuetu\\app\\build\\intermediates\\res\\merged\\debug\\mipmap-xhdpi\\back.png",
+        "source": "D:\\my_owe_code\\android\\Android_Studio\\xuetuCODE\\NEWxuetu\\app\\src\\main\\res\\mipmap-xhdpi\\back.png"
+    }
+]

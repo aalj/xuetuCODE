@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<items version="2" >
+
+    <item
+        is-multidex="true"
+        jar="D:\Android\android-sdk\extras\android\m2repository\com\android\support\support-annotations\22.2.1\support-annotations-22.2.1.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="22.0.1"
+        sha1="61a0ff5c29295ec56d7e0bd3d25d95dbf71b4b2b">
+        <dex dex="D:\my_owe_code\android\Android_Studio\xuetuCODE\NEWxuetu\app\build\intermediates\transforms\dex\debug\folders\1000\10\support-annotations-22.2.1_b03c26d626ec785829bbbfadec068bccc5ca77c5\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="D:\my_owe_code\android\Android_Studio\xuetuCODE\NEWxuetu\app\build\intermediates\exploded-aar\com.android.support\support-v4\22.2.1\jars\libs\internal_impl-22.2.1.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="22.0.1"
+        sha1="c471eaaba13ff64f6e0383d1c30a9cdc9a97efeb">
+        <dex dex="D:\my_owe_code\android\Android_Studio\xuetuCODE\NEWxuetu\app\build\intermediates\transforms\dex\debug\folders\1000\10\internal_impl-22.2.1_9291b2ca323bf2efb38c98c2cebc9f5ecabe2343\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\liang\.gradle\caches\modules-2\files-2.1\com.squareup.okio\okio\1.9.0\f824591a0016efbaeddb8300bee54832a1398cfa\okio-1.9.0.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="22.0.1"
+        sha1="f824591a0016efbaeddb8300bee54832a1398cfa">
+        <dex dex="D:\my_owe_code\android\Android_Studio\xuetuCODE\NEWxuetu\app\build\intermediates\transforms\dex\debug\folders\1000\10\okio-1.9.0_7eabfddd34f94e266df9a90745f252595976b7c7\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\liang\.gradle\caches\modules-2\files-2.1\org.greenrobot\eventbus\3.0.0\ddd99896e9569eaababbe81b35d80e1b91c4ad85\eventbus-3.0.0.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="22.0.1"
+        sha1="ddd99896e9569eaababbe81b35d80e1b91c4ad85">
+        <dex dex="D:\my_owe_code\android\Android_Studio\xuetuCODE\NEWxuetu\app\build\intermediates\transforms\dex\debug\folders\1000\10\eventbus-3.0.0_18a08a07679cb6a74695d5e049fdd5ee6967195c\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="D:\my_owe_code\android\Android_Studio\xuetuCODE\NEWxuetu\app\build\intermediates\incremental-classes\debug\instant-run-bootstrap.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="22.0.1"
+        sha1="06e39c584e887f6506761275e6bbc2dbc664255f">
+        <dex dex="D:\my_owe_code\android\Android_Studio\xuetuCODE\NEWxuetu\app\build\intermediates\transforms\dex\debug\folders\1000\10\instant-run-bootstrap_7a65b5e718f397db18c37ca10640f0500ba04ab8\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\liang\.gradle\caches\modules-2\files-2.1\com.squareup.okhttp3\okhttp\3.4.1\c7c4f9e35c2fd5900da24f9872e3971801f08ce0\okhttp-3.4.1.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="22.0.1"
+        sha1="c7c4f9e35c2fd5900da24f9872e3971801f08ce0">
+        <dex dex="D:\my_owe_code\android\Android_Studio\xuetuCODE\NEWxuetu\app\build\intermediates\transforms\dex\debug\folders\1000\10\okhttp-3.4.1_c60caa5bf175ff57703cda43bff7c96aac3d2164\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="D:\my_owe_code\android\Android_Studio\xuetuCODE\NEWxuetu\app\build\intermediates\incremental-runtime-classes\debug\instant-run.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="22.0.1"
+        sha1="4ec18235ee226e88d97264bdce62edf4ece76e94">
+        <dex dex="D:\my_owe_code\android\Android_Studio\xuetuCODE\NEWxuetu\app\build\intermediates\transforms\dex\debug\folders\1000\10\instant-run_e84d124a2762880d0131855769f8cb8f0da8f0b8\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="D:\my_owe_code\android\Android_Studio\xuetuCODE\NEWxuetu\app\build\intermediates\exploded-aar\com.android.support\support-v4\22.2.1\jars\classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="22.0.1"
+        sha1="f8efd0096475e0daf054267b61544e10dc776503">
+        <dex dex="D:\my_owe_code\android\Android_Studio\xuetuCODE\NEWxuetu\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.android.support-support-v4-22.2.1_3baa9ddeda11d46dcb837341abaeba753e391de1\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="D:\my_owe_code\android\Android_Studio\xuetuCODE\NEWxuetu\app\build\intermediates\exploded-aar\com.android.support\appcompat-v7\22.2.1\jars\classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="22.0.1"
+        sha1="4486e953d1f35f8ccab098b1dd67146366d5f731">
+        <dex dex="D:\my_owe_code\android\Android_Studio\xuetuCODE\NEWxuetu\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.android.support-appcompat-v7-22.2.1_13e3af5b6a7203cad047f05ba3703368e6999dd6\classes.dex" />
+    </item>
+
+</items>

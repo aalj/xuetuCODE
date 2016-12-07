@@ -1,0 +1,428 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res/com.xuetu"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:orientation="vertical" >
+
+    <ScrollView
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:scrollbars="none" >
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical" >
+
+            <RelativeLayout
+                android:id="@+id/view_user"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/background_world"
+                android:paddingBottom="5dp"
+                android:paddingTop="5dp" >
+
+                <com.xuetu.widget.CircleImageView
+                    android:id="@+id/img_head"
+                    android:layout_width="80.0dip"
+                    android:layout_height="80.0dip"
+                    android:layout_centerHorizontal="true"
+                    android:src="@drawable/iu" />
+                <!-- <ImageView -->
+                <!-- android:id="@+id/head" -->
+                <!-- android:layout_width="80.0dip" -->
+                <!-- android:layout_height="80.0dip" -->
+                <!-- android:layout_centerVertical="true" -->
+                <!-- android:layout_marginRight="15dp" -->
+                <!-- android:layout_toLeftOf="@+id/imageView1" -->
+                <!-- android:src="@drawable/head" /> -->
+
+                <TextView
+                    android:id="@+id/user_name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/img_head"
+                    android:layout_centerHorizontal="true"
+                    android:layout_margin="15dp"
+                    android:text="昵称"
+                    android:textColor="@color/gray2"
+                    android:textSize="16sp" />
+
+                <ImageView
+                    android:id="@+id/back_to_be"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignTop="@+id/img_head"
+                    android:layout_marginLeft="5dp"
+                    android:layout_marginTop="5dp"
+                    android:src="@drawable/ic_menu_back" />
+            </RelativeLayout>
+
+            <LinearLayout
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:orientation="vertical" >
+
+                <RelativeLayout
+                    android:id="@+id/nicheng"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:background="@drawable/setting_item_selector"
+                    android:orientation="vertical" >
+
+                    <TextView
+                        android:id="@+id/text_school"
+                        style="@style/find_item_edit_tv"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:layout_marginLeft="15dp"
+                        android:text="年级"
+                        android:textSize="16dp" />
+
+                    <TextView
+                        android:id="@+id/school_name"
+                        style="@style/TxtTitle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:layout_marginLeft="10dp"
+                        android:layout_toRightOf="@+id/text_school"
+                        android:text="学校名字"
+                        android:textSize="16dp" />
+                </RelativeLayout>
+
+                <View
+                    android:layout_width="fill_parent"
+                    android:layout_height="1.0dip"
+                    android:background="@color/black2" />
+
+                <RelativeLayout
+                    android:id="@+id/gexingqianming"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:background="@drawable/setting_item_selector"
+                    android:orientation="vertical" >
+
+                    <TextView
+                        android:id="@+id/text_gexingqianming"
+                        style="@style/find_item_edit_tv"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:layout_marginLeft="15dp"
+                        android:text="签名"
+                        android:textSize="16dp" />
+
+                    <TextView
+                        android:id="@+id/text_qianming"
+                        style="@style/TxtTitle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:layout_marginLeft="10dp"
+                        android:layout_toRightOf="@+id/text_gexingqianming"
+                        android:text="签名"
+                        android:textSize="16dp" />
+                </RelativeLayout>
+
+                <View
+                    android:layout_width="fill_parent"
+                    android:layout_height="1.0dip"
+                    android:background="@color/black2" />
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:background="@drawable/setting_item_selector"
+                    android:orientation="vertical" >
+
+                    <TextView
+                        android:id="@+id/chengweixuexi"
+                        style="@style/find_item_edit_tv"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:layout_marginLeft="15dp"
+                        android:text="已经加入学习"
+                        android:textSize="16dp" />
+
+                    <TextView
+                        android:id="@+id/day"
+                        style="@style/TxtTitle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:layout_marginLeft="10dp"
+                        android:layout_toRightOf="@+id/chengweixuexi"
+                        android:text="天数"
+                        android:textSize="16dp" />
+                </RelativeLayout>
+            </LinearLayout>
+
+            <View
+                android:layout_width="fill_parent"
+                android:layout_height="1.0dip"
+                android:background="@color/black2" />
+
+            <LinearLayout
+                android:id="@+id/linear_question"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:orientation="vertical" >
+
+                <RelativeLayout
+                    android:id="@+id/questionall"
+                    android:layout_width="match_parent"
+                    android:layout_height="30dp"
+                    android:background="@drawable/setting_item_selector"
+                    android:orientation="vertical" >
+
+                    <TextView
+                        style="@style/find_item_edit_tv"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:layout_marginLeft="15dp"
+                        android:text="问题"
+                        android:textColor="@color/gray_black"
+                        android:textSize="16dp" />
+
+                    <ImageView
+                        android:id="@+id/ImageView01"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:layout_centerVertical="true"
+                        android:layout_marginRight="15dp"
+                        android:src="@drawable/right" />
+                </RelativeLayout>
+
+                <View
+                    android:layout_width="fill_parent"
+                    android:layout_height="1.0dip"
+                    android:background="@color/black2" />
+
+                <RelativeLayout
+                    android:id="@+id/wenti1"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:background="@drawable/setting_item_selector"
+                    android:orientation="vertical" >
+
+                    <TextView
+                        android:id="@+id/question_name1"
+                        style="@style/TxtTitle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginTop="5dp"
+                        android:text="问题名字"
+                        android:textSize="16dp" />
+
+                    <TextView
+                        android:id="@+id/kind_of_questions1"
+                        style="@style/find_item_edit_tv"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignLeft="@+id/question_name1"
+                        android:layout_alignParentBottom="true"
+                        android:layout_marginLeft="10dp"
+                        android:text="问题类型"
+                        android:textSize="14dp" />
+
+                    <TextView
+                        android:id="@+id/time_of_question1"
+                        style="@style/find_item_edit_tv"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentBottom="true"
+                        android:layout_alignParentRight="true"
+                        android:layout_marginRight="18dp"
+                        android:text="问题时间"
+                        android:textSize="14dp" />
+                </RelativeLayout>
+
+                <View
+                    android:layout_width="fill_parent"
+                    android:layout_height="1.0dip"
+                    android:background="@color/black2" />
+
+                <RelativeLayout
+                    android:id="@+id/wenti2"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:background="@drawable/setting_item_selector"
+                    android:orientation="vertical" >
+
+                    <TextView
+                        android:id="@+id/questioninformation"
+                        style="@style/TxtTitle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginTop="5dp"
+                        android:text="问题名字"
+                        android:textSize="16dp" />
+
+                    <TextView
+                        android:id="@+id/kind_of_question2"
+                        style="@style/find_item_edit_tv"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignLeft="@+id/questioninformation"
+                        android:layout_alignParentBottom="true"
+                        android:layout_marginLeft="10dp"
+                        android:text="问题类型"
+                        android:textSize="14dp" />
+
+                    <TextView
+                        android:id="@+id/question_time2"
+                        style="@style/find_item_edit_tv"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentBottom="true"
+                        android:layout_alignParentRight="true"
+                        android:layout_marginRight="18dp"
+                        android:text="问题时间"
+                        android:textSize="14dp" />
+                </RelativeLayout>
+            </LinearLayout>
+
+            <View
+                android:layout_width="fill_parent"
+                android:layout_height="1.0dip"
+                android:background="@color/black2" />
+
+            <LinearLayout
+                android:id="@+id/linear_answer"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:orientation="vertical" >
+
+                <RelativeLayout
+                    android:id="@+id/answerall"
+                    android:layout_width="match_parent"
+                    android:layout_height="30dp"
+                    android:background="@drawable/setting_item_selector"
+                    android:orientation="vertical" >
+
+                    <TextView
+                        style="@style/find_item_edit_tv"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:layout_marginLeft="15dp"
+                        android:text="回答"
+                        android:textColor="@color/gray_black"
+                        android:textSize="16dp" />
+
+                    <ImageView
+                        android:id="@+id/ImageView02"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:layout_centerVertical="true"
+                        android:layout_marginRight="15dp"
+                        android:src="@drawable/right" />
+                </RelativeLayout>
+
+                <View
+                    android:layout_width="fill_parent"
+                    android:layout_height="1.0dip"
+                    android:background="@color/black2" />
+
+                <RelativeLayout
+                    android:id="@+id/daan1"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:background="@drawable/setting_item_selector"
+                    android:orientation="vertical" >
+
+                    <TextView
+                        android:id="@+id/name_of_answer1"
+                        style="@style/TxtTitle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginTop="5dp"
+                        android:text="问题名字"
+                        android:textSize="16dp" />
+
+                    <TextView
+                        android:id="@+id/kind_of_answer1"
+                        style="@style/find_item_edit_tv"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignLeft="@+id/name_of_answer1"
+                        android:layout_alignParentBottom="true"
+                        android:layout_marginLeft="10dp"
+                        android:text="问题类型"
+                        android:textSize="14dp" />
+
+                    <TextView
+                        android:id="@+id/time_of_answer1"
+                        style="@style/find_item_edit_tv"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentBottom="true"
+                        android:layout_alignParentRight="true"
+                        android:layout_marginRight="18dp"
+                        android:text="问题时间"
+                        android:textSize="14dp" />
+                </RelativeLayout>
+
+                <View
+                    android:layout_width="fill_parent"
+                    android:layout_height="1.0dip"
+                    android:background="@color/black2" />
+
+                <RelativeLayout
+                    android:id="@+id/daan2"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:background="@drawable/setting_item_selector"
+                    android:orientation="vertical" >
+
+                    <TextView
+                        android:id="@+id/answer_questioninformation2"
+                        style="@style/TxtTitle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginTop="5dp"
+                        android:text="问题名字"
+                        android:textSize="16dp" />
+
+                    <TextView
+                        android:id="@+id/kind_of_answer2"
+                        style="@style/find_item_edit_tv"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignLeft="@+id/answer_questioninformation2"
+                        android:layout_alignParentBottom="true"
+                        android:layout_marginLeft="10dp"
+                        android:text="问题类型"
+                        android:textSize="14dp" />
+
+                    <TextView
+                        android:id="@+id/time_of_question2"
+                        style="@style/find_item_edit_tv"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentBottom="true"
+                        android:layout_alignParentRight="true"
+                        android:layout_marginRight="18dp"
+                        android:text="问题时间"
+                        android:textSize="14dp" />
+                </RelativeLayout>
+            </LinearLayout>
+        </LinearLayout>
+    </ScrollView>
+
+</LinearLayout>

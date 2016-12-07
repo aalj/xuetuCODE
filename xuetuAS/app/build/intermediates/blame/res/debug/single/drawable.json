@@ -1,0 +1,646 @@
+[
+    {
+        "merged": "D:\\my_owe_code\\android\\Android_Studio\\xuetuCODE\\xuetuAS\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\umeng_socialize_title_right_bt_normal.png",
+        "source": "D:\\my_owe_code\\android\\Android_Studio\\xuetuCODE\\xuetuAS\\app\\src\\main\\res\\drawable\\umeng_socialize_title_right_bt_normal.png"
+    },
+    {
+        "merged": "D:\\my_owe_code\\android\\Android_Studio\\xuetuCODE\\xuetuAS\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\abc_ic_clear_material.xml",
+        "source": "D:\\my_owe_code\\android\\Android_Studio\\xuetuCODE\\xuetuAS\\app\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\24.2.1\\res\\drawable\\abc_ic_clear_material.xml"
+    },
+    {
+        "merged": "D:\\my_owe_code\\android\\Android_Studio\\xuetuCODE\\xuetuAS\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\other.xml",
+        "source": "D:\\my_owe_code\\android\\Android_Studio\\xuetuCODE\\xuetuAS\\app\\src\\main\\res\\drawable\\other.xml"
+    },
+    {
+        "merged": "D:\\my_owe_code\\android\\Android_Studio\\xuetuCODE\\xuetuAS\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\umeng_socialize_title_right_bt_selected.png",
+        "source": "D:\\my_owe_code\\android\\Android_Studio\\xuetuCODE\\xuetuAS\\app\\src\\main\\res\\drawable\\umeng_socialize_title_right_bt_selected.png"
+    },
+    {
+        "merged": "D:\\my_owe_code\\android\\Android_Studio\\xuetuCODE\\xuetuAS\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\umeng_socialize_title_back_bt.xml",
+        "source": "D:\\my_owe_code\\android\\Android_Studio\\xuetuCODE\\xuetuAS\\app\\src\\main\\res\\drawable\\umeng_socialize_title_back_bt.xml"
+    },
+    {
+        "merged": "D:\\my_owe_code\\android\\Android_Studio\\xuetuCODE\\xuetuAS\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\kb6.xml",
+        "source": "D:\\my_owe_code\\android\\Android_Studio\\xuetuCODE\\xuetuAS\\app\\src\\main\\res\\drawable\\kb6.xml"
+    },
+    {
+        "merged": "D:\\my_owe_code\\android\\Android_Studio\\xuetuCODE\\xuetuAS\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\umeng_socialize_twitter.png",
+        "source": "D:\\my_owe_code\\android\\Android_Studio\\xuetuCODE\\xuetuAS\\app\\src\\main\\res\\drawable\\umeng_socialize_twitter.png"
+    },
+    {
+        "merged": "D:\\my_owe_code\\android\\Android_Studio\\xuetuCODE\\xuetuAS\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\umeng_socialize_qzone_off.png",
+        "source": "D:\\my_owe_code\\android\\Android_Studio\\xuetuCODE\\xuetuAS\\app\\src\\main\\res\\drawable\\umeng_socialize_qzone_off.png"
+    },
+    {
+        "merged": "D:\\my_owe_code\\android\\Android_Studio\\xuetuCODE\\xuetuAS\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\umeng_socialize_sina_off.png",
+        "source": "D:\\my_owe_code\\android\\Android_Studio\\xuetuCODE\\xuetuAS\\app\\src\\main\\res\\drawable\\umeng_socialize_sina_off.png"
+    },
+    {
+        "merged": "D:\\my_owe_code\\android\\Android_Studio\\xuetuCODE\\xuetuAS\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\home_page.xml",
+        "source": "D:\\my_owe_code\\android\\Android_Studio\\xuetuCODE\\xuetuAS\\app\\src\\main\\res\\drawable\\home_page.xml"
+    },
+    {
+        "merged": "D:\\my_owe_code\\android\\Android_Studio\\xuetuCODE\\xuetuAS\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\relatichangecolor.xml",
+        "source": "D:\\my_owe_code\\android\\Android_Studio\\xuetuCODE\\xuetuAS\\app\\src\\main\\res\\drawable\\relatichangecolor.xml"
+    },
+    {
+        "merged": "D:\\my_owe_code\\android\\Android_Studio\\xuetuCODE\\xuetuAS\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\edittext_changename.xml",
+        "source": "D:\\my_owe_code\\android\\Android_Studio\\xuetuCODE\\xuetuAS\\app\\src\\main\\res\\drawable\\edittext_changename.xml"
+    },
+    {
+        "merged": "D:\\my_owe_code\\android\\Android_Studio\\xuetuCODE\\xuetuAS\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\abc_btn_radio_material.xml",
+        "source": "D:\\my_owe_code\\android\\Android_Studio\\xuetuCODE\\xuetuAS\\app\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\24.2.1\\res\\drawable\\abc_btn_radio_material.xml"
+    },
+    {
+        "merged": "D:\\my_owe_code\\android\\Android_Studio\\xuetuCODE\\xuetuAS\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\ic_pulltorefresh_arrow_up.png",
+        "source": "D:\\my_owe_code\\android\\Android_Studio\\xuetuCODE\\xuetuAS\\app\\src\\main\\res\\drawable\\ic_pulltorefresh_arrow_up.png"
+    },
+    {
+        "merged": "D:\\my_owe_code\\android\\Android_Studio\\xuetuCODE\\xuetuAS\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\abc_seekbar_thumb_material.xml",
+        "source": "D:\\my_owe_code\\android\\Android_Studio\\xuetuCODE\\xuetuAS\\app\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\24.2.1\\res\\drawable\\abc_seekbar_thumb_material.xml"
+    },
+    {
+        "merged": "D:\\my_owe_code\\android\\Android_Studio\\xuetuCODE\\xuetuAS\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\umeng_socialize_shape_solid_grey.xml",
+        "source": "D:\\my_owe_code\\android\\Android_Studio\\xuetuCODE\\xuetuAS\\app\\src\\main\\res\\drawable\\umeng_socialize_shape_solid_grey.xml"
+    },
+    {
+        "merged": "D:\\my_owe_code\\android\\Android_Studio\\xuetuCODE\\xuetuAS\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\umeng_socialize_title_tab_left_normal.png",
+        "source": "D:\\my_owe_code\\android\\Android_Studio\\xuetuCODE\\xuetuAS\\app\\src\\main\\res\\drawable\\umeng_socialize_title_tab_left_normal.png"
+    },
+    {
+        "merged": "D:\\my_owe_code\\android\\Android_Studio\\xuetuCODE\\xuetuAS\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\umeng_socialize_title_tab_right_pressed.png",
+        "source": "D:\\my_owe_code\\android\\Android_Studio\\xuetuCODE\\xuetuAS\\app\\src\\main\\res\\drawable\\umeng_socialize_title_tab_right_pressed.png"
+    },
+    {
+        "merged": "D:\\my_owe_code\\android\\Android_Studio\\xuetuCODE\\xuetuAS\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\umeng_socialize_default_avatar.png",
+        "source": "D:\\my_owe_code\\android\\Android_Studio\\xuetuCODE\\xuetuAS\\app\\src\\main\\res\\drawable\\umeng_socialize_default_avatar.png"
+    },
+    {
+        "merged": "D:\\my_owe_code\\android\\Android_Studio\\xuetuCODE\\xuetuAS\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\umeng_socialize_wechat_gray.png",
+        "source": "D:\\my_owe_code\\android\\Android_Studio\\xuetuCODE\\xuetuAS\\app\\src\\main\\res\\drawable\\umeng_socialize_wechat_gray.png"
+    },
+    {
+        "merged": "D:\\my_owe_code\\android\\Android_Studio\\xuetuCODE\\xuetuAS\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\umeng_socialize_at_button.xml",
+        "source": "D:\\my_owe_code\\android\\Android_Studio\\xuetuCODE\\xuetuAS\\app\\src\\main\\res\\drawable\\umeng_socialize_at_button.xml"
+    },
+    {
+        "merged": "D:\\my_owe_code\\android\\Android_Studio\\xuetuCODE\\xuetuAS\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\umeng_socialize_title_back_bt_normal.png",
+        "source": "D:\\my_owe_code\\android\\Android_Studio\\xuetuCODE\\xuetuAS\\app\\src\\main\\res\\drawable\\umeng_socialize_title_back_bt_normal.png"
+    },
+    {
+        "merged": "D:\\my_owe_code\\android\\Android_Studio\\xuetuCODE\\xuetuAS\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\setting_button_selector.xml",
+        "source": "D:\\my_owe_code\\android\\Android_Studio\\xuetuCODE\\xuetuAS\\app\\src\\main\\res\\drawable\\setting_button_selector.xml"
+    },
+    {
+        "merged": "D:\\my_owe_code\\android\\Android_Studio\\xuetuCODE\\xuetuAS\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\edittext_login.xml",
+        "source": "D:\\my_owe_code\\android\\Android_Studio\\xuetuCODE\\xuetuAS\\app\\src\\main\\res\\drawable\\edittext_login.xml"
+    },
+    {
+        "merged": "D:\\my_owe_code\\android\\Android_Studio\\xuetuCODE\\xuetuAS\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\setting_sub_selector.xml",
+        "source": "D:\\my_owe_code\\android\\Android_Studio\\xuetuCODE\\xuetuAS\\app\\src\\main\\res\\drawable\\setting_sub_selector.xml"
+    },
+    {
+        "merged": "D:\\my_owe_code\\android\\Android_Studio\\xuetuCODE\\xuetuAS\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\abc_tab_indicator_material.xml",
+        "source": "D:\\my_owe_code\\android\\Android_Studio\\xuetuCODE\\xuetuAS\\app\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\24.2.1\\res\\drawable\\abc_tab_indicator_material.xml"
+    },
+    {
+        "merged": "D:\\my_owe_code\\android\\Android_Studio\\xuetuCODE\\xuetuAS\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\cornro_myshoucang.xml",
+        "source": "D:\\my_owe_code\\android\\Android_Studio\\xuetuCODE\\xuetuAS\\app\\src\\main\\res\\drawable\\cornro_myshoucang.xml"
+    },
+    {
+        "merged": "D:\\my_owe_code\\android\\Android_Studio\\xuetuCODE\\xuetuAS\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\abc_ic_ab_back_material.xml",
+        "source": "D:\\my_owe_code\\android\\Android_Studio\\xuetuCODE\\xuetuAS\\app\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\24.2.1\\res\\drawable\\abc_ic_ab_back_material.xml"
+    },
+    {
+        "merged": "D:\\my_owe_code\\android\\Android_Studio\\xuetuCODE\\xuetuAS\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\umeng_socialize_title_right_bt.xml",
+        "source": "D:\\my_owe_code\\android\\Android_Studio\\xuetuCODE\\xuetuAS\\app\\src\\main\\res\\drawable\\umeng_socialize_title_right_bt.xml"
+    },
+    {
+        "merged": "D:\\my_owe_code\\android\\Android_Studio\\xuetuCODE\\xuetuAS\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\edit_kuang.xml",
+        "source": "D:\\my_owe_code\\android\\Android_Studio\\xuetuCODE\\xuetuAS\\app\\src\\main\\res\\drawable\\edit_kuang.xml"
+    },
+    {
+        "merged": "D:\\my_owe_code\\android\\Android_Studio\\xuetuCODE\\xuetuAS\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\abc_ratingbar_small_material.xml",
+        "source": "D:\\my_owe_code\\android\\Android_Studio\\xuetuCODE\\xuetuAS\\app\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\24.2.1\\res\\drawable\\abc_ratingbar_small_material.xml"
+    },
+    {
+        "merged": "D:\\my_owe_code\\android\\Android_Studio\\xuetuCODE\\xuetuAS\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\ccaitlyn.jpg",
+        "source": "D:\\my_owe_code\\android\\Android_Studio\\xuetuCODE\\xuetuAS\\app\\src\\main\\res\\drawable\\ccaitlyn.jpg"
+    },
+    {
+        "merged": "D:\\my_owe_code\\android\\Android_Studio\\xuetuCODE\\xuetuAS\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\ic_pulltorefresh_arrow.png",
+        "source": "D:\\my_owe_code\\android\\Android_Studio\\xuetuCODE\\xuetuAS\\app\\src\\main\\res\\drawable\\ic_pulltorefresh_arrow.png"
+    },
+    {
+        "merged": "D:\\my_owe_code\\android\\Android_Studio\\xuetuCODE\\xuetuAS\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\umeng_socialize_follow_check.xml",
+        "source": "D:\\my_owe_code\\android\\Android_Studio\\xuetuCODE\\xuetuAS\\app\\src\\main\\res\\drawable\\umeng_socialize_follow_check.xml"
+    },
+    {
+        "merged": "D:\\my_owe_code\\android\\Android_Studio\\xuetuCODE\\xuetuAS\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\abc_ratingbar_material.xml",
+        "source": "D:\\my_owe_code\\android\\Android_Studio\\xuetuCODE\\xuetuAS\\app\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\24.2.1\\res\\drawable\\abc_ratingbar_material.xml"
+    },
+    {
+        "merged": "D:\\my_owe_code\\android\\Android_Studio\\xuetuCODE\\xuetuAS\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\umeng_socialize_button_login_normal.png",
+        "source": "D:\\my_owe_code\\android\\Android_Studio\\xuetuCODE\\xuetuAS\\app\\src\\main\\res\\drawable\\umeng_socialize_button_login_normal.png"
+    },
+    {
+        "merged": "D:\\my_owe_code\\android\\Android_Studio\\xuetuCODE\\xuetuAS\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\umeng_socialize_fetch_image.png",
+        "source": "D:\\my_owe_code\\android\\Android_Studio\\xuetuCODE\\xuetuAS\\app\\src\\main\\res\\drawable\\umeng_socialize_fetch_image.png"
+    },
+    {
+        "merged": "D:\\my_owe_code\\android\\Android_Studio\\xuetuCODE\\xuetuAS\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\kb4.xml",
+        "source": "D:\\my_owe_code\\android\\Android_Studio\\xuetuCODE\\xuetuAS\\app\\src\\main\\res\\drawable\\kb4.xml"
+    },
+    {
+        "merged": "D:\\my_owe_code\\android\\Android_Studio\\xuetuCODE\\xuetuAS\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\kb7.xml",
+        "source": "D:\\my_owe_code\\android\\Android_Studio\\xuetuCODE\\xuetuAS\\app\\src\\main\\res\\drawable\\kb7.xml"
+    },
+    {
+        "merged": "D:\\my_owe_code\\android\\Android_Studio\\xuetuCODE\\xuetuAS\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\coupon_page.xml",
+        "source": "D:\\my_owe_code\\android\\Android_Studio\\xuetuCODE\\xuetuAS\\app\\src\\main\\res\\drawable\\coupon_page.xml"
+    },
+    {
+        "merged": "D:\\my_owe_code\\android\\Android_Studio\\xuetuCODE\\xuetuAS\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\umeng_socialize_bind_bg.9.png",
+        "source": "D:\\my_owe_code\\android\\Android_Studio\\xuetuCODE\\xuetuAS\\app\\src\\main\\res\\drawable\\umeng_socialize_bind_bg.9.png"
+    },
+    {
+        "merged": "D:\\my_owe_code\\android\\Android_Studio\\xuetuCODE\\xuetuAS\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\abc_edit_text_material.xml",
+        "source": "D:\\my_owe_code\\android\\Android_Studio\\xuetuCODE\\xuetuAS\\app\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\24.2.1\\res\\drawable\\abc_edit_text_material.xml"
+    },
+    {
+        "merged": "D:\\my_owe_code\\android\\Android_Studio\\xuetuCODE\\xuetuAS\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\abc_cab_background_internal_bg.xml",
+        "source": "D:\\my_owe_code\\android\\Android_Studio\\xuetuCODE\\xuetuAS\\app\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\24.2.1\\res\\drawable\\abc_cab_background_internal_bg.xml"
+    },
+    {
+        "merged": "D:\\my_owe_code\\android\\Android_Studio\\xuetuCODE\\xuetuAS\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\abs__spinner_ab_default_holo_light.9.png",
+        "source": "D:\\my_owe_code\\android\\Android_Studio\\xuetuCODE\\xuetuAS\\app\\src\\main\\res\\drawable\\abs__spinner_ab_default_holo_light.9.png"
+    },
+    {
+        "merged": "D:\\my_owe_code\\android\\Android_Studio\\xuetuCODE\\xuetuAS\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\btn_bg_red2.xml",
+        "source": "D:\\my_owe_code\\android\\Android_Studio\\xuetuCODE\\xuetuAS\\app\\src\\main\\res\\drawable\\btn_bg_red2.xml"
+    },
+    {
+        "merged": "D:\\my_owe_code\\android\\Android_Studio\\xuetuCODE\\xuetuAS\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\umeng_socialize_action_back.xml",
+        "source": "D:\\my_owe_code\\android\\Android_Studio\\xuetuCODE\\xuetuAS\\app\\src\\main\\res\\drawable\\umeng_socialize_action_back.xml"
+    },
+    {
+        "merged": "D:\\my_owe_code\\android\\Android_Studio\\xuetuCODE\\xuetuAS\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\umeng_socialize_oauth_check_on.png",
+        "source": "D:\\my_owe_code\\android\\Android_Studio\\xuetuCODE\\xuetuAS\\app\\src\\main\\res\\drawable\\umeng_socialize_oauth_check_on.png"
+    },
+    {
+        "merged": "D:\\my_owe_code\\android\\Android_Studio\\xuetuCODE\\xuetuAS\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\abc_btn_default_mtrl_shape.xml",
+        "source": "D:\\my_owe_code\\android\\Android_Studio\\xuetuCODE\\xuetuAS\\app\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\24.2.1\\res\\drawable\\abc_btn_default_mtrl_shape.xml"
+    },
+    {
+        "merged": "D:\\my_owe_code\\android\\Android_Studio\\xuetuCODE\\xuetuAS\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\delself.xml",
+        "source": "D:\\my_owe_code\\android\\Android_Studio\\xuetuCODE\\xuetuAS\\app\\src\\main\\res\\drawable\\delself.xml"
+    },
+    {
+        "merged": "D:\\my_owe_code\\android\\Android_Studio\\xuetuCODE\\xuetuAS\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\kb3.xml",
+        "source": "D:\\my_owe_code\\android\\Android_Studio\\xuetuCODE\\xuetuAS\\app\\src\\main\\res\\drawable\\kb3.xml"
+    },
+    {
+        "merged": "D:\\my_owe_code\\android\\Android_Studio\\xuetuCODE\\xuetuAS\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\umeng_socialize_qzone_on.png",
+        "source": "D:\\my_owe_code\\android\\Android_Studio\\xuetuCODE\\xuetuAS\\app\\src\\main\\res\\drawable\\umeng_socialize_qzone_on.png"
+    },
+    {
+        "merged": "D:\\my_owe_code\\android\\Android_Studio\\xuetuCODE\\xuetuAS\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\umeng_socialize_google.png",
+        "source": "D:\\my_owe_code\\android\\Android_Studio\\xuetuCODE\\xuetuAS\\app\\src\\main\\res\\drawable\\umeng_socialize_google.png"
+    },
+    {
+        "merged": "D:\\my_owe_code\\android\\Android_Studio\\xuetuCODE\\xuetuAS\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\abc_cab_background_top_material.xml",
+        "source": "D:\\my_owe_code\\android\\Android_Studio\\xuetuCODE\\xuetuAS\\app\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\24.2.1\\res\\drawable\\abc_cab_background_top_material.xml"
+    },
+    {
+        "merged": "D:\\my_owe_code\\android\\Android_Studio\\xuetuCODE\\xuetuAS\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\umeng_socialize_renren_off.png",
+        "source": "D:\\my_owe_code\\android\\Android_Studio\\xuetuCODE\\xuetuAS\\app\\src\\main\\res\\drawable\\umeng_socialize_renren_off.png"
+    },
+    {
+        "merged": "D:\\my_owe_code\\android\\Android_Studio\\xuetuCODE\\xuetuAS\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\back_title.xml",
+        "source": "D:\\my_owe_code\\android\\Android_Studio\\xuetuCODE\\xuetuAS\\app\\src\\main\\res\\drawable\\back_title.xml"
+    },
+    {
+        "merged": "D:\\my_owe_code\\android\\Android_Studio\\xuetuCODE\\xuetuAS\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\umeng_socialize_follow_on.png",
+        "source": "D:\\my_owe_code\\android\\Android_Studio\\xuetuCODE\\xuetuAS\\app\\src\\main\\res\\drawable\\umeng_socialize_follow_on.png"
+    },
+    {
+        "merged": "D:\\my_owe_code\\android\\Android_Studio\\xuetuCODE\\xuetuAS\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\abc_vector_test.xml",
+        "source": "D:\\my_owe_code\\android\\Android_Studio\\xuetuCODE\\xuetuAS\\app\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\24.2.1\\res\\drawable\\abc_vector_test.xml"
+    },
+    {
+        "merged": "D:\\my_owe_code\\android\\Android_Studio\\xuetuCODE\\xuetuAS\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\cornor_layout.xml",
+        "source": "D:\\my_owe_code\\android\\Android_Studio\\xuetuCODE\\xuetuAS\\app\\src\\main\\res\\drawable\\cornor_layout.xml"
+    },
+    {
+        "merged": "D:\\my_owe_code\\android\\Android_Studio\\xuetuCODE\\xuetuAS\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\find_page.xml",
+        "source": "D:\\my_owe_code\\android\\Android_Studio\\xuetuCODE\\xuetuAS\\app\\src\\main\\res\\drawable\\find_page.xml"
+    },
+    {
+        "merged": "D:\\my_owe_code\\android\\Android_Studio\\xuetuCODE\\xuetuAS\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\umeng_socialize_title_back_bt_selected.png",
+        "source": "D:\\my_owe_code\\android\\Android_Studio\\xuetuCODE\\xuetuAS\\app\\src\\main\\res\\drawable\\umeng_socialize_title_back_bt_selected.png"
+    },
+    {
+        "merged": "D:\\my_owe_code\\android\\Android_Studio\\xuetuCODE\\xuetuAS\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\umeng_socialize_action_back_selected.png",
+        "source": "D:\\my_owe_code\\android\\Android_Studio\\xuetuCODE\\xuetuAS\\app\\src\\main\\res\\drawable\\umeng_socialize_action_back_selected.png"
+    },
+    {
+        "merged": "D:\\my_owe_code\\android\\Android_Studio\\xuetuCODE\\xuetuAS\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\umeng_socialize_renren_on.png",
+        "source": "D:\\my_owe_code\\android\\Android_Studio\\xuetuCODE\\xuetuAS\\app\\src\\main\\res\\drawable\\umeng_socialize_renren_on.png"
+    },
+    {
+        "merged": "D:\\my_owe_code\\android\\Android_Studio\\xuetuCODE\\xuetuAS\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\umeng_socialize_share_transparent_corner.xml",
+        "source": "D:\\my_owe_code\\android\\Android_Studio\\xuetuCODE\\xuetuAS\\app\\src\\main\\res\\drawable\\umeng_socialize_share_transparent_corner.xml"
+    },
+    {
+        "merged": "D:\\my_owe_code\\android\\Android_Studio\\xuetuCODE\\xuetuAS\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\abc_list_selector_background_transition_holo_light.xml",
+        "source": "D:\\my_owe_code\\android\\Android_Studio\\xuetuCODE\\xuetuAS\\app\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\24.2.1\\res\\drawable\\abc_list_selector_background_transition_holo_light.xml"
+    },
+    {
+        "merged": "D:\\my_owe_code\\android\\Android_Studio\\xuetuCODE\\xuetuAS\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\umeng_socialize_tx_off.png",
+        "source": "D:\\my_owe_code\\android\\Android_Studio\\xuetuCODE\\xuetuAS\\app\\src\\main\\res\\drawable\\umeng_socialize_tx_off.png"
+    },
+    {
+        "merged": "D:\\my_owe_code\\android\\Android_Studio\\xuetuCODE\\xuetuAS\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\umeng_socialize_share_to_button.xml",
+        "source": "D:\\my_owe_code\\android\\Android_Studio\\xuetuCODE\\xuetuAS\\app\\src\\main\\res\\drawable\\umeng_socialize_share_to_button.xml"
+    },
+    {
+        "merged": "D:\\my_owe_code\\android\\Android_Studio\\xuetuCODE\\xuetuAS\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\umeng_socialize_oauth_check.xml",
+        "source": "D:\\my_owe_code\\android\\Android_Studio\\xuetuCODE\\xuetuAS\\app\\src\\main\\res\\drawable\\umeng_socialize_oauth_check.xml"
+    },
+    {
+        "merged": "D:\\my_owe_code\\android\\Android_Studio\\xuetuCODE\\xuetuAS\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\umeng_socialize_button_login.xml",
+        "source": "D:\\my_owe_code\\android\\Android_Studio\\xuetuCODE\\xuetuAS\\app\\src\\main\\res\\drawable\\umeng_socialize_button_login.xml"
+    },
+    {
+        "merged": "D:\\my_owe_code\\android\\Android_Studio\\xuetuCODE\\xuetuAS\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\dot.xml",
+        "source": "D:\\my_owe_code\\android\\Android_Studio\\xuetuCODE\\xuetuAS\\app\\src\\main\\res\\drawable\\dot.xml"
+    },
+    {
+        "merged": "D:\\my_owe_code\\android\\Android_Studio\\xuetuCODE\\xuetuAS\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\umeng_socialize_window_shadow_pad.xml",
+        "source": "D:\\my_owe_code\\android\\Android_Studio\\xuetuCODE\\xuetuAS\\app\\src\\main\\res\\drawable\\umeng_socialize_window_shadow_pad.xml"
+    },
+    {
+        "merged": "D:\\my_owe_code\\android\\Android_Studio\\xuetuCODE\\xuetuAS\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\abc_list_selector_background_transition_holo_dark.xml",
+        "source": "D:\\my_owe_code\\android\\Android_Studio\\xuetuCODE\\xuetuAS\\app\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\24.2.1\\res\\drawable\\abc_list_selector_background_transition_holo_dark.xml"
+    },
+    {
+        "merged": "D:\\my_owe_code\\android\\Android_Studio\\xuetuCODE\\xuetuAS\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\corner_youhuijuanbg.xml",
+        "source": "D:\\my_owe_code\\android\\Android_Studio\\xuetuCODE\\xuetuAS\\app\\src\\main\\res\\drawable\\corner_youhuijuanbg.xml"
+    },
+    {
+        "merged": "D:\\my_owe_code\\android\\Android_Studio\\xuetuCODE\\xuetuAS\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\umeng_socialize_button_white.9.png",
+        "source": "D:\\my_owe_code\\android\\Android_Studio\\xuetuCODE\\xuetuAS\\app\\src\\main\\res\\drawable\\umeng_socialize_button_white.9.png"
+    },
+    {
+        "merged": "D:\\my_owe_code\\android\\Android_Studio\\xuetuCODE\\xuetuAS\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\textchangebackground.xml",
+        "source": "D:\\my_owe_code\\android\\Android_Studio\\xuetuCODE\\xuetuAS\\app\\src\\main\\res\\drawable\\textchangebackground.xml"
+    },
+    {
+        "merged": "D:\\my_owe_code\\android\\Android_Studio\\xuetuCODE\\xuetuAS\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\umeng_socialize_tx_on.png",
+        "source": "D:\\my_owe_code\\android\\Android_Studio\\xuetuCODE\\xuetuAS\\app\\src\\main\\res\\drawable\\umeng_socialize_tx_on.png"
+    },
+    {
+        "merged": "D:\\my_owe_code\\android\\Android_Studio\\xuetuCODE\\xuetuAS\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\common_progressbar.xml",
+        "source": "D:\\my_owe_code\\android\\Android_Studio\\xuetuCODE\\xuetuAS\\app\\src\\main\\res\\drawable\\common_progressbar.xml"
+    },
+    {
+        "merged": "D:\\my_owe_code\\android\\Android_Studio\\xuetuCODE\\xuetuAS\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\person_page.xml",
+        "source": "D:\\my_owe_code\\android\\Android_Studio\\xuetuCODE\\xuetuAS\\app\\src\\main\\res\\drawable\\person_page.xml"
+    },
+    {
+        "merged": "D:\\my_owe_code\\android\\Android_Studio\\xuetuCODE\\xuetuAS\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\umeng_socialize_search_icon.png",
+        "source": "D:\\my_owe_code\\android\\Android_Studio\\xuetuCODE\\xuetuAS\\app\\src\\main\\res\\drawable\\umeng_socialize_search_icon.png"
+    },
+    {
+        "merged": "D:\\my_owe_code\\android\\Android_Studio\\xuetuCODE\\xuetuAS\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\umeng_socialize_nav_bar_bg.png",
+        "source": "D:\\my_owe_code\\android\\Android_Studio\\xuetuCODE\\xuetuAS\\app\\src\\main\\res\\drawable\\umeng_socialize_nav_bar_bg.png"
+    },
+    {
+        "merged": "D:\\my_owe_code\\android\\Android_Studio\\xuetuCODE\\xuetuAS\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\abc_item_background_holo_dark.xml",
+        "source": "D:\\my_owe_code\\android\\Android_Studio\\xuetuCODE\\xuetuAS\\app\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\24.2.1\\res\\drawable\\abc_item_background_holo_dark.xml"
+    },
+    {
+        "merged": "D:\\my_owe_code\\android\\Android_Studio\\xuetuCODE\\xuetuAS\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\umeng_socialize_facebook.png",
+        "source": "D:\\my_owe_code\\android\\Android_Studio\\xuetuCODE\\xuetuAS\\app\\src\\main\\res\\drawable\\umeng_socialize_facebook.png"
+    },
+    {
+        "merged": "D:\\my_owe_code\\android\\Android_Studio\\xuetuCODE\\xuetuAS\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\umeng_socialize_sina_on.png",
+        "source": "D:\\my_owe_code\\android\\Android_Studio\\xuetuCODE\\xuetuAS\\app\\src\\main\\res\\drawable\\umeng_socialize_sina_on.png"
+    },
+    {
+        "merged": "D:\\my_owe_code\\android\\Android_Studio\\xuetuCODE\\xuetuAS\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\buttonchangecolor.xml",
+        "source": "D:\\my_owe_code\\android\\Android_Studio\\xuetuCODE\\xuetuAS\\app\\src\\main\\res\\drawable\\buttonchangecolor.xml"
+    },
+    {
+        "merged": "D:\\my_owe_code\\android\\Android_Studio\\xuetuCODE\\xuetuAS\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\abc_ic_menu_overflow_material.xml",
+        "source": "D:\\my_owe_code\\android\\Android_Studio\\xuetuCODE\\xuetuAS\\app\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\24.2.1\\res\\drawable\\abc_ic_menu_overflow_material.xml"
+    },
+    {
+        "merged": "D:\\my_owe_code\\android\\Android_Studio\\xuetuCODE\\xuetuAS\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\umeng_socialize_location_ic.png",
+        "source": "D:\\my_owe_code\\android\\Android_Studio\\xuetuCODE\\xuetuAS\\app\\src\\main\\res\\drawable\\umeng_socialize_location_ic.png"
+    },
+    {
+        "merged": "D:\\my_owe_code\\android\\Android_Studio\\xuetuCODE\\xuetuAS\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\umeng_socialize_qq_on.png",
+        "source": "D:\\my_owe_code\\android\\Android_Studio\\xuetuCODE\\xuetuAS\\app\\src\\main\\res\\drawable\\umeng_socialize_qq_on.png"
+    },
+    {
+        "merged": "D:\\my_owe_code\\android\\Android_Studio\\xuetuCODE\\xuetuAS\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\kb0.xml",
+        "source": "D:\\my_owe_code\\android\\Android_Studio\\xuetuCODE\\xuetuAS\\app\\src\\main\\res\\drawable\\kb0.xml"
+    },
+    {
+        "merged": "D:\\my_owe_code\\android\\Android_Studio\\xuetuCODE\\xuetuAS\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\umeng_socialize_x_button.png",
+        "source": "D:\\my_owe_code\\android\\Android_Studio\\xuetuCODE\\xuetuAS\\app\\src\\main\\res\\drawable\\umeng_socialize_x_button.png"
+    },
+    {
+        "merged": "D:\\my_owe_code\\android\\Android_Studio\\xuetuCODE\\xuetuAS\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\umeng_socialize_button_grey.9.png",
+        "source": "D:\\my_owe_code\\android\\Android_Studio\\xuetuCODE\\xuetuAS\\app\\src\\main\\res\\drawable\\umeng_socialize_button_grey.9.png"
+    },
+    {
+        "merged": "D:\\my_owe_code\\android\\Android_Studio\\xuetuCODE\\xuetuAS\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\shape.xml",
+        "source": "D:\\my_owe_code\\android\\Android_Studio\\xuetuCODE\\xuetuAS\\app\\src\\main\\res\\drawable\\shape.xml"
+    },
+    {
+        "merged": "D:\\my_owe_code\\android\\Android_Studio\\xuetuCODE\\xuetuAS\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\umeng_socialize_qq_off.png",
+        "source": "D:\\my_owe_code\\android\\Android_Studio\\xuetuCODE\\xuetuAS\\app\\src\\main\\res\\drawable\\umeng_socialize_qq_off.png"
+    },
+    {
+        "merged": "D:\\my_owe_code\\android\\Android_Studio\\xuetuCODE\\xuetuAS\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\umeng_socialize_follow_off.png",
+        "source": "D:\\my_owe_code\\android\\Android_Studio\\xuetuCODE\\xuetuAS\\app\\src\\main\\res\\drawable\\umeng_socialize_follow_off.png"
+    },
+    {
+        "merged": "D:\\my_owe_code\\android\\Android_Studio\\xuetuCODE\\xuetuAS\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\umeng_socialize_sidebar_selector.xml",
+        "source": "D:\\my_owe_code\\android\\Android_Studio\\xuetuCODE\\xuetuAS\\app\\src\\main\\res\\drawable\\umeng_socialize_sidebar_selector.xml"
+    },
+    {
+        "merged": "D:\\my_owe_code\\android\\Android_Studio\\xuetuCODE\\xuetuAS\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\back_find_list_self2.xml",
+        "source": "D:\\my_owe_code\\android\\Android_Studio\\xuetuCODE\\xuetuAS\\app\\src\\main\\res\\drawable\\back_find_list_self2.xml"
+    },
+    {
+        "merged": "D:\\my_owe_code\\android\\Android_Studio\\xuetuCODE\\xuetuAS\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\home_page_tv_background.xml",
+        "source": "D:\\my_owe_code\\android\\Android_Studio\\xuetuCODE\\xuetuAS\\app\\src\\main\\res\\drawable\\home_page_tv_background.xml"
+    },
+    {
+        "merged": "D:\\my_owe_code\\android\\Android_Studio\\xuetuCODE\\xuetuAS\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\umeng_socialize_sidebar_normal.xml",
+        "source": "D:\\my_owe_code\\android\\Android_Studio\\xuetuCODE\\xuetuAS\\app\\src\\main\\res\\drawable\\umeng_socialize_sidebar_normal.xml"
+    },
+    {
+        "merged": "D:\\my_owe_code\\android\\Android_Studio\\xuetuCODE\\xuetuAS\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\umeng_socialize_wxcircle_gray.png",
+        "source": "D:\\my_owe_code\\android\\Android_Studio\\xuetuCODE\\xuetuAS\\app\\src\\main\\res\\drawable\\umeng_socialize_wxcircle_gray.png"
+    },
+    {
+        "merged": "D:\\my_owe_code\\android\\Android_Studio\\xuetuCODE\\xuetuAS\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\abc_text_cursor_material.xml",
+        "source": "D:\\my_owe_code\\android\\Android_Studio\\xuetuCODE\\xuetuAS\\app\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\24.2.1\\res\\drawable\\abc_text_cursor_material.xml"
+    },
+    {
+        "merged": "D:\\my_owe_code\\android\\Android_Studio\\xuetuCODE\\xuetuAS\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\abc_btn_borderless_material.xml",
+        "source": "D:\\my_owe_code\\android\\Android_Studio\\xuetuCODE\\xuetuAS\\app\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\24.2.1\\res\\drawable\\abc_btn_borderless_material.xml"
+    },
+    {
+        "merged": "D:\\my_owe_code\\android\\Android_Studio\\xuetuCODE\\xuetuAS\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\book_info_search.xml",
+        "source": "D:\\my_owe_code\\android\\Android_Studio\\xuetuCODE\\xuetuAS\\app\\src\\main\\res\\drawable\\book_info_search.xml"
+    },
+    {
+        "merged": "D:\\my_owe_code\\android\\Android_Studio\\xuetuCODE\\xuetuAS\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\umeng_socialize_douban_on.png",
+        "source": "D:\\my_owe_code\\android\\Android_Studio\\xuetuCODE\\xuetuAS\\app\\src\\main\\res\\drawable\\umeng_socialize_douban_on.png"
+    },
+    {
+        "merged": "D:\\my_owe_code\\android\\Android_Studio\\xuetuCODE\\xuetuAS\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\umeng_socialize_light_bar_bg.9.png",
+        "source": "D:\\my_owe_code\\android\\Android_Studio\\xuetuCODE\\xuetuAS\\app\\src\\main\\res\\drawable\\umeng_socialize_light_bar_bg.9.png"
+    },
+    {
+        "merged": "D:\\my_owe_code\\android\\Android_Studio\\xuetuCODE\\xuetuAS\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\btn_enable_green.xml",
+        "source": "D:\\my_owe_code\\android\\Android_Studio\\xuetuCODE\\xuetuAS\\app\\src\\main\\res\\drawable\\btn_enable_green.xml"
+    },
+    {
+        "merged": "D:\\my_owe_code\\android\\Android_Studio\\xuetuCODE\\xuetuAS\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\setting_item_selector.xml",
+        "source": "D:\\my_owe_code\\android\\Android_Studio\\xuetuCODE\\xuetuAS\\app\\src\\main\\res\\drawable\\setting_item_selector.xml"
+    },
+    {
+        "merged": "D:\\my_owe_code\\android\\Android_Studio\\xuetuCODE\\xuetuAS\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\background_world.png",
+        "source": "D:\\my_owe_code\\android\\Android_Studio\\xuetuCODE\\xuetuAS\\app\\src\\main\\res\\drawable\\background_world.png"
+    },
+    {
+        "merged": "D:\\my_owe_code\\android\\Android_Studio\\xuetuCODE\\xuetuAS\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\back_find_list_self.xml",
+        "source": "D:\\my_owe_code\\android\\Android_Studio\\xuetuCODE\\xuetuAS\\app\\src\\main\\res\\drawable\\back_find_list_self.xml"
+    },
+    {
+        "merged": "D:\\my_owe_code\\android\\Android_Studio\\xuetuCODE\\xuetuAS\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\umeng_socialize_wechat.png",
+        "source": "D:\\my_owe_code\\android\\Android_Studio\\xuetuCODE\\xuetuAS\\app\\src\\main\\res\\drawable\\umeng_socialize_wechat.png"
+    },
+    {
+        "merged": "D:\\my_owe_code\\android\\Android_Studio\\xuetuCODE\\xuetuAS\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\abc_btn_colored_material.xml",
+        "source": "D:\\my_owe_code\\android\\Android_Studio\\xuetuCODE\\xuetuAS\\app\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\24.2.1\\res\\drawable\\abc_btn_colored_material.xml"
+    },
+    {
+        "merged": "D:\\my_owe_code\\android\\Android_Studio\\xuetuCODE\\xuetuAS\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\umeng_socialize_refersh.png",
+        "source": "D:\\my_owe_code\\android\\Android_Studio\\xuetuCODE\\xuetuAS\\app\\src\\main\\res\\drawable\\umeng_socialize_refersh.png"
+    },
+    {
+        "merged": "D:\\my_owe_code\\android\\Android_Studio\\xuetuCODE\\xuetuAS\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\umeng_socialize_button_red.9.png",
+        "source": "D:\\my_owe_code\\android\\Android_Studio\\xuetuCODE\\xuetuAS\\app\\src\\main\\res\\drawable\\umeng_socialize_button_red.9.png"
+    },
+    {
+        "merged": "D:\\my_owe_code\\android\\Android_Studio\\xuetuCODE\\xuetuAS\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\abc_btn_check_material.xml",
+        "source": "D:\\my_owe_code\\android\\Android_Studio\\xuetuCODE\\xuetuAS\\app\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\24.2.1\\res\\drawable\\abc_btn_check_material.xml"
+    },
+    {
+        "merged": "D:\\my_owe_code\\android\\Android_Studio\\xuetuCODE\\xuetuAS\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\umeng_socialize_douban_off.png",
+        "source": "D:\\my_owe_code\\android\\Android_Studio\\xuetuCODE\\xuetuAS\\app\\src\\main\\res\\drawable\\umeng_socialize_douban_off.png"
+    },
+    {
+        "merged": "D:\\my_owe_code\\android\\Android_Studio\\xuetuCODE\\xuetuAS\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\abc_seekbar_tick_mark_material.xml",
+        "source": "D:\\my_owe_code\\android\\Android_Studio\\xuetuCODE\\xuetuAS\\app\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\24.2.1\\res\\drawable\\abc_seekbar_tick_mark_material.xml"
+    },
+    {
+        "merged": "D:\\my_owe_code\\android\\Android_Studio\\xuetuCODE\\xuetuAS\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\kb1.xml",
+        "source": "D:\\my_owe_code\\android\\Android_Studio\\xuetuCODE\\xuetuAS\\app\\src\\main\\res\\drawable\\kb1.xml"
+    },
+    {
+        "merged": "D:\\my_owe_code\\android\\Android_Studio\\xuetuCODE\\xuetuAS\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\annie.png",
+        "source": "D:\\my_owe_code\\android\\Android_Studio\\xuetuCODE\\xuetuAS\\app\\src\\main\\res\\drawable\\annie.png"
+    },
+    {
+        "merged": "D:\\my_owe_code\\android\\Android_Studio\\xuetuCODE\\xuetuAS\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\umeng_socialize_at_selected.png",
+        "source": "D:\\my_owe_code\\android\\Android_Studio\\xuetuCODE\\xuetuAS\\app\\src\\main\\res\\drawable\\umeng_socialize_at_selected.png"
+    },
+    {
+        "merged": "D:\\my_owe_code\\android\\Android_Studio\\xuetuCODE\\xuetuAS\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\abc_textfield_search_material.xml",
+        "source": "D:\\my_owe_code\\android\\Android_Studio\\xuetuCODE\\xuetuAS\\app\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\24.2.1\\res\\drawable\\abc_textfield_search_material.xml"
+    },
+    {
+        "merged": "D:\\my_owe_code\\android\\Android_Studio\\xuetuCODE\\xuetuAS\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\abc_ic_voice_search_api_material.xml",
+        "source": "D:\\my_owe_code\\android\\Android_Studio\\xuetuCODE\\xuetuAS\\app\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\24.2.1\\res\\drawable\\abc_ic_voice_search_api_material.xml"
+    },
+    {
+        "merged": "D:\\my_owe_code\\android\\Android_Studio\\xuetuCODE\\xuetuAS\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\umeng_socialize_oauth_check_off.png",
+        "source": "D:\\my_owe_code\\android\\Android_Studio\\xuetuCODE\\xuetuAS\\app\\src\\main\\res\\drawable\\umeng_socialize_oauth_check_off.png"
+    },
+    {
+        "merged": "D:\\my_owe_code\\android\\Android_Studio\\xuetuCODE\\xuetuAS\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\toumingbackground.xml",
+        "source": "D:\\my_owe_code\\android\\Android_Studio\\xuetuCODE\\xuetuAS\\app\\src\\main\\res\\drawable\\toumingbackground.xml"
+    },
+    {
+        "merged": "D:\\my_owe_code\\android\\Android_Studio\\xuetuCODE\\xuetuAS\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\ssdk_oks_classic_progressbar.xml",
+        "source": "D:\\my_owe_code\\android\\Android_Studio\\xuetuCODE\\xuetuAS\\app\\src\\main\\res\\drawable\\ssdk_oks_classic_progressbar.xml"
+    },
+    {
+        "merged": "D:\\my_owe_code\\android\\Android_Studio\\xuetuCODE\\xuetuAS\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\cornor_bg.xml",
+        "source": "D:\\my_owe_code\\android\\Android_Studio\\xuetuCODE\\xuetuAS\\app\\src\\main\\res\\drawable\\cornor_bg.xml"
+    },
+    {
+        "merged": "D:\\my_owe_code\\android\\Android_Studio\\xuetuCODE\\xuetuAS\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\abc_list_selector_holo_dark.xml",
+        "source": "D:\\my_owe_code\\android\\Android_Studio\\xuetuCODE\\xuetuAS\\app\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\24.2.1\\res\\drawable\\abc_list_selector_holo_dark.xml"
+    },
+    {
+        "merged": "D:\\my_owe_code\\android\\Android_Studio\\xuetuCODE\\xuetuAS\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\abc_ic_arrow_drop_right_black_24dp.xml",
+        "source": "D:\\my_owe_code\\android\\Android_Studio\\xuetuCODE\\xuetuAS\\app\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\24.2.1\\res\\drawable\\abc_ic_arrow_drop_right_black_24dp.xml"
+    },
+    {
+        "merged": "D:\\my_owe_code\\android\\Android_Studio\\xuetuCODE\\xuetuAS\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\abc_list_selector_holo_light.xml",
+        "source": "D:\\my_owe_code\\android\\Android_Studio\\xuetuCODE\\xuetuAS\\app\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\24.2.1\\res\\drawable\\abc_list_selector_holo_light.xml"
+    },
+    {
+        "merged": "D:\\my_owe_code\\android\\Android_Studio\\xuetuCODE\\xuetuAS\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\umeng_socialize_shape_solid_black.xml",
+        "source": "D:\\my_owe_code\\android\\Android_Studio\\xuetuCODE\\xuetuAS\\app\\src\\main\\res\\drawable\\umeng_socialize_shape_solid_black.xml"
+    },
+    {
+        "merged": "D:\\my_owe_code\\android\\Android_Studio\\xuetuCODE\\xuetuAS\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\umeng_socialize_at_normal.png",
+        "source": "D:\\my_owe_code\\android\\Android_Studio\\xuetuCODE\\xuetuAS\\app\\src\\main\\res\\drawable\\umeng_socialize_at_normal.png"
+    },
+    {
+        "merged": "D:\\my_owe_code\\android\\Android_Studio\\xuetuCODE\\xuetuAS\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\abc_switch_thumb_material.xml",
+        "source": "D:\\my_owe_code\\android\\Android_Studio\\xuetuCODE\\xuetuAS\\app\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\24.2.1\\res\\drawable\\abc_switch_thumb_material.xml"
+    },
+    {
+        "merged": "D:\\my_owe_code\\android\\Android_Studio\\xuetuCODE\\xuetuAS\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\abc_seekbar_track_material.xml",
+        "source": "D:\\my_owe_code\\android\\Android_Studio\\xuetuCODE\\xuetuAS\\app\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\24.2.1\\res\\drawable\\abc_seekbar_track_material.xml"
+    },
+    {
+        "merged": "D:\\my_owe_code\\android\\Android_Studio\\xuetuCODE\\xuetuAS\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\umeng_socialize_button_blue.9.png",
+        "source": "D:\\my_owe_code\\android\\Android_Studio\\xuetuCODE\\xuetuAS\\app\\src\\main\\res\\drawable\\umeng_socialize_button_blue.9.png"
+    },
+    {
+        "merged": "D:\\my_owe_code\\android\\Android_Studio\\xuetuCODE\\xuetuAS\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\abc_dialog_material_background.xml",
+        "source": "D:\\my_owe_code\\android\\Android_Studio\\xuetuCODE\\xuetuAS\\app\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\24.2.1\\res\\drawable\\abc_dialog_material_background.xml"
+    },
+    {
+        "merged": "D:\\my_owe_code\\android\\Android_Studio\\xuetuCODE\\xuetuAS\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\findtubiao.xml",
+        "source": "D:\\my_owe_code\\android\\Android_Studio\\xuetuCODE\\xuetuAS\\app\\src\\main\\res\\drawable\\findtubiao.xml"
+    },
+    {
+        "merged": "D:\\my_owe_code\\android\\Android_Studio\\xuetuCODE\\xuetuAS\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\umeng_socialize_action_back_normal.png",
+        "source": "D:\\my_owe_code\\android\\Android_Studio\\xuetuCODE\\xuetuAS\\app\\src\\main\\res\\drawable\\umeng_socialize_action_back_normal.png"
+    },
+    {
+        "merged": "D:\\my_owe_code\\android\\Android_Studio\\xuetuCODE\\xuetuAS\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\time_xiaoguo.xml",
+        "source": "D:\\my_owe_code\\android\\Android_Studio\\xuetuCODE\\xuetuAS\\app\\src\\main\\res\\drawable\\time_xiaoguo.xml"
+    },
+    {
+        "merged": "D:\\my_owe_code\\android\\Android_Studio\\xuetuCODE\\xuetuAS\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\umeng_socialize_location_on.png",
+        "source": "D:\\my_owe_code\\android\\Android_Studio\\xuetuCODE\\xuetuAS\\app\\src\\main\\res\\drawable\\umeng_socialize_location_on.png"
+    },
+    {
+        "merged": "D:\\my_owe_code\\android\\Android_Studio\\xuetuCODE\\xuetuAS\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\buttonstyle.xml",
+        "source": "D:\\my_owe_code\\android\\Android_Studio\\xuetuCODE\\xuetuAS\\app\\src\\main\\res\\drawable\\buttonstyle.xml"
+    },
+    {
+        "merged": "D:\\my_owe_code\\android\\Android_Studio\\xuetuCODE\\xuetuAS\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\umeng_socialize_title_tab_button_left.xml",
+        "source": "D:\\my_owe_code\\android\\Android_Studio\\xuetuCODE\\xuetuAS\\app\\src\\main\\res\\drawable\\umeng_socialize_title_tab_button_left.xml"
+    },
+    {
+        "merged": "D:\\my_owe_code\\android\\Android_Studio\\xuetuCODE\\xuetuAS\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\abc_ratingbar_indicator_material.xml",
+        "source": "D:\\my_owe_code\\android\\Android_Studio\\xuetuCODE\\xuetuAS\\app\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\24.2.1\\res\\drawable\\abc_ratingbar_indicator_material.xml"
+    },
+    {
+        "merged": "D:\\my_owe_code\\android\\Android_Studio\\xuetuCODE\\xuetuAS\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\umeng_socialize_wxcircle.png",
+        "source": "D:\\my_owe_code\\android\\Android_Studio\\xuetuCODE\\xuetuAS\\app\\src\\main\\res\\drawable\\umeng_socialize_wxcircle.png"
+    },
+    {
+        "merged": "D:\\my_owe_code\\android\\Android_Studio\\xuetuCODE\\xuetuAS\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\common_tab_bg.xml",
+        "source": "D:\\my_owe_code\\android\\Android_Studio\\xuetuCODE\\xuetuAS\\app\\src\\main\\res\\drawable\\common_tab_bg.xml"
+    },
+    {
+        "merged": "D:\\my_owe_code\\android\\Android_Studio\\xuetuCODE\\xuetuAS\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\kb2.xml",
+        "source": "D:\\my_owe_code\\android\\Android_Studio\\xuetuCODE\\xuetuAS\\app\\src\\main\\res\\drawable\\kb2.xml"
+    },
+    {
+        "merged": "D:\\my_owe_code\\android\\Android_Studio\\xuetuCODE\\xuetuAS\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\umeng_socialize_shareboard_item_background.xml",
+        "source": "D:\\my_owe_code\\android\\Android_Studio\\xuetuCODE\\xuetuAS\\app\\src\\main\\res\\drawable\\umeng_socialize_shareboard_item_background.xml"
+    },
+    {
+        "merged": "D:\\my_owe_code\\android\\Android_Studio\\xuetuCODE\\xuetuAS\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\umeng_socialize_button_grey_blue.xml",
+        "source": "D:\\my_owe_code\\android\\Android_Studio\\xuetuCODE\\xuetuAS\\app\\src\\main\\res\\drawable\\umeng_socialize_button_grey_blue.xml"
+    },
+    {
+        "merged": "D:\\my_owe_code\\android\\Android_Studio\\xuetuCODE\\xuetuAS\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\umeng_socialize_button_white_blue.xml",
+        "source": "D:\\my_owe_code\\android\\Android_Studio\\xuetuCODE\\xuetuAS\\app\\src\\main\\res\\drawable\\umeng_socialize_button_white_blue.xml"
+    },
+    {
+        "merged": "D:\\my_owe_code\\android\\Android_Studio\\xuetuCODE\\xuetuAS\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\question_page.xml",
+        "source": "D:\\my_owe_code\\android\\Android_Studio\\xuetuCODE\\xuetuAS\\app\\src\\main\\res\\drawable\\question_page.xml"
+    },
+    {
+        "merged": "D:\\my_owe_code\\android\\Android_Studio\\xuetuCODE\\xuetuAS\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\abc_spinner_textfield_background_material.xml",
+        "source": "D:\\my_owe_code\\android\\Android_Studio\\xuetuCODE\\xuetuAS\\app\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\24.2.1\\res\\drawable\\abc_spinner_textfield_background_material.xml"
+    },
+    {
+        "merged": "D:\\my_owe_code\\android\\Android_Studio\\xuetuCODE\\xuetuAS\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\umeng_socialize_title_tab_left_pressed.png",
+        "source": "D:\\my_owe_code\\android\\Android_Studio\\xuetuCODE\\xuetuAS\\app\\src\\main\\res\\drawable\\umeng_socialize_title_tab_left_pressed.png"
+    },
+    {
+        "merged": "D:\\my_owe_code\\android\\Android_Studio\\xuetuCODE\\xuetuAS\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\kb5.xml",
+        "source": "D:\\my_owe_code\\android\\Android_Studio\\xuetuCODE\\xuetuAS\\app\\src\\main\\res\\drawable\\kb5.xml"
+    },
+    {
+        "merged": "D:\\my_owe_code\\android\\Android_Studio\\xuetuCODE\\xuetuAS\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\umeng_socialize_title_tab_button_right.xml",
+        "source": "D:\\my_owe_code\\android\\Android_Studio\\xuetuCODE\\xuetuAS\\app\\src\\main\\res\\drawable\\umeng_socialize_title_tab_button_right.xml"
+    },
+    {
+        "merged": "D:\\my_owe_code\\android\\Android_Studio\\xuetuCODE\\xuetuAS\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\ssdk_oks_classic_platform_cell_back.xml",
+        "source": "D:\\my_owe_code\\android\\Android_Studio\\xuetuCODE\\xuetuAS\\app\\src\\main\\res\\drawable\\ssdk_oks_classic_platform_cell_back.xml"
+    },
+    {
+        "merged": "D:\\my_owe_code\\android\\Android_Studio\\xuetuCODE\\xuetuAS\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\umeng_socialize_sidebar_selected.xml",
+        "source": "D:\\my_owe_code\\android\\Android_Studio\\xuetuCODE\\xuetuAS\\app\\src\\main\\res\\drawable\\umeng_socialize_sidebar_selected.xml"
+    },
+    {
+        "merged": "D:\\my_owe_code\\android\\Android_Studio\\xuetuCODE\\xuetuAS\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\umeng_socialize_button_login_pressed.png",
+        "source": "D:\\my_owe_code\\android\\Android_Studio\\xuetuCODE\\xuetuAS\\app\\src\\main\\res\\drawable\\umeng_socialize_button_login_pressed.png"
+    },
+    {
+        "merged": "D:\\my_owe_code\\android\\Android_Studio\\xuetuCODE\\xuetuAS\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\iu.jpg",
+        "source": "D:\\my_owe_code\\android\\Android_Studio\\xuetuCODE\\xuetuAS\\app\\src\\main\\res\\drawable\\iu.jpg"
+    },
+    {
+        "merged": "D:\\my_owe_code\\android\\Android_Studio\\xuetuCODE\\xuetuAS\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\umeng_socialize_title_tab_right_normal.png",
+        "source": "D:\\my_owe_code\\android\\Android_Studio\\xuetuCODE\\xuetuAS\\app\\src\\main\\res\\drawable\\umeng_socialize_title_tab_right_normal.png"
+    },
+    {
+        "merged": "D:\\my_owe_code\\android\\Android_Studio\\xuetuCODE\\xuetuAS\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\abc_item_background_holo_light.xml",
+        "source": "D:\\my_owe_code\\android\\Android_Studio\\xuetuCODE\\xuetuAS\\app\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\24.2.1\\res\\drawable\\abc_item_background_holo_light.xml"
+    },
+    {
+        "merged": "D:\\my_owe_code\\android\\Android_Studio\\xuetuCODE\\xuetuAS\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\abc_ic_search_api_material.xml",
+        "source": "D:\\my_owe_code\\android\\Android_Studio\\xuetuCODE\\xuetuAS\\app\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\24.2.1\\res\\drawable\\abc_ic_search_api_material.xml"
+    },
+    {
+        "merged": "D:\\my_owe_code\\android\\Android_Studio\\xuetuCODE\\xuetuAS\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\umeng_socialize_location_off.png",
+        "source": "D:\\my_owe_code\\android\\Android_Studio\\xuetuCODE\\xuetuAS\\app\\src\\main\\res\\drawable\\umeng_socialize_location_off.png"
+    },
+    {
+        "merged": "D:\\my_owe_code\\android\\Android_Studio\\xuetuCODE\\xuetuAS\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\corner_button.xml",
+        "source": "D:\\my_owe_code\\android\\Android_Studio\\xuetuCODE\\xuetuAS\\app\\src\\main\\res\\drawable\\corner_button.xml"
+    },
+    {
+        "merged": "D:\\my_owe_code\\android\\Android_Studio\\xuetuCODE\\xuetuAS\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\cornor_layout_green.xml",
+        "source": "D:\\my_owe_code\\android\\Android_Studio\\xuetuCODE\\xuetuAS\\app\\src\\main\\res\\drawable\\cornor_layout_green.xml"
+    },
+    {
+        "merged": "D:\\my_owe_code\\android\\Android_Studio\\xuetuCODE\\xuetuAS\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\umeng_socialize_button_red_blue.xml",
+        "source": "D:\\my_owe_code\\android\\Android_Studio\\xuetuCODE\\xuetuAS\\app\\src\\main\\res\\drawable\\umeng_socialize_button_red_blue.xml"
+    },
+    {
+        "merged": "D:\\my_owe_code\\android\\Android_Studio\\xuetuCODE\\xuetuAS\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\abc_ic_go_search_api_material.xml",
+        "source": "D:\\my_owe_code\\android\\Android_Studio\\xuetuCODE\\xuetuAS\\app\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\24.2.1\\res\\drawable\\abc_ic_go_search_api_material.xml"
+    }
+]
